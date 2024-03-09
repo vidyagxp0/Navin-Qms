@@ -40,7 +40,23 @@
             display: none;
             margin-left: auto;
         }
-        
+        .button_theme1 {
+    height: 35px;
+    padding: 4px 15px;
+    font-size: 0.9rem;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #4274da;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
     </style>
 
 
