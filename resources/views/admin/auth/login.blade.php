@@ -8,29 +8,23 @@
 @include('admin.header')
 
 <body class="hold-transition login-page"
-    style="background-image: url('{{ asset('admin/assets/images/loginimg2.jpeg') }}')  ; background-repeat: no-repeat;background-size: cover; ">
+    style="background-image: url('{{ asset('admin/assets/images/loginimg5.jpg') }}')  ; background-repeat: no-repeat;background-size: cover; ">
     <div class="login-box">
       
-        <!-- /.login-logo -->
-        <div>
-            <div class="card-body login-card-body">
+            <div class="login-card-body">
             <div class="login-logo">
               <div class="logo-container">
-                        <div class="logo" style="display:flex;">
-                    <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100" >
-                        </div>
-                        <div class="logo">
-                            <img src="{{ asset('user/images/logo1.png') }}" alt="..." class="w-150 h-150">
-                        </div>
-                    </div>
-            <!-- <img style="border-radius: 8% " src="{{ asset('images/logo/logo.png') }}" height="80" alt=""><br> -->
+                    <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-50 h-50" >
+                    <img src="{{ asset('user/images/logo1.png') }}" alt="..." class="w-150 h-150">
+             </div>
+            <!-- <img style="border-radius: 8% " src=""" height="80" alt=""><br> -->
            
         </div>
-        <h2 class="text text-dark" style="text-align:center; ">Welcome To Admin-Console</h2>
-
-                <form action="{{ url('admin/login') }}" method="POST">
-                    @csrf
-                    <label>
+        <div class="form-text">
+            <form action="{{ url('admin/login') }}" method="POST">
+                @csrf
+                <h4 class="text text-dark" style="text-align:center; ">Welcome To Admin-Console</h4>
+                <label>
                         <p class="text text-danger">
                             @error('msg')
                                 {{ $message }}
@@ -112,23 +106,50 @@
     <style>
 
         .login-box{
-        width: 450px;
+        width: 900px;
+        background-image: url('admin/assets/images/loginimg5.jpg');
         }
+        .login-logo{
+
+            width: 35%;
+            font-size: 2.1rem;
+            font-weight: 300;
+            margin-bottom: .9rem;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            }
 
         .logo-container {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            padding-bottom:10px;
         }
         .login-card-body
             {
+             display: flex;
+            align-items:center;
+            justify-content:space-around;
             background-color: #fff;
             border-top: 0;
             color: #666;
             padding: 40px;
             border-radius:10px;
             box-shadow: 5px 10px 8px #888888;
+            height: 400px;
+            }
+          
+            .card-body {
+            -ms-flex: 1 1 auto;
+            /* flex: 1 1 auto; */
+            min-height: 1px;
+            padding: 1.25rem;
+            }
+            .form-text{
+                width: 35%;
+                justify-content: center;
+                align-items: center;  
             }
     </style>
 </body>
