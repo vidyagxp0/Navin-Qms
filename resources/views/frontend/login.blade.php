@@ -103,19 +103,27 @@
             justify-content: center;
             background-size: cover;
             background-position: center;
+            
         }
 
         #rcms_login_block .login-form-block {
-            width: 500px;
+            width: 1000px;
+            height: 450px;
             background: white;
             background-size: cover;
             background-position: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            border-radius:10px; 
+            box-shadow: 5px 5px 10px 0px rgb(82, 82, 87);
         }
 
-        #rcms_login_block .login-form-block .top-block {
-            padding: 50px 20px 15px;
+        /* #rcms_login_block .login-form-block .top-block {
+            padding: 20px 20px 15px; 
             border-bottom: 2px solid white;
-        }
+        } */
 
         #rcms_login_block .login-form-block .logo {
             width: 280px;
@@ -132,7 +140,9 @@
             text-transform: uppercase;
             text-align: center;
             color: white;
-            letter-spacing: 2px
+            letter-spacing: 2px;
+            padding-bottom: 15px;
+
         }
 
         #rcms_login_block .login-form-block form {
@@ -167,7 +177,7 @@
         #rcms_login_block select {
             border: 0;
             outline: none;
-            background: #162e67;
+            background: #54658b;
             color: white
         }
 
@@ -186,6 +196,7 @@
             transition: all 0.3s linear;
             cursor: pointer;
         }
+       
     </style>
 </head>
 
@@ -201,18 +212,21 @@
     {{-- ======================================
                     LOGIN FORM
     ======================================= --}}
-    <div id="rcms_login_block" style="background-image: url('{{ asset('user/images/rcms-login-bg.png') }}')">
-        <div class="login-form-block" style="background-image: url('{{ asset('user/images/rcms-login-bg2.png') }}')">
+    <div id="rcms_login_block" style="background-image: url('{{ asset('user/images/new2.jpg') }}')">
+        <div class="login-form-block" style="background-image: url('{{ asset('user/images/background1.jpg') }}')">
             <div class="top-block">
                 <div class="logo">
                     <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
                 </div>
+                {{-- <div class="head">
+                    Welcome to Doculife
+                </div> --}}
+            </div>
+            <form action="{{ url('rcms_check') }}" method="POST" >
+                @csrf
                 <div class="head">
                     Welcome to Doculife
                 </div>
-            </div>
-            <form action="{{ url('rcms_check') }}" method="POST">
-                @csrf
                 <div class="group-input">
                     <label for="username"><i class="fa-solid fa-envelope"></i></label>
                     <input type="text" name="email" placeholder="Enter Your E-Mail">
