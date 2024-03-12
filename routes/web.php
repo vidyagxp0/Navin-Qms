@@ -332,6 +332,7 @@ Route::get('effectiveness-check', [EffectivenessCheckController::class, 'effecti
 Route::view('quality-event', 'frontend.forms.quality-event');
 
 Route::view('vendor-entity', 'frontend.forms.vendor-entity');
+Route::view('deviation_new', 'frontend.forms.deviation_new');
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
