@@ -15,6 +15,31 @@
             display: none;
         }
     </style>
+    <style>
+        .calenderauditee {
+            position: relative;
+        }
+
+        .new-date-data-field input.hide-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .new-date-data-field input {
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px 15px;
+            display: block;
+            width: 100%;
+            background: white;
+        }
+
+        .calenderauditee input::-webkit-calendar-picker-indicator {
+            width: 100%;
+        }
+    </style>
 
     <script>
         function otherController(value, checkValue, blockID) {
@@ -192,8 +217,9 @@
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         '<td><input type="text" name="nameofproduct[]"></td>'+
-                        '<td><input type="date" name="ExpiryDate[]"></td>'+
-                        
+                        // '<td><input type="date" name="ExpiryDate[]"></td>'+
+                        '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="ExpiryDate' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="ExpiryDate[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `ExpiryDate' + serialNumber +'`)" /></div></div></div></td>' +
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -317,7 +343,7 @@
                                             <input type="text" id="due_date" readonly
                                                 placeholder="DD-MMM-YYYY" />
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                 />
+                                            oninput="handleDateInput(this, 'due_date')"/>
                                         </div>
                                     </div>
                                 </div>
@@ -382,24 +408,31 @@
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>  
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="severity-level">Deviation Observed</label>
-                                        <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" value="">
+                    
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Deviation Observed</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_date')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="initiated_through_req">
                                         <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
-                                      <input type="text" name="Observed by">
+                                      <input type="text" name="Observed_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Initiator Group">Deviation Reported on.</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" value="" name="Deviation reported on (Date)">
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Deviation Reported on.</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_reported_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_reported_date')" />
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -604,7 +637,8 @@
                                                 <tbody>
                         <td><input disabled type="text" name="serial[]" value="1"></td>
                         <td><input type="text" name="nameofproduct[]"></td>
-                        <td><input type="text" name="expiryDate[]"></td>
+                        <td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="ExpiryDate' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="ExpiryDate[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `ExpiryDate' + serialNumber +'`)" /></div></div></div></td>
+                    
                        
                                                   
                                               
