@@ -391,7 +391,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="initiated_through_req">
-                                        <label for="If Other">		Observed by		<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
                                       <input type="text" name="Observed by">
                                     </div>
                                 </div>
@@ -407,8 +407,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit_type">Deviation Related To </label>
-                                        <select name="audit_type"
-                                            >
+                                        <select name="audit_type">
                                             <option value="">Enter Your Selection Here</option>
                                             <option value="R&D"> Facility</option>
                                             <option value="GLP">Equipment/ Instrument </option>
@@ -462,12 +461,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="number" name="ID_Number[]"></td>
-                        <td><input type="text" name="SystemName[]"></td>
-                        <td><input type="text" name="Instrument[]"></td>
-                        <td><input type="text" name="Equipment[]"></td>
-                        <td><input type="text" name="Equipment[]"></td>
+                                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                    <td><input type="number" name="ID_Number[]"></td>
+                                                                    <td><input type="text" name="SystemName[]"></td>
+                                                                    <td><input type="text" name="Instrument[]"></td>
+                                                                    <td><input type="text" name="Equipment[]"></td>
+                                                                    <td><input type="text" name="Equipment[]"></td>
                                                   
                                               
                                                 </tbody>
@@ -500,10 +499,10 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="number" name="Number[]"></td>
-                        <td><input type="text" name="ReferenceDocumentName[]"></td>
-                       
+                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                        <td><input type="number" name="Number[]"></td>
+                                                        <td><input type="text" name="ReferenceDocumentName[]"></td>
+                        
                                                   
                                               
                                                 </tbody>
@@ -523,7 +522,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No. (if applicable)<span class="text-danger d-none">*</span></label>
-                                        <input type="text" name="Name of Product & Batch No. (if applicable):">
+                                        <input type="text" name="Name_of_Product">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
@@ -540,13 +539,13 @@
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea name="initial_comments"></textarea>
+                                        <textarea name="Immediate_action"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea name="initial_comments"></textarea>
+                                        <textarea name="Preliminary_impact"></textarea>
                                     </div>
                                 </div>
                                 
@@ -569,7 +568,7 @@
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule Start Date">Product Details Required ?</label>
-                                        <select name="Deviation category" id="">
+                                        <select name="Product_Details_Required" id="">
                                             <option value="">-- Select -- </option>
                                             <option value="">Yes </option>
                                             <option value="">No </option>
@@ -619,7 +618,7 @@
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product/Material Name">HOD Remarks </label>
-                                        <textarea name="" id="" cols="30" ></textarea>
+                                        <textarea name="HOD_Remarks" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
@@ -659,7 +658,7 @@
                                 <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule Start Date">Deviation category</label>
-                                        <select name="Deviation category" id="">
+                                        <select name="Deviation_category" id="">
                                             <option value="">-- Select -- </option>
                                             <option value="">Major </option>
                                             <option value="">Minor </option>
@@ -691,17 +690,17 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea name="" id="" cols="30" ></textarea>
+                                        <textarea name="Product" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Customer notification required ? </label>
-                                        <select name="Investigation_required" id="">
+                                        <select name="Customer_notification_required" id="">
                                             <option value="">-- Select --</option>
-                                            <option value="">Yes</option>
-                                            <option value="">No</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
                                         </select>
                                   
                                     </div>
@@ -711,8 +710,8 @@
                                         <label for="Comments(If Any)">Customers</label>
                                         <select name="customers" id="">
                                             <option value=""> -- Select --</option>
-                                            <option value=""> person 1</option>
-                                            <option value=""> person 2</option>
+                                            <option value="1"> person 1</option>
+                                            <option value="2"> person 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -948,13 +947,13 @@
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Lead Auditor">Impact assessment: </label>
-                                        <textarea name="Investigation_Summary" id="" cols="30" ></textarea>
+                                        <textarea name="Impact_assessment" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Lead Auditor">Root cause: </label>
-                                        <textarea name="Investigation_Summary" id="" cols="30" ></textarea>
+                                        <textarea name="Root_cause" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                
@@ -1046,7 +1045,7 @@
                             <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
-                                        <textarea name="QA Feedbacks"></textarea>
+                                        <textarea name="QA_Feedbacks"></textarea>
                                     </div>
                                 </div>
                                 
