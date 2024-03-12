@@ -13,15 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        //
         Schema::create('q_m_s_roles', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->text('permission');
             $table->text('description')->nullable();
+
             $table->timestamps();
         });
     }
+
+    
 
     /**
      * Reverse the migrations.
@@ -30,6 +33,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(' q_m_s_roles');
+        Schema::dropIfExists('q_m_s_roles');
+
     }
 };
