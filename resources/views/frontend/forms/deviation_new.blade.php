@@ -1,9 +1,9 @@
 @extends('frontend.layout.main')
 @section('container')
     @php
-        $users = DB::table('users')
-            ->select('id', 'name')
-            ->get();
+$users = DB::table('users')
+    ->select('id', 'name')
+    ->get();
 
     @endphp
     <style>
@@ -324,52 +324,40 @@
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Initiator Group"><b>Department</b></label>
-                                        <select name="Initiator_Group" id="initiator_group">
+                                        <label for="Department"><b>Department</b></label>
+                                        <select name="Department" id="initiator_group">
                                            <option value="">-- Select --</option>
-                                           <option value="">-- Select --</option>
-                                            <option value="CQA" >
+                                          
+                                            <option value="Corporate_Quality" >
                                                 Corporate Quality Assurance</option>
-                                            <option value="QAB" >Quality
+                                            <option value="Quality_Assurance" >Quality
                                                 Assurance Biopharma</option>
-                                            <option value="CQC" >Central
-                                                Quality Control</option>
-                                            <option value="MANU" >
+                                            <option value="Central_Quality" >Central Quality Control</option>
+                                            <option value="Manufacturing" >
                                                 Manufacturing</option>
-                                            <option value="PSG" >Plasma
+                                            <option value="Plasma_Sourcing" >Plasma
                                                 Sourcing Group</option>
-                                            <option value="CS" >Central
-                                                Stores</option>
-                                            <option value="ITG">
+                                            <option value="CentralStores" >CentralStores</option>
+                                            <option value="Information_Technology">
                                                 Information Technology Group</option>
-                                            <option value="MM" >
-                                                Molecular Medicine</option>
-                                            <option value="CL" >Central
-                                                Laboratory</option>
+                                            <option value="Molecular Medicine" >Molecular Medicine</option>
+                                            <option value="Central Laboratory" >Central Laboratory</option>
 
-                                            <option value="TT" >Tech
-                                                team</option>
-                                            <option value="QA" >
-                                                Quality Assurance</option>
-                                            <option value="QM" >
-                                                Quality Management</option>
-                                            <option value="IA" >IT
-                                                Administration</option>
-                                            <option value="ACC">
-                                                Accounting</option>
-                                            <option value="LOG">
-                                                Logistics</option>
-                                            <option value="SM" >
-                                                Senior Management</option>
-                                            <option value="BA" >
-                                                Business Administration</option>
+                                            <option value="Tech  team" >Tech  team</option>
+                                            <option value=" Quality Assurance" > Quality Assurance</option>
+                                            <option value="QualityManagemen" >Quality Management</option>
+                                            <option value="ITAdministration" >ITAdministration</option>
+                                            <option value="Accounting">Accounting</option>
+                                            <option value=" Logistics"> Logistics</option>
+                                            <option value="Senior_Management" >  Senior Management</option>
+                                            <option value="BusinessAdministration" >Business Administration</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Department Code">Department Code</label>
-                                        <input type="text" name="initiator_group_code" id="initiator_group_code"
+                                        <input type="text" name="Department_Code" id="Department_code"
                                             value="" readonly>
                                     </div>
                                 </div>
@@ -392,14 +380,14 @@
                                 <div class="col-lg-6">
                                     <div class="group-input" id="initiated_through_req">
                                         <label for="If Other">		Observed by		<span class="text-danger d-none">*</span></label>
-                                      <input type="text" name="Observed by">
+                                      <input type="text" name="Observed_by">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported on.</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" value="" name="Deviation reported on (Date)">
+                                        <input type="date" value="" name="Deviation_Reported_on.">
                                     </div>
                                 </div>
                                 
@@ -410,18 +398,18 @@
                                         <select name="audit_type"
                                             >
                                             <option value="">Enter Your Selection Here</option>
-                                            <option value="R&D"> Facility</option>
-                                            <option value="GLP">Equipment/ Instrument </option>
-                                            <option value="GCP">Documentation error </option>
-                                            <option value="GDP">STP/ADS instruction </option>
-                                            <option value="GEP">Packaging & Labelling  </option>
-                                            <option value="ISO 17025">Material System  </option>
-                                            <option value="others"> Laboratory Instrument /System</option>
-                                            <option value="others"> Utility System</option>
-                                            <option value="others"> Computer System</option>
-                                            <option value="others">Document</option>
-                                            <option value="others">Data integrity</option>
-                                            <option value="others">Any other (specify) </option>
+                                            <option value="Facility"> Facility</option>
+                                            <option value="Equipment/Instrument">Equipment/ Instrument </option>
+                                            <option value="Documentationerror">Documentation error </option>
+                                            <option value="STP/ADS_instruction">STP/ADS instruction </option>
+                                            <option value="Packaging&Labelling">Packaging & Labelling  </option>
+                                            <option value="Material_System">Material System  </option>
+                                            <option value="Laboratory_Instrument/System"> Laboratory Instrument /System</option>
+                                            <option value=" Utility_System"> Utility System</option>
+                                            <option value="Computer_System"> Computer System</option>
+                                            <option value="Document">Document</option>
+                                            <option value="Data integrity">Data integrity</option>
+                                            <option value="Anyother(specify)">Any other (specify) </option>
                                         </select>
                                     </div>
                                 </div>
@@ -477,7 +465,7 @@
                                     </div>
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                        Reference Document Name
+                                         Document Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -511,19 +499,11 @@
                                             </table>
                                         </div>
                                     </div>
-                                  <!-- <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Audit Team">Reference Document Name & Number (if any):</label>
-                                        <select multiple name="Audit_team[]" placeholder="Select Audit Team"
-                                            data-search="false" data-silent-initial-value-set="true" id="Audit">
-                                        <option value=""></option>
-                                        </select>
-                                    </div>
-                                </div>  -->
+                                  
                                 <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No. (if applicable)<span class="text-danger d-none">*</span></label>
-                                        <input type="text" name="Name of Product & Batch No. (if applicable):">
+                                        <input type="text" name="Name_No.(if applicable)">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
@@ -533,20 +513,20 @@
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea name="initial_comments"></textarea>
+                                        <textarea name="Description_Deviation"></textarea>
                                     </div>
                                 </div>
                                
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea name="initial_comments"></textarea>
+                                        <textarea name="Immediate_Action"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea name="initial_comments"></textarea>
+                                        <textarea name="Preliminary_Impact"></textarea>
                                     </div>
                                 </div>
                                 
@@ -569,10 +549,10 @@
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule Start Date">Product Details Required ?</label>
-                                        <select name="Deviation category" id="">
+                                        <select name="Product_Details_Required " id="">
                                             <option value="">-- Select -- </option>
-                                            <option value="">Yes </option>
-                                            <option value="">No </option>
+                                            <option value="Yes">Yes </option>
+                                            <option value="No">No </option>
                                            
                                         </select>
 
@@ -619,7 +599,7 @@
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product/Material Name">HOD Remarks </label>
-                                        <textarea name="" id="" cols="30" ></textarea>
+                                        <textarea name="HOD_Remarks" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
@@ -632,7 +612,7 @@
                                             <div class="file-attachment-list" id="audit_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
+                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
                                                     oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
                                             </div>
                                         </div>
@@ -671,7 +651,7 @@
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Justification for  categorization</label>
-                                        <textarea name="Justification_the_categorization" id="" cols="30" ></textarea>
+                                        <textarea name="Justification_for_categorization" id="" cols="30" ></textarea>
 
                                     </div>
                                 </div>
@@ -682,8 +662,8 @@
                                         <label for="Product/Material Name">Investigation is required ?</label>
                                         <select name="Investigation_required" id="">
                                             <option value="">-- Select --</option>
-                                            <option value="">Yes</option>
-                                            <option value="">No</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
                                         </select>
                                   
                                     </div>
@@ -691,17 +671,17 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea name="" id="" cols="30" ></textarea>
+                                        <textarea name="Investigation_Details" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Customer notification required ? </label>
-                                        <select name="Investigation_required" id="">
+                                        <select name="Customer_notification" id="">
                                             <option value="">-- Select --</option>
-                                            <option value="">Yes</option>
-                                            <option value="">No</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
                                         </select>
                                   
                                     </div>
@@ -711,8 +691,8 @@
                                         <label for="Comments(If Any)">Customers</label>
                                         <select name="customers" id="">
                                             <option value=""> -- Select --</option>
-                                            <option value=""> person 1</option>
-                                            <option value=""> person 2</option>
+                                            <option value="person1"> person 1</option>
+                                            <option value="person2"> person 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -948,13 +928,13 @@
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Lead Auditor">Impact assessment: </label>
-                                        <textarea name="Investigation_Summary" id="" cols="30" ></textarea>
+                                        <textarea name="Impect_assessment" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Lead Auditor">Root cause: </label>
-                                        <textarea name="Investigation_Summary" id="" cols="30" ></textarea>
+                                        <textarea name="Root_cause" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                
@@ -963,10 +943,10 @@
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="External Auditor Details">CAPA Required? </label>
-                                      <select name="" id="">
+                                      <select name="CAPA_Rquired" id="">
                                         <option value=""> -- Select --</option>
-                                        <option value="">Yes</option>
-                                        <option value=""> No</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no"> No</option>
                                       </select>
                                     </div>
                                 </div>
@@ -975,21 +955,21 @@
                                         <label for="External Auditor Details">CAPA Type? </label>
                                       <select name="" id="">
                                         <option value=""> -- Select --</option>
-                                        <option value="">Corrective Action</option>
-                                        <option value=""> Preventive Action</option>
-                                        <option value=""> Corrective & Preventive Action both</option>
+                                        <option value="Corrective_Action">Corrective Action</option>
+                                        <option value=" Preventive_Action"> Preventive Action</option>
+                                        <option value="Corrective&Preventive"> Corrective & Preventive Action both</option>
                                       </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea name="External_Auditing_Agency"></textarea>
+                                        <textarea name="CAPA_Description"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="File Attachments">Investigatiom Attachment </label>
+                                        <label for="Investigatiom Attachment">Investigatiom Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             
@@ -1008,7 +988,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="File Attachments">CAPA Attachment </label>
+                                        <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             
@@ -1046,7 +1026,7 @@
                             <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
-                                        <textarea name="QA Feedbacks"></textarea>
+                                        <textarea name="QA_Feedbacks"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1085,7 +1065,7 @@
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Remarks">Closure Comments</label>
-                                        <textarea name="Remarks"></textarea>
+                                        <textarea name="Closure_Comments"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1095,12 +1075,12 @@
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Audit Comments">Disposition of Batch</label>
-                                        <textarea name="Audit_Comments2"></textarea>
+                                        <textarea name="Disposition_Batch"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="File Attachments">QAH assessment: </label>
+                                        <label for="QAH assessment ">QAH assessment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             

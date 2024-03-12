@@ -130,16 +130,16 @@
             margin: 0 auto 30px;
         }
 
-        #rcms_login_block .login-form-block .logo img {
-            filter: brightness(0) invert(1);
-        }
+        /* #rcms_login_block .login-form-block .logo img {
+            filter: brightness(5) invert(1);
+        } */
 
         #rcms_login_block .login-form-block .head {
             font-size: 1.6rem;
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
-            color: white;
+            color: #817474;
             letter-spacing: 2px;
             padding-bottom: 15px;
 
@@ -154,7 +154,7 @@
             display: grid;
             grid-template-columns: 70px 1fr;
             align-items: center;
-            border: 2px solid white;
+            border: 2px solid gray;
             padding: 5px;
             border-radius: 5px;
         }
@@ -162,7 +162,7 @@
         #rcms_login_block label {
             font-size: 1.2rem;
             margin-bottom: 3px;
-            color: white;
+            color: #454343;
             display: block;
             font-weight: bold;
             text-align: center;
@@ -172,13 +172,14 @@
             border: 0;
             outline: none;
             background: transparent;
-            color: white
+            color: black;
         }
         #rcms_login_block select {
             border: 0;
-            outline: none;
-            background: #54658b;
-            color: white
+    outline: none;
+    background: #eceff5;
+    color: #1b1a1a;
+    padding: 5px;;
         }
 
         #rcms_login_block input[type="submit"] {
@@ -216,7 +217,7 @@
         <div class="login-form-block" style="background-image: url('{{ asset('user/images/background1.jpg') }}')">
             <div class="top-block">
                 <div class="logo">
-                    <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                    <img src="{{ asset('user/images/vidhyagxp1.png') }}" alt="..." class="w-100 h-100">
                 </div>
                 {{-- <div class="head">
                     Welcome to Doculife
@@ -225,7 +226,7 @@
             <form action="{{ url('rcms_check') }}" method="POST" >
                 @csrf
                 <div class="head">
-                    Welcome to Doculife
+                    Welcome to User Interface
                 </div>
                 <div class="group-input">
                     <label for="username"><i class="fa-solid fa-envelope"></i></label>
