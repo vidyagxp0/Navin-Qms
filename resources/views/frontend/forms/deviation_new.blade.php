@@ -6,6 +6,9 @@ $users = DB::table('users')
     ->get();
 
     @endphp
+    
+
+
     <style>
         textarea.note-codable {
             display: none !important;
@@ -14,6 +17,16 @@ $users = DB::table('users')
         header {
             display: none;
         }
+
+        section {
+  padding: 15px;
+}
+footer {
+  float: right;
+  font-size: 12px;
+  padding: 15px;
+  color: #aaaaaa;
+}
     </style>
 
     <script>
@@ -70,6 +83,16 @@ $users = DB::table('users')
             }
         }
     </script>
+ <script>
+        function addWhyField(con_class, name) {
+            let mainBlock = document.querySelector('.why-why-chart')
+            let container = mainBlock.querySelector(`.${con_class}`)
+            let textarea = document.createElement('textarea')
+            textarea.setAttribute('name', name);
+            container.append(textarea)
+        }
+    </script>
+    
     <script>
         $(document).ready(function() {
             $('#internalaudit-table').click(function(e) {
@@ -125,11 +148,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="number" name="ID_Number[]"></td>'+
-                        '<td><input type="text" name="SystemName[]"></td>'+
-                        '<td><input type="text" name="Instrument[]"></td>'+
-                        '<td><input type="text" name="Equipment[]"></td>'+
-                        '<td><input type="text" name="facility[]"></td>'+
+                        '<td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>'+
+                        '<td><input type="number" name="IDnumber[]"></td>'+
+                        '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -182,6 +203,7 @@ $users = DB::table('users')
             });
         });
     </script>
+    
     <script>
         $(document).ready(function() {
             $('#ProductDetails').click(function(e) {
@@ -191,8 +213,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="nameofproduct[]"></td>'+
-                        '<td><input type="date" name="ExpiryDate[]"></td>'+
+                        '<td><input type="text" name="Product_Name[]"></td>'+
+                         '<td><input type="text" name=" Batch_No[]"></td>'+
+                        '<td><input type="text" name="Remarks[]"></td>'+
                         
                         '</tr>';
 
@@ -214,6 +237,7 @@ $users = DB::table('users')
             });
         });
     </script>
+    
     <div class="form-field-head">
 
         <div class="division-bar">
@@ -285,7 +309,92 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                                
+
+                                 <!-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="why-why-chart">
+                                            Why-Why Chart
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#why_chart-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400;">
+                                                (Launch Instruction)
+                                            </span>
+                                        </label>
+                                        <div class="why-why-chart">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr style="background: #f4bb22">
+                                                        <th style="width:150px;">Problem Statement :</th>
+                                                        <td>
+                                                            <textarea name="why_problem_statement"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 1 <span
+                                                                onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_1_block">
+                                                                <textarea name="why_1[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 2 <span
+                                                                onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_2_block">
+                                                                <textarea name="why_2[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 3 <span
+                                                                onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_3_block">
+                                                                <textarea name="why_3[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 4 <span
+                                                                onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_4_block">
+                                                                <textarea name="why_4[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 5 <span
+                                                                onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_5_block">
+                                                                <textarea name="why_5[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="background: #0080006b;">
+                                                        <th style="width:150px;">Root Cause :</th>
+                                                        <td>
+                                                            <textarea name="why_root_cause"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
@@ -293,22 +402,9 @@ $users = DB::table('users')
                                         <input type="hidden" value="" name="intiation_date">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="group-input">
-                                        <label for="search">
-                                            Assigned To <span class="text-danger"></span>
-                                        </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="">Select a value</option>
-                                            
-                                        </select>
-                                     
-                                            <p class="text-danger"></p>
-                                      
-                                    </div>
-                                </div>
                                 
-                                <div class="col-lg-6 new-date-data-field">
+                                
+                                <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
@@ -337,7 +433,7 @@ $users = DB::table('users')
                                                 Manufacturing</option>
                                             <option value="Plasma_Sourcing" >Plasma
                                                 Sourcing Group</option>
-                                            <option value="CentralStores" >CentralStores</option>
+                                            <option value="CentralStores" >Central Stores</option>
                                             <option value="Information_Technology">
                                                 Information Technology Group</option>
                                             <option value="Molecular Medicine" >Molecular Medicine</option>
@@ -346,11 +442,13 @@ $users = DB::table('users')
                                             <option value="Tech  team" >Tech  team</option>
                                             <option value=" Quality Assurance" > Quality Assurance</option>
                                             <option value="QualityManagemen" >Quality Management</option>
-                                            <option value="ITAdministration" >ITAdministration</option>
+                                            <option value="ITAdministration" >IT Administration</option>
                                             <option value="Accounting">Accounting</option>
                                             <option value=" Logistics"> Logistics</option>
                                             <option value="Senior_Management" >  Senior Management</option>
                                             <option value="BusinessAdministration" >Business Administration</option>
+                                            <option value="BusinessAdministration" >Warehouse</option>
+                                            <option value="BusinessAdministration" >Regulatory Affairs</option>
                                         </select>
                                     </div>
                                 </div>
@@ -377,15 +475,21 @@ $users = DB::table('users')
                                        <input type="date" value="">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input" id="initiated_through_req">
-                                        <label for="If Other">		Observed by		<span class="text-danger d-none">*</span></label>
-                                      <input type="text" name="Observed_by">
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="Facility Name">Observed By</label>
+                                        <select multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            <option value="Plant 1"> 1</option>
+                                            <option value="Plant 1"> 1</option>
+                                            <option value="Plant 1"> 1</option>
+                                           
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Initiator Group">Deviation Reported on.</label>
+                                        <label for="Initiator Group date/time">Deviation Reported On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
                                         <input type="date" value="" name="Deviation_Reported_on.">
                                     </div>
@@ -413,6 +517,12 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="audit_type">Deviation Related To </label>
+                                        <input type="text" name="Deviation_Related_To">
+                                    </div>
+                                </div>
                                 <!-- <div class="col-lg-6">
                                     <div class="group-input" id="type_of_audit_req">
                                         <label for="If Other">Facility/ Equipment/ Instrument/ System Name & ID Number:<span class="text-danger d-none">*</span></label>
@@ -424,7 +534,7 @@ $users = DB::table('users')
                                 </div> -->
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                        Instrument
+                                        Facility/ Equipment/ Instrument/ System Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -438,24 +548,30 @@ $users = DB::table('users')
                                                 style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 10%">Row#</th>
-                                                        <th style="width: 12%">ID Number</th>
+                                                        <th style="width: 5%">Row#</th>
+                                                        <th style="width: 12%">Name</th>
                                                         
-                                                        <th style="width: 16%"> System Name</th>
+                                                        <th style="width: 16%"> ID Number</th>
                                                        
-                                                         <th style="width: 15%">Instrument</th>
+                                                         <th style="width: 15%">Remarks</th>
                                                         
-                                                        <th style="width: 15%"> Equipment</th>                                                  
-                                                        <th style="width: 15%"> Facility</th>                                                  
+                                                                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="number" name="ID_Number[]"></td>
-                        <td><input type="text" name="SystemName[]"></td>
-                        <td><input type="text" name="Instrument[]"></td>
-                        <td><input type="text" name="Equipment[]"></td>
-                        <td><input type="text" name="Equipment[]"></td>
+                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td>
+                                                 <select name="name" id="">
+                                                    <option value="">-- Select --</option>
+                                                    <option value="">Facility</option>
+                                                    <option value=""> Equipment</option>
+                                                    <option value="">Instrument</option>
+                                                  
+                                                 </select>
+                                            </td>
+                                                <td><input type="number" name="IDnumber[]"></td>
+                                                <td><input type="text" name="Remarks[]"></td>
+                                              
                                                   
                                               
                                                 </tbody>
@@ -500,33 +616,72 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                   
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input" id="external_agencies_req">
-                                        <label for="others">Name of Product & Batch No. (if applicable)<span class="text-danger d-none">*</span></label>
+                                        <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
                                         <input type="text" name="Name_No.(if applicable)">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
                                 </div>
+                      <div class="group-input">
+                                        <label for="audit-agenda-grid">
+                                       Product Details 
+                                            <button type="button" name="audit-agenda-grid"
+                                                id="ProductDetails">+</button>
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#observation-field-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                (Launch Instruction)
+                                            </span>
+                                        </label>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="ProductDetails_details"
+                                                style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 4%">Row#</th>
+                                                        <th style="width: 12%"> Product Name</th>
+                                                        
+                                                        <th style="width: 16%"> Batch No</th>
+                                                        <th style="width: 16%"> Remarks</th>
+                                                       
+                                                                                                         
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                    <td><input type="text" name="Product_Name[]"></td>
+                                                    <td><input type="text" name=" Batch_No[]"></td>
+                                                    <td><input type="text" name="Remarks[]"></td>
+                                                
+                                                  
+                                              
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
                                
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea name="Description_Deviation"></textarea>
+                                <div class="col-12 ">
+                                <div class="group-input">
+                                <label class="mt-4"  for="annexure-1">Description of Deviation</label>
+                                <textarea class="summernote" name="Description_Deviation[]" id="annexure-1"></textarea>
                                     </div>
                                 </div>
-                               
-                                <div class="col-6">
+                                <div class="col-12">
                                 <div class="group-input">
-                                        <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea name="Immediate_Action"></textarea>
+                                        <label class="mt-4"  for="Initial Comments">Immediate Action (if any)</label>
+                                <textarea class="summernote" name="Immediate_Action[]" id="annexure-1"></textarea>
+                                       
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12">
                                 <div class="group-input">
-                                        <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea name="Preliminary_Impact"></textarea>
+                                        <label class="mt-4"  for="Initial Comments">Preliminary Impact of Deviation</label>
+                                        <textarea class="summernote" name="Preliminary_Impact[]" id="annexure-1"></textarea>
+
                                     </div>
                                 </div>
                                 
@@ -546,60 +701,15 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Product Details Required ?</label>
-                                        <select name="Product_Details_Required " id="">
-                                            <option value="">-- Select -- </option>
-                                            <option value="Yes">Yes </option>
-                                            <option value="No">No </option>
-                                           
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="group-input">
-                                        <label for="audit-agenda-grid">
-                                       Product Details 
-                                            <button type="button" name="audit-agenda-grid"
-                                                id="ProductDetails">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="ProductDetails_details"
-                                                style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%">Name Of Product</th>
-                                                        
-                                                        <th style="width: 16%"> Expiry Date</th>
-                                                       
-                                                                                                         
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="text" name="nameofproduct[]"></td>
-                        <td><input type="text" name="expiryDate[]"></td>
-                       
-                                                  
-                                              
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div>
+                                
+                                
                                 
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">HOD Remarks </label>
-                                        <textarea name="HOD_Remarks" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Product/Material Name">HOD Remarks </label>
+                                        <textarea class="summernote" name="HOD_Remarks[]" id="annexure-1"></textarea>
+
                                   
                                     </div>
                                 </div>
@@ -636,9 +746,9 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Deviation category</label>
+                                        <label for="Audit Schedule Start Date">Initial Deviation Category</label>
                                         <select name="Deviation category" id="">
                                             <option value="">-- Select -- </option>
                                             <option value="">Major </option>
@@ -648,18 +758,18 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Justification for  categorization</label>
-                                        <textarea name="Justification_for_categorization" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Audit Schedule End Date">Justification for  Categorization</label>
+                                        <textarea class="summernote" name="Justification_for_categorization" id="" cols="30" ></textarea>
 
                                     </div>
                                 </div>
                                
                                 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Investigation is required ?</label>
+                                        <label for="Product/Material Name">Investigation Is Required ?</label>
                                         <select name="Investigation_required" id="">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -668,16 +778,16 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea name="Investigation_Details" id="" cols="30" ></textarea>
+                                        <textarea class="summernote" name="Investigation_Details" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Customer notification required ? </label>
+                                        <label for="Product/Material Name">Customer Notification Required ? </label>
                                         <select name="Customer_notification" id="">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -699,7 +809,7 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
-                                      <textarea name="QAInitialRemark" id="" cols="30" ></textarea>
+                                      <textarea class="summernote" name="QAInitialRemark" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -745,9 +855,10 @@ $users = DB::table('users')
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 25%; color: #fff; padding: 15px; ">Department</th>
-                                                        <th style=" color: #fff; padding: 15px;">Comments</th>
-                                                        <th style=" color: #fff; padding: 15px;">Sign & date</th>
+                                                        <th style="width: 25%;  padding: 15px; ">Department</th>
+                                                        <th style="width: 25%;  padding: 15px; ">Department Person</th>
+                                                        <th style="  padding: 15px;">Comments</th>
+                                                        <th style="  padding: 15px;">Sign & date</th>
                                                         <!-- <th>Rationale</th> -->
                                                     </tr>
                                                 </thead>
@@ -919,22 +1030,22 @@ $users = DB::table('users')
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Investigation Summary:</label>
-                                        <textarea name="Investigation_Summary" id="" cols="30" ></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Lead Auditor">Impact assessment: </label>
-                                        <textarea name="Impect_assessment" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Lead Auditor">Investigation Summary</label>
+                                        <textarea class="summernote" name="Investigation_Summary" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Root cause: </label>
-                                        <textarea name="Root_cause" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Lead Auditor">Impact Assessment </label>
+                                        <textarea class="summernote" name="Impect_assessment" id="" cols="30" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Lead Auditor">Root Cause </label>
+                                        <textarea class="summernote" name="Root_cause" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                
@@ -964,12 +1075,24 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea name="CAPA_Description"></textarea>
+                                        <textarea class="summernote" name="CAPA_Description"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigatiom Attachment </label>
+                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
+                                        <textarea class="summernote" name="Post_Categorization"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Review Categorization</label>
+                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Investigatiom Attachment">Investigation Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             
@@ -1026,7 +1149,7 @@ $users = DB::table('users')
                             <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
-                                        <textarea name="QA_Feedbacks"></textarea>
+                                        <textarea class="summernote" name="QA_Feedbacks"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1062,25 +1185,25 @@ $users = DB::table('users')
                         <div class="inner-block-content">
                             <div class="row">
                                 
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Remarks">Closure Comments</label>
-                                        <textarea name="Closure_Comments"></textarea>
+                                        <label  class="mt-4" for="Remarks">Closure Comments</label>
+                                        <textarea class="summernote" name="Closure_Comments"></textarea>
                                     </div>
                                 </div>
                                 
                                
 
                                 
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Comments">Disposition of Batch</label>
-                                        <textarea name="Disposition_Batch"></textarea>
+                                        <label class="mt-4"  for="Audit Comments">Disposition of Batch</label>
+                                        <textarea class="summernote" name="Disposition_Batch"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="QAH assessment ">QAH assessment </label>
+                                        <label for="QAH assessment ">Closure Attachments </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             
@@ -1097,6 +1220,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1260,7 +1384,55 @@ $users = DB::table('users')
             }
         });
     </script>
+<script>
+        VirtualSelect.init({
+            ele: '#reference_record, #notify_to'
+        });
 
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear', 'italic']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+
+        $('.summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear', 'italic']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+
+        let referenceCount = 1;
+
+        function addReference() {
+            referenceCount++;
+            let newReference = document.createElement('div');
+            newReference.classList.add('row', 'reference-data-' + referenceCount);
+            newReference.innerHTML = `
+            <div class="col-lg-6">
+                <input type="text" name="reference-text">
+            </div>
+            <div class="col-lg-6">
+                <input type="file" name="references" class="myclassname">
+            </div><div class="col-lg-6">
+                <input type="file" name="references" class="myclassname">
+            </div>
+        `;
+            let referenceContainer = document.querySelector('.reference-data');
+            referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
+        }
+    </script>
 
     <script>
         VirtualSelect.init({
@@ -1374,6 +1546,7 @@ $users = DB::table('users')
             document.getElementById('initiator_group_code').value = selectedValue;
         });
     </script>
+    
      <script>
         var maxLength = 255;
         $('#docname').keyup(function() {
@@ -1381,13 +1554,5 @@ $users = DB::table('users')
             $('#rchars').text(textlen);});
     </script>
 
-<script>
-        function addWhyField(con_class, name) {
-            let mainBlock = document.querySelector('.why-why-chart')
-            let container = mainBlock.querySelector(`.${con_class}`)
-            let textarea = document.createElement('textarea')
-            textarea.setAttribute('name', name);
-            container.append(textarea)
-        }
-    </script>
+
 @endsection
