@@ -487,7 +487,7 @@ $users = DB::table('users')
                                                                     <td><input type="text" name="SystemName[]"></td>
                                                                     <td><input type="text" name="Instrument[]"></td>
                                                                     <td><input type="text" name="Equipment[]"></td>
-                                                                    <td><input type="text" name="Equipment[]"></td>
+                                                                    <td><input type="text" name="facility[]"></td>
                                                   
                                               
                                                 </tbody>
@@ -621,7 +621,7 @@ $users = DB::table('users')
                     
                        
                                                   
-                                              
+                                                    
                                                 </tbody>
 
                                             </table>
@@ -744,7 +744,7 @@ $users = DB::table('users')
                                             <div class="file-attachment-list" id="audit_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
                                                     oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
                                             </div>
                                         </div>
@@ -1002,7 +1002,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigatiom Attachment </label>
+                                        <label for="Investigation Attachment">Investigation Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             
@@ -1013,7 +1013,7 @@ $users = DB::table('users')
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
+                                                <input type="file" id="myfile" name="Investigation_attachment[]"
                                                     oninput="addMultipleFiles(this, 'file_attachment')" multiple>
                                             </div>
                                         </div>
@@ -1032,7 +1032,7 @@ $users = DB::table('users')
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
+                                                <input type="file" id="myfile" name="Capa_attachment[]"
                                                     oninput="addMultipleFiles(this, 'file_attachment')" multiple>
                                             </div>
                                         </div>
@@ -1072,7 +1072,7 @@ $users = DB::table('users')
                                             <div class="file-attachment-list" id="audit_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
+                                                <input type="file" id="myfile" name="QA_attachment[]"
                                                     oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
                                             </div>
                                         </div>
