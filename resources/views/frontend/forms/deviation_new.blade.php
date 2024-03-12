@@ -273,8 +273,8 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
 
-            <form id="auditform" action="{{ route('auditee_store') }}" method="post" enctype="multipart/form-data">
-                
+            <form id="auditform" action="{{ route('deviation.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div id="step-form">
 
                     <!-- General information content -->
@@ -350,8 +350,8 @@ $users = DB::table('users')
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Department"><b>Department</b></label>
-                                        <select name="Department" id="initiator_group">
+                                        <label for="Initiator Group"><b>Department</b></label>
+                                        <select name="Initiator_Group" id="initiator_group">
                                            <option value="">-- Select --</option>
                                           
                                             <option value="Corporate_Quality" >
@@ -368,8 +368,7 @@ $users = DB::table('users')
                                                 Information Technology Group</option>
                                             <option value="Molecular Medicine" >Molecular Medicine</option>
                                             <option value="Central Laboratory" >Central Laboratory</option>
-
-                                            <option value="Tech  team" >Tech  team</option>
+                                            <option value="Tech  team" >Tech  Team</option>
                                             <option value=" Quality Assurance" > Quality Assurance</option>
                                             <option value="QualityManagemen" >Quality Management</option>
                                             <option value="ITAdministration" >ITAdministration</option>
@@ -383,7 +382,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Department Code">Department Code</label>
-                                        <input type="text" name="Department_Code" id="Department_code"
+                                        <input type="text" name="initiator_group_code" id="initiator_group_code"
                                             value="" readonly>
                                     </div>
                                 </div>
@@ -391,8 +390,7 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
-                                                class="text-danger">*</span></label><span id="rchars">255</span>
-                                        characters remaining
+                                                class="text-danger">*</span></label><span id="rchars">255</span>characters remaining
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>  
@@ -671,8 +669,8 @@ $users = DB::table('users')
                                 
                                 <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Deviation category</label>
-                                        <select name="Deviation_category" id="">
+                                        <label for="Deviation category">Deviation category</label>
+                                        <select name="Deviation_category" id="Deviation_category">
                                             <option value="">-- Select -- </option>
                                             <option value="">Major </option>
                                             <option value="">Minor </option>
@@ -683,8 +681,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Justification for  categorization</label>
-                                        <textarea name="Justification_for_categorization" id="" cols="30" ></textarea>
+                                        <label for="Justification_for_categorization">Justification for  categorization</label>
+                                        <textarea name="Justification_for_categorization" id="Justification_for_categorization" cols="30" ></textarea>
 
                                     </div>
                                 </div>
@@ -693,7 +691,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation is required ?</label>
-                                        <select name="Investigation_required" id="">
+                                        <select name="Investigation_required" id="Investigation_required">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -704,7 +702,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea name="Investigation_Details" id="" cols="30" ></textarea>
+                                        <textarea name="Investigation_Details" id="Investigation_Details" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
@@ -741,11 +739,11 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
+                                            <div class="file-attachment-list" id="Initial_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -976,7 +974,7 @@ $users = DB::table('users')
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="External Auditor Details">CAPA Required? </label>
-                                      <select name="CAPA_Rquired" id="">
+                                      <select name="CAPA_Rquired" id="CAPA_Rquired">
                                         <option value=""> -- Select --</option>
                                         <option value="yes">Yes</option>
                                         <option value="no"> No</option>
@@ -985,8 +983,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Type? </label>
-                                      <select name="" id="">
+                                        <label for="capa_type">CAPA Type? </label>
+                                      <select name="capa_type" id="capa_type">
                                         <option value=""> -- Select --</option>
                                         <option value="Corrective_Action">Corrective Action</option>
                                         <option value=" Preventive_Action"> Preventive Action</option>
@@ -996,7 +994,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="External Auditing Agency">CAPA Description</label>
+                                        <label for="CAPA_Description">CAPA Description</label>
                                         <textarea name="CAPA_Description"></textarea>
                                     </div>
                                 </div>
@@ -1010,11 +1008,11 @@ $users = DB::table('users')
                                             </div>
                                        
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
+                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Investigation_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1024,16 +1022,14 @@ $users = DB::table('users')
                                         <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
                                             </div>
                                        
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
+                                            <div class="file-attachment-list" id="Capa_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Capa_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+                                                    oninput="addMultipleFiles(this, 'Capa_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1069,11 +1065,11 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
+                                            <div class="file-attachment-list" id="QA_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="QA_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                                    oninput="addMultipleFiles(this, 'QA_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1097,8 +1093,8 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="Remarks">Closure Comments</label>
-                                        <textarea name="Closure_Comments"></textarea>
+                                        <label for="Closure_Comments">Closure Comments</label>
+                                        <textarea id="Closure_Comments" name="Closure_Comments"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1108,7 +1104,7 @@ $users = DB::table('users')
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Audit Comments">Disposition of Batch</label>
-                                        <textarea name="Disposition_Batch"></textarea>
+                                        <textarea id="Disposition_Batch" name="Disposition_Batch"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
