@@ -6107,3 +6107,12 @@ section#pdf-page .watermark {
   .calenderauditee{
     position: relative;
   }
+#new-button-icon{
+    background-color: black;
+    border-radius: 50%;
+    border: gray;
+}
+#new-button-icon:hover{
+    background-color: gray;
+    
+}
