@@ -541,9 +541,9 @@ footer {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Deviation Reported on.</label>
+                                        <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_reported_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -601,7 +601,7 @@ footer {
                                         </label>
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="onservation-field-table"
-                                                style="width: 100%;">
+                                                >
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 5%">Row#</th>
@@ -616,11 +616,9 @@ footer {
                                                 </thead>
                                                 <tbody>
                                                                     <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                                    <td><input type="number" name="ID_Number[]"></td>
-                                                                    <td><input type="text" name="SystemName[]"></td>
-                                                                    <td><input type="text" name="Instrument[]"></td>
-                                                                    <td><input type="text" name="Equipment[]"></td>
-                                                                    <td><input type="text" name="facility[]"></td>
+                                                                    <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
+                        <td><input type="number" name="IDnumber[]"></td>
+                        <td><input type="text" name="Remarks[]"></td>
                                                   
                                               
                                                 </tbody>
@@ -677,23 +675,23 @@ footer {
                                     </div>
                                 </div>
                                
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="group-input">
                                         <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea name="Description_Deviation"></textarea>
+                                        <textarea class="summernote" name="Description_Deviation"></textarea>
                                     </div>
                                 </div>
                                
-                                <div class="col-6">
+                                <div class="col-12">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea name="Immediate_Action"></textarea>
+                                        <textarea class="summernote" name="Immediate_Action"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea name="Preliminary_Impact"></textarea>
+                                        <textarea class="summernote" name="Preliminary_Impact"></textarea>
                                     </div>
                                 </div>
                                 
