@@ -83,7 +83,7 @@ footer {
             }
         }
     </script>
- <script>
+ <!-- <script>
         function addWhyField(con_class, name) {
             let mainBlock = document.querySelector('.why-why-chart')
             let container = mainBlock.querySelector(`.${con_class}`)
@@ -91,7 +91,7 @@ footer {
             textarea.setAttribute('name', name);
             container.append(textarea)
         }
-    </script>
+    </script> -->
     
     <script>
         $(document).ready(function() {
@@ -182,6 +182,8 @@ footer {
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         '<td><input type="number" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
+                        '<td><input type="text" name="Remarks[]"></td>'+
+
                         
                         '</tr>';
 
@@ -599,6 +601,7 @@ footer {
                                                         <th style="width: 12%">Number</th>
                                                         
                                                         <th style="width: 16%"> Reference Document Name</th>
+                                                        <th style="width: 16%"> Remarks</th>
                                                        
                                                                                                          
                                                     </tr>
@@ -607,6 +610,7 @@ footer {
                         <td><input disabled type="text" name="serial[]" value="1"></td>
                         <td><input type="number" name="Number[]"></td>
                         <td><input type="text" name="ReferenceDocumentName[]"></td>
+                        <td><input type="text" name="Remarks[]"></td>
                        
                                                   
                                               
@@ -841,9 +845,10 @@ footer {
                         <div class="inner-block-content">
                             <div class="row">
 
-                            <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
+                            
+                                
+                                <div class="col-12">
+                        <div class="group-input"><label for="why-why-chart">
                                         Impact Assessment by applicable cross functional team:
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#is_is_not-instruction-modal"
@@ -851,170 +856,147 @@ footer {
                                                 (Launch Instruction)
                                             </span>
                                         </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 25%;  padding: 15px; ">Department</th>
-                                                        <th style="width: 25%;  padding: 15px; ">Department Person</th>
-                                                        <th style="  padding: 15px;">Comments</th>
-                                                        <th style="  padding: 15px;">Sign & date</th>
-                                                        <!-- <th>Rationale</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Production</th>
-                                                        <td>
-                                                            <textarea name="what_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="what_will_not_be"></textarea>
-                                                        </td>
-                                                       
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Warehouse</th>
-                                                        <td>
-                                                            <textarea name="where_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="where_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Quality control</th>
-                                                        <td>
-                                                            <textarea name="when_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="when_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Quality Assurance</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                
-                                                        <tr>
-                                                        <th style="background: #0039bd85">Engineering</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                       
-                                                        <tr>
-                                                        <th style="background: #0039bd85">Analytical development laboratory</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        
-                                                        <th style="background: #0039bd85">Process development laboratory / Kilo lab</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        
-                                                        <th style="background: #0039bd85">Technology transfer/design</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Environment, Health & Safety</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Human Resource & Administration</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Information Technology</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Project management</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Any Other</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                </th>
-                                                        
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                
+              
+                      <div class="why-why-chart">
+                    <table class="table table-bordered">
+                        <thead>
+                          
+                                <th style="width: 25%;">Department</th>
+                                <th style="width: 18%;"> Person</th>
+                                <th style="width: 20%;"> Impect Assessment</th>
+                                <th>Comments</th>
+                                <th>Sign & date</th>
+                                <th>Remarks</th>
+                              
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Person"></textarea></td>
+                                <td><textarea name="Impect_Assessment"></textarea></td>
+                                <td><textarea name="Comments"></textarea></td>
+                                <td><textarea name="sign&date"></textarea></td>
+                                <td><textarea name="Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 218px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 197px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 175px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 215px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 75px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 25px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 120px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 110px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 73px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 135px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 154px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="what_will_be"></textarea></td>
+                                <td><textarea name="what_will_not_be"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                                <td><textarea name="sign_date"></textarea></td>
+                               
+                            </tr>
+                            
+                            <!-- Add more rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -1086,7 +1068,7 @@ footer {
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Review Categorization</label>
+                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
                                         <textarea class="summernote" name="Investigation_Of_Review"></textarea>
                                     </div>
                                 </div>
@@ -1522,6 +1504,34 @@ footer {
             }
         }
     </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addRowButtons = document.querySelectorAll('.add-row');
+    addRowButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.parentNode.parentNode; // Get the parent tr of the button
+            
+            const department = row.querySelector('td:first-child').innerText.trim(); // Get the department name
+            
+            // Create a new row and insert it after the current row
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
+                                <td><textarea name="Person"></textarea></td>
+                                <td><textarea name="Impect_Assessment"></textarea></td>
+                                <td><textarea name="Comments"></textarea></td>
+                                <td><textarea name="sign&date"></textarea></td>
+                                <td><textarea name="Remarks"></textarea></td>`;
+                
+            // Insert the new row after the current row
+            row.parentNode.insertBefore(newRow, row.nextSibling);
+        });
+    });
+});
+</script>
+
+
 
     <script>
         // document.addEventListener('DOMContentLoaded', function() {
