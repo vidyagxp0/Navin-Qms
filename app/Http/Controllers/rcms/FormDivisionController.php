@@ -29,7 +29,7 @@ class FormDivisionController extends Controller
         } elseif ($request->process_name == "Effectiveness Check") {
             return redirect('effectiveness-check'); 
         } elseif ($request->process_name == "Deviation") {
-            return redirect('deviation_new');   
+            return redirect('deviation');   
             
         } elseif ($request->process_name == "Root Cause Analysis") {
             return redirect('root-cause-analysis');

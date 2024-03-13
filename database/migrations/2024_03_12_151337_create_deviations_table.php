@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('deviations', function (Blueprint $table) {
             $table->id();
             $table->integer('initiator_id')->nullable();
+            $table->integer('record')->nullable();
             $table->string('division_id')->nullable();
             //$table->string('division_code')->nullable();
             $table->string('initiator_group_code')->nullable();

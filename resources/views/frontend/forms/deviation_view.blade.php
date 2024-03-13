@@ -265,7 +265,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record_number"
-                                >
+                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
@@ -282,7 +282,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Initiator"><b>Initiator</b></label>
                                         {{-- <div class="static">{{ Auth::user()->name }}</div> --}}
-                                        <input disabled type="text" value="">
+                                        <input disabled type="text" value="{{ $data->initiator_name }}">
 
                                     </div>
                                 </div>
@@ -290,8 +290,8 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="" name="intiation_date">
-                                        <input type="hidden" value="Date_of_Initiation" name="intiation_date">
+                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                        <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -299,9 +299,12 @@ $users = DB::table('users')
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
+                                        <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
                                             <option value="">Select a value</option>
-                                            
+                                            @foreach ($users as $value)
+                                                <option {{ $data->assign_to == $value->id ? 'selected' : '' }}
+                                                    value="{{ $value->id }}">{{ $value->name }}</option>
+                                            @endforeach
                                         </select>
                                      
                                             <p class="text-danger"></p>
@@ -359,7 +362,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Department Code">Department Code</label>
                                         <input type="text" name="Department_Code" id="Department_code"
-                                            value="Department_Code" readonly>
+                                            value="" readonly>
                                     </div>
                                 </div>
                             
@@ -368,7 +371,7 @@ $users = DB::table('users')
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label><span id="rchars">255</span>
                                         characters remaining
-                                        <input id="short_description" type="text" Value="short_description" name="short_description" maxlength="255" required>
+                                        <input id="short_description" type="text" Value="short_description" name="" maxlength="255" required>
                                     </div>
                                 </div>  
                                 <div class="col-6">
