@@ -8,11 +8,13 @@ use App\Models\DeviationGrid;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\RecordNumber;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 
 class DeviationController extends Controller
@@ -51,7 +53,11 @@ class DeviationController extends Controller
      */
     public function store(Request $request)
     {
-        
+        if (!$request->short_description) {
+            toastr()->error("Short description is required");
+            return  response()->redirect()->back()->withInput();
+        }
+
         $deviation = new Deviation();
         $deviation->form_type = "Deviation";
         //$deviation->record = ((RecordNumber::first()->value('counter')) + 1);
@@ -210,7 +216,9 @@ class DeviationController extends Controller
     }
      $data5->save();
         
-        
+     toastr()->success("Record is Create Successfully");
+     return response()->redirect('rcms/qms-dashboard');
+    //  return response()->redirect(url('rcms/qms-dashboard'));
     }
 
     /**
@@ -221,7 +229,13 @@ class DeviationController extends Controller
      */
     public function show($id)
     {
-        
+        $old_record = Deviation::select('id', 'division_id', 'record')->get();
+        $data = Deviation::find($id);
+        $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
+        $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
+        $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
+
+        return response()->view('frontend.deviation_new.view', compact('data', 'old_record'));
     }
 
     /**
