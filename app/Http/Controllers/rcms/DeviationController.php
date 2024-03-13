@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\RecordNumber;
 use App\Models\User;
+use Helpers;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -24,15 +25,15 @@ class DeviationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $deviation = Deviation::all();
-        $record_number = ((RecordNumber::first()->value('counter')) + 1);
+    public function deviation()
+    {    
+        $old_record = Deviation::select('id', 'division_id', 'record')->get();
+        $record_number = (RecordNumber::first()->value('counter')) + 1;
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('d-M-Y');
-        return response()->view('frontend.forms.deviation_new', compact("deviation", "record_number", "due_date")); 
+        return response()->view('frontend.forms.deviation_new', compact('record_number', 'formattedDate', 'due_date','old_record')); 
     }
 
     /**
@@ -60,10 +61,10 @@ class DeviationController extends Controller
 
         $deviation = new Deviation();
         $deviation->form_type = "Deviation";
-        //$deviation->record = ((RecordNumber::first()->value('counter')) + 1);
+        $deviation->record = ((RecordNumber::first()->value('counter')) + 1);
         $deviation->initiator_id = Auth::user()->id;
         # -------------new-----------
-        $deviation->record_number = $request->record_number;
+      //  $deviation->record_number = $request->record_number;
         $deviation->division_id = $request->division_id;
         //$deviation->text = $request->text;
         $deviation->assign_to = $request->assign_to;
@@ -170,6 +171,9 @@ class DeviationController extends Controller
             $deviation->Capa_attachment = json_encode($files);
         }
     }
+    $record = RecordNumber::first();
+    $record->counter = ((RecordNumber::first()->value('counter')) + 1);
+    $record->update();
 
     $deviation->save();
 
@@ -216,9 +220,10 @@ class DeviationController extends Controller
     }
      $data5->save();
         
-     toastr()->success("Record is Create Successfully");
-     return response()->redirect('rcms/qms-dashboard');
+
     //  return response()->redirect(url('rcms/qms-dashboard'));
+    toastr()->success("Record is created Successfully");
+    return redirect(url('rcms/qms-dashboard'));
     }
 
     /**
@@ -227,15 +232,16 @@ class DeviationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function devshow($id)
     {
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         $data = Deviation::find($id);
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
-
-        return response()->view('frontend.deviation_new.view', compact('data', 'old_record'));
+       
+       
+        return view('frontend.forms.deviation_view', compact('data', 'old_record'));
     }
 
     /**

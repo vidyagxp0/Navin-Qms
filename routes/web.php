@@ -29,6 +29,7 @@ use App\Http\Controllers\rcms\RcmsDashboardController;
 use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
+use App\Http\Controllers\rcms\DeviationController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -383,6 +384,7 @@ Route::get('extension', [ExtensionController::class, 'extension_child']);
 
 //Route::view('observation', 'frontend.forms.observation');
 Route::get('observation', [ObservationController::class, 'observation']);
+Route::get('deviation', [DeviationController::class, 'deviation']);
 
 Route::view('new-root-cause-analysis', 'frontend.forms.new-root-cause-analysis');
 

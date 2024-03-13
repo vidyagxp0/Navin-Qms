@@ -47,7 +47,7 @@ class ProcessSeeder extends Seeder
 
         $process  = new Process();
         $process->division_id = 6;
-        $process->process_name = "Deviation";
+        $process->process_name = "New Document";
         $process->save();
 
         $process  = new Process();

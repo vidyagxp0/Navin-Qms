@@ -157,7 +157,11 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('internalSingleReport/{id}', [InternalauditController::class, 'singleReport'])->name('internalSingleReport');
             Route::get('internalauditReport/{id}', [InternalauditController::class, 'auditReport'])->name('internalauditReport');
 
-            Route::resource('deviation', DeviationController::class);
+            //Route::resource('deviation', DeviationController::class);
+            Route::get('devshow/{id}', [DeviationController::class, 'devshow'])->name('devshow');
+            Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
+            Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
+             Route::get('deviation', [DeviationController::class, 'deviation']);
         }
     );
 });
