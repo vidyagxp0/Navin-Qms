@@ -74,7 +74,8 @@ class ProcessSeeder extends Seeder
             "Change Control",
             "New Document",
             "Lab Incident",
-            "Effective Check"
+            "Effective Check",
+            "Deviation"
         ];
 
         // Loop through each process name

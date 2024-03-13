@@ -28,6 +28,56 @@ footer {
   color: #aaaaaa;
 }
     </style>
+    <style>
+        .calenderauditee {
+            position: relative;
+        }
+
+        .new-date-data-field input.hide-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .new-date-data-field input {
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px 15px;
+            display: block;
+            width: 100%;
+            background: white;
+        }
+
+        .calenderauditee input::-webkit-calendar-picker-indicator {
+            width: 100%;
+        }
+    </style>
+    <style>
+        .calenderauditee {
+            position: relative;
+        }
+
+        .new-date-data-field input.hide-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .new-date-data-field input {
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px 15px;
+            display: block;
+            width: 100%;
+            background: white;
+        }
+
+        .calenderauditee input::-webkit-calendar-picker-indicator {
+            width: 100%;
+        }
+    </style>
 
     <script>
         function otherController(value, checkValue, blockID) {
@@ -215,10 +265,10 @@ footer {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Product_Name[]"></td>'+
-                         '<td><input type="text" name=" Batch_No[]"></td>'+
-                        '<td><input type="text" name="Remarks[]"></td>'+
-                        
+                        '<td><input type="text" name="nameofproduct[]"></td>'+
+                        // '<td><input type="date" name="ExpiryDate[]"></td>'+
+                        '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="ExpiryDate' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="ExpiryDate[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `ExpiryDate' + serialNumber +'`)" /></div></div></div></td>' +
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -273,8 +323,8 @@ footer {
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
 
-            <form id="auditform" action="{{ route('auditee_store') }}" method="post" enctype="multipart/form-data">
-                
+            <form id="auditform" action="{{ route('deviation.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div id="step-form">
 
                     <!-- General information content -->
@@ -415,15 +465,15 @@ footer {
                                             <input type="text" id="due_date" readonly
                                                 placeholder="DD-MMM-YYYY" />
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                 />
+                                            oninput="handleDateInput(this, 'due_date')"/>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Department"><b>Department</b></label>
-                                        <select name="Department" id="initiator_group">
+                                        <label for="Initiator Group"><b>Department</b></label>
+                                        <select name="Initiator_Group" id="initiator_group">
                                            <option value="">-- Select --</option>
                                           
                                             <option value="Corporate_Quality" >
@@ -440,8 +490,7 @@ footer {
                                                 Information Technology Group</option>
                                             <option value="Molecular Medicine" >Molecular Medicine</option>
                                             <option value="Central Laboratory" >Central Laboratory</option>
-
-                                            <option value="Tech  team" >Tech  team</option>
+                                            <option value="Tech  team" >Tech  Team</option>
                                             <option value=" Quality Assurance" > Quality Assurance</option>
                                             <option value="QualityManagemen" >Quality Management</option>
                                             <option value="ITAdministration" >IT Administration</option>
@@ -457,7 +506,7 @@ footer {
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Department Code">Department Code</label>
-                                        <input type="text" name="Department_Code" id="Department_code"
+                                        <input type="text" name="initiator_group_code" id="initiator_group_code"
                                             value="" readonly>
                                     </div>
                                 </div>
@@ -465,16 +514,19 @@ footer {
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
-                                                class="text-danger">*</span></label><span id="rchars">255</span>
-                                        characters remaining
+                                                class="text-danger">*</span></label><span id="rchars">255</span>characters remaining
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>  
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="severity-level">Deviation Observed</label>
-                                        <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" value="">
+                    
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Deviation Observed</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_date')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -489,11 +541,14 @@ footer {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Initiator Group date/time">Deviation Reported On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" value="" name="Deviation_Reported_on.">
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Deviation Reported on.</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_reported_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_reported_date')" />
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -501,8 +556,7 @@ footer {
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit_type">Deviation Related To </label>
-                                        <select name="audit_type"
-                                            >
+                                        <select name="audit_type">
                                             <option value="">Enter Your Selection Here</option>
                                             <option value="Facility"> Facility</option>
                                             <option value="Equipment/Instrument">Equipment/ Instrument </option>
@@ -561,19 +615,12 @@ footer {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td>
-                                                 <select name="name" id="">
-                                                    <option value="">-- Select --</option>
-                                                    <option value="">Facility</option>
-                                                    <option value=""> Equipment</option>
-                                                    <option value="">Instrument</option>
-                                                  
-                                                 </select>
-                                            </td>
-                                                <td><input type="number" name="IDnumber[]"></td>
-                                                <td><input type="text" name="Remarks[]"></td>
-                                              
+                                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                    <td><input type="number" name="ID_Number[]"></td>
+                                                                    <td><input type="text" name="SystemName[]"></td>
+                                                                    <td><input type="text" name="Instrument[]"></td>
+                                                                    <td><input type="text" name="Equipment[]"></td>
+                                                                    <td><input type="text" name="facility[]"></td>
                                                   
                                               
                                                 </tbody>
@@ -629,6 +676,55 @@ footer {
                                     
                                     </div>
                                 </div>
+                               
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="Initial Comments">Description of Deviation</label>
+                                        <textarea name="Description_Deviation"></textarea>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-6">
+                                <div class="group-input">
+                                        <label for="Initial Comments">Immediate Action (if any)</label>
+                                        <textarea name="Immediate_Action"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                <div class="group-input">
+                                        <label for="Initial Comments">Preliminary Impact of Deviation</label>
+                                        <textarea name="Preliminary_Impact"></textarea>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="button-block">
+                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ----------hod Review-------- -->
+                    <div id="CCForm8" class="inner-block cctabcontent">
+                        <div class="inner-block-content">
+                            <div class="row">
+                                
+
+                                
+                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule Start Date">Product Details Required ?</label>
+                                        <select name="Product_Details_Required " id="">
+                                            <option value="">-- Select -- </option>
+                                            <option value="Yes">Yes </option>
+                                            <option value="No">No </option>
+                                           
+                                        </select>
+
+                                    </div>
+                                </div>
                       <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
@@ -661,7 +757,7 @@ footer {
                                                     <td><input type="text" name="Remarks[]"></td>
                                                 
                                                   
-                                              
+                                                    
                                                 </tbody>
 
                                             </table>
@@ -773,8 +869,8 @@ footer {
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Investigation Is Required ?</label>
-                                        <select name="Investigation_required" id="">
+                                        <label for="Product/Material Name">Investigation is required ?</label>
+                                        <select name="Investigation_required" id="Investigation_required">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -794,8 +890,8 @@ footer {
                                         <label for="Product/Material Name">Customer Notification Required ? </label>
                                         <select name="Customer_notification" id="">
                                             <option value="">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
                                         </select>
                                   
                                     </div>
@@ -805,8 +901,8 @@ footer {
                                         <label for="Comments(If Any)">Customers</label>
                                         <select name="customers" id="">
                                             <option value=""> -- Select --</option>
-                                            <option value="person1"> person 1</option>
-                                            <option value="person2"> person 2</option>
+                                            <option value="1"> person 1</option>
+                                            <option value="2"> person 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -822,11 +918,11 @@ footer {
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
+                                            <div class="file-attachment-list" id="Initial_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1036,7 +1132,7 @@ footer {
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="External Auditor Details">CAPA Required? </label>
-                                      <select name="CAPA_Rquired" id="">
+                                      <select name="CAPA_Rquired" id="CAPA_Rquired">
                                         <option value=""> -- Select --</option>
                                         <option value="yes">Yes</option>
                                         <option value="no"> No</option>
@@ -1045,8 +1141,8 @@ footer {
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Type? </label>
-                                      <select name="" id="">
+                                        <label for="capa_type">CAPA Type? </label>
+                                      <select name="capa_type" id="capa_type">
                                         <option value=""> -- Select --</option>
                                         <option value="Corrective_Action">Corrective Action</option>
                                         <option value=" Preventive_Action"> Preventive Action</option>
@@ -1082,11 +1178,11 @@ footer {
                                             </div>
                                        
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
+                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+                                                <input type="file" id="myfile" name="Investigation_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1096,16 +1192,14 @@ footer {
                                         <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
                                             </div>
                                        
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
+                                            <div class="file-attachment-list" id="Capa_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+                                                <input type="file" id="myfile" name="Capa_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Capa_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1141,11 +1235,11 @@ footer {
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
+                                            <div class="file-attachment-list" id="QA_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                                <input type="file" id="myfile" name="QA_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'QA_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
