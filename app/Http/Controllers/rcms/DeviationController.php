@@ -4,6 +4,7 @@ namespace App\Http\Controllers\rcms;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deviation;
+use App\Models\DeviationGrid;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\RecordNumber;
@@ -168,7 +169,7 @@ class DeviationController extends Controller
 
     $data3 = new DeviationGrid();
     $data3->ID_Number = $deviation->id;
-    $data3->type = "internal_audit";
+    $data3->type = "Deviation";
     if (!empty($request->ID_Number)) {
         $data3->ID_Number = serialize($request->ID_Number);
     }
