@@ -967,119 +967,123 @@ footer {
                         <tbody>
                             <tr>
                                 <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Person"></textarea></td>
-                                <td><textarea name="Impect_Assessment"></textarea></td>
-                                <td><textarea name="Comments"></textarea></td>
-                                <td><textarea name="sign&date"></textarea></td>
-                                <td><textarea name="Remarks"></textarea></td>
+                                <td><textarea name="Production_Person"></textarea></td>
+                                <td><textarea name="Production_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Production_Comments"></textarea></td>
+                                <td><textarea name="Production_sign&date"></textarea></td>
+                                <td><textarea name="Production_Remarks"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 218px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Warehouse_Person"></textarea></td>
+                                <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Warehouse_Comments"></textarea></td>
+                                <td><textarea name="Warehouse_sign&date"></textarea></td>
+                                <td><textarea name="Warehouse_Remarks"></textarea></td>
+                               
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 197px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Quality_Person"></textarea></td>
+                                <td><textarea name="Quality_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Quality_Comments"></textarea></td>
+                                <td><textarea name="Quality_sign&date"></textarea></td>
+                                <td><textarea name="Quality_Remarks"></textarea></td>
+                               
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 175px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Assurance_Person"></textarea></td>
+                                <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Assurance_Comments"></textarea></td>
+                                <td><textarea name="Assurance_sign&date"></textarea></td>
+                                <td><textarea name="Assurance_Remarks"></textarea></td>
+                               
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 215px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Engineering_Person"></textarea></td>
+                                <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Engineering_Comments"></textarea></td>
+                                <td><textarea name="Engineering_sign&date"></textarea></td>
+                                <td><textarea name="Engineering_Remarks"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 75px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Analytical_Person"></textarea></td>
+                                <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Analytical_Comments"></textarea></td>
+                                <td><textarea name="Analytical_sign&date"></textarea></td>
+                                <td><textarea name="Analytical_Remarks"></textarea></td>
+                               
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 25px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Process_Person"></textarea></td>
+                                <td><textarea name="Process_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Process_Comments"></textarea></td>
+                                <td><textarea name="Process_sign&date"></textarea></td>
+                                <td><textarea name="Process_Remarks"></textarea></td>
+                               
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 120px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 220px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Technology_Person"></textarea></td>
+                                <td><textarea name="Technology_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Technology_Comments"></textarea></td>
+                                <td><textarea name="Technology_sign&date"></textarea></td>
+                                <td><textarea name="Technology_Remarks"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 110px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Environment_Person"></textarea></td>
+                                <td><textarea name="Environment_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Environment_Comments"></textarea></td>
+                                <td><textarea name="Environment_sign&date"></textarea></td>
+                                <td><textarea name="Environment_Remarks"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 73px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Human_Person"></textarea></td>
+                                <td><textarea name="Human_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Human_Comments"></textarea></td>
+                                <td><textarea name="Human_sign&date"></textarea></td>
+                                <td><textarea name="Human_Remarks"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 220px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Information_Person"></textarea></td>
+                                <td><textarea name="Information_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Information_Comments"></textarea></td>
+                                <td><textarea name="Information_sign&date"></textarea></td>
+                                <td><textarea name="Information_Remarks"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 135px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Project_Person"></textarea></td>
+                                <td><textarea name="Project_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Project_Comments"></textarea></td>
+                                <td><textarea name="Project_sign&date"></textarea></td>
+                                <td><textarea name="Project_Remarks"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 154px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="what_will_be"></textarea></td>
-                                <td><textarea name="what_will_not_be"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
-                                <td><textarea name="sign_date"></textarea></td>
+                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 155px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Any_Person"></textarea></td>
+                                <td><textarea name="Any_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Any_Comments"></textarea></td>
+                                <td><textarea name="Any_sign&date"></textarea></td>
+                                <td><textarea name="Any_Remarks"></textarea></td>
                                
                             </tr>
                             
