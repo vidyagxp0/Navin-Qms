@@ -456,7 +456,7 @@ footer {
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
+                                        {{-- <select id="select-state" placeholder="Select..." name="assign_to">
                                             <option value="">Select a value</option>
                                             @foreach ($users as $value)
                                                 <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -464,7 +464,7 @@ footer {
                                         </select>
                                         @error('assign_to')
                                             <p class="text-danger">{{ $message }}</p>
-                                        @enderror
+                                        @enderror --}}
                                     </div>
                                 </div>
                                 
@@ -545,8 +545,8 @@ footer {
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Facility Name">Observed By</label>
-                                        <select multiple name="Facility[]" placeholder="Select Facility Name"
-                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                        <select multiple name="Observed_by" placeholder="Select Facility Name" 
+                                        data-search="false" data-silent-initial-value-set="true" id="Observed_by">
                                             <option value="Plant 1"> 1</option>
                                             <option value="Plant 1"> 1</option>
                                             <option value="Plant 1"> 1</option>
@@ -586,12 +586,12 @@ footer {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit_type">Deviation Related To </label>
                                         <input type="text" name="Deviation_Related_To">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!-- <div class="col-lg-6">
                                     <div class="group-input" id="type_of_audit_req">
                                         <label for="If Other">Facility/ Equipment/ Instrument/ System Name & ID Number:<span class="text-danger d-none">*</span></label>
@@ -619,21 +619,15 @@ footer {
                                                     <tr>
                                                         <th style="width: 5%">Row#</th>
                                                         <th style="width: 12%">Name</th>
-                                                        
                                                         <th style="width: 16%"> ID Number</th>
-                                                       
                                                          <th style="width: 15%">Remarks</th>
-                                                        
-                                                                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                                    <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                        <td><input type="number" name="IDnumber[]"></td>
-                        <td><input type="text" name="Remarks[]"></td>
-                                                  
-                                              
+                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
+                                                <td><input type="number" name="IDnumber[]"></td>
+                                                <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
                                             </table>
@@ -665,13 +659,11 @@ footer {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="number" name="Number[]"></td>
-                        <td><input type="text" name="ReferenceDocumentName[]"></td>
-                        <td><input type="text" name="Remarks[]"></td>
+                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                        <td><input type="number" name="Number[]"></td>
+                                        <td><input type="text" name="ReferenceDocumentName[]"></td>
+                                        <td><input type="text" name="Remarks[]"></td>
                        
-                                                  
-                                              
                                                 </tbody>
 
                                             </table>
@@ -686,25 +678,25 @@ footer {
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
-                                </div>
+                            </div>
                                
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea class="summernote" name="Description_Deviation"></textarea>
+                                        <textarea class="summernote" name="Description_Deviation[]"></textarea>
                                     </div>
                                 </div>
                                
                                 <div class="col-12">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea class="summernote" name="Immediate_Action"></textarea>
+                                        <textarea class="summernote" name="Immediate_Action[]"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea class="summernote" name="Preliminary_Impact"></textarea>
+                                        <textarea class="summernote" name="Preliminary_Impact[]"></textarea>
                                     </div>
                                 </div>
                                 
@@ -735,7 +727,7 @@ footer {
                                         </select>
 
                                     </div>
-                                </div>
+                     </div>
                       <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
@@ -810,12 +802,7 @@ footer {
                         <div class="inner-block-content">
                             <div class="row">
                                 
-
-                                
-                                
-                                
-                                
-                                
+       
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Product/Material Name">HOD Remarks </label>

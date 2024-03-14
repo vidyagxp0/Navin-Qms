@@ -33,8 +33,8 @@ return new class extends Migration
             $table->string('audit_type')->nullable();
             $table->longText('Name_of_Product')->nullable();
             $table->longText('Description_Deviation')->nullable();
-            $table->longText('Immediate_action')->nullable();
-            $table->longText('Preliminary_impact')->nullable();
+            $table->longText('Immediate_Action')->nullable();
+            $table->longText('Preliminary_Impact')->nullable();
             $table->longText('Product_Details_Required')->nullable();
             $table->longText('HOD_Remarks')->nullable();
             $table->string('Deviation_category')->nullable();
@@ -59,13 +59,21 @@ return new class extends Migration
             $table->longText('Investigation_attachment')->nullable();
             $table->longText('Capa_attachment')->nullable();
 
+            $table->string('plan_proposed_by')->nullable();
             $table->string('plan_proposed_on')->nullable();
             $table->string('Plan_approved_on')->nullable();
-            $table->string('qa_more_info_required_on')->nullable();
-            $table->string('cancelled_on')->nullable();
+            $table->string('plan_approved_by')->nullable();
+            $table->string('completed_by')->nullable();
             $table->string('completed_on')->nullable();
+            $table->string('qa_more_info_required_on')->nullable();
+            $table->string('qa_more_info_required_by')->nullable();
+            $table->string('cancelled_on')->nullable();
+            $table->string('cancelled_by')->nullable();
             $table->string('approved_on')->nullable();
+            $table->string('approved_by')->nullable();
+
             $table->string('rejected_on')->nullable();
+            $table->string('rejected_by')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
             $table->timestamps();

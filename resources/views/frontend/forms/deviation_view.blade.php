@@ -229,6 +229,7 @@ $users = DB::table('users')
                     DATA FIELDS
     ======================================= --}}
 
+
     <div id="change-control-view">
         <div class="container-fluid">
 
@@ -377,7 +378,6 @@ $users = DB::table('users')
             </div>
         </div>
 
-
     <div id="change-control-fields">
         <div class="container-fluid">
 
@@ -445,99 +445,126 @@ $users = DB::table('users')
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
+                                        {{-- <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
                                             <option value="">Select a value</option>
                                             @foreach ($users as $value)
                                                 <option {{ $data->assign_to == $value->id ? 'selected' : '' }}
                                                     value="{{ $value->id }}">{{ $value->name }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                      
                                             <p class="text-danger"></p>
                                       
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
                                         </div>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly
-                                                placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                 />
-                                        </div>
+                                        <input readonly type="text"
+                                            value="{{ Helpers::getdateFormat($data->due_date) }}"
+                                            name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}>
+                                        {{-- <input type="text" value="{{ $data->due_date }}" name="due_date"> --}}
+                                        {{-- <div class="static"> {{ $due_date }}</div> --}}
+
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Department"><b>Department</b></label>
-                                        <select name="Department" value="Department" id="initiator_group">
+                                        <label for="Initiator Group"><b>Department</b></label>
+                                        <select name="Initiator_Group" value="" id="initiator_group">
                                            <option value="">-- Select --</option>
-                                          
-                                            <option value="Corporate_Quality" >
-                                                Corporate Quality Assurance</option>
-                                            <option value="Quality_Assurance" >Quality
-                                                Assurance Biopharma</option>
-                                            <option value="Central_Quality" >Central Quality Control</option>
-                                            <option value="Manufacturing" >
-                                                Manufacturing</option>
-                                            <option value="Plasma_Sourcing" >Plasma
-                                                Sourcing Group</option>
-                                            <option value="CentralStores" >CentralStores</option>
-                                            <option value="Information_Technology">
-                                                Information Technology Group</option>
-                                            <option value="Molecular Medicine" >Molecular Medicine</option>
-                                            <option value="Central Laboratory" >Central Laboratory</option>
+                                           <option value="CQA"
+                                           @if ($data->initiator_Group== 'CQA') selected @endif>Corporate
+                                           Quality Assurance</option>
+                                       <option value="QAB"
+                                           @if ($data->initiator_Group== 'QAB') selected @endif>Quality
+                                           Assurance Biopharma</option>
+                                       <option value="CQC"
+                                           @if ($data->initiator_Group== 'CQC') selected @endif>Central
+                                           Quality Control</option>
+                                       <option value="CQC"
+                                           @if ($data->initiator_Group== 'CQC') selected @endif>Manufacturing
+                                       </option>
+                                       <option value="PSG"
+                                           @if ($data->initiator_Group== 'PSG') selected @endif>Plasma
+                                           Sourcing Group</option>
+                                       <option value="CS"
+                                           @if ($data->initiator_Group== 'CS') selected @endif>Central
+                                           Stores</option>
+                                       <option value="ITG"
+                                           @if ($data->initiator_Group== 'ITG') selected @endif>Information
+                                           Technology Group</option>
+                                       <option value="MM"
+                                           @if ($data->initiator_Group== 'MM') selected @endif>Molecular
+                                           Medicine</option>
+                                       <option value="CL"
+                                           @if ($data->initiator_Group== 'CL') selected @endif>Central
+                                           Laboratory</option>
+                                       <option value="TT"
+                                           @if ($data->initiator_Group== 'TT') selected @endif>Tech
+                                           Team</option>
+                                       <option value="QA"
+                                           @if ($data->initiator_Group== 'QA') selected @endif>Quality
+                                           Assurance</option>
+                                       <option value="QM"
+                                           @if ($data->initiator_Group== 'QM') selected @endif>Quality
+                                           Management</option>
+                                       <option value="IA"
+                                           @if ($data->initiator_Group== 'IA') selected @endif>IT
+                                           Administration</option>
+                                       <option value="ACC"
+                                           @if ($data->initiator_Group== 'ACC') selected @endif>Accounting
+                                       </option>
+                                       <option value="LOG"
+                                           @if ($data->initiator_Group== 'LOG') selected @endif>Logistics
+                                       </option>
+                                       <option value="SM"
+                                           @if ($data->initiator_Group== 'SM') selected @endif>Senior
+                                           Management</option>
+                                       <option value="BA"
+                                           @if ($data->initiator_Group== 'BA') selected @endif>Business
+                                           Administration</option>
 
-                                            <option value="Tech  team" >Tech  team</option>
-                                            <option value=" Quality Assurance" > Quality Assurance</option>
-                                            <option value="QualityManagemen" >Quality Management</option>
-                                            <option value="ITAdministration" >ITAdministration</option>
-                                            <option value="Accounting">Accounting</option>
-                                            <option value=" Logistics"> Logistics</option>
-                                            <option value="Senior_Management" >  Senior Management</option>
-                                            <option value="BusinessAdministration" >Business Administration</option>
-                                        </select>
+                                   </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Department Code">Department Code</label>
-                                        <input type="text" name="Department_Code" id="Department_code"
-                                            value="" readonly>
+                                        <label for="Initiator Group Code">Department Code</label>
+                                        <input type="text" name="initiator_group_code" id="initiator_group_code"
+                                            value="{{ $data->initiator_Group }}" readonly>
                                     </div>
                                 </div>
                             
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
-                                                class="text-danger">*</span></label><span id="rchars">255</span>
-                                        characters remaining
-                                        <input id="short_description" type="text" Value="short_description" name="" maxlength="255" required>
-                                    </div>
+                                            class="text-danger">*</span></label><span id="rchars">255</span>characters remaining
+                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
+                                 </div>
                                 </div>  
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed</label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" name="deviation_observed" value="Deviation_Observed">
+                                       <input type="date" name="deviation_observed" value="{{ $data->deviation_observed }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="initiated_through_req">
-                                        <label for="If Other">		Observed by		<span class="text-danger d-none">*</span></label>
-                                      <input type="text" name="Observed_by">
+                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                      <input type="text" name="Observed_by" id="Observed_by" value="{{ $data->Observed_by }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported on.</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" value="" name="Deviation_Reported_on." value="Deviation_Reported_on." >
+                                        <input type="date"id="Deviation_reported_date" name="Deviation_reported_date" value="{{ $data->Deviation_reported_date }}" >
                                     </div>
                                 </div>
                                 
@@ -545,21 +572,32 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit_type">Deviation Related To </label>
-                                        <select name="audit_type"  value="audit_type"
-                                            >
+                                        <select v name="Deviation_Related_To"  value="{{ $data->Deviation_Related_To }}">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option value="Facility"> Facility</option>
-                                            <option value="Equipment/Instrument">Equipment/ Instrument </option>
-                                            <option value="Documentationerror">Documentation error </option>
-                                            <option value="STP/ADS_instruction">STP/ADS instruction </option>
-                                            <option value="Packaging&Labelling">Packaging & Labelling  </option>
-                                            <option value="Material_System">Material System  </option>
-                                            <option value="Laboratory_Instrument/System"> Laboratory Instrument /System</option>
-                                            <option value=" Utility_System"> Utility System</option>
-                                            <option value="Computer_System"> Computer System</option>
-                                            <option value="Document">Document</option>
-                                            <option value="Data integrity">Data integrity</option>
-                                            <option value="Anyother(specify)">Any other (specify) </option>
+                                            <option @if ($data->Deviation_Related_To == 'Facility') selected @endif
+                                                value="Facility">Facility</option>
+                                                <option @if ($data->Deviation_Related_To == 'Equipment/Instrument') selected @endif
+                                                    value="Equipment/Instrument">Equipment/Instrument</option>
+                                                    <option @if ($data->Deviation_Related_To == 'Documentationerror') selected @endif
+                                                        value="Documentationerror">Documentationerror</option>
+                                                        <option @if ($data->Deviation_Related_To == 'STP/ADS_instruction') selected @endif
+                                                            value="STP/ADS_instruction">STP/ADS_instruction</option>
+                                                            <option @if ($data->Deviation_Related_To == 'Packaging&Labelling') selected @endif
+                                                                value="Packaging&Labelling">Packaging&Labelling</option>
+                                                                <option @if ($data->Deviation_Related_To == 'Material_System') selected @endif
+                                                                    value="Material_System">Material_System</option>
+                                                                    <option @if ($data->Deviation_Related_To == 'Laboratory_Instrument/System') selected @endif
+                                                                        value="Laboratory_Instrument/System">Laboratory_Instrument/System</option>
+                                                                        <option @if ($data->Deviation_Related_To == 'Utility_System') selected @endif
+                                                                            value="Utility_System">Utility_System</option>
+                                                                            <option @if ($data->Deviation_Related_To == 'Computer_System') selected @endif
+                                                                                value="Computer_System">Computer_System</option>
+                                                                                <option @if ($data->Deviation_Related_To == 'Document') selected @endif
+                                                                                    value="Document">Document</option>
+                                                                                    <option @if ($data->Deviation_Related_To == 'Data integrity') selected @endif
+                                                                                        value="Data integrity">Data integrity</option>
+                                                                                        <option @if ($data->Deviation_Related_To == 'Anyother(specify)') selected @endif
+                                                                                            value="Anyother(specify)">Anyother(specify)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -574,7 +612,7 @@ $users = DB::table('users')
                                 </div> -->
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                        Instrument
+                                            Facility/ Equipment/ Instrument/ System Details
                                             <button type="button" name="audit-agenda-grid" value="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -600,14 +638,10 @@ $users = DB::table('users')
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="number" name="ID_Number[]"></td>
-                        <td><input type="text" name="SystemName[]"></td>
-                        <td><input type="text" name="Instrument[]"></td>
-                        <td><input type="text" name="Equipment[]"></td>
-                        <td><input type="text" name="Equipment[]"></td>
-                                                  
-                                              
+                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                    <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
+                                                    <td><input type="number" name="IDnumber[]"></td>
+                                                    <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
                                             </table>
@@ -633,15 +667,15 @@ $users = DB::table('users')
                                                         <th style="width: 12%">Number</th>
                                                         
                                                         <th style="width: 16%"> Reference Document Name</th>
-                                                       
+                                                        <th style="width: 16%"> Remarks</th>
                                                                                                          
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="number" name="Number[]"></td>
-                        <td><input type="text" name="ReferenceDocumentName[]"></td>
-                       
+                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                        <td><input type="number" name="Number[]"></td>
+                                        <td><input type="text" name="ReferenceDocumentName[]"></td>
+                                        <td><input type="text" name="Remarks[]"></td>
                                                   
                                               
                                                 </tbody>
@@ -653,30 +687,30 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No. (if applicable)<span class="text-danger d-none">*</span></label>
-                                        <input type="text" value="Name_No.(if applicable)" name="Name_No.(if applicable)">
+                                        <input type="text" value="" name="Name_No">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
-                                </div>
+                      </div>
                                
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea name="Description_Deviation" value="Description_Deviation"></textarea>
+                                        <textarea name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
                                     </div>
                                 </div>
                                
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea name="Immediate_Action" value="Immediate_Action"></textarea>
+                                        <textarea name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea name="Preliminary_Impact" value="Preliminary_Impact"></textarea>
+                                        <textarea name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1540,434 +1574,433 @@ $users = DB::table('users')
             container.append(textarea)
         }
     </script>
-
-<div class="modal fade" id="child-modal1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Child</h4>
-            </div>
-            <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="group-input">
-                        <label for="major">
-                            <input type="hidden" name="parent_name" value="Capa">
-                            <input type="hidden" name="due_date" value="{{ $data->due_date }}">
-                            <input type="radio" name="child_type" value="effectiveness_check">
-                            Effectiveness Check
-                        </label>
-
-                    </div>
-
+    <div class="modal fade" id="child-modal1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Child</h4>
                 </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                    <button type="submit">Continue</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="child-modal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Child</h4>
-            </div>
-            <form action="{{ route('capa_child_changecontrol', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="group-input">
-                        @if ($data->stage == 3)
+                <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="group-input">
                             <label for="major">
-
-                            </label>
-                             <label for="major">
-                                <input type="radio" name="child_type" value="Change_control">
-                                Change Control
-                            </label>
-                            <label for="major">
-                                <input type="radio" name="child_type" value="Action_Item">
-                                Action Item
-                            </label>
-                            <!-- <label for="major">
-                                <input type="radio" name="child_type" value="extension">
-                                Extension
-                            </label> -->
-                        @endif
-                        
-                        @if ($data->stage == 6)
-                            <label for="major">
+                                <input type="hidden" name="parent_name" value="Capa">
+                                <input type="hidden" name="due_date" value="{{ $data->due_date }}">
                                 <input type="radio" name="child_type" value="effectiveness_check">
                                 Effectiveness Check
                             </label>
-                        @endif
+    
+                        </div>
+    
                     </div>
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                    <button type="submit">Continue</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="child-modal1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Child</h4>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                        <button type="submit">Continue</button>
+                    </div>
+                </form>
+    
             </div>
-            <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="group-input">
-                        <label for="major">
-                            <input type="radio" name="effectiveness_check" id="major"
-                                value="Effectiveness_check">
-                            Effectiveness Check
-                        </label>
-                    </div>
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                    <button type="submit">Continue</button>
-                </div>
-            </form>
-
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="rejection-modal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">E-Signature</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="child-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Child</h4>
+                </div>
+                <form action="{{ route('capa_child_changecontrol', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="group-input">
+                            @if ($data->stage == 3)
+                                <label for="major">
+    
+                                </label>
+                                 <label for="major">
+                                    <input type="radio" name="child_type" value="Change_control">
+                                    Change Control
+                                </label>
+                                <label for="major">
+                                    <input type="radio" name="child_type" value="Action_Item">
+                                    Action Item
+                                </label>
+                                <!-- <label for="major">
+                                    <input type="radio" name="child_type" value="extension">
+                                    Extension
+                                </label> -->
+                            @endif
+                            
+                            @if ($data->stage == 6)
+                                <label for="major">
+                                    <input type="radio" name="child_type" value="effectiveness_check">
+                                    Effectiveness Check
+                                </label>
+                            @endif
+                        </div>
+    
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                        <button type="submit">Continue</button>
+                    </div>
+                </form>
+    
             </div>
-
-            <form action="{{ route('deviation_reject', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="mb-3 text-justify">
-                        Please select a meaning and a outcome for this task and enter your username
-                        and password for this task. You are performing an electronic signature,
-                        which is legally binding equivalent of a hand written signature.
-                    </div>
-                    <div class="group-input">
-                        <label for="username">Username <span class="text-danger">*</span></label>
-                        <input type="text" name="username" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="password">Password <span class="text-danger">*</span></label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="comment">Comment <span class="text-danger">*</span></label>
-                        <input type="comment" name="comment" required>
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-                    <button type="submit" data-bs-dismiss="modal">Submit</button>
-                    <button>Close</button>
-                </div> -->
-                <div class="modal-footer">
-                  <button type="submit">Submit</button>
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="cancel-modal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">E-Signature</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="child-modal1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Child</h4>
+                </div>
+                <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="group-input">
+                            <label for="major">
+                                <input type="radio" name="effectiveness_check" id="major"
+                                    value="Effectiveness_check">
+                                Effectiveness Check
+                            </label>
+                        </div>
+    
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                        <button type="submit">Continue</button>
+                    </div>
+                </form>
+    
             </div>
-
-            <form action="{{ route('deviationCancel', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="mb-3 text-justify">
-                        Please select a meaning and a outcome for this task and enter your username
-                        and password for this task. You are performing an electronic signature,
-                        which is legally binding equivalent of a hand written signature.
-                    </div>
-                    <div class="group-input">
-                        <label for="username">Username <span class="text-danger">*</span></label>
-                        <input type="text" name="username" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="password">Password <span class="text-danger">*</span></label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="comment">Comment <span class="text-danger">*</span></label>
-                        <input type="comment" name="comment" required>
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-                    <button type="submit" data-bs-dismiss="modal">Submit</button>
-                    <button>Close</button>
-                </div> -->
-                <div class="modal-footer">
-                  <button type="submit">Submit</button>
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
-<div class="modal fade" id="signature-modal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">E-Signature</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    
+    <div class="modal fade" id="rejection-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('deviation_reject', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
-            <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="mb-3 text-justify">
-                        Please select a meaning and a outcome for this task and enter your username
-                        and password for this task. You are performing an electronic signature,
-                        which is legally binding equivalent of a hand written signature.
-                    </div>
-                    <div class="group-input">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="comment">Comment</label>
-                        <input type="comment" name="comment">
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-                    <button type="submit" data-bs-dismiss="modal">Submit</button>
-                    <button>Close</button>
-                </div> -->
-                <div class="modal-footer">
-                  <button type="submit">Submit</button>
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
-<div class="modal fade" id="modal1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">E-Signature</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    
+    <div class="modal fade" id="cancel-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('deviationCancel', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
-            <form action="{{ route('deviation_qa_more_info', $data->id) }}" method="POST">
-                @csrf
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="mb-3 text-justify">
-                        Please select a meaning and a outcome for this task and enter your username
-                        and password for this task. You are performing an electronic signature,
-                        which is legally binding equivalent of a hand written signature.
-                    </div>
-                    <div class="group-input">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <div class="group-input">
-                        <label for="comment">Comment</label>
-                        <input type="comment" name="comment">
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-                    <button type="submit" data-bs-dismiss="modal">Submit</button>
-                    <button>Close</button>
-                </div> -->
-                <div class="modal-footer">
-                  <button type="submit">Submit</button>
-                    <button type="button" data-bs-dismiss="modal">Close</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
-
-<style>
-    #step-form>div {
-        display: none
-    }
-
-    #step-form>div:nth-child(1) {
-        display: block;
-    }
-</style>
-
-<script>
-    VirtualSelect.init({
-        ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record'
-    });
-
-    function openCity(evt, cityName) {
-        var i, cctabcontent, cctablinks;
-        cctabcontent = document.getElementsByClassName("cctabcontent");
-        for (i = 0; i < cctabcontent.length; i++) {
-            cctabcontent[i].style.display = "none";
+    <div class="modal fade" id="signature-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('deviation_qa_more_info', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        #step-form>div {
+            display: none
         }
-        cctablinks = document.getElementsByClassName("cctablinks");
-        for (i = 0; i < cctablinks.length; i++) {
-            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+    
+        #step-form>div:nth-child(1) {
+            display: block;
         }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-
-
-    function openCity(evt, cityName) {
-        var i, cctabcontent, cctablinks;
-        cctabcontent = document.getElementsByClassName("cctabcontent");
-        for (i = 0; i < cctabcontent.length; i++) {
-            cctabcontent[i].style.display = "none";
-        }
-        cctablinks = document.getElementsByClassName("cctablinks");
-        for (i = 0; i < cctablinks.length; i++) {
-            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-
-        // Find the index of the clicked tab button
-        const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
-
-        // Update the currentStep to the index of the clicked tab
-        currentStep = index;
-    }
-
-    const saveButtons = document.querySelectorAll(".saveButton");
-    const nextButtons = document.querySelectorAll(".nextButton");
-    const form = document.getElementById("step-form");
-    const stepButtons = document.querySelectorAll(".cctablinks");
-    const steps = document.querySelectorAll(".cctabcontent");
-    let currentStep = 0;
-
-    function nextStep() {
-        // Check if there is a next step
-        if (currentStep < steps.length - 1) {
-            // Hide current step
-            steps[currentStep].style.display = "none";
-
-            // Show next step
-            steps[currentStep + 1].style.display = "block";
-
-            // Add active class to next button
-            stepButtons[currentStep + 1].classList.add("active");
-
-            // Remove active class from current button
-            stepButtons[currentStep].classList.remove("active");
-
-            // Update current step
-            currentStep++;
-        }
-    }
-
-    function previousStep() {
-        // Check if there is a previous step
-        if (currentStep > 0) {
-            // Hide current step
-            steps[currentStep].style.display = "none";
-
-            // Show previous step
-            steps[currentStep - 1].style.display = "block";
-
-            // Add active class to previous button
-            stepButtons[currentStep - 1].classList.add("active");
-
-            // Remove active class from current button
-            stepButtons[currentStep].classList.remove("active");
-
-            // Update current step
-            currentStep--;
-        }
-    }
-</script>
+    </style>
+    
     <script>
-        document.getElementById('initiator_group').addEventListener('change', function() {
-            var selectedValue = this.value;
-            document.getElementById('initiator_group_code').value = selectedValue;
+        VirtualSelect.init({
+            ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record'
         });
+    
+        function openCity(evt, cityName) {
+            var i, cctabcontent, cctablinks;
+            cctabcontent = document.getElementsByClassName("cctabcontent");
+            for (i = 0; i < cctabcontent.length; i++) {
+                cctabcontent[i].style.display = "none";
+            }
+            cctablinks = document.getElementsByClassName("cctablinks");
+            for (i = 0; i < cctablinks.length; i++) {
+                cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    
+    
+    
+        function openCity(evt, cityName) {
+            var i, cctabcontent, cctablinks;
+            cctabcontent = document.getElementsByClassName("cctabcontent");
+            for (i = 0; i < cctabcontent.length; i++) {
+                cctabcontent[i].style.display = "none";
+            }
+            cctablinks = document.getElementsByClassName("cctablinks");
+            for (i = 0; i < cctablinks.length; i++) {
+                cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+    
+            // Find the index of the clicked tab button
+            const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
+    
+            // Update the currentStep to the index of the clicked tab
+            currentStep = index;
+        }
+    
+        const saveButtons = document.querySelectorAll(".saveButton");
+        const nextButtons = document.querySelectorAll(".nextButton");
+        const form = document.getElementById("step-form");
+        const stepButtons = document.querySelectorAll(".cctablinks");
+        const steps = document.querySelectorAll(".cctabcontent");
+        let currentStep = 0;
+    
+        function nextStep() {
+            // Check if there is a next step
+            if (currentStep < steps.length - 1) {
+                // Hide current step
+                steps[currentStep].style.display = "none";
+    
+                // Show next step
+                steps[currentStep + 1].style.display = "block";
+    
+                // Add active class to next button
+                stepButtons[currentStep + 1].classList.add("active");
+    
+                // Remove active class from current button
+                stepButtons[currentStep].classList.remove("active");
+    
+                // Update current step
+                currentStep++;
+            }
+        }
+    
+        function previousStep() {
+            // Check if there is a previous step
+            if (currentStep > 0) {
+                // Hide current step
+                steps[currentStep].style.display = "none";
+    
+                // Show previous step
+                steps[currentStep - 1].style.display = "block";
+    
+                // Add active class to previous button
+                stepButtons[currentStep - 1].classList.add("active");
+    
+                // Remove active class from current button
+                stepButtons[currentStep].classList.remove("active");
+    
+                // Update current step
+                currentStep--;
+            }
+        }
     </script>
-     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const removeButtons = document.querySelectorAll('.remove-file');
-
-            removeButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const fileName = this.getAttribute('data-file-name');
-                    const fileContainer = this.closest('.file-container');
-
-                    // Hide the file container
-                    if (fileContainer) {
-                        fileContainer.style.display = 'none';
-                    }
+        <script>
+            document.getElementById('initiator_group').addEventListener('change', function() {
+                var selectedValue = this.value;
+                document.getElementById('initiator_group_code').value = selectedValue;
+            });
+        </script>
+         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const removeButtons = document.querySelectorAll('.remove-file');
+    
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const fileName = this.getAttribute('data-file-name');
+                        const fileContainer = this.closest('.file-container');
+    
+                        // Hide the file container
+                        if (fileContainer) {
+                            fileContainer.style.display = 'none';
+                        }
+                    });
                 });
             });
-        });
-    </script> 
-    <script>
-        var maxLength = 255;
-        $('#docname').keyup(function() {
-            var textlen = maxLength - $(this).val().length;
-            $('#rchars').text(textlen);});
-    </script>
+        </script> 
+        <script>
+            var maxLength = 255;
+            $('#docname').keyup(function() {
+                var textlen = maxLength - $(this).val().length;
+                $('#rchars').text(textlen);});
+        </script>
 @endsection
