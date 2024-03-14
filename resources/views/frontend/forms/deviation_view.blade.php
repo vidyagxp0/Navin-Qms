@@ -238,9 +238,9 @@ $users = DB::table('users')
 
                     <div class="d-flex" style="gap:20px;">
                         @php
-                        $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
-                        $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
-                    @endphp
+                            $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
+                            $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                        @endphp
                         {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}}
                          <button class="button_theme1"> <a class="text-white"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $data->id) }}" --}}
@@ -254,7 +254,7 @@ $users = DB::table('users')
                                 Cancel
                             </button>
                         @elseif($data->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 More Info Required
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -267,18 +267,17 @@ $users = DB::table('users')
                                 Child
                             </button> --}}  
                         @elseif($data->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
-                               <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
+                               <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                               More Info Required
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
-                            {{-- <button id="major" type="button" class="button_theme1" data-bs-toggle="modal"
-                                data-bs-target="#child-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
                                 Child
-                            </button> --}}
+                            </button>
                         @elseif($data->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                             More Info Required
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -288,30 +287,29 @@ $users = DB::table('users')
                                 CFT Review Not Required
                             </button>
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 Send to Initiator
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 Send to HOD
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 Send to QA Initial Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                                Child
+                            </button>
                         @elseif($data->stage == 6 && (in_array(9, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 More Info Required
                                 </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Approved
                             </button>
-                        @elseif($data->stage == 7)
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
-                                Child
-                            </button>
-                        @endif
+                        @endif 
                         <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
                             </a> </button>
 
@@ -321,7 +319,6 @@ $users = DB::table('users')
                 </div>
                 <div class="status">
                     <div class="head">Current Status</div>
-                    {{-- ------------------------------By Pankaj-------------------------------- --}}
                     @if ($data->stage == 0)
                         <div class="progress-bars">
                             <div class="bg-danger">Closed-Cancelled</div>
@@ -1748,40 +1745,6 @@ document.addEventListener('DOMContentLoaded', function() {
             container.append(textarea)
         }
     </script>
-    <div class="modal fade" id="child-modal1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-    
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Child</h4>
-                </div>
-                <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
-                    @csrf
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="group-input">
-                            <label for="major">
-                                <input type="hidden" name="parent_name" value="Capa">
-                                <input type="hidden" name="due_date" value="{{ $data->due_date }}">
-                                <input type="radio" name="child_type" value="effectiveness_check">
-                                Effectiveness Check
-                            </label>
-    
-                        </div>
-    
-                    </div>
-    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" data-bs-dismiss="modal">Close</button>
-                        <button type="submit">Continue</button>
-                    </div>
-                </form>
-    
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="child-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -1790,33 +1753,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="modal-header">
                     <h4 class="modal-title">Child</h4>
                 </div>
-                <form action="{{ route('capa_child_changecontrol', $data->id) }}" method="POST">
+                <form action="{{ route('deviation_child_1', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="group-input">
                             @if ($data->stage == 3)
                                 <label for="major">
-    
+                                    <input type="radio" name="child_type" id="major"
+                                        value="rsa">
+                                        RSA
                                 </label>
-                                 <label for="major">
-                                    <input type="radio" name="child_type" value="Change_control">
-                                    Change Control
+                                <br>
+                                <label for="major1">
+                                    <input type="radio" name="child_type" id="major1"
+                                        value="extension">
+                                        Extension
                                 </label>
-                                <label for="major">
-                                    <input type="radio" name="child_type" value="Action_Item">
-                                    Action Item
-                                </label>
-                                <!-- <label for="major">
-                                    <input type="radio" name="child_type" value="extension">
-                                    Extension
-                                </label> -->
                             @endif
                             
-                            @if ($data->stage == 6)
+                            @if ($data->stage == 5)
                                 <label for="major">
-                                    <input type="radio" name="child_type" value="effectiveness_check">
-                                    Effectiveness Check
+                                    <input type="radio" name="child_type" id="major"
+                                        value="capa">
+                                        CAPA
+                                </label>
+                                <br>
+                                <label for="major1">
+                                    <input type="radio" name="child_type" id="major1"
+                                        value="extension">
+                                        Extension
                                 </label>
                             @endif
                         </div>
@@ -1841,15 +1807,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="modal-header">
                     <h4 class="modal-title">Child</h4>
                 </div>
-                <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
+                <form  method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="group-input">
                             <label for="major">
-                                <input type="radio" name="effectiveness_check" id="major"
-                                    value="Effectiveness_check">
-                                Effectiveness Check
+                                <input type="radio" name="rsa" id="major"
+                                    value="rsa">
+                                    RSA
+                            </label>
+                            <br>
+                            <label for="major1">
+                                <input type="radio" name="extension" id="major1"
+                                    value="extension">
+                                    Extension
                             </label>
                         </div>
     
@@ -1866,7 +1838,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
     
-    <div class="modal fade" id="rejection-modal">
+    <div class="modal fade" id="more-info-required-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
     
@@ -1959,6 +1931,8 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
+
+
     <div class="modal fade" id="signature-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
