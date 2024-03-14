@@ -16,6 +16,7 @@ use App\Http\Controllers\rcms\FormDivisionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
+use App\Http\Controllers\rcms\DeviationController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -155,6 +156,16 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('child_management_Review/{id}', [ManagementReviewController::class, 'child_management_Review'])->name('childmanagementReview');
             Route::get('internalSingleReport/{id}', [InternalauditController::class, 'singleReport'])->name('internalSingleReport');
             Route::get('internalauditReport/{id}', [InternalauditController::class, 'auditReport'])->name('internalauditReport');
+
+            //Route::resource('deviation', DeviationController::class);
+            Route::get('devshow/{id}', [DeviationController::class, 'devshow'])->name('devshow');
+            Route::post('deviation/stage/{id}', [DeviationController::class, 'deviation_send_stage'])->name('deviation_send_stage');
+            Route::post('deviation/cancel/{id}', [DeviationController::class, 'deviationCancel'])->name('deviationCancel');
+            Route::post('deviation/reject/{id}', [DeviationController::class, 'deviation_reject'])->name('deviation_reject');
+            Route::post('deviation/Qa/{id}', [DeviationController::class, 'deviation_qa_more_info'])->name('deviation_qa_more_info');
+            Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
+            Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
+             Route::get('deviation', [DeviationController::class, 'deviation']);
         }
     );
 });

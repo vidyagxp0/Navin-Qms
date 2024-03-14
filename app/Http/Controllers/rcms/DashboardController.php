@@ -16,6 +16,7 @@ use App\Models\Auditee;
 use App\Models\AuditProgram;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
+use App\Models\Deviation;
 use Helpers;
 use App\Models\User;
 use Carbon\Carbon;
@@ -63,6 +64,7 @@ class DashboardController extends Controller
         $datas10 = AuditProgram::orderByDesc('id')->get();
         $datas11 = RootCauseAnalysis::orderByDesc('id')->get();
         $datas12 = Observation::orderByDesc('id')->get();
+        $datas13 = Deviation::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -301,6 +303,25 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "Observation",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas13 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Deviation",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -694,7 +715,12 @@ class DashboardController extends Controller
             $data = RootCauseAnalysis::find($id);
             $single = "rootSingleReport/" . $data->id;
             $audit = "rootAuditReport/" . $data->id;
+        } elseif ($type == "Deviation") {
+            $data = Deviation::find($id);
+            $single = "#";
+            $audit = "#";
         }
+
 
         $html = '';
         $html = '<div class="block">

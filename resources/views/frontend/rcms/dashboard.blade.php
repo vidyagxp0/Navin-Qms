@@ -151,6 +151,7 @@
                                     <option value="Change Control">Change Control</option>
                                     <option value="Action Item">Action Item</option>
                                     <option value="Effectiveness Check">Effectiveness Check</option>
+                                    <option value="Deviation">Deviation</option>
                                      {{-- <option value="tms">TMS</option>  --}}
                                 </select>
                             </div>
@@ -170,7 +171,7 @@
                         </div>
                         <div class="main-scope-table">
                             <table class="table table-bordered" id="auditTable">
-                                <thead>
+                                <thead style="background: #f4b56f;">
                                     <tr>
                                         <th>Record</th>
                                         {{-- <th>Parent ID</th> --}}
@@ -359,6 +360,20 @@
                                                             </div>
                                                         </a>
                                                     @endif
+                                                    @elseif($datas->type == 'Deviation')
+                                                    <a href="{{ route('devshow', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/deviation">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
                                                 @elseif($datas->type == 'Root-Cause-Analysis')
                                                     <a href="{{ route('root_show', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -373,6 +388,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
+                                                
                                                 @endif
                                             </td>
                                             {{-- @if ($datas->parent != '-')

@@ -229,7 +229,153 @@ $users = DB::table('users')
                     DATA FIELDS
     ======================================= --}}
 
+    <div id="change-control-view">
+        <div class="container-fluid">
 
+            <div class="inner-block state-block">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="main-head">Record Workflow </div>
+
+                    <div class="d-flex" style="gap:20px;">
+                        @php
+                        $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
+                        $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                    @endphp
+                        {{-- <button class="button_theme1" onclick="window.print();return false;"
+                            class="new-doc-btn">Print</button> --}}
+                         <button class="button_theme1"> <a class="text-white"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $data->id) }}" --}}
+                                Audit Trail </a> </button>
+
+                        @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Submit
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+                        @elseif($data->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                More Info Required
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                HOD Review Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                                Child
+                            </button> --}}  
+                        @elseif($data->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                               <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
+                              More Info Required
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                QA Initial Review Complete
+                            </button>
+                            {{-- <button id="major" type="button" class="button_theme1" data-bs-toggle="modal"
+                                data-bs-target="#child-modal">
+                                Child
+                            </button> --}}
+                        @elseif($data->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
+                            More Info Required
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                CFT Review Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                CFT Review Not Required
+                            </button>
+                        @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Send to Initiator
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Send to HOD
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Send to QA Initial Review
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                QA Initial Review Complete
+                            </button>
+                        @elseif($data->stage == 6 && (in_array(9, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
+                                More Info Required
+                                </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Approved
+                            </button>
+                        @elseif($data->stage == 7)
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                                Child
+                            </button>
+                        @endif
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                            </a> </button>
+
+
+                    </div>
+
+                </div>
+                <div class="status">
+                    <div class="head">Current Status</div>
+                    {{-- ------------------------------By Pankaj-------------------------------- --}}
+                    @if ($data->stage == 0)
+                        <div class="progress-bars">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @else
+                        <div class="progress-bars">
+                            @if ($data->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+
+                            @if ($data->stage >= 2)
+                                <div class="active">HOD Review </div>
+                            @else
+                                <div class="">HOD Review</div>
+                            @endif
+
+                            @if ($data->stage >= 3)
+                                <div class="active">QA Initial Review</div>
+                            @else
+                                <div class="">QA Initial Review</div>
+                            @endif
+
+                            @if ($data->stage >= 4)
+                                <div class="active">CFT Review</div>
+                            @else
+                                <div class="">CFT Review</div>
+                            @endif
+
+
+                            @if ($data->stage >= 5)
+                                <div class="active">QA Final Review</div>
+                            @else
+                                <div class="">QA Final Review</div>
+                            @endif
+                            @if ($data->stage >= 6)
+                                <div class="active">QA Head/Manager Designee</div>
+                            @else
+                                <div class="">Approval</div>
+                            @endif
+                            @if ($data->stage >= 7)
+                                <div class="bg-danger">Closed - Done</div>
+                            @else
+                                <div class="">Closed - Done</div>
+                            @endif
+                    @endif
+
+
+                </div>
+                {{-- @endif --}}
+                {{-- ---------------------------------------------------------------------------------------- --}}
+            </div>
+        </div>
 
 
     <div id="change-control-fields">
@@ -265,7 +411,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record_number"
-                                >
+                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
@@ -282,7 +428,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Initiator"><b>Initiator</b></label>
                                         {{-- <div class="static">{{ Auth::user()->name }}</div> --}}
-                                        <input disabled type="text" value="">
+                                        <input disabled type="text" value="{{ $data->initiator_name }}">
 
                                     </div>
                                 </div>
@@ -290,8 +436,8 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="" name="intiation_date">
-                                        <input type="hidden" value="Date_of_Initiation" name="intiation_date">
+                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                        <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -299,9 +445,12 @@ $users = DB::table('users')
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
+                                        <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
                                             <option value="">Select a value</option>
-                                            
+                                            @foreach ($users as $value)
+                                                <option {{ $data->assign_to == $value->id ? 'selected' : '' }}
+                                                    value="{{ $value->id }}">{{ $value->name }}</option>
+                                            @endforeach
                                         </select>
                                      
                                             <p class="text-danger"></p>
@@ -359,7 +508,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Department Code">Department Code</label>
                                         <input type="text" name="Department_Code" id="Department_code"
-                                            value="Department_Code" readonly>
+                                            value="" readonly>
                                     </div>
                                 </div>
                             
@@ -368,7 +517,7 @@ $users = DB::table('users')
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label><span id="rchars">255</span>
                                         characters remaining
-                                        <input id="short_description" type="text" Value="short_description" name="short_description" maxlength="255" required>
+                                        <input id="short_description" type="text" Value="short_description" name="" maxlength="255" required>
                                     </div>
                                 </div>  
                                 <div class="col-6">
@@ -1390,5 +1539,435 @@ $users = DB::table('users')
             textarea.setAttribute('name', name);
             container.append(textarea)
         }
+    </script>
+
+<div class="modal fade" id="child-modal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        <label for="major">
+                            <input type="hidden" name="parent_name" value="Capa">
+                            <input type="hidden" name="due_date" value="{{ $data->due_date }}">
+                            <input type="radio" name="child_type" value="effectiveness_check">
+                            Effectiveness Check
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('capa_child_changecontrol', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        @if ($data->stage == 3)
+                            <label for="major">
+
+                            </label>
+                             <label for="major">
+                                <input type="radio" name="child_type" value="Change_control">
+                                Change Control
+                            </label>
+                            <label for="major">
+                                <input type="radio" name="child_type" value="Action_Item">
+                                Action Item
+                            </label>
+                            <!-- <label for="major">
+                                <input type="radio" name="child_type" value="extension">
+                                Extension
+                            </label> -->
+                        @endif
+                        
+                        @if ($data->stage == 6)
+                            <label for="major">
+                                <input type="radio" name="child_type" value="effectiveness_check">
+                                Effectiveness Check
+                            </label>
+                        @endif
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="child-modal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        <label for="major">
+                            <input type="radio" name="effectiveness_check" id="major"
+                                value="Effectiveness_check">
+                            Effectiveness Check
+                        </label>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rejection-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('deviation_reject', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancel-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('deviationCancel', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="signature-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('deviation_qa_more_info', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    #step-form>div {
+        display: none
+    }
+
+    #step-form>div:nth-child(1) {
+        display: block;
+    }
+</style>
+
+<script>
+    VirtualSelect.init({
+        ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record'
+    });
+
+    function openCity(evt, cityName) {
+        var i, cctabcontent, cctablinks;
+        cctabcontent = document.getElementsByClassName("cctabcontent");
+        for (i = 0; i < cctabcontent.length; i++) {
+            cctabcontent[i].style.display = "none";
+        }
+        cctablinks = document.getElementsByClassName("cctablinks");
+        for (i = 0; i < cctablinks.length; i++) {
+            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+
+
+    function openCity(evt, cityName) {
+        var i, cctabcontent, cctablinks;
+        cctabcontent = document.getElementsByClassName("cctabcontent");
+        for (i = 0; i < cctabcontent.length; i++) {
+            cctabcontent[i].style.display = "none";
+        }
+        cctablinks = document.getElementsByClassName("cctablinks");
+        for (i = 0; i < cctablinks.length; i++) {
+            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+
+        // Find the index of the clicked tab button
+        const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
+
+        // Update the currentStep to the index of the clicked tab
+        currentStep = index;
+    }
+
+    const saveButtons = document.querySelectorAll(".saveButton");
+    const nextButtons = document.querySelectorAll(".nextButton");
+    const form = document.getElementById("step-form");
+    const stepButtons = document.querySelectorAll(".cctablinks");
+    const steps = document.querySelectorAll(".cctabcontent");
+    let currentStep = 0;
+
+    function nextStep() {
+        // Check if there is a next step
+        if (currentStep < steps.length - 1) {
+            // Hide current step
+            steps[currentStep].style.display = "none";
+
+            // Show next step
+            steps[currentStep + 1].style.display = "block";
+
+            // Add active class to next button
+            stepButtons[currentStep + 1].classList.add("active");
+
+            // Remove active class from current button
+            stepButtons[currentStep].classList.remove("active");
+
+            // Update current step
+            currentStep++;
+        }
+    }
+
+    function previousStep() {
+        // Check if there is a previous step
+        if (currentStep > 0) {
+            // Hide current step
+            steps[currentStep].style.display = "none";
+
+            // Show previous step
+            steps[currentStep - 1].style.display = "block";
+
+            // Add active class to previous button
+            stepButtons[currentStep - 1].classList.add("active");
+
+            // Remove active class from current button
+            stepButtons[currentStep].classList.remove("active");
+
+            // Update current step
+            currentStep--;
+        }
+    }
+</script>
+    <script>
+        document.getElementById('initiator_group').addEventListener('change', function() {
+            var selectedValue = this.value;
+            document.getElementById('initiator_group_code').value = selectedValue;
+        });
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const removeButtons = document.querySelectorAll('.remove-file');
+
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const fileName = this.getAttribute('data-file-name');
+                    const fileContainer = this.closest('.file-container');
+
+                    // Hide the file container
+                    if (fileContainer) {
+                        fileContainer.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script> 
+    <script>
+        var maxLength = 255;
+        $('#docname').keyup(function() {
+            var textlen = maxLength - $(this).val().length;
+            $('#rchars').text(textlen);});
     </script>
 @endsection

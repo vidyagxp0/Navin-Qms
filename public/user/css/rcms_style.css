@@ -45,7 +45,7 @@ a:hover {
 
 button {
     border: 0;
-    background: black;
+    background: #d68e58;
     color: white;
     border: 2px solid black;
     transition: all 0.3s linear;
@@ -63,7 +63,7 @@ button:hover {
 /*! HEADER */
 /*! =================================================================================*/
 header .header_rcms_top {
-    background: #7EA1E7;
+    background: #f39f40;
     padding: 3px;
 }
 
@@ -81,7 +81,7 @@ header .header_rcms_middle .middle-head .logo-container {
 }
 
 header .header_rcms_middle .middle-head .logo {
-    width: 120px;
+    width: 140px;
     aspect-ratio: 1/0.35;
 }
 
@@ -166,7 +166,7 @@ header .header_rcms_middle .middle-head .icon-grid .icon-drop:hover .icon-block 
 
 header .header_rcms_bottom {
     padding: 10px 0;
-    background: #80808042;
+    background: #dbd8d84f;
 }
 
 header .header_rcms_bottom .bottom-head {
@@ -277,7 +277,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
     border: none;
     outline: none;
     color: #fff;
-    background: #111;
+    background: #d68e58;
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -757,7 +757,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
 /*! =================================================================================*/
 #rcms-dashboard {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 130px);
 }
 
@@ -768,7 +768,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
 
 #rcms-dashboard .inner-block {
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
     overflow: hidden;
     padding: 20px;
