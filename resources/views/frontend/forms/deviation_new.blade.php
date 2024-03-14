@@ -544,7 +544,7 @@ footer {
                     
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Deviation Observed</label>
+                                        <label for="Deviation date">Deviation Observed</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -554,12 +554,12 @@ footer {
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="Facility Name">Observed By</label>
+                                        <label for="Observed_by">Observed By</label>
                                         <select multiple name="Observed_by" placeholder="Select Facility Name" 
                                         data-search="false" data-silent-initial-value-set="true" id="Observed_by">
-                                            {{-- <option value="Plant 1"> 1</option>
-                                            <option value="Plant 1"> 1</option>
-                                            <option value="Plant 1"> 1</option> --}}
+                                            <option value="Plant1"> 1</option>
+                                            <option value="Plant2"> 2</option>
+                                            <option value="Plant3"> 3</option>
                                            
                                         </select>
                                     </div>
@@ -578,8 +578,8 @@ footer {
                              
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit_type">Deviation Related To </label>
-                                        <select name="audit_type">
+                                        <label for="audit type">Deviation Related To </label>
+                                        <select name="audit_type" id="audit_type">
                                             <option value="">Enter Your Selection Here</option>
                                             <option value="Facility"> Facility</option>
                                             <option value="Equipment/Instrument">Equipment/ Instrument </option>
@@ -598,8 +598,8 @@ footer {
                                 </div>
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit_type">Deviation Related To </label>
-                                        <input type="text" name="Deviation_Related_To">
+                                        <label for="others">Others</label>
+                                        <input type="text" id="others" name="others">
                                     </div>
                                 </div> --}}
                                 <!-- <div class="col-lg-6">
@@ -661,7 +661,6 @@ footer {
                                                     <tr>
                                                         <th style="width: 4%">Row#</th>
                                                         <th style="width: 12%">Number</th>
-                                                        
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
                                                        
@@ -680,33 +679,83 @@ footer {
                                         </div>
                                     </div>
                                   
-                                <div class="col-lg-12">
-                                    <div class="group-input" id="external_agencies_req">
-                                        <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
-                                        <input type="text" name="Name_No.(if applicable)">
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Product Batch">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
+                                        <input type="text" name="Product_Batch" id="Product_Batch">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
-                            </div>
-                               
-                                <div class="col-12">
+                          </div>
+                               <!-- <div class="col-lg-6">
+                                    <div class="group-input" id="external_agencies_req">
+                                        <label for="others">HOD / Designee<span class="text-danger d-none">*</span></label>
+                                      <select name="hod_designee" id="">
+                                        <option value="">-- Select --</option>
+                                        <option value="person1">person 1</option>
+                                        <option value="person2">person 2</option>
+                                      </select>
+                                        
+                                            
+                                    
+                                    </div>
+                               </div> -->
+                      <!-- <div class="col-lg-6">
+                                    <div class="group-input" id="external_agencies_req">
+                                        <label for="others">Head QA / Designee<span class="text-danger d-none">*</span></label>
+                                      <select name="hod_designee" id="">
+                                        <option value="">-- Select --</option>
+                                        <option value="person1">person 1</option>
+                                        <option value="person2">person 2</option>
+                                      </select>
+                                        
+                                           
+                                    
+                                    </div>
+                               </div> -->
+                      <!-- <div class="col-lg-6">
+                                    <div class="group-input" id="external_agencies_req">
+                                        <label for="others">QA<span class="text-danger d-none">*</span></label>
+                                      <select name="hod_designee" id="">
+                                        <option value="">-- Select --</option>
+                                        <option value="person1">person 1</option>
+                                        <option value="person2">person 2</option>
+                                      </select>
+                                        
+                                    
+                                    </div>
+                               </div> -->
+                      <!-- <div class="col-6">
                                     <div class="group-input">
-                                        <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea class="summernote" name="Description_Deviation[]"></textarea>
+                                        <label for="Facility Name">Notify To</label>
+                                        <select multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            <option value="Plant 1"> 1</option>
+                                            <option value="Plant 1"> 2</option>
+                                            <option value="Plant 1"> 3</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <textarea class="summernote" id="Description_Deviation" name="Description_Deviation[]"></textarea>
                                     </div>
                                 </div>
                                
-                                <div class="col-12">
+                                <div class="col-6">
                                 <div class="group-input">
-                                        <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea class="summernote" name="Immediate_Action[]"></textarea>
+                                        <label for="ImmediateAction">Immediate Action (if any)</label>
+                                        <textarea class="summernote" id="Immediate_Action" name="Immediate_Action[]"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                 <div class="group-input">
-                                        <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea class="summernote" name="Preliminary_Impact[]"></textarea>
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
+                                        <textarea class="summernote" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
                                     </div>
                                 </div>
                                 
@@ -776,49 +825,20 @@ footer {
                                             </table>
                                         </div>
                                     </div>
-                               
-                                <div class="col-12 ">
-                                <div class="group-input">
-                                <label class="mt-4"  for="annexure-1">Description of Deviation</label>
-                                <textarea class="summernote" name="Description_Deviation[]" id="annexure-1"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                <div class="group-input">
-                                        <label class="mt-4"  for="Initial Comments">Immediate Action (if any)</label>
-                                <textarea class="summernote" name="Immediate_Action[]" id="annexure-1"></textarea>
-                                       
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                <div class="group-input">
-                                        <label class="mt-4"  for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea class="summernote" name="Preliminary_Impact[]" id="annexure-1"></textarea>
-
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ----------hod Review-------- -->
-                    <div id="CCForm8" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-                                
        
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label class="mt-4"  for="Product/Material Name">HOD Remarks </label>
-                                        <textarea class="summernote" name="HOD_Remarks[]" id="annexure-1"></textarea>
+                                        <label class="mt-4"  for="Product Name">HOD Remarks </label>
+                                        <textarea class="summernote" name="HOD_Remarks[]" id="HOD_Remarks"></textarea>
 
-                                  
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="HOD Remarks">HOD Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea name="HOD_Remarks" id="summernote">
+                                    </textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -830,7 +850,7 @@ footer {
                                             <div class="file-attachment-list" id="audit_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                <input type="file" id="myfile" name="Audit_file[]"
                                                     oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
                                             </div>
                                         </div>
@@ -1129,7 +1149,7 @@ footer {
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Lead Auditor">Impact Assessment </label>
-                                        <textarea class="summernote" name="Impect_assessment" id="" cols="30" ></textarea>
+                                        <textarea class="summernote" name="Impact_assessment" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
