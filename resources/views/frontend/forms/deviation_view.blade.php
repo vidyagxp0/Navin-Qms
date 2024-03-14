@@ -125,11 +125,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="number" name="ID_Number[]"></td>'+
-                        '<td><input type="text" name="SystemName[]"></td>'+
-                        '<td><input type="text" name="Instrument[]"></td>'+
-                        '<td><input type="text" name="Equipment[]"></td>'+
-                        '<td><input type="text" name="facility[]"></td>'+
+                        '<td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>'+
+                        '<td><input type="number" name="IDnumber[]"></td>'+
+                        '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -160,8 +158,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="number" name="Number[]"></td>'+
+                        '<td><input type="text" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
+                        '<td><input type="text" name="Remarks[]"></td>'+
                         
                         '</tr>';
 
@@ -192,9 +191,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="nameofproduct[]"></td>'+
-                        '<td><input type="date" name="ExpiryDate[]"></td>'+
-                        
+                        '<td><input type="text" name="Product_Name[]"></td>'+
+                        '<td><input type="text" name=" Batch_No[]"></td>'+
+                        '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -559,12 +558,18 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input" id="initiated_through_req">
                                         <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
-                                      <input type="text" name="Observed_by" id="Observed_by" value="{{ $data->Observed_by }}">
+                                        <select name="Observed_by" multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            <option value="Plant 1"> 1</option>
+                                            <option value="Plant 1"> 2</option>
+                                            <option value="Plant 1"> 3</option>
+                                           
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Initiator Group">Deviation Reported on.</label>
+                                        <label for="Initiator Group">Deviation Reported On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
                                         <input type="date"id="Deviation_reported_date" name="Deviation_reported_date" value="{{ $data->Deviation_reported_date }}" >
                                     </div>
@@ -603,15 +608,15 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-6">
-                                    <div class="group-input" id="type_of_audit_req">
-                                        <label for="If Other">Facility/ Equipment/ Instrument/ System Name & ID Number:<span class="text-danger d-none">*</span></label>
-                                     <input type="text" name="Facility/ Equipment/ Instrument/ System Name & ID Number:">
-                                       
-                                           
-                                     
+                                
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="audit_type">Others </label>
+                                        <input type="text" name="others">
                                     </div>
-                                </div> -->
+                                </div>
+
+                                
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
                                             Facility/ Equipment/ Instrument/ System Details
@@ -628,21 +633,16 @@ $users = DB::table('users')
                                                 style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 10%">Row#</th>
-                                                        <th style="width: 12%">ID Number</th>
-                                                        
-                                                        <th style="width: 16%"> System Name</th>
-                                                       
-                                                         <th style="width: 15%">Instrument</th>
-                                                        
-                                                        <th style="width: 15%"> Equipment</th>                                                  
-                                                        <th style="width: 15%"> Facility</th>                                                  
+                                                        <th style="width: 5%">Row#</th>
+                                                        <th style="width: 12%">Name</th>
+                                                        <th style="width: 16%"> ID Number</th>
+                                                         <th style="width: 15%">Remarks</th>                                                  
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <td><input disabled type="text" name="serial[]" value="1"></td>
                                                     <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                    <td><input type="number" name="IDnumber[]"></td>
+                                                    <td><input type="text" name="IDnumber[]"></td>
                                                     <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
@@ -675,7 +675,7 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="number" name="Number[]"></td>
+                                        <td><input type="text" name="Number[]"></td>
                                         <td><input type="text" name="ReferenceDocumentName[]"></td>
                                         <td><input type="text" name="Remarks[]"></td>
                                                   
@@ -688,8 +688,8 @@ $users = DB::table('users')
                                   
                                 <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
-                                        <label for="others">Name of Product & Batch No. (if applicable)<span class="text-danger d-none">*</span></label>
-                                        <input type="text" value="" name="Name_No">
+                                        <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
+                                        <input type="text" value="Product_Batch" name="Product_Batch">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
@@ -699,20 +699,20 @@ $users = DB::table('users')
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Initial Comments">Description of Deviation</label>
-                                        <textarea name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
+                                        <textarea class="summernote"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
                                     </div>
                                 </div>
                                
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
+                                        <textarea class="summernote" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
+                                        <textarea class="summernote" name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
                                     </div>
                                 </div>
                                 
@@ -732,18 +732,7 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Product Details Required ?</label>
-                                        <select name="Product_Details_Required " value="{{ $data->Product_Details_Required }} " id="Product_Details_Required ">
-                                            <option value="">-- Select -- </option>
-                                            <option value="Yes">Yes </option>
-                                            <option value="No">No </option>
-                                           
-                                        </select>
-
-                                    </div>
-                                </div>
+                                
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
@@ -760,18 +749,19 @@ $users = DB::table('users')
                                                 style="width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%">Name Of Product</th>
+                                                    <th style="width: 4%">Row#</th>
+                                                        <th style="width: 12%"> Product Name</th>
                                                         
-                                                        <th style="width: 16%"> Expiry Date</th>
-                                                       
+                                                        <th style="width: 16%"> Batch No</th>
+                                                        <th style="width: 16%"> Remarks</th>
                                                                                                          
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                        <td><input type="text" name="nameofproduct[]"></td>
-                        <td><input type="text" name="expiryDate[]"></td>
+                                               <td><input disabled type="text" name="serial[]" value="1"></td>
+                                              <td><input type="text" name="Product_Name[]"></td>
+                                                    <td><input type="text" name=" Batch_No[]"></td>
+                                                    <td><input type="text" name="Remarks[]"></td>
                        
                                                   
                                               
@@ -785,7 +775,7 @@ $users = DB::table('users')
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product/Material Name">HOD Remarks </label>
-                                        <textarea name="HOD_Remarks" value="{{ $data->HOD_Remarks }}" id="" cols="30" ></textarea>
+                                        <textarea class="summernote" name="HOD_Remarks" value="{{ $data->HOD_Remarks }}" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
@@ -849,7 +839,7 @@ $users = DB::table('users')
                                 
                                 <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Deviation category</label>
+                                        <label for="Audit Schedule Start Date">Initial Deviation category</label>
                                         <select name="Deviation category"  value="Deviation category" id="">
                                             <option value="">-- Select -- </option>
                                             <option value="">Major </option>
@@ -862,7 +852,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Justification for  categorization</label>
-                                        <textarea name="Justification_for_categorization" value="Justification_for_categorization" id="" cols="30" ></textarea>
+                                        <textarea class="summernote" name="Justification_for_categorization" value="Justification_for_categorization" id="" cols="30" ></textarea>
 
                                     </div>
                                 </div>
@@ -870,7 +860,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Investigation is required ?</label>
+                                        <label for="Product/Material Name">Investigation Is required ?</label>
                                         <select name="Investigation_required"  value="Investigation_required" id="">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -888,7 +878,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Customer notification required ? </label>
+                                        <label for="Product/Material Name">Customer Notification Required ? </label>
                                         <select name="Customer_notification" value="Customer_notification" id="">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -897,7 +887,7 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-5">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">Customers</label>
                                         <select name="customers"  value="customers" id="">
@@ -905,6 +895,15 @@ $users = DB::table('users')
                                             <option value="person1"> person 1</option>
                                             <option value="person2"> person 2</option>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-1">
+                                    <div class="group-input">
+                                        <!-- <label for="Comments(If Any)">Customers</label> -->
+                                        <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
+                                              Customer
+                                    </button>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -915,7 +914,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">Initial Attachments</label>
+                                        <label for="Audit Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
@@ -938,13 +937,14 @@ $users = DB::table('users')
                         </div>
                     </div>
    <!-- CFT -->
-                <div id="CCForm7" class="inner-block cctabcontent">
+   <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
 
-                            <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
+                            
+                                
+                                <div class="col-12">
+                            <div class="group-input"><label for="why-why-chart">
                                         Impact Assessment by applicable cross functional team:
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#is_is_not-instruction-modal"
@@ -952,169 +952,150 @@ $users = DB::table('users')
                                                 (Launch Instruction)
                                             </span>
                                         </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 25%; color: #fff; padding: 15px; ">Department</th>
-                                                        <th style=" color: #fff; padding: 15px;">Comments</th>
-                                                        <th style=" color: #fff; padding: 15px;">Sign & date</th>
-                                                        <!-- <th>Rationale</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Production</th>
-                                                        <td>
-                                                            <textarea name="what_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="what_will_not_be"></textarea>
-                                                        </td>
-                                                       
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Warehouse</th>
-                                                        <td>
-                                                            <textarea name="where_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="where_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Quality control</th>
-                                                        <td>
-                                                            <textarea name="when_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="when_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: #0039bd85">Quality Assurance</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                
-                                                        <tr>
-                                                        <th style="background: #0039bd85">Engineering</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                       
-                                                        <tr>
-                                                        <th style="background: #0039bd85">Analytical development laboratory</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        
-                                                        <th style="background: #0039bd85">Process development laboratory / Kilo lab</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        
-                                                        <th style="background: #0039bd85">Technology transfer/design</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Environment, Health & Safety</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Human Resource & Administration</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Information Technology</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Project management</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        
-                                                        <th style="background: #0039bd85">Any Other</th>
-                                                        <td>
-                                                            <textarea name="coverage_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                </th>
-                                                        
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                
+              
+                      <div class="why-why-chart">
+                    <table class="table table-bordered">
+                        <thead>
+                          
+                                <th style="width: 25%;">Department</th>
+                                <th style="width: 18%;"> Person</th>
+                                <th style="width: 20%;"> Impect Assessment</th>
+                                <th>Comments</th>
+                                <th>Sign & date</th>
+                                <th>Remarks</th>
+                              
+                            
+                        </thead>
+                        <tbody>
+                        <tr>
+                                <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Production_Person"></textarea></td>
+                                <td><textarea name="Production_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Production_Comments"></textarea></td>
+                                <td><textarea name="Production_sign&date"></textarea></td>
+                                <td><textarea name="Production_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Warehouse_Person"></textarea></td>
+                                <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Warehouse_Comments"></textarea></td>
+                                <td><textarea name="Warehouse_sign&date"></textarea></td>
+                                <td><textarea name="Warehouse_Remarks"></textarea></td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 198px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Quality_Person"></textarea></td>
+                                <td><textarea name="Quality_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Quality_Comments"></textarea></td>
+                                <td><textarea name="Quality_sign&date"></textarea></td>
+                                <td><textarea name="Quality_Remarks"></textarea></td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 176px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Assurance_Person"></textarea></td>
+                                <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Assurance_Comments"></textarea></td>
+                                <td><textarea name="Assurance_sign&date"></textarea></td>
+                                <td><textarea name="Assurance_Remarks"></textarea></td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 217px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Engineering_Person"></textarea></td>
+                                <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Engineering_Comments"></textarea></td>
+                                <td><textarea name="Engineering_sign&date"></textarea></td>
+                                <td><textarea name="Engineering_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 76px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Analytical_Person"></textarea></td>
+                                <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Analytical_Comments"></textarea></td>
+                                <td><textarea name="Analytical_sign&date"></textarea></td>
+                                <td><textarea name="Analytical_Remarks"></textarea></td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 24px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Process_Person"></textarea></td>
+                                <td><textarea name="Process_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Process_Comments"></textarea></td>
+                                <td><textarea name="Process_sign&date"></textarea></td>
+                                <td><textarea name="Process_Remarks"></textarea></td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 119px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Technology_Person"></textarea></td>
+                                <td><textarea name="Technology_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Technology_Comments"></textarea></td>
+                                <td><textarea name="Technology_sign&date"></textarea></td>
+                                <td><textarea name="Technology_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 110px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Environment_Person"></textarea></td>
+                                <td><textarea name="Environment_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Environment_Comments"></textarea></td>
+                                <td><textarea name="Environment_sign&date"></textarea></td>
+                                <td><textarea name="Environment_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 77px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Human_Person"></textarea></td>
+                                <td><textarea name="Human_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Human_Comments"></textarea></td>
+                                <td><textarea name="Human_sign&date"></textarea></td>
+                                <td><textarea name="Human_Remarks"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 143px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Information_Person"></textarea></td>
+                                <td><textarea name="Information_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Information_Comments"></textarea></td>
+                                <td><textarea name="Information_sign&date"></textarea></td>
+                                <td><textarea name="Information_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 158px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Project_Person"></textarea></td>
+                                <td><textarea name="Project_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Project_Comments"></textarea></td>
+                                <td><textarea name="Project_sign&date"></textarea></td>
+                                <td><textarea name="Project_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 223px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Any_Person"></textarea></td>
+                                <td><textarea name="Any_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Any_Comments"></textarea></td>
+                                <td><textarea name="Any_sign&date"></textarea></td>
+                                <td><textarea name="Any_Remarks"></textarea></td>
+                               
+                            </tr>
+                            <!-- Add more rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -1124,27 +1105,25 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
-                 
-
                     <!-- investigation and capa -->
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Investigation Summary:</label>
+                                        <label for="Lead Auditor">Investigation Summary</label>
                                         <textarea name="Investigation_Summary" value="Investigation_Summary" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Impact assessment: </label>
+                                        <label for="Lead Auditor">Impact Assessment </label>
                                         <textarea value="Impect_assessment" name="Impect_assessment" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Root cause: </label>
+                                        <label for="Lead Auditor">Root Cause </label>
                                         <textarea  name="Root_cause" value="Root_cause" id="" cols="30" ></textarea>
                                     </div>
                                 </div>
@@ -1153,7 +1132,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Required? </label>
+                                        <label for="External Auditor Details">CAPA Required ? </label>
                                       <select name="CAPA_Rquired" value="CAPA_Rquired" id="">
                                         <option value=""> -- Select --</option>
                                         <option value="yes">Yes</option>
@@ -1163,7 +1142,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Type? </label>
+                                        <label for="External Auditor Details">CAPA Type ? </label>
                                       <select name="CAPA Type?"  value="CAPA Type?" id="">
                                         <option value=""> -- Select --</option>
                                         <option value="Corrective_Action">Corrective Action</option>
@@ -1176,6 +1155,19 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
                                         <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
+                                        <textarea class="summernote" name="Post_Categorization"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
+                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -1237,7 +1229,7 @@ $users = DB::table('users')
                             <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
-                                        <textarea  name="QA_Feedbacks" value="QA_Feedbacks"></textarea>
+                                        <textarea class="summernote"  name="QA_Feedbacks" value="QA_Feedbacks"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1276,7 +1268,7 @@ $users = DB::table('users')
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Remarks">Closure Comments</label>
-                                        <textarea name="Closure_Comments" value="Closure_Comments"></textarea>
+                                        <textarea class="summernote" name="Closure_Comments" value="Closure_Comments"></textarea>
                                     </div>
                                 </div>
                                 
@@ -1286,12 +1278,12 @@ $users = DB::table('users')
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Audit Comments">Disposition of Batch</label>
-                                        <textarea  name="Disposition_Batch" value="Disposition_Batch"></textarea>
+                                        <textarea class="summernote"  name="Disposition_Batch" value="Disposition_Batch"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="QAH assessment ">QAH assessment </label>
+                                        <label for="QAH assessment ">Closure Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             
@@ -1448,7 +1440,94 @@ $users = DB::table('users')
         </div>
     </div>
 
+<!-- -----------------------------------------------------------modal body---------------------- -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div style="background: #f7f2f" class="modal-header">
+        <h4 class="modal-title">Customers</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div  class="modal-body">
+        <div style="backgorund: #e9e2e2;" class="modal-sub-head">
+<div class="sub-main-head">
+
+ <div  class="left-box">
+
+    <div class="Activity-type">
+        <label style="font-weight: bold;" for="">Customer ID :</label>
+         
+        <input type="text">
+    </div>
+    <div class="Activity-type ">
+        <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
+        
+        <input type="text">
+    </div>
+    <div class="Activity-type ">
+        <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
+       
+        <input type="text">
+    </div>
+    <div class="Activity-type ">
+        <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
+        
+        <input type="text">
+    </div>
+ </div>
+
+
+ <div class="right-box">
+    
+    <div class="Activity-type">
+        <label style="font-weight: bold; " for="">Customer Name :</label>
+        
+        <input type="text">
+        
+    </div>
+    
+    <div class="Activity-type">
+        <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
+        
+        <input type="text">
+        
+    </div>
+    <div class="Activity-type">
+        <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
+        
+        <input type="text">
+        
+    </div>
+    <div class="Activity-type">
+        <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
+        
+        <input type="text">
+        
+    </div>
+ </div>
+ 
+</div>
+</div>
+<div class="Activity-type">
+
+       
+        
+       <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="" id="" cols="30" ></textarea>
+        
+    </div>
+      </div>
+      
+      
+
+    </div>
+  </div>
+</div>
+<!-- -----------------------------------------------------end---------------------- -->
+   
     <style>
         #step-form>div {
             display: none
@@ -1472,7 +1551,55 @@ $users = DB::table('users')
         });
     </script>
 
+<script>
+        VirtualSelect.init({
+            ele: '#reference_record, #notify_to'
+        });
 
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear', 'italic']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+
+        $('.summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear', 'italic']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+
+        let referenceCount = 1;
+
+        function addReference() {
+            referenceCount++;
+            let newReference = document.createElement('div');
+            newReference.classList.add('row', 'reference-data-' + referenceCount);
+            newReference.innerHTML = `
+            <div class="col-lg-6">
+                <input type="text" name="reference-text">
+            </div>
+            <div class="col-lg-6">
+                <input type="file" name="references" class="myclassname">
+            </div><div class="col-lg-6">
+                <input type="file" name="references" class="myclassname">
+            </div>
+        `;
+            let referenceContainer = document.querySelector('.reference-data');
+            referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
+        }
+    </script>
     <script>
         VirtualSelect.init({
             ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record'
@@ -1561,7 +1688,27 @@ $users = DB::table('users')
             }
         }
     </script>
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addRowButton = document.getElementById('new-button-icon');
+    addRowButton.addEventListener('click', function() {
+        const department = this.parentNode.innerText.trim(); // Get the department name
+            
+        // Create a new row and insert it after the current row
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
+                            <td><textarea name="Person"></textarea></td>
+                            <td><textarea name="Impect_Assessment"></textarea></td>
+                            <td><textarea name="Comments"></textarea></td>
+                            <td><textarea name="sign&date"></textarea></td>
+                            <td><textarea name="Remarks"></textarea></td>`;
+                
+        // Insert the new row after the current row
+        const currentRow = this.parentNode.parentNode;
+        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+    });
+});
+</script>
     <script>
         // document.addEventListener('DOMContentLoaded', function() {
         //     document.getElementById('type_of_audit').addEventListener('change', function() {

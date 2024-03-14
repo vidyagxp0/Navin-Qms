@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>Connexo - Software</title>
+    <title>vidyagxp - Software</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
         integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
@@ -78,7 +78,7 @@
         <div class="container-fluid header-top">
             <div class="container">
                 <div class="text-center text-light">
-                    <small>Connexo.io</small>
+                    <small>vidhyagxp</small>
                 </div>
             </div>
         </div>
@@ -729,15 +729,15 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Explanation of Data Fields</h4>
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Data Fields</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
 
                     <div class="mb-2">
-                        <strong>Observation ID :&nbsp;</strong>
-                        A unique identifier for each observation.
+                        <strong>Identification and Tracking :&nbsp;</strong>
+                        This section helps in identifying the specific facilities, equipment, instruments, or systems involved in the process where the deviation occurred.
                     </div>
                     <div class="mb-2">
                         <strong>Date</strong>

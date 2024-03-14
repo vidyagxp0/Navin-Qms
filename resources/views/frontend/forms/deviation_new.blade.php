@@ -18,15 +18,42 @@ $users = DB::table('users')
             display: none;
         }
 
-        section {
-  padding: 15px;
-}
-footer {
-  float: right;
-  font-size: 12px;
-  padding: 15px;
-  color: #aaaaaa;
-}
+        .sub-main-head {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .Activity-type {
+        margin-bottom: 7px;
+    }
+
+    .sub-head {
+        margin-left: 280px;
+        margin-right: 280px;
+        color: #4274da;
+        border-bottom: 2px solid #4274da;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 1.2rem;
+
+    }
+
+    .create-entity {
+        background: #323c50;
+        padding: 10px 15px;
+        color: white;
+        margin-bottom: 20px;
+
+    }
+
+    .bottom-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 300px;
+        margin-top: 50px;
+        gap: 20px;
+    }
     </style>
     <style>
         .calenderauditee {
@@ -230,7 +257,7 @@ footer {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="number" name="Number[]"></td>'+
+                        '<td><input type="text" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
 
@@ -265,10 +292,9 @@ footer {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="nameofproduct[]"></td>'+
-                        // '<td><input type="date" name="ExpiryDate[]"></td>'+
-                        '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="ExpiryDate' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="ExpiryDate[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `ExpiryDate' + serialNumber +'`)" /></div></div></div></td>' +
-
+                                                    '<td><input type="text" name="Product_Name[]"></td>'+
+                                                    '<td><input type="text" name=" Batch_No[]"></td>'+
+                                                    '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -359,91 +385,7 @@ footer {
                                     </div>
                                 </div>
 
-                                 <!-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
-                                            Why-Why Chart
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#why_chart-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <tbody>
-                                                    <tr style="background: #f4bb22">
-                                                        <th style="width:150px;">Problem Statement :</th>
-                                                        <td>
-                                                            <textarea name="why_problem_statement"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 1 <span
-                                                                onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_1_block">
-                                                                <textarea name="why_1[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 2 <span
-                                                                onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_2_block">
-                                                                <textarea name="why_2[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 3 <span
-                                                                onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_3_block">
-                                                                <textarea name="why_3[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 4 <span
-                                                                onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_4_block">
-                                                                <textarea name="why_4[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 5 <span
-                                                                onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_5_block">
-                                                                <textarea name="why_5[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="background: #0080006b;">
-                                                        <th style="width:150px;">Root Cause :</th>
-                                                        <td>
-                                                            <textarea name="why_root_cause"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div> -->
+                                 
                                 <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
@@ -552,19 +494,20 @@ footer {
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="Facility Name">Observed By</label>
-                                        <select multiple name="Observed_by" placeholder="Select Facility Name" 
-                                        data-search="false" data-silent-initial-value-set="true" id="Observed_by">
-                                            {{-- <option value="Plant 1"> 1</option>
+                                        <select name="Observed_by" multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             <option value="Plant 1"> 1</option>
-                                            <option value="Plant 1"> 1</option> --}}
+                                            <option value="Plant 1"> 2</option>
+                                            <option value="Plant 1"> 3</option>
                                            
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
@@ -596,21 +539,13 @@ footer {
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6">
+                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit_type">Deviation Related To </label>
-                                        <input type="text" name="Deviation_Related_To">
+                                        <label for="audit_type">Others </label>
+                                        <input type="text" name="others">
                                     </div>
-                                </div> --}}
-                                <!-- <div class="col-lg-6">
-                                    <div class="group-input" id="type_of_audit_req">
-                                        <label for="If Other">Facility/ Equipment/ Instrument/ System Name & ID Number:<span class="text-danger d-none">*</span></label>
-                                     <input type="text" name="Facility/ Equipment/ Instrument/ System Name & ID Number:">
-                                       
-                                           
-                                     
-                                    </div>
-                                </div> -->
+                                </div> 
+                                
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
                                         Facility/ Equipment/ Instrument/ System Details
@@ -636,7 +571,7 @@ footer {
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
                                                 <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                <td><input type="number" name="IDnumber[]"></td>
+                                                <td><input type="text" name="IDnumber[]"></td>
                                                 <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
@@ -670,7 +605,7 @@ footer {
                                                 </thead>
                                                 <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="number" name="Number[]"></td>
+                                        <td><input type="text" name="Number[]"></td>
                                         <td><input type="text" name="ReferenceDocumentName[]"></td>
                                         <td><input type="text" name="Remarks[]"></td>
                        
@@ -683,13 +618,62 @@ footer {
                                 <div class="col-lg-12">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
-                                        <input type="text" name="Name_No.(if applicable)">
+                                        <input type="text" name="Product_Batch">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
-                            </div>
-                               
+                          </div>
+                               <!-- <div class="col-lg-6">
+                                    <div class="group-input" id="external_agencies_req">
+                                        <label for="others">HOD / Designee<span class="text-danger d-none">*</span></label>
+                                      <select name="hod_designee" id="">
+                                        <option value="">-- Select --</option>
+                                        <option value="person1">person 1</option>
+                                        <option value="person2">person 2</option>
+                                      </select>
+                                        
+                                            
+                                    
+                                    </div>
+                               </div> -->
+                      <!-- <div class="col-lg-6">
+                                    <div class="group-input" id="external_agencies_req">
+                                        <label for="others">Head QA / Designee<span class="text-danger d-none">*</span></label>
+                                      <select name="hod_designee" id="">
+                                        <option value="">-- Select --</option>
+                                        <option value="person1">person 1</option>
+                                        <option value="person2">person 2</option>
+                                      </select>
+                                        
+                                           
+                                    
+                                    </div>
+                               </div> -->
+                      <!-- <div class="col-lg-6">
+                                    <div class="group-input" id="external_agencies_req">
+                                        <label for="others">QA<span class="text-danger d-none">*</span></label>
+                                      <select name="hod_designee" id="">
+                                        <option value="">-- Select --</option>
+                                        <option value="person1">person 1</option>
+                                        <option value="person2">person 2</option>
+                                      </select>
+                                        
+                                    
+                                    </div>
+                               </div> -->
+                      <!-- <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="Facility Name">Notify To</label>
+                                        <select multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            <option value="Plant 1"> 1</option>
+                                            <option value="Plant 1"> 2</option>
+                                            <option value="Plant 1"> 3</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div> -->
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Initial Comments">Description of Deviation</label>
@@ -719,26 +703,13 @@ footer {
                             </div>
                         </div>
                     </div>
+                    
+                    
                     <!-- ----------hod Review-------- -->
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
-
-                                
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Product Details Required ?</label>
-                                        <select name="Product_Details_Required " id="">
-                                            <option value="">-- Select -- </option>
-                                            <option value="Yes">Yes </option>
-                                            <option value="No">No </option>
-                                           
-                                        </select>
-
-                                    </div>
-                     </div>
-                      <div class="group-input">
+                            <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
                                             <button type="button" name="audit-agenda-grid"
@@ -776,42 +747,6 @@ footer {
                                             </table>
                                         </div>
                                     </div>
-                               
-                                <div class="col-12 ">
-                                <div class="group-input">
-                                <label class="mt-4"  for="annexure-1">Description of Deviation</label>
-                                <textarea class="summernote" name="Description_Deviation[]" id="annexure-1"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                <div class="group-input">
-                                        <label class="mt-4"  for="Initial Comments">Immediate Action (if any)</label>
-                                <textarea class="summernote" name="Immediate_Action[]" id="annexure-1"></textarea>
-                                       
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                <div class="group-input">
-                                        <label class="mt-4"  for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea class="summernote" name="Preliminary_Impact[]" id="annexure-1"></textarea>
-
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ----------hod Review-------- -->
-                    <div id="CCForm8" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-                                
        
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -877,7 +812,7 @@ footer {
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Investigation is required ?</label>
+                                        <label for="Product/Material Name">Investigation Is required ?</label>
                                         <select name="Investigation_required" id="Investigation_required">
                                             <option value="">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -904,7 +839,7 @@ footer {
                                   
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-5">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">Customers</label>
                                         <select name="customers" id="">
@@ -912,6 +847,14 @@ footer {
                                             <option value="1"> person 1</option>
                                             <option value="2"> person 2</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div class="group-input">
+                                        <!-- <label for="Comments(If Any)">Customers</label> -->
+                                        <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
+                                              Customer
+                                    </button>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -922,7 +865,7 @@ footer {
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">Initial Attachments</label>
+                                        <label for="Audit Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
@@ -952,7 +895,7 @@ footer {
                             
                                 
                                 <div class="col-12">
-                        <div class="group-input"><label for="why-why-chart">
+                            <div class="group-input"><label for="why-why-chart">
                                         Impact Assessment by applicable cross functional team:
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#is_is_not-instruction-modal"
@@ -995,7 +938,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 198px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Quality_Person"></textarea></td>
                                 <td><textarea name="Quality_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Quality_Comments"></textarea></td>
@@ -1005,7 +948,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 176px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Assurance_Person"></textarea></td>
                                 <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Assurance_Comments"></textarea></td>
@@ -1015,7 +958,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 217px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Engineering_Person"></textarea></td>
                                 <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Engineering_Comments"></textarea></td>
@@ -1024,7 +967,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 76px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Analytical_Person"></textarea></td>
                                 <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Analytical_Comments"></textarea></td>
@@ -1034,7 +977,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 24px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Process_Person"></textarea></td>
                                 <td><textarea name="Process_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Process_Comments"></textarea></td>
@@ -1044,7 +987,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 220px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 119px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Technology_Person"></textarea></td>
                                 <td><textarea name="Technology_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Technology_Comments"></textarea></td>
@@ -1053,7 +996,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 110px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Environment_Person"></textarea></td>
                                 <td><textarea name="Environment_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Environment_Comments"></textarea></td>
@@ -1062,7 +1005,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 77px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Human_Person"></textarea></td>
                                 <td><textarea name="Human_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Human_Comments"></textarea></td>
@@ -1070,7 +1013,7 @@ footer {
                                 <td><textarea name="Human_Remarks"></textarea></td>
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 220px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 143px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Information_Person"></textarea></td>
                                 <td><textarea name="Information_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Information_Comments"></textarea></td>
@@ -1079,7 +1022,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 158px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Project_Person"></textarea></td>
                                 <td><textarea name="Project_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Project_Comments"></textarea></td>
@@ -1088,7 +1031,7 @@ footer {
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 155px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
+                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 223px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
                                 <td><textarea name="Any_Person"></textarea></td>
                                 <td><textarea name="Any_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Any_Comments"></textarea></td>
@@ -1104,7 +1047,7 @@ footer {
             </div>
         </div>
     </div>
-</div>
+ </div>
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -1143,7 +1086,7 @@ footer {
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Required? </label>
+                                        <label for="External Auditor Details">CAPA Required ? </label>
                                       <select name="CAPA_Rquired" id="CAPA_Rquired">
                                         <option value=""> -- Select --</option>
                                         <option value="yes">Yes</option>
@@ -1448,8 +1391,93 @@ footer {
 
         </div>
     </div>
+<!-- -----------------------------------------------------------modal body---------------------- -->
+    <div class="modal" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div style="background: #f7f2f" class="modal-header">
+        <h4 class="modal-title">Customers</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div  class="modal-body">
+        <div style="backgorund: #e9e2e2;" class="modal-sub-head">
+<div class="sub-main-head">
+
+ <div  class="left-box">
+
+    <div class="Activity-type">
+        <label style="font-weight: bold;" for="">Customer ID :</label>
+         
+        <input type="text">
+    </div>
+    <div class="Activity-type ">
+        <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
+        
+        <input type="text">
+    </div>
+    <div class="Activity-type ">
+        <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
+       
+        <input type="text">
+    </div>
+    <div class="Activity-type ">
+        <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
+        
+        <input type="text">
+    </div>
+ </div>
 
 
+ <div class="right-box">
+    
+    <div class="Activity-type">
+        <label style="font-weight: bold; " for="">Customer Name :</label>
+        
+        <input type="text">
+        
+    </div>
+    
+    <div class="Activity-type">
+        <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
+        
+        <input type="text">
+        
+    </div>
+    <div class="Activity-type">
+        <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
+        
+        <input type="text">
+        
+    </div>
+    <div class="Activity-type">
+        <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
+        
+        <input type="text">
+        
+    </div>
+ </div>
+ 
+</div>
+</div>
+<div class="Activity-type">
+
+       
+        
+       <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="" id="" cols="30" ></textarea>
+        
+    </div>
+      </div>
+      
+      
+
+    </div>
+  </div>
+</div>
+<!-- -----------------------------------------------------end---------------------- -->
     <style>
         #step-form>div {
             display: none
@@ -1472,7 +1500,8 @@ footer {
             }
         });
     </script>
-<script>
+
+ <script>
         VirtualSelect.init({
             ele: '#reference_record, #notify_to'
         });
@@ -1614,25 +1643,22 @@ footer {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const addRowButtons = document.querySelectorAll('.add-row');
-    addRowButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const row = this.parentNode.parentNode; // Get the parent tr of the button
+    const addRowButton = document.getElementById('new-button-icon');
+    addRowButton.addEventListener('click', function() {
+        const department = this.parentNode.innerText.trim(); // Get the department name
             
-            const department = row.querySelector('td:first-child').innerText.trim(); // Get the department name
-            
-            // Create a new row and insert it after the current row
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
-                                <td><textarea name="Person"></textarea></td>
-                                <td><textarea name="Impect_Assessment"></textarea></td>
-                                <td><textarea name="Comments"></textarea></td>
-                                <td><textarea name="sign&date"></textarea></td>
-                                <td><textarea name="Remarks"></textarea></td>`;
+        // Create a new row and insert it after the current row
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
+                            <td><textarea name="Person"></textarea></td>
+                            <td><textarea name="Impect_Assessment"></textarea></td>
+                            <td><textarea name="Comments"></textarea></td>
+                            <td><textarea name="sign&date"></textarea></td>
+                            <td><textarea name="Remarks"></textarea></td>`;
                 
-            // Insert the new row after the current row
-            row.parentNode.insertBefore(newRow, row.nextSibling);
-        });
+        // Insert the new row after the current row
+        const currentRow = this.parentNode.parentNode;
+        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
     });
 });
 </script>
