@@ -1990,43 +1990,43 @@ $group->save();
 //Dewas-India-Deviation
 $group = new RoleGroup();
 $group->id = 275;
-$group->name = "Dewas-Deviation- Initiator";
-$group->description = "Dewas-Deviation- Initiator";
+$group->name = "Dewas/India-Deviation- Initiator";
+$group->description = "Dewas/India-Deviation- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 276;
-$group->name = "Dewas-Deviation- HOD/Designee";
-$group->description = "Dewas-Deviation- HOD/Designee";
+$group->name = "Dewas/India-Deviation- HOD/Designee";
+$group->description = "Dewas/India-Deviation- HOD/Designee";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 277;
-$group->name = "Dewas-Deviation- QA";
-$group->description = "Dewas-Deviation- QA";
+$group->name = "Dewas/India-Deviation- QA";
+$group->description = "Dewas/India-Deviation- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 278;
-$group->name = "Dewas-Deviation- FP";
-$group->description = "Dewas-Deviation- FP";
+$group->name = "Dewas/India-Deviation- FP";
+$group->description = "Dewas/India-Deviation- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 279;
-$group->name = "Dewas-Deviation- View Only";
-$group->description = "Dewas-Deviation- View Only";
+$group->name = "Dewas/India-Deviation- View Only";
+$group->description = "Dewas/India-Deviation- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group  = new RoleGroup();
 $group->id = 280;
-$group->name = "Dewas-Deviation- CFT/SME";
-$group->description = "Dewas-Deviation- CFT/SME";
+$group->name = "Dewas/India-Deviation- CFT/SME";
+$group->description = "Dewas/India-Deviation- CFT/SME";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 

@@ -440,23 +440,23 @@ $users = DB::table('users')
                                         <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="group-input">
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
-                                        {{-- <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
+                                         <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
                                             <option value="">Select a value</option>
                                             @foreach ($users as $value)
                                                 <option {{ $data->assign_to == $value->id ? 'selected' : '' }}
                                                     value="{{ $value->id }}">{{ $value->name }}</option>
                                             @endforeach
-                                        </select> --}}
+                                        </select> 
                                      
                                             <p class="text-danger"></p>
                                       
                                     </div>
-                                </div>
+                                </div> --}}
                                 
                                 <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
@@ -475,68 +475,70 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Department</b></label>
-                                        <select name="Initiator_Group" value="" id="initiator_group">
-                                           <option value="">-- Select --</option>
-                                           <option value="CQA"
-                                           @if ($data->initiator_Group== 'CQA') selected @endif>Corporate
-                                           Quality Assurance</option>
-                                       <option value="QAB"
-                                           @if ($data->initiator_Group== 'QAB') selected @endif>Quality
-                                           Assurance Biopharma</option>
-                                       <option value="CQC"
-                                           @if ($data->initiator_Group== 'CQC') selected @endif>Central
-                                           Quality Control</option>
-                                       <option value="CQC"
-                                           @if ($data->initiator_Group== 'CQC') selected @endif>Manufacturing
-                                       </option>
-                                       <option value="PSG"
-                                           @if ($data->initiator_Group== 'PSG') selected @endif>Plasma
-                                           Sourcing Group</option>
-                                       <option value="CS"
-                                           @if ($data->initiator_Group== 'CS') selected @endif>Central
-                                           Stores</option>
-                                       <option value="ITG"
-                                           @if ($data->initiator_Group== 'ITG') selected @endif>Information
-                                           Technology Group</option>
-                                       <option value="MM"
-                                           @if ($data->initiator_Group== 'MM') selected @endif>Molecular
-                                           Medicine</option>
-                                       <option value="CL"
-                                           @if ($data->initiator_Group== 'CL') selected @endif>Central
-                                           Laboratory</option>
-                                       <option value="TT"
-                                           @if ($data->initiator_Group== 'TT') selected @endif>Tech
-                                           Team</option>
-                                       <option value="QA"
-                                           @if ($data->initiator_Group== 'QA') selected @endif>Quality
-                                           Assurance</option>
-                                       <option value="QM"
-                                           @if ($data->initiator_Group== 'QM') selected @endif>Quality
-                                           Management</option>
-                                       <option value="IA"
-                                           @if ($data->initiator_Group== 'IA') selected @endif>IT
-                                           Administration</option>
-                                       <option value="ACC"
-                                           @if ($data->initiator_Group== 'ACC') selected @endif>Accounting
-                                       </option>
-                                       <option value="LOG"
-                                           @if ($data->initiator_Group== 'LOG') selected @endif>Logistics
-                                       </option>
-                                       <option value="SM"
-                                           @if ($data->initiator_Group== 'SM') selected @endif>Senior
-                                           Management</option>
-                                       <option value="BA"
-                                           @if ($data->initiator_Group== 'BA') selected @endif>Business
-                                           Administration</option>
+                                        <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                             id="initiator_group">
+                                            <option value="CQA"
+                                                @if ($data->Initiator_Group == 'CQA') selected @endif>Corporate
+                                                Quality Assurance</option>
+                                            <option value="QAB"
+                                                @if ($data->Initiator_Group == 'QAB') selected @endif>Quality
+                                                Assurance Biopharma</option>
+                                            <option value="CQC"
+                                                @if ($data->Initiator_Group == 'CQC') selected @endif>Central
+                                                Quality Control</option>
+                                            <option value="MANU"
+                                                @if ($data->Initiator_Group == 'MANU') selected @endif>Manufacturing
+                                            </option>
+                                            <option value="PSG"
+                                                @if ($data->Initiator_Group == 'PSG') selected @endif>Plasma
+                                                Sourcing Group</option>
+                                            <option value="CS"
+                                                @if ($data->Initiator_Group == 'CS') selected @endif>Central
+                                                Stores</option>
+                                            <option value="ITG"
+                                                @if ($data->Initiator_Group == 'ITG') selected @endif>Information
+                                                Technology Group</option>
+                                            <option value="MM"
+                                                @if ($data->Initiator_Group == 'MM') selected @endif>Molecular
+                                                Medicine</option>
+                                            <option value="CL"
+                                                @if ($data->Initiator_Group == 'CL') selected @endif>Central
+                                                Laboratory</option>
+                                            <option value="TT"
+                                                @if ($data->Initiator_Group == 'TT') selected @endif>Tech
+                                                team</option>
+                                            <option value="QA"
+                                                @if ($data->Initiator_Group == 'QA') selected @endif>Quality
+                                                Assurance</option>
+                                            <option value="QM"
+                                                @if ($data->Initiator_Group == 'QM') selected @endif>Quality
+                                                Management</option>
+                                            <option value="IA"
+                                                @if ($data->Initiator_Group == 'IA') selected @endif>IT
+                                                Administration</option>
+                                            <option value="ACC"
+                                                @if ($data->Initiator_Group == 'ACC') selected @endif>Accounting
+                                            </option>
+                                            <option value="LOG"
+                                                @if ($data->Initiator_Group == 'LOG') selected @endif>Logistics
+                                            </option>
+                                            <option value="SM"
+                                                @if ($data->Initiator_Group == 'SM') selected @endif>Senior
+                                                Management</option>
+                                            <option value="BA"
+                                                @if ($data->Initiator_Group == 'BA') selected @endif>Business
+                                                Administration</option>
 
-                                   </select>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group Code">Department Code</label>
-                                        <input type="text" name="initiator_group_code" id="initiator_group_code"
-                                            value="{{ $data->initiator_Group }}" readonly>
+                                        <input type="text" name="initiator_group_code"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                            value="{{ $data->Initiator_Group }}" id="initiator_group_code"
+                                            readonly>
+
                                     </div>
                                 </div>
                             
@@ -551,7 +553,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed</label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" name="deviation_observed" value="{{ $data->deviation_observed }}">
+                                       <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -733,7 +735,7 @@ $users = DB::table('users')
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule Start Date">Product Details Required ?</label>
-                                        <select name="Product_Details_Required " value="Product_Details_Required " id="Product_Details_Required ">
+                                        <select name="Product_Details_Required " value="{{ $data->Product_Details_Required }} " id="Product_Details_Required ">
                                             <option value="">-- Select -- </option>
                                             <option value="Yes">Yes </option>
                                             <option value="No">No </option>
@@ -783,7 +785,7 @@ $users = DB::table('users')
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product/Material Name">HOD Remarks </label>
-                                        <textarea name="HOD_Remarks" value="HOD_Remarks" id="" cols="30" ></textarea>
+                                        <textarea name="HOD_Remarks" value="{{ $data->HOD_Remarks }}" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div>
@@ -798,6 +800,31 @@ $users = DB::table('users')
                                                 <div>Add</div>
                                                 <input type="file" id="HOD_Attachments" name="Audit_file[]"
                                                     oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Inv Attachments">HOD Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="audit_attachment">
+                                                @if ($data->audit_attachment)
+                                                @foreach(json_decode($data->audit_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="audit_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'audit_attachment1')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
