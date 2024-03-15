@@ -387,11 +387,12 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
 
-            <form id="auditform" action="{{ route('auditee_store') }}" method="post" enctype="multipart/form-data">
+            <form  action="{{ route('deviationupdate', $data->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
                 
                 <div id="step-form">
 
-                    <!-- General information content -->
+                    <!-- General information content -->Project_Impect_Assessment
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">

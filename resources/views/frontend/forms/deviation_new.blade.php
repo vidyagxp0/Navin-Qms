@@ -926,124 +926,124 @@ $users = DB::table('users')
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Production_Person"></textarea></td>
-                                <td><textarea name="Production_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Production_Comments"></textarea></td>
-                                <td><textarea name="Production_sign&date"></textarea></td>
-                                <td><textarea name="Production_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon1" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Production_Person[]"></textarea></td>
+                                <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Production_Comments[]"></textarea></td>
+                                <td><textarea name="Production_signdate[]"></textarea></td>
+                                <td><textarea name="Production_Remarks[]"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 220px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Warehouse_Person"></textarea></td>
-                                <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Warehouse_Comments"></textarea></td>
-                                <td><textarea name="Warehouse_sign&date"></textarea></td>
-                                <td><textarea name="Warehouse_Remarks"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 198px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Quality_Person"></textarea></td>
-                                <td><textarea name="Quality_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Quality_Comments"></textarea></td>
-                                <td><textarea name="Quality_sign&date"></textarea></td>
-                                <td><textarea name="Quality_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 220px;" id="new-button-icon2" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Warehouse_Person[]"></textarea></td>
+                                <td><textarea name="Warehouse_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Warehouse_Comments[]"></textarea></td>
+                                <td><textarea name="Warehouse_signdate[]"></textarea></td>
+                                <td><textarea name="Warehouse_Remarks[]"></textarea></td>
                                
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 176px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Assurance_Person"></textarea></td>
-                                <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Assurance_Comments"></textarea></td>
-                                <td><textarea name="Assurance_sign&date"></textarea></td>
-                                <td><textarea name="Assurance_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 220px;" id="new-button-icon3" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Quality_Person[]"></textarea></td>
+                                <td><textarea name="Quality_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Quality_Comments[]"></textarea></td>
+                                <td><textarea name="Quality_signdate[]"></textarea></td>
+                                <td><textarea name="Quality_Remarks[]"></textarea></td>
                                
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 217px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Engineering_Person"></textarea></td>
-                                <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Engineering_Comments"></textarea></td>
-                                <td><textarea name="Engineering_sign&date"></textarea></td>
-                                <td><textarea name="Engineering_Remarks"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 76px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Analytical_Person"></textarea></td>
-                                <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Analytical_Comments"></textarea></td>
-                                <td><textarea name="Analytical_sign&date"></textarea></td>
-                                <td><textarea name="Analytical_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 220px;" id="new-button-icon4" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Assurance_Person[]"></textarea></td>
+                                <td><textarea name="Assurance_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Assurance_Comments[]"></textarea></td>
+                                <td><textarea name="Assurance_signdate[]"></textarea></td>
+                                <td><textarea name="Assurance_Remarks[]"></textarea></td>
                                
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 24px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Process_Person"></textarea></td>
-                                <td><textarea name="Process_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Process_Comments"></textarea></td>
-                                <td><textarea name="Process_sign&date"></textarea></td>
-                                <td><textarea name="Process_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 220px;" id="new-button-icon5" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Engineering_Person[]"></textarea></td>
+                                <td><textarea name="Engineering_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Engineering_Comments[]"></textarea></td>
+                                <td><textarea name="Engineering_signdate[]"></textarea></td>
+                                <td><textarea name="Engineering_Remarks[]"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 220px;" id="new-button-icon6" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Analytical_Person[]"></textarea></td>
+                                <td><textarea name="Analytical_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Analytical_Comments[]"></textarea></td>
+                                <td><textarea name="Analytical_signdate[]"></textarea></td>
+                                <td><textarea name="Analytical_Remarks[]"></textarea></td>
                                
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 119px;"    id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Technology_Person"></textarea></td>
-                                <td><textarea name="Technology_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Technology_Comments"></textarea></td>
-                                <td><textarea name="Technology_sign&date"></textarea></td>
-                                <td><textarea name="Technology_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 220px;" id="new-button-icon7" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Process_Person[]"></textarea></td>
+                                <td><textarea name="Process_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Process_Comments[]"></textarea></td>
+                                <td><textarea name="Process_signdate[]"></textarea></td>
+                                <td><textarea name="Process_Remarks[]"></textarea></td>
+                               
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 110px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Environment_Person"></textarea></td>
-                                <td><textarea name="Environment_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Environment_Comments"></textarea></td>
-                                <td><textarea name="Environment_sign&date"></textarea></td>
-                                <td><textarea name="Environment_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 220px;"    id="new-button-icon8" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Technology_Person[]"></textarea></td>
+                                <td><textarea name="Technology_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Technology_Comments[]"></textarea></td>
+                                <td><textarea name="Technology_signdate[]"></textarea></td>
+                                <td><textarea name="Technology_Remarks[]"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 77px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Human_Person"></textarea></td>
-                                <td><textarea name="Human_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Human_Comments"></textarea></td>
-                                <td><textarea name="Human_sign&date"></textarea></td>
-                                <td><textarea name="Human_Remarks"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 143px;"   id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Information_Person"></textarea></td>
-                                <td><textarea name="Information_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Information_Comments"></textarea></td>
-                                <td><textarea name="Information_sign&date"></textarea></td>
-                                <td><textarea name="Information_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 220px;" id="new-button-icon9" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Environment_Person[]"></textarea></td>
+                                <td><textarea name="Environment_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Environment_Comments[]"></textarea></td>
+                                <td><textarea name="Environment_signdate[]"></textarea></td>
+                                <td><textarea name="Environment_Remarks[]"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 158px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Project_Person"></textarea></td>
-                                <td><textarea name="Project_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Project_Comments"></textarea></td>
-                                <td><textarea name="Project_sign&date"></textarea></td>
-                                <td><textarea name="Project_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 220px;" id="new-button-icon10" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Human_Person[]"></textarea></td>
+                                <td><textarea name="Human_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Human_Comments[]"></textarea></td>
+                                <td><textarea name="Human_signdate[]"></textarea></td>
+                                <td><textarea name="Human_Remarks[]"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 220px;"   id="new-button-icon11" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Information_Person[]"></textarea></td>
+                                <td><textarea name="Information_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Information_Comments[]"></textarea></td>
+                                <td><textarea name="Information_signdate[]"></textarea></td>
+                                <td><textarea name="Information_Remarks[]"></textarea></td>
                                
                             </tr>
                             <tr>
-                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 223px;" id="new-button-icon" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Any_Person"></textarea></td>
-                                <td><textarea name="Any_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Any_Comments"></textarea></td>
-                                <td><textarea name="Any_sign&date"></textarea></td>
-                                <td><textarea name="Any_Remarks"></textarea></td>
+                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 220px;" id="new-button-icon12" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Project_Person[]"></textarea></td>
+                                <td><textarea name="Project_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Project_Comments[]"></textarea></td>
+                                <td><textarea name="Project_signdate[]"></textarea></td>
+                                <td><textarea name="Project_Remarks[]"></textarea></td>
+                               
+                            </tr>
+                            <tr>
+                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 220px;"id="new-button-icon13" class="btn btn-primary add-row">+</button></td>
+                                <td><textarea name="Any_Person[]"></textarea></td>
+                                <td><textarea name="Any_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Any_Comments[]"></textarea></td>
+                                <td><textarea name="Any_signdate[]"></textarea></td>
+                                <td><textarea name="Any_Remarks[]"></textarea></td>
                                
                             </tr>
                             
@@ -1647,33 +1647,324 @@ $users = DB::table('users')
         }
     </script>
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addRowButton = document.getElementById('new-button-icon');
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addRowButtons = document.querySelectorAll('.add-row');
+        addRowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const row = this.parentNode.parentNode; // Get the parent tr of the button
+                
+                const department = row.querySelector('td:first-child').innerText.trim(); // Get the department name
+                const department1 = row.querySelector('td:first-child').nextElementSibling.querySelector('textarea').getAttribute('name'); // Get the department name
+                
+                // Create a new row and insert it after the current row
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
+                                    <td><textarea name="${department1}_Person"></textarea></td>
+                                    <td><textarea name="${department1}_Impect_Assessment"></textarea></td>
+                                    <td><textarea name="${department1}_Comments"></textarea></td>
+                                    <td><textarea name="${department1}_sign&date"></textarea></td>
+                                    <td><textarea name="${department1}_Remarks"></textarea></td>`;
+                    
+                // Insert the new row after the current row
+                row.parentNode.insertBefore(newRow, row.nextSibling);
+            });
+        });
+    });
+    </script> --}}
+    
+    
+  <script>
+document.addEventListener('DOMContentLoaded', function() {   
+    const addRowButton = document.getElementById('new-button-icon1');
     addRowButton.addEventListener('click', function() {
-        const department = this.parentNode.innerText.trim(); // Get the department name
+        const Production = this.parentNode.innerText.trim(); // Get the department name
             
         // Create a new row and insert it after the current row
         const newRow = document.createElement('tr');
-        newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
-                            <td><textarea name="Person"></textarea></td>
-                            <td><textarea name="Impect_Assessment"></textarea></td>
-                            <td><textarea name="Comments"></textarea></td>
-                            <td><textarea name="sign&date"></textarea></td>
-                            <td><textarea name="Remarks"></textarea></td>`;
+        newRow.innerHTML = `<td style="background: #e1d8d8">${Production}</td> 
+                                <td><textarea name="Production_Person[]"></textarea></td>
+                                <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
+                                <td><textarea name="Production_Comments[[]]"></textarea></td>
+                                <td><textarea name="Production_signdate[]"></textarea></td>
+                                <td><textarea name="Production_Remarks[]"></textarea></td>`;
                 
         // Insert the new row after the current row
         const currentRow = this.parentNode.parentNode;
         currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
     });
-});
+}); 
 </script>
-
-
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {   
+        const addRowButton = document.getElementById('new-button-icon2');
+        addRowButton.addEventListener('click', function() {
+            const Warehouse = this.parentNode.innerText.trim(); // Get the department name
+                
+            // Create a new row and insert it after the current row
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td style="background: #e1d8d8">${Warehouse}</td> 
+                                <td><textarea name="Warehouse_Person"></textarea></td>
+                                <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
+                                <td><textarea name="Warehouse_Comments"></textarea></td>
+                                <td><textarea name="Warehouse_signdate"></textarea></td>
+                                <td><textarea name="Warehouse_Remarks"></textarea></td>`;
+                    
+            // Insert the new row after the current row
+            const currentRow = this.parentNode.parentNode;
+            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+        });
+    }); 
+    </script>
     <script>
-        // document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {   
+            const addRowButton = document.getElementById('new-button-icon3');
+            addRowButton.addEventListener('click', function() {
+                const Quality = this.parentNode.innerText.trim(); // Get the department name
+                    
+                // Create a new row and insert it after the current row
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `<td style="background: #e1d8d8">${Quality}</td> 
+                                    <td><textarea name="Quality_Person"></textarea></td>
+                                    <td><textarea name="Quality_Impect_Assessment"></textarea></td>
+                                    <td><textarea name="Quality_Comments"></textarea></td>
+                                    <td><textarea name="Quality_signdate"></textarea></td>
+                                    <td><textarea name="Quality_Remarks"></textarea></td>`;
+                        
+                // Insert the new row after the current row
+                const currentRow = this.parentNode.parentNode;
+                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+            });
+        }); 
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {   
+                const addRowButton = document.getElementById('new-button-icon4');
+                addRowButton.addEventListener('click', function() {
+                    const Assurance = this.parentNode.innerText.trim(); // Get the department name
+                        
+                    // Create a new row and insert it after the current row
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `<td style="background: #e1d8d8">${Assurance}</td> 
+                                        <td><textarea name="Assurance_Person"></textarea></td>
+                                        <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
+                                        <td><textarea name="Assurance_Comments"></textarea></td>
+                                        <td><textarea name="Assurance_signdate"></textarea></td>
+                                        <td><textarea name="Assurance_Remarks"></textarea></td>`;
+                            
+                    // Insert the new row after the current row
+                    const currentRow = this.parentNode.parentNode;
+                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                });
+            }); 
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {   
+                    const addRowButton = document.getElementById('new-button-icon5');
+                    addRowButton.addEventListener('click', function() {
+                        const Engineering = this.parentNode.innerText.trim(); // Get the department name
+                            
+                        // Create a new row and insert it after the current row
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `<td style="background: #e1d8d8">${Engineering}</td> 
+                                            <td><textarea name="Engineering_Person"></textarea></td>
+                                            <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
+                                            <td><textarea name="Engineering_Comments"></textarea></td>
+                                            <td><textarea name="Engineering_signdate"></textarea></td>
+                                            <td><textarea name="Engineering_Remarks"></textarea></td>`;
+                                
+                        // Insert the new row after the current row
+                        const currentRow = this.parentNode.parentNode;
+                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                    });
+                }); 
+                </script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {   
+                        const addRowButton = document.getElementById('new-button-icon6');
+                        addRowButton.addEventListener('click', function() {
+                            const Analytical = this.parentNode.innerText.trim(); // Get the department name
+                                
+                            // Create a new row and insert it after the current row
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `<td style="background: #e1d8d8">${Analytical}</td> 
+                                                <td><textarea name="Analytical_Person"></textarea></td>
+                                                <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
+                                                <td><textarea name="Analytical_Comments"></textarea></td>
+                                                <td><textarea name="Analytical_signdate"></textarea></td>
+                                                <td><textarea name="Analytical_Remarks"></textarea></td>`;
+                                    
+                            // Insert the new row after the current row
+                            const currentRow = this.parentNode.parentNode;
+                            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                        });
+                    }); 
+                    </script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {   
+                            const addRowButton = document.getElementById('new-button-icon7');
+                            addRowButton.addEventListener('click', function() {
+                                const Process = this.parentNode.innerText.trim(); // Get the department name
+                                    
+                                // Create a new row and insert it after the current row
+                                const newRow = document.createElement('tr');
+                                newRow.innerHTML = `<td style="background: #e1d8d8">${Process}</td> 
+                                                    <td><textarea name="Process_Person"></textarea></td>
+                                                    <td><textarea name="Process_Impect_Assessment"></textarea></td>
+                                                    <td><textarea name="Process_Comments"></textarea></td>
+                                                    <td><textarea name="Process_sign&date"></textarea></td>
+                                                    <td><textarea name="Process_Remarks"></textarea></td>`;
+                                        
+                                // Insert the new row after the current row
+                                const currentRow = this.parentNode.parentNode;
+                                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                            });
+                        }); 
+                        </script>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {   
+                                const addRowButton = document.getElementById('new-button-icon8');
+                                addRowButton.addEventListener('click', function() {
+                                    const Technology = this.parentNode.innerText.trim(); // Get the department name
+                                        
+                                    // Create a new row and insert it after the current row
+                                    const newRow = document.createElement('tr');
+                                    newRow.innerHTML = `<td style="background: #e1d8d8">${Technology}</td> 
+                                                        <td><textarea name="Technology_Person"></textarea></td>
+                                                        <td><textarea name="Technology_Impect_Assessment"></textarea></td>
+                                                        <td><textarea name="Technology_Comments"></textarea></td>
+                                                        <td><textarea name="Technology_sign&date"></textarea></td>
+                                                        <td><textarea name="Technology_Remarks"></textarea></td>`;
+                                            
+                                    // Insert the new row after the current row
+                                    const currentRow = this.parentNode.parentNode;
+                                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                                });
+                            }); 
+                            </script>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {   
+                                    const addRowButton = document.getElementById('new-button-icon9');
+                                    addRowButton.addEventListener('click', function() {
+                                        const Environment = this.parentNode.innerText.trim(); // Get the department name
+                                            
+                                        // Create a new row and insert it after the current row
+                                        const newRow = document.createElement('tr');
+                                        newRow.innerHTML = `<td style="background: #e1d8d8">${Environment}</td> 
+                                                            <td><textarea name="Environment_Person"></textarea></td>
+                                                            <td><textarea name="Environment_Impect_Assessment"></textarea></td>
+                                                            <td><textarea name="Environment_Comments"></textarea></td>
+                                                            <td><textarea name="Environment_sign&date"></textarea></td>
+                                                            <td><textarea name="Environment_Remarks"></textarea></td>`;
+                                                
+                                        // Insert the new row after the current row
+                                        const currentRow = this.parentNode.parentNode;
+                                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                                    });
+                                }); 
+                                </script>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {   
+                                        const addRowButton = document.getElementById('new-button-icon10');
+                                        addRowButton.addEventListener('click', function() {
+                                            const Human = this.parentNode.innerText.trim(); // Get the department name
+                                                
+                                            // Create a new row and insert it after the current row
+                                            const newRow = document.createElement('tr');
+                                            newRow.innerHTML = `<td style="background: #e1d8d8">${Human}</td> 
+                                                                <td><textarea name="Human_Person"></textarea></td>
+                                                                <td><textarea name="Human_Impect_Assessment"></textarea></td>
+                                                                <td><textarea name="Human_Comments"></textarea></td>
+                                                                <td><textarea name="Human_sign&date"></textarea></td>
+                                                                <td><textarea name="Human_Remarks"></textarea></td>`;
+                                                    
+                                            // Insert the new row after the current row
+                                            const currentRow = this.parentNode.parentNode;
+                                            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                                        });
+                                    }); 
+                                    </script>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {   
+                                            const addRowButton = document.getElementById('new-button-icon11');
+                                            addRowButton.addEventListener('click', function() {
+                                                const Information = this.parentNode.innerText.trim(); // Get the department name
+                                                    
+                                                // Create a new row and insert it after the current row
+                                                const newRow = document.createElement('tr');
+                                                newRow.innerHTML = `<td style="background: #e1d8d8">${Information}</td> 
+                                                                    <td><textarea name="Information_Person"></textarea></td>
+                                                                    <td><textarea name="Information_Impect_Assessment"></textarea></td>
+                                                                    <td><textarea name="Information_Comments"></textarea></td>
+                                                                    <td><textarea name="Information_sign&date"></textarea></td>
+                                                                    <td><textarea name="Information_Remarks"></textarea></td>`;
+                                                        
+                                                // Insert the new row after the current row
+                                                const currentRow = this.parentNode.parentNode;
+                                                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                                            });
+                                        }); 
+                                        </script>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {   
+                                                const addRowButton = document.getElementById('new-button-icon12');
+                                                addRowButton.addEventListener('click', function() {
+                                                    const Project = this.parentNode.innerText.trim(); // Get the department name
+                                                        
+                                                    // Create a new row and insert it after the current row
+                                                    const newRow = document.createElement('tr');
+                                                    newRow.innerHTML = `<td style="background: #e1d8d8">${Project}</td> 
+                                                                        <td><textarea name="Project_Person"></textarea></td>
+                                                                        <td><textarea name="Project_Impect_Assessment"></textarea></td>
+                                                                        <td><textarea name="Project_Comments"></textarea></td>
+                                                                        <td><textarea name="Project_sign&date"></textarea></td>
+                                                                        <td><textarea name="Project_Remarks"></textarea></td>`;
+                                                            
+                                                    // Insert the new row after the current row
+                                                    const currentRow = this.parentNode.parentNode;
+                                                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                                                });
+                                            }); 
+                                            </script>
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function() {   
+                                                    const addRowButton = document.getElementById('new-button-icon13');
+                                                    addRowButton.addEventListener('click', function() {
+                                                        const Any = this.parentNode.innerText.trim(); // Get the department name
+                                                            
+                                                        // Create a new row and insert it after the current row
+                                                        const newRow = document.createElement('tr');
+                                                        newRow.innerHTML = `<td style="background: #e1d8d8">${Any}</td> 
+                                                                            <td><textarea name="Any_Person"></textarea></td>
+                                                                            <td><textarea name="Any_Impect_Assessment"></textarea></td>
+                                                                            <td><textarea name="Any_Comments"></textarea></td>
+                                                                            <td><textarea name="Any_sign&date"></textarea></td>
+                                                                            <td><textarea name="Any_Remarks"></textarea></td>`;
+                                                                
+                                                        // Insert the new row after the current row
+                                                        const currentRow = this.parentNode.parentNode;
+                                                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+                                                    });
+                                                }); 
+                                                </script>
+
+                                                
+                                            
+                                        
+                                    
+                                
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+
+
+        {{-- // document.addEventListener('DOMContentLoaded', function() {
         //     document.getElementById('type_of_audit').addEventListener('change', function() {
         //         var typeOfAuditReqInput = document.getElementById('type_of_audit_req');
         //         if (typeOfAuditReqInput) {
@@ -1687,8 +1978,8 @@ document.addEventListener('DOMContentLoaded', function() {
         //             console.error("Element with id 'type_of_audit_req' not found");
         //         }
         //     });
-        // });
-    </script>
+        // }); --}}
+    
     <script>
         document.getElementById('initiator_group').addEventListener('change', function() {
             var selectedValue = this.value;

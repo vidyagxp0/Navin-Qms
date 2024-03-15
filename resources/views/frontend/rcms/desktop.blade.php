@@ -92,6 +92,12 @@
                 querySelect.options.add(new Option('Close - done', '3'));
 
             }
+            else if (scopeValue === 'Deviation') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Close - Cancel', '2'));
+                querySelect.options.add(new Option('Close - done', '3'));
+
+            }
 
             // Add more conditions based on other scope values
 
@@ -114,6 +120,7 @@
             <div onclick="openTab('risk-assessment', this)">Risk Assessment</div>
             <div onclick="openTab('root-cause-analysis', this)">Root Cause Analysis</div>
             <div onclick="openTab('management-review', this)">Management Review</div>
+            <div onclick="openTab('Deviation', this)">Deviation</div>
             {{-- <div onclick="openTab('documents', this)">Documents</div>
             <div onclick="openTab('extension', this)">Extension</div>
             <div onclick="openTab('observation', this)">Observation</div>
@@ -613,6 +620,53 @@
                                             <td>{{ $management_review1->assign_to }}</td>
                                             <td>{{ $management_review1->due_date }}</td>
                                             <td>{{ $management_review1->status }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="process-table" id="Deviation">
+                        <div class="scope-bar">
+                            <div class="group-input">
+                                <label for="query">Criteria</label>
+                                <select id="query" name="stage">
+                                    <option value="all_records">All Records</option>
+                                    <option value="1">Closed Records</option>
+                                    <option value="2">Opened Records</option>
+                                    <option value="3">Cancelled Records</option>
+                                    {{-- <option value="4">Overdue Records</option>
+                                    <option value="5">Assigned To Me</option>
+                                    <option value="6">Records Created Today</option> --}}
+                                </select>
+                            </div>
+                            <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
+                        </div>
+                        <div class="table-block">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Record</th>
+                                        <th>Division</th>
+                                        <th>Process</th>
+                                        <th>Short Description</th>
+                                        <th>Date Opened</th>
+                                        <th>Assigned To</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($Deviation as $Deviation1)
+                                        <tr>
+                                            <td>{{ $Deviation1->record_number }}</td>
+                                            <td>{{ $Deviation1->division_name }}</td>
+                                            <td>{{ $Deviation1->process }}</td>
+                                            <td>{{ $Deviation1->short_description }}</td>
+                                            <td>{{ $Deviation1->create }}</td>
+                                            <td>{{ $Deviation1->assign_to }}</td>
+                                            <td>{{ $Deviation1->due_date }}</td>
+                                            <td>{{ $Deviation1->status }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
