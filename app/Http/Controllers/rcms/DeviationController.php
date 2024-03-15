@@ -76,11 +76,13 @@ class DeviationController extends Controller
         $deviation->due_date = $request->due_date;
         $deviation->initiator_group_code= $request->initiator_group_code;
         $deviation->short_description = $request->short_description;
+        $deviation->Deviation_date = $request->Deviation_date;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
        // $deviation->Observed_by = $request->Observed_by;
         $deviation->audit_type = $request->audit_type;
+        $deviation->others = $request->others;
         
-        $deviation->Name_of_Product = $request->Name_of_Product;
+        $deviation->Product_Batch = $request->Product_Batch;
         
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation); 
       
@@ -89,14 +91,14 @@ class DeviationController extends Controller
         $deviation->Preliminary_Impact =implode(',', $request->Preliminary_Impact) ;
         $deviation->Product_Details_Required = $request->Product_Details_Required;
        
-        $deviation->HOD_Remarks = implode(',', $request->HOD_Remarks);
+        $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Deviation_category = $request->Deviation_category;
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
         $deviation->Investigation_required= $request->Investigation_required;
         
 
         $deviation->Investigation_Details= $request->Investigation_Details;
-        $deviation->Customer_notification_required= $request->Customer_notification_required;
+        $deviation->Customer_notification= $request->Customer_notification;
         $deviation->customers= $request->customers;
     
         $deviation->QAInitialRemark= $request->QAInitialRemark;
@@ -110,6 +112,7 @@ class DeviationController extends Controller
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments= $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
+        
         
 
         if (!empty($request->Audit_file)) {
@@ -276,130 +279,130 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //     if (!$request->short_description) {
-    //         toastr()->error("Short description is required");
-    //         return redirect()->back();
-    //     }
-    //     $lastDeviation = deviation::find($id);
-    //     $deviation = deviation::find($id);
-    //     $deviation->parent_id = $request->parent_id;
-    //     $deviation->parent_type = $request->parent_type;
-    //     $deviation->division_id = $request->division_id;
-    //     //$deviation->text = $request->text;
-    //     $deviation->assign_to = $request->assign_to;
-    //     $deviation->due_date = $request->due_date;
-    //     $deviation->intiation_date = $request->intiation_date;
-    //     $deviation->Initiator_Group = $request->Initiator_Group;
-    //     $deviation->due_date = $request->due_date;
+        if (!$request->short_description) {
+            toastr()->error("Short description is required");
+            return redirect()->back();
+        }
+        $lastDeviation = deviation::find($id);
+        $deviation = deviation::find($id);
+        $deviation->parent_id = $request->parent_id;
+        $deviation->parent_type = $request->parent_type;
+        $deviation->division_id = $request->division_id;
+        //$deviation->text = $request->text;
+        $deviation->assign_to = $request->assign_to;
+        $deviation->due_date = $request->due_date;
+        $deviation->intiation_date = $request->intiation_date;
+        $deviation->Initiator_Group = $request->Initiator_Group;
+        $deviation->due_date = $request->due_date;
         
-    //     //$deviation->initiator_Group= $request->initiator_Group;
-    //     $deviation->initiator_group_code= $request->initiator_group_code;
-    //     $deviation->short_description = $request->short_description;
-    //     $deviation->Deviation_reported_date = $request->Deviation_reported_date;
-    //    // $deviation->Observed_by = $request->Observed_by;
-    //     $deviation->audit_type = $request->audit_type;
+        //$deviation->initiator_Group= $request->initiator_Group;
+        $deviation->initiator_group_code= $request->initiator_group_code;
+        $deviation->short_description = $request->short_description;
+        $deviation->Deviation_reported_date = $request->Deviation_reported_date;
+        $deviation->Deviation_date = $request->Deviation_date;
+        $deviation->audit_type = $request->audit_type;
+        $deviation->others = $request->others;
+        $deviation->Product_Batch = $request->Product_Batch;
         
-    //     $deviation->Name_of_Product = $request->Name_of_Product;
-        
-    //     $deviation->Description_Deviation = implode(',', $request->Description_Deviation); 
+        $deviation->Description_Deviation = implode(',', $request->Description_Deviation); 
       
         
-    //     $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
-    //     $deviation->Preliminary_Impact =implode(',', $request->Preliminary_Impact) ;
-    //     $deviation->Product_Details_Required = $request->Product_Details_Required;
+        $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
+        $deviation->Preliminary_Impact =implode(',', $request->Preliminary_Impact) ;
+        $deviation->Product_Details_Required = $request->Product_Details_Required;
        
-    //     $deviation->HOD_Remarks = implode(',', $request->HOD_Remarks);
-    //     $deviation->Deviation_category = $request->Deviation_category;
-    //     $deviation->Justification_for_categorization = $request->Justification_for_categorization;
-    //     $deviation->Investigation_required= $request->Investigation_required;
+        $deviation->HOD_Remarks = $request->HOD_Remarks;
+        $deviation->Deviation_category = $request->Deviation_category;
+        $deviation->Justification_for_categorization = $request->Justification_for_categorization;
+        $deviation->Investigation_required= $request->Investigation_required;
         
 
-    //     $deviation->Investigation_Details= $request->Investigation_Details;
-    //     $deviation->Customer_notification_required= $request->Customer_notification_required;
-    //     $deviation->customers= $request->customers;
+        $deviation->Investigation_Details= $request->Investigation_Details;
+        $deviation->Customer_notification= $request->Customer_notification;
+        $deviation->customers= $request->customers;
     
-    //     $deviation->QAInitialRemark= $request->QAInitialRemark;
-    //     $deviation->Investigation_Summary= $request->Investigation_Summary;
-    //     $deviation->Impact_assessment= $request->Impact_assessment;
-    //     $deviation->Root_cause = $request->Root_cause; 
-    //     $deviation->CAPA_Rquired= $request->CAPA_Rquired;
-    //     $deviation->capa_type= $request->capa_type;
-    //     $deviation->CAPA_Description= $request->CAPA_Description;
-    //     $deviation->QA_Feedbacks = $request->QA_Feedbacks;
-    //     $deviation->Closure_Comments= $request->Closure_Comments;
-    //     $deviation->Disposition_Batch = $request->Disposition_Batch;
+        $deviation->QAInitialRemark= $request->QAInitialRemark;
+        $deviation->Investigation_Summary= $request->Investigation_Summary;
+        $deviation->Impact_assessment= $request->Impact_assessment;
+        $deviation->Root_cause = $request->Root_cause; 
+        $deviation->CAPA_Rquired= $request->CAPA_Rquired;
+        $deviation->capa_type= $request->capa_type;
+        $deviation->CAPA_Description= $request->CAPA_Description;
+        $deviation->QA_Feedbacks = $request->QA_Feedbacks;
+        $deviation->Closure_Comments= $request->Closure_Comments;
+        $deviation->Disposition_Batch = $request->Disposition_Batch;
 
-    //     if (!empty($request->Audit_file)) {
-    //         $files = [];
-    //         if ($request->hasfile('Audit_file')) {
-    //             foreach ($request->file('Audit_file') as $file) {
-    //                 $name = $request->name . 'Audit_file' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-    //                 $file->move('upload/', $name);
-    //                 $files[] = $name;
-    //             }
-    //         }
+        if (!empty($request->Audit_file)) {
+            $files = [];
+            if ($request->hasfile('Audit_file')) {
+                foreach ($request->file('Audit_file') as $file) {
+                    $name = $request->name . 'Audit_file' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
 
 
-    //         $deviation->Audit_file = json_encode($files);
+            $deviation->Audit_file = json_encode($files);
         
       
          
-    //     if (!empty($request->Initial_attachment)) {
-    //         $files = [];
-    //         if ($request->hasfile('Initial_attachment')) {
-    //             foreach ($request->file('Initial_attachment') as $file) {
-    //                 $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-    //                 $file->move('upload/', $name);
-    //                 $files[] = $name;
-    //             }
-    //         }
+        if (!empty($request->Initial_attachment)) {
+            $files = [];
+            if ($request->hasfile('Initial_attachment')) {
+                foreach ($request->file('Initial_attachment') as $file) {
+                    $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
 
 
-    //         $deviation->Initial_attachment = json_encode($files);
-    //     }
-    //     if (!empty($request->QA_attachment)) {
-    //         $files = [];
-    //         if ($request->hasfile('QA_attachment')) {
-    //             foreach ($request->file('QA_attachment') as $file) {
-    //                 $name = $request->name . 'QA_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-    //                 $file->move('upload/', $name);
-    //                 $files[] = $name;
-    //             }
-    //         }
+            $deviation->Initial_attachment = json_encode($files);
+        }
+        if (!empty($request->QA_attachment)) {
+            $files = [];
+            if ($request->hasfile('QA_attachment')) {
+                foreach ($request->file('QA_attachment') as $file) {
+                    $name = $request->name . 'QA_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
 
 
-    //         $deviation->QA_attachment = json_encode($files);
-    //     }
-    //     if (!empty($request->Investigation_attachment)) {
-    //         $files = [];
-    //         if ($request->hasfile('Investigation_attachment')) {
-    //             foreach ($request->file('Investigation_attachment') as $file) {
-    //                 $name = $request->name . 'Investigation_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-    //                 $file->move('upload/', $name);
-    //                 $files[] = $name;
-    //             }
-    //         }
+            $deviation->QA_attachment = json_encode($files);
+        }
+        if (!empty($request->Investigation_attachment)) {
+            $files = [];
+            if ($request->hasfile('Investigation_attachment')) {
+                foreach ($request->file('Investigation_attachment') as $file) {
+                    $name = $request->name . 'Investigation_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
 
 
-    //         $deviation->Investigation_attachment = json_encode($files);
-    //     }
-    //     if (!empty($request->Capa_attachment)) {
-    //         $files = [];
-    //         if ($request->hasfile('Capa_attachment')) {
-    //             foreach ($request->file('Capa_attachment') as $file) {
-    //                 $name = $request->name . 'Capa_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-    //                 $file->move('upload/', $name);
-    //                 $files[] = $name;
-    //             }
-    //         }
+            $deviation->Investigation_attachment = json_encode($files);
+        }
+        if (!empty($request->Capa_attachment)) {
+            $files = [];
+            if ($request->hasfile('Capa_attachment')) {
+                foreach ($request->file('Capa_attachment') as $file) {
+                    $name = $request->name . 'Capa_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
 
 
-    //         $deviation->Capa_attachment = json_encode($files);
-    //     }
-    // }
+            $deviation->Capa_attachment = json_encode($files);
+        }
+    }
         
-    // toastr()->success("Record is Update Successfully");
-    // return back();
+    toastr()->success("Record is Update Successfully");
+    return back();
     }
 
     /**
