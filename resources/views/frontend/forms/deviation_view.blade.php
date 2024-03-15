@@ -392,7 +392,7 @@ $users = DB::table('users')
                 
                 <div id="step-form">
 
-                    <!-- General information content -->Project_Impect_Assessment
+                    <!-- General information content -->
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -551,18 +551,18 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="group-input" id="initiated_through_req">
+                                    <div class="group-input">
                                         <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
-                                        <select name="Observed_by" multiple name="Facility[]" placeholder="Select Facility Name"
-                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
-                                            <option value="Plant 1"> 1</option>
-                                            <option value="Plant 1"> 2</option>
-                                            <option value="Plant 1"> 3</option>
+                                        <select  multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
+                                            <option value="1"> 1</option>
+                                            <option value="2"> 2</option>
+                                            <option value="3"> 3</option>
                                            
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -573,8 +573,8 @@ $users = DB::table('users')
                              
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit_type">Deviation Related To </label>
-                                        <select v name="Deviation_Related_To"  value="{{ $data->Deviation_Related_To }}">
+                                        <label for="audit type">Deviation Related To </label>
+                                        <select  name="audit_type"  value="{{ $data->audit_type }}">
                                             <option value="">Enter Your Selection Here</option>
                                             <option @if ($data->Deviation_Related_To == 'Facility') selected @endif
                                                 value="Facility">Facility</option>
@@ -606,8 +606,8 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit_type">Others </label>
-                                        <input type="text" name="others">
+                                        <label for="others">Others </label>
+                                        <input type="text" name="others" id="others" value="{{ $data->others }}">
                                     </div>
                                 </div>
 
@@ -684,30 +684,52 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
-                                        <input type="text" value="Product_Batch" name="Product_Batch">
+                                        <input type="text" value="{{$data->Product_Batch}}" name="Product_Batch">
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
                       </div>
                                
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
-                                        <label for="Initial Comments">Description of Deviation</label>
+                                        <label for="Description Deviation">Description of Deviation</label>
                                         <textarea class="summernote"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-6">
+                                    <div class="group-input">
+                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">{{ $data->Description_Deviation }}</textarea>
                                     </div>
                                 </div>
                                
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
                                         <textarea class="summernote" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-6">
+                                    <div class="group-input">
+                                        <label for="Immediate Action">Immediate Action (if any)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Immediate_Action[]" id="summernote-2">{{ $data->Immediate_Action }}</textarea>
+                                    </div>
                                 </div>
-                                <div class="col-6">
+                               
+                                {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
                                         <textarea class="summernote" name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-6">
+                                    <div class="group-input">
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
                                     </div>
                                 </div>
                                 
@@ -766,27 +788,11 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 
-                                
-                                <div class="col-lg-12">
+                                <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">HOD Remarks </label>
-                                        <textarea class="summernote" name="HOD_Remarks" value="{{ $data->HOD_Remarks }}" id="" cols="30" ></textarea>
-                                  
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Audit Attachments">HOD Attachments</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
-                                            </div>
-                                        </div>
+                                        <label for="HOD Remarks">HOD Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -794,9 +800,9 @@ $users = DB::table('users')
                                         <label for="Inv Attachments">HOD Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div disabled class="file-attachment-list" id="audit_attachment">
-                                                @if ($data->audit_attachment)
-                                                @foreach(json_decode($data->audit_attachment) as $file)
+                                            <div disabled class="file-attachment-list" id="Audit_file">
+                                                @if ($data->Audit_file)
+                                                @foreach(json_decode($data->Audit_file) as $file)
                                                 <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                                     <b>{{ $file }}</b>
                                                     <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
@@ -807,8 +813,8 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="audit_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment1')"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                    oninput="addMultipleFiles(this, 'Audit_file1')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -834,61 +840,82 @@ $users = DB::table('users')
                                 
                                 <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Initial Deviation category</label>
-                                        <select name="Deviation category"  value="Deviation category" id="">
-                                            <option value="">-- Select -- </option>
-                                            <option value="">Major </option>
-                                            <option value="">Minor </option>
-                                            <option value="">Critical </option>
+                                        <label for="Deviation category">Initial Deviation category</label>
+                                        <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
+                                            <option value="0">-- Select --</option>
+                                            <option @if ($data->Deviation_category == 'minor') selected @endif
+                                             value="minor">Minor</option>
+                                            <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                            value="major">Major</option>
+                                            <option @if ($data->Deviation_category == 'critical') selected @endif
+                                            value="critical">Critical</option>
                                         </select>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                {{-- <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Justification for  categorization</label>
                                         <textarea class="summernote" name="Justification_for_categorization" value="Justification_for_categorization" id="" cols="30" ></textarea>
 
                                     </div>
+                                </div> --}}
+                                <div class="col-md-6">
+                                    <div class="group-input">
+                                        <label for="Justification for  categorization">Justification for  categorization</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Justification_for_categorization" id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
+                                    </div>
                                 </div>
-                               
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Investigation Is required ?</label>
-                                        <select name="Investigation_required"  value="Investigation_required" id="">
-                                            <option value="">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                        <label for="Investigation required">Investigation Is required ?</label>
+                                        <select name="Investigation_required" id="Investigation_required"  value="{{ $data->Investigation_required }}" >
+                                            <option value="0">-- Select --</option>
+                                            <option @if ($data->Investigation_required == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->Investigation_required == 'no') selected @endif 
+                                            value="no">No</option>
                                         </select>
                                   
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea name="Investigation_Details" value="Investigation_Details" id="" cols="30" ></textarea>
-                                  
+                                        <textarea name="Investigation_Details" value="Investigation_Details" id="" cols="30" ></textarea>                
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-6">
+                                    <div class="group-input">
+                                        <label for="Investigation Details">Investigation Details</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Customer Notification Required ? </label>
-                                        <select name="Customer_notification" value="Customer_notification" id="">
-                                            <option value="">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                        <label for="Customer notification">Customer Notification Required ? </label>
+                                        <select name="Customer_notification" id="Customer_notification" value="{{ $data->Customer_notification }}" >
+                                            <option value="0">-- Select --</option>
+                                            <option @if ($data->Customer_notification == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->Customer_notification == 'no') selected @endif 
+                                            value="no">No</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-5">
                                     <div class="group-input">
-                                        <label for="Comments(If Any)">Customers</label>
-                                        <select name="customers"  value="customers" id="">
-                                            <option value=""> -- Select --</option>
-                                            <option value="person1"> person 1</option>
-                                            <option value="person2"> person 2</option>
+                                        <label for="customers">Customers</label>
+                                        <select name="customers" id="customers" value="{{ $data->customers }}">
+                                            <option value="0"> -- Select --</option>
+                                            <option @if ($data->customers == 'person1') selected @endif
+                                                value="person1">Person 1</option>
+                                            <option  @if ($data->customers == 'person2') selected @endif 
+                                               value="person2">Person 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -901,13 +928,20 @@ $users = DB::table('users')
                                     </button>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
                                       <textarea name="QAInitialRemark" value="QAInitialRemark" id="" cols="30" ></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="QAInitialRemark">QA Initial Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="QAInitialRemark" id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
+                                    </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -918,6 +952,31 @@ $users = DB::table('users')
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Audit_file[]"
                                                     oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Inv Attachments">QA Initial Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Initial_attachment">
+                                                @if ($data->Initial_attachment)
+                                                @foreach(json_decode($data->Initial_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment1')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1104,68 +1163,113 @@ $users = DB::table('users')
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                <div class="col-6">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Investigation Summary</label>
-                                        <textarea name="Investigation_Summary" value="Investigation_Summary" id="" cols="30" ></textarea>
+                                        <label for="Investigation Summary">Investigation Summary</label>
+                                        <textarea id="Investigation_Summary" name="Investigation_Summary" value="{{ $data->Investigation_Summary }}"  cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Investigation Summary">Investigation Summary</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Summary" id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Impact Assessment </label>
-                                        <textarea value="Impect_assessment" name="Impect_assessment" id="" cols="30" ></textarea>
+                                        <label for="Impect assessment">Impact Assessment</label>
+                                        <textarea id="Impect_assessment" name="Impect_assessment" value="{{ $data->Impect_assessment }}"  cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Impact Assessment">Impact Assessment</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Impact_assessment" id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Lead Auditor">Root Cause </label>
-                                        <textarea  name="Root_cause" value="Root_cause" id="" cols="30" ></textarea>
+                                        <label for="Root Cause">Root Cause</label>
+                                        <textarea id="Root_cause" name="Root_cause" value="{{ $data->Root_cause }}"  cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Root Cause">Root Cause</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Root_cause" id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
                                 </div>
-                               
                                 
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Required ? </label>
-                                      <select name="CAPA_Rquired" value="CAPA_Rquired" id="">
+                                        <label for="CAPA Rquired">CAPA Required ? </label>
+                                      <select name="CAPA_Rquired"  id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value=""> -- Select --</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no"> No</option>
+                                        <option @if ($data->CAPA_Rquired == 'yes') selected @endif
+                                            value="yes">Yes</option>
+                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif 
+                                           value="no">No</option>
                                       </select>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Type ? </label>
-                                      <select name="CAPA Type?"  value="CAPA Type?" id="">
-                                        <option value=""> -- Select --</option>
-                                        <option value="Corrective_Action">Corrective Action</option>
-                                        <option value=" Preventive_Action"> Preventive Action</option>
-                                        <option value="Corrective&Preventive"> Corrective & Preventive Action both</option>
+                                        <label for="capa type">CAPA Type?</label>
+                                      <select name="capa_type"  id="capa_type" value="{{ $data->capa_type }}">
+                                        <option value="0"> -- Select --</option>
+                                        <option @if ($data->capa_type == 'Corrective_Action') selected @endif
+                                            value="Corrective_Action">Corrective Action</option>
+                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif 
+                                           value="Preventive_Action"> Preventive Action</option>
+                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
+                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>   
                                       </select>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
                                         <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="CAPA Description">CAPA Description</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="CAPA_Description" id="summernote-11">{{ $data->CAPA_Description }}</textarea>
+                                    </div>
                                 </div>
-
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
                                         <textarea class="summernote" name="Post_Categorization"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Post_Categorization" id="summernote-12">{{ $data->Post_Categorization }}</textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
                                         <textarea class="summernote" name="Investigation_Of_Review"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Investigation Of Revised Categorization">Investigation Of Revised Categorization</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Investigatiom Attachment">Investigatiom Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -1183,8 +1287,34 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
+
                                 <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Investigatiom Attachment">Investigatiom Attachment</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Investigation_attachment">
+                                                @if ($data->Investigation_attachment)
+                                                @foreach(json_decode($data->Investigation_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment1')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -1202,8 +1332,33 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="capa_Attachments">CAPA Attachment</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Capa_attachment">
+                                                @if ($data->Capa_attachment)
+                                                @foreach(json_decode($data->Capa_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Capa_attachment1')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1221,14 +1376,20 @@ $users = DB::table('users')
                             <div class="row">
                                 
                                 
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
                                         <textarea class="summernote"  name="QA_Feedbacks" value="QA_Feedbacks"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="QA Feedbacks">QA Feedbacks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="QA_Feedbacks" id="summernote-14">{{ $data->QA_Feedbacks }}</textarea>
+                                    </div>
                                 </div>
-                                
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">QA Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -1242,8 +1403,34 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="QA attachments">QA Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="QA_attachments">
+                                                @if ($data->QA_attachments)
+                                                @foreach(json_decode($data->QA_attachments) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="QA_attachments[]"
+                                                    oninput="addMultipleFiles(this, 'QA_attachments1')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1260,31 +1447,41 @@ $users = DB::table('users')
                         <div class="inner-block-content">
                             <div class="row">
                                 
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Remarks">Closure Comments</label>
                                         <textarea class="summernote" name="Closure_Comments" value="Closure_Comments"></textarea>
                                     </div>
-                                </div>
+                                </div> --}}
                                 
-                               
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Closure Comments">Closure Comments</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Closure_Comments" id="summernote-15">{{ $data->Closure_Comments }}</textarea>
+                                    </div>
+                                </div>
 
                                 
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Audit Comments">Disposition of Batch</label>
                                         <textarea class="summernote"  name="Disposition_Batch" value="Disposition_Batch"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Disposition of Batch">Disposition of Batch</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Disposition_Batch" id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="QAH assessment ">Closure Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            
-                                            
-                                            </div>
-                                       
+                                                documents</small>                                        
+                                            </div>                                   
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
@@ -1294,7 +1491,34 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
+                                </div> --}}
+
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="closure attachment">Closure Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="closure_attachment">
+                                                @if ($data->closure_attachment)
+                                                @foreach(json_decode($data->closure_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="closure_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'closure_attachment1')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>

@@ -30,7 +30,7 @@ return new class extends Migration
             $table->longText('short_description')->nullable();
             $table->date('Deviation_date')->nullable();
             $table->date('Deviation_reported_date')->nullable();
-            $table->string('Observed_by')->nullable();
+            $table->string('Facility')->nullable();
             $table->string('audit_type')->nullable();
             $table->longText('others')->nullable();
             $table->longText('Product_Batch')->nullable();
@@ -52,6 +52,8 @@ return new class extends Migration
             $table->string('CAPA_Rquired')->nullable();
             $table->string('capa_type')->nullable();
             $table->longText('CAPA_Description')->nullable();
+            $table->longText('Post_Categorization')->nullable();
+            $table->longText('Investigation_Of_Review')->nullable();
             $table->longText('QA_Feedbacks')->nullable();
             $table->longText('Closure_Comments')->nullable();
             $table->longText('Disposition_Batch')->nullable();
@@ -60,6 +62,8 @@ return new class extends Migration
             $table->longText('QA_attachment')->nullable();
             $table->longText('Investigation_attachment')->nullable();
             $table->longText('Capa_attachment')->nullable();
+            $table->longText('QA_attachments')->nullable();
+            $table->longText('closure_attachment')->nullable();
 
             $table->string('plan_proposed_by')->nullable();
             $table->string('plan_proposed_on')->nullable();

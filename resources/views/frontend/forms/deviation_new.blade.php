@@ -495,14 +495,14 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 
-                                <div class="col-6">
+                                <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Observed_by">Observed By</label>
-                                        <select multiple name="Observed_by" placeholder="Select Facility Name" 
-                                        data-search="false" data-silent-initial-value-set="true" id="Observed_by">
-                                            <option value="Plant1"> 1</option>
-                                            <option value="Plant2"> 2</option>
-                                            <option value="Plant3"> 3</option>
+                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <select  multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            <option value="1"> 1</option>
+                                            <option value="2"> 2</option>
+                                            <option value="3"> 3</option>
                                            
                                         </select>
                                     </div>
@@ -674,23 +674,47 @@ $users = DB::table('users')
                                     </div>
                                 </div> -->
                                 
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <textarea class="summernote" id="Description_Deviation" name="Description_Deviation[]"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
                                
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="ImmediateAction">Immediate Action (if any)</label>
                                         <textarea class="summernote" id="Immediate_Action" name="Immediate_Action[]"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="Immediate Action">Immediate Action (if any)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Immediate_Action[]" id="summernote-2">
+                                    </textarea>
+                                    </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
                                         <textarea class="summernote" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3">
+                                    </textarea>
                                     </div>
                                 </div>
                                 
@@ -759,21 +783,20 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea name="HOD_Remarks" id="summernote">
+                                        <textarea class="summernote" name="HOD_Remarks" id="summernote-4">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">HOD Attachments</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
+                                            <div class="file-attachment-list" id="Audit_file"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
+                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                    oninput="addMultipleFiles(this, 'Audit_file')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -796,63 +819,78 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule Start Date">Initial Deviation Category</label>
-                                        <select name="Deviation category" id="">
-                                            <option value="">-- Select -- </option>
-                                            <option value="">Major </option>
-                                            <option value="">Minor </option>
-                                            <option value="">Critical </option>
+                                        <label for="Deviation category">Initial Deviation Category</label>
+                                        <select name="Deviation_category" id="Deviation_category">
+                                            <option value="0">-- Select -- </option>
+                                            <option value="minor">Major </option>
+                                            <option value="major">Minor </option>
+                                            <option value="critical">Critical </option>
                                         </select>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12 new-date-data-field">
+                                {{-- <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label class="mt-4"  for="Audit Schedule End Date">Justification for  Categorization</label>
+                                        <label class="mt-4"  for="Audit Schedule End Date">Justification for Categorization</label>
                                         <textarea class="summernote" name="Justification_for_categorization" id="" cols="30" ></textarea>
 
                                     </div>
-                                </div>
-                               
-                                
-                                <div class="col-lg-12">
+                                </div> --}}
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Investigation Is required ?</label>
+                                        <label for="Justification for Categorization">Justification for Categorization</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Justification_for_categorization" id="summernote-5">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Investigation required">Investigation Is required ?</label>
                                         <select name="Investigation_required" id="Investigation_required">
-                                            <option value="">-- Select --</option>
+                                            <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
                                         </select>
                                   
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
                                         <textarea class="summernote" name="Investigation_Details" id="" cols="30" ></textarea>
                                   
                                     </div>
+                                </div> --}}
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Details">Investigation Details</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6">
+                                    </textarea>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Product/Material Name">Customer Notification Required ? </label>
-                                        <select name="Customer_notification" id="">
-                                            <option value="">-- Select --</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
+                                        <label for="Customer notification">Customer Notification Required ?</label>
+                                        <select name="Customer_notification" id="Customer_notification">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-5">
                                     <div class="group-input">
-                                        <label for="Comments(If Any)">Customers</label>
-                                        <select name="customers" id="">
-                                            <option value=""> -- Select --</option>
-                                            <option value="1"> person 1</option>
-                                            <option value="2"> person 2</option>
+                                        <label for="customers">Customers</label>
+                                        <select name="customers" id="customers">
+                                            <option value="0"> -- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                            <option value="person2">Person 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -864,17 +902,24 @@ $users = DB::table('users')
                                     </button>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
                                       <textarea class="summernote" name="QAInitialRemark" id="" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="QAInitialRemark">QA Initial Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="QAInitialRemark" id="summernote-7">
+                                    </textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">QA Initial Attachments</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="Initial_attachment"></div>
                                             <div class="add-btn">
@@ -1070,32 +1115,55 @@ $users = DB::table('users')
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
-                                        <label class="mt-4"  for="Lead Auditor">Investigation Summary</label>
-                                        <textarea class="summernote" name="Investigation_Summary" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
+                                        <textarea class="summernote" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Summary">Investigation Summary</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Summary" id="summernote-8">
+                                    </textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
-                                        <label class="mt-4"  for="Lead Auditor">Impact Assessment </label>
-                                        <textarea class="summernote" name="Impact_assessment" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
+                                        <textarea class="summernote" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Impact Assessment">Impact Assessment</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Impact_assessment" id="summernote-9">
+                                    </textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
-                                        <label class="mt-4"  for="Lead Auditor">Root Cause </label>
-                                        <textarea class="summernote" name="Root_cause" id="" cols="30" ></textarea>
+                                        <label class="mt-4"  for="Root cause">Root Cause</label>
+                                        <textarea class="summernote" name="Root_cause" id="Root_cause" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Root Cause">Root Cause</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Root_cause" id="summernote-10">
+                                    </textarea>
                                     </div>
                                 </div>
-                               
                                 
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="External Auditor Details">CAPA Required ? </label>
+                                        <label for="CAPA Rquired">CAPA Required ?</label>
                                       <select name="CAPA_Rquired" id="CAPA_Rquired">
-                                        <option value=""> -- Select --</option>
+                                        <option value="0"> -- Select --</option>
                                         <option value="yes">Yes</option>
                                         <option value="no"> No</option>
                                       </select>
@@ -1103,34 +1171,58 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="capa_type">CAPA Type? </label>
+                                        <label for="capa type">CAPA Type?</label>
                                       <select name="capa_type" id="capa_type">
-                                        <option value=""> -- Select --</option>
+                                        <option value="0"> -- Select --</option>
                                         <option value="Corrective_Action">Corrective Action</option>
-                                        <option value=" Preventive_Action"> Preventive Action</option>
-                                        <option value="Corrective&Preventive"> Corrective & Preventive Action both</option>
+                                        <option value="Preventive_Action">Preventive Action</option>
+                                        <option value="Corrective&Preventive">Corrective & Preventive Action both</option>
                                       </select>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
                                         <textarea class="summernote" name="CAPA_Description"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="CAPA Description">CAPA Description</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="CAPA_Description" id="summernote-11">
+                                    </textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
                                         <textarea class="summernote" name="Post_Categorization"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Post_Categorization" id="summernote-12">
+                                    </textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
                                         <textarea class="summernote" name="Investigation_Of_Review"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Of Revised Categorization">Investigation Of Revised Categorization</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
+                                    </textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Investigatiom Attachment">Investigation Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -1148,6 +1240,21 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
+                                </div> --}}
+
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Investigatiom Attachment">Investigation Attachment</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Investigation_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
@@ -1155,7 +1262,6 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
                                             </div>
-                                       
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="Capa_attachment"></div>
                                             <div class="add-btn">
@@ -1184,24 +1290,31 @@ $users = DB::table('users')
                             <div class="row">
                                 
                                 
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
                                         <textarea class="summernote" name="QA_Feedbacks"></textarea>
                                     </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="QA Feedbacks">QA Feedbacks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="QA_Feedbacks" id="summernote-14">
+                                    </textarea>
+                                    </div>
                                 </div>
-                                
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">QA Attachments</label>
+                                        <label for="QA attachments">QA Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="QA_attachment"></div>
+                                            <div class="file-attachment-list" id="QA_attachments"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="QA_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'QA_attachment')" multiple>
+                                                <input type="file" id="myfile" name="QA_attachments[]"
+                                                    oninput="addMultipleFiles(this, 'QA_attachments')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1229,10 +1342,6 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Closure_Comments"></textarea>
                                     </div>
                                 </div>
-                                
-                               
-
-                                
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Audit Comments">Disposition of Batch</label>
@@ -1241,19 +1350,16 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="QAH assessment ">Closure Attachments </label>
+                                        <label for="closure attachment">Closure Attachments </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
                                             </div>
-                                       
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
+                                            <div class="file-attachment-list" id="closure_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+                                                <input type="file" id="myfile" name="closure_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'closure_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>

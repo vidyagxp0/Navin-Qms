@@ -78,6 +78,7 @@ class DeviationController extends Controller
         $deviation->short_description = $request->short_description;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
+        //$deviation->Facility = implode(',', $request->Facility); 
        // $deviation->Observed_by = $request->Observed_by;
         $deviation->audit_type = $request->audit_type;
         $deviation->others = $request->others;
@@ -109,6 +110,8 @@ class DeviationController extends Controller
         $deviation->CAPA_Rquired= $request->CAPA_Rquired;
         $deviation->capa_type= $request->capa_type;
         $deviation->CAPA_Description= $request->CAPA_Description;
+        $deviation->Post_Categorization= $request->Post_Categorization;
+        $deviation->Investigation_Of_Review= $request->Investigation_Of_Review;
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments= $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
@@ -181,6 +184,34 @@ class DeviationController extends Controller
 
 
             $deviation->Capa_attachment = json_encode($files);
+        }
+
+        if (!empty($request->QA_attachments)) {
+            $files = [];
+            if ($request->hasfile('QA_attachments')) {
+                foreach ($request->file('QA_attachments') as $file) {
+                    $name = $request->name . 'QA_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->QA_attachments = json_encode($files);
+        }
+
+        if (!empty($request->closure_attachment)) {
+            $files = [];
+            if ($request->hasfile('closure_attachment')) {
+                foreach ($request->file('closure_attachment') as $file) {
+                    $name = $request->name . 'closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->closure_attachment = json_encode($files);
         }
     }
     $record = RecordNumber::first();
@@ -580,7 +611,8 @@ class DeviationController extends Controller
         $deviation->others = $request->others;
         $deviation->Product_Batch = $request->Product_Batch;
         
-        $deviation->Description_Deviation = implode(',', $request->Description_Deviation); 
+        $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
+        //$deviation->Facility = implode(',', $request->Facility);  
       
         
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
@@ -604,6 +636,8 @@ class DeviationController extends Controller
         $deviation->CAPA_Rquired= $request->CAPA_Rquired;
         $deviation->capa_type= $request->capa_type;
         $deviation->CAPA_Description= $request->CAPA_Description;
+        $deviation->Post_Categorization= $request->Post_Categorization;
+        $deviation->Investigation_Of_Review= $request->Investigation_Of_Review;
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments= $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
@@ -674,6 +708,34 @@ class DeviationController extends Controller
 
 
             $deviation->Capa_attachment = json_encode($files);
+        }
+        
+        if (!empty($request->QA_attachments)) {
+            $files = [];
+            if ($request->hasfile('QA_attachments')) {
+                foreach ($request->file('QA_attachments') as $file) {
+                    $name = $request->name . 'QA_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->QA_attachments = json_encode($files);
+        }
+
+        if (!empty($request->closure_attachment)) {
+            $files = [];
+            if ($request->hasfile('closure_attachment')) {
+                foreach ($request->file('closure_attachment') as $file) {
+                    $name = $request->name . 'closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->closure_attachment = json_encode($files);
         }
     }
     toastr()->success('Record is Update Successfully');
