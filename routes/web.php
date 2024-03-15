@@ -23,6 +23,7 @@ use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\LabIncidentController;
 use App\Http\Controllers\rcms\AuditProgramController;
+use App\Http\Controllers\rcms\CustomerController;
 use App\Http\Controllers\rcms\ExtensionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RcmsDashboardController;
@@ -309,12 +310,15 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================
+//! ============================================ 
 
 
 Route::view('deviation', 'frontend.forms.deviation');
 Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
 Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
+Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+Route::get('/customers', [CustomerController::class, 'store'])->name('customers.index');
+
 Route::view('extension_form', 'frontend.forms.extension');
 
 Route::view('cc-form', 'frontend.forms.change-control');

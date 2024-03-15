@@ -27,7 +27,7 @@ $users = DB::table('users')
         margin-bottom: 7px;
     }
 
-    .sub-head {
+    /* .sub-head {
         margin-left: 280px;
         margin-right: 280px;
         color: #4274da;
@@ -37,7 +37,7 @@ $users = DB::table('users')
         font-weight: bold;
         font-size: 1.2rem;
 
-    }
+    } */
 
     .create-entity {
         background: #323c50;
@@ -497,13 +497,15 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
+                                        @php
+                                            $users = DB::table('users')->get();
+                                        @endphp
                                         <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
-                                            <option value="1"> 1</option>
-                                            <option value="2"> 2</option>
-                                            <option value="3"> 3</option>
-                                           
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach                                           
                                         </select>
                                     </div>
                                 </div>
@@ -886,11 +888,15 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-5">
                                     <div class="group-input">
+                                        @php
+                                            $customers = DB::table('customer-details')->get();
+                                        @endphp
                                         <label for="customers">Customers</label>
                                         <select name="customers" id="customers">
                                             <option value="0"> -- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                            <option value="person2">Person 2</option>
+                                            @foreach ($customers as $data)
+                                            <option value="{{ $data->id }}">{{ $data->customer_name }}</option>
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -962,7 +968,7 @@ $users = DB::table('users')
                           
                                 <th style="width: 25%;">Department</th>
                                 <th style="width: 18%;"> Person</th>
-                                <th style="width: 20%;"> Impect Assessment</th>
+                                <th style="width: 20%;"> Impact Assessment</th>
                                 <th>Comments</th>
                                 <th>Sign & date</th>
                                 <th>Remarks</th>
@@ -1204,7 +1210,12 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Post_Categorization" id="summernote-12">
+                                        {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
+                                            <select name="Post_Categorization" id="summernote-12">
+                                                <option value="0"> -- Select --</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no"> No</option>
+                                              </select>
                                     </textarea>
                                     </div>
                                 </div>
@@ -1216,7 +1227,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Investigation Of Revised Categorization</label>
+                                        <label for="Investigation Of Revised Categorization">Revised Categorization Justification</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>
@@ -1506,90 +1517,404 @@ $users = DB::table('users')
     </div>
 <!-- -----------------------------------------------------------modal body---------------------- -->
     <div class="modal" id="myModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div style="background: #f7f2f" class="modal-header">
-        <h4 class="modal-title">Customers</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+                <!-- Modal Header -->
+                <div style="background: #f7f2f" class="modal-header">
+                    <h4 class="modal-title">Customers</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-      <!-- Modal body -->
-      <div  class="modal-body">
-        <div style="backgorund: #e9e2e2;" class="modal-sub-head">
-<div class="sub-main-head">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <!-- Form for adding new customer -->
+                    <form method="POST" id="customerForm"> 
+                        @csrf
 
- <div  class="left-box">
+                        <div class="modal-sub-head">
+                            <div class="sub-main-head">
+                                <!-- Customer input fields -->
+                                <!-- Left box -->
+                                <div class="left-box">
+                                    <!-- Customer ID -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold;" for="customer_id">Customer ID :</label>
+                                        <input type="text" id="customer_id" name="customer_id">
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID :</label>
+                                        <input type="text" id="email" name="email">
+                                    </div>
+                                    <!-- Customer Type -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type :</label>
+                                        <input type="text" id="customer_type" name="customer_type">
+                                    </div>
+                                    <!-- Status -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold; margin-left: 42px;" for="status">Status :</label>
+                                        <input type="text" id="status" name="status">
+                                    </div>
+                                </div>
 
-    <div class="Activity-type">
-        <label style="font-weight: bold;" for="">Customer ID :</label>
-         
-        <input type="text">
+                                <!-- Right box -->
+                                <div class="right-box">
+                                    <!-- Customer Name -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold;" for="customer_name">Customer Name :</label>
+                                        <input type="text" id="customer_name" name="customer_name">
+                                    </div>
+                                    <!-- Contact No -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No :</label>
+                                        <input type="text" id="contact_no" name="contact_no">
+                                    </div>
+                                    <!-- Industry -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry :</label>
+                                        <input type="text" id="industry" name="industry">
+                                    </div>
+                                    <!-- Region -->
+                                    <div class="Activity-type">
+                                        <label style="font-weight: bold; margin-left: 66px; " for="region">Region :</label>
+                                        <input type="text" id="region" name="region">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Remarks -->
+                        <div class="Activity-type">
+                            <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="remarks" id="remarks" cols="30"></textarea>
+                        </div>
+                        <!-- Save button -->
+                        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                            <button type="button" onclick="submitForm()" class="saveButton">Save</button>
+                        </div>
+                    </form>
+                    <script>
+                        function submitForm() {
+                            var formData = new FormData(document.getElementById('customerForm'));
+                    
+                            // Send POST request to server
+                            fetch("{{ route('customers.store') }}", {
+                                method: "POST",
+                                body: formData
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Clear the form fields
+                                    document.getElementById('customerForm').reset();
+                                    // myModal.setAttribute('data-bs-dismiss', 'modal');
+                                    // Get form data
+            var customerData = {
+                customer_id: formData.get('customer_id'),
+                customer_name: formData.get('customer_name'),
+                email: formData.get('email'),
+                customer_type: formData.get('customer_type'),
+                status: formData.get('status'),
+                contact_no: formData.get('contact_no'),
+                industry: formData.get('industry'),
+                region: formData.get('region'),
+                remarks: formData.get('remarks')
+            };
+            
+            // Append new row with form data to the table
+            var newRow = `
+                <tr>
+                    <td>${customerData.customer_id}</td>
+                    <td>${customerData.customer_name}</td>
+                    <td>${customerData.email}</td>
+                    <td>${customerData.customer_type}</td>
+                    <td>${customerData.status}</td>
+                    <td>${customerData.contact_no}</td>
+                    <td>${customerData.industry}</td>
+                    <td>${customerData.region}</td>
+                    <td>${customerData.remarks}</td>
+                </tr>
+            `;
+            
+            document.querySelector('.table tbody').innerHTML += newRow;
+                                } else {
+                                    console.error('Failed to create customer');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
+                    </script>
+                    @php
+                        $customers = DB::table('customer-details')->get();
+                    @endphp
+                    <!-- Customer grid view -->
+                    <div class="table-responsive">
+                        <h5>Stored Customers</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Contact No</th>
+                                    <th>Industry</th>
+                                    <th>Region</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Iterate over stored customers and display them -->
+                                @foreach($customers as $customer)
+                                <tr>
+                                    <td>{{ $customer->customer_id }}</td>
+                                    <td>{{ $customer->customer_name }}</td>
+                                    <td>{{ $customer->email }}</td>
+                                    <td>{{ $customer->customer_type }}</td>
+                                    <td>{{ $customer->status }}</td>
+                                    <td>{{ $customer->contact_no }}</td>
+                                    <td>{{ $customer->industry }}</td>
+                                    <td>{{ $customer->region }}</td>
+                                    <td>{{ $customer->remarks }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="Activity-type ">
-        <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
-        
-        <input type="text">
+
+{{-- working form  --}}
+{{-- <form method="POST" action="{{ route('customers.store') }}">
+    @csrf
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div style="background: #f7f2f" class="modal-header">
+                    <h4 class="modal-title">Customers</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div style="background: #e9e2e2;" class="modal-sub-head">
+                        <div class="sub-main-head">
+
+                            <div class="left-box">
+
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold;" for="customer_id">Customer ID :</label>
+                                    <input type="text" id="customer_id" name="customer_id">
+                                </div>
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID :</label>
+                                    <input type="text" id="email" name="email">
+                                </div>
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type :</label>
+                                    <input type="text" id="customer_type" name="customer_type">
+                                </div>
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 42px;" for="status">Status :</label>
+                                    <input type="text" id="status" name="status">
+                                </div>
+                            </div>
+
+                            <div class="right-box">
+
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold;" for="customer_name">Customer Name :</label>
+                                    <input type="text" id="customer_name" name="customer_name">
+                                </div>
+
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No :</label>
+                                    <input type="text" id="contact_no" name="contact_no">
+                                </div>
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry :</label>
+                                    <input type="text" id="industry" name="industry">
+                                </div>
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 66px; " for="region">Region :</label>
+                                    <input type="text" id="region" name="region">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="Activity-type">
+                        <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="remarks" id="remarks" cols="30"></textarea>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                    <button type="submit" class="saveButton">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="Activity-type ">
-        <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
-       
-        <input type="text">
-    </div>
-    <div class="Activity-type ">
-        <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
-        
-        <input type="text">
-    </div>
- </div>
+</form> --}}
 
 
- <div class="right-box">
-    
-    <div class="Activity-type">
-        <label style="font-weight: bold; " for="">Customer Name :</label>
-        
-        <input type="text">
-        
-    </div>
-    
-    <div class="Activity-type">
-        <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
-        
-        <input type="text">
-        
-    </div>
-    <div class="Activity-type">
-        <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
-        
-        <input type="text">
-        
-    </div>
-    <div class="Activity-type">
-        <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
-        
-        <input type="text">
-        
-    </div>
- </div>
- 
-</div>
-</div>
-<div class="Activity-type">
+{{-- grid modal  --}}
+{{-- <div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
-       
-        
-       <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="" id="" cols="30" ></textarea>
-        
-    </div>
-      </div>
-      
-      
+            <!-- Modal Header -->
+            <div style="background: #f7f2f" class="modal-header">
+                <h4 class="modal-title">Customers</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Form for adding new customer -->
+                 <form method="POST" id="customerForm"> 
+                    @csrf
+
+                    <div class="modal-sub-head">
+                        <div class="sub-main-head">
+                            <!-- Customer input fields -->
+                            <!-- Left box -->
+                            <div class="left-box">
+                                <!-- Customer ID -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold;" for="customer_id">Customer ID :</label>
+                                    <input type="text" id="customer_id" name="customer_id">
+                                </div>
+                                <!-- Email -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID :</label>
+                                    <input type="text" id="email" name="email">
+                                </div>
+                                <!-- Customer Type -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type :</label>
+                                    <input type="text" id="customer_type" name="customer_type">
+                                </div>
+                                <!-- Status -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 42px;" for="status">Status :</label>
+                                    <input type="text" id="status" name="status">
+                                </div>
+                            </div>
+
+                            <!-- Right box -->
+                            <div class="right-box">
+                                <!-- Customer Name -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold;" for="customer_name">Customer Name :</label>
+                                    <input type="text" id="customer_name" name="customer_name">
+                                </div>
+                                <!-- Contact No -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No :</label>
+                                    <input type="text" id="contact_no" name="contact_no">
+                                </div>
+                                <!-- Industry -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry :</label>
+                                    <input type="text" id="industry" name="industry">
+                                </div>
+                                <!-- Region -->
+                                <div class="Activity-type">
+                                    <label style="font-weight: bold; margin-left: 66px; " for="region">Region :</label>
+                                    <input type="text" id="region" name="region">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Remarks -->
+                    <div class="Activity-type">
+                        <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="remarks" id="remarks" cols="30"></textarea>
+                    </div>
+                    <!-- Save button -->
+                    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                        <button type="button" onclick="submitForm()" class="saveButton">Save</button>
+                    </div>
+                </form>
+                <script>
+                    function submitForm() {
+                        var formData = new FormData(document.getElementById('customerForm'));
+                
+                        // Send POST request to server
+                        fetch("{{ route('customers.store') }}", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Clear the form fields
+                                document.getElementById('customerForm').reset();
+                                
+                                // Hide the modal
+                                var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+                                myModal.hide();
+                            } else {
+                                console.error('Failed to create customer');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    }
+                </script>
+                @php
+                    $customers = DB::table('customer-details')->get();
+                @endphp
+                <!-- Customer grid view -->
+                <div class="table-responsive">
+                    <h5>Stored Customers</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Contact No</th>
+                                <th>Industry</th>
+                                <th>Region</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Iterate over stored customers and display them -->
+                            @foreach($customers as $customer)
+                            <tr>
+                                <td>{{ $customer->customer_id }}</td>
+                                <td>{{ $customer->customer_name }}</td>
+                                <td>{{ $customer->email }}</td>
+                                <td>{{ $customer->customer_type }}</td>
+                                <td>{{ $customer->status }}</td>
+                                <td>{{ $customer->contact_no }}</td>
+                                <td>{{ $customer->industry }}</td>
+                                <td>{{ $customer->region }}</td>
+                                <td>{{ $customer->remarks }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</div> --}}
+
+
+
+
+
+
 <!-- -----------------------------------------------------end---------------------- -->
     <style>
         #step-form>div {
@@ -1785,10 +2110,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const addRowButton = document.getElementById('new-button-icon1');
     addRowButton.addEventListener('click', function() {
         const Production = this.parentNode.innerText.trim(); // Get the department name
-            
+        const modifiedProduction = Production.replace('+', ''); // Remove the plus sign
+        console.log(modifiedProduction);
         // Create a new row and insert it after the current row
         const newRow = document.createElement('tr');
-        newRow.innerHTML = `<td style="background: #e1d8d8">${Production}</td> 
+        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProduction}</td> 
                                 <td><textarea name="Production_Person[]"></textarea></td>
                                 <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
                                 <td><textarea name="Production_Comments[[]]"></textarea></td>
@@ -1806,10 +2132,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const addRowButton = document.getElementById('new-button-icon2');
         addRowButton.addEventListener('click', function() {
             const Warehouse = this.parentNode.innerText.trim(); // Get the department name
-                
+            const modifiedWarehouse = Warehouse.replace('+', ''); // Remove the plus sign
             // Create a new row and insert it after the current row
             const newRow = document.createElement('tr');
-            newRow.innerHTML = `<td style="background: #e1d8d8">${Warehouse}</td> 
+            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedWarehouse}</td> 
                                 <td><textarea name="Warehouse_Person"></textarea></td>
                                 <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
                                 <td><textarea name="Warehouse_Comments"></textarea></td>
@@ -1827,10 +2153,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const addRowButton = document.getElementById('new-button-icon3');
             addRowButton.addEventListener('click', function() {
                 const Quality = this.parentNode.innerText.trim(); // Get the department name
-                    
+                const modifiedQuality = Quality.replace('+', ''); // Remove the plus sign
                 // Create a new row and insert it after the current row
                 const newRow = document.createElement('tr');
-                newRow.innerHTML = `<td style="background: #e1d8d8">${Quality}</td> 
+                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedQuality}</td> 
                                     <td><textarea name="Quality_Person"></textarea></td>
                                     <td><textarea name="Quality_Impect_Assessment"></textarea></td>
                                     <td><textarea name="Quality_Comments"></textarea></td>
@@ -1848,10 +2174,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const addRowButton = document.getElementById('new-button-icon4');
                 addRowButton.addEventListener('click', function() {
                     const Assurance = this.parentNode.innerText.trim(); // Get the department name
-                        
+                    const modifiedAssurance = Assurance.replace('+', ''); // Remove the plus sign
                     // Create a new row and insert it after the current row
                     const newRow = document.createElement('tr');
-                    newRow.innerHTML = `<td style="background: #e1d8d8">${Assurance}</td> 
+                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAssurance}</td> 
                                         <td><textarea name="Assurance_Person"></textarea></td>
                                         <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
                                         <td><textarea name="Assurance_Comments"></textarea></td>
@@ -1869,10 +2195,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     const addRowButton = document.getElementById('new-button-icon5');
                     addRowButton.addEventListener('click', function() {
                         const Engineering = this.parentNode.innerText.trim(); // Get the department name
-                            
+                        const modifiedEngineering = Engineering.replace('+', ''); // Remove the plus sign
                         // Create a new row and insert it after the current row
                         const newRow = document.createElement('tr');
-                        newRow.innerHTML = `<td style="background: #e1d8d8">${Engineering}</td> 
+                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedEngineering}</td> 
                                             <td><textarea name="Engineering_Person"></textarea></td>
                                             <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
                                             <td><textarea name="Engineering_Comments"></textarea></td>
@@ -1890,10 +2216,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         const addRowButton = document.getElementById('new-button-icon6');
                         addRowButton.addEventListener('click', function() {
                             const Analytical = this.parentNode.innerText.trim(); // Get the department name
-                                
+                            const modifiedAnalytical = Analytical.replace('+', ''); // Remove the plus sign
                             // Create a new row and insert it after the current row
                             const newRow = document.createElement('tr');
-                            newRow.innerHTML = `<td style="background: #e1d8d8">${Analytical}</td> 
+                            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAnalytical}</td> 
                                                 <td><textarea name="Analytical_Person"></textarea></td>
                                                 <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
                                                 <td><textarea name="Analytical_Comments"></textarea></td>
@@ -1911,10 +2237,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             const addRowButton = document.getElementById('new-button-icon7');
                             addRowButton.addEventListener('click', function() {
                                 const Process = this.parentNode.innerText.trim(); // Get the department name
-                                    
+                                const modifiedProcess = Process.replace('+', ''); // Remove the plus sign
                                 // Create a new row and insert it after the current row
                                 const newRow = document.createElement('tr');
-                                newRow.innerHTML = `<td style="background: #e1d8d8">${Process}</td> 
+                                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProcess}</td> 
                                                     <td><textarea name="Process_Person"></textarea></td>
                                                     <td><textarea name="Process_Impect_Assessment"></textarea></td>
                                                     <td><textarea name="Process_Comments"></textarea></td>
@@ -1932,10 +2258,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 const addRowButton = document.getElementById('new-button-icon8');
                                 addRowButton.addEventListener('click', function() {
                                     const Technology = this.parentNode.innerText.trim(); // Get the department name
-                                        
+                                    const modifiedTechnology = Technology.replace('+', ''); // Remove the plus sign
+
                                     // Create a new row and insert it after the current row
                                     const newRow = document.createElement('tr');
-                                    newRow.innerHTML = `<td style="background: #e1d8d8">${Technology}</td> 
+                                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedTechnology}</td> 
                                                         <td><textarea name="Technology_Person"></textarea></td>
                                                         <td><textarea name="Technology_Impect_Assessment"></textarea></td>
                                                         <td><textarea name="Technology_Comments"></textarea></td>
@@ -1953,10 +2280,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                     const addRowButton = document.getElementById('new-button-icon9');
                                     addRowButton.addEventListener('click', function() {
                                         const Environment = this.parentNode.innerText.trim(); // Get the department name
-                                            
+                                        const modifiedEnvironment = Environment.replace('+', ''); // Remove the plus sign
+
                                         // Create a new row and insert it after the current row
                                         const newRow = document.createElement('tr');
-                                        newRow.innerHTML = `<td style="background: #e1d8d8">${Environment}</td> 
+                                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedEnvironment}</td> 
                                                             <td><textarea name="Environment_Person"></textarea></td>
                                                             <td><textarea name="Environment_Impect_Assessment"></textarea></td>
                                                             <td><textarea name="Environment_Comments"></textarea></td>
@@ -1974,10 +2302,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                         const addRowButton = document.getElementById('new-button-icon10');
                                         addRowButton.addEventListener('click', function() {
                                             const Human = this.parentNode.innerText.trim(); // Get the department name
-                                                
+                                            const modifiedHuman = Human.replace('+', ''); // Remove the plus sign
+
                                             // Create a new row and insert it after the current row
                                             const newRow = document.createElement('tr');
-                                            newRow.innerHTML = `<td style="background: #e1d8d8">${Human}</td> 
+                                            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedHuman}</td> 
                                                                 <td><textarea name="Human_Person"></textarea></td>
                                                                 <td><textarea name="Human_Impect_Assessment"></textarea></td>
                                                                 <td><textarea name="Human_Comments"></textarea></td>
@@ -1995,10 +2324,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                             const addRowButton = document.getElementById('new-button-icon11');
                                             addRowButton.addEventListener('click', function() {
                                                 const Information = this.parentNode.innerText.trim(); // Get the department name
-                                                    
+                                                const modifiedInformation = Information.replace('+', ''); // Remove the plus sign
+
                                                 // Create a new row and insert it after the current row
                                                 const newRow = document.createElement('tr');
-                                                newRow.innerHTML = `<td style="background: #e1d8d8">${Information}</td> 
+                                                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedInformation}</td> 
                                                                     <td><textarea name="Information_Person"></textarea></td>
                                                                     <td><textarea name="Information_Impect_Assessment"></textarea></td>
                                                                     <td><textarea name="Information_Comments"></textarea></td>
@@ -2016,10 +2346,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 const addRowButton = document.getElementById('new-button-icon12');
                                                 addRowButton.addEventListener('click', function() {
                                                     const Project = this.parentNode.innerText.trim(); // Get the department name
+                                                    const modifiedProject = Project.replace('+', ''); // Remove the plus sign
                                                         
                                                     // Create a new row and insert it after the current row
                                                     const newRow = document.createElement('tr');
-                                                    newRow.innerHTML = `<td style="background: #e1d8d8">${Project}</td> 
+                                                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProject}</td> 
                                                                         <td><textarea name="Project_Person"></textarea></td>
                                                                         <td><textarea name="Project_Impect_Assessment"></textarea></td>
                                                                         <td><textarea name="Project_Comments"></textarea></td>
@@ -2037,10 +2368,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                                     const addRowButton = document.getElementById('new-button-icon13');
                                                     addRowButton.addEventListener('click', function() {
                                                         const Any = this.parentNode.innerText.trim(); // Get the department name
-                                                            
+                                                        const modifiedAny = Any.replace('+', ''); // Remove the plus sign
                                                         // Create a new row and insert it after the current row
                                                         const newRow = document.createElement('tr');
-                                                        newRow.innerHTML = `<td style="background: #e1d8d8">${Any}</td> 
+                                                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAny}</td> 
                                                                             <td><textarea name="Any_Person"></textarea></td>
                                                                             <td><textarea name="Any_Impect_Assessment"></textarea></td>
                                                                             <td><textarea name="Any_Comments"></textarea></td>

@@ -2030,7 +2030,48 @@ $group->description = "Dewas/India-Deviation- CFT/SME";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
+//Corporate/India-Deviation
+$group = new RoleGroup();
+$group->id = 281;
+$group->name = "Corporate/India-Deviation- Initiator";
+$group->description = "Corporate/India-Deviation- Initiator";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
 
+$group = new RoleGroup();
+$group->id = 282;
+$group->name = "Corporate/India-Deviation- HOD/Designee";
+$group->description = "Corporate/India-Deviation- HOD/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 283;
+$group->name = "Corporate/India-Deviation- QA";
+$group->description = "Corporate/India-Deviation- QA";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 284;
+$group->name = "Corporate/India-Deviation- FP";
+$group->description = "Corporate/India-Deviation- FP";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 285;
+$group->name = "Corporate/India-Deviation- View Only";
+$group->description = "Corporate/India-Deviation- View Only";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group  = new RoleGroup();
+$group->id = 286;
+$group->name = "Corporate/India-Deviation- CFT/SME";
+$group->description = "Corporate/India-Deviation- CFT/SME";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
 
     }
 }
