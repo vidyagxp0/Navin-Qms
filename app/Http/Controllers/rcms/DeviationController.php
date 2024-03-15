@@ -853,6 +853,7 @@ class DeviationController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();
             if ($deviation->stage == 2) {
                 $deviation->stage = "1";
@@ -1204,8 +1205,7 @@ class DeviationController extends Controller
 
             return view('frontend.forms.capa', compact('parent_id','parent_type',  'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
         } else {
-            #-- IMPORTANT --
-            // work remaining for rsa 
+            return view('frontend.forms.root-cause-analysis', compact('parent_id','parent_type',  'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
         }
     }
 

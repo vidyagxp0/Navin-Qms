@@ -263,9 +263,6 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                                 Cancel
                             </button>
-                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
-                                Child
-                            </button> --}}  
                         @elseif($data->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                               More Info Required
@@ -273,7 +270,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
                             </button>
                         @elseif($data->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds)))
@@ -299,7 +296,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
                             </button>
                         @elseif($data->stage == 6 && (in_array(9, $userRoleIds) || in_array(18, $userRoleIds)))
@@ -1761,12 +1758,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             @if ($data->stage == 3)
                                 <label for="major">
                                     <input type="radio" name="child_type" id="major"
-                                        value="rsa">
-                                        RSA
+                                        value="rca">
+                                        RCA
                                 </label>
                                 <br>
-                                <label for="major1">
-                                    <input type="radio" name="child_type" id="major1"
+                                <label for="major">
+                                    <input type="radio" name="child_type" id="major"
                                         value="extension">
                                         Extension
                                 </label>
@@ -1779,8 +1776,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                         CAPA
                                 </label>
                                 <br>
-                                <label for="major1">
-                                    <input type="radio" name="child_type" id="major1"
+                                <label for="major">
+                                    <input type="radio" name="child_type" id="major"
                                         value="extension">
                                         Extension
                                 </label>
@@ -1799,7 +1796,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    <div class="modal fade" id="child-modal1">
+    {{-- <div class="modal fade" id="child-modal1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
     
@@ -1836,7 +1833,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             </div>
         </div>
-    </div>
+    </div> --}}
     
     <div class="modal fade" id="more-info-required-modal">
         <div class="modal-dialog modal-dialog-centered">
