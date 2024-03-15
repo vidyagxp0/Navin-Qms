@@ -233,7 +233,7 @@ $users = DB::table('users')
         <div class="container-fluid">
 
             <div class="inner-block state-block">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center"> 
                     <div class="main-head">Record Workflow </div>
 
                     <div class="d-flex" style="gap:20px;">
@@ -243,7 +243,7 @@ $users = DB::table('users')
                         @endphp
                         {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}}
-                         <button class="button_theme1"> <a class="text-white"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $data->id) }}" --}}
+                         <button class="button_theme1"> <a class="text-white" href="{{ url('DeviationAuditTrial', $data->id) }}"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $data->id) }}" --}}
                                 Audit Trail </a> </button>
 
                         @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))

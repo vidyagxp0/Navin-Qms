@@ -1305,7 +1305,8 @@ class CapaController extends Controller
         $data1 = CapaGrid::where('capa_id', $id)->where('type', "Product_Details")->first();
         $data2 = CapaGrid::where('capa_id', $id)->where('type', "Material_Details")->first();
         $data3 = CapaGrid::where('capa_id', $id)->where('type', "Instruments_Details")->first();
-          if(!empty($changeControl->cft)) $cft = explode(',', $changeControl->cft);
+        $changeControl = OpenStage::find(1);
+        if(!empty($changeControl->cft)) $cft = explode(',', $changeControl->cft);
         // $MaterialsQueryData = Http::get('http://103.167.99.37/LIMS_EL/WebServices.Query.MaterialsQuery.lims');
         // dd( $MaterialsQueryData->json());
         // $EquipmentsQueryData = Http::get('http://103.167.99.37/LIMS_EL/WebServices.Query.EquipmentsQuery.lims');
@@ -1471,7 +1472,7 @@ class CapaController extends Controller
             toastr()->error('E-signature Not match');
             return back();
         }
-    }
+    } 
 
 
     public function capaCancel(Request $request, $id)
@@ -1627,7 +1628,7 @@ class CapaController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $capa = Capa::find($id);
-
+            $lastDocument = Capa::find($id);
             if ($capa->stage == 2) {
                 $capa->stage = "1";
                 $capa->status = "Opened";

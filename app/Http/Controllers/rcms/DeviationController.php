@@ -448,14 +448,14 @@ class DeviationController extends Controller
                             $email = Helpers::getInitiatorEmail($u->user_id);
                              if ($email !== null) {
                           
-                            //   Mail::send(
-                            //       'mail.view-mail',
-                            //        ['data' => $deviation],
-                            //     function ($message) use ($email) {
-                            //         $message->to($email)
-                            //             ->subject("Document is Submitted By ".Auth::user()->name);
-                            //     }
-                            //   );
+                              Mail::send(
+                                  'mail.view-mail',
+                                   ['data' => $deviation],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document is Submitted By ".Auth::user()->name);
+                                }
+                              );
                             }
                      } 
                   }
@@ -488,14 +488,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        // Mail::send(
-                        //     'mail.view-mail',
-                        //     ['data' => $deviation],
-                        //     function ($message) use ($email) {
-                        //         $message->to($email)
-                        //             ->subject("Plan Approved By ".Auth::user()->name);
-                        //     }
-                        // );
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Plan Approved By ".Auth::user()->name);
+                            }
+                        );
                     }
                   } 
                 }
@@ -526,14 +526,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        // Mail::send(
-                        //     'mail.view-mail',
-                        //     ['data' => $deviation],
-                        //     function ($message) use ($email) {
-                        //         $message->to($email)
-                        //             ->subject("Plan Approved By ".Auth::user()->name);
-                        //     }
-                        // );
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Plan Approved By ".Auth::user()->name);
+                            }
+                        );
                     }
                   } 
                 }
@@ -563,14 +563,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        // Mail::send(
-                        //     'mail.view-mail',
-                        //     ['data' => $deviation],
-                        //     function ($message) use ($email) {
-                        //         $message->to($email)
-                        //             ->subject("Plan Approved By ".Auth::user()->name);
-                        //     }
-                        // );
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Plan Approved By ".Auth::user()->name);
+                            }
+                        );
                     }
                   } 
                 }
@@ -601,14 +601,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        // Mail::send(
-                        //     'mail.view-mail',
-                        //     ['data' => $deviation],
-                        //     function ($message) use ($email) {
-                        //         $message->to($email)
-                        //             ->subject("Plan Approved By ".Auth::user()->name);
-                        //     }
-                        // );
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Plan Approved By ".Auth::user()->name);
+                            }
+                        );
                     }
                   } 
                 }
@@ -638,14 +638,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        // Mail::send(
-                        //     'mail.view-mail',
-                        //     ['data' => $deviation],
-                        //     function ($message) use ($email) {
-                        //         $message->to($email)
-                        //             ->subject("Plan Approved By ".Auth::user()->name);
-                        //     }
-                        // );
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Plan Approved By ".Auth::user()->name);
+                            }
+                        );
                     }
                   } 
                 }
@@ -1210,6 +1210,19 @@ class DeviationController extends Controller
         } else {
             return view('frontend.forms.root-cause-analysis', compact('parent_id','parent_type',  'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
         }
+    }
+
+    public function DeviationAuditTrial($id)
+    {
+        $audit = DeviationAuditTrail::where('deviation_id', $id)->orderByDESC('id')->get()->unique('activity_type');
+        $today = Carbon::now()->format('d-m-y');
+        $document = Deviation::where('id', $id)->first();
+        $document->initiator = User::where('id', $document->initiator_id)->value('name');
+
+
+        // return $audit;
+
+        return view('frontend.forms.deviation_audit', compact('audit', 'document', 'today'));
     }
 
 }

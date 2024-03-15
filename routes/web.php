@@ -314,7 +314,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 Route::view('deviation', 'frontend.forms.deviation');
 Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
-
+Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
 Route::view('extension_form', 'frontend.forms.extension');
 
 Route::view('cc-form', 'frontend.forms.change-control');
