@@ -1811,7 +1811,6 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            <option value="Any Other ">Any Other </option>
                                             
 
 
@@ -1900,7 +1899,6 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            <option value="Any Other ">Any Other </option>
                                             
 
 
@@ -1989,7 +1987,6 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            <option value="Any Other ">Any Other </option>
                                             
 
 
@@ -2079,7 +2076,6 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            <option value="Any Other ">Any Other </option>
                                             
 
 
@@ -2170,7 +2166,6 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            <option value="Any Other ">Any Other </option>
                                             
 
 
