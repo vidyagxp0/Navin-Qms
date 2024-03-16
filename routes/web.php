@@ -290,6 +290,8 @@ Route::view('audit-pdf', 'frontend.documents.audit-pdf');
 //!                    RCMS
 //! ============================================
 Route::get('chart-data',[DesktopController::class, 'fetchChartData']);
+Route::get('chart-data-releted',[DesktopController::class, 'fetchChartDataDepartmentReleted']);
+
 Route::get('chart-data-dep',[DesktopController::class, 'fetchChartDataDepartment']);
 
 Route::view('rcms_login', 'frontend.rcms.login');
