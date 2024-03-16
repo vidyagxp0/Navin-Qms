@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Connexo - Software</title>
+    <title>VidyaGxP - Software</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 
@@ -39,7 +39,7 @@
                     <table style="width: 100%;">
                         <tr>
                             <td style="width: 150px; vertical-align: middle">
-                                <img src="https://dms.mydemosoftware.com/user/images/logo1.png" alt="..."
+                                <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="..."
                                     style="width: 150px; padding:8px;">
                             </td>
                             <td>&nbsp;</td>
@@ -1655,7 +1655,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Connexo - Software</title>
+    <title>VidyaGxP - Software</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
@@ -1815,7 +1815,7 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
