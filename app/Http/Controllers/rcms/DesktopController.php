@@ -18,6 +18,7 @@ use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\QMSDivision;
 use App\Models\User;
+use App\Models\Deviation;
 use Carbon\Carbon;
 use Helpers;
 use Illuminate\Pagination\Paginator;
@@ -45,6 +46,8 @@ class DesktopController extends Controller
         $audit_pragram = AuditProgram::orderByDesc('id')->get();
         $root_cause_analysis = RootCauseAnalysis::orderByDesc('id')->get();
         $observation = Observation::orderByDesc('id')->get();
+        $Deviation = Deviation::orderByDesc('id')->get();
+
 
         foreach ($change_control as $data) {
 
@@ -165,6 +168,15 @@ class DesktopController extends Controller
             $data->division_name = Helpers::divisionNameForQMS($data->division_id);
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
         }
+        foreach ($Deviation as $data) {
+            $data->record_number = Helpers::recordFormat($data->record);
+            $data->process = "Deviation";
+            $data->assign_to = "Amit guru";
+            $data->open_date = Helpers::getdateFormat($data->initiation_date);
+            $data->due_date = Helpers::getdateFormat($data->due_date);
+            $data->division_name = Helpers::divisionNameForQMS($data->division_id);
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+        }
 
         //   return $table;
 
@@ -183,6 +195,7 @@ class DesktopController extends Controller
             'action_item',
             'observation',
             'change_control',
+            'Deviation'
         ));
     }
 

@@ -82,7 +82,7 @@ class ProcessSeeder extends Seeder
         foreach ($processNames as $index => $processName) {
             // Loop through 8 divisions
             // Loop through 8 divisions
-            for ($divisionId = 1; $divisionId <= 8; $divisionId++) {
+            for ($divisionId = 1; $divisionId <= 10; $divisionId++) {
                 $process = new QMSProcess();
                 $process->division_id = $divisionId;
                 $process->process_name = $processName;
