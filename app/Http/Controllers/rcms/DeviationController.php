@@ -36,7 +36,8 @@ class DeviationController extends Controller
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('d-M-Y');
-        return response()->view('frontend.forms.deviation_new', compact('record_number', 'formattedDate', 'due_date','old_record')); 
+        $pre = Deviation::all();
+        return response()->view('frontend.forms.deviation_new', compact('record_number', 'formattedDate', 'due_date','old_record', 'pre')); 
     }
 
     /**
@@ -78,9 +79,11 @@ class DeviationController extends Controller
         $deviation->short_description = $request->short_description;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
-        //$deviation->Facility = implode(',', $request->Facility); 
+        $deviation->Facility = implode(',', $request->Facility); 
        // $deviation->Observed_by = $request->Observed_by;
         $deviation->audit_type = $request->audit_type;
+        $deviation->short_description_required = $request->short_description_required;
+        $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
         
         $deviation->Product_Batch = $request->Product_Batch;
@@ -534,15 +537,6 @@ class DeviationController extends Controller
         $data19->Technology_Remarks = serialize($request->Technology_Remarks);
     }
     $data19->save();
-
-
-
-
-
-
-
-
-
     //  return response()->redirect(url('rcms/qms-dashboard'));
     toastr()->success("Record is created Successfully");
     return redirect(url('rcms/qms-dashboard'));
@@ -561,9 +555,9 @@ class DeviationController extends Controller
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
+        $pre = Deviation::all();
        
-       
-        return view('frontend.forms.deviation_view', compact('data', 'old_record'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre'));
     }
 
     /**

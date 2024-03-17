@@ -483,7 +483,24 @@ $users = DB::table('users')
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>  
-                    
+                                
+                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                    <div class="group-input input-date">
+                                        <label for="Short Description required">Short Description Required?</label>
+                                        <select name="short_description_required" id="short_description_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input" id="nature_of_repeat">
+                                        <label for="nature_of_repeat">Repeat Nature<span
+                                                class="text-danger d-none">*</span></label>
+                                        <textarea name="nature_of_repeat"></textarea>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed</label>
@@ -826,8 +843,8 @@ $users = DB::table('users')
                                         <label for="Deviation category">Initial Deviation Category</label>
                                         <select name="Deviation_category" id="Deviation_category">
                                             <option value="0">-- Select -- </option>
-                                            <option value="minor">Major </option>
-                                            <option value="major">Minor </option>
+                                            <option value="minor">Minor </option>
+                                            <option value="major">Major </option>
                                             <option value="critical">Critical </option>
                                         </select>
 
@@ -908,6 +925,23 @@ $users = DB::table('users')
                                     </button>
                                     </div>
                                 </div>
+
+                                <div class="col-12">
+                                    <div class="group-input"> 
+                                        <label for="related_records">Related Records</label>
+
+                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
+                                            data-search="false" data-silent-initial-value-set="true"
+                                            id="related_records">
+                                            @foreach ($pre as $prix)
+                                                <option value="{{ $prix->id }}">
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
@@ -948,12 +982,9 @@ $users = DB::table('users')
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
-                            <div class="row">
-
-                            
-                                
+                            <div class="row">                         
                                 <div class="col-12">
-                            <div class="group-input"><label for="why-why-chart">
+                                    <div class="group-input"><label for="why-why-chart">
                                         Impact Assessment by applicable cross functional team:
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#is_is_not-instruction-modal"
@@ -1109,12 +1140,13 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
                             </div>
                         </div>
-                    </div>
+                </div>
                  
 
                     <!-- investigation and capa -->
@@ -2106,12 +2138,11 @@ $users = DB::table('users')
     
     
   <script>
-document.addEventListener('DOMContentLoaded', function() {   
+    document.addEventListener('DOMContentLoaded', function() {   
     const addRowButton = document.getElementById('new-button-icon1');
     addRowButton.addEventListener('click', function() {
-        const Production = this.parentNode.innerText.trim(); // Get the department name
-        const modifiedProduction = Production.replace('+', ''); // Remove the plus sign
-        console.log(modifiedProduction);
+        const Production = this.parentNode.innerText.trim();
+        const modifiedProduction = Production.replace('+', ''); 
         // Create a new row and insert it after the current row
         const newRow = document.createElement('tr');
         newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProduction}</td> 

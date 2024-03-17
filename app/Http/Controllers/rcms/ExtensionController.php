@@ -230,8 +230,8 @@ class ExtensionController extends Controller
         $data = Extension::find($id);
         $cc = CC::find($data->cc_id);
         $appro  = QaApproval::where('cc_id', $id)->first();
-
-        return view('frontend.extension.View', compact('data', 'old_record','cc', 'appro'));
+        $today_date = Carbon::now()->format('Y-m-d');
+        return view('frontend.extension.View', compact('data', 'old_record','cc', 'appro', 'today_date'));
     }
 
     public function edit($id)

@@ -543,6 +543,33 @@ $users = DB::table('users')
                                     <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                  </div>
                                 </div>  
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Short Description required">Short Description Repeat?</label>
+                                        <select name="short_description_required" id="short_description_required"  value="{{ $data->short_description_required }}" >
+                                            <option value="0">-- Select --</option>
+                                            <option @if ($data->short_description_required == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->short_description_required == 'no') selected @endif 
+                                            value="no">No</option>
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input" id="nature_of_repeat">
+                                        <label for="nature_of_repeat">Repeat Nature<span
+                                                class="text-danger d-none">*</span></label>
+                                        <textarea name="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="severity-level">Deviation Observed</label>
+                                        <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
+                                       <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
+                                    </div>
+                                </div>
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed</label>
@@ -551,7 +578,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="group-input">
+                                    {{-- <div class="group-input">
                                         <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
@@ -559,6 +586,18 @@ $users = DB::table('users')
                                             <option value="2"> 2</option>
                                             <option value="3"> 3</option>
                                            
+                                        </select>
+                                    </div> --}}
+                                    <div class="group-input">
+                                        @php
+                                            $users = DB::table('users')->get();
+                                            $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
+                                        @endphp
+                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <select multiple name="Facility[]" placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            @foreach ($users as $user)
+                                                <option {{ in_array($user->id, $selectedFacilities) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach                                           
                                         </select>
                                     </div>
                                 </div>
@@ -576,29 +615,29 @@ $users = DB::table('users')
                                         <label for="audit type">Deviation Related To </label>
                                         <select  name="audit_type"  value="{{ $data->audit_type }}">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option @if ($data->Deviation_Related_To == 'Facility') selected @endif
+                                            <option @if ($data->audit_type == 'Facility') selected @endif
                                                 value="Facility">Facility</option>
-                                                <option @if ($data->Deviation_Related_To == 'Equipment/Instrument') selected @endif
+                                                <option @if ($data->audit_type == 'Equipment/Instrument') selected @endif
                                                     value="Equipment/Instrument">Equipment/Instrument</option>
-                                                    <option @if ($data->Deviation_Related_To == 'Documentationerror') selected @endif
+                                                    <option @if ($data->audit_type == 'Documentationerror') selected @endif
                                                         value="Documentationerror">Documentationerror</option>
-                                                        <option @if ($data->Deviation_Related_To == 'STP/ADS_instruction') selected @endif
+                                                        <option @if ($data->audit_type == 'STP/ADS_instruction') selected @endif
                                                             value="STP/ADS_instruction">STP/ADS_instruction</option>
-                                                            <option @if ($data->Deviation_Related_To == 'Packaging&Labelling') selected @endif
+                                                            <option @if ($data->audit_type == 'Packaging&Labelling') selected @endif
                                                                 value="Packaging&Labelling">Packaging&Labelling</option>
-                                                                <option @if ($data->Deviation_Related_To == 'Material_System') selected @endif
+                                                                <option @if ($data->audit_type == 'Material_System') selected @endif
                                                                     value="Material_System">Material_System</option>
-                                                                    <option @if ($data->Deviation_Related_To == 'Laboratory_Instrument/System') selected @endif
+                                                                    <option @if ($data->audit_type == 'Laboratory_Instrument/System') selected @endif
                                                                         value="Laboratory_Instrument/System">Laboratory_Instrument/System</option>
-                                                                        <option @if ($data->Deviation_Related_To == 'Utility_System') selected @endif
+                                                                        <option @if ($data->audit_type == 'Utility_System') selected @endif
                                                                             value="Utility_System">Utility_System</option>
-                                                                            <option @if ($data->Deviation_Related_To == 'Computer_System') selected @endif
+                                                                            <option @if ($data->audit_type == 'Computer_System') selected @endif
                                                                                 value="Computer_System">Computer_System</option>
-                                                                                <option @if ($data->Deviation_Related_To == 'Document') selected @endif
+                                                                                <option @if ($data->audit_type == 'Document') selected @endif
                                                                                     value="Document">Document</option>
-                                                                                    <option @if ($data->Deviation_Related_To == 'Data integrity') selected @endif
+                                                                                    <option @if ($data->audit_type == 'Data integrity') selected @endif
                                                                                         value="Data integrity">Data integrity</option>
-                                                                                        <option @if ($data->Deviation_Related_To == 'Anyother(specify)') selected @endif
+                                                                                        <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
                                                                                             value="Anyother(specify)">Anyother(specify)</option>
                                         </select>
                                     </div>
@@ -926,6 +965,22 @@ $users = DB::table('users')
                                         <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="group-input"> 
+                                        <label for="related_records">Related Records</label>
+
+                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
+                                            data-search="false" data-silent-initial-value-set="true"
+                                            id="related_records">
+                                            @foreach ($pre as $prix)
+                                                <option value="{{ $prix->id }}">
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -2062,7 +2117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <div class="modal fade" id="more-info-required-modal">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content"> 
     
                 <!-- Modal Header -->
                 <div class="modal-header">
