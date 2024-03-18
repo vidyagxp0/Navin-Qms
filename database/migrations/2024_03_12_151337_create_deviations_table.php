@@ -33,6 +33,9 @@ return new class extends Migration
             $table->date('Deviation_date')->nullable();
             $table->date('Deviation_reported_date')->nullable();
             $table->string('Facility')->nullable();
+            $table->string('Capachild')->nullable();
+            $table->string('Rootchild')->nullable();
+            $table->string('Extensionchild')->nullable();
             $table->string('audit_type')->nullable();
             $table->longText('others')->nullable();
             $table->longText('Product_Batch')->nullable();
@@ -47,6 +50,7 @@ return new class extends Migration
             $table->longText('Investigation_Details')->nullable();
             $table->string('Customer_notification')->nullable();
             $table->string('customers')->nullable();
+            $table->string('deviation_id')->nullable();
             $table->longText('QAInitialRemark')->nullable();
             $table->string('Production_Review')->nullable();
             $table->string('Production_person')->nullable();

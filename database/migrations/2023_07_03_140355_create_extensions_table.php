@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('cc_id')->nullable();
             $table->integer('parent_id')->nullable();
             $table->text('parent_type')->nullable();
-            $table->text('record')->nullable();
+            $table->integer('record')->nullable();
             $table->integer('initiator_id')->nullable();
             $table->text('intiation_date')->nullable();
             $table->text('due_date')->nullable();

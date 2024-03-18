@@ -717,8 +717,9 @@ class DashboardController extends Controller
             $audit = "rootAuditReport/" . $data->id;
         } elseif ($type == "Deviation") {
             $data = Deviation::find($id);
-            $single = "#";
+            $single = "deviationSingleReport/". $data->id;
             $audit = "#";
+            $parent="deviationparentchildReport/". $data->id;
         }
 
 
@@ -748,6 +749,7 @@ class DashboardController extends Controller
                         <div class="drop-list">
                             <a target="__blank" href="' . $audit . '" class="inner-item">Audit Trail</a>
                             <a target="__blank" href="' . $single . '" class="inner-item">' . $type . ' Single Report</a>
+                            <a target="__blank" href="' . $parent . '" class="inner-item">' . $type . ' Parent&Child Report</a>
                         </div>
                     </div>
                 </div>

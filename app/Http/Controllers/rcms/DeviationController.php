@@ -1,18 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\rcms;
-
+use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
 use App\Models\Deviation;
+use App\Models\Extension;
 use App\Models\DeviationAuditTrail;
 use App\Models\DeviationGrid;
 use App\Models\DeviationHistory;
 use Illuminate\Http\Request;
+use App\Models\Capa;
 use Carbon\Carbon;
 use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
 use Helpers;
+use PDF;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -246,27 +249,27 @@ class DeviationController extends Controller
 
     $deviation->save();
 
-    $data3 = new DeviationGrid();
-    $data3->ID_Number = $deviation->id;
-    $data3->type = "Deviation";
-    if (!empty($request->ID_Number)) {
-        $data3->ID_Number = serialize($request->ID_Number);
-    }
-    if (!empty($request->SystemName)) {
-        $data3->SystemName = serialize($request->SystemName);
-    }
+    // $data3 = new DeviationGrid();
+    // $data3->deviation_id = $deviation->id;
+    // $data3->type = "Deviation";
+    // if (!empty($request->ID_Number)) {
+    //     $data3->ID_Number = serialize($request->ID_Number);
+    // }
+    // if (!empty($request->SystemName)) {
+    //     $data3->SystemName = serialize($request->SystemName);
+    // }
 
-    if (!empty($request->Instrument)) {
-        $data3->Instrument = serialize($request->Instrument);
-    }
-    if (!empty($request->Equipment)) {
-        $data3->Equipment = serialize($request->Equipment);
-    }
-    if (!empty($request->facility)) {
-        $data3->facility = serialize($request->facility);
-    }
+    // if (!empty($request->Instrument)) {
+    //     $data3->Instrument = serialize($request->Instrument);
+    // }
+    // if (!empty($request->Equipment)) {
+    //     $data3->Equipment = serialize($request->Equipment);
+    // }
+    // if (!empty($request->facility)) {
+    //     $data3->facility = serialize($request->facility);
+    // }
     
-    $data3->save();
+    // $data3->save();
     $data4 = new DeviationGrid();
     $data4->Number = $deviation->id;
     $data4->type = "Deviation";
@@ -276,7 +279,7 @@ class DeviationController extends Controller
     if (!empty($request->ReferenceDocumentName)) {
         $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
     }
-    $data4->save();
+     $data4->save();
 
     $data5 = new DeviationGrid();
     $data5->nameofproduct = $deviation->id;
@@ -305,12 +308,12 @@ class DeviationController extends Controller
         $data = Deviation::find($id);
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
+        // $grid_data1 = DeviationGrid::where('deviation_id', $id)->where('type', "Deviation")->first();
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
        
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre'));
+     return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -547,7 +550,25 @@ class DeviationController extends Controller
                   }
            
                 $deviation->update();
-                toastr()->success('Document Sent');
+
+                // $data3=DeviationGrid::where('deviation_id', $deviation->id)->where('type', "Deviation")->first();
+                // if (!empty($request->ID_Number)) {
+                //     $data3->ID_Number = serialize($request->ID_Number);
+                // }
+                // if (!empty($request->SystemName)) {
+                //     $data3->SystemName = serialize($request->SystemName);
+                // }
+            
+                // if (!empty($request->Instrument)) {
+                //     $data3->Instrument = serialize($request->Instrument);
+                // }
+                // if (!empty($request->Equipment)) {
+                //     $data3->Equipment = serialize($request->Equipment);
+                // }
+                // if (!empty($request->facility)) {
+                //     $data3->facility = serialize($request->facility);
+                // }
+                // toastr()->success('Document Sent');
                 return back();
             }
             if ($deviation->stage == 2) {
@@ -1268,7 +1289,8 @@ class DeviationController extends Controller
     }
 
     public function deviation_child_1(Request $request, $id)
-    {
+    { 
+        
         $cft =[];
         $parent_id = $id;
         $parent_type = "Audit_Program";
@@ -1294,14 +1316,23 @@ class DeviationController extends Controller
 
             $record_number = ((RecordNumber::first()->value('counter')) + 1);
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+            $Extensionchild = Deviation::find($id);
+            $Extensionchild->Extensionchild = $record_number;
+            $Extensionchild->save();
             return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date'));
         }
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         if ($request->child_type == "capa") {
             $parent_name = "CAPA";
-
-            return view('frontend.forms.capa', compact('parent_id','parent_type',  'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
+            $Capachild = Deviation::find($id);
+            $Capachild->Capachild = $record_number;
+            $Capachild->save();
+            return view('frontend.forms.capa', compact('parent_id','parent_type',  'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record','old_record','cft'));
         } else {
+            $parent_name = "Root";
+            $Rootchild = Deviation::find($id);
+            $Rootchild->Rootchild = $record_number;
+            $Rootchild->save();
             return view('frontend.forms.root-cause-analysis', compact('parent_id','parent_type',  'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
         }
     }
@@ -1317,6 +1348,62 @@ class DeviationController extends Controller
         // return $audit;
 
         return view('frontend.forms.deviation_audit', compact('audit', 'document', 'today'));
+    }
+    public static function singleReport($id)
+    {
+        $data = Deviation::find($id);
+        if (!empty($data)) {
+            $data->originator = User::where('id', $data->initiator_id)->value('name');
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.forms.singleReportdeviation', compact('data'))
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Deviation' . $id . '.pdf');
+        }
+    }
+    public static function parentchildReport($id)
+    {
+        $data = Deviation::find($id);
+       
+        $Capachild = $data->Capachild;
+        $Rootchild = $data->Rootchild;
+        $Extensionchild = $data->Extensionchild;
+         $data1 = Capa::where('record', $Capachild)->first();
+         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
+          
+         $data3 = Extension::where('record', $Extensionchild)->first();
+        if (!empty($data)) {
+            $data->originator = User::where('id', $data->initiator_id)->value('name');
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data','data1','data2','data3'))
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Deviation' . $id . '.pdf');
+        }
     }
 
 }

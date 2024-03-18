@@ -166,6 +166,12 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
              Route::get('deviation', [DeviationController::class, 'deviation']);
+             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
+             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+
+
+             
+
         }
     );
 });
