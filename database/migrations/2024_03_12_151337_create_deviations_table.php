@@ -67,19 +67,27 @@ return new class extends Migration
             $table->longText('QA_attachments')->nullable();
             $table->longText('closure_attachment')->nullable();
 
-            $table->string('plan_proposed_by')->nullable();
-            $table->string('plan_proposed_on')->nullable();
-            $table->string('Plan_approved_on')->nullable();
-            $table->string('plan_approved_by')->nullable();
-            $table->string('completed_by')->nullable();
-            $table->string('completed_on')->nullable();
-            $table->string('qa_more_info_required_on')->nullable();
-            $table->string('qa_more_info_required_by')->nullable();
+            $table->string('submit_on')->nullable();
+            $table->string('submit_by')->nullable();
+            $table->longText('submit_comment')->nullable();
+            $table->string('HOD_Review_Complete_By')->nullable();
+            $table->string('HOD_Review_Complete_On')->nullable();
+            $table->longText('HOD_Review_Comments')->nullable();
+            $table->string('QA_Initial_Review_Complete_By')->nullable();
+            $table->string('QA_Initial_Review_Complete_On')->nullable();
+            $table->longText('QA_Initial_Review_Comments')->nullable();
+            $table->string('QA_Final_Review_Complete_By')->nullable();
+            $table->string('QA_Final_Review_Complete_On')->nullable();
+            $table->longText('QA_Final_Review_Comments')->nullable();
+            $table->string('CFT_Review_Complete_By')->nullable();
+            $table->string('CFT_Review_Complete_On')->nullable();
+            $table->longText('CFT_Review_Comments')->nullable();
+            $table->string('Approved_By')->nullable();
+            $table->string('Approved_On')->nullable();
+            $table->longText('Approved_Comments')->nullable();
+
             $table->string('cancelled_on')->nullable();
             $table->string('cancelled_by')->nullable();
-            $table->string('approved_on')->nullable();
-            $table->string('approved_by')->nullable();
-
             $table->string('rejected_on')->nullable();
             $table->string('rejected_by')->nullable();
             $table->string('status')->nullable();
