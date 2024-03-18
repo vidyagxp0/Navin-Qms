@@ -128,6 +128,7 @@
         #rcms_login_block .login-form-block .logo {
             width: 280px;
             margin: 0 auto 30px;
+            margin-top: 19px
         }
 
         /* #rcms_login_block .login-form-block .logo img {
@@ -742,6 +743,7 @@
 
         #login-container .login-form .form-block .logo {
             width: 150px;
+            
             margin-bottom: 20px;
         }
 
@@ -836,10 +838,10 @@
             <div class="form-block">
                 <div class="logo-container11">
                     <div class="logo">
-                        <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                        <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                     </div>
                     <div class="logo">
-                        <img src="{{ asset('user/images/logo1.png') }}" alt="..." class="w-100 h-100">
+                        <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                     </div>
                 </div>
                 <div class="head">
