@@ -595,7 +595,7 @@ $users = DB::table('users')
                                             @endforeach                                           
                                         </select>
                                     </div>
-                                </div> --}}
+                                </div> 
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
@@ -906,7 +906,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Is required ?</label>
                                         <select name="Investigation_required" id="Investigation_required"  value="{{ $data->Investigation_required }}" >
-                                            <option value="0">-- Select --</option>
+                                            <option value="">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value="yes">Yes</option>
                                             <option  @if ($data->Investigation_required == 'no') selected @endif 
@@ -945,7 +945,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="customers">Customers</label>
                                         <select name="customers" id="customers" value="{{ $data->customers }}">
-                                            <option value="0"> -- Select --</option>
+                                            <option value=""> -- Select --</option>
                                             <option @if ($data->customers == 'person1') selected @endif
                                                 value="person1">Person 1</option>
                                             <option  @if ($data->customers == 'person2') selected @endif 
@@ -1051,53 +1051,67 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Customer_notification">
+                                        <label for="Production Review">Production Review Required ?</label>
+                                        <select name="Production_Review" id="Production_Review" value="{{$data->Production_Review}}">
+                                            <option value="">-- Select --</option>
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                            <option @if ($data->Production_Review == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->Production_Review == 'no') selected @endif 
+                                            value="no">No</option>
+                                            <option  @if ($data->Production_Review == 'na') selected @endif 
+                                                value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Person</label>
-                                        <select name="Production_person" id="Customer_notification">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                        <label for="Production person">Production Person</label>
+                                        <select name="Production_person" id="Production_person" value="{{$data->Production_person}}">
+                                            <option value=""> -- Select --</option>
+                                            <option @if ($data->Production_person == 'person1') selected @endif
+                                                value="person1">Person 1</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Production)</label>
-                                        <textarea class="summernote" name="Production_assessment" id="summernote-7">
-                                    </textarea>
+                                        <label for="Production assessment">Impact Assessment (By Production)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data->Production_assessment }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Feedback</label>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-7">
+                                        <label for="Production feedback">Production Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data->Production_feedback }}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Production Attachments</label>
+                                        <label for="production attachment">Production Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="production_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="production_attachment">
+                                                @if ($data->production_attachment)
+                                                @foreach(json_decode($data->production_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'production_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1109,11 +1123,14 @@ $users = DB::table('users')
                                     
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed On</label>
-                                        <input type="date" name="production_on" disabled>
-                                    
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Production Review Completed On">Production Review Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="production_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="production_on" value="{{$data->production_on}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'production_on')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2367,6 +2384,7 @@ $users = DB::table('users')
                                     
                                     </div>
                                 </div>
+                                
                                 <div class="col-12">
                             
         </div>

@@ -104,8 +104,15 @@ class DeviationController extends Controller
         $deviation->Investigation_Details= $request->Investigation_Details;
         $deviation->Customer_notification= $request->Customer_notification;
         $deviation->customers= $request->customers;
-    
         $deviation->QAInitialRemark= $request->QAInitialRemark;
+        //CFT
+        $deviation->Production_Review= $request->Production_Review;
+        $deviation->Production_person= $request->Production_person;
+        
+        $deviation->Production_assessment= $request->Production_assessment;
+        $deviation->Production_feedback= $request->Production_feedback;
+        $deviation->production_on= $request->production_on;
+
         $deviation->Investigation_Summary= $request->Investigation_Summary;
         $deviation->Impact_assessment= $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
@@ -216,6 +223,19 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
+        if (!empty($request->production_attachment)) {
+            $files = [];
+            if ($request->hasfile('production_attachment')) {
+                foreach ($request->file('production_attachment') as $file) {
+                    $name = $request->name . 'production_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->production_attachment = json_encode($files);
+        }
     }
     $record = RecordNumber::first();
     $record->counter = ((RecordNumber::first()->value('counter')) + 1);
@@ -268,276 +288,7 @@ class DeviationController extends Controller
         $data5->ExpiryDate = serialize($request->ExpiryDate);
     }
      $data5->save();
-     $data6 = new DeviationGrid();
-          $data6->type = "Deviation";
-     if (!empty($request->Production_Person)) {
-         $data6->Production_Person = serialize($request->Production_Person);
-     }
-     if (!empty($request->Production_Impect_Assessment)) {
-         $data6->Production_Impect_Assessment = serialize($request->Production_Impect_Assessment);
-     }
- 
-     if (!empty($request->Production_Comments)) {
-         $data6->Production_Comments = serialize($request->Production_Comments);
-     }
-     if (!empty($request->Production_signdate)) {
-         $data6->Production_signdate = serialize($request->Production_signdate);
-     }
-     if (!empty($request->Production_Remarks)) {
-         $data6->Production_Remarks = serialize($request->Production_Remarks);
-     }
-     $data6->save();
-
-    $data7 = new DeviationGrid();
-    $data7->type = "Deviation";
-    if (!empty($request->Warehouse_Person)) {
-        $data7->Warehouse_Person = serialize($request->Warehouse_Person);
-    }
-    if (!empty($request->Warehouse_Impect_Assessment)) {
-        $data7->Warehouse_Impect_Assessment = serialize($request->Warehouse_Impect_Assessment);
-    }
-
-    if (!empty($request->Warehouse_Comments)) {
-        $data7->Warehouse_Comments = serialize($request->Warehouse_Comments);
-    }
-    if (!empty($request->Warehouse_signdate)) {
-        $data7->Warehouse_signdate = serialize($request->Warehouse_signdate);
-    }
-    if (!empty($request->Warehouse_Remarks)) {
-        $data7->Warehouse_Remarks = serialize($request->Warehouse_Remarks);
-    }
-    $data7->save();
-     
-    
-    $data8 = new DeviationGrid();
-    $data8->type = "Deviation";
-    if (!empty($request->Quality_Person)) {
-        $data8->Quality_Person = serialize($request->Quality_Person);
-    }
-    if (!empty($request->Quality_Impect_Assessment)) {
-        $data8->Quality_Impect_Assessment = serialize($request->Quality_Impect_Assessment);
-    }
-
-    if (!empty($request->Quality_Comments)) {
-        $data8->Quality_Comments = serialize($request->Quality_Comments);
-    }
-    if (!empty($request->Quality_signdate)) {
-        $data8->Quality_signdate = serialize($request->Quality_signdate);
-    }
-    if (!empty($request->Quality_Remarks)) {
-        $data8->Quality_Remarks = serialize($request->Quality_Remarks);
-    }
-    $data8->save();
-    $data9 = new DeviationGrid();
-        $data9->type = "Deviation";
-    if (!empty($request->Assurance_Person)) {
-        $data9->Assurance_Person = serialize($request->Assurance_Person);
-    }
-    if (!empty($request->Assurance_Impect_Assessment)) {
-        $data9->Assurance_Impect_Assessment = serialize($request->Assurance_Impect_Assessment);
-    }
-
-    if (!empty($request->Assurance_Comments)) {
-        $data9->Assurance_Comments = serialize($request->Assurance_Comments);
-    }
-    if (!empty($request->Assurance_signdate)) {
-        $data9->Assurance_signdate = serialize($request->Assurance_signdate);
-    }
-    if (!empty($request->Assurance_Remarks)) {
-        $data9->Assurance_Remarks = serialize($request->Assurance_Remarks);
-    }
-    $data9->save();
-    $data10 = new DeviationGrid();
-        $data10->type = "Deviation";
-    if (!empty($request->Engineering_Person)) {
-        $data10->Engineering_Person = serialize($request->Engineering_Person);
-    }
-    if (!empty($request->Engineering_Impect_Assessment)) {
-        $data10->Engineering_Impect_Assessment = serialize($request->Engineering_Impect_Assessment);
-    }
-
-    if (!empty($request->Engineering_Comments)) {
-        $data10->Engineering_Comments = serialize($request->Engineering_Comments);
-    }
-    if (!empty($request->Engineering_signdate)) {
-        $data10->Engineering_signdate = serialize($request->Engineering_signdate);
-    }
-    if (!empty($request->Engineering_Remarks)) {
-        $data10->Engineering_Remarks = serialize($request->Engineering_Remarks);
-    }
-    $data10->save();
-    $data11 = new DeviationGrid();
-        $data11->type = "Deviation";
-    if (!empty($request->Analytical_Person)) {
-        $data11->Analytical_Person = serialize($request->Analytical_Person);
-    }
-    if (!empty($request->Analytical_Impect_Assessment)) {
-        $data11->Analytical_Impect_Assessment = serialize($request->Analytical_Impect_Assessment);
-    }
-
-    if (!empty($request->Analytical_Comments)) {
-        $data11->Analytical_Comments = serialize($request->Analytical_Comments);
-    }
-    if (!empty($request->Analytical_signdate)) {
-        $data11->Analytical_signdate = serialize($request->Analytical_signdate);
-    }
-    if (!empty($request->Analytical_Remarks)) {
-        $data11->Analytical_Remarks = serialize($request->Analytical_Remarks);
-    }
-    $data11->save();
-    $data12 = new DeviationGrid();
-        $data12->type = "Deviation";
-    if (!empty($request->Process_Person)) {
-        $data12->Process_Person = serialize($request->Process_Person);
-    }
-    if (!empty($request->Process_Impect_Assessment)) {
-        $data12->Process_Impect_Assessment = serialize($request->Process_Impect_Assessment);
-    }
-
-    if (!empty($request->Process_Comments)) {
-        $data12->Process_Comments = serialize($request->Process_Comments);
-    }
-    if (!empty($request->Process_signdate)) {
-        $data12->Process_signdate = serialize($request->Process_signdate);
-    }
-    if (!empty($request->Process_Remarks)) {
-        $data12->Process_Remarks = serialize($request->Process_Remarks);
-    }
-    $data12->save();
-    $data13 = new DeviationGrid();
-        $data13->type = "Deviation";
-    if (!empty($request->Technology_Person)) {
-        $data13->Technology_Person = serialize($request->Technology_Person);
-    }
-    if (!empty($request->Technology_Impect_Assessment)) {
-        $data13->Technology_Impect_Assessment = serialize($request->Technology_Impect_Assessment);
-    }
-
-    if (!empty($request->Technology_Comments)) {
-        $data13->Technology_Comments = serialize($request->Technology_Comments);
-    }
-    if (!empty($request->Technology_signdate)) {
-        $data13->Technology_signdate = serialize($request->Technology_signdate);
-    }
-    if (!empty($request->Technology_Remarks)) {
-        $data13->Technology_Remarks = serialize($request->Technology_Remarks);
-    }
-    $data13->save();
-    $data14 = new DeviationGrid();
-        $data14->type = "Deviation";
-    if (!empty($request->Environment_Person)) {
-        $data14->Environment_Person = serialize($request->Environment_Person);
-    }
-    if (!empty($request->Environment_Impect_Assessment)) {
-        $data14->Environment_Impect_Assessment = serialize($request->Environment_Impect_Assessment);
-    }
-
-    if (!empty($request->Environment_Comments)) {
-        $data14->Environment_Comments = serialize($request->Environment_Comments);
-    }
-    if (!empty($request->Environment_signdate)) {
-        $data14->Environment_signdate = serialize($request->Environment_signdate);
-    }
-    if (!empty($request->Environment_Remarks)) {
-        $data14->Environment_Remarks = serialize($request->Environment_Remarks);
-    }
-    $data14->save();
-    $data15 = new DeviationGrid();
-        $data15->type = "Deviation";
-    if (!empty($request->Human_Person)) {
-        $data15->Human_Person = serialize($request->Human_Person);
-    }
-    if (!empty($request->Human_Impect_Assessment)) {
-        $data15->Human_Impect_Assessment = serialize($request->Human_Impect_Assessment);
-    }
-
-    if (!empty($request->Human_Comments)) {
-        $data15->Human_Comments = serialize($request->Human_Comments);
-    }
-    if (!empty($request->Human_signdate)) {
-        $data15->Human_signdate = serialize($request->Human_signdate);
-    }
-    if (!empty($request->Human_Remarks)) {
-        $data15->Human_Remarks = serialize($request->Human_Remarks);
-    }
-    $data15->save();
-    $data16 = new DeviationGrid();
-        $data16->type = "Deviation";
-    if (!empty($request->Information_Person)) {
-        $data16->Information_Person = serialize($request->Information_Person);
-    }
-    if (!empty($request->Information_Impect_Assessment)) {
-        $data16->Information_Impect_Assessment = serialize($request->Information_Impect_Assessment);
-    }
-
-    if (!empty($request->Information_Comments)) {
-        $data16->Information_Comments = serialize($request->Information_Comments);
-    }
-    if (!empty($request->Information_signdate)) {
-        $data16->Information_signdate = serialize($request->Information_signdate);
-    }
-    if (!empty($request->Information_Remarks)) {
-        $data16->Information_Remarks = serialize($request->Information_Remarks);
-    }
-    $data16->save();
-    $data17 = new DeviationGrid();
-        $data17->type = "Deviation";
-    if (!empty($request->Project_Person)) {
-        $data17->Project_Person = serialize($request->Project_Person);
-    }
-    if (!empty($request->Project_Impect_Assessment)) {
-        $data17->Project_Impect_Assessment = serialize($request->Project_Impect_Assessment);
-    }
-
-    if (!empty($request->Project_Comments)) {
-        $data17->Project_Comments = serialize($request->Project_Comments);
-    }
-    if (!empty($request->Project_signdate)) {
-        $data17->Project_signdate = serialize($request->Project_signdate);
-    }
-    if (!empty($request->Project_Remarks)) {
-        $data17->Project_Remarks = serialize($request->Project_Remarks);
-    }
-    $data17->save();
-    $data18 = new DeviationGrid();
-        $data18->type = "Deviation";
-    if (!empty($request->Any_Person)) {
-        $data18->Any_Person = serialize($request->Any_Person);
-    }
-    if (!empty($request->Any_Impect_Assessment)) {
-        $data18->Any_Impect_Assessment = serialize($request->Any_Impect_Assessment);
-    }
-
-    if (!empty($request->Any_Comments)) {
-        $data18->Any_Comments = serialize($request->Any_Comments);
-    }
-    if (!empty($request->Any_signdate)) {
-        $data18->Any_signdate = serialize($request->Any_signdate);
-    }
-    if (!empty($request->Any_Remarks)) {
-        $data18->Any_Remarks = serialize($request->Any_Remarks);
-    }
-    $data18->save();
-    $data19 = new DeviationGrid();
-        $data19->type = "Deviation";
-    if (!empty($request->Technology_Person)) {
-        $data19->Technology_Person = serialize($request->Technology_Person);
-    }
-    if (!empty($request->Technology_Impect_Assessment)) {
-        $data19->Technology_Impect_Assessment = serialize($request->Technology_Impect_Assessment);
-    }
-
-    if (!empty($request->Technology_Comments)) {
-        $data19->Technology_Comments = serialize($request->Technology_Comments);
-    }
-    if (!empty($request->Technology_signdate)) {
-        $data19->Technology_signdate = serialize($request->Technology_signdate);
-    }
-    if (!empty($request->Technology_Remarks)) {
-        $data19->Technology_Remarks = serialize($request->Technology_Remarks);
-    }
-    $data19->save();
-    //  return response()->redirect(url('rcms/qms-dashboard'));
+        //  return response()->redirect(url('rcms/qms-dashboard'));
     toastr()->success("Record is created Successfully");
     return redirect(url('rcms/qms-dashboard'));
     }
@@ -602,6 +353,8 @@ class DeviationController extends Controller
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->audit_type = $request->audit_type;
+        $deviation->short_description_required = $request->short_description_required;
+        $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
         $deviation->Product_Batch = $request->Product_Batch;
         

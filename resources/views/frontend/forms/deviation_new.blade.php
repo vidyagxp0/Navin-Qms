@@ -926,8 +926,22 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input"> 
+                                        <label for="related_records">Related Records</label>
+                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
+                                            data-search="false" data-silent-initial-value-set="true" id="related_records">
+                                            @foreach ($pre as $prix)
+                                                <option value="{{ $prix->id }}">
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> --}}
+                                
+                                <div class="col-12">
+                                    <div class="group-input">
                                         <label for="related_records">Related Records</label>
 
                                         <select multiple name="related_records[]" placeholder="Select Reference Records"
@@ -941,7 +955,6 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
-                                
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
@@ -988,8 +1001,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Customer_notification">
+                                        <label for="Production Review">Production Review Required ?</label>
+                                        <select name="Production_Review" id="Production_Review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1001,8 +1014,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Person</label>
-                                        <select name="Production_person" id="Customer_notification">
+                                        <label for="Production person">Production Person</label>
+                                        <select name="Production_person" id="Production_person">
                                             <option value="0">-- Select --</option>
                                             <option value="person1">Person 1</option>
                                            
@@ -1013,15 +1026,16 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Production)</label>
-                                        <textarea class="summernote" name="Production_assessment" id="summernote-7">
+                                        <label for="Production assessment">Impact Assessment (By Production)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Feedback</label>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-7">
+                                        <label for="Production feedback">Production Feedback</label>
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1034,24 +1048,26 @@ $users = DB::table('users')
                                             <div class="file-attachment-list" id="production_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input type="file" id="myfile" name="production_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'production_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                   <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed By</label>
+                                        <label for="Production Review Completed By">Production Review Completed By</label>
                                         <input type="text" name="production_by" disabled>
-                                    
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed On</label>
-                                        <input type="date" name="production_on" disabled>
-                                    
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Production Review Completed On">Production Review Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="production_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="production_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'production_on')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2305,20 +2321,20 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                        <div class="col-12">
+                            </div>
+                                <div class="button-block">
+                                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                            Exit </a> </button>
+                                </div>
+                                {{-- <div class="col-12">
            
-        </div>
-    </div>
- </div>
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
+                               </div> --}}
+                             </div>
+                         </div>
+                     </div>
                 </div>
                  
 
@@ -3211,7 +3227,7 @@ $users = DB::table('users')
 
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records'
         });
 
         function openCity(evt, cityName) {
