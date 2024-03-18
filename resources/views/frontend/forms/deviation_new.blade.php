@@ -979,11 +979,19 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Production)</label>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
                                         <label for="productionfeedback">Production Feedback</label>
                                         <textarea class="summernote" name="Production_feedback" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Production Attachments</label>
@@ -1040,7 +1048,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Warehouse)</label>
+                                        <textarea class="summernote" name="Warehouse_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Warehouse Feedback</label>
@@ -1104,11 +1118,17 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Quality Control)</label>
+                                        <textarea class="summernote" name="Quality_Control_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Feedback</label>
-                                        <textarea class="summernote" name="Quality Control_feedback" id="summernote-7">
+                                        <textarea class="summernote" name="Quality_Control_feedback" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1168,7 +1188,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Quality Assurance)</label>
+                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Assurance  Feedback</label>
@@ -1232,7 +1258,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Engineering)</label>
+                                        <textarea class="summernote" name="Engineering_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Engineering  Feedback</label>
@@ -1296,7 +1328,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Analytical Development Laboratory)</label>
+                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Analytical Development Laboratory  Feedback</label>
@@ -1360,7 +1398,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
+                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
@@ -1425,7 +1469,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Technology Transfer / Design)</label>
+                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Technology Transfer / Design  Feedback</label>
@@ -1489,7 +1539,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Environment, Health & Safety)</label>
+                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety  Feedback</label>
@@ -1554,7 +1610,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
+                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
@@ -1618,7 +1680,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Information Technology)</label>
+                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Information Technology  Feedback</label>
@@ -1682,7 +1750,13 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                    
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Project management )</label>
+                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Project management  Feedback</label>
@@ -1769,6 +1843,13 @@ $users = DB::table('users')
 
                                         </select>
                                   
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 1)</label>
+                                        <textarea class="summernote" name="Other1_assessment" id="summernote-7">
+                                    </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -1861,6 +1942,13 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 2)</label>
+                                        <textarea class="summernote" name="Other2_Assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
                                         <label for="productionfeedback"> Other's 2 Feedback</label>
                                         <textarea class="summernote" name="Other2_feedback" id="summernote-7">
                                     </textarea>
@@ -1945,6 +2033,13 @@ $users = DB::table('users')
 
                                         </select>
                                   
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 3)</label>
+                                        <textarea class="summernote" name="Other3_Assessment" id="summernote-7">
+                                    </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2034,6 +2129,13 @@ $users = DB::table('users')
 
                                         </select>
                                   
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 4)</label>
+                                        <textarea class="summernote" name="Other4_Assessment" id="summernote-7">
+                                    </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2128,6 +2230,13 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 5)</label>
+                                        <textarea class="summernote" name="Other5_Assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback</label>
                                         <textarea class="summernote" name="Other5_feedback" id="summernote-7">
                                     </textarea>
@@ -2162,157 +2271,8 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                <div class="col-12">
-                            <div class="group-input"><label for="why-why-chart">
-                                        Impact Assessment by applicable cross functional team:
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#is_is_not-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-              
-                      <div class="why-why-chart">
-                    <table class="table table-bordered">
-                        <thead>
-                          
-                                <th style="width: 25%;">Department</th>
-                                <th style="width: 18%;"> Person</th>
-                                <th style="width: 20%;"> Impact Assessment</th>
-                                <th>Comments</th>
-                                <th>Sign & date</th>
-                                <th>Remarks</th>
-                              
-                            
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon1" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Production_Person[]"></textarea></td>
-                                <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Production_Comments[]"></textarea></td>
-                                <td><textarea name="Production_signdate[]"></textarea></td>
-                                <td><textarea name="Production_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 220px;" id="new-button-icon2" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Warehouse_Person[]"></textarea></td>
-                                <td><textarea name="Warehouse_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Warehouse_Comments[]"></textarea></td>
-                                <td><textarea name="Warehouse_signdate[]"></textarea></td>
-                                <td><textarea name="Warehouse_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 220px;" id="new-button-icon3" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Quality_Person[]"></textarea></td>
-                                <td><textarea name="Quality_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Quality_Comments[]"></textarea></td>
-                                <td><textarea name="Quality_signdate[]"></textarea></td>
-                                <td><textarea name="Quality_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 220px;" id="new-button-icon4" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Assurance_Person[]"></textarea></td>
-                                <td><textarea name="Assurance_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Assurance_Comments[]"></textarea></td>
-                                <td><textarea name="Assurance_signdate[]"></textarea></td>
-                                <td><textarea name="Assurance_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 220px;" id="new-button-icon5" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Engineering_Person[]"></textarea></td>
-                                <td><textarea name="Engineering_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Engineering_Comments[]"></textarea></td>
-                                <td><textarea name="Engineering_signdate[]"></textarea></td>
-                                <td><textarea name="Engineering_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 220px;" id="new-button-icon6" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Analytical_Person[]"></textarea></td>
-                                <td><textarea name="Analytical_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Analytical_Comments[]"></textarea></td>
-                                <td><textarea name="Analytical_signdate[]"></textarea></td>
-                                <td><textarea name="Analytical_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 220px;" id="new-button-icon7" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Process_Person[]"></textarea></td>
-                                <td><textarea name="Process_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Process_Comments[]"></textarea></td>
-                                <td><textarea name="Process_signdate[]"></textarea></td>
-                                <td><textarea name="Process_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 220px;"    id="new-button-icon8" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Technology_Person[]"></textarea></td>
-                                <td><textarea name="Technology_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Technology_Comments[]"></textarea></td>
-                                <td><textarea name="Technology_signdate[]"></textarea></td>
-                                <td><textarea name="Technology_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 220px;" id="new-button-icon9" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Environment_Person[]"></textarea></td>
-                                <td><textarea name="Environment_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Environment_Comments[]"></textarea></td>
-                                <td><textarea name="Environment_signdate[]"></textarea></td>
-                                <td><textarea name="Environment_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 220px;" id="new-button-icon10" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Human_Person[]"></textarea></td>
-                                <td><textarea name="Human_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Human_Comments[]"></textarea></td>
-                                <td><textarea name="Human_signdate[]"></textarea></td>
-                                <td><textarea name="Human_Remarks[]"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 220px;"   id="new-button-icon11" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Information_Person[]"></textarea></td>
-                                <td><textarea name="Information_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Information_Comments[]"></textarea></td>
-                                <td><textarea name="Information_signdate[]"></textarea></td>
-                                <td><textarea name="Information_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 220px;" id="new-button-icon12" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Project_Person[]"></textarea></td>
-                                <td><textarea name="Project_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Project_Comments[]"></textarea></td>
-                                <td><textarea name="Project_signdate[]"></textarea></td>
-                                <td><textarea name="Project_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 220px;"id="new-button-icon13" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Any_Person[]"></textarea></td>
-                                <td><textarea name="Any_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Any_Comments[]"></textarea></td>
-                                <td><textarea name="Any_signdate[]"></textarea></td>
-                                <td><textarea name="Any_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            
-                            <!-- Add more rows here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        <div class="col-12">
+           
         </div>
     </div>
  </div>
@@ -3315,287 +3275,7 @@ $users = DB::table('users')
     </script> --}}
     
     
-  <script>
-document.addEventListener('DOMContentLoaded', function() {   
-    const addRowButton = document.getElementById('new-button-icon1');
-    addRowButton.addEventListener('click', function() {
-        const Production = this.parentNode.innerText.trim(); // Get the department name
-        const modifiedProduction = Production.replace('+', ''); // Remove the plus sign
-        console.log(modifiedProduction);
-        // Create a new row and insert it after the current row
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProduction}</td> 
-                                <td><textarea name="Production_Person[]"></textarea></td>
-                                <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Production_Comments[[]]"></textarea></td>
-                                <td><textarea name="Production_signdate[]"></textarea></td>
-                                <td><textarea name="Production_Remarks[]"></textarea></td>`;
-                
-        // Insert the new row after the current row
-        const currentRow = this.parentNode.parentNode;
-        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-    });
-}); 
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {   
-        const addRowButton = document.getElementById('new-button-icon2');
-        addRowButton.addEventListener('click', function() {
-            const Warehouse = this.parentNode.innerText.trim(); // Get the department name
-            const modifiedWarehouse = Warehouse.replace('+', ''); // Remove the plus sign
-            // Create a new row and insert it after the current row
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedWarehouse}</td> 
-                                <td><textarea name="Warehouse_Person"></textarea></td>
-                                <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Warehouse_Comments"></textarea></td>
-                                <td><textarea name="Warehouse_signdate"></textarea></td>
-                                <td><textarea name="Warehouse_Remarks"></textarea></td>`;
-                    
-            // Insert the new row after the current row
-            const currentRow = this.parentNode.parentNode;
-            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-        });
-    }); 
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {   
-            const addRowButton = document.getElementById('new-button-icon3');
-            addRowButton.addEventListener('click', function() {
-                const Quality = this.parentNode.innerText.trim(); // Get the department name
-                const modifiedQuality = Quality.replace('+', ''); // Remove the plus sign
-                // Create a new row and insert it after the current row
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedQuality}</td> 
-                                    <td><textarea name="Quality_Person"></textarea></td>
-                                    <td><textarea name="Quality_Impect_Assessment"></textarea></td>
-                                    <td><textarea name="Quality_Comments"></textarea></td>
-                                    <td><textarea name="Quality_signdate"></textarea></td>
-                                    <td><textarea name="Quality_Remarks"></textarea></td>`;
-                        
-                // Insert the new row after the current row
-                const currentRow = this.parentNode.parentNode;
-                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-            });
-        }); 
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {   
-                const addRowButton = document.getElementById('new-button-icon4');
-                addRowButton.addEventListener('click', function() {
-                    const Assurance = this.parentNode.innerText.trim(); // Get the department name
-                    const modifiedAssurance = Assurance.replace('+', ''); // Remove the plus sign
-                    // Create a new row and insert it after the current row
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAssurance}</td> 
-                                        <td><textarea name="Assurance_Person"></textarea></td>
-                                        <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
-                                        <td><textarea name="Assurance_Comments"></textarea></td>
-                                        <td><textarea name="Assurance_signdate"></textarea></td>
-                                        <td><textarea name="Assurance_Remarks"></textarea></td>`;
-                            
-                    // Insert the new row after the current row
-                    const currentRow = this.parentNode.parentNode;
-                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                });
-            }); 
-            </script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {   
-                    const addRowButton = document.getElementById('new-button-icon5');
-                    addRowButton.addEventListener('click', function() {
-                        const Engineering = this.parentNode.innerText.trim(); // Get the department name
-                        const modifiedEngineering = Engineering.replace('+', ''); // Remove the plus sign
-                        // Create a new row and insert it after the current row
-                        const newRow = document.createElement('tr');
-                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedEngineering}</td> 
-                                            <td><textarea name="Engineering_Person"></textarea></td>
-                                            <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
-                                            <td><textarea name="Engineering_Comments"></textarea></td>
-                                            <td><textarea name="Engineering_signdate"></textarea></td>
-                                            <td><textarea name="Engineering_Remarks"></textarea></td>`;
-                                
-                        // Insert the new row after the current row
-                        const currentRow = this.parentNode.parentNode;
-                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                    });
-                }); 
-                </script>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {   
-                        const addRowButton = document.getElementById('new-button-icon6');
-                        addRowButton.addEventListener('click', function() {
-                            const Analytical = this.parentNode.innerText.trim(); // Get the department name
-                            const modifiedAnalytical = Analytical.replace('+', ''); // Remove the plus sign
-                            // Create a new row and insert it after the current row
-                            const newRow = document.createElement('tr');
-                            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAnalytical}</td> 
-                                                <td><textarea name="Analytical_Person"></textarea></td>
-                                                <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
-                                                <td><textarea name="Analytical_Comments"></textarea></td>
-                                                <td><textarea name="Analytical_signdate"></textarea></td>
-                                                <td><textarea name="Analytical_Remarks"></textarea></td>`;
-                                    
-                            // Insert the new row after the current row
-                            const currentRow = this.parentNode.parentNode;
-                            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                        });
-                    }); 
-                    </script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {   
-                            const addRowButton = document.getElementById('new-button-icon7');
-                            addRowButton.addEventListener('click', function() {
-                                const Process = this.parentNode.innerText.trim(); // Get the department name
-                                const modifiedProcess = Process.replace('+', ''); // Remove the plus sign
-                                // Create a new row and insert it after the current row
-                                const newRow = document.createElement('tr');
-                                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProcess}</td> 
-                                                    <td><textarea name="Process_Person"></textarea></td>
-                                                    <td><textarea name="Process_Impect_Assessment"></textarea></td>
-                                                    <td><textarea name="Process_Comments"></textarea></td>
-                                                    <td><textarea name="Process_sign&date"></textarea></td>
-                                                    <td><textarea name="Process_Remarks"></textarea></td>`;
-                                        
-                                // Insert the new row after the current row
-                                const currentRow = this.parentNode.parentNode;
-                                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                            });
-                        }); 
-                        </script>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {   
-                                const addRowButton = document.getElementById('new-button-icon8');
-                                addRowButton.addEventListener('click', function() {
-                                    const Technology = this.parentNode.innerText.trim(); // Get the department name
-                                    const modifiedTechnology = Technology.replace('+', ''); // Remove the plus sign
-
-                                    // Create a new row and insert it after the current row
-                                    const newRow = document.createElement('tr');
-                                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedTechnology}</td> 
-                                                        <td><textarea name="Technology_Person"></textarea></td>
-                                                        <td><textarea name="Technology_Impect_Assessment"></textarea></td>
-                                                        <td><textarea name="Technology_Comments"></textarea></td>
-                                                        <td><textarea name="Technology_sign&date"></textarea></td>
-                                                        <td><textarea name="Technology_Remarks"></textarea></td>`;
-                                            
-                                    // Insert the new row after the current row
-                                    const currentRow = this.parentNode.parentNode;
-                                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                });
-                            }); 
-                            </script>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {   
-                                    const addRowButton = document.getElementById('new-button-icon9');
-                                    addRowButton.addEventListener('click', function() {
-                                        const Environment = this.parentNode.innerText.trim(); // Get the department name
-                                        const modifiedEnvironment = Environment.replace('+', ''); // Remove the plus sign
-
-                                        // Create a new row and insert it after the current row
-                                        const newRow = document.createElement('tr');
-                                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedEnvironment}</td> 
-                                                            <td><textarea name="Environment_Person"></textarea></td>
-                                                            <td><textarea name="Environment_Impect_Assessment"></textarea></td>
-                                                            <td><textarea name="Environment_Comments"></textarea></td>
-                                                            <td><textarea name="Environment_sign&date"></textarea></td>
-                                                            <td><textarea name="Environment_Remarks"></textarea></td>`;
-                                                
-                                        // Insert the new row after the current row
-                                        const currentRow = this.parentNode.parentNode;
-                                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                    });
-                                }); 
-                                </script>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {   
-                                        const addRowButton = document.getElementById('new-button-icon10');
-                                        addRowButton.addEventListener('click', function() {
-                                            const Human = this.parentNode.innerText.trim(); // Get the department name
-                                            const modifiedHuman = Human.replace('+', ''); // Remove the plus sign
-
-                                            // Create a new row and insert it after the current row
-                                            const newRow = document.createElement('tr');
-                                            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedHuman}</td> 
-                                                                <td><textarea name="Human_Person"></textarea></td>
-                                                                <td><textarea name="Human_Impect_Assessment"></textarea></td>
-                                                                <td><textarea name="Human_Comments"></textarea></td>
-                                                                <td><textarea name="Human_sign&date"></textarea></td>
-                                                                <td><textarea name="Human_Remarks"></textarea></td>`;
-                                                    
-                                            // Insert the new row after the current row
-                                            const currentRow = this.parentNode.parentNode;
-                                            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                        });
-                                    }); 
-                                    </script>
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function() {   
-                                            const addRowButton = document.getElementById('new-button-icon11');
-                                            addRowButton.addEventListener('click', function() {
-                                                const Information = this.parentNode.innerText.trim(); // Get the department name
-                                                const modifiedInformation = Information.replace('+', ''); // Remove the plus sign
-
-                                                // Create a new row and insert it after the current row
-                                                const newRow = document.createElement('tr');
-                                                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedInformation}</td> 
-                                                                    <td><textarea name="Information_Person"></textarea></td>
-                                                                    <td><textarea name="Information_Impect_Assessment"></textarea></td>
-                                                                    <td><textarea name="Information_Comments"></textarea></td>
-                                                                    <td><textarea name="Information_sign&date"></textarea></td>
-                                                                    <td><textarea name="Information_Remarks"></textarea></td>`;
-                                                        
-                                                // Insert the new row after the current row
-                                                const currentRow = this.parentNode.parentNode;
-                                                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                            });
-                                        }); 
-                                        </script>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {   
-                                                const addRowButton = document.getElementById('new-button-icon12');
-                                                addRowButton.addEventListener('click', function() {
-                                                    const Project = this.parentNode.innerText.trim(); // Get the department name
-                                                    const modifiedProject = Project.replace('+', ''); // Remove the plus sign
-                                                        
-                                                    // Create a new row and insert it after the current row
-                                                    const newRow = document.createElement('tr');
-                                                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProject}</td> 
-                                                                        <td><textarea name="Project_Person"></textarea></td>
-                                                                        <td><textarea name="Project_Impect_Assessment"></textarea></td>
-                                                                        <td><textarea name="Project_Comments"></textarea></td>
-                                                                        <td><textarea name="Project_sign&date"></textarea></td>
-                                                                        <td><textarea name="Project_Remarks"></textarea></td>`;
-                                                            
-                                                    // Insert the new row after the current row
-                                                    const currentRow = this.parentNode.parentNode;
-                                                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                                });
-                                            }); 
-                                            </script>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function() {   
-                                                    const addRowButton = document.getElementById('new-button-icon13');
-                                                    addRowButton.addEventListener('click', function() {
-                                                        const Any = this.parentNode.innerText.trim(); // Get the department name
-                                                        const modifiedAny = Any.replace('+', ''); // Remove the plus sign
-                                                        // Create a new row and insert it after the current row
-                                                        const newRow = document.createElement('tr');
-                                                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAny}</td> 
-                                                                            <td><textarea name="Any_Person"></textarea></td>
-                                                                            <td><textarea name="Any_Impect_Assessment"></textarea></td>
-                                                                            <td><textarea name="Any_Comments"></textarea></td>
-                                                                            <td><textarea name="Any_sign&date"></textarea></td>
-                                                                            <td><textarea name="Any_Remarks"></textarea></td>`;
-                                                                
-                                                        // Insert the new row after the current row
-                                                        const currentRow = this.parentNode.parentNode;
-                                                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                                    });
-                                                }); 
-                                                </script>
-
-                                                
+                                             
                                             
                                         
                                     
