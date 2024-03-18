@@ -199,7 +199,7 @@
         <div class="login-form-block" style="background-image: url('{{ asset('user/images/rcms-login-bg2.png') }}')">
             <div class="top-block">
                 <div class="logo">
-                    <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                    <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                 </div>
                 <div class="head">
                     Welcome to IRCMS

@@ -982,158 +982,1331 @@ $users = DB::table('users')
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
-                            <div class="row">                         
-                                <div class="col-12">
-                                    <div class="group-input"><label for="why-why-chart">
-                                        Impact Assessment by applicable cross functional team:
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#is_is_not-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-              
-                      <div class="why-why-chart">
-                    <table class="table table-bordered">
-                        <thead>
-                          
-                                <th style="width: 25%;">Department</th>
-                                <th style="width: 18%;"> Person</th>
-                                <th style="width: 20%;"> Impact Assessment</th>
-                                <th>Comments</th>
-                                <th>Sign & date</th>
-                                <th>Remarks</th>
-                              
-                            
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="background: #e1d8d8">Production  <button style="margin-left: 220px;" id="new-button-icon1" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Production_Person[]"></textarea></td>
-                                <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Production_Comments[]"></textarea></td>
-                                <td><textarea name="Production_signdate[]"></textarea></td>
-                                <td><textarea name="Production_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Warehouse <button  style="margin-left: 220px;" id="new-button-icon2" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Warehouse_Person[]"></textarea></td>
-                                <td><textarea name="Warehouse_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Warehouse_Comments[]"></textarea></td>
-                                <td><textarea name="Warehouse_signdate[]"></textarea></td>
-                                <td><textarea name="Warehouse_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Quality Control <button   style="margin-left: 220px;" id="new-button-icon3" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Quality_Person[]"></textarea></td>
-                                <td><textarea name="Quality_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Quality_Comments[]"></textarea></td>
-                                <td><textarea name="Quality_signdate[]"></textarea></td>
-                                <td><textarea name="Quality_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Quality Assurance <button  style="margin-left: 220px;" id="new-button-icon4" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Assurance_Person[]"></textarea></td>
-                                <td><textarea name="Assurance_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Assurance_Comments[]"></textarea></td>
-                                <td><textarea name="Assurance_signdate[]"></textarea></td>
-                                <td><textarea name="Assurance_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Engineering <button  style="margin-left: 220px;" id="new-button-icon5" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Engineering_Person[]"></textarea></td>
-                                <td><textarea name="Engineering_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Engineering_Comments[]"></textarea></td>
-                                <td><textarea name="Engineering_signdate[]"></textarea></td>
-                                <td><textarea name="Engineering_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Analytical Development Laboratory <button  style="margin-left: 220px;" id="new-button-icon6" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Analytical_Person[]"></textarea></td>
-                                <td><textarea name="Analytical_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Analytical_Comments[]"></textarea></td>
-                                <td><textarea name="Analytical_signdate[]"></textarea></td>
-                                <td><textarea name="Analytical_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Process Development Laboratory / Kilo Lab <button  style="margin-left: 220px;" id="new-button-icon7" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Process_Person[]"></textarea></td>
-                                <td><textarea name="Process_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Process_Comments[]"></textarea></td>
-                                <td><textarea name="Process_signdate[]"></textarea></td>
-                                <td><textarea name="Process_Remarks[]"></textarea></td>
-                               
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Technology transfer/Design <button style="    margin-left: 220px;"    id="new-button-icon8" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Technology_Person[]"></textarea></td>
-                                <td><textarea name="Technology_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Technology_Comments[]"></textarea></td>
-                                <td><textarea name="Technology_signdate[]"></textarea></td>
-                                <td><textarea name="Technology_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Environment, Health & Safety <button style="    margin-left: 220px;" id="new-button-icon9" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Environment_Person[]"></textarea></td>
-                                <td><textarea name="Environment_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Environment_Comments[]"></textarea></td>
-                                <td><textarea name="Environment_signdate[]"></textarea></td>
-                                <td><textarea name="Environment_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Human Resource & Administration <button  style="    margin-left: 220px;" id="new-button-icon10" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Human_Person[]"></textarea></td>
-                                <td><textarea name="Human_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Human_Comments[]"></textarea></td>
-                                <td><textarea name="Human_signdate[]"></textarea></td>
-                                <td><textarea name="Human_Remarks[]"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Information Technology <button  style="margin-left: 220px;"   id="new-button-icon11" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Information_Person[]"></textarea></td>
-                                <td><textarea name="Information_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Information_Comments[]"></textarea></td>
-                                <td><textarea name="Information_signdate[]"></textarea></td>
-                                <td><textarea name="Information_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Project management <button  style="margin-left: 220px;" id="new-button-icon12" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Project_Person[]"></textarea></td>
-                                <td><textarea name="Project_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Project_Comments[]"></textarea></td>
-                                <td><textarea name="Project_signdate[]"></textarea></td>
-                                <td><textarea name="Project_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            <tr>
-                                <td style="background: #e1d8d8">Any Other <button  style="margin-left: 220px;"id="new-button-icon13" class="btn btn-primary add-row">+</button></td>
-                                <td><textarea name="Any_Person[]"></textarea></td>
-                                <td><textarea name="Any_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Any_Comments[]"></textarea></td>
-                                <td><textarea name="Any_signdate[]"></textarea></td>
-                                <td><textarea name="Any_Remarks[]"></textarea></td>
-                               
-                            </tr>
-                            
-                            <!-- Add more rows here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                            <div class="row">
+                            <div class="sub-head">
+                            Production
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Production Review Required ?</label>
+                                        <select name="Production_Review" id="Customer_notification">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Production Person</label>
+                                        <select name="Production_person" id="Customer_notification">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Production)</label>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Production Feedback</label>
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Production Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="production_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Production Review Completed By</label>
+                                        <input type="text" name="production_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Production Review Completed On</label>
+                                        <input type="date" name="production_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Warehouse
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Warehouse Review Required ?</label>
+                                        <select name="Warehouse_notification" id="Warehouse_review">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Warehouse Person</label>
+                                        <select name="Warehouse_notification" id="Warehouse_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Warehouse)</label>
+                                        <textarea class="summernote" name="Warehouse_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Warehouse Feedback</label>
+                                        <textarea class="summernote" name="Warehouse_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Warehouse Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Warehouse_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Warehouse Review Completed By</label>
+                                        <input type="text" name="production_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Warehouse Review Completed On</label>
+                                        <input type="date" name="production_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Quality Control
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Quality Control Review Required ?</label>
+                                        <select name="Warehouse_notification" id="Warehouse_review">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Quality Control Person</label>
+                                        <select name="Quality Control_notification" id="Warehouse_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Quality Control)</label>
+                                        <textarea class="summernote" name="Quality_Control_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>  
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Quality Control Feedback</label>
+                                        <textarea class="summernote" name="Quality_Control_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Quality Control Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Quality Control_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Quality Control Review Completed By</label>
+                                        <input type="text" name="Quality_Control__by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Quality Control Review Completed On</label>
+                                        <input type="date" name="Quality_Control__on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                  <div class="sub-head">
+                                  Quality Assurance
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Quality Assurance Review Required ?</label>
+                                        <select name="Quality_Assurance" id="">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Quality Assurance  Person</label>
+                                        <select name="QualityAssurance_person" id="QualityAssurance_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Quality Assurance)</label>
+                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>  
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Quality Assurance  Feedback</label>
+                                        <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments">Quality Assurance  Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Quality_Assurance_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Quality Assurance Review Completed By</label>
+                                        <input type="text" name="QualityAssurance_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Quality Assurance Review Completed On</label>
+                                        <input type="date" name="QualityAssurance_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Engineering
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Engineering Review Required ?</label>
+                                        <select name="Engineering_required" id="Engineering_review">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Engineering  Person</label>
+                                        <select name="Engineering_person" id="Engineering_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Engineering)</label>
+                                        <textarea class="summernote" name="Engineering_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Engineering  Feedback</label>
+                                        <textarea class="summernote" name="Engineering_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments">Engineering  Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Engineering_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Engineering Review Completed By</label>
+                                        <input type="text" name="Engineering_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Engineering Review Completed On</label>
+                                        <input type="date" name="Engineering_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Analytical Development Laboratory
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Analytical Development Laboratory Review Required ?</label>
+                                        <select name="Analytical_Development" id="Analytical_Development_review">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Analytical Development Laboratory  Person</label>
+                                        <select name="Engineering_person" id="Analytical_Development_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Analytical Development Laboratory)</label>
+                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Analytical Development Laboratory  Feedback</label>
+                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Analytical Development Laboratory Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Analytical_Development_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Analytical Development Laboratory Review Completed By</label>
+                                        <input type="text" name="Analytical_Development_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Analytical Development Laboratory Review Completed On</label>
+                                        <input type="date" name="Analytical_Development_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Process Development Laboratory / Kilo Lab
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Process Development Laboratory / Kilo Lab Review Required ?</label>
+                                        <select name="Kilo_Lab" id="Kilo_Lab_review">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Process Development Laboratory / Kilo Lab  Person</label>
+                                        <select name="Kilo_Lab_person" id="Kilo_Lab_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
+                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>  
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
+                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Process Development Laboratory / Kilo Lab Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Kilo_Lab_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Process Development Laboratory / Kilo Lab Review Completed By</label>
+                                        <input type="text" name="Kilo_Lab_attachment_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Process Development Laboratory / Kilo Lab Review Completed On</label>
+                                        <input type="date" name="Kilo_Lab_attachment_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Technology Transfer / Design
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Technology Transfer / Design Review Required ?</label>
+                                        <select name="Kilo_Lab" id="Technology_transfer/Design">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Technology Transfer / Design  Person</label>
+                                        <select name="Kilo_Lab_person" id="Technology_transfer/Design">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Technology Transfer / Design)</label>
+                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Technology Transfer / Design  Feedback</label>
+                                        <textarea class="summernote" name="Technology_transfer/Design" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Technology_transfer/Design_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Technology Transfer / Design Review Completed By</label>
+                                        <input type="text" name="Technology_transfer/Design_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Technology Transfer / Design Review Completed On</label>
+                                        <input type="date" name="Technology_transfer/Design_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Environment, Health & Safety
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Environment, Health & Safety Review Required ?</label>
+                                        <select name="Environment_Health_required" id="Environment_Health_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Environment, Health & Safety  Person</label>
+                                        <select name="Kilo_Lab_person" id="Environment_Health_Safety_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Environment, Health & Safety)</label>
+                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Environment, Health & Safety  Feedback</label>
+                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Environment, Health & Safety Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Environment_Health_Safety_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Environment, Health & Safety Review Completed By</label>
+                                        <input type="text" name="Environment_Health_Safety_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Environment, Health & Safety Review Completed On</label>
+                                        <input type="date" name="Environment_Health_Safety_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Human Resource & Administration
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Human Resource & Administration Review Required ?</label>
+                                        <select name="Human_Resource_required" id="Human_Resource_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Human Resource & Administration  Person</label>
+                                        <select name="Human_Resource_person" id="Human_Resource_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
+                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Human Resource & Administration  Feedback</label>
+                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Human Resource & Administration Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Human_Resource_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Human Resource & Administration Review Completed By</label>
+                                        <input type="text" name="Human_Resource_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Human Resource & Administration Review Completed On</label>
+                                        <input type="date" name="Human_Resource_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Information Technology
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Information Technology Review Required ?</label>
+                                        <select name=" Information_Technology_required" id=" Information_Technology_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Information Technology  Person</label>
+                                        <select name=" Information_Technology_person" id=" Information_Technology_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By Information Technology)</label>
+                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Information Technology  Feedback</label>
+                                        <textarea class="summernote" name=" Information_Technology_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments">  Information Technology Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id=" Information_Technology_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Information Technology Review Completed By</label>
+                                        <input type="text" name="Information_Technology_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Information Technology Review Completed On</label>
+                                        <input type="date" name="Information_Technology_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Project Management
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Project management Review Required ?</label>
+                                        <select name="Project_management_required" id="Project_management_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Project management Person</label>
+                                        <select name="Project_management_person" id="Project_management_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Project management )</label>
+                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Project management  Feedback</label>
+                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Project management Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Project_management_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Project management Review Completed By</label>
+                                        <input type="text" name="Project_management_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Project management Review Completed On</label>
+                                        <input type="date" name="Project_management_on" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                Other's 1 ( Additional Person Review From Departments If Required)
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 1 Review Required ?</label>
+                                        <select name="Other1_required" id="Project_management_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 1 Person</label>
+                                        <select name="Other1_person" id="Project_management_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 1 Department</label>
+                                        <select name="Other1_person" id="Other1_Department_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Warehouse">Warehouse</option>
+                                            <option value="Quality_Control">Quality Control</option>
+                                            <option value="Quality_Assurance">Quality Assurance</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
+                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
+                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
+                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Project management">Project management</option>
+                                            
+
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 1)</label>
+                                        <textarea class="summernote" name="Other1_assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 1 Feedback</label>
+                                        <textarea class="summernote" name="Other1_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Other's 1 Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Other1_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 1 Review Completed By</label>
+                                        <input type="text" name="Other1_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Other's 1 Review Completed On</label>
+                                        <input type="date" name="Other1_on" disabled>
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="sub-head">
+                                Other's 2 ( Additional Person Review From Departments If Required)
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 2 Review Required ?</label>
+                                        <select name="Other2_required" id="Project_management_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 2 Person</label>
+                                        <select name="Other2_person" id="Project_management_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 2 Department</label>
+                                        <select name="Other2_person" id="Other1_Department_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Warehouse">Warehouse</option>
+                                            <option value="Quality_Control">Quality Control</option>
+                                            <option value="Quality_Assurance">Quality Assurance</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
+                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
+                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
+                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Project management">Project management</option>
+                                            
+
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 2)</label>
+                                        <textarea class="summernote" name="Other2_Assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 2 Feedback</label>
+                                        <textarea class="summernote" name="Other2_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Other's 2 Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Other2_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 2 Review Completed By</label>
+                                        <input type="text" name="Other2_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Other's 2 Review Completed On</label>
+                                        <input type="date" name="Other2_on" disabled>
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="sub-head">
+                                Other's 3 ( Additional Person Review From Departments If Required)
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 3 Review Required ?</label>
+                                        <select name="Other3_required" id="Other3_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 3 Person</label>
+                                        <select name="Other3_person" id="Other3_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 3 Department</label>
+                                        <select name="Project_management_person" id="Other1_Department_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Warehouse">Warehouse</option>
+                                            <option value="Quality_Control">Quality Control</option>
+                                            <option value="Quality_Assurance">Quality Assurance</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
+                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
+                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
+                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Project management">Project management</option>
+                                            
+
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 3)</label>
+                                        <textarea class="summernote" name="Other3_Assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 3 Feedback</label>
+                                        <textarea class="summernote" name="Other3_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Other's 3 Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Other3_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 3 Review Completed By</label>
+                                        <input type="text" name="Other3_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Other's 3 Review Completed On</label>
+                                        <input type="date" name="Other3_on" disabled>
+                                    
+                                    </div>
+                                </div>
+
+
+                                <div class="sub-head">
+                                Other's 4 ( Additional Person Review From Departments If Required)
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 4 Review Required ?</label>
+                                        <select name="Other4_required" id="Other4_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 4 Person</label>
+                                        <select name="Other4_person" id="Other4_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 4 Department</label>
+                                        <select name="Other4_Department_person" id="Other4_Department_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Warehouse">Warehouse</option>
+                                            <option value="Quality_Control">Quality Control</option>
+                                            <option value="Quality_Assurance">Quality Assurance</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
+                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
+                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
+                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Project management">Project management</option>
+                                            
+
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 4)</label>
+                                        <textarea class="summernote" name="Other4_Assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 4 Feedback</label>
+                                        <textarea class="summernote" name="Other4_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Other's 4 Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Other4_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 4 Review Completed By</label>
+                                        <input type="text" name="Other4_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Other's 4 Review Completed On</label>
+                                        <input type="date" name="Other4_on" disabled>
+                                    
+                                    </div>
+                                </div>
+
+
+
+                                <div class="sub-head">
+                                Other's 5 ( Additional Person Review From Departments If Required)
+                           </div>
+                           <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 5 Review Required ?</label>
+                                        <select name="Other4_required" id="Other5_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                            <option value="na">NA</option>
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 5 Person</label>
+                                        <select name="Other5_person" id="Other5_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="person1">Person 1</option>
+                                           
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Customer notification"> Other's 5 Department</label>
+                                        <select name="Other5_Department_person" id="Other5_Department_person">
+                                            <option value="0">-- Select --</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Warehouse">Warehouse</option>
+                                            <option value="Quality_Control">Quality Control</option>
+                                            <option value="Quality_Assurance">Quality Assurance</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
+                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
+                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
+                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
+                                            <option value="Information Technology">Information Technology</option>
+                                            <option value="Project management">Project management</option>
+                                            
+
+
+                                        </select>
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Impact Assessment (By  Other's 5)</label>
+                                        <textarea class="summernote" name="Other5_Assessment" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 5 Feedback</label>
+                                        <textarea class="summernote" name="Other5_feedback" id="summernote-7">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Other's 5 Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Other5_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Initial_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback"> Other's 5 Review Completed By</label>
+                                        <input type="text" name="Other5_by" disabled>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="group-input">
+                                        <label for="productionfeedback">Other's 5 Review Completed On</label>
+                                        <input type="date" name="Other5_on" disabled>
+                                    
+                                    </div>
+                                </div>
+
+                        <div class="col-12">
+           
         </div>
     </div>
  </div>
@@ -2152,286 +3325,7 @@ $users = DB::table('users')
     </script> --}}
     
     
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {   
-    const addRowButton = document.getElementById('new-button-icon1');
-    addRowButton.addEventListener('click', function() {
-        const Production = this.parentNode.innerText.trim();
-        const modifiedProduction = Production.replace('+', ''); 
-        // Create a new row and insert it after the current row
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProduction}</td> 
-                                <td><textarea name="Production_Person[]"></textarea></td>
-                                <td><textarea name="Production_Impect_Assessment[]"></textarea></td>
-                                <td><textarea name="Production_Comments[[]]"></textarea></td>
-                                <td><textarea name="Production_signdate[]"></textarea></td>
-                                <td><textarea name="Production_Remarks[]"></textarea></td>`;
-                
-        // Insert the new row after the current row
-        const currentRow = this.parentNode.parentNode;
-        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-    });
-}); 
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {   
-        const addRowButton = document.getElementById('new-button-icon2');
-        addRowButton.addEventListener('click', function() {
-            const Warehouse = this.parentNode.innerText.trim(); // Get the department name
-            const modifiedWarehouse = Warehouse.replace('+', ''); // Remove the plus sign
-            // Create a new row and insert it after the current row
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedWarehouse}</td> 
-                                <td><textarea name="Warehouse_Person"></textarea></td>
-                                <td><textarea name="Warehouse_Impect_Assessment"></textarea></td>
-                                <td><textarea name="Warehouse_Comments"></textarea></td>
-                                <td><textarea name="Warehouse_signdate"></textarea></td>
-                                <td><textarea name="Warehouse_Remarks"></textarea></td>`;
-                    
-            // Insert the new row after the current row
-            const currentRow = this.parentNode.parentNode;
-            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-        });
-    }); 
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {   
-            const addRowButton = document.getElementById('new-button-icon3');
-            addRowButton.addEventListener('click', function() {
-                const Quality = this.parentNode.innerText.trim(); // Get the department name
-                const modifiedQuality = Quality.replace('+', ''); // Remove the plus sign
-                // Create a new row and insert it after the current row
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedQuality}</td> 
-                                    <td><textarea name="Quality_Person"></textarea></td>
-                                    <td><textarea name="Quality_Impect_Assessment"></textarea></td>
-                                    <td><textarea name="Quality_Comments"></textarea></td>
-                                    <td><textarea name="Quality_signdate"></textarea></td>
-                                    <td><textarea name="Quality_Remarks"></textarea></td>`;
-                        
-                // Insert the new row after the current row
-                const currentRow = this.parentNode.parentNode;
-                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-            });
-        }); 
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {   
-                const addRowButton = document.getElementById('new-button-icon4');
-                addRowButton.addEventListener('click', function() {
-                    const Assurance = this.parentNode.innerText.trim(); // Get the department name
-                    const modifiedAssurance = Assurance.replace('+', ''); // Remove the plus sign
-                    // Create a new row and insert it after the current row
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAssurance}</td> 
-                                        <td><textarea name="Assurance_Person"></textarea></td>
-                                        <td><textarea name="Assurance_Impect_Assessment"></textarea></td>
-                                        <td><textarea name="Assurance_Comments"></textarea></td>
-                                        <td><textarea name="Assurance_signdate"></textarea></td>
-                                        <td><textarea name="Assurance_Remarks"></textarea></td>`;
-                            
-                    // Insert the new row after the current row
-                    const currentRow = this.parentNode.parentNode;
-                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                });
-            }); 
-            </script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {   
-                    const addRowButton = document.getElementById('new-button-icon5');
-                    addRowButton.addEventListener('click', function() {
-                        const Engineering = this.parentNode.innerText.trim(); // Get the department name
-                        const modifiedEngineering = Engineering.replace('+', ''); // Remove the plus sign
-                        // Create a new row and insert it after the current row
-                        const newRow = document.createElement('tr');
-                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedEngineering}</td> 
-                                            <td><textarea name="Engineering_Person"></textarea></td>
-                                            <td><textarea name="Engineering_Impect_Assessment"></textarea></td>
-                                            <td><textarea name="Engineering_Comments"></textarea></td>
-                                            <td><textarea name="Engineering_signdate"></textarea></td>
-                                            <td><textarea name="Engineering_Remarks"></textarea></td>`;
-                                
-                        // Insert the new row after the current row
-                        const currentRow = this.parentNode.parentNode;
-                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                    });
-                }); 
-                </script>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {   
-                        const addRowButton = document.getElementById('new-button-icon6');
-                        addRowButton.addEventListener('click', function() {
-                            const Analytical = this.parentNode.innerText.trim(); // Get the department name
-                            const modifiedAnalytical = Analytical.replace('+', ''); // Remove the plus sign
-                            // Create a new row and insert it after the current row
-                            const newRow = document.createElement('tr');
-                            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAnalytical}</td> 
-                                                <td><textarea name="Analytical_Person"></textarea></td>
-                                                <td><textarea name="Analytical_Impect_Assessment"></textarea></td>
-                                                <td><textarea name="Analytical_Comments"></textarea></td>
-                                                <td><textarea name="Analytical_signdate"></textarea></td>
-                                                <td><textarea name="Analytical_Remarks"></textarea></td>`;
-                                    
-                            // Insert the new row after the current row
-                            const currentRow = this.parentNode.parentNode;
-                            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                        });
-                    }); 
-                    </script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {   
-                            const addRowButton = document.getElementById('new-button-icon7');
-                            addRowButton.addEventListener('click', function() {
-                                const Process = this.parentNode.innerText.trim(); // Get the department name
-                                const modifiedProcess = Process.replace('+', ''); // Remove the plus sign
-                                // Create a new row and insert it after the current row
-                                const newRow = document.createElement('tr');
-                                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProcess}</td> 
-                                                    <td><textarea name="Process_Person"></textarea></td>
-                                                    <td><textarea name="Process_Impect_Assessment"></textarea></td>
-                                                    <td><textarea name="Process_Comments"></textarea></td>
-                                                    <td><textarea name="Process_sign&date"></textarea></td>
-                                                    <td><textarea name="Process_Remarks"></textarea></td>`;
-                                        
-                                // Insert the new row after the current row
-                                const currentRow = this.parentNode.parentNode;
-                                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                            });
-                        }); 
-                        </script>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {   
-                                const addRowButton = document.getElementById('new-button-icon8');
-                                addRowButton.addEventListener('click', function() {
-                                    const Technology = this.parentNode.innerText.trim(); // Get the department name
-                                    const modifiedTechnology = Technology.replace('+', ''); // Remove the plus sign
-
-                                    // Create a new row and insert it after the current row
-                                    const newRow = document.createElement('tr');
-                                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedTechnology}</td> 
-                                                        <td><textarea name="Technology_Person"></textarea></td>
-                                                        <td><textarea name="Technology_Impect_Assessment"></textarea></td>
-                                                        <td><textarea name="Technology_Comments"></textarea></td>
-                                                        <td><textarea name="Technology_sign&date"></textarea></td>
-                                                        <td><textarea name="Technology_Remarks"></textarea></td>`;
-                                            
-                                    // Insert the new row after the current row
-                                    const currentRow = this.parentNode.parentNode;
-                                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                });
-                            }); 
-                            </script>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {   
-                                    const addRowButton = document.getElementById('new-button-icon9');
-                                    addRowButton.addEventListener('click', function() {
-                                        const Environment = this.parentNode.innerText.trim(); // Get the department name
-                                        const modifiedEnvironment = Environment.replace('+', ''); // Remove the plus sign
-
-                                        // Create a new row and insert it after the current row
-                                        const newRow = document.createElement('tr');
-                                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedEnvironment}</td> 
-                                                            <td><textarea name="Environment_Person"></textarea></td>
-                                                            <td><textarea name="Environment_Impect_Assessment"></textarea></td>
-                                                            <td><textarea name="Environment_Comments"></textarea></td>
-                                                            <td><textarea name="Environment_sign&date"></textarea></td>
-                                                            <td><textarea name="Environment_Remarks"></textarea></td>`;
-                                                
-                                        // Insert the new row after the current row
-                                        const currentRow = this.parentNode.parentNode;
-                                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                    });
-                                }); 
-                                </script>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {   
-                                        const addRowButton = document.getElementById('new-button-icon10');
-                                        addRowButton.addEventListener('click', function() {
-                                            const Human = this.parentNode.innerText.trim(); // Get the department name
-                                            const modifiedHuman = Human.replace('+', ''); // Remove the plus sign
-
-                                            // Create a new row and insert it after the current row
-                                            const newRow = document.createElement('tr');
-                                            newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedHuman}</td> 
-                                                                <td><textarea name="Human_Person"></textarea></td>
-                                                                <td><textarea name="Human_Impect_Assessment"></textarea></td>
-                                                                <td><textarea name="Human_Comments"></textarea></td>
-                                                                <td><textarea name="Human_sign&date"></textarea></td>
-                                                                <td><textarea name="Human_Remarks"></textarea></td>`;
-                                                    
-                                            // Insert the new row after the current row
-                                            const currentRow = this.parentNode.parentNode;
-                                            currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                        });
-                                    }); 
-                                    </script>
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function() {   
-                                            const addRowButton = document.getElementById('new-button-icon11');
-                                            addRowButton.addEventListener('click', function() {
-                                                const Information = this.parentNode.innerText.trim(); // Get the department name
-                                                const modifiedInformation = Information.replace('+', ''); // Remove the plus sign
-
-                                                // Create a new row and insert it after the current row
-                                                const newRow = document.createElement('tr');
-                                                newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedInformation}</td> 
-                                                                    <td><textarea name="Information_Person"></textarea></td>
-                                                                    <td><textarea name="Information_Impect_Assessment"></textarea></td>
-                                                                    <td><textarea name="Information_Comments"></textarea></td>
-                                                                    <td><textarea name="Information_sign&date"></textarea></td>
-                                                                    <td><textarea name="Information_Remarks"></textarea></td>`;
-                                                        
-                                                // Insert the new row after the current row
-                                                const currentRow = this.parentNode.parentNode;
-                                                currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                            });
-                                        }); 
-                                        </script>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {   
-                                                const addRowButton = document.getElementById('new-button-icon12');
-                                                addRowButton.addEventListener('click', function() {
-                                                    const Project = this.parentNode.innerText.trim(); // Get the department name
-                                                    const modifiedProject = Project.replace('+', ''); // Remove the plus sign
-                                                        
-                                                    // Create a new row and insert it after the current row
-                                                    const newRow = document.createElement('tr');
-                                                    newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedProject}</td> 
-                                                                        <td><textarea name="Project_Person"></textarea></td>
-                                                                        <td><textarea name="Project_Impect_Assessment"></textarea></td>
-                                                                        <td><textarea name="Project_Comments"></textarea></td>
-                                                                        <td><textarea name="Project_sign&date"></textarea></td>
-                                                                        <td><textarea name="Project_Remarks"></textarea></td>`;
-                                                            
-                                                    // Insert the new row after the current row
-                                                    const currentRow = this.parentNode.parentNode;
-                                                    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                                });
-                                            }); 
-                                            </script>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function() {   
-                                                    const addRowButton = document.getElementById('new-button-icon13');
-                                                    addRowButton.addEventListener('click', function() {
-                                                        const Any = this.parentNode.innerText.trim(); // Get the department name
-                                                        const modifiedAny = Any.replace('+', ''); // Remove the plus sign
-                                                        // Create a new row and insert it after the current row
-                                                        const newRow = document.createElement('tr');
-                                                        newRow.innerHTML = `<td style="background: #e1d8d8">${modifiedAny}</td> 
-                                                                            <td><textarea name="Any_Person"></textarea></td>
-                                                                            <td><textarea name="Any_Impect_Assessment"></textarea></td>
-                                                                            <td><textarea name="Any_Comments"></textarea></td>
-                                                                            <td><textarea name="Any_sign&date"></textarea></td>
-                                                                            <td><textarea name="Any_Remarks"></textarea></td>`;
-                                                                
-                                                        // Insert the new row after the current row
-                                                        const currentRow = this.parentNode.parentNode;
-                                                        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-                                                    });
-                                                }); 
-                                                </script>
-
-                                                
+                                             
                                             
                                         
                                     
