@@ -715,7 +715,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                   
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
                                         <input type="text" value="{{$data->Product_Batch}}" name="Product_Batch">
@@ -731,7 +731,7 @@ $users = DB::table('users')
                                         <textarea class="summernote"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -745,7 +745,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -759,7 +759,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -2385,11 +2385,8 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 
-                                <div class="col-12">
-                            
-        </div>
-    </div>
- </div>
+                                
+ 
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -2398,6 +2395,7 @@ $users = DB::table('users')
                                         Exit </a> </button>
                             </div>
                         </div>
+                                </div>
                     </div>
                     <!-- investigation and capa -->
                     <div id="CCForm3" class="inner-block cctabcontent">
