@@ -483,7 +483,24 @@ $users = DB::table('users')
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>  
-                    
+                                
+                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                    <div class="group-input input-date">
+                                        <label for="Short Description required">Short Description Required?</label>
+                                        <select name="short_description_required" id="short_description_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input" id="nature_of_repeat">
+                                        <label for="nature_of_repeat">Repeat Nature<span
+                                                class="text-danger d-none">*</span></label>
+                                        <textarea name="nature_of_repeat"></textarea>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed</label>
@@ -526,14 +543,14 @@ $users = DB::table('users')
                                         <label for="audit type">Deviation Related To </label>
                                         <select name="audit_type" id="audit_type">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option value="Facility"> Facility</option>
+                                            <option value="Facility">Facility</option>
                                             <option value="Equipment/Instrument">Equipment/ Instrument </option>
                                             <option value="Documentationerror">Documentation error </option>
                                             <option value="STP/ADS_instruction">STP/ADS instruction </option>
                                             <option value="Packaging&Labelling">Packaging & Labelling  </option>
                                             <option value="Material_System">Material System  </option>
                                             <option value="Laboratory_Instrument/System"> Laboratory Instrument /System</option>
-                                            <option value=" Utility_System"> Utility System</option>
+                                            <option value="Utility_System"> Utility System</option>
                                             <option value="Computer_System"> Computer System</option>
                                             <option value="Document">Document</option>
                                             <option value="Data integrity">Data integrity</option>
@@ -826,8 +843,8 @@ $users = DB::table('users')
                                         <label for="Deviation category">Initial Deviation Category</label>
                                         <select name="Deviation_category" id="Deviation_category">
                                             <option value="0">-- Select -- </option>
-                                            <option value="minor">Major </option>
-                                            <option value="major">Minor </option>
+                                            <option value="minor">Minor </option>
+                                            <option value="major">Major </option>
                                             <option value="critical">Critical </option>
                                         </select>
 
@@ -908,6 +925,36 @@ $users = DB::table('users')
                                     </button>
                                     </div>
                                 </div>
+
+                                {{-- <div class="col-12">
+                                    <div class="group-input"> 
+                                        <label for="related_records">Related Records</label>
+                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
+                                            data-search="false" data-silent-initial-value-set="true" id="related_records">
+                                            @foreach ($pre as $prix)
+                                                <option value="{{ $prix->id }}">
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> --}}
+                                
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="related_records">Related Records</label>
+
+                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
+                                            data-search="false" data-silent-initial-value-set="true"
+                                            id="related_records">
+                                            @foreach ($pre as $prix)
+                                                <option value="{{ $prix->id }}">
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
@@ -954,8 +1001,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Customer_notification">
+                                        <label for="Production Review">Production Review Required ?</label>
+                                        <select name="Production_Review" id="Production_Review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -967,8 +1014,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Person</label>
-                                        <select name="Production_person" id="Customer_notification">
+                                        <label for="Production person">Production Person</label>
+                                        <select name="Production_person" id="Production_person">
                                             <option value="0">-- Select --</option>
                                             <option value="person1">Person 1</option>
                                            
@@ -979,15 +1026,16 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Production)</label>
-                                        <textarea class="summernote" name="Production_assessment" id="summernote-7">
+                                        <label for="Production assessment">Impact Assessment (By Production)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Feedback</label>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-7">
+                                        <label for="Production feedback">Production Feedback</label>
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1000,24 +1048,26 @@ $users = DB::table('users')
                                             <div class="file-attachment-list" id="production_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input type="file" id="myfile" name="production_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'production_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                   <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed By</label>
+                                        <label for="Production Review Completed By">Production Review Completed By</label>
                                         <input type="text" name="production_by" disabled>
-                                    
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed On</label>
-                                        <input type="date" name="production_on" disabled>
-                                    
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Production Review Completed On">Production Review Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="production_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="production_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'production_on')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2271,20 +2321,21 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                        <div class="col-12">
+                            </div>
+                                <div class="button-block">
+                                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                            Exit </a> </button>
+                                </div>
+                                {{-- <div class="col-12">
            
-        </div>
-    </div>
- </div>
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
-                    </div>
+                               </div> --}}
+                             </div>
+                         </div>
+                     </div>
+                </div>
                  
 
                     <!-- investigation and capa -->
@@ -2381,8 +2432,8 @@ $users = DB::table('users')
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
-                                            <select name="Post_Categorization" id="summernote-12">
-                                                <option value="0"> -- Select --</option>
+                                            <select name="Post_Categorization" id="Post_Categorization">
+                                                <option value=""> -- Select --</option>
                                                 <option value="yes">Yes</option>
                                                 <option value="no"> No</option>
                                               </select>
@@ -2564,80 +2615,97 @@ $users = DB::table('users')
                                 <div class="sub-head">Submission</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Schedule On">Submit By :-</label>
+                                        <label for="submit by">Submit By :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Schedule On">Submit On :-</label>
+                                        <label for="submit on">Submit On :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Schedule On">Submit Comments :-</label>
+                                        <label for="submit comment">Submit Comments :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="sub-head">HOD Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Cancelled By">HOD Review Complete By :-</label>
+                                        <label for="HOD Review Complete By">HOD Review Complete By :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Cancelled On">HOD Review Complete On :-</label>
+                                        <label for="HOD Review Complete On">HOD Review Complete On :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Cancelled On">HOD Review Comments :-</label>
+                                        <label for="HOD Review Comments">HOD Review Comments :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 
 
-                                <div class="sub-head">QA Initial Review Completed</div>
+                                <div class="sub-head">QA Initial Review Completed</div> 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Preparation Completed On">QA Initial Review Complete
-                                            By :-</label>
+                                        <label for="QA Initial Review Complete By">QA Initial Review Complete By :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Preparation Completed On">QA Initial Review Complete
-                                            On :-</label>
+                                        <label for="QA Initial Review Complete On">QA Initial Review Complete On :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Preparation Completed On">QA Initial Review Comments
-                                            :-</label>
+                                        <label for="QA Initial Review Comments">QA Initial Review Comments:-</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="sub-head">CFT Review Complete</div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CFT Review Complete By">CFT Review Complete By :-</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CFT Review Complete On">CFT Review Complete On :-</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="CFT Review Comments">CFT Review Comments :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="sub-head"> QA Final Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Mgr.more Info Reqd By"> QA Final Review Complete By :-</label>
+                                        <label for="QA Final Review Complete By"> QA Final Review Complete By :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Mgr.more Info Reqd On"> QA Final Review Complete On :-</label>
+                                        <label for="QA Final Review Complete On"> QA Final Review Complete On :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div> <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Mgr.more Info Reqd On"> QA Final Review Comments :-</label>
+                                        <label for="QA Final Review Comments"> QA Final Review Comments :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
@@ -2645,21 +2713,19 @@ $users = DB::table('users')
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Observation Submitted By">Approved
-                                            By :-</label>
+                                        <label for="Approved By">Approved By :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Observation Submitted On">Approved
-                                            On :-</label>
+                                        <label for="Approved On">Approved On :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Lead More Info Reqd By">Approved Comments :-</label>
+                                        <label for="Approved Comments">Approved Comments :-</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
@@ -3161,7 +3227,7 @@ $users = DB::table('users')
 
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records'
         });
 
         function openCity(evt, cityName) {

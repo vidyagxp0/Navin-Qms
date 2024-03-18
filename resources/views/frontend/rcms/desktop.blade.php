@@ -107,20 +107,86 @@
         header .header_rcms_bottom {
             display: none;
         }
+        .h-30{
+            height: 40%;
+
+        }
+        .w-10 {
+        width: 10%;
+    }
+
+    .w-20 {
+        width: 20%;
+    }
+
+    .w-25 {
+        width: 25%;
+    }
+
+    .w-30 {
+        width: 30%;
+    }
+
+    .w-40 {
+        width: 40%;
+    }
+
+    .w-50 {
+        width: 50%;
+    }
+
+    .w-60 {
+        width: 60%;
+    }
+
+    .w-70 {
+        width: 70%;
+    }
+
+    .w-80 {
+        width: 80%;
+    }
+
+    .w-90 {
+        width: 90%;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+     tr
+     td,
+     table {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    table {
+        width: 100%;
+        background: white;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+    }
     </style>
     <div id="rcms-desktop">
 
         <div class="process-groups">
-            <div class="active" onclick="openTab('internal-audit', this)">Internal Audit</div>
-            <div onclick="openTab('external-audit', this)">External Audit</div>
+            {{-- <div class="active" onclick="openTab('internal-audit', this)">Internal Audit</div>
+            <div onclick="openTab('external-audit', this)">External Audit</div> --}}
             <div onclick="openTab('capa', this)">CAPA</div>
-            <div onclick="openTab('audit-program', this)">Audit Program</div>
-            <div onclick="openTab('lab-incident', this)">Lab Incident</div>
+            {{-- <div onclick="openTab('audit-program', this)">Audit Program</div> --}}
+            {{-- <div onclick="openTab('lab-incident', this)">Lab Incident</div>
             <div onclick="openTab('change-control', this)">Change Control</div>
-            <div onclick="openTab('risk-assessment', this)">Risk Assessment</div>
+            <div onclick="openTab('risk-assessment', this)">Risk Assessment</div> --}}
             <div onclick="openTab('root-cause-analysis', this)">Root Cause Analysis</div>
             <div onclick="openTab('management-review', this)">Management Review</div>
             <div onclick="openTab('Deviation', this)">Deviation</div>
+            <div onclick="openTab('effectiveness_check', this)">Effectiveness Check</div>
             {{-- <div onclick="openTab('documents', this)">Documents</div>
             <div onclick="openTab('extension', this)">Extension</div>
             <div onclick="openTab('observation', this)">Observation</div>
@@ -130,10 +196,28 @@
         </div>
 
         <div class="main-content">
+            <table>
+                <tr class="h-30 w-100" style="display: flex; flex-direction:row; align-items:center; ">
+                    <td class="w-100" style="height:104px">
+                        <h4 style="padding-top: 25px;"><strong>Customer Name</strong></h4>
+                    </td>
+                    <td class="w-30" style="text-align:center;" >
+                        <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-70 h-50">
+                    </td>
+                    
+                    <tr class="w-100" style="display: flex; flex-direction:row;">
+                        <td class="w-100"  style="text-align:center;">
+                            <h3>Deviation Log Book</h3>
+                        </td>
+                    <td class="w-30" style="text-align:center;">
+                        <Strong>Page</Strong>                               
+                    </td>
+                </tr>       
+            </table>
             <div class="container-fluid">
                 <div class="process-tables-list">
-
-                    <div class="process-table active" id="internal-audit">
+                       
+                    {{-- <div class="process-table active" id="internal-audit">
 
                         <div class="scope-bar">
                             <div class="group-input">
@@ -143,9 +227,9 @@
                                     <option value="1">Closed Records</option>
                                     <option value="2">Opened Records</option>
                                     <option value="3">Cancelled Records</option>
-                                    {{-- <option value="4">Overdue Records</option>
+                                    <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option> 
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -183,8 +267,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{-- <div id="chart"></div> --}}
-                        <script>
+                        <div id="chart"></div> 
+                       <script>
                             fetch('/chart-data')
                             .then(response => response.json())
                             .then(data => {
@@ -238,9 +322,9 @@
                                 chart.render();
                             });
                             </script>
-                    </div>
+                    </div> --}}
 
-                    <div class="process-table" id="external-audit">
+                    {{-- <div class="process-table" id="external-audit">
                         <div class="scope-bar">
                             <div class="group-input">
                                 <label for="query">Criteria</label>
@@ -251,7 +335,7 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option> 
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -287,7 +371,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="process-table" id="capa">
                         <div class="scope-bar">
@@ -338,7 +422,7 @@
                     </div>
                     
 
-                    <div class="process-table" id="audit-program">
+                    {{-- <div class="process-table" id="audit-program">
                         <div class="scope-bar">
                             <div class="group-input">
                                 <label for="query">Criteria</label>
@@ -349,7 +433,7 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option>
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -384,9 +468,9 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="process-table" id="lab-incident">
+                    {{-- <div class="process-table" id="lab-incident">
                         <div class="scope-bar">
                             <div class="group-input">
                                 <label for="query">Criteria</label>
@@ -397,7 +481,7 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option> 
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -432,9 +516,9 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="process-table" id="change-control">
+                    {{-- <div class="process-table" id="change-control">
                         <div class="scope-bar">
                             <div class="group-input">
                                 <label for="query">Criteria</label>
@@ -445,7 +529,7 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option>
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -480,9 +564,9 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="process-table" id="risk-assessment">
+                    {{-- <div class="process-table" id="risk-assessment">
                         <div class="scope-bar">
                             <div class="group-input">
                                 <label for="query">Criteria</label>
@@ -493,7 +577,7 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option> 
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -529,7 +613,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="process-table" id="root-cause-analysis">
                         <div class="scope-bar">
@@ -590,7 +674,7 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option>--}}
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -637,7 +721,64 @@
                                     <option value="3">Cancelled Records</option>
                                     {{-- <option value="4">Overdue Records</option>
                                     <option value="5">Assigned To Me</option>
-                                    <option value="6">Records Created Today</option> --}}
+                                    <option value="6">Records Created Today</option>--}}
+                                </select>
+                            </div>
+                            <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
+                        </div>
+                        <div class="table-block">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date on Initiaton</th>
+                                        <th>Record</th>
+                                        <th>Department</th>
+                                        <th>Division</th>
+                                        {{-- <th>Process</th> --}}
+                                        <th>Deviation Description</th>
+                                        <th>Entered By sign & Date(QA)</th>
+                                        <th>Deviation Category</th>
+                                        <th>Entered By sign & Date(QA)</th>
+                                        <th>CAPA No.(If any)</th>
+                                        <th>Revised Deviation Category</th>
+                                        <th>Deviation Closed On</th>
+                                        <th>Entered By sign(QA)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($Deviation as $Deviation1)
+                                        <tr>
+                                            <td>{{ $Deviation1->intiation_date }}</td>
+                                            <td>{{ $Deviation1->record_number }}</td>
+                                            <td>{{ $Deviation1->Initiator_Group }}</td>
+                                            <td>{{ $Deviation1->division_name }}</td>
+                                            {{-- <td>{{ $Deviation1->process }}</td> --}}
+                                            <td>{{ $Deviation1->short_description }}</td>
+                                            <td>{{ $Deviation1->Submitted_by }}</td>
+                                            <td>{{ $Deviation1->Deviation_category }}</td>
+                                            <td>{{ $Deviation1->QA_Initial_Review_Complete_By}}</td>
+                                            <td>{{ $Deviation1->record_number }}</td>
+                                            <td>{{ $Deviation1->Post_Categorization }}</td>
+                                            <td>{{ $Deviation1->Approved_On}}</td>
+                                            <td>{{ $Deviation1->Approved_By}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="process-table" id="effectiveness-check">
+                        <div class="scope-bar">
+                            <div class="group-input">
+                                <label for="query">Criteria</label>
+                                <select id="query" name="stage">
+                                    <option value="all_records">All Records</option>
+                                    <option value="1">Closed Records</option>
+                                    <option value="2">Opened Records</option>
+                                    <option value="3">Cancelled Records</option>
+                                    {{-- <option value="4">Overdue Records</option>
+                                    <option value="5">Assigned To Me</option>
+                                    <option value="6">Records Created Today</option>--}}
                                 </select>
                             </div>
                             <button onclick="window.print()" class="print-btn theme-btn-1">Print</button>
@@ -657,23 +798,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($Deviation as $Deviation1)
+                                    @foreach ($effectiveness_check as $effectiveness_check1)
                                         <tr>
-                                            <td>{{ $Deviation1->record_number }}</td>
-                                            <td>{{ $Deviation1->division_name }}</td>
-                                            <td>{{ $Deviation1->process }}</td>
-                                            <td>{{ $Deviation1->short_description }}</td>
-                                            <td>{{ $Deviation1->create }}</td>
-                                            <td>{{ $Deviation1->assign_to }}</td>
-                                            <td>{{ $Deviation1->due_date }}</td>
-                                            <td>{{ $Deviation1->status }}</td>
+                                            <td>{{ $effectiveness_check1->record_number }}</td>
+                                            <td>{{ $effectiveness_check1->division_name }}</td>
+                                            <td>{{ $effectiveness_check1->process }}</td>
+                                            <td>{{ $effectiveness_check1->short_description }}</td>
+                                            <td>{{ $effectiveness_check1->create }}</td>
+                                            <td>{{ $effectiveness_check1->assign_to }}</td>
+                                            <td>{{ $effectiveness_check1->due_date }}</td>
+                                            <td>{{ $effectiveness_check1->status }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>

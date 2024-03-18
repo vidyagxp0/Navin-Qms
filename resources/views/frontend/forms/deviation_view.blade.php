@@ -471,6 +471,7 @@ $users = DB::table('users')
                                         <label for="Initiator Group"><b>Department</b></label>
                                         <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
                                              id="initiator_group">
+                                             <option value="">Enter Your Selection Here</option>
                                             <option value="CQA"
                                                 @if ($data->Initiator_Group == 'CQA') selected @endif>Corporate
                                                 Quality Assurance</option>
@@ -552,6 +553,27 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
+                                        @php
+                                            $users = DB::table('users')->get();
+                                        @endphp
+                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <select  multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach                                           
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="severity-level">Deviation Observed</label>
+                                        <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
+                                       <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    {{-- <div class="group-input">
                                         <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
@@ -560,8 +582,20 @@ $users = DB::table('users')
                                             <option value="3"> 3</option>
                                            
                                         </select>
+                                    </div> --}}
+                                    <div class="group-input">
+                                        @php
+                                            $users = DB::table('users')->get();
+                                            $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
+                                        @endphp
+                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <select multiple name="Facility[]" placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                            @foreach ($users as $user)
+                                                <option {{ in_array($user->id, $selectedFacilities) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach                                           
+                                        </select>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
@@ -574,31 +608,31 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To </label>
-                                        <select  name="audit_type"  value="{{ $data->audit_type }}">
+                                        <select  name="audit_type" id="audit_type"  value="{{ $data->audit_type }}">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option @if ($data->Deviation_Related_To == 'Facility') selected @endif
+                                            <option @if ($data->audit_type == 'Facility') selected @endif
                                                 value="Facility">Facility</option>
-                                                <option @if ($data->Deviation_Related_To == 'Equipment/Instrument') selected @endif
+                                                <option @if ($data->audit_type == 'Equipment/Instrument') selected @endif
                                                     value="Equipment/Instrument">Equipment/Instrument</option>
-                                                    <option @if ($data->Deviation_Related_To == 'Documentationerror') selected @endif
-                                                        value="Documentationerror">Documentationerror</option>
-                                                        <option @if ($data->Deviation_Related_To == 'STP/ADS_instruction') selected @endif
-                                                            value="STP/ADS_instruction">STP/ADS_instruction</option>
-                                                            <option @if ($data->Deviation_Related_To == 'Packaging&Labelling') selected @endif
-                                                                value="Packaging&Labelling">Packaging&Labelling</option>
-                                                                <option @if ($data->Deviation_Related_To == 'Material_System') selected @endif
-                                                                    value="Material_System">Material_System</option>
-                                                                    <option @if ($data->Deviation_Related_To == 'Laboratory_Instrument/System') selected @endif
+                                                    <option @if ($data->audit_type == 'Documentationerror') selected @endif
+                                                        value="Documentationerror">Documentation error</option>
+                                                        <option @if ($data->audit_type == 'STP/ADS_instruction') selected @endif
+                                                            value="STP/ADS_instruction">STP/ADS instruction</option>
+                                                            <option @if ($data->audit_type == 'Packaging&Labelling') selected @endif
+                                                                value="Packaging&Labelling">Packaging & Labelling</option>
+                                                                <option @if ($data->audit_type == 'Material_System') selected @endif
+                                                                    value="Material_System">Material System</option>
+                                                                    <option @if ($data->audit_type == 'Laboratory_Instrument/System') selected @endif
                                                                         value="Laboratory_Instrument/System">Laboratory_Instrument/System</option>
-                                                                        <option @if ($data->Deviation_Related_To == 'Utility_System') selected @endif
-                                                                            value="Utility_System">Utility_System</option>
-                                                                            <option @if ($data->Deviation_Related_To == 'Computer_System') selected @endif
-                                                                                value="Computer_System">Computer_System</option>
-                                                                                <option @if ($data->Deviation_Related_To == 'Document') selected @endif
+                                                                        <option @if ($data->audit_type == 'Utility_System') selected @endif
+                                                                            value="Utility_System">Utility System</option>
+                                                                            <option @if ($data->audit_type == 'Computer_System') selected @endif
+                                                                                value="Computer_System">Computer System</option>
+                                                                                <option @if ($data->audit_type == 'Document') selected @endif
                                                                                     value="Document">Document</option>
-                                                                                    <option @if ($data->Deviation_Related_To == 'Data integrity') selected @endif
+                                                                                    <option @if ($data->audit_type == 'Data integrity') selected @endif
                                                                                         value="Data integrity">Data integrity</option>
-                                                                                        <option @if ($data->Deviation_Related_To == 'Anyother(specify)') selected @endif
+                                                                                        <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
                                                                                             value="Anyother(specify)">Anyother(specify)</option>
                                         </select>
                                     </div>
@@ -814,7 +848,7 @@ $users = DB::table('users')
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'Audit_file1')"
+                                                    oninput="addMultipleFiles(this, 'Audit_file')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -872,7 +906,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Is required ?</label>
                                         <select name="Investigation_required" id="Investigation_required"  value="{{ $data->Investigation_required }}" >
-                                            <option value="0">-- Select --</option>
+                                            <option value="">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value="yes">Yes</option>
                                             <option  @if ($data->Investigation_required == 'no') selected @endif 
@@ -911,7 +945,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="customers">Customers</label>
                                         <select name="customers" id="customers" value="{{ $data->customers }}">
-                                            <option value="0"> -- Select --</option>
+                                            <option value=""> -- Select --</option>
                                             <option @if ($data->customers == 'person1') selected @endif
                                                 value="person1">Person 1</option>
                                             <option  @if ($data->customers == 'person2') selected @endif 
@@ -926,6 +960,22 @@ $users = DB::table('users')
                                         <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="group-input"> 
+                                        <label for="related_records">Related Records</label>
+
+                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
+                                            data-search="false" data-silent-initial-value-set="true"
+                                            id="related_records">
+                                            @foreach ($pre as $prix)
+                                                <option value="{{ $prix->id }}">
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -975,7 +1025,7 @@ $users = DB::table('users')
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment1')"
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -1001,53 +1051,67 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Customer_notification">
+                                        <label for="Production Review">Production Review Required ?</label>
+                                        <select name="Production_Review" id="Production_Review" value="{{$data->Production_Review}}">
+                                            <option value="">-- Select --</option>
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                            <option @if ($data->Production_Review == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->Production_Review == 'no') selected @endif 
+                                            value="no">No</option>
+                                            <option  @if ($data->Production_Review == 'na') selected @endif 
+                                                value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Production Person</label>
-                                        <select name="Production_person" id="Customer_notification">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                        <label for="Production person">Production Person</label>
+                                        <select name="Production_person" id="Production_person" value="{{$data->Production_person}}">
+                                            <option value=""> -- Select --</option>
+                                            <option @if ($data->Production_person == 'person1') selected @endif
+                                                value="person1">Person 1</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Production)</label>
-                                        <textarea class="summernote" name="Production_assessment" id="summernote-7">
-                                    </textarea>
+                                        <label for="Production assessment">Impact Assessment (By Production)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data->Production_assessment }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Feedback</label>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-7">
+                                        <label for="Production feedback">Production Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data->Production_feedback }}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Production Attachments</label>
+                                        <label for="production attachment">Production Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="production_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="production_attachment">
+                                                @if ($data->production_attachment)
+                                                @foreach(json_decode($data->production_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'production_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1059,11 +1123,14 @@ $users = DB::table('users')
                                     
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed On</label>
-                                        <input type="date" name="production_on" disabled>
-                                    
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Production Review Completed On">Production Review Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="production_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="production_on" value="{{$data->production_on}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'production_on')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2317,6 +2384,7 @@ $users = DB::table('users')
                                     
                                     </div>
                                 </div>
+                                
                                 <div class="col-12">
                             
         </div>
@@ -2425,7 +2493,13 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Post_Categorization" id="summernote-12">{{ $data->Post_Categorization }}</textarea>
+                                        <select name="Post_Categorization" id="Post_Categorization" value="Post_Categorization">
+                                        <option value=""> -- Select --</option>
+                                        <option @if ($data->Post_Categorization == 'yes') selected @endif
+                                            value="yes">Yes</option>
+                                        <option  @if ($data->Post_Categorization == 'no') selected @endif 
+                                           value="no">No</option>
+                                      </select>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -2480,7 +2554,7 @@ $users = DB::table('users')
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Investigation_attachment1')"
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -2525,7 +2599,7 @@ $users = DB::table('users')
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Capa_attachment1')"
+                                                    oninput="addMultipleFiles(this, 'Capa_attachment')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -2596,7 +2670,7 @@ $users = DB::table('users')
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="QA_attachments[]"
-                                                    oninput="addMultipleFiles(this, 'QA_attachments1')"
+                                                    oninput="addMultipleFiles(this, 'QA_attachments')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -2684,7 +2758,7 @@ $users = DB::table('users')
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="closure_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'closure_attachment1')"
+                                                    oninput="addMultipleFiles(this, 'closure_attachment')"
                                                     multiple>
                                             </div>
                                         </div>
@@ -2709,39 +2783,40 @@ $users = DB::table('users')
                                 <div class="sub-head">Submission</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Schedule On">Submit By :-</label>
-                                        <div class="static"></div>
+                                        <label for="submit by">Submit By :-</label>
+                                        <div class="static">{{ $data->submit_by }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Schedule On">Submit On :-</label>
-                                        <div class="static"></div>
+                                        <label for="submit on">Submit On :-</label>
+                                        <div class="static">{{ $data->submit_on }}</div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Audit Schedule On">Submit Comments :-</label>
-                                        <div class="static"></div>
-                                    </div>
+                                <div class="col-lg-6">
+                                <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px;">
+                                    <label for="submit comment">Submit Comments :-</label>
+                                    <div class="">{{ $data->submit_comment }}</div> 
+                                </div>    
                                 </div>
+                                    
                                 <div class="sub-head">HOD Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Cancelled By">HOD Review Complete By :-</label>
-                                        <div class="static"></div>
+                                        <label for="HOD Review Complete By">HOD Review Complete By :-</label>
+                                        <div class="static">{{ $data->HOD_Review_Complete_By }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Cancelled On">HOD Review Complete On :-</label>
-                                        <div class="static"></div>
+                                        <label for="HOD Review Complete On">HOD Review Complete On :-</label>
+                                        <div class="static">{{ $data->HOD_Review_Complete_On }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Cancelled On">HOD Review Comments :-</label>
-                                        <div class="static"></div>
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                        <label for="HOD Review Comments">HOD Review Comments :-</label>
+                                        <div class="">{{ $data->HOD_Review_Comments }}</div>
                                     </div>
                                 </div>
                                 
@@ -2749,63 +2824,78 @@ $users = DB::table('users')
                                 <div class="sub-head">QA Initial Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Preparation Completed On">QA Initial Review Complete
-                                            By :-</label>
-                                        <div class="static"></div>
+                                        <label for="QA Initial Review Complete By">QA Initial Review Complete By :-</label>
+                                        <div class="static">{{ $data->QA_Initial_Review_Complete_By }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Preparation Completed On">QA Initial Review Complete
-                                            On :-</label>
-                                        <div class="static"></div>
+                                        <label for="QA Initial Review Complete On">QA Initial Review Complete On :-</label>
+                                        <div class="static">{{ $data->QA_Initial_Review_Complete_On }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                        <label for="QA Initial Review Comments">QA Initial Review Comments:-</label>
+                                        <div class="">{{ $data->QA_Initial_Review_Comments }}</div>
+                                    </div>
+                                </div>
+                                <div class="sub-head">CFT Review Complete</div>
+
+                                <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Preparation Completed On">QA Initial Review Comments
-                                            :-</label>
-                                        <div class="static"></div>
+                                        <label for="CFT Review Complete By">CFT Review Complete By :-</label>
+                                        <div class="static">{{ $data->CFT_Review_Complete_By }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CFT Review Complete On">CFT Review Complete On :-</label>
+                                        <div class="static">{{ $data->CFT_Review_Complete_On }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                        <label for="CFT Review Comments">CFT Review Comments :-</label>
+                                        <div class="">{{ $data->CFT_Review_Comments }}</div>
                                     </div>
                                 </div>
                                 <div class="sub-head"> QA Final Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Mgr.more Info Reqd By"> QA Final Review Complete By :-</label>
-                                        <div class="static"></div>
+                                        <label for="QA Final Review Complete By"> QA Final Review Complete By :-</label>
+                                        <div class="static">{{ $data->QA_Final_Review_Complete_By }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Mgr.more Info Reqd On"> QA Final Review Complete On :-</label>
-                                        <div class="static"></div>
+                                        <label for="QA Final Review Complete On"> QA Final Review Complete On :-</label>
+                                        <div class="static">{{ $data->QA_Final_Review_Complete_On }}</div>
                                     </div>
                                 </div> <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Audit Mgr.more Info Reqd On"> QA Final Review Comments :-</label>
-                                        <div class="static"></div>
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                        <label for="QA Final Review Comments"> QA Final Review Comments :-</label>
+                                        <div class="">{{ $data->QA_Final_Review_Comments }}</div>
                                     </div>
                                 </div>
-                                <div class="sub-head"> Approved</div>
+                                <div class="sub-head">Approved</div>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Observation Submitted By">Approved
-                                            By :-</label>
-                                        <div class="static"></div>
+                                        <label for="Approved By">Approved By :-</label>
+                                        <div class="static">{{ $data->Approved_By }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Audit Observation Submitted On">Approved
-                                            On :-</label>
-                                        <div class="static"></div>
+                                        <label for="Approved On">Approved On :-</label>
+                                        <div class="static">{{ $data->Approved_By }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Audit Lead More Info Reqd By">Approved Comments :-</label>
-                                        <div class="static"></div>
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                        <label for="Approved Comments">Approved Comments :-</label>
+                                        <div class="">{{ $data->Approved_Comments }}</div>
                                     </div>
                                 </div>
                                 
@@ -3234,7 +3324,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <div class="modal fade" id="more-info-required-modal">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content"> 
     
                 <!-- Modal Header -->
                 <div class="modal-header">
