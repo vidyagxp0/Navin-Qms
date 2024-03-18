@@ -59,11 +59,11 @@
         #preloader .loader {
             width: 150px;
             height: 150px;
-            background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            background-image: linear-gradient(120deg, #eb80005e 0%, #eb800075 100%);
             border-radius: 50%;
             position: relative;
-            box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.5) inset,
-                0 5px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 30px 4px #eb80007a inset,
+                0 5px 12px #eb800096;
             overflow: hidden;
         }
 
@@ -103,16 +103,16 @@
             justify-content: center;
             background-size: cover;
             background-position: center;
-            
+            background:#f39f40c7;
         }
 
         #rcms_login_block .login-form-block {
-            width: 1000px;
+            width: 600px;
             height: 450px;
             background: white;
             background-size: cover;
             background-position: center;
-            display: flex;
+            /* display: flex; */
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
@@ -142,6 +142,8 @@
             color: #817474;
             letter-spacing: 2px;
             padding-bottom: 15px;
+            margin-top: -46px;
+            margin-bottom: 15px;
 
         }
 
@@ -187,10 +189,29 @@
             text-align: center;
             width: 100%;
             padding: 10px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #f6f8fa;
-            color: black;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #2c2d2f;
+            color: #fff;
             margin-left: auto;
             text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+            letter-spacing: 2px;
+    
+            font-size: 1rem;
+            transition: all 0.3s linear;
+            cursor: pointer;
+        }
+
+        #rcms_login_block input[type="submit"]:hover {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #2c2d2f;
+            color: #fff;
+            margin-left: auto;
+            text-transform: uppercase;
+            letter-spacing: 7px;
             font-weight: bold;
             border-radius: 5px;
             font-size: 1rem;
@@ -217,7 +238,7 @@
         <div class="login-form-block" style="background-image: url('{{ asset('user/images/background1.jpg') }}')">
             <div class="top-block">
                 <div class="logo">
-                    <img src="{{ asset('user/images/vidhyagxp1.png') }}" alt="..." class="w-100 h-100">
+                    <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                 </div>
                 {{-- <div class="head">
                     Welcome to Doculife
@@ -226,7 +247,7 @@
             <form action="{{ url('rcms_check') }}" method="POST" >
                 @csrf
                 <div class="head">
-                    Welcome to User Interface
+                    Welcome to VidyaGxP
                 </div>
                 <div class="group-input">
                     <label for="username"><i class="fa-solid fa-envelope"></i></label>
