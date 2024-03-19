@@ -633,7 +633,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                   
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product Batch">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
                                         <input type="text" name="Product_Batch" id="Product_Batch">
@@ -699,7 +699,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" id="Description_Deviation" name="Description_Deviation[]"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -714,7 +714,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" id="Immediate_Action" name="Immediate_Action[]"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -728,7 +728,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -838,7 +838,7 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Deviation category">Initial Deviation Category</label>
                                         <select name="Deviation_category" id="Deviation_category">
@@ -857,7 +857,7 @@ $users = DB::table('users')
 
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Justification for Categorization">Justification for Categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -866,7 +866,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Is required ?</label>
                                         <select name="Investigation_required" id="Investigation_required">
@@ -884,7 +884,7 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Details">Investigation Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -994,8 +994,8 @@ $users = DB::table('users')
                     </div>
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
+             <div class="inner-block-content">
+                    <div class="row">
                             <div class="sub-head">
                             Production
                            </div>
@@ -2509,7 +2509,7 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <!-- <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div> -->
                                         {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
                                             <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
@@ -2585,6 +2585,7 @@ $users = DB::table('users')
                                 </div>
                             
                             </div>
+                            
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>

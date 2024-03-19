@@ -119,9 +119,10 @@ button:hover {
     width: 100%;
     height: 100%;
     background: #111;
+    border: 1px solid gray;
     left: 0;
     top: 0;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 @keyframes glowing {
@@ -3477,14 +3478,14 @@ section#pdf-page .watermark {
 
 #change-control-view {
     padding: 20px 0px;
-    background: #4274da;
+    background: #eb7f00d9;
     /* min-height: calc(100vh - 150px); */
 }
 
 #change-control-view .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #e8b983d9, -12px -12px 24px #e8b983d9;
     background: #ffffff;
 }
 
@@ -4157,7 +4158,7 @@ section#pdf-page .watermark {
         CHNAGE CONTROL DATA FIELDS
 ===============================================*/
 .form-field-head {
-    background: #4274da;
+    background: #eb7f00d9;
     padding: 15px 20px;
 }
 
@@ -4167,7 +4168,7 @@ section#pdf-page .watermark {
 }
 
 .form-field-head .division-bar {
-    color: papayawhip;
+    color: rgb(20, 20, 19);
     letter-spacing: 2px;
     font-size: 0.9rem;
     margin-bottom: 5px;
@@ -4200,13 +4201,13 @@ section#pdf-page .watermark {
 /*! ============================================= */
 #change-control-fields {
     /* padding: 20px 0px; */
-    background: #4274da;
+    background: #eb7f00d9;
      min-height: calc(100vh - 150px);
 }
 
 #change-control-fields .inner-block {
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fde0bf, -12px -12px 24px #fae1c4;
     background: #ffffff;
     overflow: hidden;
 }
@@ -4387,7 +4388,8 @@ section#pdf-page .watermark {
     cursor: pointer;
     padding: 5px 20px;
     transition: 0.3s;
-    border-radius: 28px;
+    border: 1px solid #777474;
+    border-radius: 5px;
 }
 
 #change-control-fields .cctab button:hover {
@@ -4395,7 +4397,7 @@ section#pdf-page .watermark {
 }
 
 #change-control-fields .cctab button.active {
-    background-color: #1aa71a;
+    background-color: #6ea2d3;
     color: white;
 }
 
