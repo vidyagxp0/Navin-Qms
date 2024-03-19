@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DeviationCft extends Model
+class DeviationCftsResponse extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'deviationcfts';
+    protected $table = 'deviationcfts_response';
 }

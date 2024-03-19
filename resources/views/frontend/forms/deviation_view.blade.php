@@ -240,6 +240,25 @@ $users = DB::table('users')
                         @php
                             $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
                             $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                            $cftRolesAssignUsers = collect($userRoleIds); //->contains(fn ($roleId) => $roleId >= 22 && $roleId <= 33);
+                            $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $data->id])->first();
+
+                            // Define the column names
+                            $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person'];
+
+                            // Initialize an array to store the values
+                            $valuesArray = [];
+
+                            // Iterate over the columns and retrieve the values
+                            foreach ($columns as $column) {
+                                $value = $cftUsers->$column;
+                                // Check if the value is not null and not equal to 0
+                                if ($value !== null && $value != 0) {
+                                    $valuesArray[] = $value;
+                                }
+                            }
+
+                            // dd($data->stage);
                         @endphp
                         {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}}
@@ -270,13 +289,13 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#deviationIsCFTRequired">
                                 CFT Review Not Required
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
                             </button>
-                        @elseif($data->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds)))
+                        @elseif($data->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                             More Info Required
                             </button>
@@ -285,13 +304,13 @@ $users = DB::table('users')
                             </button>
                            
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Initiator
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToHod">
                                 Send to HOD
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToQA">
                                 Send to QA Initial Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -414,7 +433,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Division Code"><b>Site/Location Code</b></label>
                                         <input readonly type="text" name="division_code"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                            value="{{ $divisionName }}">
                                         <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                         {{-- <div class="static">QMS-North America</div> --}}
                                     </div>
@@ -1066,24 +1085,21 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 27, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 22, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Production person">Production Person</label>
-                                        <select name="Production_person" id="Production_person" value="{{ $data1->Production_person }}">
-                                            <option value=""> -- Select --</option>
+                                        <label for="Production notification">Production Person</label>
+                                        <select name="Production_person" id="Production_person">
+                                            <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
-                                            <option {{ $data1->Production_person == $user->id ? 'selected' : '' }}
-                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                                <option value="{{ $user->id }}" @if ($user->id == $data1->Production_person) selected @endif>{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Production assessment">Impact Assessment (By Production)</label>
@@ -1158,11 +1174,10 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 23, 'q_m_s_divisions_id' => $data->division_id])->get();
                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp
+                            @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Warehouse Person">Warehouse Person</label>
@@ -1251,11 +1266,10 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 24, 'q_m_s_divisions_id' => $data->division_id])->get();
                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp
+                            @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Person">Quality Control Person</label>
@@ -1342,10 +1356,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 26, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1447,10 +1460,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 25, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1539,10 +1551,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 27, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1644,11 +1655,10 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 28, 'q_m_s_divisions_id' => $data->division_id])->get();
                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp
+                            @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab  Person</label>
@@ -1749,10 +1759,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 29, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1854,10 +1863,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 30, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1944,10 +1952,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 31, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2037,11 +2044,10 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $data->division_id])->get();
                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp
+                            @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Information Technology Person"> Information Technology  Person</label>
@@ -2105,7 +2111,7 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed On">Information Technology Review Completed On</label>
-                                        <input type="text" name="Information_Technology_on" id="Information_Technology_on" value={{$data1->Information_Technology_on}} disabled>
+                                        <input type="text" name="Information_Technology_on" id="Information_Technology_on" value={{$data1->Information_Technology_on}}>
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2124,12 +2130,10 @@ $users = DB::table('users')
                                                    value="na">NA</option>
                                         </select>
                                     </div>
-                                </div>
-                                @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    @php
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2218,10 +2222,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2359,10 +2362,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2474,10 +2476,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2589,10 +2590,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2707,11 +2707,10 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 @php
-                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
-                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                 @endphp
+                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Person5">Other's 5 Person</label>
@@ -3798,6 +3797,239 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
     
                 <form action="{{ route('deviationCancel', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal fade" id="deviationIsCFTRequired">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"> 
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('deviationIsCFTRequired', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="sendToHod">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"> 
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('sendToHod', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="sendToInitiator">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"> 
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('sendToInitiator', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="modal fade" id="cftReview">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"> 
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('cftReview', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
+    <div class="modal fade" id="sendToQA">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"> 
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('sendToQA', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
