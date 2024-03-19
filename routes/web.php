@@ -272,6 +272,8 @@ Route::view('question-training', 'frontend.TMS.question-training');
 Route::view('edit-question', 'frontend.TMS.edit-question');
 
 Route::view('change-control-list', 'frontend.change-control.change-control-list');
+Route::view('auditReport', 'frontend.deviation_report.auditReport');
+
 
 Route::view('change-control-list-print', 'frontend.change-control.change-control-list-print');
 
