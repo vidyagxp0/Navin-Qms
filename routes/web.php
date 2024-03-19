@@ -295,6 +295,7 @@ Route::get('chart-data',[DesktopController::class, 'fetchChartData']);
 Route::get('chart-data-releted',[DesktopController::class, 'fetchChartDataDepartmentReleted']);
 Route::get('chart-data-initialDeviationCategory',[DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
 Route::get('chart-data-postCategorizationOfDeviation',[DesktopController::class, 'fetchChartDataPostCategorizationOfDeviation']);
+Route::get('chart-data-capa',[DesktopController::class, 'fetchChartDataCapa']);
 
 Route::get('chart-data-dep',[DesktopController::class, 'fetchChartDataDepartment']);
 
