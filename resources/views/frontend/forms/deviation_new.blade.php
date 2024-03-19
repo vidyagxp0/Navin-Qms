@@ -1082,7 +1082,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Warehouse Review Required ?</label>
-                                        <select name="Warehouse_notification" id="Warehouse_review">
+                                        <select name="Warehouse_review" id="Warehouse_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1101,7 +1101,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Warehouse Person</label>
-                                        <select name="Warehouse_notification" id="Warehouse_person">
+                                        <select name="Warehouse_person" id="Warehouse_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -1158,7 +1158,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Control Review Required ?</label>
-                                        <select name="QualityAssurance_notification" id="QualityAssurance_review">
+                                        <select name="QualityControl_review" id="QualityControl_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1177,7 +1177,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Control Person</label>
-                                        <select name="Quality_Control_notification" id="QualityAssurance_person">
+                                        <select name="QualityControl_person" id="QualityControl_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -1189,14 +1189,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Quality Control)</label>
-                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-7">
+                                        <textarea class="summernote" name="QualityControl_assessment" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Feedback</label>
-                                        <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-7">
+                                        <textarea class="summernote" name="QualityControl_feedback" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1205,7 +1205,7 @@ $users = DB::table('users')
                                         <label for="Audit Attachments"> Quality Control Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="QualityAssurance_attachment"></div>
+                                            <div class="file-attachment-list" id="QualityControl_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
@@ -1217,14 +1217,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Review Completed By</label>
-                                        <input type="text" name="QualityAssurance__by" disabled>
+                                        <input type="text" name="QualityControl_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Review Completed On</label>
-                                        <input type="date" name="QualityAssurance__on" disabled>
+                                        <input type="date" name="QualityControl_on" disabled>
                                     
                                     </div>
                                 </div>
@@ -1234,7 +1234,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Assurance Review Required ?</label>
-                                        <select name="Quality_Assurance" id="QualityAssurance_review">
+                                        <select name="QualityAssurance_review" id="QualityAssurance_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1281,7 +1281,7 @@ $users = DB::table('users')
                                         <label for="Audit Attachments">Quality Assurance  Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Quality_Assurance_attachment"></div>
+                                            <div class="file-attachment-list" id="QualityAssurance_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
@@ -1386,7 +1386,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Analytical Development Laboratory Review Required ?</label>
-                                        <select name="Analytical_Development" id="Analytical_Development_review">
+                                        <select name="Analytical_Development_review" id="Analytical_Development_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1405,7 +1405,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Analytical Development Laboratory  Person</label>
-                                        <select name="Engineering_person" id="Analytical_Development_person">
+                                        <select name="Analytical_Development_person" id="Analytical_Development_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -1524,14 +1524,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Process Development Laboratory / Kilo Lab Review Completed By</label>
-                                        <input type="text" name="Kilo_Lab_attachment_by" disabled>
+                                        <input type="text" name="Kilo_Lab_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Process Development Laboratory / Kilo Lab Review Completed On</label>
-                                        <input type="date" name="Kilo_Lab_attachment_on" disabled>
+                                        <input type="date" name="Kilo_Lab_on" disabled>
                                     
                                     </div>
                                 </div>
@@ -1541,7 +1541,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Technology Transfer / Design Review Required ?</label>
-                                        <select name="Kilo_Lab" id="Technology_transfer/Design">
+                                        <select name="Technology_transfer" id="Technology_transfer_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1560,7 +1560,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Technology Transfer / Design  Person</label>
-                                        <select name="Kilo_Lab_person" id="Technology_transfer/Design">
+                                        <select name="Technology_transfer_person" id="Technology_transfer_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -1581,7 +1581,7 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Technology Transfer / Design  Feedback</label>
-                                        <textarea class="summernote" name="Technology_transfer/Design" id="summernote-7">
+                                        <textarea class="summernote" name="Technology_transfer_feedback" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1590,7 +1590,7 @@ $users = DB::table('users')
                                         <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Technology_transfer/Design_attachment"></div>
+                                            <div class="file-attachment-list" id="Technology_transfer_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
@@ -1602,14 +1602,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed By</label>
-                                        <input type="text" name="Technology_transfer/Design_by" disabled>
+                                        <input type="text" name="Technology_transfer_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed On</label>
-                                        <input type="date" name="Technology_transfer/Design_on" disabled>
+                                        <input type="date" name="Technology_transfer_on" disabled>
                                     
                                     </div>
                                 </div>
@@ -1619,7 +1619,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Environment, Health & Safety Review Required ?</label>
-                                        <select name="Environment_Health_required" id="Environment_Health_required">
+                                        <select name="Environment_Health_required" id="Environment_Health_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1638,7 +1638,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Environment, Health & Safety  Person</label>
-                                        <select name="Kilo_Lab_person" id="Environment_Health_Safety_person">
+                                        <select name="Environment_Health_person" id="Environment_Health_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -1650,14 +1650,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Environment, Health & Safety)</label>
-                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-7">
+                                        <textarea class="summernote" name="Environment_Health_assessment" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety  Feedback</label>
-                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-7">
+                                        <textarea class="summernote" name="Environment_Health_feedback" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1666,7 +1666,7 @@ $users = DB::table('users')
                                         <label for="Audit Attachments"> Environment, Health & Safety Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Environment_Health_Safety_attachment"></div>
+                                            <div class="file-attachment-list" id="Environment_Health_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
@@ -1679,14 +1679,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety Review Completed By</label>
-                                        <input type="text" name="Environment_Health_Safety_by" disabled>
+                                        <input type="text" name="Environment_Health_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety Review Completed On</label>
-                                        <input type="date" name="Environment_Health_Safety_on" disabled>
+                                        <input type="date" name="Environment_Health_on" disabled>
                                     
                                     </div>
                                 </div>
@@ -1696,7 +1696,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required ?</label>
-                                        <select name="Human_Resource_required" id="Human_Resource_required">
+                                        <select name="Human_Resource_required" id="Human_Resource_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1774,7 +1774,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Information Technology Review Required ?</label>
-                                        <select name=" Information_Technology_required" id=" Information_Technology_required">
+                                        <select name="Information_Technology_required" id="Information_Technology_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1849,7 +1849,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Project management Review Required ?</label>
-                                        <select name="Project_management_required" id="Project_management_required">
+                                        <select name="Project_management_required" id="Project_management_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>

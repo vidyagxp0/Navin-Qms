@@ -105,6 +105,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

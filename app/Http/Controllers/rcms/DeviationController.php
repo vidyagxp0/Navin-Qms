@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\rcms;
+use App\Models\DeviationCFT;
+use App\Models\DeviationCFTs;
 use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
 use App\Models\Deviation;
@@ -108,25 +110,7 @@ class DeviationController extends Controller
         $deviation->Customer_notification= $request->Customer_notification;
         $deviation->customers= $request->customers;
         $deviation->QAInitialRemark= $request->QAInitialRemark;
-        //CFT
-        $deviation->Production_Review= $request->Production_Review;
-        $deviation->Production_person= $request->Production_person;
-        $deviation->Production_assessment= $request->Production_assessment;
-        $deviation->Production_feedback= $request->Production_feedback;
-        $deviation->production_on= $request->production_on;
-
-        // $deviation->Warehouser_review= $request->warehouser_review;
-        // $deviation->Warehouser_person= $request->warehouser_person;
-        // $deviation->Warehouser_assessment= $request->warehouser_assessment;
-        // $deviation->Warehouser_feedback= $request->warehouser_feedback;
-        // $deviation->Warehouser_on= $request->warehouser_on;
-
-        // $deviation->Warehouser_review= $request->warehouser_review;
-        // $deviation->Warehouser_person= $request->warehouser_person;
-        // $deviation->Warehouser_assessment= $request->warehouser_assessment;
-        // $deviation->Warehouser_feedback= $request->warehouser_feedback;
-        // $deviation->Warehouser_on= $request->warehouser_on;
-
+        
         $deviation->Investigation_Summary= $request->Investigation_Summary;
         $deviation->Impact_assessment= $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
@@ -260,6 +244,94 @@ class DeviationController extends Controller
 
     $deviation->save();
 
+    $deviationCFT = new DeviationCFTs();
+    $deviationCFT->division_id = $deviation->division_id;
+    $deviationCFT->deviation_id = $deviation->id;
+    $deviationCFT->Production_Review= $request->Production_Review;
+    $deviationCFT->Production_person= $request->Production_person;
+    $deviationCFT->Production_assessment= $request->Production_assessment;
+    $deviationCFT->Production_attachment= $request->Production_attachment;
+    $deviationCFT->Production_feedback= $request->Production_feedback;
+    $deviationCFT->production_on= $request->production_on;
+
+    $deviationCFT->Warehouse_review= $request->warehouse_review;
+    $deviationCFT->Warehouse_person= $request->warehouse_person;
+    $deviationCFT->Warehouse_assessment= $request->warehouse_assessment;
+    $deviationCFT->Warehouse_feedback= $request->warehouse_feedback;
+    $deviationCFT->Warehouse_attachment= $request->Warehouse_attachment;
+    $deviationCFT->Warehouse_on= $request->warehouse_on;
+
+    $deviationCFT->QualityControl_review= $request->QualityControl_review;
+    $deviationCFT->QualityControl_person= $request->QualityControl_person;
+    $deviationCFT->QualityControl_assessment= $request->QualityControl_assessment;
+    $deviationCFT->QualityControl_feedback= $request->QualityControl_feedback;
+    $deviationCFT->QualityControl_attachment= $request->QualityControl_attachment;
+    $deviationCFT->QualityControl_on= $request->QualityControl_on;
+
+    $deviationCFT->QualityAssurance_review= $request->QualityAssurance_review;
+    $deviationCFT->QualityAssurance_person= $request->QualityAssurance_person;
+    $deviationCFT->QualityAssurance_assessment= $request->QualityAssurance_assessment;
+    $deviationCFT->QualityAssurance_attachment= $request->QualityAssurance_attachment;
+    $deviationCFT->QualityAssurance_feedback= $request->QualityAssurance_feedback;
+    $deviationCFT->QualityAssurance_on= $request->QualityAssurance_on;
+
+    $deviationCFT->Engineering_review= $request->Engineering_review;
+    $deviationCFT->Engineering_person= $request->Engineering_person;
+    $deviationCFT->Engineering_assessment= $request->Engineering_assessment;
+    $deviationCFT->Engineering_attachment= $request->Engineering_attachment; 
+    $deviationCFT->Engineering_feedback= $request->Engineering_feedback;
+    $deviationCFT->Engineering_on= $request->Engineering_on;
+
+    $deviationCFT->Analytical_Development_review= $request->Analytical_Development_review;
+    $deviationCFT->Analytical_Development_person= $request->Analytical_Development_person;
+    $deviationCFT->Analytical_Development_assessment= $request->Analytical_Development_assessment;
+    $deviationCFT->Analytical_Development_feedback= $request->Analytical_Development_feedback;        
+    $deviationCFT->Analytical_Development_attachment= $request->Analytical_Development_attachment;
+    $deviationCFT->Analytical_Development_on= $request->Analytical_Development_on;
+
+    $deviationCFT->Kilo_Lab_review= $request->Kilo_Lab_review;
+    $deviationCFT->Kilo_Lab_person= $request->Kilo_Lab_person;
+    $deviationCFT->Kilo_Lab_assessment= $request->Kilo_Lab_assessment;
+    $deviationCFT->Kilo_Lab_feedback= $request->Kilo_Lab_feedback;
+    $deviationCFT->Kilo_Lab_attachment= $request->Kilo_Lab_attachment;
+    $deviationCFT->Kilo_Lab_on= $request->Kilo_Lab_on;
+
+    $deviationCFT->Technology_transfer_review= $request->Technology_transfer_review;
+    $deviationCFT->Technology_transfer_person= $request->Technology_transfer_person;
+    $deviationCFT->Technology_transfer_assessment= $request->Technology_transfer_assessment;
+    $deviationCFT->Technology_transfer_feedback= $request->Technology_transfer_feedback;
+    $deviationCFT->Technology_transfer_attachment= $request->Technology_transfer_attachment;
+    $deviationCFT->Technology_transfer_on= $request->Technology_transfer_on;
+
+    $deviationCFT->Environment_Health_review= $request->Environment_Health_review;
+    $deviationCFT->Environment_Health_person= $request->Environment_Health_person;
+    $deviationCFT->Environment_Health_assessment= $request->Environment_Health_assessment;
+    $deviationCFT->Environment_Health_feedback= $request->Environment_Health_feedback;
+    $deviationCFT->Environment_Health_attachment= $request->Environment_Health_attachment;
+    $deviationCFT->Environment_Health_on= $request->Environment_Health_on;
+
+    $deviationCFT->Human_Resource_review= $request->Human_Resource_review;
+    $deviationCFT->Human_Resource_person= $request->Human_Resource_person;
+    $deviationCFT->Human_Resource_assessment= $request->Human_Resource_assessment;
+    $deviationCFT->Human_Resource_feedback= $request->Human_Resource_feedback;
+    $deviationCFT->Human_Resource_attachment= $request->Human_Resource_attachment;
+    $deviationCFT->Human_Resource_on= $request->Human_Resource_on;
+
+    $deviationCFT->Information_Technology_review= $request->Information_Technology_review;
+    $deviationCFT->Information_Technology_person= $request->Information_Technology_person;
+    $deviationCFT->Information_Technology_assessment= $request->Information_Technology_assessment;
+    $deviationCFT->Information_Technology_feedback= $request->Information_Technology_feedback;
+    $deviationCFT->Information_Technology_attachment= $request->Information_Technology_attachment;
+    $deviationCFT->Information_Technology_on= $request->Information_Technology_on;
+
+    $deviationCFT->Project_management_review= $request->Project_management_review;
+    $deviationCFT->Project_management_person= $request->Project_management_person;
+    $deviationCFT->Project_management_assessment= $request->Project_management_assessment;
+    $deviationCFT->Project_management_feedback= $request->Project_management_feedback;
+    $deviationCFT->Project_management_attachment= $request->Project_management_attachment;
+    $deviationCFT->Project_management_on= $request->Project_management_on;
+
+    $deviationCFT->save();
     // $data3 = new DeviationGrid();
     // $data3->deviation_id = $deviation->id;
     // $data3->type = "Deviation";
@@ -302,6 +374,8 @@ class DeviationController extends Controller
         $data5->ExpiryDate = serialize($request->ExpiryDate);
     }
      $data5->save();
+
+
         //  return response()->redirect(url('rcms/qms-dashboard'));
     toastr()->success("Record is created Successfully");
     return redirect(url('rcms/qms-dashboard'));
@@ -322,8 +396,8 @@ class DeviationController extends Controller
         // $grid_data1 = DeviationGrid::where('deviation_id', $id)->where('type', "Deviation")->first();
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
-       
-     return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre'));
+        $deviationCFT = DeviationCFTs::withoutTrashed()->where('deviation_id', $data->id)->first();
+     return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'deviationCFT'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -391,26 +465,103 @@ class DeviationController extends Controller
         $deviation->customers= $request->customers;
 
         //CFT
-        $deviation->Production_Review= $request->Production_Review;
-        $deviation->Production_person= $request->Production_person;
-         
-        $deviation->Production_assessment= $request->Production_assessment;
-        $deviation->Production_feedback= $request->Production_feedback;
-        $deviation->production_on= $request->production_on;
+        $deviationCFT = DeviationCFTs::withoutTrashed()->where('deviation_id', $id)->first();
+        $deviationCFT->Production_Review= $request->Production_Review;
+        $deviationCFT->Production_person= $request->Production_person;
+        $deviationCFT->Production_assessment= $request->Production_assessment;
+        $deviationCFT->Production_attachment= $request->Production_attachment;
+        $deviationCFT->Production_feedback= $request->Production_feedback;
+        $deviationCFT->production_on= $request->production_on;
 
+        $deviationCFT->Warehouse_review= $request->warehouse_review;
+        $deviationCFT->Warehouse_person= $request->warehouse_person;
+        $deviationCFT->Warehouse_assessment= $request->warehouse_assessment;
+        $deviationCFT->Warehouse_feedback= $request->warehouse_feedback;
+        $deviationCFT->Warehouse_attachment= $request->Warehouse_attachment;
+        $deviationCFT->Warehouse_on= $request->warehouse_on;
+
+        $deviationCFT->QualityControl_review= $request->QualityControl_review;
+        $deviationCFT->QualityControl_person= $request->QualityControl_person;
+        $deviationCFT->QualityControl_assessment= $request->QualityControl_assessment;
+        $deviationCFT->QualityControl_feedback= $request->QualityControl_feedback;
+        $deviationCFT->QualityControl_attachment= $request->QualityControl_attachment;
+        $deviationCFT->QualityControl_on= $request->QualityControl_on;
+
+        $deviationCFT->QualityAssurance_review= $request->QualityAssurance_review;
+        $deviationCFT->QualityAssurance_person= $request->QualityAssurance_person;
+        $deviationCFT->QualityAssurance_assessment= $request->QualityAssurance_assessment;
+        $deviationCFT->QualityAssurance_attachment= $request->QualityAssurance_attachment;
+        $deviationCFT->QualityAssurance_feedback= $request->QualityAssurance_feedback;
+        $deviationCFT->QualityAssurance_on= $request->QualityAssurance_on;
+
+        $deviationCFT->Engineering_review= $request->Engineering_review;
+        $deviationCFT->Engineering_person= $request->Engineering_person;
+        $deviationCFT->Engineering_assessment= $request->Engineering_assessment;
+        $deviationCFT->Engineering_attachment= $request->Engineering_attachment; 
+        $deviationCFT->Engineering_feedback= $request->Engineering_feedback;
+        $deviationCFT->Engineering_on= $request->Engineering_on;
+
+        $deviationCFT->Analytical_Development_review= $request->Analytical_Development_review;
+        $deviationCFT->Analytical_Development_person= $request->Analytical_Development_person;
+        $deviationCFT->Analytical_Development_assessment= $request->Analytical_Development_assessment;
+        $deviationCFT->Analytical_Development_feedback= $request->Analytical_Development_feedback;        
+        $deviationCFT->Analytical_Development_attachment= $request->Analytical_Development_attachment;
+        $deviationCFT->Analytical_Development_on= $request->Analytical_Development_on;
+
+        $deviationCFT->Kilo_Lab_review= $request->Kilo_Lab_review;
+        $deviationCFT->Kilo_Lab_person= $request->Kilo_Lab_person;
+        $deviationCFT->Kilo_Lab_assessment= $request->Kilo_Lab_assessment;
+        $deviationCFT->Kilo_Lab_feedback= $request->Kilo_Lab_feedback;
+        $deviationCFT->Kilo_Lab_attachment= $request->Kilo_Lab_attachment;
+        $deviationCFT->Kilo_Lab_on= $request->Kilo_Lab_on;
+
+        $deviationCFT->Technology_transfer_review= $request->Technology_transfer_review;
+        $deviationCFT->Technology_transfer_person= $request->Technology_transfer_person;
+        $deviationCFT->Technology_transfer_assessment= $request->Technology_transfer_assessment;
+        $deviationCFT->Technology_transfer_feedback= $request->Technology_transfer_feedback;
+        $deviationCFT->Technology_transfer_attachment= $request->Technology_transfer_attachment;
+        $deviationCFT->Technology_transfer_on= $request->Technology_transfer_on;
+
+        $deviationCFT->Environment_Health_review= $request->Environment_Health_review;
+        $deviationCFT->Environment_Health_person= $request->Environment_Health_person;
+        $deviationCFT->Environment_Health_assessment= $request->Environment_Health_assessment;
+        $deviationCFT->Environment_Health_feedback= $request->Environment_Health_feedback;
+        $deviationCFT->Environment_Health_attachment= $request->Environment_Health_attachment;
+        $deviationCFT->Environment_Health_on= $request->Environment_Health_on;
+
+        $deviationCFT->Human_Resource_review= $request->Human_Resource_review;
+        $deviationCFT->Human_Resource_person= $request->Human_Resource_person;
+        $deviationCFT->Human_Resource_assessment= $request->Human_Resource_assessment;
+        $deviationCFT->Human_Resource_feedback= $request->Human_Resource_feedback;
+        $deviationCFT->Human_Resource_attachment= $request->Human_Resource_attachment;
+        $deviationCFT->Human_Resource_on= $request->Human_Resource_on;
+
+        $deviationCFT->Information_Technology_review= $request->Information_Technology_review;
+        $deviationCFT->Information_Technology_person= $request->Information_Technology_person;
+        $deviationCFT->Information_Technology_assessment= $request->Information_Technology_assessment;
+        $deviationCFT->Information_Technology_feedback= $request->Information_Technology_feedback;
+        $deviationCFT->Information_Technology_attachment= $request->Information_Technology_attachment;
+        $deviationCFT->Information_Technology_on= $request->Information_Technology_on;
+
+        $deviationCFT->Project_management_review= $request->Project_management_review;
+        $deviationCFT->Project_management_person= $request->Project_management_person;
+        $deviationCFT->Project_management_assessment= $request->Project_management_assessment;
+        $deviationCFT->Project_management_feedback= $request->Project_management_feedback;
+        $deviationCFT->Project_management_attachment= $request->Project_management_attachment;
+        $deviationCFT->Project_management_on= $request->Project_management_on;
     
-        $deviation->QAInitialRemark= $request->QAInitialRemark;
-        $deviation->Investigation_Summary= $request->Investigation_Summary;
-        $deviation->Impact_assessment= $request->Impact_assessment;
-        $deviation->Root_cause = $request->Root_cause; 
-        $deviation->CAPA_Rquired= $request->CAPA_Rquired;
-        $deviation->capa_type= $request->capa_type;
-        $deviation->CAPA_Description= $request->CAPA_Description;
-        $deviation->Post_Categorization= $request->Post_Categorization;
-        $deviation->Investigation_Of_Review= $request->Investigation_Of_Review;
-        $deviation->QA_Feedbacks = $request->QA_Feedbacks;
-        $deviation->Closure_Comments= $request->Closure_Comments;
-        $deviation->Disposition_Batch = $request->Disposition_Batch;
+        $deviationCFT->QAInitialRemark= $request->QAInitialRemark;
+        $deviationCFT->Investigation_Summary= $request->Investigation_Summary;
+        $deviationCFT->Impact_assessment= $request->Impact_assessment;
+        $deviationCFT->Root_cause = $request->Root_cause; 
+        $deviationCFT->CAPA_Rquired= $request->CAPA_Rquired;
+        $deviationCFT->capa_type= $request->capa_type;
+        $deviationCFT->CAPA_Description= $request->CAPA_Description;
+        $deviationCFT->Post_Categorization= $request->Post_Categorization;
+        $deviationCFT->Investigation_Of_Review= $request->Investigation_Of_Review;
+        $deviationCFT->QA_Feedbacks = $request->QA_Feedbacks;
+        $deviationCFT->Closure_Comments= $request->Closure_Comments;
+        $deviationCFT->Disposition_Batch = $request->Disposition_Batch;
         //dd($deviation);
         if (!empty($request->Audit_file)) {
             $files = [];
@@ -557,14 +708,14 @@ class DeviationController extends Controller
                             $email = Helpers::getInitiatorEmail($u->user_id);
                              if ($email !== null) {
                           
-                              Mail::send(
-                                  'mail.view-mail',
-                                   ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Document is Submitted By ".Auth::user()->name);
-                                }
-                              );
+                            //   Mail::send(
+                            //       'mail.view-mail',
+                            //        ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Document is Submitted By ".Auth::user()->name);
+                            //     }
+                            //   );
                             }
                      } 
                   }
@@ -616,14 +767,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -655,14 +806,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -694,14 +845,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -734,14 +885,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -773,14 +924,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -890,14 +1041,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                      $email = Helpers::getInitiatorEmail($u->user_id);
                      if ($email !== null) {
-                         Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By ".Auth::user()->name);
-                            }
-                        );
+                        //  Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Document is Send By ".Auth::user()->name);
+                        //     }
+                        // );
                       }
                     } 
                 }
