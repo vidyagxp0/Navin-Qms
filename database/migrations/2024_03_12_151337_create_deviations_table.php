@@ -52,14 +52,7 @@ return new class extends Migration
             $table->string('customers')->nullable();
             $table->string('deviation_id')->nullable();
             $table->longText('QAInitialRemark')->nullable();
-            $table->string('Production_Review')->nullable();
-            $table->string('Production_person')->nullable();
-            $table->string('Production_assessment')->nullable();
-            $table->string('Production_feedback')->nullable();
-            $table->longText('production_attachment')->nullable();
-            $table->date('production_on')->nullable();
-
-
+           
             $table->longText('Investigation_Summary')->nullable();
             $table->longText('Impact_assessment')->nullable();
             $table->longText('Root_cause')->nullable();
