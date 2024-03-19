@@ -352,6 +352,8 @@
                             <div id="chart4"></div>
                             <h4 align="center" id="selectedValueTextPostCategorizationOfDeviation"></h4>
                             <div id="chart5"></div>
+                            <h4 align="center" id="selectedValueTextCAPARequired"></h4>
+                            <div id="chart6"></div>
                         </div>
                         <hr>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -513,6 +515,7 @@
         document.getElementById("selectedValueTextDepartmentReleted").textContent = selectedValue + " (Related To)";
         document.getElementById("selectedValueTextInitialDeviationCategory").textContent = selectedValue + " (Initial Deviation Category)";
         document.getElementById("selectedValueTextPostCategorizationOfDeviation").textContent = selectedValue + " (Post Categorization Of Deviation)";
+        document.getElementById("selectedValueTextCAPARequired").textContent = selectedValue + " (CAPA Required)";
         fetchData(selectedValue, chartType);
     }
 </script>
@@ -523,6 +526,7 @@
     let chart3;
     let chart4;
     let chart5;
+    let chart6;
 
     function fetchData(selectedValue, chartType) {
         let currentChartType = chartType == null ? 'bar' : chartType;
@@ -583,6 +587,18 @@
                     renderFifthBarChart(data);
                 } else if (currentChartType === 'line') {
                     renderFifthLineChart(data);
+                }
+            });
+
+        fetch(`/chart-data-capa?value=${selectedValue}`)
+            .then(response => response.json())
+            .then(data => {
+                if (currentChartType === 'pie') {
+                    renderSixPieChart(data);
+                } else if (currentChartType === 'bar') {
+                    renderSixBarChart(data);
+                } else if (currentChartType === 'line') {
+                    renderSixLineChart(data);
                 }
             });
 
@@ -1242,26 +1258,6 @@
         chart4.render();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function renderFifthPieChart(data) {
         console.log('pie', data);
         var options = {
@@ -1424,6 +1420,170 @@
         // Initialize a new chart
         chart5 = new ApexCharts(document.querySelector("#chart5"), options);
         chart5.render();
+    }
+
+    function renderSixPieChart(data) {
+        console.log('pie', data);
+        var options = {
+            series: data.map(item => item.value),
+            labels: data.map(item => item.division),
+            chart: {
+                type: 'pie',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: true
+                }
+            },
+            plotOptions: {
+                pie: {
+                    startAngle: 0,
+                    endAngle: 360,
+                    offsetX: 0,
+                    offsetY: 0,
+                    dataLabels: {
+                        total: {
+                            show: true,
+                            label: 'Total',
+                            fontSize: '13px',
+                            fontWeight: 900
+                        }
+                    }
+                }
+            },
+            legend: {
+                position: 'bottom',
+                offsetY: 40
+            },
+            fill: {
+                opacity: 1
+            }
+        };
+
+
+        if (chart6) {
+            chart6.destroy();
+        }
+
+        // Initialize a new chart
+        chart6 = new ApexCharts(document.querySelector("#chart6"), options);
+        chart6.render();
+    }
+
+    function renderSixBarChart(data) {
+        console.log('bar3', data);
+        var options = {
+            series: [{
+                name: 'Total',
+                data: data.map(item => item.value),
+                // Define color for each category
+                colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560']
+            }],
+            chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: true
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 10,
+                    dataLabels: {
+                        total: {
+                            enabled: true,
+                            style: {
+                                fontSize: '13px',
+                                fontWeight: 900
+                            }
+                        }
+                    }
+                },
+            },
+            xaxis: {
+                type: 'category',
+                categories: data.map(item => item.division)
+            },
+            legend: {
+                position: 'right',
+                offsetY: 40
+            },
+            fill: {
+                opacity: 1
+            }
+        };
+
+        if (chart6) {
+            chart6.destroy();
+        }
+
+        // Initialize a new chart
+        chart6 = new ApexCharts(document.querySelector("#chart6"), options);
+        chart6.render();
+    }
+
+    function renderSixLineChart(data) {
+        var options = {
+            series: [{
+                name: 'Total',
+                data: data.map(item => item.value),
+                // Define color for each category
+                colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560']
+            }],
+            chart: {
+                type: 'line',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: true
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 10,
+                    dataLabels: {
+                        total: {
+                            enabled: true,
+                            style: {
+                                fontSize: '13px',
+                                fontWeight: 900
+                            }
+                        }
+                    }
+                },
+            },
+            xaxis: {
+                type: 'category',
+                categories: data.map(item => item.division)
+            },
+            legend: {
+                position: 'right',
+                offsetY: 40
+            },
+            fill: {
+                opacity: 1
+            }
+        };
+
+        if (chart6) {
+            chart6.destroy();
+        }
+
+        // Initialize a new chart
+        chart6 = new ApexCharts(document.querySelector("#chart6"), options);
+        chart6.render();
     }
 </script>
 <script>
