@@ -157,6 +157,7 @@ return new class extends Migration
             $table->string('Other5_by')->nullable();
             $table->date('Other5_on')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
