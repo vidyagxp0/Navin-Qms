@@ -25,6 +25,7 @@ use App\Models\ManagementReview;
 use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
+use App\Models\Deviation;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 
@@ -205,6 +206,7 @@ class DashboardController extends Controller
                 'EffectivenessCheck' => EffectivenessCheck::whereDate('due_date', '<', $current_date)->count(),
                 'Auditee' => Auditee::whereDate('due_date', '<', $current_date)->count(),
                 'Observation' => Observation::whereDate('due_date', '<', $current_date)->count(),
+                'Deviation' => Deviation::count(),
             ];
         } else {
             $data = [
