@@ -1012,16 +1012,22 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 22, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Production person">Production Person</label>
                                         <select name="Production_person" id="Production_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
-                                  
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -1054,7 +1060,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                  <div class="col-md-6 mb-3">
+                                  <div class="col-md-6 mb-3"> 
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
                                         <input type="text" name="production_by" disabled>
@@ -1086,14 +1092,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 23, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Warehouse Person</label>
                                         <select name="Warehouse_notification" id="Warehouse_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                         </select>
                                   
                                     </div>
@@ -1128,15 +1140,15 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Warehouse Review Completed By</label>
-                                        <input type="text" name="production_by" disabled>
+                                        <label for="Warehousefeedback">Warehouse Review Completed By</label>
+                                        <input type="text" name="Warehouse_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Warehouse Review Completed On</label>
-                                        <input type="date" name="production_on" disabled>
+                                        <label for="Warehousefeedback">Warehouse Review Completed On</label>
+                                        <input type="date" name="Warehouse_on" disabled>
                                     
                                     </div>
                                 </div>
@@ -1146,7 +1158,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Control Review Required ?</label>
-                                        <select name="Warehouse_notification" id="Warehouse_review">
+                                        <select name="QualityAssurance_notification" id="QualityAssurance_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1156,14 +1168,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 24, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Control Person</label>
-                                        <select name="Quality Control_notification" id="Warehouse_person">
+                                        <select name="Quality_Control_notification" id="QualityAssurance_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                         </select>
                                   
                                     </div>
@@ -1171,14 +1189,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Quality Control)</label>
-                                        <textarea class="summernote" name="Quality_Control_assessment" id="summernote-7">
+                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Feedback</label>
-                                        <textarea class="summernote" name="Quality_Control_feedback" id="summernote-7">
+                                        <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1187,7 +1205,7 @@ $users = DB::table('users')
                                         <label for="Audit Attachments"> Quality Control Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Quality Control_attachment"></div>
+                                            <div class="file-attachment-list" id="QualityAssurance_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
@@ -1199,14 +1217,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Review Completed By</label>
-                                        <input type="text" name="Quality_Control__by" disabled>
+                                        <input type="text" name="QualityAssurance__by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Review Completed On</label>
-                                        <input type="date" name="Quality_Control__on" disabled>
+                                        <input type="date" name="QualityAssurance__on" disabled>
                                     
                                     </div>
                                 </div>
@@ -1216,7 +1234,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Assurance Review Required ?</label>
-                                        <select name="Quality_Assurance" id="">
+                                        <select name="Quality_Assurance" id="QualityAssurance_review">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1226,15 +1244,21 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 25, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Assurance  Person</label>
                                         <select name="QualityAssurance_person" id="QualityAssurance_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
-                                        </select>
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                      </select>
                                   
                                     </div>
                                 </div>
@@ -1296,14 +1320,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 26, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering  Person</label>
                                         <select name="Engineering_person" id="Engineering_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                         </select>
                                   
                                     </div>
@@ -1366,14 +1396,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 27, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                            @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Analytical Development Laboratory  Person</label>
                                         <select name="Engineering_person" id="Analytical_Development_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                         </select>
                                   
                                     </div>
@@ -1436,12 +1472,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 28, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Process Development Laboratory / Kilo Lab  Person</label>
                                         <select name="Kilo_Lab_person" id="Kilo_Lab_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                            
 
                                         </select>
@@ -1507,12 +1551,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 29, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Technology Transfer / Design  Person</label>
                                         <select name="Kilo_Lab_person" id="Technology_transfer/Design">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                            
 
                                         </select>
@@ -1577,14 +1629,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 30, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Environment, Health & Safety  Person</label>
                                         <select name="Kilo_Lab_person" id="Environment_Health_Safety_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                         </select>
                                   
                                     </div>
@@ -1648,12 +1706,20 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 31, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Human Resource & Administration  Person</label>
                                         <select name="Human_Resource_person" id="Human_Resource_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                            
 
                                         </select>
@@ -1718,14 +1784,19 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                            @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Information Technology  Person</label>
                                         <select name=" Information_Technology_person" id=" Information_Technology_person">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            <option value="0">-- Select --</option> @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                         </select>
                                   
                                     </div>
@@ -1788,18 +1859,25 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+                                @php
+                                    $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Project management Person</label>
                                         <select name="Project_management_person" id="Project_management_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                            
 
                                         </select>
                                   
                                     </div>
-                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By  Project management )</label>

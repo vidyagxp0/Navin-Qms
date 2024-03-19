@@ -111,10 +111,21 @@ class DeviationController extends Controller
         //CFT
         $deviation->Production_Review= $request->Production_Review;
         $deviation->Production_person= $request->Production_person;
-        
         $deviation->Production_assessment= $request->Production_assessment;
         $deviation->Production_feedback= $request->Production_feedback;
         $deviation->production_on= $request->production_on;
+
+        // $deviation->Warehouser_review= $request->warehouser_review;
+        // $deviation->Warehouser_person= $request->warehouser_person;
+        // $deviation->Warehouser_assessment= $request->warehouser_assessment;
+        // $deviation->Warehouser_feedback= $request->warehouser_feedback;
+        // $deviation->Warehouser_on= $request->warehouser_on;
+
+        // $deviation->Warehouser_review= $request->warehouser_review;
+        // $deviation->Warehouser_person= $request->warehouser_person;
+        // $deviation->Warehouser_assessment= $request->warehouser_assessment;
+        // $deviation->Warehouser_feedback= $request->warehouser_feedback;
+        // $deviation->Warehouser_on= $request->warehouser_on;
 
         $deviation->Investigation_Summary= $request->Investigation_Summary;
         $deviation->Impact_assessment= $request->Impact_assessment;
@@ -378,6 +389,15 @@ class DeviationController extends Controller
         $deviation->Investigation_Details= $request->Investigation_Details;
         $deviation->Customer_notification= $request->Customer_notification;
         $deviation->customers= $request->customers;
+
+        //CFT
+        $deviation->Production_Review= $request->Production_Review;
+        $deviation->Production_person= $request->Production_person;
+         
+        $deviation->Production_assessment= $request->Production_assessment;
+        $deviation->Production_feedback= $request->Production_feedback;
+        $deviation->production_on= $request->production_on;
+
     
         $deviation->QAInitialRemark= $request->QAInitialRemark;
         $deviation->Investigation_Summary= $request->Investigation_Summary;

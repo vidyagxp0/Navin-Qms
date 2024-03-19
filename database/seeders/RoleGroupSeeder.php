@@ -2333,5 +2333,85 @@ $group->description = "Corporate/India-Effective Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-    }
+
+$group = new RoleGroup();
+$group->id = 324;
+$group->name = "Dewas/India-Deviation- Head Operations";
+$group->description = "Dewas/India-Deviation- Head Operations";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 325;
+$group->name = "Dewas/India-Deviation- CEO";
+$group->description = "Dewas/India-Deviation- CEO";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 326;
+$group->name = "Dewas/India-Deviation- Corporate EHS Head";
+$group->description = "Dewas/India-Deviation- Corporate EHS Head";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 327;
+$group->name = "Corporate/India-Deviation- Head Operations";
+$group->description = "Corporate/India-Deviation- Head Operations";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 328;
+$group->name = "Corporate/India-Deviation- CEO";
+$group->description = "Corporate/India-Deviation- CEO";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 329;
+$group->name = "Corporate/India-Deviation- Corporate EHS Head";
+$group->description = "Corporate/India-Deviation- Corporate EHS Head";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+
+// deviation cft roles
+$cft_roles = [
+    "Production",
+    "Warehouse",
+    "Quality Control",
+    "Quality Assurance",
+    "Engineering",
+    "Analytical Development Laboratory",
+    "Process Development Laboratory / Kilo Lab",
+    "Technology Transfer / Design",
+    "Environment, Health & Safety",
+    "Human Resource & Administration",
+    "Information Technology",
+    "Project Management"
+];
+
+$incrementCount = 330;
+
+foreach ($cft_roles as $role) {
+    $group = new RoleGroup();
+    $group->id = $incrementCount++;
+    $group->name = "Dewas/India-Deviation- $role";
+    $group->description = "Dewas/India-Deviation- $role";
+    $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+    $group->save();
+}
+
+foreach ($cft_roles as $role) {
+    $group = new RoleGroup();
+    $group->id = $incrementCount++;
+    $group->name = "Corporate/India-Deviation- $role";
+    $group->description = "Corporate/India-Deviation- $role";
+    $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+    $group->save();
+}
+
+}
 }
