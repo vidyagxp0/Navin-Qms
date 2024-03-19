@@ -298,6 +298,7 @@ Route::get('chart-data-postCategorizationOfDeviation',[DesktopController::class,
 Route::get('chart-data-capa',[DesktopController::class, 'fetchChartDataCapa']);
 
 Route::get('chart-data-dep',[DesktopController::class, 'fetchChartDataDepartment']);
+Route::get('chart-data-statuswise',[DesktopController::class, 'fatchStatuswise']);
 
 Route::view('rcms_login', 'frontend.rcms.login');
 
