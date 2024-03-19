@@ -270,6 +270,9 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                CFT Review Not Required
+                            </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
                             </button>
@@ -280,9 +283,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 CFT Review Complete
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                CFT Review Not Required
-                            </button>
+                           
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 Send to Initiator
@@ -1052,26 +1053,33 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Production Review">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Production_Review" value="{{$data->Production_Review}}">
+                                        <select name="Production_Review" id="Production_Review" value="{{ $data1->Production_Review }}">
                                             <option value="">-- Select --</option>
-                                            <option value="0">-- Select --</option>
-                                            <option @if ($data->Production_Review == 'yes') selected @endif
+                                            <option @if ($data1->Production_Review == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Production_Review == 'no') selected @endif 
+                                            <option  @if ($data1->Production_Review == 'no') selected @endif 
                                             value="no">No</option>
-                                            <option  @if ($data->Production_Review == 'na') selected @endif 
+                                            <option  @if ($data1->Production_Review == 'na') selected @endif 
                                                 value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 27, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Production person">Production Person</label>
-                                        <select name="Production_person" id="Production_person" value="{{$data->Production_person}}">
+                                        <select name="Production_person" id="Production_person" value="{{ $data1->Production_person }}">
                                             <option value=""> -- Select --</option>
-                                            <option @if ($data->Production_person == 'person1') selected @endif
-                                                value="person1">Person 1</option>
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Production_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
@@ -1080,14 +1088,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Production assessment">Impact Assessment (By Production)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data->Production_assessment }}</textarea>
+                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Production feedback">Production Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data->Production_feedback }}
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
                                     </textarea>
                                     </div>
                                 </div>
@@ -1097,8 +1105,8 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div disabled class="file-attachment-list" id="production_attachment">
-                                                @if ($data->production_attachment)
-                                                @foreach(json_decode($data->production_attachment) as $file)
+                                                @if ($data1->production_attachment)
+                                                @foreach(json_decode($data1->production_attachment) as $file)
                                                 <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                                     <b>{{ $file }}</b>
                                                     <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
@@ -1109,7 +1117,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
                                                     oninput="addMultipleFiles(this, 'production_attachment')"
                                                     multiple>
                                             </div>
@@ -1118,19 +1126,16 @@ $users = DB::table('users')
                                 </div>
                                   <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Production Review Completed By</label>
-                                        <input type="text" name="production_by" disabled>
+                                        <label for="Production Review Completed By">Production Review Completed By</label>
+                                        <input type="text" name="Production_Review_Completed_By" id="Production_Review_Completed_By" value="Production_Review_Completed_By" disabled>
                                     
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
+                                <div class="col-lg-6">
+                                    <div class="group-input">
                                         <label for="Production Review Completed On">Production Review Completed On</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="production_on" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="production_on" value="{{$data->production_on}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'production_on')" />
-                                        </div>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date"id="production_on" name="production_on" value="{{ $data1->production_on }}" >
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1138,69 +1143,92 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Warehouse Review Required ?</label>
-                                        <select name="Warehouse_notification" id="Warehouse_review">
+                                        <label for="Warehouse Review Required">Warehouse Review Required ?</label>
+                                        <select name="Warehouse_review" id="Warehouse_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Warehouse_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Warehouse_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Warehouse_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Warehouse Person</label>
-                                        <select name="Warehouse_notification" id="Warehouse_person">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                        <label for="Warehouse Person">Warehouse Person</label>
+                                        <select name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}">
+                                            <option value=""> -- Select --</option>
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Warehouse_notification == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Warehouse)</label>
-                                        <textarea class="summernote" name="Warehouse_assessment" id="summernote-7">
+                                        <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Warehouse Feedback</label>
-                                        <textarea class="summernote" name="Warehouse_feedback" id="summernote-7">
+                                        <label for="Warehouse Feedback">Warehouse Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Warehouse Attachments</label>
+                                        <label for="Warehouse attachment">Warehouse Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Warehouse_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Warehouse_attachment">
+                                                @if ($data1->Warehouse_attachment)
+                                                @foreach(json_decode($data1->Warehouse_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Warehouse_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Warehouse Review Completed By</label>
-                                        <input type="text" name="production_by" disabled>
+                                        <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
+                                        <input type="text" name="Warehouse_Review_Completed_By" id="Warehouse_Review_Completed_By" value="Warehouse_Review_Completed_By" disabled>
                                     
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Warehouse Review Completed On</label>
-                                        <input type="date" name="production_on" disabled>
-                                    
+                                        <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date"id="Warehouse_Review_Completed_On" name="Warehouse_Review_Completed_On" value="{{ $data1->Warehouse_Review_Completed_On }}" >
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1208,24 +1236,35 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Quality Control Review Required ?</label>
-                                        <select name="Warehouse_notification" id="Warehouse_review">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                        <label for="Quality Control Review Required">Quality Control Review Required?</label>
+                                        <select name="Quality_review" id="Quality_review">
+                                            <option value="">-- Select --</option>
+                                            <option @if ($data1->Quality_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Quality_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Quality_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Quality Control Person</label>
-                                        <select name="Quality Control_notification" id="Warehouse_person">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
+                                        <label for="Quality Control Person">Quality Control Person</label>
+                                        <select name="Quality_Control_Person" id="Quality_Control_Person">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Quality_Control_Person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
 
                                         </select>
                                   
@@ -1233,44 +1272,57 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Quality Control)</label>
-                                        <textarea class="summernote" name="Quality_Control_assessment" id="summernote-7">
+                                        <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Quality_Control_assessment" id="summernote-21">{{ $data1->Quality_Control_assessment }}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Quality Control Feedback</label>
-                                        <textarea class="summernote" name="Quality Control_feedback" id="summernote-7">
+                                        <label for="Quality Control Feedback">Quality Control Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Quality_Control_feedback" id="summernote-22">
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Quality Control Attachments</label>
+                                        <label for="Quality Control Attachments">Quality Control Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Quality Control_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Quality_Control_attachment">
+                                                @if ($data1->Quality_Control_attachment)
+                                                @foreach(json_decode($data1->Quality_Control_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Quality_Control_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Quality_Control_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Quality Control Review Completed By</label>
-                                        <input type="text" name="Quality_Control__by" disabled>
+                                        <label for="Quality Control Review Completed By">Quality Control Review Completed By</label>
+                                        <input type="text" name="Quality_Control_by" id="Quality_Control_by" value="{{ $data1->Quality_Control_by }}" disabled>
                                     
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Quality Control Review Completed On</label>
-                                        <input type="date" name="Quality_Control__on" disabled>
-                                    
+                                        <label for="Quality Control Review Completed On">Quality Control Review Completed On</label>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date"id="Quality_Control_on" name="Quality_Control_on" value="{{ $data1->Quality_Control_on }}" >
                                     </div>
                                 </div>
                                   <div class="sub-head">
@@ -1278,46 +1330,54 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Quality Assurance Review Required ?</label>
-                                        <select name="Quality_Assurance" id="">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                        <label for="Quality Assurance Review Required">Quality Assurance Review Required ?</label>
+                                        <select name="Quality_Assurance_Review" id="Quality_Assurance_Review">
+                                            <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif 
+                                                   value="na">NA</option>
                                         </select>
-                                  
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Quality Assurance  Person</label>
+                                        <label for="Quality Assurance Person">Quality Assurance Person</label>
                                         <select name="QualityAssurance_person" id="QualityAssurance_person">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->QualityAssurance_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
-                                  
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Quality Assurance)</label>
-                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-7">
+                                        <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-23">{{ $data1->QualityAssurance_assessment }}
                                     </textarea>
                                     </div>
                                 </div>   
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Quality Assurance  Feedback</label>
-                                        <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-7">
+                                        <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-24">{{ $data1->QualityAssurance_feedback }}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">Quality Assurance  Attachments</label>
+                                        <label for="Quality Assurance Attachments">Quality Assurance  Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="Quality_Assurance_attachment"></div>
@@ -1328,19 +1388,44 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
+                                </div> --}}
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Quality Assurance Review Completed By</label>
-                                        <input type="text" name="QualityAssurance_by" disabled>
-                                    
+                                        <label for="Quality Assurance Attachments">Quality Assurance Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Quality_Assurance_attachment">
+                                                @if ($data1->Quality_Assurance_attachment)
+                                                @foreach(json_decode($data1->Quality_Assurance_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Quality_Assurance_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Quality_Assurance_attachment')"
+                                                    multiple>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Quality Assurance Review Completed On</label>
-                                        <input type="date" name="QualityAssurance_on" disabled>
+                                        <label for="Quality Assurance Review Completed By">Quality Assurance Review Completed By</label>
+                                        <input type="text" name="QualityAssurance_by" id="QualityAssurance_by" value="{{$data1->QualityAssurance_by}}" disabled>
                                     
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Quality Assurance Review Completed On">Quality Assurance Review Completed On</label>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date"id="QualityAssurance_on" name="QualityAssurance_on" value="{{ $data1->QualityAssurance_on }}" >
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1349,68 +1434,89 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ?</label>
-                                        <select name="Engineering_required" id="Engineering_review">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                        <select name="Engineering_review" id="Engineering_review">
+                                            <option value="">-- Select --</option>
+                                            <option @if ($data1->Engineering_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Engineering_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Engineering_review == 'na') selected @endif 
+                                                   value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering  Person</label>
                                         <select name="Engineering_person" id="Engineering_person">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Engineering_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
-                                  
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Engineering)</label>
-                                        <textarea class="summernote" name="Engineering_assessment" id="summernote-7">
+                                        <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Engineering_assessment" id="summernote-25" >{{$data1->Engineering_assessment}}
                                     </textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Engineering  Feedback</label>
-                                        <textarea class="summernote" name="Engineering_feedback" id="summernote-7">
+                                        <label for="Engineering Feedback">Engineering  Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Engineering_feedback" id="summernote-26" >{{$data1->Engineering_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Engineering  Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Engineering_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Engineering_attachment">
+                                                @if ($data1->Engineering_attachment)
+                                                @foreach(json_decode($data1->Engineering_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Engineering_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Engineering_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Engineering Review Completed By</label>
-                                        <input type="text" name="Engineering_by" disabled>
+                                        <label for="Engineering Review Completed By">Engineering Review Completed By</label>
+                                        <input type="text" name="Engineering_by" id="Engineering_by" value="Engineering_by" disabled>
                                     
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Engineering Review Completed On</label>
-                                        <input type="date" name="Engineering_on" disabled>
-                                    
+                                        <label for="Engineering Review Completed On">Engineering Review Completed On</label>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date" id="Engineering_on" name="Engineering_on" value="{{ $data1->Engineering_on }}" >
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1418,44 +1524,54 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Analytical Development Laboratory Review Required ?</label>
-                                        <select name="Analytical_Development" id="Analytical_Development_review">
+                                        <label for="Analytical Development Laboratory Review Required">Analytical Development Laboratory Review Required ?</label>
+                                        <select name="Analytical_Development_review" id="Analytical_Development_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Analytical_Development_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Analytical Development Laboratory  Person</label>
-                                        <select name="Engineering_person" id="Analytical_Development_person">
+                                        <label for="Analytical Development Laboratory Person"> Analytical Development Laboratory Person</label>
+                                        <select name="Analytical_Development_person" id="Analytical_Development_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Analytical_Development_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Analytical Development Laboratory)</label>
-                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-7">
+                                        <label for="Impact Assessment5">Impact Assessment (By Analytical Development Laboratory)</label>
+                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-27">{{$data1->Analytical_Development_assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Analytical Development Laboratory  Feedback</label>
-                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-7">
+                                        <label for="Analytical Development Laboratory Feedback"> Analytical Development Laboratory Feedback</label>
+                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-28">{{$data1->Analytical_Development_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Analytical Development Laboratory Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
@@ -1468,19 +1584,44 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
+                                </div> --}}
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Analytical Development Laboratory Review Completed By</label>
-                                        <input type="text" name="Analytical_Development_by" disabled>
-                                    
+                                        <label for="Audit Attachments">Analytical Development Laboratory Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Analytical_Development_attachment">
+                                                @if ($data1->Analytical_Development_attachment)
+                                                @foreach(json_decode($data1->Analytical_Development_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Analytical_Development_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Analytical_Development_attachment')"
+                                                    multiple>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Analytical Development Laboratory Review Completed On</label>
-                                        <input type="date" name="Analytical_Development_on" disabled>
+                                        <label for="Analytical Development Laboratory Review Completed By">Analytical Development Laboratory Review Completed By</label>
+                                        <input type="text" name="Analytical_Development_by" id="Analytical_Development_by" value="Analytical_Development_by" disabled>
                                     
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Analytical Development Laboratory Review Completed On">Analytical Development Laboratory Review Completed On</label>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date" id="Analytical_Development_on" name="Analytical_Development_on" value="{{ $data1->Analytical_Development_on }}" >
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1488,44 +1629,54 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Process Development Laboratory / Kilo Lab Review Required ?</label>
-                                        <select name="Kilo_Lab" id="Kilo_Lab_review">
+                                        <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab Review Required ?</label>
+                                        <select name="Kilo_Lab_review" id="Kilo_Lab_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Kilo_Lab_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Process Development Laboratory / Kilo Lab  Person</label>
+                                        <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab  Person</label>
                                         <select name="Kilo_Lab_person" id="Kilo_Lab_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Kilo_Lab_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
-                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-7">
+                                        <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
+                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-29">{{$data1->Kilo_Lab_assessment}}
                                     </textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
-                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-7">
+                                        <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
+                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-30">{{$data1->Kilo_Lab_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Process Development Laboratory / Kilo Lab Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
@@ -1538,19 +1689,43 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
+                                </div> --}}
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Process Development Laboratory / Kilo Lab Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Kilo_Lab_attachment">
+                                                @if ($data1->Kilo_Lab_attachment)
+                                                @foreach(json_decode($data1->Kilo_Lab_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Kilo_Lab_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Kilo_Lab_attachment')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Process Development Laboratory / Kilo Lab Review Completed By</label>
-                                        <input type="text" name="Kilo_Lab_attachment_by" disabled>
+                                        <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo Lab Review Completed By</label>
+                                        <input type="text" name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by" value="Kilo_Lab_attachment_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Process Development Laboratory / Kilo Lab Review Completed On</label>
-                                        <input type="date" name="Kilo_Lab_attachment_on" disabled>
+                                        <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo Lab Review Completed On</label>
+                                        <input type="date" id="Kilo_Lab_attachment_on" name="Kilo_Lab_attachment_on" value="{{ $data1->Kilo_Lab_attachment_on }}" >
                                     
                                     </div>
                                 </div>
@@ -1559,24 +1734,35 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Technology Transfer / Design Review Required ?</label>
-                                        <select name="Kilo_Lab" id="Technology_transfer/Design">
+                                        <label for="Design Review Required">Technology Transfer / Design Review Required ?</label>
+                                        <select name="Technology_transfer_review" id="Technology_transfer_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Technology_transfer_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Technology Transfer / Design  Person</label>
-                                        <select name="Kilo_Lab_person" id="Technology_transfer/Design">
+                                        <label for="Design Person"> Technology Transfer / Design  Person</label>
+                                        <select name="Technology_transfer_person" id="Technology_transfer_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Technology_transfer_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
 
                                         </select>
                                   
@@ -1584,28 +1770,53 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Technology Transfer / Design)</label>
-                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-7">
+                                        <label for="Impact Assessment7">Impact Assessment (By Technology Transfer / Design)</label>
+                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-31">{{$data1->Technology_transfer_assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Technology Transfer / Design  Feedback</label>
-                                        <textarea class="summernote" name="Technology_transfer/Design" id="summernote-7">
+                                        <label for="Design Feedback"> Technology Transfer / Design  Feedback</label>
+                                        <textarea class="summernote" name="Technology_transfer_feedback" id="summernote-32">{{$data1->Technology_transfer_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Technology_transfer/Design_attachment"></div>
+                                            <div class="file-attachment-list" id="Technology_transfer_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Technology_transfer_attachment">
+                                                @if ($data1->Technology_transfer_attachment)
+                                                @foreach(json_decode($data1->Technology_transfer_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Technology_transfer_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Technology_transfer_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -1613,15 +1824,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed By</label>
-                                        <input type="text" name="Technology_transfer/Design_by" disabled>
+                                        <input type="text" name="Technology_transfer_by" id="Technology_transfer_by" value="Technology_transfer_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed On</label>
-                                        <input type="date" name="Technology_transfer/Design_on" disabled>
-                                    
+                                        <input type="date" id="Technology_transfer_on" name="Technology_transfer_on" value="{{ $data1->Technology_transfer_on }}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1629,69 +1839,89 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Environment, Health & Safety Review Required ?</label>
-                                        <select name="Environment_Health_required" id="Environment_Health_required">
+                                        <label for="Safety Review Required">Environment, Health & Safety Review Required ?</label>
+                                        <select name="Environment_Health_review" id="Environment_Health_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Environment_Health_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Environment, Health & Safety  Person</label>
-                                        <select name="Kilo_Lab_person" id="Environment_Health_Safety_person">
+                                        <label for="Safety Person"> Environment, Health & Safety  Person</label>
+                                        <select name="Environment_Health_Safety_person" id="Environment_Health_Safety_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Environment_Health_Safety_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Environment, Health & Safety)</label>
-                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-7">
+                                        <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety)</label>
+                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-33">{{$data1->Health_Safety_assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Environment, Health & Safety  Feedback</label>
-                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-7">
+                                        <label for="Safety Feedback">Environment, Health & Safety  Feedback</label>
+                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-34">{{$data1->Health_Safety_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Environment, Health & Safety Attachments</label>
+                                        <label for="Audit Attachments">  Environment, Health & Safety Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Environment_Health_Safety_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Environment_Health_Safety_attachment">
+                                                @if ($data1->Environment_Health_Safety_attachment)
+                                                @foreach(json_decode($data1->Environment_Health_Safety_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Environment_Health_Safety_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Environment_Health_Safety_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Environment, Health & Safety Review Completed By</label>
-                                        <input type="text" name="Environment_Health_Safety_by" disabled>
+                                        <label for="Safety Review Completed By">Environment, Health & Safety Review Completed By</label>
+                                        <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by" value="Environment_Health_Safety_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Environment, Health & Safety Review Completed On</label>
-                                        <input type="date" name="Environment_Health_Safety_on" disabled>
+                                        <label for="Safety Review Completed On">Environment, Health & Safety Review Completed On</label>
+                                        <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
                                     
                                     </div>
                                 </div>
@@ -1701,24 +1931,33 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required ?</label>
-                                        <select name="Human_Resource_required" id="Human_Resource_required">
+                                        <select name="Human_Resource_review" id="Human_Resource_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                            <option @if ($data1->Human_Resource_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif 
+                                                   value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Human Resource & Administration  Person</label>
                                         <select name="Human_Resource_person" id="Human_Resource_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Human_Resource_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
@@ -1726,42 +1965,54 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
-                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-7">
+                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-35">{{$data1->Human_Resource_assessment}}
                                     </textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
-                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-7">
+                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-36">{{$data1->Human_Resource_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Human Resource & Administration Attachments</label>
+                                        <label for="Audit Attachments">Human Resource & Administration Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Human_Resource_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Human_Resource_attachment">
+                                                @if ($data1->Human_Resource_attachment)
+                                                @foreach(json_decode($data1->Human_Resource_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Human_Resource_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Human_Resource_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Human Resource & Administration Review Completed By</label>
-                                        <input type="text" name="Human_Resource_by" disabled>
+                                        <label for="Administration Review Completed By"> Human Resource & Administration Review Completed By</label>
+                                        <input type="text" name="Human_Resource_by" id="Human_Resource_by" value="Human_Resource_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Human Resource & Administration Review Completed On</label>
-                                        <input type="date" name="Human_Resource_on" disabled>
+                                        <label for="Administration Review Completed On"> Human Resource & Administration Review Completed On</label>
+                                        <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
                                     
                                     </div>
                                 </div>
@@ -1770,69 +2021,91 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Information Technology Review Required ?</label>
-                                        <select name=" Information_Technology_required" id=" Information_Technology_required">
+                                        <label for="Information Technology Review Required"> Information Technology Review Required ?</label>
+                                        <select name=" Information_Technology_review" id=" Information_Technology_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Information_Technology_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif 
+                                                   value="na">NA</option>
+                                        </select>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Information Technology  Person</label>
+                                        <label for="Information Technology Person"> Information Technology  Person</label>
                                         <select name=" Information_Technology_person" id=" Information_Technology_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Information_Technology_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Information Technology)</label>
-                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-7">
+                                        <label for="Impact Assessment10">Impact Assessment (By Information Technology)</label>
+                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-37">{{$data1->Information_Technology_assessment}}
                                     </textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Information Technology  Feedback</label>
-                                        <textarea class="summernote" name=" Information_Technology_feedback" id="summernote-7">
+                                        <label for="Information Technology Feedback">Information Technology Feedback</label>
+                                        <textarea class="summernote" name="Information_Technology_feedback" id="summernote-38">{{$data1->Information_Technology_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                               
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">  Information Technology Attachments</label>
+                                        <label for="Audit Attachments">Information Technology Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id=" Information_Technology_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Information_Technology_attachment">
+                                                @if ($data1->Information_Technology_attachment)
+                                                @foreach(json_decode($data1->Information_Technology_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Information_Technology_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Information_Technology_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Information Technology Review Completed By</label>
-                                        <input type="text" name="Information_Technology_by" disabled>
-                                    
+                                        <label for="Information Technology Review Completed By"> Information Technology Review Completed By</label>
+                                        <input type="text" name="Information_Technology_by" id="Information_Technology_by" value="Information_Technology_by" disabled>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Information Technology Review Completed On</label>
-                                        <input type="date" name="Information_Technology_on" disabled>
-                                    
+                                        <label for="Information Technology Review Completed On">Information Technology Review Completed On</label>
+                                        <input type="text" name="Information_Technology_on" id="Information_Technology_on" value={{$data1->Information_Technology_on}} disabled>
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1840,69 +2113,88 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Project management Review Required ?</label>
-                                        <select name="Project_management_required" id="Project_management_required">
+                                        <label for="Project management Review Required"> Project management Review Required ?</label>
+                                        <select name="Project_management_review" id="Project_management_review">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                            <option @if ($data1->Project_management_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Project_management_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Project_management_review == 'na') selected @endif 
+                                                   value="na">NA</option>
                                         </select>
-                                  
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Project management Person</label>
+                                        <label for="Project management Person"> Project management Person</label>
                                         <select name="Project_management_person" id="Project_management_person">
-                                            <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Project_management_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By  Project management )</label>
-                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-7">
+                                        <label for="Impact Assessment11">Impact Assessment (By  Project management )</label>
+                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-39">{{$data1->Project_management_assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Project management  Feedback</label>
-                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-7">
+                                        <label for="Project management Feedback"> Project management  Feedback</label>
+                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-40">{{$data1->Project_management_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                               
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Project management Attachments</label>
+                                        <label for="Audit Attachments">Project management Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Project_management_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Project_management_attachment">
+                                                @if ($data1->Project_management_attachment)
+                                                @foreach(json_decode($data1->Project_management_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Project_management_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Project_management_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Project management Review Completed By</label>
-                                        <input type="text" name="Project_management_by" disabled>
+                                        <label for="Project management Review Completed By"> Project management Review Completed By</label>
+                                        <input type="text" name="Project_management_by" id="Project_management_by" value="Project_management_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Project management Review Completed On</label>
-                                        <input type="date" name="Project_management_on" disabled>
+                                        <label for="Project management Review Completed On">Project management Review Completed On</label>
+                                        <input type="date" name="Project_management_on" id="Project_management_on" value={{$data1->Project_management_on}} >
+
                                     
                                     </div>
                                 </div>
@@ -1911,24 +2203,35 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 1 Review Required ?</label>
-                                        <select name="Other1_required" id="Project_management_required">
+                                        <label for="Review Required1"> Other's 1 Review Required ?</label>
+                                        <select name="Other1_review" id="Other1_review" value="{{ $data1->Other1_review }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Other1_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Other1_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Other1_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 1 Person</label>
-                                        <select name="Other1_person" id="Project_management_person">
+                                        <label for="Person1"> Other's 1 Person</label>
+                                        <select name="Other1_person" id="Other1_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Other1_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
 
                                         </select>
                                   
@@ -1936,21 +2239,46 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 1 Department</label>
-                                        <select name="Other1_person" id="Other1_Department_person">
+                                        <label for="Department1"> Other's 1 Department</label>
+                                        <select name="Other1_Department_person" id="Other1_Department_person" value="{{ $data1->Other1_Department_person }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
+                                            <option @if ($data->Other1_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data->Other1_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data->Other1_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data->Other1_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data->Other1_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data->Other1_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data->Other1_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data->Other1_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data->Other1_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data->Other1_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
+
+                                            {{-- <option value="Production">Production</option>
                                             <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
+                                            <option value="Quality_Control">Quality Control</option> --}}
+                                            {{-- <option value="Quality_Assurance">Quality Assurance</option>
                                             <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> --}}
+                                            {{-- <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
                                             <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
+                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option> --}}
+                                            {{-- <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
+                                            <option value="Project management">Project management</option> --}}
                                             
 
 
@@ -1960,43 +2288,54 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By  Other's 1)</label>
-                                        <textarea class="summernote" name="Other1_assessment" id="summernote-7">
+                                        <label for="Impact Assessment12">Impact Assessment (By  Other's 1)</label>
+                                        <textarea class="summernote" name="Other1_assessment" id="summernote-41">{{$data1->Other1_assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 1 Feedback</label>
-                                        <textarea class="summernote" name="Other1_feedback" id="summernote-7">
+                                        <label for="Feedback1"> Other's 1 Feedback</label>
+                                        <textarea class="summernote" name="Other1_feedback" id="summernote-42">{{$data1->Other1_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Other's 1 Attachments</label>
+                                        <label for="Audit Attachments">Other's 1 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Other1_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Other1_attachment">
+                                                @if ($data1->Other1_attachment)
+                                                @foreach(json_decode($data1->Other1_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other1_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Other1_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 1 Review Completed By</label>
-                                        <input type="text" name="Other1_by" disabled>
+                                        <label for="Review Completed By1"> Other's 1 Review Completed By</label>
+                                        <input type="text" name="Other1_by" id="Other1_by" value="Other1_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Other's 1 Review Completed On</label>
-                                        <input type="date" name="Other1_on" disabled>
+                                        <label for="Review Completed On1">Other's 1 Review Completed On</label>
+                                        <input type="date" name="Other1_on" id="Other1_on" value={{$data1->Other1_on}}  disabled>
                                     
                                     </div>
                                 </div>
@@ -2006,33 +2345,42 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 2 Review Required ?</label>
-                                        <select name="Other2_required" id="Project_management_required">
+                                        <label for="review2"> Other's 2 Review Required ?</label>
+                                        <select name="Other2_review" id="Other2_review" value="{{ $data1->Other2_review }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-
+                                            <option @if ($data1->Other2_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Other2_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Other2_review == 'na') selected @endif 
+                                                   value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 2 Person</label>
-                                        <select name="Other2_person" id="Project_management_person">
+                                        <label for="Person2"> Other's 2 Person</label>
+                                        <select name="Other2_person" id="Other2_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Other2_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 2 Department</label>
-                                        <select name="Other2_person" id="Other1_Department_person">
+                                        <label for="Department2"> Other's 2 Department</label>
+                                        <select name="Other2_Department_person" id="Other2_Department_person">
                                             <option value="0">-- Select --</option>
                                             <option value="Production">Production</option>
                                             <option value="Warehouse">Warehouse</option>
@@ -2046,9 +2394,7 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            
-
-
+                                        
                                         </select>
                                   
                                     </div>
@@ -2056,44 +2402,54 @@ $users = DB::table('users')
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By  Other's 2)</label>
-                                        <textarea class="summernote" name="Other2_Assessment" id="summernote-7">
+                                        <label for="Impact Assessment13">Impact Assessment (By  Other's 2)</label>
+                                        <textarea class="summernote" name="Other2_Assessment" id="summernote-43">{{$data1->Other2_Assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 2 Feedback</label>
-                                        <textarea class="summernote" name="Other2_feedback" id="summernote-7">
+                                        <label for="Feedback2"> Other's 2 Feedback</label>
+                                        <textarea class="summernote" name="Other2_feedback" id="summernote-44">{{$data1->Other2_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Other's 2 Attachments</label>
+                                        <label for="Audit Attachments">Other's 2 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Other2_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Other2_attachment">
+                                                @if ($data1->Other2_attachment)
+                                                @foreach(json_decode($data1->Other2_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other2_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Other2_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 2 Review Completed By</label>
-                                        <input type="text" name="Other2_by" disabled>
+                                        <label for="Review Completed By2"> Other's 2 Review Completed By</label>
+                                        <input type="text" name="Other2_by" id="Other2_by" value="Other2_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Other's 2 Review Completed On</label>
-                                        <input type="date" name="Other2_on" disabled>
-                                    
+                                        <label for="Review Completed On2">Other's 2 Review Completed On</label>
+                                        <input type="date" name="Other2_on" id="Other2_on" value="{{$data1->Other2_on}}">
                                     </div>
                                 </div>
 
@@ -2102,24 +2458,36 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 3 Review Required ?</label>
-                                        <select name="Other3_required" id="Other3_required">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                        <label for="review3"> Other's 3 Review Required ?</label>
+                                        <select name="Other3_review" id="Other3_review" value="{{ $data1->Other3_review }}">
+                                                <option value="0">-- Select --</option>
+                                                <option @if ($data1->Other3_review == 'yes') selected @endif
+                                                    value="yes">Yes</option>
+                                                   <option  @if ($data1->Other3_review == 'no') selected @endif 
+                                                   value="no">No</option>
+                                                   <option  @if ($data1->Other3_review == 'na') selected @endif 
+                                                       value="na">NA</option>
+                                            </select>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 3 Person</label>
+                                        <label for="Person3">Other's 3 Person</label>
                                         <select name="Other3_person" id="Other3_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Other3_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
 
                                         </select>
                                   
@@ -2127,8 +2495,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 3 Department</label>
-                                        <select name="Project_management_person" id="Other1_Department_person">
+                                        <label for="Department3">Other's 3 Department</label>
+                                        <select name="Other3_Department_person" id="Other3_Department_person">
                                             <option value="0">-- Select --</option>
                                             <option value="Production">Production</option>
                                             <option value="Warehouse">Warehouse</option>
@@ -2151,28 +2519,39 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By  Other's 3)</label>
-                                        <textarea class="summernote" name="Other3_Assessment" id="summernote-7">
+                                        <label for="Impact Assessment14">Impact Assessment (By  Other's 3)</label>
+                                        <textarea class="summernote" name="Other3_Assessment" id="summernote-45">{{$data1->Other3_Assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 3 Feedback</label>
-                                        <textarea class="summernote" name="Other3_feedback" id="summernote-7">
+                                        <label for="feedback3"> Other's 3 Feedback</label>
+                                        <textarea class="summernote" name="Other3_feedback" id="summernote-46">{{$data1->Other3_Assessment}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Other's 3 Attachments</label>
+                                        <label for="Audit Attachments">Other's 3 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Other3_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Other3_attachment">
+                                                @if ($data1->Other3_attachment)
+                                                @foreach(json_decode($data1->Other3_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other3_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Other3_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -2180,50 +2559,57 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
-                                        <input type="text" name="Other3_by" disabled>
+                                        <input type="text" name="Other3_by" id="Other3_by" value="{{ $data1->Other3_by }}" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Other's 3 Review Completed On</label>
-                                        <input type="date" name="Other3_on" disabled>
-                                    
+                                        <input type="date" name="Other3_on" id="Other3_on" value="{{$data1->Other3_on}}">
                                     </div>
                                 </div>
-
-
                                 <div class="sub-head">
                                 Other's 4 ( Additional Person Review From Departments If Required)
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 4 Review Required ?</label>
-                                        <select name="Other4_required" id="Other4_required">
+                                        <label for="review4">Other's 4 Review Required ?</label>
+                                        <select name="Other4_review" id="Other4_review" value="{{ $data1->Other4_review }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Other4_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Other4_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Other4_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 4 Person</label>
+                                        <label for="Person4"> Other's 4 Person</label>
                                         <select name="Other4_person" id="Other4_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Other4_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 4 Department</label>
+                                        <label for="Department4"> Other's 4 Department</label>
                                         <select name="Other4_Department_person" id="Other4_Department_person">
                                             <option value="0">-- Select --</option>
                                             <option value="Production">Production</option>
@@ -2247,43 +2633,54 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By  Other's 4)</label>
-                                        <textarea class="summernote" name="Other4_Assessment" id="summernote-7">
+                                        <label for="Impact Assessment15">Impact Assessment (By  Other's 4)</label>
+                                        <textarea class="summernote" name="Other4_Assessment" id="summernote-47">{{$data1->Other4_Assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 4 Feedback</label>
-                                        <textarea class="summernote" name="Other4_feedback" id="summernote-7">
+                                        <label for="feedback4"> Other's 4 Feedback</label>
+                                        <textarea class="summernote" name="Other4_feedback" id="summernote-48">{{$data1->Other4_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Other's 4 Attachments</label>
+                                        <label for="Audit Attachments">Other's 4 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Other4_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Other4_attachment">
+                                                @if ($data1->Other4_attachment)
+                                                @foreach(json_decode($data1->Other4_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other4_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Other4_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 4 Review Completed By</label>
-                                        <input type="text" name="Other4_by" disabled>
+                                        <label for="Review Completed By4"> Other's 4 Review Completed By</label>
+                                        <input type="text" name="Other4_by" id="Other4_by" value="{{$data1->Other4_by}}" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Other's 4 Review Completed On</label>
-                                        <input type="date" name="Other4_on" disabled>
+                                        <label for="Review Completed On4">Other's 4 Review Completed On</label>
+                                        <input type="date" name="Other4_on" id="Other4_on" value="{{$data1->Other4_on}}">
                                     
                                     </div>
                                 </div>
@@ -2295,32 +2692,42 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 5 Review Required ?</label>
-                                        <select name="Other4_required" id="Other5_required">
+                                        <label for="review5">Other's 5 Review Required ?</label>
+                                        <select name="Other5_review" id="Other5_review" value="{{ $data1->Other5_review }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
+                                            <option @if ($data1->Other5_review == 'yes') selected @endif
+                                                value="yes">Yes</option>
+                                               <option  @if ($data1->Other5_review == 'no') selected @endif 
+                                               value="no">No</option>
+                                               <option  @if ($data1->Other5_review == 'na') selected @endif 
+                                                   value="na">NA</option>
 
                                         </select>
                                   
                                     </div>
                                 </div>
+                                @php
+                                $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
+                                $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $division->id])->get();
+                                $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 5 Person</label>
+                                        <label for="Person5">Other's 5 Person</label>
                                         <select name="Other5_person" id="Other5_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="person1">Person 1</option>
-                                           
-
+                                            @foreach ($users as $user)
+                                            <option {{ $data1->Other5_person == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Other's 5 Department</label>
+                                        <label for="Department5"> Other's 5 Department</label>
                                         <select name="Other5_Department_person" id="Other5_Department_person">
                                             <option value="0">-- Select --</option>
                                             <option value="Production">Production</option>
@@ -2344,44 +2751,55 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By  Other's 5)</label>
-                                        <textarea class="summernote" name="Other5_Assessment" id="summernote-7">
+                                        <label for="Impact Assessment16">Impact Assessment (By  Other's 5)</label>
+                                        <textarea class="summernote" name="Other5_Assessment" id="summernote-49">{{$data1->Other5_Assessment}}
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback</label>
-                                        <textarea class="summernote" name="Other5_feedback" id="summernote-7">
+                                        <textarea class="summernote" name="Other5_feedback" id="summernote-50">{{$data1->Other5_feedback}}
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                               
+                                <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments"> Other's 5 Attachments</label>
+                                        <label for="Audit Attachments">Other's 5 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Other5_attachment"></div>
+                                            <div disabled class="file-attachment-list" id="Other5_attachment">
+                                                @if ($data1->Other5_attachment)
+                                                @foreach(json_decode($data1->Other5_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                            </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other5_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Other5_attachment')"
+                                                    multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback"> Other's 5 Review Completed By</label>
-                                        <input type="text" name="Other5_by" disabled>
+                                        <label for="Review Completed By5"> Other's 5 Review Completed By</label>
+                                        <input type="text" name="Other5_by" id="Other5_by" value="Other5_by" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Other's 5 Review Completed On</label>
-                                        <input type="date" name="Other5_on" disabled>
-                                    
+                                        <label for="Review Completed On5">Other's 5 Review Completed On</label>
+                                        <input type="date" name="Other5_on" id="Other5_on" value="{{$data1->Other5_on}}">
                                     </div>
                                 </div>
                                 
@@ -2493,10 +2911,12 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <select name="Post_Categorization" id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
-                                        <option @if ($data->Post_Categorization == 'yes') selected @endif
-                                            value="yes">Yes</option>
-                                        <option  @if ($data->Post_Categorization == 'no') selected @endif 
-                                           value="no">No</option>
+                                        <option @if ($data->Post_Categorization == 'major') selected @endif
+                                            value="major">Major</option>
+                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif 
+                                           value="minor">Minor</option>
+                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif 
+                                            value="critical">Critical</option>
                                       </select>
                                     </div>
                                 </div>
