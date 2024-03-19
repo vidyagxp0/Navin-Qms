@@ -371,11 +371,11 @@ $users = DB::table('users')
             </div>
         </div>
 
-    <div id="change-control-fields">
+    <div style="background: #e0903230;" id="change-control-fields">
         <div class="container-fluid">
 
             <!-- Tab links -->
-            <div class="cctab">
+            <div  class="cctab">
                 <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>

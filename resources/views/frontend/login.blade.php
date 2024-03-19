@@ -15,7 +15,7 @@
         }
 
         body {
-            background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            background-image: linear-gradient(120deg,   0%, #c2e9fb 100%);
             margin: 0;
             padding: 0;
             width: 100vw;
@@ -103,11 +103,11 @@
             justify-content: center;
             background-size: cover;
             background-position: center;
-            background:#f39f40c7;
+            /* background:#f39f40c7; */
         }
 
         #rcms_login_block .login-form-block {
-            width: 600px;
+            width: 500px;
             height: 450px;
             background: white;
             background-size: cover;
