@@ -291,6 +291,7 @@ Route::view('audit-pdf', 'frontend.documents.audit-pdf');
 //! ============================================
 Route::get('chart-data',[DesktopController::class, 'fetchChartData']);
 Route::get('chart-data-releted',[DesktopController::class, 'fetchChartDataDepartmentReleted']);
+Route::get('chart-data-initialDeviationCategory',[DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
 
 Route::get('chart-data-dep',[DesktopController::class, 'fetchChartDataDepartment']);
 

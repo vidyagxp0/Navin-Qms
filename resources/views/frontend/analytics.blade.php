@@ -348,6 +348,8 @@
                                 <div id="chart2"></div>
                                 <h4 align="center" id="selectedValueTextDepartmentReleted"></h4>
                                 <div id="chart3"></div>
+                                <h4 align="center" id="selectedValueTextInitialDeviationCategory"></h4>
+                                <div id="chart4"></div>
                                 </div>
                                 <hr>
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -507,6 +509,7 @@
                     document.getElementById("selectedValueText").textContent = selectedValue + " (Division)";
                     document.getElementById("selectedValueTextDepartment").textContent = selectedValue + " (Department)";
                     document.getElementById("selectedValueTextDepartmentReleted").textContent = selectedValue + " (Related To)";
+                    document.getElementById("selectedValueTextInitialDeviationCategory").textContent = selectedValue + " (Initial Deviation Category)";
                     fetchData(selectedValue,chartType);
                 }
             </script>
@@ -515,6 +518,7 @@
                 let chart1; 
                 let chart2; 
                 let chart3; 
+                let chart4; 
                 function fetchData(selectedValue,chartType) {
                     let currentChartType = chartType==null?'bar':chartType;
                     
@@ -550,6 +554,18 @@
                                 renderThirdBarChart(data);
                             } else if (currentChartType === 'line') {
                                 renderThirdLineChart(data);
+                            }
+                     });
+
+                     fetch(`/chart-data-initialDeviationCategory?value=${selectedValue}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (currentChartType === 'pie') {
+                                renderFourthPieChart(data);
+                            } else if (currentChartType === 'bar') {
+                                renderFourthBarChart(data);
+                            } else if (currentChartType === 'line') {
+                                renderFourthLineChart(data);
                             }
                      });
 
@@ -1040,6 +1056,179 @@
                     // Initialize a new chart
                     chart3 = new ApexCharts(document.querySelector("#chart3"), options);
                     chart3.render();
+                }
+
+
+
+
+
+
+
+
+
+
+
+                function renderFourthPieChart(data) {
+                    console.log('pie',data);
+                    var options = {
+                        series: data.map(item => item.value),
+                        labels: data.map(item => item.division),
+                        chart: {
+                            type: 'pie',
+                            height: 350,
+                            stacked: true,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: true
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                startAngle: 0,
+                                endAngle: 360,
+                                offsetX: 0,
+                                offsetY: 0,
+                                dataLabels: {
+                                    total: {
+                                        show: true,
+                                        label: 'Total',
+                                        fontSize: '13px',
+                                        fontWeight: 900
+                                    }
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            offsetY: 40
+                        },
+                        fill: {
+                            opacity: 1
+                        }
+                    };
+
+
+                    if (chart4) {
+                        chart4.destroy();
+                    }
+                
+                    // Initialize a new chart
+                    chart4 = new ApexCharts(document.querySelector("#chart4"), options);
+                    chart4.render();
+                }
+                function renderFourthBarChart(data) {
+                    console.log('bar3',data);
+                    var options = {
+                        series: [{
+                            name: 'Total',
+                            data: data.map(item => item.value),
+                            // Define color for each category
+                            colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560']
+                        }],
+                        chart: {
+                            type: 'bar',
+                            height: 350,
+                            stacked: true,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: true
+                            }
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                borderRadius: 10,
+                                dataLabels: {
+                                    total: {
+                                        enabled: true,
+                                        style: {
+                                            fontSize: '13px',
+                                            fontWeight: 900
+                                        }
+                                    }
+                                }
+                            },
+                        },
+                        xaxis: {
+                            type: 'category',
+                            categories: data.map(item => item.division)
+                        },
+                        legend: {
+                            position: 'right',
+                            offsetY: 40
+                        },
+                        fill: {
+                            opacity: 1
+                        }
+                    };
+
+                    if (chart4) {
+                    chart4.destroy();
+                    }
+                    
+                     // Initialize a new chart
+                    chart4 = new ApexCharts(document.querySelector("#chart4"), options);
+                    chart4.render();
+                }
+
+                function renderFourthLineChart(data) {
+                    var options = {
+                        series: [{
+                            name: 'Total',
+                            data: data.map(item => item.value),
+                            // Define color for each category
+                            colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560']
+                        }],
+                        chart: {
+                            type: 'line',
+                            height: 350,
+                            stacked: true,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: true
+                            }
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                borderRadius: 10,
+                                dataLabels: {
+                                    total: {
+                                        enabled: true,
+                                        style: {
+                                            fontSize: '13px',
+                                            fontWeight: 900
+                                        }
+                                    }
+                                }
+                            },
+                        },
+                        xaxis: {
+                            type: 'category',
+                            categories: data.map(item => item.division)
+                        },
+                        legend: {
+                            position: 'right',
+                            offsetY: 40
+                        },
+                        fill: {
+                            opacity: 1
+                        }
+                    };
+
+                    if (chart4) {
+                        chart4.destroy();
+                    }
+                
+                    // Initialize a new chart
+                    chart4 = new ApexCharts(document.querySelector("#chart4"), options);
+                    chart4.render();
                 }
             </script>
             <script>
