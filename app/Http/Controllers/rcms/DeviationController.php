@@ -1703,6 +1703,8 @@ class DeviationController extends Controller
             return back();
         }
     }
+
+    
     public function sendToQA(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {

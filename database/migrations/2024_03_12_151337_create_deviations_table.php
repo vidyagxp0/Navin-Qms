@@ -87,7 +87,7 @@ return new class extends Migration
             $table->string('CFT_Review_Complete_By')->nullable();
             $table->string('CFT_Review_Complete_On')->nullable();
             $table->longText('CFT_Review_Comments')->nullable();
-            
+             
             $table->string('qa_more_info_required_by')->nullable();
             $table->string('qa_more_info_required_on')->nullable();
             $table->string('Approved_By')->nullable();

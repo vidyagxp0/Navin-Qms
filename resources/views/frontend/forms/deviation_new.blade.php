@@ -21,7 +21,7 @@ $users = DB::table('users')
         .sub-main-head {
         display: flex;
         justify-content: space-evenly;
-    }
+    } 
 
     .Activity-type {
         margin-bottom: 7px;

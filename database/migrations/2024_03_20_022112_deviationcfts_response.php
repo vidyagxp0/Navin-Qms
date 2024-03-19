@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('cft_stage')->nullable();
             $table->string('status')->nullable();
             $table->string('comment')->nullable();
-            $table->date('completed_on')->nullable();
+            $table->date('completed_on')->nullable(); 
             $table->tinyint('is_required')->default(0);
             $table->timestamps();
             $table->softDeletes();

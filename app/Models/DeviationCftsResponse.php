@@ -11,3 +11,4 @@ class DeviationCftsResponse extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'deviationcfts_response';
 }
+ 
