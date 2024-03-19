@@ -681,9 +681,9 @@ class DesktopController extends Controller
 
         return response()->json($chartData);
     }
-    public function fetchChartDataStatus(Request $request)
+    public function fatchStatuswise(Request $request)
     {
-        $allDivisionCodes=['yes','no'];
+        $allDivisionCodes=['Opened','HOD Review','QA Initial Review','CFT Review','QA Final Review','Approval','Closed - Done'];
         $internalAuditData = collect();
         if ($request->value == 'Internal-Audit') {
             $internalAuditData = QMSDivision::Join('internal_audits', 'internal_audits.division_id', '=', 'q_m_s_divisions.id')
