@@ -769,7 +769,14 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">{{ $data->Description_Deviation }}</textarea>
                                     </div>
                                 </div>
-                               
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Production feedback">Production Feedback</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
+                                    </textarea>
+                                    </div>
+                                </div>
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
@@ -3856,7 +3863,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
     
-                <form action="{{ route('deviationIsCFTRequired', $data->id) }}" method="POST">
+                <form action="{{ url('deviationIsCFTRequired', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -3903,7 +3910,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
     
-                <form action="{{ route('sendToHod', $data->id) }}" method="POST">
+                <form action="{{ url('sendToHod', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -4041,7 +4048,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
     
-                <form action="{{ route('sendToQA', $data->id) }}" method="POST">
+                <form action="{{ url('sendToQA', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">

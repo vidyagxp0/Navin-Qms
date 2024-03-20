@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('comment')->nullable();
             $table->date('completed_on')->nullable(); 
-            $table->tinyint('is_required')->default(0);
+            $table->integer('is_required')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
