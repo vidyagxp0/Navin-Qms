@@ -590,7 +590,7 @@ $users = DB::table('users')
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
                                                 <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                <td><input type="text" name="IDnumber[]"></td>
+                                                <td><input type="number" name="IDnumber[]"></td>
                                                 <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
@@ -2742,13 +2742,13 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label  class="mt-4" for="Remarks">Closure Comments</label>
-                                        <textarea class="summernote" name="Closure_Comments"></textarea>
+                                        <textarea class="summernote" name="Closure_Comments" id="summernote-15"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Audit Comments">Disposition of Batch</label>
-                                        <textarea class="summernote" name="Disposition_Batch"></textarea>
+                                        <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -3484,7 +3484,44 @@ $users = DB::table('users')
             }
         }
     </script>
+         <script>
+            function removeHtmlTags() {
+                var textarea = document.getElementById("summernote-1");
+                var cleanValue = textarea.value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+                textarea.value = cleanValue;
+            }
+        </script>
+          <script>
+            function removeHtmlTags() {
+                var textarea = document.getElementById("summernote-2");
+                var cleanValue = textarea.value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+                textarea.value = cleanValue;
+            }
+        </script>
+    
+    <script>
+        function removeHtmlTags() {
+            var textarea = document.getElementById("summernote-3");
+            var cleanValue = textarea.value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+            textarea.value = cleanValue;
+        }
+    </script>
+    <script>
+        function removeHtmlTags() {
+            var textarea = document.getElementById("summernote-15");
+            var cleanValue = textarea.value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+            textarea.value = cleanValue;
+        }
+    </script>
+    <script>
+        function removeHtmlTags() {
+            var textarea = document.getElementById("summernote-16");
+            var cleanValue = textarea.value.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
+            textarea.value = cleanValue;
+        }
+    </script>
 
+    
 {{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const addRowButtons = document.querySelectorAll('.add-row');

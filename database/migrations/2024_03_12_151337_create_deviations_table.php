@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('record_number')->nullable();
             //$table->string('text')->nullable();
             $table->integer('assign_to')->nullable();
-            $table->date('due_date')->nullable();
+            $table->text('due_date')->nullable();
             $table->string('Initiator_Group')->nullable();
             $table->longText('short_description')->nullable();
             $table->string('short_description_required')->nullable();
