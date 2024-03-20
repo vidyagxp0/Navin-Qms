@@ -161,11 +161,11 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('devshow/{id}', [DeviationController::class, 'devshow'])->name('devshow');
             Route::post('deviation/stage/{id}', [DeviationController::class, 'deviation_send_stage'])->name('deviation_send_stage');
             Route::post('deviation/cancel/{id}', [DeviationController::class, 'deviationCancel'])->name('deviationCancel');
-            Route::post('devshow/{id}', [DeviationController::class, 'deviationIsCFTRequired'])->name('deviationIsCFTRequired');
+            Route::post('deviation/deviationIsCFTRequired/{id}', [DeviationController::class, 'deviationIsCFTRequired'])->name('deviationIsCFTRequired');
             Route::post('deviation/reject/{id}', [DeviationController::class, 'deviation_reject'])->name('deviation_reject');
             Route::post('devshow/{id}', [DeviationController::class, 'sendToHod'])->name('sendToHod');
-            Route::post('devshow/{id}', [DeviationController::class, 'sendToQA'])->name('sendToQA');
-            Route::post('devshow/{id}', [DeviationController::class, 'sendToInitiator'])->name('sendToInitiator');
+            Route::post('deviation/sendToQA/{id}', [DeviationController::class, 'sendToQA'])->name('sendToQA');
+            Route::post('deviation/sendToInitiator/{id}', [DeviationController::class, 'sendToInitiator'])->name('sendToInitiator');
             Route::post('deviation/Qa/{id}', [DeviationController::class, 'deviation_qa_more_info'])->name('deviation_qa_more_info');
             Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');

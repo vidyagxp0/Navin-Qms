@@ -258,7 +258,17 @@ $users = DB::table('users')
                                 }
                             }
 
-                            // dd($data->stage);
+                            // dd(DB::table('deviationcfts_response')->where('deviation_id', $data->division_id)->get());
+
+
+                            // $cftCompleteUser = DB::table('deviationcfts_response')->where(['status'=>'In-progress', 'deviation_id' => $id, 'cft_user_id' => Auth::user()->id])->latest()->first(); 
+                            $cftCompleteUser = DB::table('deviationcfts_response')
+                            ->whereIn('status', ['In-progress', 'Completed'])
+                                ->where('deviation_id',$data->id)
+                                ->where('cft_user_id', Auth::user()->id)
+                                ->whereNull('deleted_at')
+                                ->first();
+                            // dd($cftCompleteUser);
                         @endphp
                         {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}}
@@ -296,13 +306,14 @@ $users = DB::table('users')
                                 Child
                             </button>
                         @elseif($data->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
+                        @if(!$cftCompleteUser)
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                             More Info Required
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                CFT Review Complete
-                            </button>
-                           
+                                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                    CFT Review Complete
+                                </button>
+                            @endif 
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Initiator
@@ -2130,6 +2141,7 @@ $users = DB::table('users')
                                                    value="na">NA</option>
                                         </select>
                                     </div>
+                           </div>
                                     @php
                                     $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $data->division_id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();

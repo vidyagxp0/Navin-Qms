@@ -1198,7 +1198,7 @@ class DeviationController extends Controller
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
-            $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status'=>'In-progress', 'deviation_id' => $id])->count();
+            $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status'=>'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
             if ($deviation->stage == 1) {
                 $deviation->stage = "2";
                 $deviation->status = "HOD Review";
@@ -1224,14 +1224,14 @@ class DeviationController extends Controller
                             $email = Helpers::getInitiatorEmail($u->user_id);
                              if ($email !== null) {
                           
-                              Mail::send(
-                                  'mail.view-mail',
-                                   ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Document is Submitted By ".Auth::user()->name);
-                                }
-                              );
+                            //   Mail::send(
+                            //       'mail.view-mail',
+                            //        ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Document is Submitted By ".Auth::user()->name);
+                            //     }
+                            //   );
                             }
                      } 
                   }
@@ -1283,14 +1283,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -1333,14 +1333,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -1349,30 +1349,15 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 4) {
+                
                 $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required'=>1, 'deviation_id' => $id])->latest()->first();
-                $cftUsers = DB::table('deviationcfts')->where(function ($query) {
-                    $query->where('Production_Review', 'Yes')
-                        ->orWhere('Warehouse_review', 'Yes')
-                        ->orWhere('Quality_review', 'Yes')
-                        ->orWhere('Quality_Assurance_Review', 'Yes')
-                        ->orWhere('Engineering_review', 'Yes')
-                        ->orWhere('Analytical_Development_review', 'Yes')
-                        ->orWhere('Kilo_Lab_review', 'Yes')
-                        ->orWhere('Technology_transfer_review', 'Yes')
-                        ->orWhere('Environment_Health_review', 'Yes')
-                        ->orWhere('Human_Resource_review', 'Yes')
-                        ->orWhere('Information_Technology_review', 'Yes')
-                        ->orWhere('Project_management_review', 'Yes')
-                        ->orWhere('Other1_review', 'Yes')
-                        ->orWhere('Other2_review', 'Yes')
-                        ->orWhere('Other3_review', 'Yes')
-                        ->orWhere('Other4_review', 'Yes')
-                        ->orWhere('Other5_review', 'Yes');
-                })
-                ->first();
+                $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
+                // dd('wjh');
 
+                // dd($cftUsers);
                             // Define the column names
                             $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person'];
+                            // $columns2 = ['Production_review', 'Warehouse_review', 'Quality_Control_review', 'QualityAssurance_review', 'Engineering_review', 'Analytical_Development_review', 'Kilo_Lab_review', 'Technology_transfer_review', 'Environment_Health_Safety_review', 'Human_Resource_review', 'Information_Technology_review', 'Project_management_review'];
 
                             // Initialize an array to store the values
                             $valuesArray = [];
@@ -1381,10 +1366,11 @@ class DeviationController extends Controller
                             foreach ($columns as $column) {
                                 $value = $cftUsers->$column;
                                 // Check if the value is not null and not equal to 0
-                                if ($value !== null && $value != 0) {
+                                if ($value != null && $value != 0) {
                                     $valuesArray[] = $value;
                                 }
                             }
+                            // dd($valuesArray, count(array_unique($valuesArray)), ($cftDetails+1));
                 if($IsCFTRequired){
                     if(count(array_unique($valuesArray)) == ($cftDetails+1)){
                         $stage = new DeviationCftsResponse();
@@ -1433,14 +1419,14 @@ class DeviationController extends Controller
                         if($u->q_m_s_divisions_id == $deviation->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Plan Approved By ".Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Plan Approved By ".Auth::user()->name);
+                            //     }
+                            // );
                         }
                       } 
                     }
@@ -1474,14 +1460,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -1513,14 +1499,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Plan Approved By ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Plan Approved By ".Auth::user()->name);
+                        //     }
+                        // );
                     }
                   } 
                 }
@@ -1573,17 +1559,73 @@ class DeviationController extends Controller
                   $email = Helpers::getInitiatorEmail($u->user_id);
                   if ($email !== null) {
                     
-                    Mail::send(
-                        'mail.view-mail',
-                        ['data' => $deviation],
-                        function ($message) use ($email) {
-                            $message->to($email)
-                                ->subject("Cancelled By ".Auth::user()->name);
-                        }
-                     );
+                    // Mail::send(
+                    //     'mail.view-mail',
+                    //     ['data' => $deviation],
+                    //     function ($message) use ($email) {
+                    //         $message->to($email)
+                    //             ->subject("Cancelled By ".Auth::user()->name);
+                    //     }
+                    //  );
                   }
                 } 
             }
+
+            toastr()->success('Document Sent');
+            return back();
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
+    public function deviationIsCFTRequired(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+            $list = Helpers::getInitiatorUserList();
+            $deviation->stage = "5";
+                    $deviation->status = "QA Final Review";
+                    $deviation->CFT_Review_Complete_By = Auth::user()->name;
+                    $deviation->CFT_Review_Complete_On = Carbon::now()->format('d-M-Y');
+                            $history = new DeviationAuditTrail();
+                            $history->deviation_id = $id;
+                            $history->activity_type = 'Activity Log';
+                            $history->previous = "";
+                            $history->current = $deviation->CFT_Review_Complete_By;
+                            $history->comment = $request->comment;
+                            $history->user_id = Auth::user()->id;
+                            $history->user_name = Auth::user()->name;
+                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                            $history->origin_state = $lastDocument->status;
+                            $history->stage = 'Send to HOD';
+                            foreach ($list as $u) {
+                                if($u->q_m_s_divisions_id == $deviation->division_id){
+                                $email = Helpers::getInitiatorEmail($u->user_id);
+                                if ($email !== null) {
+                                   
+                                    // Mail::send(
+                                    //     'mail.view-mail',
+                                    //     ['data' => $deviation],
+                                    //     function ($message) use ($email) {
+                                    //         $message->to($email)
+                                    //             ->subject("More Info Required ".Auth::user()->name);
+                                    //     }
+                                    // );
+                                  }
+                                } 
+                            }
+                            $history->save();   
+                    $deviation->update();
+                    $history = new DeviationHistory();
+                    $history->type = "Deviation";
+                    $history->doc_id = $id;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->stage_id = $deviation->stage;
+                    $history->status = $deviation->status;
+                    $history->save();
 
             toastr()->success('Document Sent');
             return back();
@@ -1619,14 +1661,14 @@ class DeviationController extends Controller
                                 $email = Helpers::getInitiatorEmail($u->user_id);
                                 if ($email !== null) {
                                    
-                                    Mail::send(
-                                        'mail.view-mail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("More Info Required ".Auth::user()->name);
-                                        }
-                                    );
+                                    // Mail::send(
+                                    //     'mail.view-mail',
+                                    //     ['data' => $deviation],
+                                    //     function ($message) use ($email) {
+                                    //         $message->to($email)
+                                    //             ->subject("More Info Required ".Auth::user()->name);
+                                    //     }
+                                    // );
                                   }
                                 } 
                             }
@@ -1654,6 +1696,12 @@ class DeviationController extends Controller
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+
+                // Soft delete all records
+                $cftResponse->each(function ($response) {
+                    $response->delete();
+                });
             $deviation->stage = "2";
                     $deviation->status = "HOD Review";
                     $deviation->qa_more_info_required_by = Auth::user()->name;
@@ -1674,14 +1722,14 @@ class DeviationController extends Controller
                                 $email = Helpers::getInitiatorEmail($u->user_id);
                                 if ($email !== null) {
                                    
-                                    Mail::send(
-                                        'mail.view-mail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("More Info Required ".Auth::user()->name);
-                                        }
-                                    );
+                                    // Mail::send(
+                                    //     'mail.view-mail',
+                                    //     ['data' => $deviation],
+                                    //     function ($message) use ($email) {
+                                    //         $message->to($email)
+                                    //             ->subject("More Info Required ".Auth::user()->name);
+                                    //     }
+                                    // );
                                   }
                                 } 
                             }
@@ -1711,6 +1759,13 @@ class DeviationController extends Controller
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+
+                // Soft delete all records
+                $cftResponse->each(function ($response) {
+                    $response->delete();
+                });
+
             $deviation->stage = "3";
                     $deviation->status = "QA Initial Review";
                     $deviation->qa_more_info_required_by = Auth::user()->name;
@@ -1731,14 +1786,14 @@ class DeviationController extends Controller
                                 $email = Helpers::getInitiatorEmail($u->user_id);
                                 if ($email !== null) {
                                    
-                                    Mail::send(
-                                        'mail.view-mail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("More Info Required ".Auth::user()->name);
-                                        }
-                                    );
+                                    // Mail::send(
+                                    //     'mail.view-mail',
+                                    //     ['data' => $deviation],
+                                    //     function ($message) use ($email) {
+                                    //         $message->to($email)
+                                    //             ->subject("More Info Required ".Auth::user()->name);
+                                    //     }
+                                    // );
                                   }
                                 } 
                             }
@@ -1767,6 +1822,14 @@ class DeviationController extends Controller
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+
+                // Soft delete all records
+                $cftResponse->each(function ($response) {
+                    $response->delete();
+                });
+
+
             $deviation->stage = "1";
                     $deviation->status = "Opened";
                     $deviation->qa_more_info_required_by = Auth::user()->name;
@@ -1796,14 +1859,14 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
                            
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("More Info Required ".Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("More Info Required ".Auth::user()->name);
+                            //     }
+                            // );
                           }
                         } 
                     }
@@ -1854,14 +1917,14 @@ class DeviationController extends Controller
                     if($u->q_m_s_divisions_id == $deviation->division_id){
                      $email = Helpers::getInitiatorEmail($u->user_id);
                      if ($email !== null) {
-                         Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By ".Auth::user()->name);
-                            }
-                        );
+                        //  Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Document is Send By ".Auth::user()->name);
+                        //     }
+                        // );
                       }
                     } 
                 }
@@ -1899,14 +1962,14 @@ class DeviationController extends Controller
                 if($u->q_m_s_divisions_id == $deviation->division_id){
                  $email = Helpers::getInitiatorEmail($u->user_id);
                  if ($email !== null) {
-                     Mail::send(
-                        'mail.view-mail',
-                        ['data' => $deviation],
-                        function ($message) use ($email) {
-                            $message->to($email)
-                                ->subject("Document is Send By ".Auth::user()->name);
-                        }
-                    );
+                    //  Mail::send(
+                    //     'mail.view-mail',
+                    //     ['data' => $deviation],
+                    //     function ($message) use ($email) {
+                    //         $message->to($email)
+                    //             ->subject("Document is Send By ".Auth::user()->name);
+                    //     }
+                    // );
                   }
                 } 
             }
@@ -1975,14 +2038,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
                        
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("More Info Required ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("More Info Required ".Auth::user()->name);
+                        //     }
+                        // );
                       }
                     } 
                 }
@@ -2021,14 +2084,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
                        
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("More Info Required ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("More Info Required ".Auth::user()->name);
+                        //     }
+                        // );
                       }
                     } 
                 }
@@ -2039,7 +2102,7 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 4) {
 
-                $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 0, 'deviation_id' => $id])->get();
+                $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
 
                 // Soft delete all records
                 $cftResponse->each(function ($response) {
@@ -2083,14 +2146,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
                        
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("More Info Required ".Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("More Info Required ".Auth::user()->name);
+                        //     }
+                        // );
                       }
                     } 
                 }
@@ -2120,14 +2183,14 @@ class DeviationController extends Controller
                             $email = Helpers::getInitiatorEmail($u->user_id);
                             if ($email !== null) {
                                
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("More Info Required ".Auth::user()->name);
-                                    }
-                                );
+                                // Mail::send(
+                                //     'mail.view-mail',
+                                //     ['data' => $deviation],
+                                //     function ($message) use ($email) {
+                                //         $message->to($email)
+                                //             ->subject("More Info Required ".Auth::user()->name);
+                                //     }
+                                // );
                               }
                             } 
                         }
