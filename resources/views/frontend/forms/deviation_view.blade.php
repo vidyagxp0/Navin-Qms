@@ -2130,6 +2130,7 @@ $users = DB::table('users')
                                                    value="na">NA</option>
                                         </select>
                                     </div>
+                           </div>
                                     @php
                                     $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $data->division_id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
