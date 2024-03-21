@@ -171,7 +171,7 @@
                         </div>
                         <div class="main-scope-table">
                             <table class="table table-bordered" id="auditTable">
-                                <thead style="background: #f4b56f;">
+                                <thead >
                                     <tr>
                                         <th>Record</th>
                                         {{-- <th>Parent ID</th> --}}

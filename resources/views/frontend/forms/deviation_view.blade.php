@@ -15,7 +15,52 @@ $users = DB::table('users')
             display: none;
         }
     </style>
+ <style>
+        textarea.note-codable {
+            display: none !important;
+        }
 
+        header {
+            display: none;
+        }
+
+        .sub-main-head {
+        display: flex;
+        justify-content: space-evenly;
+    } 
+
+    .Activity-type {
+        margin-bottom: 7px;
+    }
+
+    /* .sub-head {
+        margin-left: 280px;
+        margin-right: 280px;
+        color: #4274da;
+        border-bottom: 2px solid #4274da;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 1.2rem;
+
+    } */
+
+    .create-entity {
+        background: #323c50;
+        padding: 10px 15px;
+        color: white;
+        margin-bottom: 20px;
+
+    }
+
+    .bottom-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 300px;
+        margin-top: 50px;
+        gap: 20px;
+    }
+    </style>
     <script>
         function otherController(value, checkValue, blockID) {
             let block = document.getElementById(blockID)
@@ -575,6 +620,23 @@ $users = DB::table('users')
                                     <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                  </div>
                                 </div>  
+                                <div class="col-lg-6 new-date-data-field ">
+                                    <div class="group-input input-date">
+                                        <label for="Short Description required">Nature of Repeat?</label>
+                                        <select name="short_description_required" id="short_description_required">
+                                            <option value="0">-- Select --</option>
+                                            <option value="Recurring">Recurring </option>
+                                            <option value="Non_Recurring">Non Recurring</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input" id="nature_of_repeat">
+                                        <label for="nature_of_repeat">Repeat Nature<span
+                                                class="text-danger d-none">*</span></label>
+                                        <textarea name="nature_of_repeat"></textarea>
+                                    </div>
+                                </div>
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed</label>
@@ -587,7 +649,7 @@ $users = DB::table('users')
                                         @php
                                             $users = DB::table('users')->get();
                                         @endphp
-                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
                                             @foreach ($users as $user)
@@ -603,17 +665,7 @@ $users = DB::table('users')
                                        <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    {{-- <div class="group-input">
-                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
-                                        <select  multiple name="Facility[]" placeholder="Select Facility Name"
-                                            data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
-                                            <option value="1"> 1</option>
-                                            <option value="2"> 2</option>
-                                            <option value="3"> 3</option>
-                                           
-                                        </select>
-                                    </div> --}}
+                               
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
@@ -715,7 +767,7 @@ $users = DB::table('users')
                                             <button type="button" name="audit-agenda-grid" value="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
+                                                data-bs-target="#document-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -769,14 +821,14 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">{{ $data->Description_Deviation }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <!-- <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Production feedback">Production Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
                                     </textarea>
                                     </div>
-                                </div>
+                                </div> -->
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
@@ -828,7 +880,7 @@ $users = DB::table('users')
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ProductDetails">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
+                                                data-bs-target="#product-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -910,7 +962,7 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Deviation category">Initial Deviation category</label>
                                         <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
@@ -932,7 +984,7 @@ $users = DB::table('users')
 
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Justification for  categorization">Justification for  categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -940,9 +992,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Investigation required">Investigation Is required ?</label>
+                                        <label for="Investigation required">Investigation  Required ?</label>
                                         <select name="Investigation_required" id="Investigation_required"  value="{{ $data->Investigation_required }}" >
                                             <option value="">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
@@ -959,7 +1011,7 @@ $users = DB::table('users')
                                         <textarea name="Investigation_Details" value="Investigation_Details" id="" cols="30" ></textarea>                
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Details">Investigation Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
@@ -2926,7 +2978,7 @@ $users = DB::table('users')
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         <select name="Post_Categorization" id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
@@ -2946,7 +2998,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Investigation Of Revised Categorization</label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>

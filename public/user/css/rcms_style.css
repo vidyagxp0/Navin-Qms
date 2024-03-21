@@ -277,7 +277,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
     border: none;
     outline: none;
     color: #fff;
-    background: #d68e58;
+    background: #1b1b1a;
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -757,7 +757,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
 /*! =================================================================================*/
 #rcms-dashboard {
     padding: 20px 0px;
-    background: #f39f40;
+    background: #eca035;
     min-height: calc(100vh - 130px);
 }
 
@@ -852,7 +852,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
 }
 
 #rcms-dashboard .scope-table thead {
-    background: #4274da57;
+    background: #eba645;
     font-size: 0.75rem;
 }
 

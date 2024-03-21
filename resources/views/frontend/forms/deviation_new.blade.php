@@ -486,11 +486,11 @@ $users = DB::table('users')
                                 
                                 <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Short Description Required?</label>
+                                        <label for="Short Description required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                            <option value="Recurring">Recurring </option>
+                                            <option value="Non_Recurring">Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -517,7 +517,7 @@ $users = DB::table('users')
                                         @php
                                             $users = DB::table('users')->get();
                                         @endphp
-                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
@@ -603,7 +603,7 @@ $users = DB::table('users')
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
+                                                data-bs-target="#document-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -758,7 +758,7 @@ $users = DB::table('users')
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ProductDetails">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
+                                                data-bs-target="#product-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -868,7 +868,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Investigation required">Investigation Is required ?</label>
+                                        <label for="Investigation required">Investigation  Required ?</label>
                                         <select name="Investigation_required" id="Investigation_required">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -2599,7 +2599,7 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
-                                        <!-- <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div> -->
+                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
                                         {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
                                             <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
@@ -2618,7 +2618,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Revised Categorization Justification</label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>

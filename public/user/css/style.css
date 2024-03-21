@@ -201,7 +201,7 @@ button:hover {
 ===============================================*/
 
 header .header-top {
-    background: #4274da;
+    background: #f39f40d4;
     padding: 5px;
 }
 
@@ -247,8 +247,8 @@ header .header-middle .middle-head .search-bar input {
 
 header .header-middle .middle-head .search-bar label {
     width: 50px;
-    height: 35px;
-    background: #4274da;
+    height: 36px;
+    background: #161616;
     display: grid;
     place-items: center;
     color: white;
@@ -523,14 +523,14 @@ header .header-bottom.bottom-pr-links {
 
 #dashboard {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 150px);
 }
 
 #dashboard .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
 }
 
@@ -1534,14 +1534,14 @@ select.goog-te-combo {
 ===============================================*/
 #document {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 150px);
 }
 
 #document .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow:12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
 }
 
@@ -1597,9 +1597,10 @@ select.goog-te-combo {
 #document .document-left-block .inner-block .head button {
     display: block;
     padding: 3px 15px;
-    background: #4274da;
+    background: #0d0d0e;
     color: white;
     border: 0;
+    border-radius: 3px;;
     font-weight: 400;
 }
 
@@ -1610,7 +1611,7 @@ select.goog-te-combo {
 }
 
 #document .document-left-block .inner-block .main-head div:nth-child(1) {
-    background: #4274da;
+    background: #4a4c50;
     text-align: center;
     padding: 5px 10px;
     color: white;
@@ -2325,14 +2326,14 @@ section#pdf-page .watermark {
 
 #my-dms {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 150px);
 }
 
 #my-dms .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
 }
 
@@ -2656,14 +2657,14 @@ section#pdf-page .watermark {
 
 #tms-dashboard {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 150px);
 }
 
 #tms-dashboard .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
 }
 
@@ -2734,8 +2735,9 @@ section#pdf-page .watermark {
 }
 
 #tms-dashboard .tms-dashboard-tabs .tab-btn.active {
-    background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-}
+    background-image: linear-gradient(120deg, #4f4d4b 0%, #2b2c2c 100%);
+    color: #fff;
+}   
 
 #tms-dashboard .tms-block {
     display: none;
@@ -2747,7 +2749,7 @@ section#pdf-page .watermark {
 }
 
 #tms-dashboard .tms-block thead th {
-    background: #4274daba;
+    background: #eba645;
 }
 
 #tms-dashboard .tms-block td {
@@ -2911,14 +2913,14 @@ section#pdf-page .watermark {
 
 #tms-question {
     padding: 20px 0px;
-    background: #4274da;
+    background: #faa94c;
     min-height: calc(100vh - 150px);
 }
 
 #tms-question .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;;
     background: #ffffff;
 }
 
@@ -2935,7 +2937,7 @@ section#pdf-page .watermark {
 }
 
 #tms-question .search-bar form label {
-    background: #4274da;
+    background: #1b1b1c;
     color: white;
     display: grid;
     place-items: center;
