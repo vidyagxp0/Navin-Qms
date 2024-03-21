@@ -193,6 +193,18 @@ class UserManagementController extends Controller
         return view('admin.account.edit', compact('group', 'data','department', 'userRoles'));
     }
 
+    public function DuplicateShow($id)
+    {
+        $group = Roles::all();
+        $department = Department::all();
+
+        $data = User::find($id);
+        $userRoles = UserRole::where('user_id', $data->id)->pluck('role_id')->toArray();
+
+        // dd($data->id, $userRoles);
+        return view('admin.account.duplicate', compact('group', 'data','department', 'userRoles'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

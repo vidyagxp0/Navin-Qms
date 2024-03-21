@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::resource('material', MaterialController::class);
             Route::resource('qms-division', QMSDivisionController::class);
             Route::resource('qms-process', QMSProcessController::class);
+            Route::get('user_management/duplicate/{id}', [UserManagementController::class, 'DuplicateShow'])->name('user_management.duplicate');
         }
     );
 });
