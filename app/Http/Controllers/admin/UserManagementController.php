@@ -222,7 +222,16 @@ class UserManagementController extends Controller
     $user->name = $request->name;
     $user->email = $request->email;
     if (!empty($request->password)) {
-        $user->password = Hash::make($request->password);
+        $usrpasslog = PasswordLog::where('user_id', $user->id)->pluck('password')->toArray();
+        $newPassword = Hash::make($request->password);
+        foreach ($usrpasslog as $password) {
+            if (Hash::check($request->password, $password)) {
+                toastr()->error('please use diffrent pass');
+                return redirect()->back();
+            }else{
+                $user->password = Hash::make($request->password);
+            }
+        }
     }
     $user->departmentid = $request->departmentid;
 

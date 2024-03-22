@@ -111,6 +111,15 @@ class UserLoginController extends Controller
 
     public function rcmscheck(Request $request)
     {
+        if($request->confirmPassword){
+            $user = User::find(Auth::user()->id);
+            $user->password = Hash::make($request->confirmPassword);
+            $user->f_login = 1;
+            $user->save();
+            Auth::logout();
+            toastr()->success('Login With New Password.');
+            return redirect('/login');
+        }
         TotalLogin::userCheck();
         $request->validate([
             'email' => ['required', 'email'],
@@ -120,6 +129,25 @@ class UserLoginController extends Controller
         // Set the timezone
         $checkEmail = User::where('email', $request->email)->count();
         if ($checkEmail > 0) {
+            $userData=User::where('email', $request->email)->first();
+            $currentTime = Carbon::now();
+            if ($userData->updated_at <= $currentTime->subMinutes(5)) {
+                $userData->attempt=1;
+                $userData->save();
+            } else {
+                if ($userData->updated_at >= $currentTime->subMinutes(5)) {
+                    if ($userData->attempt >= 3) {
+                        toastr()->error('Too many login attempts. Please try again in 5 minutes .');
+                        return redirect()->back();
+                    }
+                }
+                if ($userData->attempt==3) {
+                    $userData->attempt=1;
+                    $userData->save();
+                } else {
+                    $userData->increment('attempt');
+                }
+            }
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 // check user login limit
                 if (TotalLogin::ifUserExist(Auth::id())) {
@@ -130,10 +158,18 @@ class UserLoginController extends Controller
                     return redirect()->back()->withInput();
                 } else {
                     // Save the user ID to the total_logins table for check login user limit
-                    TotalLogin::addUser();
-                    toastr()->success('Login Successfully.');
-                    session()->put('last_activity', time());
-                    return redirect('rcms/qms-dashboard');
+                    if(Auth::User()->f_login==0){
+                        // dd(Auth::User()->f_login);
+                        toastr()->success('Create New Password.');
+                        return view('frontend.rcms.makePassword');
+
+                    }else{
+                        TotalLogin::addUser();
+                        toastr()->success('Login Successfully.');
+                        session()->put('last_activity', time());
+                        return redirect('rcms/qms-dashboard');
+                    }
+                   
                 }
             } else {
                 toastr()->error('Login failed.');
