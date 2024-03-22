@@ -25,6 +25,8 @@ return new class extends Migration
             $table->bigInteger('departmentid');
             $table->boolean('active')->default(1);
             $table->text('permission')->nullable();
+            $table->boolean('f_login')->default(0);
+            $table->bigInteger('attempt')->default(0);
             $table->timestamps();
         });
     }
