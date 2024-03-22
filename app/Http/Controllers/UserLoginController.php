@@ -319,7 +319,7 @@ class UserLoginController extends Controller
         $token = Str::random(60);
         // dd($request->email);
         $a=Mail::send('emails.password_reset', ['token' =>$request->email,'employee'=>$employee->name], function ($message) use ($request) {
-            $message->from('bizest@yahoo.com');
+            $message->from('info@mydemosoftware.com');
             $message->to($request->email); 
             $message->subject('Reset Password Notification');
         });
