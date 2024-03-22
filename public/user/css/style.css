@@ -3615,7 +3615,17 @@ section#pdf-page .watermark {
     margin-bottom: 20px;
 }
 #modal1 .group-input input,
-#modal1 .group-input select {
+#modal1 .group-input select
+#deviationIsCFTRequired .group-input input,
+#deviationIsCFTRequired .group-input select,
+#deviationIsCFTRequired .group-input input,
+#deviationIsCFTRequired .group-input select,
+#sendToHod .group-input input,
+#sendToHod .group-input select,
+#sendToInitiator .group-input input,
+#sendToInitiator .group-input select,
+#sendToQA .group-input input,
+#sendToQA .group-input select{
     display: block;
     width: 100%;
     border-radius: 5px;
@@ -3630,12 +3640,32 @@ section#pdf-page .watermark {
     margin-bottom: 20px;
 }
 
+#more-info-required-modal .group-input input,
+#more-info-required-modal .group-input select {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+#deviationIsCFTRequired .group-input input,
+#deviationIsCFTRequired .group-input select {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
 #signature-modal .modal-footer button {
     color: white;
     background: #4274da;
     border: 1px solid rgb(202, 202, 202);
 }
-#modal1 .modal-footer button {
+#modal1 .modal-footer button,
+#deviationIsCFTRequired .modal-footer button,
+#deviationIsCFTRequired .modal-footer button,
+#sendToHod .modal-footer button,
+#sendToInitiator .modal-footer button,
+#sendToQA .modal-footer button {
     color: white;
     background: #4274da;
     border: 1px solid rgb(202, 202, 202);
@@ -3646,7 +3676,11 @@ section#pdf-page .watermark {
     background: #4274da;
     border: 1px solid rgb(202, 202, 202);
 }
-
+#more-info-required-modal .modal-footer button {
+    color: white;
+    background: #4274da;
+    border: 1px solid rgb(202, 202, 202);
+}
 
 
 /* =============================================

@@ -330,7 +330,7 @@ Route::view('deviation', 'frontend.forms.deviation');
 Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
 Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
 Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
-Route::get('/customers', [CustomerController::class, 'store'])->name('customers.index');
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
 Route::view('extension_form', 'frontend.forms.extension');
 

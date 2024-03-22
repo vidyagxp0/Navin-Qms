@@ -370,7 +370,7 @@ $users = DB::table('users')
                                 Send to QA Initial Review
                             </button>
                              <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                QA Initial Review Complete
+                                QA Final Review Complete
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
@@ -625,8 +625,10 @@ $users = DB::table('users')
                                         <label for="Short Description required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring">Recurring </option>
-                                            <option value="Non_Recurring">Non Recurring</option>
+                                            <option @if ($data->short_description_required == 'Recurring') selected @endif
+                                                value="Recurring">Recurring</option>
+                                                <option @if ($data->short_description_required == 'Non Recurring') selected @endif
+                                                    value="Non Recurring">Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -634,12 +636,12 @@ $users = DB::table('users')
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature<span
                                                 class="text-danger d-none">*</span></label>
-                                        <textarea name="nature_of_repeat"></textarea>
+                                        <textarea name="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="severity-level">Deviation Observed</label>
+                                        <label for="severity-level">Deviation Observed On</label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
                                        <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
                                     </div>
@@ -658,14 +660,56 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="severity-level">Deviation Observed</label>
-                                        <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
+                                        <label for="Initiator Group">Deviation Reported On</label>
+                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
+                                        <input type="date"id="Deviation_reported_date" name="Deviation_reported_date" value="{{ $data->Deviation_reported_date }}" >
                                     </div>
                                 </div>
-                               
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="audit type">Deviation Related To </label>
+                                        <select  name="audit_type" id="audit_type"  value="{{ $data->audit_type }}">
+                                            <option value="">Enter Your Selection Here</option>
+                                            <option @if ($data->audit_type == 'Facility') selected @endif
+                                                value="Facility">Facility</option>
+                                                <option @if ($data->audit_type == 'Equipment/Instrument') selected @endif
+                                                    value="Equipment/Instrument">Equipment/Instrument</option>
+                                                    <option @if ($data->audit_type == 'Documentationerror') selected @endif
+                                                        value="Documentationerror">Documentation error</option>
+                                                        <option @if ($data->audit_type == 'STP/ADS_instruction') selected @endif
+                                                            value="STP/ADS_instruction">STP/ADS instruction</option>
+                                                            <option @if ($data->audit_type == 'Packaging&Labelling') selected @endif
+                                                                value="Packaging&Labelling">Packaging & Labelling</option>
+                                                                <option @if ($data->audit_type == 'Material_System') selected @endif
+                                                                    value="Material_System">Material System</option>
+                                                                    <option @if ($data->audit_type == 'Laboratory_Instrument/System') selected @endif
+                                                                        value="Laboratory_Instrument/System">Laboratory_Instrument/System</option>
+                                                                        <option @if ($data->audit_type == 'Utility_System') selected @endif
+                                                                            value="Utility_System">Utility System</option>
+                                                                            <option @if ($data->audit_type == 'Computer_System') selected @endif
+                                                                                value="Computer_System">Computer System</option>
+                                                                                <option @if ($data->audit_type == 'Document') selected @endif
+                                                                                    value="Document">Document</option>
+                                                                                    <option @if ($data->audit_type == 'Data integrity') selected @endif
+                                                                                        value="Data integrity">Data integrity</option>
+                                                                                        <option @if ($data->audit_type == 'SOP Instruction') selected @endif
+                                                                                            value="SOP Instruction">SOP Instruction</option>
+                                                                                            <option @if ($data->audit_type == 'BMR/ECR Instruction') selected @endif
+                                                                                                value="BMR/ECR Instruction">BMR/ECR Instruction</option>
+                                                                                        <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
+                                                                                            value="Anyother(specify)">Anyother(specify)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="others">Others</label>
+                                        <input type="text" id="others" name="others">
+                                    </div>
+                                </div> 
+                               {{--
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
@@ -874,7 +918,7 @@ $users = DB::table('users')
 
                                 
                                 
-                                <div class="group-input">
+                                {{-- <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
                                             <button type="button" name="audit-agenda-grid"
@@ -910,7 +954,7 @@ $users = DB::table('users')
 
                                             </table>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 
                                 <div class="col-md-12">
                                     <div class="group-input">
@@ -959,9 +1003,6 @@ $users = DB::table('users')
                        <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
-
-                                
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Deviation category">Initial Deviation category</label>
@@ -1005,6 +1046,7 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
@@ -1015,7 +1057,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Investigation Details">Investigation Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
+                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6" required>{{ $data->Investigation_Details }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1023,27 +1065,33 @@ $users = DB::table('users')
                                         <label for="Customer notification">Customer Notification Required ? </label>
                                         <select name="Customer_notification" id="Customer_notification" value="{{ $data->Customer_notification }}" >
                                             <option value="0">-- Select --</option>
-                                            <option @if ($data->Customer_notification == 'yes') selected @endif
+                                            <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
                                             <option  @if ($data->Customer_notification == 'no') selected @endif 
                                             value="no">No</option>
+                                            <option  @if ($data->Customer_notification == 'na') selected @endif 
+                                                value="na">Na</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-5">
                                     <div class="group-input">
+                                        @php
+                                            $customers = DB::table('customer-details')->get();
+                                            // dd($data->customer);
+                                        @endphp
                                         <label for="customers">Customers</label>
-                                        <select name="customers" id="customers" value="{{ $data->customers }}">
-                                            <option value=""> -- Select --</option>
-                                            <option @if ($data->customers == 'person1') selected @endif
-                                                value="person1">Person 1</option>
-                                            <option  @if ($data->customers == 'person2') selected @endif 
-                                               value="person2">Person 2</option>
+                                        <select name="customers" id="customers">
+                                            <option value="0"> -- Select --</option>
+                                            @foreach ($customers as $data1)
+                                            <option  @if ($data->customers == 'yes') selected @endif
+                                                value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
+                                            {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="col-1">
                                     <div class="group-input">
                                         <!-- <label for="Comments(If Any)">Customers</label> -->
@@ -1052,8 +1100,21 @@ $users = DB::table('users')
                                     </button>
                                     </div>
                                 </div>
-
                                 <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
+                                            <select  multiple name="related_records[]" placeholder="Select Facility Name"
+                                                data-search="false" data-silent-initial-value-set="true" id="related_records">
+                                                @foreach ($pre as $prix)
+                                                    <option value="{{ $prix->id }}">
+                                                        {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                    </option>
+                                                @endforeach                                         
+                                            </select>
+                                        </div>
+                                </div>
+
+                                {{-- <div class="col-12">
                                     <div class="group-input"> 
                                         <label for="related_records">Related Records</label>
 
@@ -1067,7 +1128,7 @@ $users = DB::table('users')
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
@@ -1130,19 +1191,31 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
-   <!-- CFT -->
-   <div id="CCForm7" class="inner-block cctabcontent">
+                    <script>
+                        $(document).ready(function () {
+                            $('#Deviation_category').change(function () {
+                                if ($(this).val() === 'major') {
+                                    $('#Investigation_required').val('yes');
+                                    $('#Customer_notification').val('yes');
+                                }
+                            });
+                        });
+                    </script>
+                    
+                    <!-- CFT -->
+                    <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-
-                            
                             <div class="sub-head">
                             Production
                            </div>
                            <div class="col-lg-6">
+                            @php
+                                    $data1 = DB::table('deviationcfts')->where('deviation_id', $data->id)->first();
+                            @endphp
                                     <div class="group-input">
                                         <label for="Production Review">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Production_Review" value="{{ $data1->Production_Review }}">
+                                        <select name="Production_Review" id="Production_Review">
                                             <option value="">-- Select --</option>
                                             <option @if ($data1->Production_Review == 'yes') selected @endif
                                              value="yes">Yes</option>
@@ -1203,7 +1276,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
                                                     oninput="addMultipleFiles(this, 'production_attachment')"
                                                     multiple>
                                             </div>
@@ -1295,7 +1368,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Warehouse_attachment')"
                                                     multiple>
                                             </div>
@@ -1388,7 +1461,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Quality_Control_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Quality_Control_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Quality_Control_attachment')"
                                                     multiple>
                                             </div>
@@ -1490,7 +1563,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Quality_Assurance_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Quality_Assurance_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Quality_Assurance_attachment')"
                                                     multiple>
                                             </div>
@@ -1580,7 +1653,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Engineering_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Engineering_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Engineering_attachment')"
                                                     multiple>
                                             </div>
@@ -1684,7 +1757,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Analytical_Development_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Analytical_Development_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Analytical_Development_attachment')"
                                                     multiple>
                                             </div>
@@ -1788,7 +1861,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Kilo_Lab_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Kilo_Lab_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Kilo_Lab_attachment')"
                                                     multiple>
                                             </div>
@@ -1893,7 +1966,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Technology_transfer_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Technology_transfer_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Technology_transfer_attachment')"
                                                     multiple>
                                             </div>
@@ -1982,7 +2055,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Environment_Health_Safety_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Environment_Health_Safety_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Environment_Health_Safety_attachment')"
                                                     multiple>
                                             </div>
@@ -2072,7 +2145,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Human_Resource_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Human_Resource_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Human_Resource_attachment')"
                                                     multiple>
                                             </div>
@@ -2164,7 +2237,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Information_Technology_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Information_Technology_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Information_Technology_attachment')"
                                                     multiple>
                                             </div>
@@ -2251,7 +2324,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Project_management_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Project_management_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Project_management_attachment')"
                                                     multiple>
                                             </div>
@@ -2392,7 +2465,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other1_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other1_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other1_attachment')"
                                                     multiple>
                                             </div>
@@ -2505,7 +2578,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other2_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other2_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other2_attachment')"
                                                     multiple>
                                             </div>
@@ -2621,7 +2694,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other3_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other3_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other3_attachment')"
                                                     multiple>
                                             </div>
@@ -2734,7 +2807,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other4_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other4_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other4_attachment')"
                                                     multiple>
                                             </div>
@@ -2852,7 +2925,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data1->stage == 0 || $data1->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other5_attachment[]"
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Other5_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other5_attachment')"
                                                     multiple>
                                             </div>
@@ -3410,7 +3483,7 @@ $users = DB::table('users')
     </div>
 
 <!-- -----------------------------------------------------------modal body---------------------- -->
-<div class="modal" id="myModal">
+{{-- <div class="modal" id="myModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -3423,78 +3496,152 @@ $users = DB::table('users')
       <!-- Modal body -->
       <div  class="modal-body">
         <div style="backgorund: #e9e2e2;" class="modal-sub-head">
-<div class="sub-main-head">
+            <div class="sub-main-head">
 
- <div  class="left-box">
+            <div  class="left-box">
 
-    <div class="Activity-type">
-        <label style="font-weight: bold;" for="">Customer ID :</label>
-         
-        <input type="text">
-    </div>
-    <div class="Activity-type ">
-        <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
-        
-        <input type="text">
-    </div>
-    <div class="Activity-type ">
-        <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
-       
-        <input type="text">
-    </div>
-    <div class="Activity-type ">
-        <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
-        
-        <input type="text">
-    </div>
- </div>
+                <div class="Activity-type">
+                    <label style="font-weight: bold;" for="">Customer ID :</label>
+                    
+                    <input type="text">
+                </div>
+                <div class="Activity-type ">
+                    <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
+                    
+                    <input type="text">
+                </div>
+                <div class="Activity-type ">
+                    <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
+                
+                    <input type="text">
+                </div>
+                <div class="Activity-type ">
+                    <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
+                    
+                    <input type="text">
+                </div>
+            </div>
 
 
- <div class="right-box">
-    
-    <div class="Activity-type">
-        <label style="font-weight: bold; " for="">Customer Name :</label>
-        
-        <input type="text">
-        
-    </div>
-    
-    <div class="Activity-type">
-        <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
-        
-        <input type="text">
-        
-    </div>
-    <div class="Activity-type">
-        <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
-        
-        <input type="text">
-        
-    </div>
-    <div class="Activity-type">
-        <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
-        
-        <input type="text">
-        
-    </div>
- </div>
- 
-</div>
-</div>
-<div class="Activity-type">
-
-       
-        
-       <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="" id="" cols="30" ></textarea>
-        
-    </div>
+            <div class="right-box">
+                
+                <div class="Activity-type">
+                    <label style="font-weight: bold; " for="">Customer Name :</label>
+                    
+                    <input type="text">
+                    
+                </div>
+                
+                <div class="Activity-type">
+                    <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
+                    
+                    <input type="text">
+                    
+                </div>
+                <div class="Activity-type">
+                    <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
+                    
+                    <input type="text">
+                    
+                </div>
+                <div class="Activity-type">
+                    <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
+                    
+                    <input type="text">
+                    
+                </div>
+            </div>
+            
+            </div>
+            </div>
+            <div class="Activity-type">
+                <textarea style="margin-left: 126px; margin-top: 15px; width: 79%;" placeholder="Remarks" name="" id="" cols="30" ></textarea>
+                </div>
       </div>
-      
-      
-
     </div>
   </div>
-</div>
+</div> --}}
+<!-- Modal body -->
+{{-- <div class="modal-body">
+    <!-- Customer creation form -->
+    <form id="customerForm">
+        <!-- Input fields for customer details -->
+        <div class="form-group">
+            <label for="customer_id">Customer ID:</label>
+            <input type="text" class="form-control" id="customer_id" name="customer_id" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Customer Name:</label>
+            <input type="text" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Customer Type:</label>
+            <input type="text" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Status:</label>
+            <input type="text" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Contact No:</label>
+            <input type="number" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Industry:</label>
+            <input type="text" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Region:</label>
+            <input type="text" class="form-control" id="region" name="region" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Remarks:</label>
+            <textarea cols="30" class="form-control" id="remarks" name="remarks" required>
+        </div>
+
+        <!-- Add more input fields for other customer details -->
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Create Customer</button>
+    </form>
+</div> --}}
+
+<!-- JavaScript to handle form submission -->
+{{-- <script>
+    $(document).ready(function(){
+        $('#customerForm').submit(function(e){
+            e.preventDefault(); // Prevent default form submission
+            
+            // Create data object from form fields
+            var formData = {
+                customer_id: $('#customer_id').val(),
+                email: $('#email').val(),
+                // Add more fields here
+            };
+
+            // AJAX request to store customer details
+            $.ajax({
+                url: '{{ url('/customer/store') }}', // URL for storing customer details
+                type: 'POST',
+                data: formData, // Send form data
+                success: function(response){
+                    // Handle success
+                    console.log(response); // Log success response for debugging
+                    $('#myModal').modal('hide'); // Close the modal
+                },
+                error: function(xhr, status, error){
+                    // Handle error
+                    console.error(xhr.responseText); // Log error response
+                }
+            });
+        });
+    });
+</script> --}}
+
 <!-- -----------------------------------------------------end---------------------- -->
    
     <style>
