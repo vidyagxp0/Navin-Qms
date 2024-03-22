@@ -65,6 +65,9 @@
                                 {{ $message }}</p>
                         </label>
                     @enderror
+                    <div >
+                        <a  class="red-text" href="forgot-password">Forgot Password</a>
+                    </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
