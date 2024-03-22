@@ -219,6 +219,9 @@
             transition: all 0.3s linear;
             cursor: pointer;
         }
+        .red-text {
+            color: rgb(228, 11, 11);
+        }
        
     </style>
 </head>
@@ -601,6 +604,9 @@
                 </div>
                 <div>
                     <input type="submit" value="Login">
+                </div>
+                <div >
+                    <a  class="red-text" href="forgot-password">Forgot Password</a>
                 </div>
             </form>
         </div>

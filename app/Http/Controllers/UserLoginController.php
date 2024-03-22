@@ -10,6 +10,13 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordReset;
+use DB;
+use Str;
+use Log;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Part\TextPart;
 
 class UserLoginController extends Controller
 {
@@ -338,5 +345,41 @@ class UserLoginController extends Controller
         else{
             return response()->json('Email is required');
         }
+    }
+    public function forgetPassword(Request $request){
+        // $request->validate([
+        //         'email' => 'required|email|exists:users',
+        // ]);
+   
+        $employee=DB ::table('users')->where('email', $request->email)->select('users.name')->first();
+        $token = Str::random(60);
+        // dd($request->email);
+        $a=Mail::send('emails.password_reset', ['token' =>$request->email,'employee'=>$employee->name], function ($message) use ($request) {
+            $message->from('info@mydemosoftware.com');
+            $message->to($request->email); 
+            $message->subject('Reset Password Notification');
+        });
+            toastr()->success('Email sent successfully');
+            return redirect('/login');
+       
+            // return response()->json(['message' => 'Email sent successfully'], 200);
+   
+        return back();
+    }
+    public function resetPage($email){
+        return view('emails.reset',['email'=> $email]);
+    }
+    public function UpdateNewPassword(Request $request){
+        // $request->validate([
+        //     'password' => 'required|string|min:6|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
+     
+            $user = User::where('email', $request->mailId)
+            ->update(['password' => Hash::make($request->password)]);
+            toastr()->success('Your password has been changed! :');
+
+            return redirect('/login');
+        
     }
 }

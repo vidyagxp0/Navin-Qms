@@ -23,7 +23,7 @@
             <div class="logo">
                 <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
             </div>
-            <form action="" method="POST">
+            <form action="{{url('forgetPassword-user')}}" method="GET">
 
                 <div class="login-fields">
                     <div class="head">Enter Your E-Mail</div>
@@ -33,15 +33,15 @@
                         <input type="email" name="email">
                     </div>
 
-                    <div class="head">Enter Your OTP</div>
+                    {{-- <div class="head">Enter Your OTP</div>
 
                     <div class="group-input">
                         <label for="otp">Enter OTP</label>
                         <input type="number" name="otp">
-                    </div>
+                    </div> --}}
 
                     <div class="group-input">
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Send Link">
                     </div>
 
                 </div>
