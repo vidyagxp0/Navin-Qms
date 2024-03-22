@@ -503,7 +503,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Deviation date">Deviation Observed</label>
+                                        <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -554,6 +554,8 @@ $users = DB::table('users')
                                             <option value="Computer_System"> Computer System</option>
                                             <option value="Document">Document</option>
                                             <option value="Data integrity">Data integrity</option>
+                                            <option value="SOP Instruction">SOP Instruction</option>
+                                            <option value="BMR/ECR Instruction">BMR/ECR Instruction</option>
                                             <option value="Anyother(specify)">Any other (specify) </option>
                                         </select>
                                     </div>
@@ -590,7 +592,7 @@ $users = DB::table('users')
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
                                                 <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                <td><input type="number" name="IDnumber[]"></td>
+                                                <td><input type="text" name="IDnumber[]"></td>
                                                 <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
@@ -752,7 +754,7 @@ $users = DB::table('users')
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                            <div class="group-input">
+                            {{-- <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
                                             <button type="button" name="audit-agenda-grid"
@@ -789,7 +791,7 @@ $users = DB::table('users')
 
                                             </table>
                                         </div>
-                                    </div>
+                                    </div> --}}
        
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
@@ -899,6 +901,7 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
+                                            <option value="na">NA</option>
                                         </select>
                                   
                                     </div>
@@ -949,7 +952,7 @@ $users = DB::table('users')
                                             id="related_records">
                                             @foreach ($pre as $prix)
                                                 <option value="{{ $prix->id }}">
-                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -992,6 +995,16 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#Deviation_category').change(function () {
+                                if ($(this).val() === 'major') {
+                                    $('#Investigation_required').val('yes');
+                                    $('#Customer_notification').val('yes');
+                                }
+                            });
+                        });
+                    </script>
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
              <div class="inner-block-content">
@@ -2938,7 +2951,11 @@ $users = DB::table('users')
                     <!-- Form for adding new customer -->
                     <form method="POST" id="customerForm"> 
                         @csrf
-
+<style>
+    .validationClass{
+        margin-left: 100px
+    }
+</style>
                         <div class="modal-sub-head">
                             <div class="sub-main-head">
                                 <!-- Customer input fields -->
@@ -2946,48 +2963,56 @@ $users = DB::table('users')
                                 <div class="left-box">
                                     <!-- Customer ID -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold;" for="customer_id">Customer ID :</label>
+                                        <label style="font-weight: bold;" for="customer_id">Customer ID<span class="text-danger">*</span> :</label>
                                         <input type="text" id="customer_id" name="customer_id">
                                     </div>
+                                    <span id="customer_id_error" class="text-danger validationClass"></span>
                                     <!-- Email -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID :</label>
+                                        <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID<span class="text-danger">*</span> :</label>
                                         <input type="text" id="email" name="email">
                                     </div>
+                                    <span id="email_error" class="text-danger validationClass"></span>
                                     <!-- Customer Type -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type :</label>
-                                        <input type="text" id="customer_type" name="customer_type">
+                                        <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type<span class="text-danger">*</span> :</label>
+                                        <input type="text" id="customer_type" name="customer_type"> 
                                     </div>
+                                    <span id="customer_type_error" class="text-danger validationClass"></span>
                                     <!-- Status -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 42px;" for="status">Status :</label>
+                                        <label style="font-weight: bold; margin-left: 42px;" for="status">Status<span class="text-danger">*</span> :</label>
                                         <input type="text" id="status" name="status">
                                     </div>
+                                    <span id="status_error" class="text-danger validationClass"></span>
                                 </div>
 
                                 <!-- Right box -->
                                 <div class="right-box">
                                     <!-- Customer Name -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold;" for="customer_name">Customer Name :</label>
-                                        <input type="text" id="customer_name" name="customer_name">
+                                        <label style="font-weight: bold;" for="customer_name">Customer Name<span class="text-danger">*</span> :</label>
+                                        <input type="text" id="customer_name" name="customer_name"> 
                                     </div>
+                                    <span id="customer_name_error" class="text-danger validationClass"></span>
                                     <!-- Contact No -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No :</label>
+                                        <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No<span class="text-danger">*</span> :</label>
                                         <input type="text" id="contact_no" name="contact_no">
                                     </div>
+                                    <span id="contact_no_error" class="text-danger validationClass"></span>
                                     <!-- Industry -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry :</label>
+                                        <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry<span class="text-danger">*</span> :</label>
                                         <input type="text" id="industry" name="industry">
                                     </div>
+                                    <span id="industry_error" class="text-danger validationClass"></span>
                                     <!-- Region -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 66px; " for="region">Region :</label>
+                                        <label style="font-weight: bold; margin-left: 66px; " for="region">Region<span class="text-danger">*</span> :</label>
                                         <input type="text" id="region" name="region">
                                     </div>
+                                    <span id="region_id_error" class="text-danger validationClass"></span>
                                 </div>
                             </div>
                         </div>
@@ -3000,10 +3025,50 @@ $users = DB::table('users')
                             <button type="button" onclick="submitForm()" class="saveButton">Save</button>
                         </div>
                     </form>
+                    
                     <script>
                         function submitForm() {
+                            document.querySelectorAll('.validationClass').forEach(span => {
+                                span.textContent = '';
+                            });
+
                             var formData = new FormData(document.getElementById('customerForm'));
-                    
+
+                            // Perform basic validation
+                            if (formData.get('customer_id').trim() === '') {
+                                document.getElementById('customer_id_error').textContent = 'Customer ID is required.';
+                                return;
+                            }
+
+                            if (formData.get('email').trim() === '') {
+                                document.getElementById('email_error').textContent = 'Email is required.';
+                                return;
+                            }
+
+                            if (formData.get('customer_type').trim() === '') {
+                                document.getElementById('customer_type_error').textContent = 'Customer Type is required.';
+                                return;
+                            }
+                            if (formData.get('status').trim() === '') {
+                                document.getElementById('status_error').textContent = 'Status is required.';
+                                return;
+                            }
+                            if (formData.get('customer_name').trim() === '') {
+                                document.getElementById('customer_name_error').textContent = 'Customer Name is required.';
+                                return;
+                            }
+                            if (formData.get('industry').trim() === '') {
+                                document.getElementById('industry_error').textContent = 'Industry is required.';
+                                return;
+                            }
+                            if (formData.get('contact_no').trim() === '') {
+                                document.getElementById('contact_no_error').textContent = 'Contact Number is required.';
+                                return;
+                            }
+                            if (formData.get('region').trim() === '') {
+                                document.getElementById('region_error').textContent = 'Region is required.';
+                                return;
+                            }
                             // Send POST request to server
                             fetch("{{ route('customers.store') }}", {
                                 method: "POST",
@@ -3011,9 +3076,12 @@ $users = DB::table('users')
                             })
                             .then(response => {
                                 if (response.ok) {
-                                    // Clear the form fields
-                                    document.getElementById('customerForm').reset();
-                                    // myModal.setAttribute('data-bs-dismiss', 'modal');
+                                    // Close modal
+                                    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+                                    myModal.hide();
+
+            // Show toaster message
+            toastr.success('Record is created Successfully');
                                     // Get form data
             var customerData = {
                 customer_id: formData.get('customer_id'),
@@ -3052,6 +3120,8 @@ $users = DB::table('users')
                             });
                         }
                     </script>
+
+
                     @php
                         $customers = DB::table('customer-details')->get();
                     @endphp
@@ -3073,20 +3143,27 @@ $users = DB::table('users')
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Check if customers array is empty or null -->
+                                @if($customers && count($customers) > 0)
                                 <!-- Iterate over stored customers and display them -->
-                                @foreach($customers as $customer)
-                                <tr>
-                                    <td>{{ $customer->customer_id }}</td>
-                                    <td>{{ $customer->customer_name }}</td>
-                                    <td>{{ $customer->email }}</td>
-                                    <td>{{ $customer->customer_type }}</td>
-                                    <td>{{ $customer->status }}</td>
-                                    <td>{{ $customer->contact_no }}</td>
-                                    <td>{{ $customer->industry }}</td>
-                                    <td>{{ $customer->region }}</td>
-                                    <td>{{ $customer->remarks }}</td>
-                                </tr>
-                                @endforeach
+                                    @foreach($customers as $customer)
+                                    <tr>
+                                        <td>{{ $customer->customer_id }}</td>
+                                        <td>{{ $customer->customer_name }}</td>
+                                        <td>{{ $customer->email }}</td>
+                                        <td>{{ $customer->customer_type }}</td>
+                                        <td>{{ $customer->status }}</td>
+                                        <td>{{ $customer->contact_no }}</td>
+                                        <td>{{ $customer->industry }}</td>
+                                        <td>{{ $customer->region }}</td>
+                                        <td>{{ $customer->remarks }}</td>
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="9">No results available</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
