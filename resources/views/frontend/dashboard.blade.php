@@ -13,11 +13,11 @@
             <div class="dashboard-container">
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-9">
                         <div class="dashboard-left-block">
                             <div class="inner-block main-block">
                                 <div class="top">
-                                    <div class="d-flex align-items-center">
+                                         <div class="d-flex align-items-center">
                                         <div class="icon">
                                             <i class="fa-solid fa-gauge-high"></i>
                                         </div>
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="chart-grid">
+                            <div class="chart-grid">
                                 <div class="inner-block chart-block">
                                     <div class="chart-container">
                                         <div class="head">
@@ -60,9 +60,9 @@
                                         <div id="chart-20"></div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div> 
                             <div class="row">
-                                {{-- <div class="col-12">
+                                 <div class="col-12">
                                     <div class="inner-block search-block">
                                         <div class="title">
                                             Search Documents
@@ -84,11 +84,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div> 
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-3">
+                    
+                     <div class="col-lg-3">
                         <div class="dashboard-right-block">
                             <div class="inner-block recent-record">
                                 <div class="head">
@@ -138,7 +139,7 @@
                                 <a herf="#" class="link">Go to Helpdesk</a>
                             </div>
                         </div>
-                    </div> --}}
+                    </div> 
                 </div>
 
 
@@ -148,7 +149,7 @@
                         <div class="inner-block calendar-block">
                             <div id='calendar'></div>
                         </div>
-{{-- 
+
                         <div class="inner-block table-block cal-table">
                             <div class="head">Batch Failure Rate</div>
                             <div class="table-container">
@@ -309,9 +310,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div> --}}
+                        </div> 
 
-                        {{-- <div class="inner-block chart-block">
+                         <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
                                     Batch Failure Rate (Term)
@@ -477,9 +478,9 @@
                                 </div>
                                 <div id="chart-11"></div>
                             </div>
-                        </div> --}}
+                        </div> 
 
-                        {{-- <div class="inner-block table-block">
+                         <div class="inner-block table-block">
                             <div class="head">Effectivenss Check Failure Rate (Term)</div>
                             <div class="table-container">
                                 <table class="table table-bordered">
