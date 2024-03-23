@@ -228,20 +228,26 @@
                 @csrf
                 <div class="group-input">
                     <label for="password"><i class="fa-solid fa-lock"></i></label>
-                    <input type="password" id="password" name="password" placeholder="Enter Your Password" required minlength="8">
+                    <input type="password" id="password" name="password" placeholder="Enter Your Password" >
                     <span class="toggle-password" onclick="togglePasswordVisibility('password')">
                         <i class="fa-solid fa-eye"></i>
                     </span>
+                    @if ($errors->has('password'))
+                    <div class="alert alert-danger">{{ $errors->first('password') }}</div>
+                @endif
                 </div>
+                @if ($errors->has('password'))
+                    <div class="alert alert-danger">{{ $errors->first('password') }}</div>
+                @endif
                 <div class="group-input">
                     <label for="confirmPassword"><i class="fa-solid fa-lock"></i></label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required minlength="8">
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required minlength="10">
                     <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
                         <i class="fa-solid fa-eye"></i>
                     </span>
                 </div>
                 <div>
-                    <input type="submit" value="Update Password">
+                    <input type="submit"  onclick="togglePasswordVisibility('confirmPassword')" value="Update Password">
                 </div>
             </form>
         </div>
@@ -261,9 +267,10 @@
 <script>
 
 function togglePasswordVisibility(fieldId) {
-    var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    var passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*_+=?/~’;’,<>|\\]).{10,}$/;
+    console.log('password.value',password.value,fieldId)
         if (!passwordPattern.test(password.value)) {
-            password.setCustomValidity("Password must contain at least 8 characters with at least one number, one uppercase letter, and one lowercase letter.");
+            password.setCustomValidity("Password must contain at least 10 characters with at least one number, one uppercase letter, and one lowercase letter.");
         } else {
             password.setCustomValidity("");
         }
