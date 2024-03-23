@@ -669,7 +669,7 @@ header .header-bottom.bottom-pr-links {
 #dashboard .chart-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
+    gap: 15px;
 }
 
 #dashboard .chart-block .head,
@@ -677,7 +677,7 @@ header .header-bottom.bottom-pr-links {
     font-size: 1.1rem;
     font-weight: bold;
     margin-bottom: 20px;
-    padding: 10px 5px 10px 10px;
+    padding: 6px 5px 5px 9px;
     background: #0039bd24;
     border-left: 3px solid #0039bd;
 }
@@ -3228,14 +3228,14 @@ section#pdf-page .watermark {
 
 #tms-question-bank {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 150px);
 }
 
 #tms-question-bank .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
 }
 

@@ -261,6 +261,9 @@
                     <label for="password"><i class="fa-solid fa-lock"></i></label>
                     <input type="password" name="password" placeholder="Enter Your Password">
                 </div>
+                <div style="margin-top: -15px; margin-bottom: 10px;" class="forgot-password-input">
+                    <a  class="red-text" href="forgot-password">Forgot Password</a>
+                </div>
                 <div class="group-input">
                     <label for="timezone"><i class="fa-solid fa-calendar-check"></i></label>
                     <select name="timezone">
@@ -605,9 +608,7 @@
                 <div>
                     <input type="submit" value="Login">
                 </div>
-                <div >
-                    <a  class="red-text" href="forgot-password">Forgot Password</a>
-                </div>
+               
             </form>
         </div>
     </div>
