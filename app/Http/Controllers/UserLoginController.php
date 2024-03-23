@@ -17,6 +17,8 @@ use Str;
 use Log;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Part\TextPart;
+use App\Models\PasswordLog;
+
 
 class UserLoginController extends Controller
 {
@@ -120,10 +122,26 @@ class UserLoginController extends Controller
     {
         if($request->confirmPassword){
             $user = User::find(Auth::user()->id);
-            $user->password = Hash::make($request->confirmPassword);
+            $newPassword = $request->confirmPassword;
+            $oneYearAgo = Carbon::now()->subYear();
+            $passwordLogs = PasswordLog::where('user_id', $user->id)
+                ->where('created_at', '>=', $oneYearAgo)
+                ->get();
+
+            foreach ($passwordLogs as $passwordLog) {
+                if (Hash::check($newPassword, $passwordLog->password)) {
+                    return redirect()->back()->with('error', 'Please choose a different password. You cannot reuse a password within one year.');
+                }
+            }
+
+            $user->password = Hash::make($newPassword);
             $user->f_login = 1;
             $user->save();
-            Auth::logout();
+
+            $passwordLog = new PasswordLog();
+            $passwordLog->user_id = $user->id;
+            $passwordLog->password = Hash::make($newPassword);
+            $passwordLog->save();
             toastr()->success('Login With New Password.');
             return redirect('/login');
         }
