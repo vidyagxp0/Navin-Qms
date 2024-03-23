@@ -634,14 +634,14 @@ $users = DB::table('users')
                                         <textarea name="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-6">
+                             <div class="col-6" >
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed On</label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
                                        <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                              {{--  <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
@@ -656,7 +656,7 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div> --}}
-                                 <div class="col-lg-6">
+                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -705,13 +705,14 @@ $users = DB::table('users')
                                         <input type="text" id="others" name="others">
                                     </div>
                                 </div> 
-                               
+                               <div>  --}}
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
                                             $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
                                         @endphp
-                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
                                         <select multiple name="Facility[]" placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option {{ in_array($user->id, $selectedFacilities) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
