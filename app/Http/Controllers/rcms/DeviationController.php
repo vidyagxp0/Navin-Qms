@@ -225,14 +225,14 @@ class DeviationController extends Controller
         $Cft->Production_assessment = $request->Production_assessment;
         $Cft->Production_feedback = $request->Production_feedback;
         $Cft->production_on = $request->production_on;
-        $Cft->Production_Review_Completed_By = $request->Production_Review_Completed_By;
+        $Cft->production_by = $request->production_by; 
 
         $Cft->Warehouse_review = $request->Warehouse_review;
         $Cft->Warehouse_notification = $request->Warehouse_notification;
         $Cft->Warehouse_assessment = $request->Warehouse_assessment;
         $Cft->Warehouse_feedback = $request->Warehouse_feedback;
-        $Cft->Warehouse_Review_Completed_By = $request->Warehouse_Review_Completed_By;
-        $Cft->Warehouse_Review_Completed_On = $request->Warehouse_Review_Completed_On;
+        $Cft->Warehouse_by = $request->Warehouse_Review_Completed_By;
+        $Cft->Warehouse_on = $request->Warehouse_on;
 
         $Cft->Quality_review = $request->Quality_review;
         $Cft->Quality_Control_Person = $request->Quality_Control_Person;
@@ -1068,7 +1068,7 @@ class DeviationController extends Controller
         $deviation->Product_Batch = $request->Product_Batch;
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
-        //$deviation->Facility = implode(',', $request->Facility);  
+        $deviation->Facility = implode(',', $request->Facility);  
 
 
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
@@ -1104,14 +1104,14 @@ class DeviationController extends Controller
         $Cft->Production_assessment = $request->Production_assessment;
         $Cft->Production_feedback = $request->Production_feedback;
         $Cft->production_on = $request->production_on;
-        $Cft->Production_Review_Completed_By = $request->Production_Review_Completed_By;
+        $Cft->production_by = $request->production_by; 
 
         $Cft->Warehouse_review = $request->Warehouse_review;
         $Cft->Warehouse_notification = $request->Warehouse_notification;
         $Cft->Warehouse_assessment = $request->Warehouse_assessment;
         $Cft->Warehouse_feedback = $request->Warehouse_feedback;
-        $Cft->Warehouse_Review_Completed_By = $request->Warehouse_Review_Completed_By;
-        $Cft->Warehouse_Review_Completed_On = $request->Warehouse_Review_Completed_On;
+        $Cft->Warehouse_by = $request->Warehouse_Review_Completed_By;
+        $Cft->Warehouse_on = $request->Warehouse_on;
 
         $Cft->Quality_review = $request->Quality_review;
         $Cft->Quality_Control_Person = $request->Quality_Control_Person;
@@ -2369,6 +2369,57 @@ class DeviationController extends Controller
             return back();
         }
     }
+    public function cftnotreqired(Request $request, $id)
+    {
+
+
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+            $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
+
+                $deviation->stage = "5";
+                $deviation->status = "QA Final Review";
+                $deviation->QA_Final_Review_Complete_By = Auth::user()->name;
+                $deviation->QA_Final_Review_Complete_On = Carbon::now()->format('d-M-Y');
+                $deviation->QA_Final_Review_Comments = $request->comment;
+
+                $history = new DeviationAuditTrail();
+                $history->deviation_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->current = $deviation->QA_Final_Review_Complete_By;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage = 'Approved';
+                $history->save();
+                $list = Helpers::getQAUserList();
+                foreach ($list as $u) {
+                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                            Mail::send(
+                                'mail.view-mail',
+                                ['data' => $deviation],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Plan Approved By " . Auth::user()->name);
+                                }
+                            );
+                        }
+                    }
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
 
     public function deviationCancel(Request $request, $id)
     {
@@ -2540,69 +2591,6 @@ class DeviationController extends Controller
             return back();
         }
     }
-    public function sendToHod(Request $request, $id)
-    {
-        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-            $deviation = Deviation::find($id);
-            $lastDocument = Deviation::find($id);
-            $list = Helpers::getInitiatorUserList();
-            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
-
-            // Soft delete all records
-            $cftResponse->each(function ($response) {
-                $response->delete();
-            });
-            $deviation->stage = "2";
-            $deviation->status = "HOD Review";
-            $deviation->qa_more_info_required_by = Auth::user()->name;
-            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $id;
-            $history->activity_type = 'Activity Log';
-            $history->previous = "";
-            $history->current = $deviation->qa_more_info_required_by;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDocument->status;
-            $history->stage = 'Send to HOD';
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("More Info Required " . Auth::user()->name);
-                            }
-                        );
-                    }
-                }
-            }
-            $history->save();
-            $deviation->update();
-            $history = new DeviationHistory();
-            $history->type = "Deviation";
-            $history->doc_id = $id;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->stage_id = $deviation->stage;
-            $history->status = "Send to HOD";
-            $history->save();
-
-            toastr()->success('Document Sent');
-            return back();
-        } else {
-            toastr()->error('E-signature Not match');
-            return back();
-        }
-    }
-
-
     public function sendToQA(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
@@ -2666,69 +2654,6 @@ class DeviationController extends Controller
         }
     }
 
-    public function sendToInitiator(Request $request, $id)
-    {
-        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-            $deviation = Deviation::find($id);
-            $lastDocument = Deviation::find($id);
-            $list = Helpers::getInitiatorUserList();
-            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
-
-            // Soft delete all records
-            $cftResponse->each(function ($response) {
-                $response->delete();
-            });
-
-
-            $deviation->stage = "1";
-            $deviation->status = "Opened";
-            $deviation->qa_more_info_required_by = Auth::user()->name;
-            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $id;
-            $history->activity_type = 'Activity Log';
-            $history->previous = "";
-            $history->current = $deviation->qa_more_info_required_by;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDocument->status;
-            $history->stage = 'Send to Initiator';
-            $history->save();
-            $deviation->update();
-            $history = new DeviationHistory();
-            $history->type = "Deviation";
-            $history->doc_id = $id;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->stage_id = $deviation->stage;
-            $history->status = "Send to Initiator";
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("More Info Required " . Auth::user()->name);
-                            }
-                        );
-                    }
-                }
-            }
-            $history->save();
-
-            toastr()->success('Document Sent');
-            return back();
-        } else {
-            toastr()->error('E-signature Not match');
-            return back();
-        }
-    }
 
     public function deviation_qa_more_info(Request $request, $id)
     {
@@ -2856,6 +2781,196 @@ class DeviationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
+    public function check(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+            $list = Helpers::getInitiatorUserList();
+           // Soft delete all records
+           $cftResponse->each(function ($response) {
+            $response->delete();
+        });
+
+
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Send to Initiator';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to Initiator";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
+
+                    Mail::send(
+                        'mail.view-mail',
+                        ['data' => $deviation],
+                        function ($message) use ($email) {
+                            $message->to($email)
+                                ->subject("More Info Required " . Auth::user()->name);
+                        }
+                    );
+                }
+            }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
+    public function check2(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+            $list = Helpers::getInitiatorUserList();
+
+        // Soft delete all records
+        $cftResponse->each(function ($response) {
+            $response->delete();
+        });
+        $deviation->stage = "2";
+        $deviation->status = "HOD Review";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Send to HOD';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to HOD Review";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
+
+                    Mail::send(
+                        'mail.view-mail',
+                        ['data' => $deviation],
+                        function ($message) use ($email) {
+                            $message->to($email)
+                                ->subject("More Info Required " . Auth::user()->name);
+                        }
+                    );
+                }
+            }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
+    public function check3(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+            $list = Helpers::getInitiatorUserList();
+
+        // Soft delete all records
+        $cftResponse->each(function ($response) {
+            $response->delete();
+        });
+        $deviation->stage = "3";
+            $deviation->status = "QA Initial Review";
+            $deviation->qa_more_info_required_by = Auth::user()->name;
+            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Send to HOD';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to QA Initial Review";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
+
+                    Mail::send(
+                        'mail.view-mail',
+                        ['data' => $deviation],
+                        function ($message) use ($email) {
+                            $message->to($email)
+                                ->subject("More Info Required " . Auth::user()->name);
+                        }
+                    );
+                }
+            }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+
         } else {
             toastr()->error('E-signature Not match');
             return back();

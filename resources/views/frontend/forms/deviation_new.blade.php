@@ -484,12 +484,12 @@ $users = DB::table('users')
                                     </div>
                                 </div>  
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Nature of Repeat?</label>
+                                        <label for="short_description_required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring">Recurring </option>
+                                            <option value="Recurring">Recurring</option>
                                             <option value="Non_Recurring">Non Recurring</option>
                                         </select>
                                     </div>
@@ -501,6 +501,26 @@ $users = DB::table('users')
                                         <textarea name="nature_of_repeat"></textarea>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#short_description_required').change(function () {
+                                            var selectedValue = $(this).val();
+                                            if (selectedValue === 'Recurring') {
+                                                // $('#nature_of_repeat').show();
+                                                $('textarea[name="nature_of_repeat"]').prop('required', true);
+                                            } else {
+                                                // $('#nature_of_repeat').hide();
+                                                $('textarea[name="nature_of_repeat"]').prop('required', false);
+                                            }
+                                        });
+                                
+                                        // Trigger change event on page load if already selected value is "Recurring"
+                                        $('#short_description_required').change();
+                                    });
+                                </script>
+
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed On</label>
@@ -887,13 +907,14 @@ $users = DB::table('users')
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Investigation Details">Investigation Details</label>
+                                    <div class="group-input" id="Investigations_details">
+                                        <label for="Investigation Details">Investigation Details<span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6">
+                                        <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6">
                                     </textarea>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ?</label>
@@ -907,11 +928,11 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-5">
-                                    <div class="group-input">
+                                    <div class="group-input" id="customer_option">
                                         @php
                                             $customers = DB::table('customer-details')->get();
                                         @endphp
-                                        <label for="customers">Customers</label>
+                                        <label for="customers">Customers<span class="text-danger">*</span></label>
                                         <select name="customers" id="customers">
                                             <option value="0"> -- Select --</option>
                                             @foreach ($customers as $data)
@@ -999,12 +1020,124 @@ $users = DB::table('users')
                         $(document).ready(function () {
                             $('#Deviation_category').change(function () {
                                 if ($(this).val() === 'major') {
-                                    $('#Investigation_required').val('yes');
-                                    $('#Customer_notification').val('yes');
+                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    $('#Investigations_details').show();
+                                    $('textarea[name="Investigations_details"]').prop('required', true);
+
+                                    $('#Customer_notification').val('yes').prop('disabled', true);
+                                    $('#customer_option').show();
+                                    $('textarea[name="customer_option"]').prop('required', true);
+                                } else {
+                                    $('#Customer_notification').prop('disabled', false);
+                                    $('#customer_option').hide();
+                                    $('textarea[name="customer_option"]').prop('required', false);
+                                    $('#Investigation_required').prop('disabled', false);
+                                    $('#Investigations_details').hide();
+                                    $('textarea[name="Investigations_details"]').prop('required', false);
                                 }
+                                // if ($(this).val() === 'major') {
+                                //     $('#Investigation_required').val('yes');
+                                //     $('#Customer_notification').val('yes');
+                                // }
                             });
                         });
+                        $(document).ready(function () {
+                            $('#Investigation_required').change(function () {
+                                var selectedValue = $(this).val();
+                                if (selectedValue === 'yes') {
+                                    $('#Investigations_details').show();
+                                    $('textarea[name="Investigations_details"]').prop('required', true);
+                                } else {
+                                    $('#Investigations_details').hide();
+                                    $('textarea[name="Investigations_details"]').prop('required', false);
+                                }
+                            });
+                    
+                            // Trigger change event on page load if already selected value is "Recurring"
+                            $('#Investigation_required').change();
+                        });
+                        $(document).ready(function () {
+                            $('#Customer_notification').change(function () {
+                                var selectedValue = $(this).val();
+                                if (selectedValue === 'yes') {
+                                    $('#customer_option').show();
+                                    $('textarea[name="customer_option"]').prop('required', true);
+                                } else {
+                                    $('#customer_option').hide();
+                                    $('textarea[name="customer_option"]').prop('required', false);
+                                }
+                            });
+                    
+                            // Trigger change event on page load if already selected value is "Recurring"
+                            $('#Customer_notification').change();
+                        });
                     </script>
+                    {{-- <script>
+                        $(document).ready(function () {
+                            // Event listener for Investigation_required dropdown
+                            $('#Investigation_required').change(function () {
+                                if ($(this).val() === 'yes') {
+                                    // If "Yes" is selected, make Investigation_Details field required
+                                    $('.Investigation_Details').prop('required', true);
+                                } else {
+                                    // If "No" or any other option is selected, remove the required attribute
+                                    $('.Investigation_Details').prop('required', false);
+                                    // Hide error message when not required
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Event listener for Investigation_Details field
+                            $('.Investigation_Details').blur(function () {
+                                // Check if the field is empty and required
+                                if ($(this).prop('required') && $(this).val().trim() === '') {
+                                    // Show error message if empty
+                                    $('.error-message').show();
+                                } else {
+                                    // Hide error message if not empty
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Initial check when page loads
+                            if ($('#Investigation_required').val() === 'yes') {
+                                $('.Investigation_Details').prop('required', true);
+                            }
+                        });
+                    </script>
+                    <script>
+                        $(document).ready(function () {
+                            // Event listener for Customer_notification dropdown
+                            $('#Customer_notification').change(function () {
+                                if ($(this).val() === 'yes') {
+                                    // If "Yes" is selected, make Investigation_Details field required
+                                    $('#customers').prop('required', true);
+                                } else {
+                                    // If "No" or any other option is selected, remove the required attribute
+                                    $('#customers').prop('required', false);
+                                    // Hide error message when not required
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Event listener for Investigation_Details field
+                            $('#customers').blur(function () {
+                                // Check if the field is empty and required
+                                if ($(this).prop('required') && $(this).val().trim() === '') {
+                                    // Show error message if empty
+                                    $('.error-message').show();
+                                } else {
+                                    // Hide error message if not empty
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Initial check when page loads
+                            if ($('#Customer_notification').val() === 'yes') {
+                                $('#customers').prop('required', true);
+                            }
+                        });
+                    </script> --}}
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
              <div class="inner-block-content">
@@ -1077,7 +1210,7 @@ $users = DB::table('users')
                                   <div class="col-md-6 mb-3"> 
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
-                                        <input type="text" name="Production_Review_Completed_By" id="Production Review Completed By" disabled>
+                                        <input type="text" name="production_by" id="production_by" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -1156,7 +1289,7 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Warehousefeedback">Warehouse Review Completed By</label>
-                                        <input type="text" name="Warehouse_by" disabled>
+                                        <input type="text"  name="Warehouse_by" id="Warehouse_by" disabled>
                                     
                                     </div>
                                 </div>
@@ -1165,9 +1298,9 @@ $users = DB::table('users')
                                     <div class="group-input input-date">
                                         <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="Warehouse_Review_Completed_On" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="Warehouse_Review_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Warehouse_Review_Completed_On')" />
+                                            <input type="text" id="Warehouse_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Warehouse_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Warehouse_on')" />
                                         </div>
                                     </div>
                                 </div>

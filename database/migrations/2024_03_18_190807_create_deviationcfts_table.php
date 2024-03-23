@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('Production_assessment')->nullable();
             $table->string('Production_feedback')->nullable();
             $table->longText('production_attachment')->nullable();
-            $table->string('Production_Review_Completed_By')->nullable();
+            $table->string('Production_by')->nullable();
             $table->date('production_on')->nullable();
 
             $table->text('Warehouse_review')->nullable();
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('Warehouse_assessment')->nullable();
             $table->string('Warehouse_feedback')->nullable();
             $table->longText('Warehouse_attachment')->nullable();
-            $table->string('Warehouse_Review_Completed_By')->nullable();
-            $table->date('Warehouse_Review_Completed_On')->nullable();
+            $table->string('Warehouse_by')->nullable();
+            $table->date('Warehouse_on')->nullable();
 
             $table->text('Quality_review')->nullable();
             $table->text('Quality_Control_Person')->nullable();

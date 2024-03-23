@@ -302,11 +302,6 @@ $users = DB::table('users')
                                     $valuesArray[] = $value;
                                 }
                             }
-
-                            // dd(DB::table('deviationcfts_response')->where('deviation_id', $data->division_id)->get());
-
-
-                            // $cftCompleteUser = DB::table('deviationcfts_response')->where(['status'=>'In-progress', 'deviation_id' => $id, 'cft_user_id' => Auth::user()->id])->latest()->first(); 
                             $cftCompleteUser = DB::table('deviationcfts_response')
                             ->whereIn('status', ['In-progress', 'Completed'])
                                 ->where('deviation_id',$data->id)
@@ -344,7 +339,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Initial Review Complete
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#deviationIsCFTRequired">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cft-not-reqired">
                                 CFT Review Not Required
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
@@ -363,10 +358,10 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Initiator
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToHod">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
                                 Send to HOD
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToQA">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
                                 Send to QA Initial Review
                             </button>
                              <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -627,8 +622,8 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->short_description_required == 'Recurring') selected @endif
                                                 value="Recurring">Recurring</option>
-                                                <option @if ($data->short_description_required == 'Non Recurring') selected @endif
-                                                    value="Non Recurring">Non Recurring</option>
+                                                <option @if ($data->short_description_required == 'Non_Recurring') selected @endif
+                                                    value="Non_Recurring">Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -636,7 +631,7 @@ $users = DB::table('users')
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature<span
                                                 class="text-danger d-none">*</span></label>
-                                        <textarea name="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -650,12 +645,13 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
+                                            $facilities = $data->Facility;
                                         @endphp
                                         <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
-                                        <select  multiple name="Facility[]" placeholder="Select Facility Name"
-                                            data-search="false" data-silent-initial-value-set="true" id="Facility" value="{{ $data->Facility }}">
+                                        <select multiple name="Facility[]" placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                <option value="{{ $user->id }}" @if (in_array($user->id, explode(',', $data->Facility))) selected @endif>{{ $user->name }}</option>
                                             @endforeach                                           
                                         </select>
                                     </div>
@@ -1057,7 +1053,8 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Investigation Details">Investigation Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6" required>{{ $data->Investigation_Details }}</textarea>
+                                        <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
+                                        <span class="error-message" style="color: red; display: none;">Please fill out this field.</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1195,14 +1192,90 @@ $users = DB::table('users')
                         $(document).ready(function () {
                             $('#Deviation_category').change(function () {
                                 if ($(this).val() === 'major') {
-                                    $('#Investigation_required').val('yes');
-                                    $('#Customer_notification').val('yes');
+                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    $('#Customer_notification').val('yes').prop('disabled', true);
+                                } else {
+                                    $('#Customer_notification').prop('disabled', false);
+                                    $('#Investigation_required').prop('disabled', false);
                                 }
+                                // if ($(this).val() === 'major') {
+                                //     $('#Investigation_required').val('yes');
+                                //     $('#Customer_notification').val('yes');
+                                // }
                             });
                         });
                     </script>
+                    {{-- <script>
+                        $(document).ready(function () {
+                            // Event listener for Investigation_required dropdown
+                            $('#Investigation_required').change(function () {
+                                if ($(this).val() === 'yes') {
+                                    // If "Yes" is selected, make Investigation_Details field required
+                                    $('.Investigation_Details').prop('required', true);
+                                } else {
+                                    // If "No" or any other option is selected, remove the required attribute
+                                    $('.Investigation_Details').prop('required', false);
+                                    // Hide error message when not required
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Event listener for Investigation_Details field
+                            $('.Investigation_Details').blur(function () {
+                                // Check if the field is empty and required
+                                if ($(this).prop('required') && $(this).val().trim() === '') {
+                                    // Show error message if empty
+                                    $('.error-message').show();
+                                } else {
+                                    // Hide error message if not empty
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Initial check when page loads
+                            if ($('#Investigation_required').val() === 'yes') {
+                                $('.Investigation_Details').prop('required', true);
+                            }
+                        });
+                    </script>
+                    <script>
+                        $(document).ready(function () {
+                            // Event listener for Customer_notification dropdown
+                            $('#Customer_notification').change(function () {
+                                if ($(this).val() === 'yes') {
+                                    // If "Yes" is selected, make Investigation_Details field required
+                                    $('#customers').prop('required', true);
+                                } else {
+                                    // If "No" or any other option is selected, remove the required attribute
+                                    $('#customers').prop('required', false);
+                                    // Hide error message when not required
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Event listener for Investigation_Details field
+                            $('#customers').blur(function () {
+                                // Check if the field is empty and required
+                                if ($(this).prop('required') && $(this).val().trim() === '') {
+                                    // Show error message if empty
+                                    $('.error-message').show();
+                                } else {
+                                    // Hide error message if not empty
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Initial check when page loads
+                            if ($('#Customer_notification').val() === 'yes') {
+                                $('#customers').prop('required', true);
+                            }
+                        });
+                    </script> --}}
                     
                     <!-- CFT -->
+                    {{-- @php
+                    $deviationsCFTs = DB::table('deviationcfts')->where('deviation_id', $id)->first();
+                    @endphp --}}
                     <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -1286,7 +1359,7 @@ $users = DB::table('users')
                                   <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
-                                        <input type="text" name="Production_Review_Completed_By" id="Production_Review_Completed_By" value="Production_Review_Completed_By" disabled>
+                                        <input type="text" name="production_by" id="production_by" value={{ $data1->Production_by }} disabled>
                                     
                                     </div>
                                 </div>
@@ -1378,7 +1451,7 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
-                                        <input type="text" name="Warehouse_Review_Completed_By" id="Warehouse_Review_Completed_By" value="Warehouse_Review_Completed_By" disabled>
+                                        <input type="text" name="Warehouse_by" id="Warehouse_by" value={{ $data1->Warehouse_by }} disabled>
                                     
                                     </div>
                                 </div>
@@ -1386,7 +1459,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="Warehouse_Review_Completed_On" name="Warehouse_Review_Completed_On" value="{{ $data1->Warehouse_Review_Completed_On }}" >
+                                        <input type="date"id="Warehouse_on" name="Warehouse_on" value="{{ $data1->Warehouse_on }}" >
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4098,53 +4171,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="sendToHod">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">E-Signature</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-    
-                <form action="{{ url('sendToHod', $data->id) }}" method="POST">
-                    @csrf
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="mb-3 text-justify">
-                            Please select a meaning and a outcome for this task and enter your username
-                            and password for this task. You are performing an electronic signature,
-                            which is legally binding equivalent of a hand written signature.
-                        </div>
-                        <div class="group-input">
-                            <label for="username">Username <span class="text-danger">*</span></label>
-                            <input type="text" name="username" required>
-                        </div>
-                        <div class="group-input">
-                            <label for="password">Password <span class="text-danger">*</span></label>
-                            <input type="password" name="password" required>
-                        </div>
-                        <div class="group-input">
-                            <label for="comment">Comment <span class="text-danger">*</span></label>
-                            <input type="comment" name="comment" required>
-                        </div>
-                    </div>
-    
-                    <!-- Modal footer -->
-                    <!-- <div class="modal-footer">
-                        <button type="submit" data-bs-dismiss="modal">Submit</button>
-                        <button>Close</button>
-                    </div> -->
-                    <div class="modal-footer">
-                      <button type="submit">Submit</button>
-                        <button type="button" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="sendToInitiator">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content"> 
@@ -4155,7 +4181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
     
-                <form action="{{ route('sendToInitiator', $data->id) }}" method="POST">
+                <form action="{{ route('check', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -4191,7 +4217,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    {{-- <div class="modal fade" id="cftReview">
+    <div class="modal fade" id="hodsend">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content"> 
     
@@ -4201,7 +4227,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
     
-                <form action="{{ route('cftReview', $data->id) }}" method="POST">
+                <form action="{{ route('check2', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -4236,8 +4262,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </form>
             </div>
         </div>
-    </div> --}}
-    <div class="modal fade" id="sendToQA">
+    </div>
+    <div class="modal fade" id="qasend">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content"> 
     
@@ -4247,7 +4273,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
     
-                <form action="{{ url('sendToQA', $data->id) }}" method="POST">
+                <form action="{{ route('check3', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -4295,6 +4321,51 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cft-not-reqired">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('cftnotreqired', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
