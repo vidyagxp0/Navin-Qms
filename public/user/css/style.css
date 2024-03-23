@@ -4531,13 +4531,13 @@ section#pdf-page .watermark {
 ===============================================*/
 #manage-quizzes {
     padding: 20px 0px;
-    background: #4274da;
+    background: #f39f40;
     min-height: calc(100vh - 150px);
 }
 
 #manage-quizzes .inner-block {
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fae1c4, -12px -12px 24px #fde0bf;
     background: #ffffff;
     overflow: hidden;
 }
@@ -4545,7 +4545,7 @@ section#pdf-page .watermark {
 #manage-quizzes .inner-block .main-head {
     padding: 15px;
     color: white;
-    background: #4274da;
+    background: #85878c;
     margin-bottom: 0;
     font-weight: bold;
     font-size: 1.2rem;
