@@ -150,7 +150,7 @@
                             <div style="height: 100px;" id='calendar'></div>
                         </div>
                    <div class="row">
-                        <div class="col-lg-4">
+                    <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
                             <div class="head">Corporate Document By Type</div>
                             <div id="chart-21"></div>
@@ -1994,7 +1994,7 @@ var options = {
 
         var chart = new ApexCharts(document.querySelector("#chart-21"), options);
         chart.render();
-      // ========================new chart added II==============================================
+      // ========================new chart added I==============================================
 var options = {
           series: [54, 55, 41, 17, 20],
           chart: {
@@ -2106,7 +2106,7 @@ var options = {
           enabled: false
         },
         xaxis: {
-          categories: ['Assigned', 'Completed', 'Unassigned', 'Not Completed', 'In Process', 'Document Obsoleted', 'Course Obsole',
+          categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
             'United States', 'China', 'Germany'
           ],
         }
