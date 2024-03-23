@@ -489,8 +489,10 @@ $users = DB::table('users')
                                         <label for="short_description_required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring">Recurring</option>
-                                            <option value="Non_Recurring">Non Recurring</option>
+                                            <option value="Recurring" @if (old('Initiator_Group') == 'Recurring') selected @endif>
+                                                Recurring</option>
+                                                <option value="Non_Recurring" @if (old('Initiator_Group') == 'Non_Recurring') selected @endif>
+                                                    Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -995,7 +997,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">QA Initial Attachments</label>
+                                        <label for="QA Initial Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="Initial_attachment"></div>

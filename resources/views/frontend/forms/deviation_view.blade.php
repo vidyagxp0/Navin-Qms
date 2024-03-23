@@ -618,12 +618,12 @@ $users = DB::table('users')
                                 <div class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Short Description required">Nature of Repeat?</label>
-                                        <select name="short_description_required" id="short_description_required">
+                                        <select name="short_description_required" id="short_description_required" value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
-                                            <option @if ($data->short_description_required == 'Recurring') selected @endif
-                                                value="Recurring">Recurring</option>
-                                                <option @if ($data->short_description_required == 'Non_Recurring') selected @endif
-                                                    value="Non_Recurring">Non Recurring</option>
+                                            <option value="Recurring"
+                                            @if ($data->short_description_required == 'Recurring') selected @endif>Recurring</option>
+                                            <option value="Non_Recurring"
+                                            @if ($data->short_description_required == 'Non_Recurring') selected @endif>Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -634,7 +634,7 @@ $users = DB::table('users')
                                         <textarea name="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed On</label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
@@ -655,8 +655,8 @@ $users = DB::table('users')
                                             @endforeach                                           
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
+                                </div> --}}
+                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -705,7 +705,7 @@ $users = DB::table('users')
                                         <input type="text" id="others" name="others">
                                     </div>
                                 </div> 
-                               {{--
+                               
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
@@ -1156,7 +1156,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Inv Attachments">QA Initial Attachments</label>
+                                        <label for="QA Initial Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div disabled class="file-attachment-list" id="Initial_attachment">
@@ -3523,7 +3523,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Approved On">Approved On :-</label>
-                                        <div class="static">{{ $data->Approved_By }}</div>
+                                        <div class="static">{{ $data->Approved_On }}</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

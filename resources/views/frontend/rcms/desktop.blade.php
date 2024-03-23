@@ -754,7 +754,7 @@
                                             <td>{{ $Deviation1->division_name }}</td>
                                             {{-- <td>{{ $Deviation1->process }}</td> --}}
                                             <td>{{ $Deviation1->short_description }}</td>
-                                            <td>{{ $Deviation1->Submitted_by }}</td>
+                                            <td>{{ $Deviation1->submit_by }}</td>
                                             <td>{{ $Deviation1->Deviation_category }}</td>
                                             <td>{{ $Deviation1->QA_Initial_Review_Complete_By}}</td>
                                             <td>{{ $Deviation1->record_number }}</td>

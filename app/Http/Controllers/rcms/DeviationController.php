@@ -140,6 +140,20 @@ class DeviationController extends Controller
 
             $deviation->Audit_file = json_encode($files);
         }
+        //dd($request->Initial_attachment);
+        if (!empty ($request->Initial_attachment)) {
+            $files = [];
+            if ($request->hasfile('Initial_attachment')) {
+                foreach ($request->file('Initial_attachment') as $file) {
+                    $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->Initial_attachment = json_encode($files);
+        }
 
         if (!empty ($request->QA_attachment)) {
             $files = [];
