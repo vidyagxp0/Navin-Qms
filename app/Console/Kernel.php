@@ -61,6 +61,7 @@ class Kernel extends ConsoleKernel
 
                 }
                 }
+                $schedule->command('users:update_inactive')->dailyAt('12:00');
 
     }
 
