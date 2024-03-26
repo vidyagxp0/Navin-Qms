@@ -605,7 +605,6 @@ class DeviationController extends Controller
         }
         $data5->save();
 
-
         $history = new DeviationAuditTrail();
         $history->deviation_id = $deviation->id;
         $history->activity_type = 'Short Description';
@@ -3253,6 +3252,14 @@ class DeviationController extends Controller
         // return $audit;
 
         return view('frontend.forms.deviation_audit', compact('audit', 'document', 'today'));
+    }
+    public function DeviationAuditTrialDetails($id)
+    {
+        $detail = DeviationAuditTrail::find($id);
+        $detail_data = DeviationAuditTrail::where('activity_type', $detail->activity_type)->where('deviation_id', $detail->deviation_id)->latest()->get();
+        $doc = Deviation::where('id', $detail->deviation_id)->first();
+        $doc->origiator_name = User::find($doc->initiator_id);
+        return view('frontend.forms.audit-trial-deviation-inner', compact('detail', 'doc', 'detail_data'));
     }
     public static function singleReport($id)
     {
