@@ -122,6 +122,10 @@ class UserLoginController extends Controller
     {
         if($request->confirmPassword){
             $user = User::find(Auth::user()->id);
+            if ($request->confirmPassword == $user->name || $request->confirmPassword == $user->email) {
+                return redirect()->back()->with('error', 'Please choose a different password. You cannot Your name or email.');
+            }
+            
             $newPassword = $request->confirmPassword;
             $oneYearAgo = Carbon::now()->subYear();
             $passwordLogs = PasswordLog::where('user_id', $user->id)
