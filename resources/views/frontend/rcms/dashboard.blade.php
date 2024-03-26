@@ -137,19 +137,19 @@
                                 <label for="scope">Process</label>
                                 <select id="scope" name="form">
                                     <option value="">All Records</option>
-                                    <option value="Internal-Audit">Internal Audit</option>
-                                    <option value="External-Audit">External Audit</option>
-                                    <option value="Capa">Capa</option>
-                                    <option value="Audit-Program">Audit Program</option>
+                                    {{-- <option value="Internal-Audit">Internal Audit</option>
+                                    <option value="External-Audit">External Audit</option> --}}
+                                    <option value="Capa">CAPA</option>
+                                    {{-- <option value="Audit-Program">Audit Program</option>
                                     <option value="Lab Incident">Lab Incident</option>
-                                    <option value="Risk Assesment">Risk Assesment</option>
+                                    <option value="Risk Assesment">Risk Assesment</option> --}}
                                     <option value="Root-Cause-Analysis">Root Cause Analysis</option>
                                     <option value="Management Review">Management Review</option>
-                                    <option value="Document">Document</option>
+                                    {{-- <option value="Document">Document</option>
                                     <option value="Extension">Extension</option>
                                     <option value="Observation">Observation</option>
                                     <option value="Change Control">Change Control</option>
-                                    <option value="Action Item">Action Item</option>
+                                    <option value="Action Item">Action Item</option> --}}
                                     <option value="Effectiveness Check">Effectiveness Check</option>
                                     <option value="Deviation">Deviation</option>
                                      {{-- <option value="tms">TMS</option>  --}}

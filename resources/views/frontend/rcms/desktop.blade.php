@@ -199,7 +199,7 @@
             <table>
                 <tr class="h-30 w-100" style="display: flex; flex-direction:row; align-items:center; ">
                     <td class="w-100" style="height:104px">
-                        <h4 style="padding-top: 25px;"><strong>Customer Name</strong></h4>
+                        <h4 style="padding-top: 25px; text-align:center;"><strong>VidhyaGxP</strong></h4>
                     </td>
                     <td class="w-30" style="text-align:center;" >
                         <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-70 h-50">
