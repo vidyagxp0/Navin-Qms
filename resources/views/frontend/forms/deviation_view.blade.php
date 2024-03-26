@@ -1034,7 +1034,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation  Required ?</label>
                                         <select name="Investigation_required" id="Investigation_required"  value="{{ $data->Investigation_required }}" >
-                                            <option value="">-- Select --</option>
+                                            <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value="yes">Yes</option>
                                             <option  @if ($data->Investigation_required == 'no') selected @endif 
@@ -3081,7 +3081,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="CAPA Rquired">CAPA Required ? </label>
                                       <select name="CAPA_Rquired"  id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
-                                        <option value=""> -- Select --</option>
+                                        <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
                                             value="yes">Yes</option>
                                         <option  @if ($data->CAPA_Rquired == 'no') selected @endif 

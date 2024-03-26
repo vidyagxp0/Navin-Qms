@@ -2159,6 +2159,7 @@ section#pdf-page .watermark {
     padding: 20px 0px;
     background: #4274da;
     min-height: calc(100vh - 150px);
+    background: #E8A936;
 }
 
 #audit-trial .inner-block {

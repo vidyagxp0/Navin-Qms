@@ -611,7 +611,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Short Description';
         $history->previous = "Null";
         $history->current = $deviation->short_description;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -624,7 +624,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Due Date';
         $history->previous = "Null";
         $history->current = $deviation->due_date;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -637,7 +637,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Initiator Group';
         $history->previous = "Null";
         $history->current = $deviation->Initiator_Group;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -650,7 +650,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Deviation Observed';
         $history->previous = "Null";
         $history->current = $deviation->Deviation_date;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -663,7 +663,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Observed by';
         $history->previous = "Null";
         $history->current = $deviation->Observed_by;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -676,7 +676,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Deviation Reported on';
         $history->previous = "Null";
         $history->current = $deviation->Deviation_reported_date;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -689,7 +689,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Deviation Related To';
         $history->previous = "Null";
         $history->current = $deviation->audit_type;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -702,7 +702,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Others';
         $history->previous = "Null";
         $history->current = $deviation->others;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -715,7 +715,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Name of Product & Batch No';
         $history->previous = "Null";
         $history->current = $deviation->Product_Batch;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -728,7 +728,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Description of Deviation';
         $history->previous = "Null";
         $history->current = $deviation->Description_Deviation;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -741,7 +741,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Immediate Action (if any)';
         $history->previous = "Null";
         $history->current = $deviation->Immediate_Action;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -754,7 +754,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Preliminary Impact of Deviation';
         $history->previous = "Null";
         $history->current = $deviation->Preliminary_Impact;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -767,7 +767,7 @@ class DeviationController extends Controller
         $history->activity_type = 'HOD Remarks';
         $history->previous = "Null";
         $history->current = $deviation->HOD_Remarks;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -780,7 +780,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Initial Deviation Category';
         $history->previous = "Null";
         $history->current = $deviation->Deviation_category;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -793,7 +793,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Justification for Categorization';
         $history->previous = "Null";
         $history->current = $deviation->Justification_for_categorization;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -806,7 +806,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Investigation Is required ?';
         $history->previous = "Null";
         $history->current = $deviation->Investigation_required;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -819,7 +819,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Investigation Details';
         $history->previous = "Null";
         $history->current = $deviation->Investigation_Details;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -832,7 +832,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Customer Notification Required ?';
         $history->previous = "Null";
         $history->current = $deviation->Customer_notification;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -845,7 +845,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Customer';
         $history->previous = "Null";
         $history->current = $deviation->customers;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -858,7 +858,7 @@ class DeviationController extends Controller
         $history->activity_type = 'QA Initial Remarks';
         $history->previous = "Null";
         $history->current = $deviation->QAInitialRemark;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -871,7 +871,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Investigation Summary';
         $history->previous = "Null";
         $history->current = $deviation->Investigation_Summary;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -884,7 +884,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Impact Assessment';
         $history->previous = "Null";
         $history->current = $deviation->Impact_assessment;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -897,7 +897,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Root Cause';
         $history->previous = "Null";
         $history->current = $deviation->Root_cause;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -910,7 +910,7 @@ class DeviationController extends Controller
         $history->activity_type = 'CAPA Required ?';
         $history->previous = "Null";
         $history->current = $deviation->CAPA_Rquired;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -923,7 +923,7 @@ class DeviationController extends Controller
         $history->activity_type = 'CAPA Type?';
         $history->previous = "Null";
         $history->current = $deviation->capa_type;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -936,7 +936,7 @@ class DeviationController extends Controller
         $history->activity_type = 'CAPA Description';
         $history->previous = "Null";
         $history->current = $deviation->CAPA_Description;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -949,7 +949,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Post Categorization Of Deviation';
         $history->previous = "Null";
         $history->current = $deviation->Post_Categorization;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -962,7 +962,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Investigation Of Revised Categorization';
         $history->previous = "Null";
         $history->current = $deviation->Investigation_Of_Review;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -975,7 +975,7 @@ class DeviationController extends Controller
         $history->activity_type = 'QA Feedbacks';
         $history->previous = "Null";
         $history->current = $deviation->QA_Feedbacks;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -988,7 +988,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Closure Comments';
         $history->previous = "Null";
         $history->current = $deviation->Closure_Comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -1001,7 +1001,7 @@ class DeviationController extends Controller
         $history->activity_type = 'Disposition of Batch';
         $history->previous = "Null";
         $history->current = $deviation->Disposition_Batch;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
