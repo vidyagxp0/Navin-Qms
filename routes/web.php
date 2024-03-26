@@ -55,6 +55,8 @@ Route::post('/rcms_check', [UserLoginController::class, 'rcmscheck']);
 Route::get('/error', function () {
     return view('error');
 })->name('error.route');
+Route::view('rcms_check', 'frontend.rcms.makePassword');
+
 
 //!---------------- starting login  ---------------------------//
 
