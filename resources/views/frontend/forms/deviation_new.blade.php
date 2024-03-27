@@ -104,6 +104,15 @@ $users = DB::table('users')
         .calenderauditee input::-webkit-calendar-picker-indicator {
             width: 100%;
         }
+.main-form-tab{
+    display: flex;
+    gap: 15px;
+}
+      .top-buttons{
+        display: flex;
+    justify-content: flex-end;
+    /* margin-top: -17px; */
+      } 
     </style>
 
     <script>
@@ -319,11 +328,28 @@ $users = DB::table('users')
     <div class="form-field-head">
 
         <div class="division-bar">
-            <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName(session()->get('division')) }} / Deviation
+            <!-- <strong>Site Division/Project</strong> :
+            {{ Helpers::getDivisionName(session()->get('division')) }} / Deviation -->
+            <div class="top-buttons">
+        <div class="button-block">
+                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+               </div>
         </div>
+            
+        </div>
+       
+        
+       
     </div>
-
+    <div class="top-head">
+                <div class="heading-top"><strong>Record Name :</strong> Deviation</div>
+                <div class="heading-top"><strong>Site :</strong> Dewas</div>
+                <div class="heading-top"><strong>Current Status :</strong> Under Initiation</div>
+                <div class="heading-top"><strong>Initiated By :</strong> Amit Guru</div>
+        </div>
 
 
     {{-- ======================================
@@ -334,27 +360,31 @@ $users = DB::table('users')
         <div class="container-fluid">
 
             <!-- Tab links -->
-            <div class="cctab">
-                <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-
-                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
-            </div>
+            
 
             <form id="auditform" action="{{ route('deviationstore') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div id="step-form">
 
+            
+                @csrf
+            <div class="main-form-tab" id="step-form">
+                <div style="width: 200px; margin-left: -25px; margin-top: 15px;" class="cctab">
+                <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm8')"><span style="margin-right: 50px;" class="hod_review">HOD Review</span></button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm2')"><span style="margin-right: 25px;" class="hod_review">QA Initial Review</span></button>
+                <button class="cctablinks " onclick="openCity(event, 'CCForm7')"><span style="margin-right: 100px;" class="hod_review">CFT</span></button>
+
+                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm4')"><span style="margin-right: 20px;" class="hod_review">QA Final Review</span></button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
+               </div>
                     <!-- General information content -->
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-
+                           <div class="sub-head">
+                           General Information
+                           </div>
                                 @if (!empty($parent_id))
                                     <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                                     <input type="hidden" name="parent_type" value="{{ $parent_type }}">
@@ -762,12 +792,12 @@ $users = DB::table('users')
                                 </div>
                                 
                             </div>
-                            <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                            </div>
+                                <div class="button-block">
+                                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                                    <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
+                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                            Exit </a> </button>
+                                </div>
                         </div>
                     </div>
                     
@@ -2651,8 +2681,8 @@ $users = DB::table('users')
                                </div> --}}
                              </div>
                          </div>
-                     </div>
-                </div>
+                   
+               
                  
 
                     <!-- investigation and capa -->
@@ -3065,6 +3095,7 @@ $users = DB::table('users')
                         </div>
                     </div>
 
+                </div>
                 </div>
             </form>
 
