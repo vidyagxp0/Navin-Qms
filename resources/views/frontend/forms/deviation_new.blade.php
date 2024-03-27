@@ -1212,7 +1212,7 @@ $users = DB::table('users')
                                   <div class="col-md-6 mb-3"> 
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
-                                        <input type="text" name="production_by" id="production_by" disabled>
+                                        <input disabled type="text" name="production_by" id="production_by" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -1291,7 +1291,7 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Warehousefeedback">Warehouse Review Completed By</label>
-                                        <input type="text"  name="Warehouse_by" id="Warehouse_by" disabled>
+                                        <input disabled type="text"  name="Warehouse_by" id="Warehouse_by" >
                                     
                                     </div>
                                 </div>

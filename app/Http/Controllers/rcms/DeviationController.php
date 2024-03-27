@@ -11,6 +11,7 @@ use App\Models\DeviationAuditTrail;
 use App\Models\DeviationGrid;
 use App\Models\DeviationHistory;
 use App\Models\DeviationCft;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use App\Models\Capa;
 use Carbon\Carbon;
@@ -1023,7 +1024,7 @@ class DeviationController extends Controller
     {
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         $data = Deviation::find($id);
-        $data1 = DeviationCft::where('deviation_id', $id)->first();
+        $data1 = DeviationCft::where('deviation_id', $id)->latest()->first();
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         // $grid_data1 = DeviationGrid::where('deviation_id', $id)->where('type', "Deviation")->first();
@@ -2061,6 +2062,7 @@ class DeviationController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
+            $updateCFT = DeviationCft::find($id);
             $lastDocument = Deviation::find($id);
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
             if ($deviation->stage == 1) {
@@ -2101,25 +2103,6 @@ class DeviationController extends Controller
                 }
 
                 $deviation->update();
-
-                // $data3=DeviationGrid::where('deviation_id', $deviation->id)->where('type', "Deviation")->first();
-                // if (!empty($request->ID_Number)) {
-                //     $data3->ID_Number = serialize($request->ID_Number);
-                // }
-                // if (!empty($request->SystemName)) {
-                //     $data3->SystemName = serialize($request->SystemName);
-                // }
-
-                // if (!empty($request->Instrument)) {
-                //     $data3->Instrument = serialize($request->Instrument);
-                // }
-                // if (!empty($request->Equipment)) {
-                //     $data3->Equipment = serialize($request->Equipment);
-                // }
-                // if (!empty($request->facility)) {
-                //     $data3->facility = serialize($request->facility);
-                // }
-                // toastr()->success('Document Sent');
                 return back();
             }
             if ($deviation->stage == 2) {
@@ -2216,9 +2199,6 @@ class DeviationController extends Controller
 
                 $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 1, 'deviation_id' => $id])->latest()->first();
                 $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
-                // dd('wjh');
-
-                // dd($cftUsers);
                 // Define the column names
                 $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person'];
                 // $columns2 = ['Production_review', 'Warehouse_review', 'Quality_Control_review', 'QualityAssurance_review', 'Engineering_review', 'Analytical_Development_review', 'Kilo_Lab_review', 'Technology_transfer_review', 'Environment_Health_Safety_review', 'Human_Resource_review', 'Information_Technology_review', 'Project_management_review'];
@@ -2227,8 +2207,58 @@ class DeviationController extends Controller
                 $valuesArray = [];
 
                 // Iterate over the columns and retrieve the values
-                foreach ($columns as $column) {
+                foreach ($columns as $index => $column) {
                     $value = $cftUsers->$column;
+                    if($index == 0 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Production_by = Auth::user()->name;
+                        $updateCFT->production_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 1 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Warehouse_by = Auth::user()->name;
+                        $updateCFT->Warehouse_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 4 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Engineering_by = Auth::user()->name;
+                        $updateCFT->Engineering_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 2 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Quality_Control_by = Auth::user()->name;
+                        $updateCFT->Quality_Control_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 3 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Quality_Assurance_by = Auth::user()->name;
+                        $updateCFT->Quality_Assurance_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 5 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Analytical_Development_by = Auth::user()->name;
+                        $updateCFT->Analytical_Development_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 6 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Kilo_Lab_by = Auth::user()->name;
+                        $updateCFT->Kilo_Lab_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 7 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Technology_transfer_by = Auth::user()->name;
+                        $updateCFT->Technology_transfer_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 8 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Environment_Health_Safety_by = Auth::user()->name;
+                        $updateCFT->Environment_Health_Safety_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 9 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Human_Resource_by = Auth::user()->name;
+                        $updateCFT->Human_Resource_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 10 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Information_Technology_by = Auth::user()->name;
+                        $updateCFT->Information_Technology_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 11 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Project_management_by = Auth::user()->name;
+                        $updateCFT->Project_management_on = Carbon::now()->format('Y-m-d');
+                    }
+                    $updateCFT->update();
+
                     // Check if the value is not null and not equal to 0
                     if ($value != null && $value != 0) {
                         $valuesArray[] = $value;

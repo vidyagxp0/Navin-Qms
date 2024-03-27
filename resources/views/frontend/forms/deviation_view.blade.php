@@ -1360,7 +1360,9 @@ $users = DB::table('users')
                                   <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
-                                        <input type="text" name="production_by" id="production_by" value={{ $data1->Production_by }} disabled>
+                                        {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
+                                        <input disabled type="text" value="{{ $data1->Production_by }}" name="production_by" id="production_by">
+
                                     
                                     </div>
                                 </div>
@@ -1452,7 +1454,8 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
-                                        <input type="text" name="Warehouse_by" id="Warehouse_by" value={{ $data1->Warehouse_by }} disabled>
+                                        <input disabled type="text" value="{{ $data1->Warehouse_by }}" name="Warehouse_by" id="Warehouse_by">
+                                        {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
                                     
                                     </div>
                                 </div>
@@ -1545,8 +1548,8 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed By">Quality Control Review Completed By</label>
-                                        <input type="text" name="Quality_Control_by" id="Quality_Control_by" value="{{ $data1->Quality_Control_by }}" disabled>
-                                    
+                                        {{-- <input type="text" name="Quality_Control_by" id="Quality_Control_by" value="{{ $data1->Quality_Control_by }}" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Quality_Control_by }}" name="Quality_Control_by" id="Quality_Control_by">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1648,7 +1651,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review Completed By</label>
                                         <input type="text" name="QualityAssurance_by" id="QualityAssurance_by" value="{{$data1->QualityAssurance_by}}" disabled>
-                                    
+                                        <input disabled type="text" value="{{ $data1->QualityAssurance_by }}" name="QualityAssurance_by" id="QualityAssurance_by">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1737,8 +1740,9 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed By</label>
-                                        <input type="text" name="Engineering_by" id="Engineering_by" value="Engineering_by" disabled>
-                                    
+                                        {{-- <input type="text" name="Engineering_by" id="Engineering_by" value="Engineering_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Engineering_by }}" name="Engineering_by" id="Engineering_by">
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1841,8 +1845,8 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical Development Laboratory Review Completed By</label>
-                                        <input type="text" name="Analytical_Development_by" id="Analytical_Development_by" value="Analytical_Development_by" disabled>
-                                    
+                                        {{-- <input type="text" name="Analytical_Development_by" id="Analytical_Development_by" value="Analytical_Development_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Analytical_Development_by }}" name="Analytical_Development_by" id="Analytical_Development_by">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1945,8 +1949,8 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo Lab Review Completed By</label>
-                                        <input type="text" name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by" value="Kilo_Lab_attachment_by" disabled>
-                                    
+                                        {{-- <input type="text" name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by" value="Kilo_Lab_attachment_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Kilo_Lab_attachment_by }}" name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -2050,7 +2054,9 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed By</label>
-                                        <input type="text" name="Technology_transfer_by" id="Technology_transfer_by" value="Technology_transfer_by" disabled>
+                                        {{-- <input type="text" name="Technology_transfer_by" id="Technology_transfer_by" value="Technology_transfer_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Technology_transfer_by }}" name="Technology_transfer_by" id="Technology_transfer_by">
+
                                     
                                     </div>
                                 </div>
@@ -2139,7 +2145,9 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Review Completed By">Environment, Health & Safety Review Completed By</label>
-                                        <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by" value="Environment_Health_Safety_by" disabled>
+                                        {{-- <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by" value="Environment_Health_Safety_by" disabled>                                         --}}
+                                        <input disabled type="text" value="{{ $data1->Environment_Health_Safety_by }}" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by">
+
                                     
                                     </div>
                                 </div>
@@ -2229,7 +2237,9 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration Review Completed By</label>
-                                        <input type="text" name="Human_Resource_by" id="Human_Resource_by" value="Human_Resource_by" disabled>
+                                        {{-- <input type="text" name="Human_Resource_by" id="Human_Resource_by" value="Human_Resource_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Human_Resource_by }}" name="Human_Resource_by" id="Human_Resource_by">
+
                                     
                                     </div>
                                 </div>
@@ -2237,6 +2247,8 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration Review Completed On</label>
                                         <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
+                                        <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on">
+
                                     
                                     </div>
                                 </div>
@@ -2321,7 +2333,8 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed By"> Information Technology Review Completed By</label>
-                                        <input type="text" name="Information_Technology_by" id="Information_Technology_by" value="Information_Technology_by" disabled>
+                                        {{-- <input type="text" name="Information_Technology_by" id="Information_Technology_by" value="Information_Tec/hnology_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Information_Technology_by }}" name="Information_Technology_by" id="Information_Technology_by">
 
                                     </div>
                                 </div>
@@ -2408,8 +2421,9 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Project management Review Completed By"> Project management Review Completed By</label>
-                                        <input type="text" name="Project_management_by" id="Project_management_by" value="Project_management_by" disabled>
-                                    
+                                        {{-- <input type="text" name="Project_management_by" id="Project_management_by" value="Project_management_by" disabled> --}}
+                                        <input disabled type="text" value="{{ $data1->Project_management_by }}" name="Project_management_by" id="Project_management_by">
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
