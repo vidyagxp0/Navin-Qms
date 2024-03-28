@@ -225,7 +225,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>'+
+                        '<td> <select name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
                         '<td><input type="number" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
@@ -257,9 +257,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Number[]"></td>'+
+                        '<td><input type="number" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
-                        '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td><input type="text" name="Document_Remarks[]"></td>'+
 
                         
                         '</tr>';
@@ -613,8 +613,8 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                <td><input type="text" name="IDnumber[]"></td>
+                                                <td> <select  name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
+                                                <td><input type="number" name="IDnumber[]"></td>
                                                 <td><input type="text" name="Remarks[]"></td>
                                                 </tbody>
 
@@ -647,9 +647,9 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="Number[]"></td>
+                                        <td><input type="number" name="Number[]"></td>
                                         <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                        <td><input type="text" name="Remarks[]"></td>
+                                        <td><input type="text" name="Document_Remarks[]"></td>
                        
                                                 </tbody>
 

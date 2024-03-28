@@ -226,11 +226,44 @@ class DeviationController extends Controller
 
         $record = RecordNumber::first();
         $record->counter = ((RecordNumber::first()->value('counter')) + 1);
-        $record->update();
+        $record->update(); 
+
+
+        
         $deviation->status = 'Opened';
         $deviation->stage = 1;
 
         $deviation->save();
+
+        $data3 = new DeviationGrid();
+        $data3->deviation_grid_id = $deviation->id;
+        $data3->type = "Deviation";
+        if (!empty($request->facility_name)) {
+            $data3->facility_name = serialize($request->facility_name);
+        }
+        if (!empty($request->IDnumber)) {
+            $data3->IDnumber = serialize($request->IDnumber);
+        }
+        
+        if (!empty($request->Remarks)) {
+            $data3->Remarks = serialize($request->Remarks);
+        }
+        $data3->save();
+        $data4 = new DeviationGrid();
+        $data4->deviation_grid_id = $deviation->id;
+        $data4->type = "Document ";
+        if (!empty($request->Number)) {
+            $data4->Number = serialize($request->Number);
+        }
+        if (!empty($request->ReferenceDocumentName)) {
+            $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
+        }
+        
+        if (!empty($request->Document_Remarks)) {
+            $data4->Document_Remarks = serialize($request->Document_Remarks);
+        }
+        $data4->save();
+        
 
 
         $Cft = new DeviationCft();
@@ -1027,12 +1060,15 @@ class DeviationController extends Controller
         $data1 = DeviationCft::where('deviation_id', $id)->latest()->first();
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
-        // $grid_data1 = DeviationGrid::where('deviation_id', $id)->where('type', "Deviation")->first();
+        $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
+        $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
+    //    dd( $grid_data1);
+        // dd($grid_data );
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1559,6 +1595,36 @@ class DeviationController extends Controller
             }
         }
         $deviation->update();
+        // grid
+         $data3=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Deviation")->first();
+                if (!empty($request->IDnumber)) {
+                    $data3->IDnumber = serialize($request->IDnumber);
+                }
+                if (!empty($request->facility_name)) {
+                    $data3->facility_name = serialize($request->facility_name);
+                }
+
+                if (!empty($request->Remarks)) {
+                    $data3->Remarks = serialize($request->Remarks);
+                }
+               
+                $data3->update();
+                // dd($request->Remarks);
+
+
+            $data4=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Document")->first();
+            if (!empty($request->Number)) {
+                $data4->Number = serialize($request->Number);
+            }
+            if (!empty($request->ReferenceDocumentName)) {
+                $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
+            }
+            
+            if (!empty($request->Document_Remarks)) {
+                $data4->Document_Remarks = serialize($request->Document_Remarks);
+            }
+            $data4->update();
+            
 
         if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {
             // return 'history';
@@ -2103,6 +2169,8 @@ class DeviationController extends Controller
                 }
 
                 $deviation->update();
+
+                
                 return back();
             }
             if ($deviation->stage == 2) {

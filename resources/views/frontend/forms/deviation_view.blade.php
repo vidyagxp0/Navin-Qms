@@ -170,7 +170,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>'+
+                        '<td> <select name="facility_name" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
                         '<td><input type="number" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
@@ -203,9 +203,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Number[]"></td>'+
+                        '<td><input type="number" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
-                        '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td><input type="text" name="Document_Remarks[]"></td>'+
                         
                         '</tr>';
 
@@ -781,7 +781,7 @@ $users = DB::table('users')
                                                 (Launch Instruction)
                                             </span>
                                         </label>
-                                        <div class="table-responsive">
+                                        {{-- <div class="table-responsive">
                                             <table class="table table-bordered" id="onservation-field-table"
                                                 style="width: 100%;">
                                                 <thead>
@@ -793,14 +793,61 @@ $users = DB::table('users')
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                    <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                    <td><input type="text" name="IDnumber[]"></td>
-                                                    <td><input type="text" name="Remarks[]"></td>
+                                                    @if ($grid_data->Remarks)
+                                                     @foreach (unserialize($grid_data->Remarks) as $key => $temps)
+                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                        <td> <select name="name" id="facility_name" value="{{ unserialize($grid_data->facility_name)[$key] ? unserialize($grid_data->facility_name)[$key] : '' }}">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
+                                                        <td><input type="text" name="IDnumber[]"value="{{ unserialize($grid_data->IDnumber)[$key] ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
+                                                        <td><input type="text" name="Remarks[]"value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
+                                                     @endforeach
+                                                    @endif
                                                 </tbody>
 
                                             </table>
+                                        </div> --}}
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="onservation-field-table" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 5%">Row#</th>
+                                                        <th style="width: 12%">Name</th>
+                                                        <th style="width: 16%">ID Number</th>
+                                                        <th style="width: 15%">Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if ($grid_data->Remarks)
+                                                        @foreach (unserialize($grid_data->Remarks) as $key => $temps)
+                                                            <tr>
+                                                                <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                                    value="{{ $key + 1 }}"></td>
+                                                                <td>
+                                                                    <select name="facility_name[]" id="facility_name">
+                                                                        @if(isset($grid_data->facility_name))
+                                                                             @php
+                                                                                $facility_name = unserialize($grid_data->facility_name);
+                                                                           @endphp
+                                                                           <option value="">-- Select --</option>
+                                                                             <option value="1" {{ (isset($facility_name[$key]) && $facility_name[$key] == "1") ? "selected" : "1" }}>Facility</option>
+                                                                             <option value="2" {{ (isset($facility_name[$key]) && $facility_name[$key] == "2") ? "selected" : "2" }}>Equipment</option>
+                                                                             <option value="3" {{ (isset($facility_name[$key]) && $facility_name[$key] == "3") ? "selected" : "3" }}>Instrument</option>
+                                                                         @endif
+
+                                                                        
+                                                                        {{-- <option value="1" {{ (unserialize($grid_data->facility_name)[$key] == "1")?"selected":"1"}}>Facility</option>                               
+                                                                        <option value="2" {{ (unserialize($grid_data->facility_name)[$key] == "2")?"selected":"2"}}>Equipment</option>                               
+                                                                        <option value="3" {{ (unserialize($grid_data->facility_name)[$key] == "3")?"selected":"2"}}>Instrument</option>--}}
+                                                                    </select>
+                                                                </td>
+                                                                <td><input type="number" name="IDnumber[]" value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
+                                                                <td><input type="text" name="Remarks[]" value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        
                                     </div>
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
@@ -826,14 +873,18 @@ $users = DB::table('users')
                                                                                                          
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="Number[]"></td>
-                                        <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                        <td><input type="text" name="Remarks[]"></td>
-                                                  
-                                              
-                                                </tbody>
+                                            <tbody>
+                                                @if ($grid_data1->ReferenceDocumentName)
+                                                    @foreach (unserialize($grid_data1->ReferenceDocumentName) as $key => $temps)
+                                                        <tr>
+                                                          <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
+                                                            <td><input type="number" name="Number[]" value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
+                                                            <td><input type="text" name="ReferenceDocumentName[]" value="{{ unserialize($grid_data1->ReferenceDocumentName)[$key] ? unserialize($grid_data1->ReferenceDocumentName)[$key] : '' }}"></td>
+                                                            <td><input type="text" name="Document_Remarks[]" value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
+                                                        </tr>           
+                                                    @endforeach
+                                               @endif
+                                             </tbody>
 
                                             </table>
                                         </div>

@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('deviation_grids', function (Blueprint $table) {
             $table->id();
             $table->string('type')->nullable();
-            $table->longText('ID_Number')->nullable();
+            $table->longText('IDnumber')->nullable();
+            $table->longText('facility_name')->nullable();
+            $table->string('deviation_grid_id')->nullable();
+            $table->longText('Remarks')->nullable();
             $table->longText('SystemName')->nullable();
             $table->longText('Instrument')->nullable();
             $table->longText('Equipment')->nullable();
             $table->longText('facility')->nullable();
             $table->longText('Number')->nullable();
+            $table->longText('Document_Remarks')->nullable();
             $table->longText('ReferenceDocumentName')->nullable();
             $table->longText('nameofproduct')->nullable();
             $table->string('ExpiryDate')->nullable();

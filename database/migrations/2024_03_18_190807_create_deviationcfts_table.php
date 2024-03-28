@@ -66,7 +66,7 @@ return new class extends Migration
 
             $table->text('Kilo_Lab_review')->nullable();
             $table->text('Kilo_Lab_person')->nullable();
-            $table->string('Kilo_Lab_assessment')->nullable();
+            $table->longtext('Kilo_Lab_assessment')->nullable();
             $table->string('Kilo_Lab_feedback')->nullable();
             $table->longText('Kilo_Lab_attachment')->nullable();
             $table->string('Kilo_Lab_attachment_by')->nullable();
@@ -74,7 +74,7 @@ return new class extends Migration
 
             $table->text('Technology_transfer_review')->nullable();
             $table->text('Technology_transfer_person')->nullable();
-            $table->string('Technology_transfer_assessment')->nullable();
+            $table->longtext('Technology_transfer_assessment')->nullable();
             $table->string('Technology_transfer_feedback')->nullable();
             $table->longText('Technology_transfer_attachment')->nullable();
             $table->string('Technology_transfer_by')->nullable();
