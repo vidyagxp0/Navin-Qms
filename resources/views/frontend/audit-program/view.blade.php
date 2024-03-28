@@ -846,7 +846,9 @@
                                     <div class="button-block">
                                         <button type="submit" class="saveButton"
                                             {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>Save</button>
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                            <a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                         <button type="submit"
                                             {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>Submit</button>
                                         <button type="button"> <a class="text-white"

@@ -529,8 +529,7 @@
                                             <button type="submit" id="ChangesaveButton" class="saveButton"
                                                 {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>Save</button>
                                         @endif
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+<a href="/rcms/qms-dashboard">                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                         <button type="button"> <a class="text-white"
                                                 href="{{ url('rcms/qms-dashboard') }}"> Exit </a> </button>
                                     </div>
@@ -776,8 +775,7 @@
                                             <button type="submit" id="ChangesaveButton" class="saveButton"
                                                 {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>Save</button>
                                         @endif
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                        <button type="button" class="backButton">Back</button>                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                         <button type="button"> <a class="text-white"
                                                 href="{{ url('rcms/qms-dashboard') }}"> Exit </a> </button>
                                     </div>
@@ -819,8 +817,7 @@
                                             <button type="submit" id="ChangesaveButton" class="saveButton"
                                                 {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>Save</button>
                                         @endif
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                        <button type="submit"
+                                    </a>                                        <button type="submit"
                                             {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>Submit</button>
                                         <button type="button"> <a class="text-white"
                                                 href="{{ url('rcms/qms-dashboard') }}"> Exit </a> </button>
