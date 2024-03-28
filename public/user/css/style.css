@@ -4200,7 +4200,7 @@ section#pdf-page .watermark {
     grid-template-columns: repeat(4, 1fr);
     /* padding: 10px; */
     background-color: #0039bdbd;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
 }
 .heading-top{
     padding: 10px 20px ;
@@ -4259,11 +4259,29 @@ section#pdf-page .watermark {
 
 #change-control-fields .inner-block {
     margin-bottom: 20px;
-    /* box-shadow: 2px 5px 1px #fde0bf, -5px -6px 24px #fae1c4;; */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
     background: #ffffff;
     overflow: hidden;
 }
+#change-control-fields .sticky-buttons {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    display: grid;
+    gap: 10px;
+    z-index: 5;
+}
 
+#change-control-fields .sticky-buttons div {
+    background: #0039bdbd;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 5px 0px 0px 5px;
+}
 #change-control-fields .inner-block .main-head {
     padding: 15px;
     color: white;
@@ -4447,7 +4465,7 @@ section#pdf-page .watermark {
     transition: 0.3s;
     border: 1px solid #777474;
     border-left: none;
-    border-radius: 40px;
+    border-radius: 10px;
 }
 
 #change-control-fields .cctab button:hover {

@@ -367,16 +367,16 @@ $users = DB::table('users')
             
                 @csrf
             <div class="main-form-tab" id="step-form">
-                <div style="width: 200px; margin-left: -25px; margin-top: 15px;" class="cctab">
-                <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm8')"><span style="margin-right: 50px;" class="hod_review">HOD Review</span></button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm2')"><span style="margin-right: 25px;" class="hod_review">QA Initial Review</span></button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm7')"><span style="margin-right: 100px;" class="hod_review">CFT</span></button>
+                <div style="width: 200px; margin-left: -20px; margin-top: 15px;" class="cctab">
+                <button class="cctablinks active" onclick="openCity(event, 'CCForm1')"><span style="margin-right: 25px;" class="hod_review">General Information</span></button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm8')"><span style="margin-right: 80px;" class="hod_review">HOD Review</span></button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm2')"><span style="margin-right: 50px;" class="hod_review">QA Initial Review</span></button>
+                <button class="cctablinks " onclick="openCity(event, 'CCForm7')"><span style="margin-right: 140px;" class="hod_review">CFT</span></button>
 
-                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm4')"><span style="margin-right: 20px;" class="hod_review">QA Final Review</span></button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm3')"><span style="margin-right: 15px;" class="hod_review">Investigation & CAPA</span></button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm4')"><span style="margin-right: 55px;" class="hod_review">QA Final Review</span></button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm6')"><span style="margin-right: 82px;" class="hod_review">Activity Log</span></button>
                </div>
                     <!-- General information content -->
                     <div id="CCForm1" class="inner-block cctabcontent">
@@ -3098,16 +3098,97 @@ $users = DB::table('users')
                 </div>
                 </div>
             </form>
+            <div class="sticky-buttons">
+          <div
+            
 
+          >
+          
+            <svg width="18" height="24" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="#ffffff"
+                d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34M332.1 128H256V51.9zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288zm220.1-208c-5.7 0-10.6 4-11.7 9.5c-20.6 97.7-20.4 95.4-21 103.5c-.2-1.2-.4-2.6-.7-4.3c-.8-5.1.3.2-23.6-99.5c-1.3-5.4-6.1-9.2-11.7-9.2h-13.3c-5.5 0-10.3 3.8-11.7 9.1c-24.4 99-24 96.2-24.8 103.7c-.1-1.1-.2-2.5-.5-4.2c-.7-5.2-14.1-73.3-19.1-99c-1.1-5.6-6-9.7-11.8-9.7h-16.8c-7.8 0-13.5 7.3-11.7 14.8c8 32.6 26.7 109.5 33.2 136c1.3 5.4 6.1 9.1 11.7 9.1h25.2c5.5 0 10.3-3.7 11.6-9.1l17.9-71.4c1.5-6.2 2.5-12 3-17.3l2.9 17.3c.1.4 12.6 50.5 17.9 71.4c1.3 5.3 6.1 9.1 11.6 9.1h24.7c5.5 0 10.3-3.7 11.6-9.1c20.8-81.9 30.2-119 34.5-136c1.9-7.6-3.8-14.9-11.6-14.9h-15.8z"
+              />
+            </svg>
+          </div>
+          <div
+            
+          >
+            <svg width="24" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="#ffffff"
+                d="M25.01 49v46H103V49zM153 49v46h78V49zm128 0v46h78V49zm128 0v46h78V49zM55.01 113v64H119v46h18v-46h64v-64h-18v46H73.01v-46zM311 113v64h64v46h18v-46h64v-64h-18v46H329v-46zM89.01 241v46H167v-46zM345 241v46h78v-46zm-226 64v48h128v46h18v-46h128v-48h-18v30H137v-30zm98 112v46h78v-46z"
+              />
+            </svg>
+          </div>
+        </div>
         </div>
     </div>
+
+
+    <div class="container">
+    <h2>&nbsp;</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg btn-position" data-toggle="modal" data-target="#myModal">Click Me</button>
+
+  <!-- Modal -->
+  <div class="modal right fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Student Information</h4>
+        </div>
+        <div class="modal-body">
+         
+            <div class="row">
+            
+                <div class="col-sm-6 form-group">
+                <input type="text" class="form-control" placeholder="First Name" name="First Name">
+            </div>
+                <div class="col-sm-6 form-group">
+                <input type="text" class="form-control" placeholder="Last Name" name="Last Name">
+            </div>
+                
+                 <div class="col-sm-12 form-group">
+      
+      <select class="form-control" style="color:#999">
+          <option >Select College</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+                </div>
+                <div class="col-sm-12 form-group">
+                <textarea class="form-control" rows="5" placeholder="Address"></textarea>
+                </div>
+                 <div class="col-sm-12 form-group">
+                <input type="text" class="form-control" placeholder="Text" name="text">
+            </div>
+                
+                
+        </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
 <!-- -----------------------------------------------------------modal body---------------------- -->
     <div class="modal" id="myModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div style="background: #f7f2f" class="modal-header">
+                <div style="background: #f7f2ff" class="modal-header">
                     <h4 class="modal-title">Customers</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -3121,6 +3202,8 @@ $users = DB::table('users')
     .validationClass{
         margin-left: 100px
     }
+
+    
 </style>
                         <div class="modal-sub-head">
                             <div class="sub-main-head">
@@ -3557,6 +3640,7 @@ $users = DB::table('users')
                 </div>
             </div>
         </div>
+        
     </div>
 </div> --}}
 
