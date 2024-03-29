@@ -170,7 +170,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="facility_name" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
+                        '<td> <select name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
                         '<td><input type="number" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
@@ -816,7 +816,7 @@ $users = DB::table('users')
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if ($grid_data->Remarks)
+                                                    @if (!empty($grid_data->Remarks))
                                                         @foreach (unserialize($grid_data->Remarks) as $key => $temps)
                                                             <tr>
                                                                 <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
