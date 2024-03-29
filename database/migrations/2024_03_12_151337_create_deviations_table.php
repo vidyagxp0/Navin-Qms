@@ -98,6 +98,7 @@ return new class extends Migration
             $table->string('cancelled_by')->nullable();
             $table->string('rejected_on')->nullable();
             $table->string('rejected_by')->nullable();
+            //$table->string('production_byy')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
             $table->timestamps();

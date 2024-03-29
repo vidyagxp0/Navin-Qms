@@ -2390,7 +2390,12 @@ $cft_roles = [
     "Environment, Health & Safety",
     "Human Resource & Administration",
     "Information Technology",
-    "Project Management"
+    "Project Management",
+    "Other1",
+    "Other2",
+    "Other3",
+    "Other4",
+    "Other5",
 ];
 
 $incrementCount = 330;

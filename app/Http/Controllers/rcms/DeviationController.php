@@ -127,6 +127,8 @@ class DeviationController extends Controller
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
+        
+        //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
         if (!empty ($request->Audit_file)) {
             $files = [];
@@ -1148,6 +1150,8 @@ class DeviationController extends Controller
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
+        //$deviation->production_byy = $request->CFT_Review_Complete_By;
+
         $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
         $Cft->Production_Review = $request->Production_Review;
         $Cft->Production_person = $request->Production_person;
@@ -2268,7 +2272,7 @@ class DeviationController extends Controller
                 $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 1, 'deviation_id' => $id])->latest()->first();
                 $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
                 // Define the column names
-                $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person'];
+                $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person','Other1_person','Other2_person','Other3_person','Other4_person','Other5_person'];
                 // $columns2 = ['Production_review', 'Warehouse_review', 'Quality_Control_review', 'QualityAssurance_review', 'Engineering_review', 'Analytical_Development_review', 'Kilo_Lab_review', 'Technology_transfer_review', 'Environment_Health_Safety_review', 'Human_Resource_review', 'Information_Technology_review', 'Project_management_review'];
 
                 // Initialize an array to store the values
@@ -2324,6 +2328,26 @@ class DeviationController extends Controller
                     if($index == 11 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Project_management_by = Auth::user()->name;
                         $updateCFT->Project_management_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 12 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Other1_by = Auth::user()->name;
+                        $updateCFT->Other1_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 13 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Other2_by = Auth::user()->name;
+                        $updateCFT->Other2_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 14 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Other3_by = Auth::user()->name;
+                        $updateCFT->Other3_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 15 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Other4_by = Auth::user()->name;
+                        $updateCFT->Other4_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 16 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Other5_by = Auth::user()->name;
+                        $updateCFT->Other5_on = Carbon::now()->format('Y-m-d');
                     }
                     $updateCFT->update();
 

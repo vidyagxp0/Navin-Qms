@@ -1412,7 +1412,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                  <div class="col-md-6 mb-3">
+                                   <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
                                         {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
@@ -1420,7 +1420,13 @@ $users = DB::table('users')
 
                                     
                                     </div>
-                                </div>
+                                </div> 
+                                {{-- <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CFT Review Complete By">Production Review Completed By</label>
+                                        <div class="static">{{ $data->CFT_Review_Complete_By }}</div>
+                                    </div>
+                                </div> --}}
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Production Review Completed On">Production Review Completed On</label>
@@ -2302,9 +2308,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration Review Completed On</label>
                                         <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
-                                        <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on">
-
-                                    
+                                        {{-- <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on"> --}}
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2425,12 +2429,12 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Project management Person"> Project management Person</label>
                                         <select name="Project_management_person" id="Project_management_person">
+                                            <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                             <option {{ $data1->Project_management_person == $user->id ? 'selected' : '' }}
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2508,10 +2512,10 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                @php
-                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
-                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                 @php
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 34, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2618,14 +2622,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By1"> Other's 1 Review Completed By</label>
-                                        <input type="text" name="Other1_by" id="Other1_by" value="Other1_by" disabled>
+                                        <input disabled type="text" value="{{ $data1->Other1_by }}" name="Other1_by" id="Other1_by">
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
-                                        <input type="date" name="Other1_on" id="Other1_on" value={{$data1->Other1_on}}  disabled>
+                                        <input disabled type="date" name="Other1_on" id="Other1_on" value="{{ $data1->Other1_on }}">
                                     
                                     </div>
                                 </div>
@@ -2648,10 +2652,11 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                @php
-                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
-                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                               
+                                 @php
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 35, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2731,14 +2736,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
-                                        <input type="text" name="Other2_by" id="Other2_by" value="Other2_by" disabled>
+                                        <input type="text" name="Other2_by" id="Other2_by" value="{{ $data1->Other2_by }}" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
-                                        <input type="date" name="Other2_on" id="Other2_on" value="{{$data1->Other2_on}}">
+                                        <input disabled type="date" name="Other2_on" id="Other2_on" value="{{ $data1->Other2_on }}">
                                     </div>
                                 </div>
 
@@ -2762,10 +2767,11 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                @php
-                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
-                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                               
+                                 @php
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 36, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2854,7 +2860,7 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Other's 3 Review Completed On</label>
-                                        <input type="date" name="Other3_on" id="Other3_on" value="{{$data1->Other3_on}}">
+                                        <input disabled type="date" name="Other3_on" id="Other3_on" value="{{$data1->Other3_on}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2876,10 +2882,11 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                @php
-                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
-                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                
+                                 @php
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 37, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -2960,14 +2967,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
-                                        <input type="text" name="Other4_by" id="Other4_by" value="{{$data1->Other4_by}}" disabled>
+                                        <input type="text" name="Other4_by" id="Other4_by" value="{{ $data1->Other4_by }}" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
-                                        <input type="date" name="Other4_on" id="Other4_on" value="{{$data1->Other4_on}}">
+                                        <input disabled type="date" name="Other4_on" id="Other4_on" value="{{ $data1->Other4_on }}">
                                     
                                     </div>
                                 </div>
@@ -2993,10 +3000,10 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
-                                @php
-                                    $userRoles = DB::table('user_roles')->whereBetween('q_m_s_roles_id', [22, 33])->where('q_m_s_divisions_id', $data->division_id)->get();
-                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+                                 @php
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 38, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoleIds = $userRoles->pluck('user_id')->toArray();
+                                 $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -3078,14 +3085,14 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
-                                        <input type="text" name="Other5_by" id="Other5_by" value="Other5_by" disabled>
+                                        <input type="text" name="Other5_by" id="Other5_by" value="{{ $data1->Other5_by }}" disabled>
                                     
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
-                                        <input type="date" name="Other5_on" id="Other5_on" value="{{$data1->Other5_on}}">
+                                        <input disabled type="date" name="Other5_on" id="Other5_on" value="{{ $data1->Other5_on }}">
                                     </div>
                                 </div>
                                 

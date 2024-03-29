@@ -248,5 +248,40 @@ class QMSRolesSeeder extends Seeder
         $group->description = "Project Management";
         $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
         $group->save();
+
+        $group  = new QMSRoles();
+        $group->id = 34;
+        $group->name = "Other1";
+        $group->description = "Other1";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new QMSRoles();
+        $group->id = 35;
+        $group->name = "Other2";
+        $group->description = "Other2";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new QMSRoles();
+        $group->id = 36;
+        $group->name = "Other3";
+        $group->description = "Other3";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new QMSRoles();
+        $group->id = 37;
+        $group->name = "Other4";
+        $group->description = "Other4";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new QMSRoles();
+        $group->id = 38;
+        $group->name = "Other5";
+        $group->description = "Other5";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
     }
 }

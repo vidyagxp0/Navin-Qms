@@ -2137,7 +2137,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 34, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -2209,7 +2209,7 @@ $users = DB::table('users')
                                     <div class="col-md-6 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 1 Review Completed By</label>
-                                            <input type="text" name="Other1_by" disabled>
+                                            <input type="text" name="Other1_by" id="Other1_by" disabled>
                                         
                                         </div>
                                     </div>
@@ -2217,9 +2217,7 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other1_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other1_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other1_on')" />
+                                                <input type="text" id="Other1_on" name="Other1_on" readonly placeholder="DD-MMM-YYYY" />
                                             </div>
                                         </div>
                                     </div>
@@ -2241,7 +2239,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 35, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
@@ -2321,9 +2319,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On2">Other's 2 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other2_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other2_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other2_on')" />
+                                                <input type="text" id="Other2_on" name="Other2_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other2_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other2_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -2345,7 +2343,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 36, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                      @endphp
@@ -2425,9 +2423,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On3">Other's 3 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other3_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other3_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other3_on')" />
+                                                <input type="text" id="Other3_on" name="Other3_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other3_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other3_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -2450,7 +2448,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 37, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                      $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
@@ -2530,9 +2528,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other4_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other4_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other4_on')" />
+                                                <input type="text" id="Other4_on" name="Other4_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other4_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other4_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -2556,7 +2554,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 38, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
@@ -2636,9 +2634,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On5">Other's 5 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other5_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other5_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other5_on')" />
+                                                <input type="text" id="Other5_on" name="Other5_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other5_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other5_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
