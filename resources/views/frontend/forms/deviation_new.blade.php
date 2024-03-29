@@ -8,6 +8,9 @@ $users = DB::table('users')
     @endphp
     
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <style>
         textarea.note-codable {
@@ -128,6 +131,14 @@ $users = DB::table('users')
                 blockTextarea.removeAttribute('required');
             }
         }
+    </script>
+
+    <script>
+        $ (document).ready (function () {
+	$ (".modal a").not (".dropdown-toggle").on ("click", function () {
+		$ (".modal").modal ("hide");
+	});
+});
     </script>
     <script>
         function addAuditAgenda(tableId) {
@@ -3098,7 +3109,7 @@ $users = DB::table('users')
                 </div>
                 </div>
             </form>
-            <div class="sticky-buttons">
+       <div class="sticky-buttons">
           <div
             
 
@@ -3124,64 +3135,142 @@ $users = DB::table('users')
         </div>
         </div>
     </div>
+<!-- ============================new sidebar modal======================================================================= -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
 
+<button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left">Right Sidebar</button>
 
-    <div class="container">
-    <h2>&nbsp;</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg btn-position" data-toggle="modal" data-target="#myModal">Click Me</button>
+<button type="button" data-toggle="modal" data-target="#sidebar-left" class="btn btn-primary navbar-btn pull-right">Left Sidebar</button>
 
-  <!-- Modal -->
-  <div class="modal right fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Student Information</h4>
-        </div>
-        <div class="modal-body">
-         
-            <div class="row">
-            
-                <div class="col-sm-6 form-group">
-                <input type="text" class="form-control" placeholder="First Name" name="First Name">
-            </div>
-                <div class="col-sm-6 form-group">
-                <input type="text" class="form-control" placeholder="Last Name" name="Last Name">
-            </div>
-                
-                 <div class="col-sm-12 form-group">
-      
-      <select class="form-control" style="color:#999">
-          <option >Select College</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-      </select>
-                </div>
-                <div class="col-sm-12 form-group">
-                <textarea class="form-control" rows="5" placeholder="Address"></textarea>
-                </div>
-                 <div class="col-sm-12 form-group">
-                <input type="text" class="form-control" placeholder="Text" name="text">
-            </div>
-                
-                
-        </div>
-          </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
 </div>
+</nav>
+
+<!-- Sidebar Left -->
+<div class="modal fade left" id="sidebar-left" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-sm" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">Left Sidebar</h4>
+</div>
+<div class="modal-body">
+<a href="#home" class="btn btn-block btn-default btn-lg">Home</a>
+
+<!-- Split button -->
+<div class="btn-group btn-block">
+<a role="button" href="#services" class="text-left btn btn-lg btn-default col-xs-10">Services</a>
+<button type="button" class="btn btn-lg btn-default col-xs-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<span class="fa fa-chevron-down"></span>
+<span class="sr-only">Toggle Dropdown</span>
+</button>
+<ul class="dropdown-menu btn-block">
+<li><a href="#design">Design</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="#develop">Develop</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="#support">Support</a></li>
+</ul>
+</div>
+
+<a href="#about" class="btn btn-block btn-default btn-lg">About</a>
+
+<hr>
+
+<div class="form-group">
+<div class="input-group">
+<input class="form-control" placeholder="Search">
+<span class="input-group-btn">
+<button class="btn btn-default" type="button"><i class="fa fa-fw fa-search"></i></button>
+</span>
+</div>
+</div>
+
+<hr>
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+<!-- Sidebar Right -->
+<div class="modal fade right" id="sidebar-right" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-sm" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">Right Sidebar</h4>
+</div>
+<div class="modal-body">
+
+<ul class="nav nav-pills nav-stacked text-center lead">
+<li role="presentation" class="active"><a href="#home">Home</a></li>
+<li role="presentation" class="dropdown">
+<a href="#" class="dropdown-toggle" id="myTabDrop1" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">Services <span class="fa fa-fw fa-chevron-down"></span></a>
+<ul class="dropdown-menu btn-block">
+<li><a href="#design" role="tab">Design</a></li>
+<li><a href="#develop" role="tab">Develop</a></li>
+<li><a href="#support" role="tab">Support</a></li>
+</ul>
+</li>
+<li role="presentation"><a href="#about">About</a></li>
+</ul>
+
+<hr>
+
+<div class="form-group hide">
+<div class="input-group">
+<input class="form-control" placeholder="Search">
+<span class="input-group-btn">
+<button class="btn btn-default" type="button"><i class="fa fa-fw fa-search"></i></button>
+</span>
+</div>
+</div>
+
+<div class="form-group has-feedback">
+<input type="text" class="form-control" id="search-right" placeholder="Search">
+<span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+</div>
+
+<hr>
+
+<div class="btn-group-vertical center-block">
+<a class="btn btn-instagram btn-lg" href="https://www.instagram.com/jorenerene/" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+<a class="btn btn-twitter btn-lg" href="https://www.twitter.com/jorenerene/" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+<a class="btn btn-github btn-lg" href="https://www.github.com/jorenerene/" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div class="media">
+<div class="media-left">
+<i class="fa fa-5x fa-code fa-fw"></i>
+</div>
+
+</div>
+
+<hr>
+
+
+
+</div>
+</div>
+
+
+
+
+
+</div>
+</div>
+    
 <!-- -----------------------------------------------------------modal body---------------------- -->
     <div class="modal" id="myModal">
         <div class="modal-dialog modal-lg">
@@ -3202,7 +3291,91 @@ $users = DB::table('users')
     .validationClass{
         margin-left: 100px
     }
+    .pen body {
+	padding-top:50px;
+}
 
+/* Social Buttons - Twitter, Facebook, Google Plus */
+.btn-twitter {
+	background: #00acee;
+	color: #fff
+}
+.btn-twitter:link, .btn-twitter:visited {
+	color: #fff
+}
+.btn-twitter:active, .btn-twitter:hover {
+	background: #0087bd;
+	color: #fff
+}
+
+.btn-instagram {
+	color:#fff;
+	background-color:#3f729b;
+	border-color:rgba(0,0,0,0.2);
+}
+.btn-instagram:focus,.btn-instagram.focus {
+	color:#fff;
+	background-color:#305777;
+	border-color:rgba(0,0,0,0.2);
+}
+.btn-instagram:hover {
+	color:#fff;
+	background-color:#305777;
+	border-color:rgba(0,0,0,0.2);
+}
+
+.btn-github {
+	color:#fff;
+	background-color:#444;
+	border-color:rgba(0,0,0,0.2);
+}
+.btn-github:focus,.btn-github.focus {
+	color:#fff;
+	background-color:#2b2b2b;
+	border-color:rgba(0,0,0,0.2);
+}
+.btn-github:hover {
+	color:#fff;
+	background-color:#2b2b2b;
+	border-color:rgba(0,0,0,0.2);
+}
+
+/* MODAL FADE LEFT RIGHT BOTTOM */
+.modal.fade:not(.in).left .modal-dialog {
+	-webkit-transform: translate3d(-25%, 0, 0);
+	transform: translate3d(-25%, 0, 0);
+}
+.modal.fade:not(.in).right .modal-dialog {
+	-webkit-transform: translate3d(25%, 0, 0);
+	transform: translate3d(25%, 0, 0);
+}
+.modal.fade:not(.in).bottom .modal-dialog {
+	-webkit-transform: translate3d(0, 25%, 0);
+	transform: translate3d(0, 25%, 0);
+}
+
+.modal.right .modal-dialog {
+	position:absolute;
+	top:0;
+	right:0;
+	margin:0;
+}
+
+.modal.left .modal-dialog {
+	position:absolute;
+	top:0;
+	left:0;
+	margin:0;
+}
+
+.modal.left .modal-dialog.modal-sm {
+	max-width:300px;
+}
+
+.modal.left .modal-content, .modal.right .modal-content {
+	min-height:100vh;
+	border:0;
+}
     
 </style>
                         <div class="modal-sub-head">
