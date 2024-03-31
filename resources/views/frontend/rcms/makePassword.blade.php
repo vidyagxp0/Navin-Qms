@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Connexo - Software</title>
+    <title>VidyaGxP - Software</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
@@ -59,11 +59,11 @@
         #preloader .loader {
             width: 150px;
             height: 150px;
-            background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            background-image: linear-gradient(120deg, #eb80005e 0%, #eb800075 100%);
             border-radius: 50%;
             position: relative;
-            box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.5) inset,
-                0 5px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 30px 4px #eb80007a inset,
+                0 5px 12px #eb800096;
             overflow: hidden;
         }
 
@@ -103,36 +103,49 @@
             justify-content: center;
             background-size: cover;
             background-position: center;
+            /* background:#f39f40c7; */
         }
 
         #rcms_login_block .login-form-block {
             width: 500px;
+            height: 450px;
             background: white;
             background-size: cover;
             background-position: center;
+            /* display: flex; */
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            border-radius:10px; 
+            box-shadow: 5px 5px 10px 0px rgb(82, 82, 87);
         }
 
-        #rcms_login_block .login-form-block .top-block {
-            padding: 50px 20px 15px;
+        /* #rcms_login_block .login-form-block .top-block {
+            padding: 20px 20px 15px; 
             border-bottom: 2px solid white;
-        }
+        } */
 
         #rcms_login_block .login-form-block .logo {
             width: 280px;
             margin: 0 auto 30px;
+            margin-top: 19px
         }
 
-        #rcms_login_block .login-form-block .logo img {
-            filter: brightness(0) invert(1);
-        }
+        /* #rcms_login_block .login-form-block .logo img {
+            filter: brightness(5) invert(1);
+        } */
 
         #rcms_login_block .login-form-block .head {
             font-size: 1.6rem;
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
-            color: white;
-            letter-spacing: 2px
+            color: #817474;
+            letter-spacing: 2px;
+            padding-bottom: 15px;
+            margin-top: -46px;
+            margin-bottom: 15px;
+
         }
 
         #rcms_login_block .login-form-block form {
@@ -144,7 +157,7 @@
             display: grid;
             grid-template-columns: 70px 1fr;
             align-items: center;
-            border: 2px solid white;
+            border: 2px solid gray;
             padding: 5px;
             border-radius: 5px;
         }
@@ -152,24 +165,24 @@
         #rcms_login_block label {
             font-size: 1.2rem;
             margin-bottom: 3px;
-            color: white;
+            color: #454343;
             display: block;
             font-weight: bold;
             text-align: center;
         }
 
-        #rcms_login_block input {
+        #rcms_login_block input{
             border: 0;
             outline: none;
             background: transparent;
-            color: white
+            color: black;
         }
-
         #rcms_login_block select {
             border: 0;
-            outline: none;
-            background: #162e67;
-            color: white
+    outline: none;
+    background: #eceff5;
+    color: #1b1a1a;
+    padding: 5px;;
         }
 
         #rcms_login_block input[type="submit"] {
@@ -177,29 +190,39 @@
             text-align: center;
             width: 100%;
             padding: 10px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #f6f8fa;
-            color: black;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #2c2d2f;
+            color: #fff;
             margin-left: auto;
             text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+            letter-spacing: 2px;
+    
+            font-size: 1rem;
+            transition: all 0.3s linear;
+            cursor: pointer;
+        }
+
+        #rcms_login_block input[type="submit"]:hover {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #2c2d2f;
+            color: #fff;
+            margin-left: auto;
+            text-transform: uppercase;
+            letter-spacing: 7px;
             font-weight: bold;
             border-radius: 5px;
             font-size: 1rem;
             transition: all 0.3s linear;
             cursor: pointer;
         }
-        .group-input {
-            position: relative;
+        .red-text {
+            color: rgb(228, 11, 11);
         }
-        .group-input input[type="password"] {
-            padding-right: 30px; /* Adjust this value as needed */
-        }
-        .toggle-password {
-            position: absolute;
-            right: 5px; /* Adjust this value as needed */
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
+       
     </style>
 </head>
 
@@ -215,11 +238,11 @@
     {{-- ======================================
                     LOGIN FORM
     ======================================= --}}
-    <div id="rcms_login_block" style="background-image: url('{{ asset('user/images/rcms-login-bg.png') }}')">
-        <div class="login-form-block" style="background-image: url('{{ asset('user/images/rcms-login-bg2.png') }}')">
+    <div id="rcms_login_block" style="background-image: url('{{ asset('user/images/new2.jpg') }}')">
+        <div class="login-form-block" style="background-image: url('{{ asset('user/images/background1.jpg') }}')">
             <div class="top-block">
                 <div class="logo">
-                    <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                    <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                 </div>
                 <div class="head">
                     Set Your New Password </div>
