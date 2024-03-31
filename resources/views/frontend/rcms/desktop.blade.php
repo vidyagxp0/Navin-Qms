@@ -730,7 +730,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Date on Initiaton</th>
+                                        <th>Date of Initiation</th>
                                         <th>Record</th>
                                         <th>Department</th>
                                         <th>Division</th>

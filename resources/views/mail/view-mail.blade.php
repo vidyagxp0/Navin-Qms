@@ -189,22 +189,24 @@ h2{
     <div id="main-container">
         <div class="notification-container">
             <div class="inner-block">
+                General Notification
             <div class="logo-container">
                 <div class="logo">
-                    {{-- <img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="..."> --}}
+                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> --}}
                     <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
+                    <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
                 </div>
             </div>
                 <div class="mail-content">
 
 
-                    <h4>Hey !</h4>
+                    <h4>Dear User,</h4>
                     <br>
-                    <p style="font-size: 15px;">Records is Assigned to You.</p>
+                    <p style="font-size: 15px;">Activity {{ $data->origin_state }} has been performed by {{$data->user_name}} on {{$data->created_at}}.</p>
                     <br>
-                    <h3>Record Information:</h3>
+                    <h3>Record Information:{{ $data->type }} </h3>
                     <br>
-
+                    <h3>Record Link:{{ $data->type }} </h3>
                     <div class="table-wrapper">
 
 
@@ -232,15 +234,70 @@ h2{
                         </table>
                     </div>
 
+                </div>
 
 
+                <h4>Best Regards,</h4>
+                <h4>QMS Admin</h4>
+            </div>
+        </div>
+
+        <div class="notification-container">
+            <div class="inner-block">
+                Critical Notification
+            <div class="logo-container">
+                <div class="logo">
+                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> --}}
+                    <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
+                    <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
+                </div>
+            </div>
+                <div class="mail-content">
 
 
+                    <h4>Dear User,</h4>
+                    <br>
+                    <p style="font-size: 15px;">Activity {{ $data->origin_state }} has been performed by {{$data->user_name}} on {{$data->created_at}}.</p>
+                    <br>
+                    <h3>Initial Deviation Category:{{ $data->Deviation_category }} </h3>
+                    <br>
+                    <h3>Post Categorization of Deviation:{{ $data->Post_Categorization }} </h3>
+                    <br>
+                    <h3>Record Information:{{ $data->type }} </h3>
+                    <br>
+                    <h3>Record Link:{{ $data->type }} </h3>
+                    <div class="table-wrapper">
+
+
+                        <table class="fl-table">
+                            <thead>
+                            <tr>
+                                <th>Record ID</th>
+                                <th>Division</th>
+                                <th>Short Description</th>
+                                <th>Date Opened</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                        <tr>
+                            <td>{{ Helpers::record($data->record)}}</td>
+                            <td>{{ Helpers::getDivisionName($data->division_id)}}</td>
+                            <td>{{ $data->short_description}}</td>
+                            <td>{{ Helpers::getDateFormat($data->created_at)}}</td>
+                            <td>{{ Helpers::getDateFormat($data->due_date)}}</td>
+                            <td>{{ $data->status }}</td>
+                        </tr>
+                        <tbody>
+                        </table>
+                    </div>
 
                 </div>
 
 
-                
+                <h4>Best Regards,</h4>
+                <h4>QMS Admin</h4>
             </div>
         </div>
     </div>
