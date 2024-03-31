@@ -260,7 +260,7 @@
 
                 <div class="modal-body">
                     <div class="logo">
-                        <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="..." class="w-100 h-100">
                     </div>
                     <div class="bar">
                         <strong>Version : </strong> 10.0.0

@@ -165,7 +165,7 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
@@ -209,6 +209,8 @@
                         <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
                         <th class="w-20"> Deviation Observed<</th>
                         <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
+                        <th class="w-20"> Deviation Observed On (Time)<</th>
+                        <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Observed by</th>

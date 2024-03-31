@@ -26,6 +26,7 @@ return new class extends Migration
             //$table->string('text')->nullable();
             $table->integer('assign_to')->nullable();
             $table->text('due_date')->nullable();
+            $table->text('deviation_time')->nullable();
             $table->string('Initiator_Group')->nullable();
             $table->longText('short_description')->nullable();
             $table->string('short_description_required')->nullable();

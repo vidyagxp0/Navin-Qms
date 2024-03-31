@@ -86,6 +86,7 @@ class DeviationController extends Controller
         $deviation->initiator_group_code = $request->initiator_group_code;
         $deviation->short_description = $request->short_description;
         $deviation->Deviation_date = $request->Deviation_date;
+        $deviation->deviation_time = $request->deviation_time;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Facility = implode(',', $request->Facility);
         // $deviation->Observed_by = $request->Observed_by;
@@ -1113,6 +1114,7 @@ class DeviationController extends Controller
         $deviation->short_description = $request->short_description;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Deviation_date = $request->Deviation_date;
+        $deviation->deviation_time = $request->deviation_time;
         $deviation->audit_type = $request->audit_type;
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
@@ -2298,16 +2300,16 @@ class DeviationController extends Controller
                         $updateCFT->Quality_Control_on = Carbon::now()->format('Y-m-d');
                     }
                     if($index == 3 && $cftUsers->$column == Auth::user()->id){
-                        $updateCFT->Quality_Assurance_by = Auth::user()->name;
-                        $updateCFT->Quality_Assurance_on = Carbon::now()->format('Y-m-d');
+                        $updateCFT->QualityAssurance_by = Auth::user()->name;
+                        $updateCFT->QualityAssurance_on = Carbon::now()->format('Y-m-d');
                     }
                     if($index == 5 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Analytical_Development_by = Auth::user()->name;
                         $updateCFT->Analytical_Development_on = Carbon::now()->format('Y-m-d');
                     }
                     if($index == 6 && $cftUsers->$column == Auth::user()->id){
-                        $updateCFT->Kilo_Lab_by = Auth::user()->name;
-                        $updateCFT->Kilo_Lab_on = Carbon::now()->format('Y-m-d');
+                        $updateCFT->Kilo_Lab_attachment_on = Auth::user()->name;
+                        $updateCFT->Kilo_Lab_attachment_on = Carbon::now()->format('Y-m-d');
                     }
                     if($index == 7 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Technology_transfer_by = Auth::user()->name;
@@ -3375,6 +3377,16 @@ class DeviationController extends Controller
 
         return view('frontend.forms.deviation_audit', compact('audit', 'document', 'today'));
     }
+    public function rootAuditTrial($id)
+    {
+        $audit = RootAuditTrial::where('root_id', $id)->orderByDESC('id')->get()->unique('activity_type');
+        $today = Carbon::now()->format('d-m-y');
+        $document = RootCauseAnalysis::where('id', $id)->first();
+        $document->initiator = User::where('id', $document->initiator_id)->value('name');
+
+        return view("frontend.root-cause-analysis.root-audit-trail", compact('audit', 'document', 'today'));
+    }
+
     public function DeviationAuditTrialDetails($id)
     {
         $detail = DeviationAuditTrail::find($id);
