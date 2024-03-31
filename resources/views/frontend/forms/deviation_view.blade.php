@@ -61,6 +61,8 @@ $users = DB::table('users')
         gap: 20px;
     }
     </style>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         function otherController(value, checkValue, blockID) {
             let block = document.getElementById(blockID)
@@ -641,6 +643,22 @@ $users = DB::table('users')
                                        <input type="date" id="Deviation_date" name="Deviation_date" value="{{ $data->Deviation_date }}">
                                     </div>
                                 </div>
+                                <div class="col-lg-6 new-time-data-field">
+                                    <div class="group-input input-time">
+                                        <label for="deviation_time">Deviation Observed On (Time)</label>
+                                        <input type="text" name="deviation_time"  id="deviation_time" value="{{ $data->deviation_time }}">
+                                    </div>
+                                </div>
+                                
+                                <script>
+                                    flatpickr("#deviation_time", {
+                                        enableTime: true,
+                                        noCalendar: true,
+                                        dateFormat: "h:i K", // Format time as 12-hour with AM/PM
+                                        minuteIncrement: 1 // Set minute increment to 1
+
+                                    });
+                                </script>
                               {{--  <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
@@ -720,7 +738,7 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div> 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -758,6 +776,8 @@ $users = DB::table('users')
                                                                                         value="Data integrity">Data integrity</option>
                                                                                         <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
                                                                                             value="Anyother(specify)">Anyother(specify)</option>
+                                                                                            <option @if ($data->audit_type == 'Water System') selected @endif
+                                                                                                value="Water System">Water System</option>
                                         </select>
                                     </div>
                                 </div>

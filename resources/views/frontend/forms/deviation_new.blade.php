@@ -80,6 +80,9 @@ $users = DB::table('users')
             width: 100%;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
     <style>
         .calenderauditee {
             position: relative;
@@ -527,12 +530,33 @@ $users = DB::table('users')
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
+                                             <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" /> 
+                                            {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
                                             <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_date')" />
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 new-time-data-field">
+                                    <div class="group-input input-time">
+                                        <label for="deviation_time">Deviation Observed On (Time)</label>
+                                        <input type="text" name="deviation_time" id="deviation_time">
+                                    </div>
+                                </div>
+                                
+                                <script>
+                                    flatpickr("#deviation_time", {
+                                        enableTime: true,
+                                        noCalendar: true,
+                                        dateFormat: "h:i K", // Format time as 12-hour with AM/PM
+                                        minuteIncrement: 1 // Set minute increment to 1
+
+                                    });
+                                </script>
+                                
+                                
+                                
+                                
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -548,7 +572,7 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
@@ -578,6 +602,7 @@ $users = DB::table('users')
                                             <option value="Data integrity">Data integrity</option>
                                             <option value="SOP Instruction">SOP Instruction</option>
                                             <option value="BMR/ECR Instruction">BMR/ECR Instruction</option>
+                                            <option value="Water System">Water System</option>
                                             <option value="Anyother(specify)">Any other (specify) </option>
                                         </select>
                                     </div>

@@ -165,7 +165,7 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
