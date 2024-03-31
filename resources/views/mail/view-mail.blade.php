@@ -191,8 +191,8 @@ h2{
             <div class="inner-block">
             <div class="logo-container">
                 <div class="logo">
-                    <img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="...">
-                    <img src="https://dms.mydemosoftware.com/user/images/logo1.png" alt="...">
+                    {{-- <img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="..."> --}}
+                    <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
                 </div>
             </div>
                 <div class="mail-content">
@@ -240,7 +240,7 @@ h2{
                 </div>
 
 
-                <h4>Connexo QMS</h4>
+                
             </div>
         </div>
     </div>
