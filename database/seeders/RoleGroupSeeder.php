@@ -2418,5 +2418,19 @@ foreach ($cft_roles as $role) {
     $group->save();
 }
 
+$group = new RoleGroup();
+$group->id = 364;
+$group->name = "Dewas/India-Deviation- Head QA/Designee";
+$group->description = "Dewas/India-Deviation- Head QA/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 365;
+$group->name = "Corporate/India-Deviation- Head QA/Designee";
+$group->description = "Corporate/India-Deviation- Head QA/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
 }
 }

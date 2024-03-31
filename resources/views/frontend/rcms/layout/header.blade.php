@@ -353,10 +353,10 @@
 
                 <div class="modal-body">
                     <div class="logo">
-                        <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="..." class="w-100 h-100">
                     </div>
                     <div class="bar">
-                        <strong>Version : </strong> 10.0.0
+                        <strong>Versionsfas : </strong> 10.0.0
                     </div>
                     <div class="bar">
                         <strong>Build # : </strong> 2
@@ -365,7 +365,7 @@
                         April 23, 2023
                     </div>
                     <div class="bar">
-                        <strong>Licensed to : </strong> Connexo
+                        <strong>Licensed to : </strong> VidyaGxP
                     </div>
                     <div class="bar">
                         <strong>Environment : </strong> Master Demo Dev
@@ -375,7 +375,7 @@
                     </div>
                     <div class="copyright-bar">
                         <i class="fa-regular fa-copyright"></i>&nbsp;
-                        Copyright 2023 Connexo Asia Limited
+                        Copyright 2023 VidyaGxP Private Limited
                     </div>
                 </div>
 
