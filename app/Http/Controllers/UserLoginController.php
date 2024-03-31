@@ -165,10 +165,10 @@ class UserLoginController extends Controller
                 $userData->save();
             } else {
                 if ($userData->updated_at >= $currentTime->subMinutes(5)) {
-                    if ($userData->attempt >= 3) {
-                        toastr()->error('Too many login attempts. Please try again in 5 minutes .');
-                        return redirect()->back();
-                    }
+                    // if ($userData->attempt >= 3) {
+                    //     toastr()->error('Too many login attempts. Please try again in 5 minutes .');
+                    //     return redirect()->back();
+                    // }
                 }
                 if ($userData->attempt==3) {
                     $userData->attempt=1;
