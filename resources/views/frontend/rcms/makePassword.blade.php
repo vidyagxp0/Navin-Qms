@@ -223,6 +223,31 @@
             color: rgb(228, 11, 11);
         }
        
+        #password::placeholder {
+            color: black;
+            }
+        #confirmPassword::placeholder {
+            color: black;
+            }
+
+            .group-input {
+                position: relative;
+                margin-bottom: 20px;
+            }
+
+            .group-input input[type="password"] {
+                width: calc(100% - 40px);
+                padding-right: 40px;
+            }
+
+            .group-input .toggle-password {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+    
     </style>
 </head>
 
