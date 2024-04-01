@@ -431,8 +431,8 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Department</b><span
-                                            class="text-danger">*</span></label>
-                                        <select name="Initiator_Group" id="initiator_group">
+                                            class="text-danger">*</span></label> 
+                                        <select name="Initiator_Group" id="initiator_group" required>
                                             <option value="">-- Select --</option>
                                             <option value="CQA" @if (old('Initiator_Group') == 'CQA') selected @endif>
                                                 Corporate Quality Assurance</option>
@@ -505,12 +505,38 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature<span
-                                                class="text-danger d-none">*</span></label>
-                                        <textarea name="nature_of_repeat"></textarea>
+                                        <label for="nature_of_repeat">Repeat Nature <span style="display: none" class="text-danger">*</span></label>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat"></textarea>
                                     </div>
                                 </div>
+                                <script>
 
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('short_description_required');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'Recurring';
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInviRecurring');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                </script>
+{{-- 
                                 <script>
                                     $(document).ready(function () {
                                         $('#short_description_required').change(function () {
@@ -527,7 +553,7 @@ $users = DB::table('users')
                                         // Trigger change event on page load if already selected value is "Recurring"
                                         $('#short_description_required').change();
                                     });
-                                </script>
+                                </script> --}}
 
 
                                 <div class="col-lg-6 new-date-data-field">
@@ -613,10 +639,38 @@ $users = DB::table('users')
                                 </div>
                                  <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="others">Others</label>
-                                        <input type="text" id="others" name="others">
+                                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
+                                        <input type="text" id="others" name="others" class="others">
                                     </div>
                                 </div> 
+                                <script>
+
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('audit_type');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('others');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'Anyother(specify)';
+                                            console.log(this.value, isRequired, 'value');
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInviothers');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
@@ -630,7 +684,7 @@ $users = DB::table('users')
                                 </div> 
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                        Facility/ Equipment/ Instrument/ System Details
+                                        Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvi" style="display: none" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -652,14 +706,54 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td> <select  name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
-                                                <td><input type="number" name="IDnumber[]"></td>
-                                                <td><input type="text" name="Remarks[]"></td>
+                                                <td> <select  name="facility_name[]" id="facility_name" class="facility-name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
+                                                <td><input type="number" name="IDnumber[]" class="id-number"></td>
+                                                <td><input type="text" name="Remarks[]" class="remarks"></td>
                                                 </tbody>
 
                                             </table>
                                         </div>
                                     </div>
+                                    <script>
+
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var selectField = document.getElementById('Facility_Equipment');
+                                            var inputsToToggle = [];
+
+                                            // Add elements with class 'facility-name' to inputsToToggle
+                                            var facilityNameInputs = document.getElementsByClassName('facility-name');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+
+                                            // Add elements with class 'id-number' to inputsToToggle
+                                            var idNumberInputs = document.getElementsByClassName('id-number');
+                                            for (var j = 0; j < idNumberInputs.length; j++) {
+                                                inputsToToggle.push(idNumberInputs[j]);
+                                            }
+
+                                            // Add elements with class 'remarks' to inputsToToggle
+                                            var remarksInputs = document.getElementsByClassName('remarks');
+                                            for (var k = 0; k < remarksInputs.length; k++) {
+                                                inputsToToggle.push(remarksInputs[k]);
+                                            }
+
+                                                                            
+                                            selectField.addEventListener('change', function () {
+                                                var isRequired = this.value === 'yes';
+                                                console.log(this.value, isRequired, 'value');
+
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
+
+                                                // Show or hide the asterisk icon based on the selected value
+                                                var asteriskIcon = document.getElementById('asteriskInvi');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
+                                        });
+                                    </script>
                                     <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Document Details Required">Document Details Required?</label>
@@ -673,7 +767,7 @@ $users = DB::table('users')
                                 </div> 
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                         Document Details
+                                         Document Details <span id="asteriskInviDetails" style="display: none" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -697,16 +791,57 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="number" name="Number[]"></td>
-                                        <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                        <td><input type="text" name="Document_Remarks[]"></td>
+                                        <td><input type="number" class="numberDetail" name="Number[]"></td>
+                                        <td><input type="text" class="ReferenceDocumentName" name="ReferenceDocumentName[]"></td>
+                                        <td><input type="text" class="Document_Remarks" name="Document_Remarks[]"></td>
                        
                                                 </tbody>
 
                                             </table>
                                         </div>
                                     </div>
-                                  
+                                    <script>
+
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // note-codable
+
+                                            var selectField = document.getElementById('Document_Details_Required');
+                                            var inputsToToggle = [];
+
+                                            // Add elements with class 'facility-name' to inputsToToggle
+                                            var facilityNameInputs = document.getElementsByClassName('numberDetail');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+
+                                            // Add elements with class 'id-number' to inputsToToggle
+                                            var idNumberInputs = document.getElementsByClassName('Document_Remarks');
+                                            for (var j = 0; j < idNumberInputs.length; j++) {
+                                                inputsToToggle.push(idNumberInputs[j]);
+                                            }
+
+                                            // Add elements with class 'remarks' to inputsToToggle
+                                            var remarksInputs = document.getElementsByClassName('ReferenceDocumentName');
+                                            for (var k = 0; k < remarksInputs.length; k++) {
+                                                inputsToToggle.push(remarksInputs[k]);
+                                            }
+
+                                                                            
+                                            selectField.addEventListener('change', function () {
+                                                var isRequired = this.value === 'yes';
+                                                console.log(this.value, isRequired, 'value');
+
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
+
+                                                // Show or hide the asterisk icon based on the selected value
+                                                var asteriskIcon = document.getElementById('asteriskInviDetails');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
+                                        });
+                                    </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product Batch">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
@@ -775,9 +910,9 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <label for="Description Deviation">Description of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">
+                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
                                 </div>
@@ -804,9 +939,9 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3">
+                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
                                 </div>
@@ -872,6 +1007,7 @@ $users = DB::table('users')
 
                                     </div>
                                 </div> --}}
+                               
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
@@ -1225,7 +1361,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Production person">Production Person</label>
                                         <select name="Production_person" id="Production_person">
-                                            <option value="0">-- Select --</option>
+                                            <option value="">-- Select --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
