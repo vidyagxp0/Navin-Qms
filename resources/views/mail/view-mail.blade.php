@@ -189,11 +189,12 @@ h2{
     <div id="main-container">
         <div class="notification-container">
             <div class="inner-block">
-                General Notification
+               
             <div class="logo-container">
                 <div class="logo">
-                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> --}}
-                    <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
+                    <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="...">
+                </div>
+                <div class="logo">
                     <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
                 </div>
             </div>
@@ -202,9 +203,9 @@ h2{
 
                     <h4>Dear User,</h4>
                     <br>
-                    <p style="font-size: 15px;">Activity {{ $data->origin_state }} has been performed by {{$data->user_name}} on {{$data->created_at}}.</p>
+                    <p style="font-size: 15px;">Activity {{ $data->status }} has been performed by {{ Helpers::getInitiatorName($data->initiator_id)}} on {{$data->created_at}}.</p>
                     <br>
-                    <h3>Record Information:{{ $data->type }} </h3>
+                    <h3>Record Information:{{ $data->form_type }} </h3>
                     <br>
                     <h3>Record Link:{{ $data->type }} </h3>
                     <div class="table-wrapper">
@@ -242,15 +243,16 @@ h2{
             </div>
         </div>
 
-        <div class="notification-container">
-            <div class="inner-block">
+        {{--<div class="notification-container">
+              <div class="inner-block">
                 Critical Notification
-            <div class="logo-container">
+                
+              <div class="logo-container">
                 <div class="logo">
-                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> --}}
+                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> 
                     <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
                     <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
-                </div>
+                 </div>
             </div>
                 <div class="mail-content">
 
@@ -299,7 +301,7 @@ h2{
                 <h4>Best Regards,</h4>
                 <h4>QMS Admin</h4>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 </body>
