@@ -205,8 +205,23 @@ h2{
 
                     <h4>Dear User,</h4>
                     <br>
-                    <p style="font-size: 15px;">Activity {{ $data->status }} has been performed by {{ Helpers::getInitiatorName($data->initiator_id)}} on {{$data->created_at}}.</p>
-                    <br>
+                    {{-- <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ Helpers::getInitiatorName($data->initiator_id)}} on {{$data->created_at}}.</p> --}}
+                    @if($data->stage === '2')
+                        <p style="font-size: 15px;">Activity Submit  has been performed by {{ $data->submit_by }} on {{ $data->submit_on }}.</p>
+                    @elseif($data->stage === '3')
+                        <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->HOD_Review_Complete_By }} on {{ $data->HOD_Review_Complete_On }}.</p>
+                    @elseif($data->stage === '4')
+                        <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->QA_Initial_Review_Complete_By }} on {{ $data->QA_Initial_Review_Complete_On }}.</p>
+                    @elseif($data->stage === '5')
+                          <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->CFT_Review_Complete_By }} on {{ $data->CFT_Review_Complete_On }}.</p>
+                    @elseif($data->stage === '6')
+                          <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->QA_Final_Review_Complete_By }} on {{ $data->QA_Final_Review_Complete_On }}.</p>
+                     @elseif($data->stage === '7')
+                          <p style="font-size: 15px;">Activity Approved Complete has been performed by {{ $data->Approved_By }} on {{ $data->Approved_On }}.</p>
+                    
+                    @endif
+
+                    <br>    
                     <h3>Record Information:{{ $data->form_type }} </h3>
                     <br>
                     <h3>Record Link:{{ $data->type }} </h3>
