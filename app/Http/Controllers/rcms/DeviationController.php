@@ -109,6 +109,7 @@ class DeviationController extends Controller
 
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Deviation_category = $request->Deviation_category;
+        if($request->Deviation_category=='')
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
         $deviation->Investigation_required = $request->Investigation_required;
 
@@ -134,6 +135,25 @@ class DeviationController extends Controller
         $deviation->Facility_Equipment = $request->Facility_Equipment;
         $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
+
+        $list = Helpers::getHeadoperationsUserList();
+                    foreach ($list as $u) {
+                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
+                                if ($request->Deviation_category == 'Major') { // Add this if statement
+                                    Mail::send(
+                                        'mail.Categorymail',
+                                        ['data' => $deviation],
+                                        function ($message) use ($email) {
+                                            $message->to($email)
+                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                        }
+                                    );
+                                }
+                            }
+                        }
+                    }
 
         if (!empty ($request->Audit_file)) {
             $files = [];
@@ -2238,6 +2258,27 @@ class DeviationController extends Controller
                     }
                 }
 
+                // $list = Helpers::getHeadoperationsUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
+
+                //             Mail::send(
+                //                 'mail.Categorymail',
+                //                 ['data' => $deviation],
+                //                 function ($message) use ($email) {
+                //                     $message->to($email)
+                //                         ->subject("Activity Performed By " . Auth::user()->name);
+                //                 }
+                //             );
+                //         }
+                //     }
+                // }
+
+                
+
+
                 $deviation->update();
 
                 
@@ -3499,6 +3540,38 @@ class DeviationController extends Controller
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
             $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data', 'data1', 'data2', 'data3'))
+                ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Deviation' . $id . '.pdf');
+        }
+    }
+    public static function deviationfamilyReport($id)
+    {
+        $data = Deviation::find($id);
+
+        $Capachild = $data->Capachild;
+        $Rootchild = $data->Rootchild;
+        $Extensionchild = $data->Extensionchild;
+        $data1 = Capa::where('record', $Capachild)->first();
+        $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
+
+        $data3 = Extension::where('record', $Extensionchild)->first();
+        if (!empty ($data)) {
+            $data->originator = User::where('id', $data->initiator_id)->value('name');
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
