@@ -152,20 +152,20 @@
                    <div class="row">
                         <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                            <div class="head">Corporate Document By Type</div>
+                            <div class="head">Deviation By Initial Catagory</div>
                             <div id="chart-21"></div>
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                            <div class="head">Corporate Document By Status</div>
+                            <div class="head">Deviation By Site / Location</div>
                             <div id="chart-22"></div>
                            
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                            <div class="head">Corporate Document By Department</div>
+                            <div class="head">Deviation By Department</div>
                             <div id="chart-23"></div>
                             
                         </div>
@@ -174,21 +174,21 @@
                         <div class="row">
                             <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                        <div class="head">Training Records By Status</div>
+                        <div class="head">Deviation By Status</div>
                         <div id="chart-24"></div>
 
                               </div>
                             </div>
                             <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                        <div class="head">Training Records By Content Type</div>
+                        <div class="head">Deviation By Nature Of Repeat</div>
                         <div id="chart-25"></div>
 
                               </div>
                             </div>
                             <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                        <div class="head">Overdue Training Records</div>
+                        <div class="head">Overdue Deviation Distribution</div>
                         <div id="chart-26"></div>
 
                               </div>
@@ -269,7 +269,7 @@
                         <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
-                                    Documents By Type
+                                    Deviation Related To Distribution
                                 </div>
                                 <canvas id="chart2"></canvas>
                             </div>
@@ -292,7 +292,7 @@
                         <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
-                                    Overdue Status
+                                   Deviation Overdue Status
                                 </div>
                                 <canvas id="chart4"></canvas>
                             </div>
@@ -1988,51 +1988,155 @@
 
 // ========================new chart added I==============================================
 var options = {
-          series: [44, 41, 41, 17, 15],
-          chart: {
-          type: 'donut',
+    series: [44, 55, 41],
+    chart: {
+        width: 350,
+        type: 'donut',
+        dropShadow: {
+            enabled: true,
+            color: '#111',
+            top: -1,
+            left: 3,
+            blur: 3,
+            opacity: 0.2
+        }
+    },
+    stroke: {
+        width: 0,
+    },
+    plotOptions: {
+        pie: {
+            donut: {
+                labels: {
+                    show: true,
+                    total: {
+                        showAlways: true,
+                        show: true
+                    }
+                }
+            }
+        }
+    },
+    labels: ["Minor", "Major", "Critical", "", ""],
+    dataLabels: {
+        dropShadow: {
+            blur: 3,
+            opacity: 0.8
+        }
+    },
+    fill: {
+        type: 'pattern',
+        opacity: 1,
+        pattern: {
+            enabled: true,
+            style: ['verticalLines', 'squares', 'horizontalLines', 'circles', 'slantedLines'],
         },
-        responsive: [{
-          breakpoint: 480,
-          options: {
+    },
+    colors: ['#00FF00', '#FFA500', '#FF0000', '#FFF', '#FFF'], // Green, Orange, Red, Gray, Blue
+    states: {
+        hover: {
+            filter: 'none'
+        }
+    },
+    theme: {
+        palette: 'palette2'
+    },
+    title: {
+        text: ""
+    },
+    responsive: [{
+        breakpoint: 480,
+        options: {
             chart: {
-              width: 250
+                width: 200
             },
             legend: {
-              position: 'bottom'
+                position: 'bottom'
             }
-          }
-        }]
-        };
+        }
+    }]
+};
 
-        var chart = new ApexCharts(document.querySelector("#chart-21"), options);
-        chart.render();
-      // ========================new chart added II==============================================
+var chart = new ApexCharts(document.querySelector("#chart-21"), options);
+chart.render();
+// -------------------------II-----
 var options = {
-          series: [54, 55, 41, 17, 20],
-          chart: {
-          type: 'donut',
+    series: [44, 55, 41],
+    chart: {
+        width: 365,
+        type: 'donut',
+        dropShadow: {
+            enabled: true,
+            color: '#111',
+            top: -1,
+            left: 3,
+            blur: 3,
+            opacity: 0.2
+        }
+    },
+    stroke: {
+        width: 0,
+    },
+    plotOptions: {
+        pie: {
+            donut: {
+                labels: {
+                    show: true,
+                    total: {
+                        showAlways: true,
+                        show: true
+                    }
+                }
+            }
+        }
+    },
+    labels: ["Corporate", "Dewas", "", "", ""],
+    dataLabels: {
+        dropShadow: {
+            blur: 3,
+            opacity: 0.8
+        }
+    },
+    fill: {
+        type: 'pattern',
+        opacity: 1,
+        pattern: {
+            enabled: true,
+            style: ['verticalLines', 'squares', 'horizontalLines', 'circles', 'slantedLines'],
         },
-        responsive: [{
-          breakpoint: 460,
-          options: {
+    },
+    colors: ['#00FF00', '#FFA500', '#FFF', '#FFF', '#FFF'], // Green, Orange, Red, Gray, Blue
+    states: {
+        hover: {
+            filter: 'none'
+        }
+    },
+    theme: {
+        palette: 'palette2'
+    },
+    title: {
+        text: ""
+    },
+    responsive: [{
+        breakpoint: 480,
+        options: {
             chart: {
-              width: 250
+                width: 200
             },
             legend: {
-              position: 'bottom'
+                position: 'bottom'
             }
-          }
-        }]
-        };
+        }
+    }]
+};
 
-        var chart = new ApexCharts(document.querySelector("#chart-22"), options);
-        chart.render();
+var chart = new ApexCharts(document.querySelector("#chart-22"), options);
+chart.render();
     //   ==================================================chard added new 3
     var options = {
           series: [44, 55, 41, 17, 15],
           chart: {
-          width: 350,
+          width: 365,
           type: 'donut',
           dropShadow: {
             enabled: true,
@@ -2103,7 +2207,7 @@ var options = {
     //   ==============================================chart added 4 new
     var options = {
           series: [{
-          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200]
         }],
           chart: {
           type: 'bar',
@@ -2119,8 +2223,8 @@ var options = {
           enabled: false
         },
         xaxis: {
-          categories: ['Assigned', 'Completed', 'Unassigned', 'Not Completed', 'In Process', 'Document Obsoleted', 'Course Obsole',
-            'United States', 'China', 'Germany'
+          categories: ['Opened', 'HOD Review', 'QA Initial Review', 'CFT Review', 'QA Final Review', 'Approval', 'Closed - Done',
+            
           ],
         }
         };
@@ -2136,7 +2240,7 @@ var options = {
             name: 'Actual',
             data: [
               {
-                x: '2011',
+                x: '2020',
                 y: 12,
                 goals: [
                   {
@@ -2149,7 +2253,7 @@ var options = {
                 ]
               },
               {
-                x: '2012',
+                x: '2021',
                 y: 44,
                 goals: [
                   {
@@ -2162,7 +2266,7 @@ var options = {
                 ]
               },
               {
-                x: '2013',
+                x: '2022',
                 y: 54,
                 goals: [
                   {
@@ -2176,7 +2280,7 @@ var options = {
                 ]
               },
               {
-                x: '2014',
+                x: '2023',
                 y: 66,
                 goals: [
                   {
@@ -2190,7 +2294,7 @@ var options = {
                 ]
               },
               {
-                x: '2015',
+                x: '2024',
                 y: 81,
                 goals: [
                   {
@@ -2202,19 +2306,9 @@ var options = {
                     strokeColor: '#00E396'
                   }
                 ]
-              },
-              {
-                x: '2016',
-                y: 67,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 70,
-                    strokeWidth: 5,
-                    strokeHeight: 10,
-                    strokeColor: '#000'
-                  }
-                ]
+             
+              
+               
               }
             ]
           }
@@ -2244,7 +2338,7 @@ var options = {
         legend: {
           show: true,
           showForSingleSeries: true,
-          customLegendItems: ['Actual', 'Expected'],
+          customLegendItems: ['Recurring', 'Non-Recurring'],
           markers: {
             fillColors: ['#00E396', '#775DD0']
           }
@@ -2255,77 +2349,77 @@ var options = {
         chart.render();
     //   ===============================================chart new added 6 ==
     var options = {
-          series: [44, 55, 41, 17, 15],
-          chart: {
-          width: 340,
-          type: 'donut',
-          dropShadow: {
+    series: [44, 55, 41,23,34],
+    chart: {
+        width: 380,
+        type: 'donut',
+        dropShadow: {
             enabled: true,
             color: '#111',
             top: -1,
             left: 3,
             blur: 3,
             opacity: 0.2
-          }
-        },
-        stroke: {
-          width: 0,
-        },
-        plotOptions: {
-          pie: {
+        }
+    },
+    stroke: {
+        width: 0,
+    },
+    plotOptions: {
+        pie: {
             donut: {
-              labels: {
-                show: true,
-                total: {
-                  showAlways: true,
-                  show: true
+                labels: {
+                    show: true,
+                    total: {
+                        showAlways: true,
+                        show: true
+                    }
                 }
-              }
             }
-          }
-        },
-        labels: ["Approved", "Canceled", "Effective", "In Review", "Other"],
-        dataLabels: {
-          dropShadow: {
+        }
+    },
+    labels: ["On Time", "Overdue", "Beyond 10 days", "Beyond 30 days", "Beyond 90 days"],
+    dataLabels: {
+        dropShadow: {
             blur: 3,
             opacity: 0.8
-          }
-        },
-        fill: {
+        }
+    },
+    fill: {
         type: 'pattern',
-          opacity: 1,
-          pattern: {
+        opacity: 1,
+        pattern: {
             enabled: true,
-            style: ['verticalLines', 'squares', 'horizontalLines', 'circles','slantedLines'],
-          },
+            style: ['verticalLines', 'squares', 'horizontalLines', 'circles', 'slantedLines'],
         },
-        states: {
-          hover: {
+    },
+    colors: ['#00FF00', '#0000FF', '#FFFF00', '#FFA500', '#ff0000'], // Green, Orange, Red, Gray, Blue
+    states: {
+        hover: {
             filter: 'none'
-          }
-        },
-        theme: {
-          palette: 'palette2'
-        },
-        title: {
-          text: ""
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
+        }
+    },
+    theme: {
+        palette: 'palette2'
+    },
+    title: {
+        text: ""
+    },
+    responsive: [{
+        breakpoint: 480,
+        options: {
             chart: {
-              width: 200
+                width: 200
             },
             legend: {
-              position: 'bottom'
+                position: 'bottom'
             }
-          }
-        }]
-        };
+        }
+    }]
+};
 
-        var chart = new ApexCharts(document.querySelector("#chart-26"), options);
-        chart.render();
-
+var chart = new ApexCharts(document.querySelector("#chart-26"), options);
+chart.render();
         // ================================================= DASHBOARD CALENDAR
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -2380,30 +2474,30 @@ var options = {
 
         // ========================= DASHBOARD CHART 2
         var data2 = {
-            labels: ["SOP", "WI", "STP", "Specifications", "Protocols", "Engineering"],
+            labels: ["Facility", "Equipment / Instruction", "Documentation Error", "STP / ADS Instruction", "Packaging & Labelling", "Material System","Laboratory Instrument / System","Utility System","Computer System","Document","Data Intigrity","SOP Instruction","BMS / ECR Instrucution","Water System"],
             datasets: [{
                 label: "Document Type",
-                backgroundColor: ["blue", "yellow", "green", "purple", "pink", "grey"],
+                backgroundColor: ["blue", "yellow", "green", "purple", "pink", "grey","blue", "yellow", "green", "purple", "pink", "grey"],
                 borderColor: "#4274da",
                 borderWidth: 2,
                 hoverBackgroundColor: "#4274da87",
                 hoverBorderColor: "#4274da",
-                data: [80, 23, 30, 70, 50, 120],
+                data: [80, 23, 30, 70, 50, 120,80, 23, 30, 70, 50, 10],
             }]
         };
 
 
         // ========================= DASHBOARD CHART 2
         var data3 = {
-            labels: ["SOP", "WI", "STP", "Specifications", "Protocols", "Engineering"],
+            labels: ["Corporate Quality Assurance", "Quality Assurance BioPharma", "Central Quality Control", "Manufacturing", "Plasma Soursing Group", "Central Stores","Information Technology Group","Molecular Medicine","Central Laboratory","Tech Team","Quality Assurance","Quality Management","IT Administration","Accounting","Logistics","Senior Management","Business Administration"],
             datasets: [{
                 label: "Departments",
-                backgroundColor: ["blue", "yellow", "green", "purple", "pink", "grey"],
+                backgroundColor: ["blue", "yellow", "green", "purple", "pink", "grey","blue", "yellow", "green", "purple", "pink", "grey"],
                 borderColor: "#4274da",
                 borderWidth: 2,
                 hoverBackgroundColor: "#4274da87",
                 hoverBorderColor: "#4274da",
-                data: [80, 23, 30, 70, 50, 120],
+                data: [80, 23, 30, 70, 50, 120,80, 23, 30, 70, 50, 50],
             }]
         };
 
@@ -2418,126 +2512,127 @@ var options = {
                 borderWidth: 2,
                 hoverBackgroundColor: "#4274da87",
                 hoverBorderColor: "#4274da",
-                data: [80, 23, 30, 70, 50, 120],
+                data: [0, 23, 30, 70, 50, 120],
             }]
         };
 
 
-
         var options5 = {
-            series: [{
-                name: 'Number of Batch Failure',
-                type: 'column',
-                data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
-            }, {
-                name: 'Number of Batch Success',
-                type: 'column',
-                data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5]
-            }, {
-                name: 'Batch Failure Rate',
-                type: 'line',
-                data: [20, 29, 37, 36, 44, 45, 50, 58]
-            }],
-            chart: {
-                height: 350,
-                type: 'line',
-                stacked: false
+    series: [{
+            name: 'Critical',
+            type: 'column',
+            data: [1.1, 2, 1.5, 1.5, 2.5, ]
+        },{
+            name: 'Minor',
+            type: 'column',
+            data: [1.4, 2, 2.5, 1.5, 2.5, ]
+        }, {
+            name: 'Mejor',
+            type: 'column',
+            data: [1.1, 3, 3.1, 4, 4.1, ],
+        }],
+    chart: {
+        height: 350,
+        type: 'line',
+        stacked: false
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        width: [1, 1, 4]
+    },
+    title: {
+        align: 'left',
+        offsetX: 110
+    },
+    xaxis: {
+        categories: [2020.03, 2021.04, 2022.05, 2023.06, 2024.07,],
+    },
+    yaxis: [{
+            axisTicks: {
+                show: true,
             },
-            dataLabels: {
-                enabled: false
+            axisBorder: {
+                show: true,
+                color: '#008FFB'
             },
-            stroke: {
-                width: [1, 1, 4]
+            labels: {
+                style: {
+                    colors: '#008FFB',
+                }
             },
             title: {
-                align: 'left',
-                offsetX: 110
+                style: {
+                    color: '#ff0000',
+                }
             },
-            xaxis: {
-                categories: [2022.03, 2022.04, 2022.05, 2022.06, 2022.07, 2022.08, 2022.09, 2022.10],
-            },
-            yaxis: [{
-                    axisTicks: {
-                        show: true,
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#008FFB'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#008FFB',
-                        }
-                    },
-                    title: {
-                        style: {
-                            color: '#008FFB',
-                        }
-                    },
-                    tooltip: {
-                        enabled: true
-                    }
-                },
-                {
-                    seriesName: 'Income',
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#00E396'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#00E396',
-                        }
-                    },
-                    title: {
-                        text: "Number of Batch Success",
-                        style: {
-                            color: '#00E396',
-                        }
-                    },
-                },
-                {
-                    seriesName: 'Revenue',
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#FEB019'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#FEB019',
-                        },
-                    },
-                    title: {
-                        text: "Batch Failure Rate",
-                        style: {
-                            color: '#FEB019',
-                        }
-                    }
-                },
-            ],
             tooltip: {
-                fixed: {
-                    enabled: true,
-                    position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
-                    offsetY: 30,
-                    offsetX: 60
+                enabled: true
+            }
+        },
+        {
+            seriesName: 'Income',
+            opposite: true,
+            axisTicks: {
+                show: true,
+            },
+            axisBorder: {
+                show: true,
+                color: '#00E396'
+            },
+            labels: {
+                style: {
+                    colors: '#00E396',
+                }
+            },
+            title: {
+                text: "Number of Batch Success",
+                style: {
+                    color: '#00E396',
+                }
+            },
+        },
+        {
+            seriesName: 'Revenue',
+            opposite: true,
+            axisTicks: {
+                show: true,
+            },
+            axisBorder: {
+                show: true,
+                color: '#FEB019'
+            },
+            labels: {
+                style: {
+                    colors: '#FEB019',
                 },
             },
-            legend: {
-                horizontalAlign: 'left',
-                offsetX: 40
+            title: {
+                text: "Batch Failure Rate",
+                style: {
+                    color: '#FEB019',
+                }
             }
-        };
-        var chart5 = new ApexCharts(document.querySelector("#chart-5"), options5);
-        chart5.render();
+        },
+    ],
+    tooltip: {
+        fixed: {
+            enabled: true,
+            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+            offsetY: 30,
+            offsetX: 60
+        },
+    },
+    legend: {
+        horizontalAlign: 'left',
+        offsetX: 40
+    },
+    colors: ['#FF0000', '#008FFB', '#00E396', '#FEB019'], // Red, Blue, Green, Yellow
+};
+var chart5 = new ApexCharts(document.querySelector("#chart-5"), options5);
+chart5.render();
+
 
 
 
