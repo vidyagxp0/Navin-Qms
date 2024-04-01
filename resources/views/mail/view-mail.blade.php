@@ -69,8 +69,10 @@ h2{
 .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 359px;
             padding-bottom:10px;
+            /* justify-content: space-between; */
+
         }
 
 /* Responsive */
