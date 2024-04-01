@@ -430,7 +430,8 @@ $users = DB::table('users')
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Initiator Group"><b>Department</b></label>
+                                        <label for="Initiator Group"><b>Department</b><span
+                                            class="text-danger">*</span></label>
                                         <select name="Initiator_Group" id="initiator_group">
                                             <option value="">-- Select --</option>
                                             <option value="CQA" @if (old('Initiator_Group') == 'CQA') selected @endif>
@@ -469,6 +470,9 @@ $users = DB::table('users')
                                             <option value="BA" @if (old('Initiator_Group') == 'BA') selected @endif>
                                                 Business Administration</option>
                                         </select>
+                                        @error('Initiator_Group')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -492,9 +496,9 @@ $users = DB::table('users')
                                         <label for="short_description_required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring" @if (old('Initiator_Group') == 'Recurring') selected @endif>
+                                            <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
                                                 Recurring</option>
-                                                <option value="Non_Recurring" @if (old('Initiator_Group') == 'Non_Recurring') selected @endif>
+                                                <option value="Non_Recurring" @if (old('short_description_required') == 'Non_Recurring') selected @endif>
                                                     Non Recurring</option>
                                         </select>
                                     </div>

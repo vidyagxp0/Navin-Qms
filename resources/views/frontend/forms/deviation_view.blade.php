@@ -541,7 +541,8 @@ $users = DB::table('users')
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Initiator Group"><b>Department</b></label>
+                                        <label for="Initiator Group"><b>Department</b> <span
+                                            class="text-danger">*</span></label>
                                         <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
                                              id="initiator_group">
                                              <option value="">Enter Your Selection Here</option>
@@ -613,29 +614,37 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
-                                            class="text-danger">*</span></label><span id="rchars">255</span>characters remaining
+                                            class="text-danger"> *</span></label><span id="rchars">255</span>characters remaining
                                     <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                  </div>
                                 </div>  
-                                <div class="col-lg-6 new-date-data-field ">
+                                <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Short Description required">Nature of Repeat?</label>
-                                        <select name="short_description_required" id="short_description_required" value="{{ $data->short_description_required }}">
+                                        <select name="short_description_required" id="short_description_required" onchange="checkRecurring(this)" value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring"
-                                            @if ($data->short_description_required == 'Recurring') selected @endif>Recurring</option>
-                                            <option value="Non_Recurring"
-                                            @if ($data->short_description_required == 'Non_Recurring') selected @endif>Non Recurring</option>
+                                            <option value="Recurring" @if ($data->short_description_required == 'Recurring') selected @endif>Recurring</option>
+                                            <option value="Non_Recurring" @if ($data->short_description_required == 'Non_Recurring') selected @endif>Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature<span
-                                                class="text-danger d-none">*</span></label>
-                                        <textarea name="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
+                                        <label for="nature_of_repeat">Repeat Nature @if($data->short_description_required == 'Recurring')<span class="text-danger">*</span>@endif</label>
+                                        <textarea name="nature_of_repeat" id="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                    function checkRecurring(selectElement) {
+                                        var repeatNatureField = document.getElementById('nature_of_repeat');
+                                        if (selectElement.value === 'Recurring') {
+                                            repeatNatureField.setAttribute('required', 'required');
+                                        } else {
+                                            repeatNatureField.removeAttribute('required');
+                                        }
+                                    }
+                                </script>
                              <div class="col-6" >
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed On</label>
@@ -750,7 +759,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To </label>
-                                        <select  name="audit_type" id="audit_type"  value="{{ $data->audit_type }}">
+                                        <select  name="audit_type" id="audit_type"  value="{{ $data->audit_type }}" onchange="checkDeviationRelated(this)">
                                             <option value="">Enter Your Selection Here</option>
                                             <option @if ($data->audit_type == 'Facility') selected @endif
                                                 value="Facility">Facility</option>
@@ -789,7 +798,16 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                
+                                <script>
+                                    function checkDeviationRelated(selectElement) {
+                                        var others = document.getElementById('others');
+                                        if (selectElement.value === 'Anyother(specify)') {
+                                            others.setAttribute('required', 'required');
+                                        } else {
+                                            others.removeAttribute('required');
+                                        }
+                                    }
+                                </script>
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
                                             Facility/ Equipment/ Instrument/ System Details
@@ -1024,12 +1042,20 @@ $users = DB::table('users')
                                         </div>
                                     </div> --}}
                                 
-                                <div class="col-md-12">
-                                    <div class="group-input">
-                                        <label for="HOD Remarks">HOD Remarks</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
-                                    </div>
+                                    <div class="col-md-12">
+                                        @if($data->stage == 2)
+                                            <div class="group-input">
+                                                <label for="HOD Remarks">HOD Remarks <span class="text-danger">*</span></label>
+                                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                                <textarea class="summernote" name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
+                                            </div>
+                                            @else
+                                            <div class="group-input">
+                                                <label for="HOD Remarks">HOD Remarks</label>
+                                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                                <textarea class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
+                                            </div>
+                                        @endif 
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
@@ -1075,17 +1101,31 @@ $users = DB::table('users')
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        <label for="Deviation category">Initial Deviation category</label>
-                                        <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
-                                            <option value="0">-- Select --</option>
-                                            <option @if ($data->Deviation_category == 'minor') selected @endif
-                                             value="minor">Minor</option>
-                                            <option  @if ($data->Deviation_category == 'major') selected @endif 
-                                            value="major">Major</option>
-                                            <option @if ($data->Deviation_category == 'critical') selected @endif
-                                            value="critical">Critical</option>
-                                        </select>
-
+                                        @if($data->stage == 3)
+                                            <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
+                                            <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
+                                                <option value="0">-- Select --</option>
+                                                <option @if ($data->Deviation_category == 'minor') selected @endif
+                                                value="minor">Minor</option>
+                                                <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                value="major">Major</option>
+                                                <option @if ($data->Deviation_category == 'critical') selected @endif
+                                                value="critical">Critical</option>
+                                            </select>
+                                            @else
+                                            <div class="group-input">
+                                                <label for="Deviation category">Initial Deviation category</label>
+                                                <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
+                                                    <option value="0">-- Select --</option>
+                                                    <option @if ($data->Deviation_category == 'minor') selected @endif
+                                                    value="minor">Minor</option>
+                                                    <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                    value="major">Major</option>
+                                                    <option @if ($data->Deviation_category == 'critical') selected @endif
+                                                    value="critical">Critical</option>
+                                                </select>
+                                            </div>
+                                        @endif 
                                     </div>
                                 </div>
                                 {{-- <div class="col-lg-6 new-date-data-field">
@@ -1105,8 +1145,8 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Investigation required">Investigation  Required ?</label>
-                                        <select name="Investigation_required" id="Investigation_required"  value="{{ $data->Investigation_required }}" >
+                                        <label for="Investigation required">Investigation  Required?</label>
+                                        <select name="Investigation_required" id="Investigation_required"  onchange="toggleAsterisknventigation(this)"  value="{{ $data->Investigation_required }}" >
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value="yes">Yes</option>
@@ -1125,16 +1165,35 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Details">Investigation Details</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
-                                        <span class="error-message" style="color: red; display: none;">Please fill out this field.</span>
+                                        @if($data->stage == 3 && $data->Investigation_required == 'yes')
+                                                <label for="Investigation Details">Investigation Details <span id="asteriskInvi" class="text-danger">@if ($data->Investigation_required == 'yes')* @endif</span></label>
+                                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                                <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6" required>{{ $data->Investigation_Details }}</textarea>
+                                                <span class="error-message" style="color: red; display: none;">Please fill out this field.</span>
+                                            
+                                            @else
+                                                <label for="Investigation Details">Investigation Details</label>
+                                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                                <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
+                                                <span class="error-message" style="color: red; display: none;">Please fill out this field.</span>
+                                            
+                                        @endif  
+                                        <script>
+                                            function toggleAsterisknventigation(selectElement) {
+                                                var asteriskElement = document.getElementById('asteriskInvi');
+                                                if (selectElement.value === 'yes') {
+                                                    asteriskElement.style.display = 'inline';
+                                                } else {
+                                                    asteriskElement.style.display = 'none';
+                                                }
+                                            }
+                                        </script>                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? </label>
-                                        <select name="Customer_notification" id="Customer_notification" value="{{ $data->Customer_notification }}" >
+                                        <select name="Customer_notification" id="Customer_notification" onchange="toggleAsterisk(this)" value="{{ $data->Customer_notification }}" >
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
@@ -1152,16 +1211,38 @@ $users = DB::table('users')
                                             $customers = DB::table('customer-details')->get();
                                             // dd($data->customer);
                                         @endphp
-                                        <label for="customers">Customers</label>
-                                        <select name="customers" id="customers">
-                                            <option value="0"> -- Select --</option>
-                                            @foreach ($customers as $data1)
-                                            <option  @if ($data->customers == 'yes') selected @endif
-                                                value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
-                                            {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
-                                        @endforeach
-                                        </select>
+                                        @if($data->stage == 3 && $data->Customer_notification == 'yes')
+                                            <label for="customers">Customers <span id="asterisk" class="text-danger">@if ($data->Customer_notification == 'yes')* @endif</span></label>
+                                            <select name="customers" id="customers" required>
+                                                <option value="0"> -- Select --</option>
+                                                @foreach ($customers as $data1)
+                                                <option  @if ($data->customers == 'yes') selected @endif
+                                                    value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
+                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
+                                            @endforeach
+                                            </select>
+                                        @else
+                                            <label for="customers">Customers</label>
+                                            <select name="customers" id="customers">
+                                                <option value="0"> -- Select --</option>
+                                                @foreach ($customers as $data1)
+                                                <option  @if ($data->customers == 'yes') selected @endif
+                                                    value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
+                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
+                                            @endforeach
+                                            </select>
+                                    @endif 
                                     </div>
+                                    <script>
+                                        function toggleAsterisk(selectElement) {
+                                            var asteriskElement = document.getElementById('asterisk');
+                                            if (selectElement.value === 'yes') {
+                                                asteriskElement.style.display = 'inline';
+                                            } else {
+                                                asteriskElement.style.display = 'none';
+                                            }
+                                        }
+                                    </script>
                                 </div>
                                 <div class="col-1">
                                     <div class="group-input">
@@ -1268,7 +1349,8 @@ $users = DB::table('users')
                         $(document).ready(function () {
                             $('#Deviation_category').change(function () {
                                 if ($(this).val() === 'major') {
-                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    $('#Investigation_required').val('yes');
+                                    $('#Investigation_required').prop('disabled', true);
                                     $('#Customer_notification').val('yes').prop('disabled', true);
                                 } else {
                                     $('#Customer_notification').prop('disabled', false);
@@ -1279,6 +1361,12 @@ $users = DB::table('users')
                                 //     $('#Customer_notification').val('yes');
                                 // }
                             });
+                        });
+
+                        // Enable the field before submitting the form
+                        $('form').submit(function () {
+                            $('#Investigation_required').prop('disabled', false);
+                            $('#Customer_notification').prop('disabled', false);
                         });
                     </script>
                     {{-- <script>
@@ -1364,14 +1452,14 @@ $users = DB::table('users')
                             @endphp
                                     <div class="group-input">
                                         <label for="Production Review">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Production_Review">
+                                        <select name="Production_Review" id="Production_Review" onchange="toggleProductionFields(this)" >
                                             <option value="">-- Select --</option>
                                             <option @if ($data1->Production_Review == 'yes') selected @endif
-                                             value="yes">Yes</option>
+                                             value='yes'>Yes</option>
                                             <option  @if ($data1->Production_Review == 'no') selected @endif 
-                                            value="no">No</option>
+                                            value='no'>No</option>
                                             <option  @if ($data1->Production_Review == 'na') selected @endif 
-                                                value="na">NA</option>
+                                                value='na'>NA</option>
                                         </select>
                                   
                                     </div>
@@ -1383,7 +1471,7 @@ $users = DB::table('users')
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Production notification">Production Person</label>
+                                        <label for="Production notification">Production Person <span id="asteriskcft1" class="text-danger">@if ($data1->Production_Review == 'yes')* @endif</span></label>
                                         <select name="Production_person" id="Production_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -1394,14 +1482,14 @@ $users = DB::table('users')
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Production assessment">Impact Assessment (By Production)</label>
+                                        <label for="Production assessment">Impact Assessment (By Production) <span id="asteriskcft2" class="text-danger">@if ($data1->Production_Review == 'yes')* @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Production feedback">Production Feedback</label>
+                                        <label for="Production feedback">Production Feedback <span id="asteriskcft3" class="text-danger">@if ($data1->Production_Review == 'yes')* @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
                                     </textarea>
@@ -1441,6 +1529,18 @@ $users = DB::table('users')
                                     
                                     </div>
                                 </div> 
+                                
+                                <script>
+                                    function toggleProductionFields(selectElement) {
+                                        var asteriskcft1 = document.getElementById('asteriskcft1');
+                                        if (selectElement.value == 'yes') {
+                                            asteriskcft1.style.display = 'inline';
+                                        } else {
+                                            asteriskcft1.style.display = 'none';
+                                        }
+                                    }
+                                </script>
+
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="CFT Review Complete By">Production Review Completed By</label>
@@ -1454,13 +1554,14 @@ $users = DB::table('users')
                                         <input type="date"id="production_on" name="production_on" value="{{ $data1->production_on }}" >
                                     </div>
                                 </div>
+
                                 <div class="sub-head">
                                 Warehouse
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Warehouse Review Required">Warehouse Review Required ?</label>
-                                        <select name="Warehouse_review" id="Warehouse_review">
+                                        <select name="Warehouse_review" id="Warehouse_review" onchange="toggleWarehouse(this)">
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -1480,8 +1581,8 @@ $users = DB::table('users')
                             @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Warehouse Person">Warehouse Person</label>
-                                        <select name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}">
+                                        <label for="Warehouse Person">Warehouse Person  <span id="asteriskware" class="text-danger">@if ($data1->Warehouse_review == 'yes')* @endif</span></label>
+                                        <select name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}" >
                                             <option value=""> -- Select --</option>
                                             @foreach ($users as $user)
                                             <option {{ $data1->Warehouse_notification == $user->id ? 'selected' : '' }}
@@ -1532,6 +1633,17 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    function toggleWarehouse(selectElement) {
+                                        var asteriskElementware = document.getElementById('asteriskware');
+                                        if (selectElement.value === 'yes') {
+                                            asteriskElementware.style.display = 'inline';
+                                        } else {
+                                            asteriskElementware.style.display = 'none';
+                                        }
+                                    }
+                                </script>
+                                
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
@@ -4435,11 +4547,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             which is legally binding equivalent of a hand written signature.
                         </div>
                         <div class="group-input">
-                            <label for="username">Username</label>
+                            <label for="username">Username <span class="text-danger">*</span></label>
                             <input type="text" name="username" required>
                         </div>
                         <div class="group-input">
-                            <label for="password">Password</label>
+                            <label for="password">Password <span class="text-danger">*</span></label>
                             <input type="password" name="password" required>
                         </div>
                         <div class="group-input">

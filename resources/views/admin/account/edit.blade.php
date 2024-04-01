@@ -75,6 +75,15 @@
                     }
                 </script>
 
+{{-- <div class="form-group">
+    <label for="status">Status</label>
+    <select class="form-control" id="status" name="status" required>
+        <option @if ($data->status == '1') selected @endif
+            value="1">Yes</option>
+           <option  @if ($data->status == '0') selected @endif 
+           value="0">No</option>
+    </select>
+</div> --}}
             </div>
 
 

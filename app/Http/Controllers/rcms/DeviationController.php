@@ -65,6 +65,15 @@ class DeviationController extends Controller
      */
     public function store(Request $request)
     {
+        // $validatedData = $request->validate([
+        //     'Initiator_Group' => 'required', // Add more validation rules as needed
+        // ]);
+
+        if (!$request->initiator_group) {
+            toastr()->error("Departments is required");
+            // return response()->redirect()->back()->withInput(); not working
+        }
+
         if (!$request->short_description) {
             toastr()->error("Short description is required");
             return response()->redirect()->back()->withInput();
@@ -96,6 +105,9 @@ class DeviationController extends Controller
         $deviation->others = $request->others;
 
         $deviation->Product_Batch = $request->Product_Batch;
+
+
+
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
 
