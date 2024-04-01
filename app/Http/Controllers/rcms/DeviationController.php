@@ -132,6 +132,25 @@ class DeviationController extends Controller
         $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
+        $list = Helpers::getHeadoperationsUserList();
+                    foreach ($list as $u) {
+                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
+                                if ($request->Deviation_category == 'Major') { // Add this if statement
+                                    Mail::send(
+                                        'mail.Categorymail',
+                                        ['data' => $deviation],
+                                        function ($message) use ($email) {
+                                            $message->to($email)
+                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                        }
+                                    );
+                                }
+                            }
+                        }
+                    }
+
         if (!empty ($request->Audit_file)) {
             $files = [];
             if ($request->hasfile('Audit_file')) {
@@ -2234,6 +2253,27 @@ class DeviationController extends Controller
                         }
                     }
                 }
+
+                // $list = Helpers::getHeadoperationsUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
+
+                //             Mail::send(
+                //                 'mail.Categorymail',
+                //                 ['data' => $deviation],
+                //                 function ($message) use ($email) {
+                //                     $message->to($email)
+                //                         ->subject("Activity Performed By " . Auth::user()->name);
+                //                 }
+                //             );
+                //         }
+                //     }
+                // }
+
+                
+
 
                 $deviation->update();
 

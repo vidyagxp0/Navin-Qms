@@ -207,9 +207,9 @@ h2{
                     <br>
                     <p style="font-size: 15px;">Activity {{ $data->status }} has been performed by {{ Helpers::getInitiatorName($data->initiator_id)}} on {{$data->created_at}}.</p>
                     <br>
-                    <h3>Initial Deviation Category:</h3>
+                    <h3>Initial Deviation Category: {{$data->Deviation_category}}</h3>
                     <br>
-                    <h3>Post Categorization of Deviation:</h3>
+                    <h3>Post Categorization of Deviation: {{$data->Post_Categorization}}</h3>
                      <br>
                     <h3>Record Information:{{ $data->form_type }} </h3>
                     <br>

@@ -36,7 +36,7 @@
                                     <th>Activity Type</th>
                                     <th>Performed on</th>
                                     <th>Performed by</th>
-                                    <th>Performer Role</th>
+                                    {{-- <th>Performer Role</th> --}}
                                     <th>Origin State</th>
                                     <th>Resulting State</th>
                                 </tr>
@@ -49,7 +49,7 @@
                                         </td>
                                         <td> {{ Helpers::getdateFormat1($audits->created_at) }} </td>
                                         <td>{{ $audits->user_name }}</td>
-                                        <td>{{ $audits->user_role }}</td>
+                                        {{-- <td>{{ $audits->user_role }}</td> --}}
                                         <td>{{ $audits->origin_state }}</td>
                                         <td>{{ $document->status }}</td>
                                     </tr>
