@@ -76,7 +76,7 @@
                                 <div class="list-item">
                                     <div class="head">Changed To</div>
                                     <div>:</div>
-                                    <div>{{ empty($temp->user_role) ? 'Not Applicable' : $temp->user_role }}</div>
+                                    <div>{{$temp->current ? $temp->origin_state  : "Not Applicable"}}</div>
                                 </div>
                                 @if($temp->comment)
                                 <div class="list-item">
@@ -99,7 +99,7 @@
                                     <div class="list-item">
                                         <div class="head">Changed To</div>
                                         <div>:</div>
-                                        <div>{{ empty($temp->user_role) ? 'Not Applicable' : $temp->user_role }}</div>
+                                        <div>{{$temp->current ? $temp->origin_state  : "Not Applicable"}}</div>
                                     </div>
                                     <div class="list-item">
                                         <div class="head">Change Type</div>
