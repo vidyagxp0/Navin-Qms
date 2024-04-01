@@ -97,7 +97,7 @@
                         </table>
                     </div>
                     <div class="note">
-                        HD indicates HelpDesk specific personnel. Others are VidhyaGxP Administrators, which should be
+                        HD indicates HelpDesk specific personnel. Others are VidyaGxP Administrators, which should be
                         contacted only when no HelpDesk Specific persons are available.
                     </div>
                 </div>

@@ -227,6 +227,7 @@ Route::post('LabIncidentCancel/{id}', [LabIncidentController::class, 'LabInciden
 
 Route::get('audit-program', [AuditProgramController::class, 'auditprogram']);
 
+Route::view('New_dashboard', 'frontend.New_dashboard');
 
 
 

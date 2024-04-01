@@ -209,6 +209,9 @@
                                     <div>
                                         <a href="/rcms/qms-dashboard">QMS-Dashboard</a>
                                     </div> 
+                                    <div>
+                                    <a href="/New_dashboard">Dashboard</a> 
+                                    </div>
                                      <div>
                                     <a href="/analytics">Analytics</a> 
                                     </div> 
