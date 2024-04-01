@@ -2167,7 +2167,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Document is Submitted By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2209,7 +2209,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Plan Approved By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2259,7 +2259,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Plan Approved By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2411,7 +2411,7 @@ class DeviationController extends Controller
                                     ['data' => $deviation],
                                     function ($message) use ($email) {
                                         $message->to($email)
-                                            ->subject("Plan Approved By " . Auth::user()->name);
+                                            ->subject("Activity Performed By " . Auth::user()->name);
                                     }
                                 );
                             }
@@ -2452,7 +2452,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Plan Approved By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2491,7 +2491,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Plan Approved By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2543,7 +2543,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Plan Approved By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2602,7 +2602,7 @@ class DeviationController extends Controller
                             ['data' => $deviation],
                             function ($message) use ($email) {
                                 $message->to($email)
-                                    ->subject("Cancelled By " . Auth::user()->name);
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
                         );
                     }
@@ -2648,7 +2648,7 @@ class DeviationController extends Controller
                             ['data' => $deviation],
                             function ($message) use ($email) {
                                 $message->to($email)
-                                    ->subject("More Info Required " . Auth::user()->name);
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
                         );
                     }
@@ -2704,7 +2704,7 @@ class DeviationController extends Controller
                             ['data' => $deviation],
                             function ($message) use ($email) {
                                 $message->to($email)
-                                    ->subject("More Info Required " . Auth::user()->name);
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
                         );
                     }
@@ -2766,7 +2766,7 @@ class DeviationController extends Controller
                             ['data' => $deviation],
                             function ($message) use ($email) {
                                 $message->to($email)
-                                    ->subject("More Info Required " . Auth::user()->name);
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
                         );
                     }
@@ -2834,7 +2834,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Document is Send By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2879,7 +2879,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("Document is Send By " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -2972,7 +2972,7 @@ class DeviationController extends Controller
                         ['data' => $deviation],
                         function ($message) use ($email) {
                             $message->to($email)
-                                ->subject("More Info Required " . Auth::user()->name);
+                                ->subject("Activity Performed By " . Auth::user()->name);
                         }
                     );
                 }
@@ -3035,7 +3035,7 @@ class DeviationController extends Controller
                         ['data' => $deviation],
                         function ($message) use ($email) {
                             $message->to($email)
-                                ->subject("More Info Required " . Auth::user()->name);
+                                ->subject("Activity Performed By " . Auth::user()->name);
                         }
                     );
                 }
@@ -3098,7 +3098,7 @@ class DeviationController extends Controller
                         ['data' => $deviation],
                         function ($message) use ($email) {
                             $message->to($email)
-                                ->subject("More Info Required " . Auth::user()->name);
+                                ->subject("Activity Performed By " . Auth::user()->name);
                         }
                     );
                 }
@@ -3144,7 +3144,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("More Info Required " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -3190,7 +3190,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("More Info Required " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -3252,7 +3252,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("More Info Required " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
@@ -3289,7 +3289,7 @@ class DeviationController extends Controller
                                 ['data' => $deviation],
                                 function ($message) use ($email) {
                                     $message->to($email)
-                                        ->subject("More Info Required " . Auth::user()->name);
+                                        ->subject("Activity Performed By " . Auth::user()->name);
                                 }
                             );
                         }
