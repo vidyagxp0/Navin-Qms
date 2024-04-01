@@ -791,12 +791,13 @@ $users = DB::table('users')
 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/ Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
-                                        <select name="Facility_Equipment" id="">
-                                            <option value="">--Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
+                                        <select name="Facility_Equipment" id="Facility_Equipment"  value="{{ $data->Facility_Equipment }}" >
+                                            <option value="">-- Select --</option>
+                                            <option @if ($data->Facility_Equipment == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->Facility_Equipment == 'no') selected @endif 
+                                            value="no">No</option>>
                                         </select>
                                     </div>
                                 </div> 
@@ -881,12 +882,13 @@ $users = DB::table('users')
                                     </div>
                                     <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/ Equipment">   Document Details Required?</label>
-                                        <select name="Document_Details_Required" id="">
-                                            <option value="">--Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-
+                                        <label for="Document Details Required">Document Details Required?</label>
+                                        <select name="Document_Details_Required" id="Document_Details_Required"  value="{{ $data->Document_Details_Required }}" >
+                                            <option value="">-- Select --</option>
+                                            <option @if ($data->Document_Details_Required == 'yes') selected @endif
+                                             value="yes">Yes</option>
+                                            <option  @if ($data->Document_Details_Required == 'no') selected @endif 
+                                            value="no">No</option>>
                                         </select>
                                     </div>
                                 </div> 

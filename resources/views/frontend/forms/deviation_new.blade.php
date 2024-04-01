@@ -615,8 +615,8 @@ $users = DB::table('users')
                                 </div> 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/ Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
-                                        <select name="Facility_Equipment" id="">
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
+                                        <select name="Facility_Equipment" id="Facility_Equipment">
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -658,8 +658,8 @@ $users = DB::table('users')
                                     </div>
                                     <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/ Equipment">   Document Details Required?</label>
-                                        <select name=" Document_Details_Required" id="">
+                                        <label for="Document Details Required">Document Details Required?</label>
+                                        <select name=" Document_Details_Required" id="Document_Details_Required">
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
