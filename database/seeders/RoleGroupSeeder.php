@@ -2418,5 +2418,75 @@ foreach ($cft_roles as $role) {
     $group->save();
 }
 
+$group = new RoleGroup();
+$group->id = 364;
+$group->name = "Dewas/India-Deviation- Head QA/Designee";
+$group->description = "Dewas/India-Deviation- Head QA/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 365;
+$group->name = "Corporate/India-Deviation- Head QA/Designee";
+$group->description = "Corporate/India-Deviation- Head QA/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 366;
+$group->name = "Dewas/India-Extension- Initiator";
+$group->description = "Dewas/India-Extension- Initiator";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 367;
+$group->name = "Dewas/India-Extension- Approver";
+$group->description = "Dewas/India-Extension- Approver";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 368;
+$group->name = "Dewas/India-Extension- FP";
+$group->description = "Dewas/India-Extension- FP";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 369;
+$group->name = "Dewas/India-Extension- View Only";
+$group->description = "Dewas/India-Extension- View Only";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 370;
+$group->name = "Corporate/India-Extension- Initiator";
+$group->description = "Corporate/India-Extension- Initiator";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 371;
+$group->name = "Corporate/India-Extension- Approver";
+$group->description = "Corporate/India-Extension- Approver";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 372;
+$group->name = "Corporate/India-Extension- FP";
+$group->description = "Corporate/India-Extension- FP";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 373;
+$group->name = "Corporate/India-Extension- View Only";
+$group->description = "Corporate/India-Extension- View Only";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
 }
 }

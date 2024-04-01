@@ -127,7 +127,8 @@ class DeviationController extends Controller
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
-        
+        $deviation->Facility_Equipment = $request->Facility_Equipment;
+        $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
         if (!empty ($request->Audit_file)) {
@@ -747,6 +748,32 @@ class DeviationController extends Controller
 
         $history = new DeviationAuditTrail();
         $history->deviation_id = $deviation->id;
+        $history->activity_type = 'Facility/ Equipment/ Instrument/ System Details Required?';
+        $history->previous = "Null";
+        $history->current = $deviation->Facility_Equipment;
+        $history->comment = "Not Applicable";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $deviation->status;
+        $history->action_name = 'Submit';
+        $history->save();
+
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $deviation->id;
+        $history->activity_type = 'Document Details Required';
+        $history->previous = "Null";
+        $history->current = $deviation->Document_Details_Required;
+        $history->comment = "Not Applicable";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $deviation->status;
+        $history->action_name = 'Submit';
+        $history->save();
+
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $deviation->id;
         $history->activity_type = 'Name of Product & Batch No';
         $history->previous = "Null";
         $history->current = $deviation->Product_Batch;
@@ -1150,6 +1177,8 @@ class DeviationController extends Controller
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
+        $deviation->Facility_Equipment = $request->Facility_Equipment;
+        $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
         $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
@@ -1733,6 +1762,38 @@ class DeviationController extends Controller
             $history->activity_type = 'Others';
             $history->previous = $lastDeviation->Others;
             $history->current = $deviation->Others;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDeviation->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+
+        if ($lastDeviation->Facility_Equipment != $deviation->Facility_Equipment || !empty ($request->comment)) {
+            // return 'history';
+            $history = new DeviationAuditTrail;
+            $history->deviation_id = $id;
+            $history->activity_type = 'Facility/ Equipment/ Instrument/ System Details Required?';
+            $history->previous = $lastDeviation->Facility_Equipment;
+            $history->current = $deviation->Facility_Equipment;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDeviation->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+
+        if ($lastDeviation->Document_Details_Required != $deviation->Document_Details_Required || !empty ($request->comment)) {
+            // return 'history';
+            $history = new DeviationAuditTrail;
+            $history->deviation_id = $id;
+            $history->activity_type = 'Document Details Required';
+            $history->previous = $lastDeviation->Document_Details_Required;
+            $history->current = $deviation->Document_Details_Required;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;

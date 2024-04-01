@@ -38,6 +38,8 @@ return new class extends Migration
             $table->string('Extensionchild')->nullable();
             $table->string('audit_type')->nullable();
             $table->longText('others')->nullable();
+            $table->string('Facility_Equipment')->nullable();
+            $table->string('Document_Details_Required')->nullable();
             $table->longText('Product_Batch')->nullable();
             $table->longText('Description_Deviation')->nullable();
             $table->longText('Immediate_Action')->nullable();
