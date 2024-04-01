@@ -617,7 +617,17 @@ $users = DB::table('users')
                                         <input type="text" id="others" name="others">
                                     </div>
                                 </div> 
-                                
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
+                                        <select name="Facility_Equipment" id="Facility_Equipment">
+                                            <option value="">--Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+
+                                        </select>
+                                    </div>
+                                </div> 
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
                                         Facility/ Equipment/ Instrument/ System Details
@@ -650,6 +660,17 @@ $users = DB::table('users')
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Document Details Required">Document Details Required?</label>
+                                        <select name=" Document_Details_Required" id="Document_Details_Required">
+                                            <option value="">--Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+
+                                        </select>
+                                    </div>
+                                </div> 
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
                                          Document Details

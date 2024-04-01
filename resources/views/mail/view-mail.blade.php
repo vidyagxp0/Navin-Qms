@@ -69,8 +69,10 @@ h2{
 .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 359px;
             padding-bottom:10px;
+            /* justify-content: space-between; */
+
         }
 
 /* Responsive */
@@ -189,11 +191,12 @@ h2{
     <div id="main-container">
         <div class="notification-container">
             <div class="inner-block">
-                General Notification
+               
             <div class="logo-container">
                 <div class="logo">
-                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> --}}
-                    <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
+                    <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="...">
+                </div>
+                <div class="logo">
                     <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
                 </div>
             </div>
@@ -202,9 +205,24 @@ h2{
 
                     <h4>Dear User,</h4>
                     <br>
-                    <p style="font-size: 15px;">Activity {{ $data->origin_state }} has been performed by {{$data->user_name}} on {{$data->created_at}}.</p>
-                    <br>
-                    <h3>Record Information:{{ $data->type }} </h3>
+                    {{-- <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ Helpers::getInitiatorName($data->initiator_id)}} on {{$data->created_at}}.</p> --}}
+                    @if($data->stage === '2')
+                        <p style="font-size: 15px;">Activity Submit  has been performed by {{ $data->submit_by }} on {{ $data->submit_on }}.</p>
+                    @elseif($data->stage === '3')
+                        <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->HOD_Review_Complete_By }} on {{ $data->HOD_Review_Complete_On }}.</p>
+                    @elseif($data->stage === '4')
+                        <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->QA_Initial_Review_Complete_By }} on {{ $data->QA_Initial_Review_Complete_On }}.</p>
+                    @elseif($data->stage === '5')
+                          <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->CFT_Review_Complete_By }} on {{ $data->CFT_Review_Complete_On }}.</p>
+                    @elseif($data->stage === '6')
+                          <p style="font-size: 15px;">Activity {{ $data->status }} Complete has been performed by {{ $data->QA_Final_Review_Complete_By }} on {{ $data->QA_Final_Review_Complete_On }}.</p>
+                     @elseif($data->stage === '7')
+                          <p style="font-size: 15px;">Activity Approved Complete has been performed by {{ $data->Approved_By }} on {{ $data->Approved_On }}.</p>
+                    
+                    @endif
+
+                    <br>    
+                    <h3>Record Information:{{ $data->form_type }} </h3>
                     <br>
                     <h3>Record Link:{{ $data->type }} </h3>
                     <div class="table-wrapper">
@@ -242,15 +260,16 @@ h2{
             </div>
         </div>
 
-        <div class="notification-container">
-            <div class="inner-block">
+        {{--<div class="notification-container">
+              <div class="inner-block">
                 Critical Notification
-            <div class="logo-container">
+                
+              <div class="logo-container">
                 <div class="logo">
-                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> --}}
+                    {{-- <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="..."> 
                     <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="...">
                     <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
-                </div>
+                 </div>
             </div>
                 <div class="mail-content">
 
@@ -299,7 +318,7 @@ h2{
                 <h4>Best Regards,</h4>
                 <h4>QMS Admin</h4>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 </body>
