@@ -720,6 +720,7 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit =  url('DeviationAuditTrial', $data->id);
             $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         }
 
 
@@ -750,6 +751,7 @@ class DashboardController extends Controller
                             <a target="__blank" href="' . $audit . '" class="inner-item">Audit Trail</a>
                             <a target="__blank" href="' . $single . '" class="inner-item">' . $type . ' Single Report</a>
                             <a target="__blank" href="' . $parent . '" class="inner-item">' . $type . ' Parent with immediate child Report</a>
+                            <a target="__blank" href="' . $family . '" class="inner-item">' . $type . ' Family Report</a>
                         </div>
                     </div>
                 </div>
