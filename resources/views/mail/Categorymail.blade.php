@@ -220,10 +220,19 @@ h2{
                      @elseif($data->stage === '7')
                           <p style="font-size: 15px;">Activity Approved Complete has been performed by {{ $data->Approved_By }} on {{ $data->Approved_On }}.</p>
                     
-                    @endif                    <br>
-                    <h3>Initial Deviation Category: {{$data->Deviation_category}}</h3>
+                    @endif                  
                     <br>
-                    <h3>Post Categorization of Deviation: {{$data->Post_Categorization}}</h3>
+                        @if(!empty($data->Deviation_category))
+                    <h3>Initial Deviation Category: {{$data->Deviation_category}}</h3>
+                    @else
+                        <p>Yet Not Filled</p>
+                    @endif
+                    <br>
+                    @if(!empty($data->Post_Categorization))
+                        <h3>Post Categorization of Deviation: {{$data->Post_Categorization}}</h3>
+                    @else
+                        <p>Yet Not Filled</p>
+                    @endif
                      <br>
                     <h3>Record Information:{{ $data->form_type }} </h3>
                     <br>

@@ -474,16 +474,20 @@ $users = DB::table('users')
                                     <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                                     <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                                 @endif
-                                @if ($data->stage >= 3)
+                               
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
+                                        @if ($data->stage >= 3)
                                         <input disabled type="text" name="record_number"
                                         value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
+                                        @else
+                                        <input disabled type="text" name="record_number"> 
+                                        @endif
                                     </div>
                                 </div>
-                            @endif
+                    
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
@@ -509,11 +513,10 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-
                                 <?php
                                 // Calculate the due date (30 days from the initiation date)
                                 $initiationDate = date('Y-m-d'); // Current date as initiation date
-                                $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days'));
+                                $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
                                 ?>
 
                                 <div class="col-lg-6">
@@ -529,11 +532,25 @@ $users = DB::table('users')
                                         <label for="Due Date">Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $dueDate }}" />
+                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $dueDate }}" />
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
                                 </div>
+
+                                <script>
+                                    // Format the due date to DD-MM-YYYY
+                                    var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
+                                        day: '2-digit',
+                                        month: '2-digit',
+                                        year: 'numeric'
+                                    }).split('/').join('-');
+
+                                    // Set the formatted due date value to the input field
+                                    document.getElementById('due_date').value = dueDateFormatted;
+                                </script>
+
+
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
@@ -1086,7 +1103,7 @@ $users = DB::table('users')
                                             </div>
                                         @endif 
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Inv Attachments">HOD Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
@@ -1111,8 +1128,45 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                
+                                 --}}
                                
+                                 <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Inv Attachments">HOD Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div disabled class="file-attachment-list" id="Audit_file">
+                                                @if ($data->Audit_file)
+                                                    @foreach(json_decode($data->Audit_file) as $file)
+                                                        <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                            <b>{{ $file }}</b>
+                                                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                            <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                        </h6>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                    oninput="addMultipleFiles(this, 'Audit_file')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Event listener for the remove file button
+                                            $(document).on('click', '.remove-file', function() {
+                                                $(this).closest('.file-container').remove();
+                                            });
+                                        });
+                                    </script>
+
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -2322,7 +2376,6 @@ $users = DB::table('users')
                             <div class="group-input">
                                 <label for="Quality Assurance Review Completed By">Quality Assurance Review Completed By</label>
                                 <input type="text" name="QualityAssurance_by" id="QualityAssurance_by" value="{{$data1->QualityAssurance_by}}" disabled>
-                                <input disabled type="text" value="{{ $data1->QualityAssurance_by }}" name="QualityAssurance_by" id="QualityAssurance_by">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -3437,7 +3490,7 @@ $users = DB::table('users')
                         <div class="col-md-6 mb-3">
                             <div class="group-input">
                                 <label for="Quality Assurance Review Completed By">Quality Assurance Review Completed By</label>
-                                <input type="text" name="QualityAssurance_by" id="QualityAssurance_by" value="{{$data1->QualityAssurance_by}}" disabled>
+                                {{-- <input type="text" name="QualityAssurance_by" id="QualityAssurance_by" value="{{$data1->QualityAssurance_by}}" disabled> --}}
                                 <input disabled type="text" value="{{ $data1->QualityAssurance_by }}" name="QualityAssurance_by" id="QualityAssurance_by">
                             </div>
                         </div>

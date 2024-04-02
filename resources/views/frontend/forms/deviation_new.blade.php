@@ -365,8 +365,8 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
-                                        <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEV/{{ date('Y') }}/{{ $record_number }}">
+                                        <input disabled type="text" name="record_number">
+                                        {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEV/{{ date('Y') }}/{{ $record_number }}"> --}}
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
@@ -410,32 +410,43 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div> --}}
-                                <?php
-                                    // Calculate the due date (30 days from the initiation date)
-                                    $initiationDate = date('Y-m-d'); // Current date as initiation date
-                                    $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days'));
-                                    ?>
+                               
+                                    <?php
+                                        // Calculate the due date (30 days from the initiation date)
+                                        $initiationDate = date('Y-m-d'); // Current date as initiation date
+                                        $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
+                                        ?>
 
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                            <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
-                                            <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 new-date-data-field">
-                                        <div class="group-input input-date">
-                                            <label for="Due Date">Due Date</label>
-                                            <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
-                                            <div class="calenderauditee">
-                                                <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $dueDate }}" />
-                                                <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <div class="col-lg-6">
+                                            <div class="group-input">
+                                                <label for="Date of Initiation"><b>Date of Initiation</b></label>
+                                                <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
+                                                <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                             </div>
                                         </div>
-                                    </div>
 
-                                
+                                        <div class="col-lg-12 new-date-data-field">
+                                            <div class="group-input input-date">
+                                                <label for="Due Date">Due Date</label>
+                                                <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
+                                                <div class="calenderauditee">
+                                                    <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $dueDate }}" />
+                                                    <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            // Format the due date to DD-MM-YYYY
+                                            var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
+                                                day: '2-digit',
+                                                month: '2-digit',
+                                                year: 'numeric'
+                                            }).split('/').join('-');
+
+                                            // Set the formatted due date value to the input field
+                                            document.getElementById('due_date').value = dueDateFormatted;
+                                        </script>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">

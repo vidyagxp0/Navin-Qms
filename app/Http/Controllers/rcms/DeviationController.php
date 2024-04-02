@@ -156,6 +156,8 @@ class DeviationController extends Controller
                         }
                     }
                 }
+
+                
                 if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
                     $list = Helpers::getCEOUserList();
                             foreach ($list as $u) {
