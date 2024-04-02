@@ -505,7 +505,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature <span style="display: none" class="text-danger">*</span></label>
+                                        <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: none" class="text-danger">*</span></label>
                                         <textarea name="nature_of_repeat" class="nature_of_repeat"></textarea>
                                     </div>
                                 </div>
