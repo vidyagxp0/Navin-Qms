@@ -156,8 +156,108 @@ class DeviationController extends Controller
                         }
                     }
                 }
+                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                    $list = Helpers::getCEOUserList();
+                            foreach ($list as $u) {
+                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                    if ($email !== null) {
+                                         // Add this if statement
+                                            Mail::send(
+                                                'mail.Categorymail',
+                                                ['data' => $deviation],
+                                                function ($message) use ($email) {
+                                                    $message->to($email)
+                                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                                }
+                                            );
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                            $list = Helpers::getCorporateEHSHeadUserList();
+                                    foreach ($list as $u) {
+                                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                            $email = Helpers::getInitiatorEmail($u->user_id);
+                                            if ($email !== null) {
+                                                 // Add this if statement
+                                                    Mail::send(
+                                                        'mail.Categorymail',
+                                                        ['data' => $deviation],
+                                                        function ($message) use ($email) {
+                                                            $message->to($email)
+                                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                                        }
+                                                    );
+                                                
+                                            }
+                                        }
+                                    }
+                                }                
+      
+                                if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
+                                    $list = Helpers::getHeadoperationsUserList();
+                                            foreach ($list as $u) {
+                                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                                    if ($email !== null) {
+                                                         // Add this if statement
+                                                            Mail::send(
+                                                                'mail.Categorymail',
+                                                                ['data' => $deviation],
+                                                                function ($message) use ($email) {
+                                                                    $message->to($email)
+                                                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                                                }
+                                                            );
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
+                                            $list = Helpers::getCEOUserList();
+                                                    foreach ($list as $u) {
+                                                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                            $email = Helpers::getInitiatorEmail($u->user_id);
+                                                            if ($email !== null) {
+                                                                 // Add this if statement
+                                                                    Mail::send(
+                                                                        'mail.Categorymail',
+                                                                        ['data' => $deviation],
+                                                                        function ($message) use ($email) {
+                                                                            $message->to($email)
+                                                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                                                        }
+                                                                    );
+                                                                
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
+                                                    $list = Helpers::getCorporateEHSHeadUserList();
+                                                            foreach ($list as $u) {
+                                                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                                                    if ($email !== null) {
+                                                                         // Add this if statement
+                                                                            Mail::send(
+                                                                                'mail.Categorymail',
+                                                                                ['data' => $deviation],
+                                                                                function ($message) use ($email) {
+                                                                                    $message->to($email)
+                                                                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                                                                }
+                                                                            );
+                                                                        
+                                                                    }
+                                                                }
+                                                            }
+                                                        }                            
 
-                
         if (!empty ($request->Audit_file)) {
             $files = [];
             if ($request->hasfile('Audit_file')) {
@@ -2323,6 +2423,7 @@ class DeviationController extends Controller
                         }
                     }
                 }
+                
 
                 $deviation->update();
                 toastr()->success('Document Sent');
@@ -2373,6 +2474,68 @@ class DeviationController extends Controller
                         }
                     }
                 }
+
+                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                    $list = Helpers::getHeadoperationsUserList();
+                            foreach ($list as $u) {
+                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                    if ($email !== null) {
+                                         // Add this if statement
+                                            Mail::send(
+                                                'mail.Categorymail',
+                                                ['data' => $deviation],
+                                                function ($message) use ($email) {
+                                                    $message->to($email)
+                                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                                }
+                                            );
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                            $list = Helpers::getCEOUserList();
+                                    foreach ($list as $u) {
+                                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                            $email = Helpers::getInitiatorEmail($u->user_id);
+                                            if ($email !== null) {
+                                                 // Add this if statement
+                                                    Mail::send(
+                                                        'mail.Categorymail',
+                                                        ['data' => $deviation],
+                                                        function ($message) use ($email) {
+                                                            $message->to($email)
+                                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                                        }
+                                                    );
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                                    $list = Helpers::getCorporateEHSHeadUserList();
+                                            foreach ($list as $u) {
+                                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                                    if ($email !== null) {
+                                                         // Add this if statement
+                                                            Mail::send(
+                                                                'mail.Categorymail',
+                                                                ['data' => $deviation],
+                                                                function ($message) use ($email) {
+                                                                    $message->to($email)
+                                                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                                                }
+                                                            );
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+
                 $deviation->update();
                 toastr()->success('Document Sent');
                 return back();
