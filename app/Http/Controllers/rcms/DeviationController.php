@@ -90,7 +90,7 @@ class DeviationController extends Controller
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Facility = implode(',', $request->Facility);
         // $deviation->Observed_by = $request->Observed_by;
-        $deviation->audit_type = $request->audit_type;
+        $deviation->audit_type = implode(',', $request->audit_type);
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
@@ -102,7 +102,7 @@ class DeviationController extends Controller
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
 
-
+        $deviation->Related_Records1 =  implode(',', $request->related_records);
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
@@ -1268,13 +1268,14 @@ class DeviationController extends Controller
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
-        $deviation->audit_type = $request->audit_type;
+        $deviation->audit_type = implode(',', $request->audit_type);
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
         $deviation->Product_Batch = $request->Product_Batch;
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
+        $deviation->Related_Records1 =  implode(',', $request->related_records);
         $deviation->Facility = implode(',', $request->Facility);  
 
 

@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('Document_Details_Required')->nullable();
             $table->longText('Product_Batch')->nullable();
             $table->longText('Description_Deviation')->nullable();
+            $table->text('Related_Records1')->nullable();
             $table->longText('Immediate_Action')->nullable();
             $table->longText('Preliminary_Impact')->nullable();
             $table->longText('Product_Details_Required')->nullable();

@@ -229,7 +229,7 @@ $users = DB::table('users')
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         '<td> <select name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
-                        '<td><input type="number" name="IDnumber[]"></td>'+
+                        '<td><input type="text" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
@@ -260,7 +260,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="number" name="Number[]"></td>'+
+                        '<td><input type="text" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
                         '<td><input type="text" name="Document_Remarks[]"></td>'+
 
@@ -389,30 +389,13 @@ $users = DB::table('users')
                                 </div>
 
                                  
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
                                         <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                                         <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="group-input">
-                                        <label for="search">
-                                            Assigned To <span class="text-danger"></span>
-                                        </label>
-                                         <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="">Select a value</option>
-                                            @foreach ($users as $value)
-                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('assign_to')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror 
-                                    </div>
-                                </div> --}}
-                                
                                 
                                 <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
@@ -426,7 +409,33 @@ $users = DB::table('users')
                                             oninput="handleDateInput(this, 'due_date')"/>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
+                                <?php
+                                    // Calculate the due date (30 days from the initiation date)
+                                    $initiationDate = date('Y-m-d'); // Current date as initiation date
+                                    $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days'));
+                                    ?>
+
+                                    <div class="col-lg-6">
+                                        <div class="group-input">
+                                            <label for="Date of Initiation"><b>Date of Initiation</b></label>
+                                            <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
+                                            <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="Due Date">Due Date</label>
+                                            <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $dueDate }}" />
+                                                <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -556,17 +565,19 @@ $users = DB::table('users')
                                 </script> --}}
 
 
-                                <div class="col-lg-6 new-date-data-field">
+                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                              <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" /> 
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
-                                            <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            <input type="date"  name="Deviation_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_date')" />
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+                                
+                                
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time">
                                         <label for="deviation_time">Deviation Observed On (Time)</label>
@@ -607,7 +618,7 @@ $users = DB::table('users')
                                         <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="Deviation_reported_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_reported_date')" />
                                         </div>
                                     </div>
@@ -617,7 +628,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To </label>
-                                        <select name="audit_type" id="audit_type">
+                                        <select multiple name="audit_type[]" id="audit_type">
                                             <option value="">Enter Your Selection Here</option>
                                             <option value="Facility">Facility</option>
                                             <option value="Equipment/Instrument">Equipment/ Instrument </option>
@@ -637,6 +648,31 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
+                                {{-- <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="audit type">Deviation Related To </label>
+                                        <select name="audit_type[]" id="audit_type" multiple class="form-control">
+                                            <option value="">Enter Your Selection Here</option>
+                                            <option value="Facility">Facility</option>
+                                            <option value="Equipment/Instrument">Equipment/ Instrument </option>
+                                            <option value="Documentationerror">Documentation error </option>
+                                            <option value="STP/ADS_instruction">STP/ADS instruction </option>
+                                            <option value="Packaging&Labelling">Packaging & Labelling  </option>
+                                            <option value="Material_System">Material System  </option>
+                                            <option value="Laboratory_Instrument/System"> Laboratory Instrument /System</option>
+                                            <option value="Utility_System"> Utility System</option>
+                                            <option value="Computer_System"> Computer System</option>
+                                            <option value="Document">Document</option>
+                                            <option value="Data integrity">Data integrity</option>
+                                            <option value="SOP Instruction">SOP Instruction</option>
+                                            <option value="BMR/ECR Instruction">BMR/ECR Instruction</option>
+                                            <option value="Water System">Water System</option>
+                                            <option value="Anyother(specify)">Any other (specify) </option>
+                                        </select>
+                                    </div>
+                                </div> --}}
+                                
+                                
                                  <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
@@ -707,7 +743,7 @@ $users = DB::table('users')
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
                                                 <td> <select  name="facility_name[]" id="facility_name" class="facility-name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
-                                                <td><input type="number" name="IDnumber[]" class="id-number"></td>
+                                                <td><input type="text" name="IDnumber[]" class="id-number"></td>
                                                 <td><input type="text" name="Remarks[]" class="remarks"></td>
                                                 </tbody>
 
@@ -791,7 +827,7 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="number" class="numberDetail" name="Number[]"></td>
+                                        <td><input type="text" class="numberDetail" name="Number[]"></td>
                                         <td><input type="text" class="ReferenceDocumentName" name="ReferenceDocumentName[]"></td>
                                         <td><input type="text" class="Document_Remarks" name="Document_Remarks[]"></td>
                        
@@ -1163,7 +1199,7 @@ $users = DB::table('users')
                                             id="related_records">
                                             @foreach ($pre as $prix)
                                                 <option value="{{ $prix->id }}">
-                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}/{{$prix->short_description}}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -3808,7 +3844,7 @@ $users = DB::table('users')
 
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type'
         });
 
         function openCity(evt, cityName) {
@@ -3995,6 +4031,16 @@ $users = DB::table('users')
         document.getElementById('initiator_group').addEventListener('change', function() {
             var selectedValue = this.value;
             document.getElementById('initiator_group_code').value = selectedValue;
+        });
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const select = document.getElementById('audit_type');
+            select.addEventListener('change', function() {
+                const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
+                console.log(selectedOptions); // You can do whatever you need with the selected options here
+            });
         });
     </script>
     

@@ -173,7 +173,7 @@ $users = DB::table('users')
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         '<td> <select name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
-                        '<td><input type="number" name="IDnumber[]"></td>'+
+                        '<td><input type="text" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
@@ -205,7 +205,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="number" name="Number[]"></td>'+
+                        '<td><input type="text" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
                         '<td><input type="text" name="Document_Remarks[]"></td>'+
                         
@@ -474,6 +474,7 @@ $users = DB::table('users')
                                     <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                                     <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                                 @endif
+                                @if ($data->stage >= 3)
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
@@ -482,6 +483,15 @@ $users = DB::table('users')
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
+                            @endif
+                                {{-- <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="RLS Record Number"><b>Record Number</b></label>
+                                        <input disabled type="text" name="record_number"
+                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
+                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> 
+                                    </div>
+                                </div> --}}
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Site/Location Code</b></label>
@@ -499,32 +509,39 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                                
+
+                                <?php
+                                // Calculate the due date (30 days from the initiation date)
+                                $initiationDate = date('Y-m-d'); // Current date as initiation date
+                                $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days'));
+                                ?>
+
                                 <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Date of Initiation"><b>Date of Initiation</b></label>
+                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
+                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Due Date">Due Date</label>
+                                        <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $dueDate }}" />
+                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
                                         <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                                         <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="group-input">
-                                        <label for="search">
-                                            Assigned To <span class="text-danger"></span>
-                                        </label>
-                                         <select id="select-state" placeholder="Select..." name="assign_to"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} >
-                                            <option value="">Select a value</option>
-                                            @foreach ($users as $value)
-                                                <option {{ $data->assign_to == $value->id ? 'selected' : '' }}
-                                                    value="{{ $value->id }}">{{ $value->name }}</option>
-                                            @endforeach
-                                        </select> 
-                                     
-                                            <p class="text-danger"></p>
-                                      
-                                    </div>
-                                </div> --}}
-                                
+
                                 <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Due Date</label>
@@ -533,11 +550,11 @@ $users = DB::table('users')
                                         <input readonly type="text"
                                             value="{{ Helpers::getdateFormat($data->due_date) }}"
                                             name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}>
-                                        {{-- <input type="text" value="{{ $data->due_date }}" name="due_date"> --}}
-                                        {{-- <div class="static"> {{ $due_date }}</div> --}}
+                                        {{-- <input type="text" value="{{ $data->due_date }}" name="due_date">
+                                        {{-- <div class="static"> {{ $due_date }}</div> 
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -758,38 +775,26 @@ $users = DB::table('users')
                              
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit type">Deviation Related To </label>
-                                        <select  name="audit_type" id="audit_type"  value="{{ $data->audit_type }}" onchange="checkDeviationRelated(this)">
+                                        <label for="audit type">Deviation Related To</label>
+                                        <select multiple name="audit_type[]" id="audit_type">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option @if ($data->audit_type == 'Facility') selected @endif
-                                                value="Facility">Facility</option>
-                                                <option @if ($data->audit_type == 'Equipment/Instrument') selected @endif
-                                                    value="Equipment/Instrument">Equipment/Instrument</option>
-                                                    <option @if ($data->audit_type == 'Documentationerror') selected @endif
-                                                        value="Documentationerror">Documentation error</option>
-                                                        <option @if ($data->audit_type == 'STP/ADS_instruction') selected @endif
-                                                            value="STP/ADS_instruction">STP/ADS instruction</option>
-                                                            <option @if ($data->audit_type == 'Packaging&Labelling') selected @endif
-                                                                value="Packaging&Labelling">Packaging & Labelling</option>
-                                                                <option @if ($data->audit_type == 'Material_System') selected @endif
-                                                                    value="Material_System">Material System</option>
-                                                                    <option @if ($data->audit_type == 'Laboratory_Instrument/System') selected @endif
-                                                                        value="Laboratory_Instrument/System">Laboratory_Instrument/System</option>
-                                                                        <option @if ($data->audit_type == 'Utility_System') selected @endif
-                                                                            value="Utility_System">Utility System</option>
-                                                                            <option @if ($data->audit_type == 'Computer_System') selected @endif
-                                                                                value="Computer_System">Computer System</option>
-                                                                                <option @if ($data->audit_type == 'Document') selected @endif
-                                                                                    value="Document">Document</option>
-                                                                                    <option @if ($data->audit_type == 'Data integrity') selected @endif
-                                                                                        value="Data integrity">Data integrity</option>
-                                                                                        <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
-                                                                                            value="Anyother(specify)">Anyother(specify)</option>
-                                                                                            <option @if ($data->audit_type == 'Water System') selected @endif
-                                                                                                value="Water System">Water System</option>
+                                            <option value="Facility" {{ strpos($data->audit_type, 'Facility') !== false ? 'selected' : '' }}>Facility</option>
+                                            <option value="Equipment/Instrument" {{ strpos($data->audit_type, 'Equipment/Instrument') !== false ? 'selected' : '' }}>Equipment/Instrument</option>
+                                            <option value="Documentationerror" {{ strpos($data->audit_type, 'Documentationerror') !== false ? 'selected' : '' }}>Documentation error</option>
+                                            <option value="STP/ADS_instruction" {{ strpos($data->audit_type, 'STP/ADS_instruction') !== false ? 'selected' : '' }}>STP/ADS instruction</option>
+                                            <option value="Packaging&Labelling" {{ strpos($data->audit_type, 'Packaging&Labelling') !== false ? 'selected' : '' }}>Packaging & Labelling</option>
+                                            <option value="Material_System" {{ strpos($data->audit_type, 'Material_System') !== false ? 'selected' : '' }}>Material System</option>
+                                            <option value="Laboratory_Instrument/System" {{ strpos($data->audit_type, 'Laboratory_Instrument/System') !== false ? 'selected' : '' }}>Laboratory Instrument/System</option>
+                                            <option value="Utility_System" {{ strpos($data->audit_type, 'Utility_System') !== false ? 'selected' : '' }}>Utility System</option>
+                                            <option value="Computer_System" {{ strpos($data->audit_type, 'Computer_System') !== false ? 'selected' : '' }}>Computer System</option>
+                                            <option value="Document" {{ strpos($data->audit_type, 'Document') !== false ? 'selected' : '' }}>Document</option>
+                                            <option value="Data integrity" {{ strpos($data->audit_type, 'Data integrity') !== false ? 'selected' : '' }}>Data integrity</option>
+                                            <option value="Water System" {{ strpos($data->audit_type, 'Water System') !== false ? 'selected' : '' }}>Water System</option>
+                                            <option value="Anyother(specify)" {{ strpos($data->audit_type, 'Anyother(specify)') !== false ? 'selected' : '' }}>Anyother(specify)</option>
                                         </select>
                                     </div>
                                 </div>
+                                
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -889,7 +894,7 @@ $users = DB::table('users')
                                                                         <option value="3" {{ (unserialize($grid_data->facility_name)[$key] == "3")?"selected":"2"}}>Instrument</option>--}}
                                                                     </select>
                                                                 </td>
-                                                                <td><input type="number" name="IDnumber[]" value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
+                                                                <td><input type="text" name="IDnumber[]" value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
                                                                 <td><input type="text" name="Remarks[]" value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
                                                             </tr>
                                                         @endforeach
@@ -940,7 +945,7 @@ $users = DB::table('users')
                                                     @foreach (unserialize($grid_data1->ReferenceDocumentName) as $key => $temps)
                                                         <tr>
                                                           <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
-                                                            <td><input type="number" name="Number[]" value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
+                                                            <td><input type="text" name="Number[]" value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
                                                             <td><input type="text" name="ReferenceDocumentName[]" value="{{ unserialize($grid_data1->ReferenceDocumentName)[$key] ? unserialize($grid_data1->ReferenceDocumentName)[$key] : '' }}"></td>
                                                             <td><input type="text" name="Document_Remarks[]" value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
                                                         </tr>           
@@ -1111,7 +1116,7 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-<a href="/rcms/qms-dashboard">
+                                <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -1288,38 +1293,18 @@ $users = DB::table('users')
                                 <div class="col-12">
                                         <div class="group-input">
                                             <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
-                                            <select  multiple name="related_records[]" placeholder="Select Facility Name"
-                                                data-search="false" data-silent-initial-value-set="true" id="related_records">
+                                            <select  multiple id="related_records"  placeholder="Select Facility Name"
+                                            data-search="false" data-silent-initial-value-set="true" name="related_records[]" >
+                                                <option value="">--Select---</option>
                                                 @foreach ($pre as $prix)
-                                                    <option value="{{ $prix->id }}">
-                                                        {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                    <option value="{{ $prix->id }}" {{ in_array($prix->id, explode(',', $data->Related_Records1)) ? 'selected' : '' }}>
+                                                        {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}/{{$prix->short_description}}
                                                     </option>
                                                 @endforeach                                         
                                             </select>
                                         </div>
                                 </div>
 
-                                {{-- <div class="col-12">
-                                    <div class="group-input"> 
-                                        <label for="related_records">Related Records</label>
-
-                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
-                                            data-search="false" data-silent-initial-value-set="true"
-                                            id="related_records">
-                                            @foreach ($pre as $prix)
-                                                <option value="{{ $prix->id }}">
-                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Comments(If Any)">QA Initial Remarks</label>
-                                      <textarea name="QAInitialRemark" value="QAInitialRemark" id="" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
@@ -1368,6 +1353,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                             </div>
+                            
                             @else
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
@@ -1517,11 +1503,12 @@ $users = DB::table('users')
                                 <div class="col-12">
                                         <div class="group-input">
                                             <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
-                                            <select disabled  multiple name="related_records[]" placeholder="Select Facility Name"
+                                            <select  multiple name="related_records[]" placeholder="Select Facility Name"
                                                 data-search="false" data-silent-initial-value-set="true" id="related_records">
+                                                <option value="">--Select---</option>
                                                 @foreach ($pre as $prix)
-                                                    <option value="{{ $prix->id }}">
-                                                        {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                    <option value="{{ $prix->id }}" {{ in_array($prix->id, explode(',', $data->Related_Records1)) ? 'selected' : '' }}>
+                                                        {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}/{{$prix->short_description}}
                                                     </option>
                                                 @endforeach                                         
                                             </select>
@@ -5833,7 +5820,7 @@ location.reload();
     </script>
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record, #related_records, #audit_type'
         });
 
         function openCity(evt, cityName) {
@@ -6501,7 +6488,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record,'
         });
     
         function openCity(evt, cityName) {
