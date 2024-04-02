@@ -176,7 +176,7 @@
                             <canvas id="myLineChart" width="400" height="115" style="display:none;"></canvas>
                             <div id="paichart" style="width: 400px; height: 115px; margin: 0 auto; display:none;">
                             </div>
-                        </div>  -->
+                        </div>
 
                         <script>
                             var chartTypes = ['bar', 'pie', 'line']; // Available chart types
@@ -966,7 +966,7 @@
             },
             plotOptions: {
                 pie: {
-                    startAngle: 0,
+                    startAngle: 0,  
                     endAngle: 360,
                     offsetX: 0,
                     offsetY: 0,
