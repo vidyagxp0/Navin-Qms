@@ -862,7 +862,7 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
 
 #rcms-dashboard .scope-table .grid-block {
     display: grid;
-    grid-template-columns: 1fr 1fr 100px;
+    grid-template-columns: 6fr 1fr 0px;
     gap: 20px;
     align-items: end;
     background: #f1f1f1;

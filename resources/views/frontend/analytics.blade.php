@@ -145,7 +145,7 @@
                                 {{-- <option value="tms">TMS</option>  --}}
                             </select>
                         </div>
-                        <div class="group-input">
+                         <!-- <div class="group-input">
                             <label for="query">Chart Type</label>
                             <select id="query" name="stage">
                                 <option onclick="showChart('bar')" value="bar">Bar Chart</option>
@@ -155,7 +155,7 @@
                                     <option value="Assigned">Assigned To Me</option>
                                     <option value="Records">Records Created Today</option> --}}
                             </select>
-                        </div>
+                        </div> -->
                         <div class="item-btn" onclick="window.print()">Print</div>
                     </div>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -170,13 +170,13 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
                     <div class="main-scope-table">
-                        <div>
+                        <!-- <div>
                             <button id="toggleChartButton">Bar Chart</button>
                             <canvas id="myChart" width="400" height="115"></canvas>
                             <canvas id="myLineChart" width="400" height="115" style="display:none;"></canvas>
                             <div id="paichart" style="width: 400px; height: 115px; margin: 0 auto; display:none;">
                             </div>
-                        </div>
+                        </div>  -->
 
                         <script>
                             var chartTypes = ['bar', 'pie', 'line']; // Available chart types
@@ -337,24 +337,26 @@
                                         configLine
                                     );
                                 });
-                        </script>
+                        </script> 
                         <div id="test">
                             </br>
                             <hr>
                             </br>
-                            <h4 align="center" id="selectedValueText"></h4>
+                            <div style="background-color: #4274da; color: white;">
+                            <h4 style="margin-left: 20px;" align="left" id="selectedValueText"></h4>
+                            </div>
                             <div id="chart1"></div>
-                            <h4 align="center" id="selectedValueTextDepartment"></h4>
+                            <h4  style="margin-left: 20px; background-color: #4274da; color: white;" align="left" id="selectedValueTextDepartment"></h4>
                             <div id="chart2"></div>
-                            <h4 align="center" id="selectedValueTextDepartmentReleted"></h4>
+                            <h4 style="margin-left: 20px; background-color: #4274da; color: white;" align="left" id="selectedValueTextDepartmentReleted"></h4>
                             <div id="chart3"></div>
-                            <h4 align="center" id="selectedValueTextInitialDeviationCategory"></h4>
+                            <h4 style="margin-left: 20px;background-color: #4274da; color: white;" align="left" id="selectedValueTextInitialDeviationCategory"></h4>
                             <div id="chart4"></div>
-                            <h4 align="center" id="selectedValueTextPostCategorizationOfDeviation"></h4>
+                            <h4 style="margin-left: 20px; background-color: #4274da; color: white;" align="left" id="selectedValueTextPostCategorizationOfDeviation"></h4>
                             <div id="chart5"></div>
-                            <h4 align="center" id="selectedValueTextCAPARequired"></h4>
+                            <h4 style=" margin-left: 20px; background-color: #4274da; color: white;" align="left" id="selectedValueTextCAPARequired"></h4>
                             <div id="chart6"></div>
-                            <h4 align="center" id="selectedValueTextCAPARequiredRCA"></h4>
+                            <h4 style="margin-left: 20px; background-color: #4274da; color: white;" align="left" id="selectedValueTextCAPARequiredRCA"></h4>
                             <div id="chart7"></div>
                         </div>
                         <hr>
@@ -512,13 +514,13 @@
             chartElement.innerHTML = ""; // Clear the chart container
         }
         var selectedValue = selectElement.value;
-        document.getElementById("selectedValueText").textContent = selectedValue + " (Division)";
-        document.getElementById("selectedValueTextDepartment").textContent = selectedValue + " (Department)";
-        document.getElementById("selectedValueTextDepartmentReleted").textContent = selectedValue + " (Related To)";
-        document.getElementById("selectedValueTextInitialDeviationCategory").textContent = selectedValue + " (Initial Deviation Category)";
-        document.getElementById("selectedValueTextPostCategorizationOfDeviation").textContent = selectedValue + " (Post Categorization Of Deviation)";
-        document.getElementById("selectedValueTextCAPARequired").textContent = selectedValue + " (CAPA Required)";
-        document.getElementById("selectedValueTextCAPARequiredRCA").textContent = selectedValue + " (RCA)";
+        document.getElementById("selectedValueText").textContent = selectedValue + " - Division Wise Distribution";
+        document.getElementById("selectedValueTextDepartment").textContent = selectedValue + " - Department Wise Distribution ";
+        document.getElementById("selectedValueTextDepartmentReleted").textContent = selectedValue + "- Related To Distribution";
+        document.getElementById("selectedValueTextInitialDeviationCategory").textContent = selectedValue + " - Initial Deviation Category";
+        document.getElementById("selectedValueTextPostCategorizationOfDeviation").textContent = selectedValue + " - Post Categorization Wise Deviation)";
+        document.getElementById("selectedValueTextCAPARequired").textContent = selectedValue + " - CAPA Required ";
+        document.getElementById("selectedValueTextCAPARequiredRCA").textContent = selectedValue + "  Status Distribution";
         fetchData(selectedValue, chartType);
     }
 </script>
@@ -655,7 +657,7 @@
                 position: 'bottom',
                 offsetY: 40
             },
-            fill: {
+            fill: { 
                 opacity: 1
             }
         };
