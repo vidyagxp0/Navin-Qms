@@ -365,12 +365,12 @@
                                 </table>
                             </div>
                         </div>  -->
-<div class="row">
-    <div class="col-lg-6">
+
+                     <div class="col-lg-12">
                          <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
-                                    Batch Failure Rate (Term)
+                                    Month Wise Initial Categorization Distribution
                                 </div>
                                 <div id="chart-5"></div>
                             </div>
@@ -450,7 +450,7 @@
                                 </table>
                             </div>
                         </div> -->
-<div class="col-lg-6">
+  <!-- <div class="col-lg-6">
                         <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
@@ -460,7 +460,7 @@
                             </div>
                         </div>
                         </div>
-                        </div>
+                        </div> -->
                         <div class="inner-block table-block"> 
                             <div class="head">Invalid Result OOS Rate (Term)</div>
                             <div class="table-container">
@@ -602,14 +602,14 @@
                             </div>
                         </div>
 
-                        <div class="inner-block chart-block">
+                        <!-- <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
                                     Effectivenss Check Failure Rate (Term)
                                 </div>
                                 <div id="chart-12"></div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="inner-block table-block">
                             <div class="head">Change Control Extension Rate (Term)</div>
@@ -1110,7 +1110,7 @@
                                 </div>
                                 <div id="chart-6"></div>
                             </div>
-                        </div> --}}
+                        </div> 
 
                         {{-- <div class="inner-block chart-block">
                             <div class="chart-container">
@@ -2504,12 +2504,12 @@ chart.render();
 
         // ========================= DASHBOARD CHART 2
         var data4 = {
-            labels: ["QA", "QC", "RA", "Microbiology", "Warehouse", "Production"],
+            labels: ["On Time", "1 Day", "3 Days", "5 Days", "10 days", "15 days","1 months","3 months","5 months"],
             datasets: [{
                 label: "Status",
                 backgroundColor: ["blue", "yellow", "green", "purple", "pink", "grey"],
                 borderColor: "#4274da",
-                borderWidth: 2,
+                borderWidth: 2    ,
                 hoverBackgroundColor: "#4274da87",
                 hoverBorderColor: "#4274da",
                 data: [0, 23, 30, 70, 50, 120],
@@ -2523,11 +2523,11 @@ chart.render();
             type: 'column',
             data: [1.1, 2, 1.5, 1.5, 2.5, ]
         },{
-            name: 'Minor',
+            name: 'Major',
             type: 'column',
             data: [1.4, 2, 2.5, 1.5, 2.5, ]
         }, {
-            name: 'Mejor',
+            name: 'Minor',
             type: 'column',
             data: [1.1, 3, 3.1, 4, 4.1, ],
         }],
