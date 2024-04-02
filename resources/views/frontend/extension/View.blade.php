@@ -411,8 +411,7 @@
                                     </div>
                                     <div class="button-block">
                                         <button type="submit" class="saveButton">Save</button>
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+<a href="/rcms/qms-dashboard">                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -487,8 +486,7 @@
                                     </div>
                                     <div class="button-block">
                                         <button type="submit" class="saveButton">Save</button>
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                        <button type="submit">Submit</button>
+                                        <button type="button" class="backButton">Back</button>                                        <button type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -691,8 +689,7 @@
                                     </div>
                                     <div class="button-block">
                                         <button type="submit" class="saveButton">Save</button>
-                                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                        <button type="submit">Submit</button>
+                                    </a>                                        <button type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div> --}}
@@ -775,8 +772,8 @@
                                     <input type="password" name="password" required>
                                 </div>
                                 <div class="group-input">
-                                    <label for="comment">Comment<span class="text-danger">*</span></label>
-                                    <input type="comment" name="comment" required>
+                                    <label for="comment">Comment</label>
+                                    <input type="comment" name="comment">
                                 </div>
                             </div>
 

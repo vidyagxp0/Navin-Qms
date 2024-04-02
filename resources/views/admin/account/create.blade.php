@@ -82,8 +82,14 @@
                     }
                 </script>
 
+{{-- <div class="form-group">
+    <label for="status">Status</label>
+    <select class="form-control" id="status" name="status" required>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+    </select>
+</div> --}}
             </div>
-
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>

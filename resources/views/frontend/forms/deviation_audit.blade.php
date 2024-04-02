@@ -164,17 +164,20 @@
     <header>
         <table>
             <tr>
-                <td class="w-70 head">
-                Deviation Audit Trail
+                <td class="w-90 head">
+                       Audit Trail
                 </td>
                 <td class="w-30">
+                    <div class="btn-group" style="font-size: 1rem; text-align: center; border-radius: 20px; color: white; margin-left : 5px; padding: 7px 50px; cursor: pointer;">
+                        <button onclick="window.print();return false;" type="button">Print</button>
+                    </div>
                     <div class="logo">
                         <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
         </table>
-        <table style="margin-top: 5px;">
+        {{-- <table style="margin-top: 5px;">
             <tr>
                 <td class="w-30">
                     <strong>Deviation Audit No.</strong>
@@ -186,12 +189,13 @@
                     <strong>Record No. 000{{$document->record}}</strong> 
                 </td>
             </tr>
-        </table>
+        </table> --}}
         <table>
         <div class="heading">
-       <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}</div>
-       <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$document->short_description}}</div>
-       <div style="margin-bottom: 5px;  font-weight: bold;">Due Status :  {{$document->due_date}}</div>
+            <div> <strong>Record No.</strong> 000{{$document->record}}</div>     
+            <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}</div>
+            <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$document->short_description}}</div>
+            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date :  {{$document->due_date}}</div>
       
        </div>
         </div>
@@ -219,45 +223,46 @@
                 </tr>
                 
                     <tr>
-                        @foreach ($audit as $audits)
-                        <td>1</td>
+                        @foreach ($audit as $audits => $dataDemo)
+                        <td>{{$dataDemo ? $audits + 1  : "Not Applicable"}}</td>
                         <!-- --------- -->
                         <td>
                        
-                         <div><strong>Changed From :</strong>{{$audits->origin_state}}</div>
+                         <div><strong>Changed From :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+
                        
                  </td>
                  <!-- ----------------------- -->
                         <td>
-                         <div><strong>Changed To :</strong>{{$audits->current}}</div>
-                         <div style="margin-top: 5px;"><strong>Comments :</strong> {{$audits->comment}}</div>   <!--Record Is send by Hod Review--->
+                         <div><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+                         <div style="margin-top: 5px;"><strong>Comments :</strong> {{$dataDemo->comment ? $dataDemo->origin_state  : "Not Applicable"}}</div>   <!--Record Is send by Hod Review--->
 
                         </td>
                         <!-- ------Record Is send by Hod Review----------- -->
                         <td>
                         <div>
-                     <strong> Data Field Name :</strong>{{$audits->activity_type}}</div>
+                     <strong> Data Field Name :</strong><a href="{{ url('DeviationAuditTrialDetails', $dataDemo->id) }}">{{ $dataDemo->activity_type ? $dataDemo->activity_type  : "Not Applicable" }}</a> </div>
                       <div style="margin-top: 5px;">
-                      <strong>Change From :</strong>{{$audits->origin_state}}</div>
+                      <strong>Change From :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
                             <br>
                             <!--  -->
-                      <div ><strong>Changed To :</strong>{{$audits->current}}</div> 
-                            <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$audits->action_name}}
+                      <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
+                            <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
                             </div>
-                            <div style="margin-top: 5px;"><strong>Comments :</strong>{{$audits->comment}}</div>
+                            <div style="margin-top: 5px;"><strong>Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div>
                         </td>
                         <!--  -->
                         <td>
                         <div>
-                       <strong> Action Name :</strong>{{$audits->action_name}}
+                       <strong> Action Name :</strong>{{$dataDemo->action_name? $dataDemo->action_name  : "Not Applicable"}}
 
                         </div>
 
                         </td>
                         <td>
-                       <div ><strong> Peformed By :</strong>{{$audits->user_name}}</div>
-                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>{{$audits->created_at}}</div>
-                       <div style="margin-top: 5px;"><strong> Comments :</strong>{{$audits->comment}}</div>
+                       <div ><strong> Peformed By :</strong>{{$dataDemo->user_name ? $dataDemo->user_name  : "Not Applicable"}}</div>
+                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>{{$dataDemo->created_at ? $dataDemo->created_at  : "Not Applicable"}}</div>
+                       <div style="margin-top: 5px;"><strong> Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div>
 
                         </td>
                     </tr>

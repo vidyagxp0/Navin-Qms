@@ -47,6 +47,18 @@ class Helpers
         
         return $hodUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'4'])->get();
     }
+    public static function getHeadoperationsUserList(){
+        
+        return $hodUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'19'])->get();
+    }
+    public static function getCEOUserList(){
+        
+        return $hodUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'20'])->get();
+    }
+    public static function getCorporateEHSHeadUserList(){
+        
+        return $hodUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'21'])->get();
+    }
     public static function getQAUserList(){
         
         return $QAUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'7'])->get();

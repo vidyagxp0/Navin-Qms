@@ -11,6 +11,7 @@ use App\Models\QMSProcess;
 use App\Models\QMSRoles;
 use App\Models\RoleGroup;
 use App\Models\Department;
+use App\Models\PasswordLog;
 use App\Models\Roles;
 use App\Models\User;
 use App\Models\UserRole;
@@ -153,7 +154,10 @@ class UserManagementController extends Controller
             // Update the user table with the unique concatenated role IDs
             $user->role = $uniqueUsertableRole;
             $user->save();
-
+            $passwordLog = new PasswordLog();
+            $passwordLog->user_id= $user->id;
+            $passwordLog->password= Hash::make($request->password);
+            $passwordLog->save();
 
             toastr()->success('User added successfully');
             return redirect()->route('user_management.index');
@@ -193,6 +197,18 @@ class UserManagementController extends Controller
         return view('admin.account.edit', compact('group', 'data','department', 'userRoles'));
     }
 
+    public function DuplicateShow($id)
+    {
+        $group = Roles::all();
+        $department = Department::all();
+
+        $data = User::find($id);
+        $userRoles = UserRole::where('user_id', $data->id)->pluck('role_id')->toArray();
+
+        // dd($data->id, $userRoles);
+        return view('admin.account.duplicate', compact('group', 'data','department', 'userRoles'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -206,7 +222,16 @@ class UserManagementController extends Controller
     $user->name = $request->name;
     $user->email = $request->email;
     if (!empty($request->password)) {
-        $user->password = Hash::make($request->password);
+        $usrpasslog = PasswordLog::where('user_id', $user->id)->pluck('password')->toArray();
+        $newPassword = Hash::make($request->password);
+        foreach ($usrpasslog as $password) {
+            if (Hash::check($request->password, $password)) {
+                toastr()->error('please use diffrent pass');
+                return redirect()->back();
+            }else{
+                $user->password = Hash::make($request->password);
+            }
+        }
     }
     $user->departmentid = $request->departmentid;
 
@@ -239,6 +264,12 @@ class UserManagementController extends Controller
             $userRole->q_m_s_processes_id = $q_m_s_processes_id;
             $userRole->q_m_s_roles_id = $q_m_s_roles_id;
             $userRole->save();
+
+            $passwordLog = new PasswordLog();
+            $passwordLog->user_id= $user->id;
+            $passwordLog->password= Hash::make($request->password);
+            $passwordLog->save();
+
         }
             toastr()->success('Update successfully');
             return redirect()->route('user_management.index');

@@ -199,7 +199,7 @@
             <table>
                 <tr class="h-30 w-100" style="display: flex; flex-direction:row; align-items:center; ">
                     <td class="w-100" style="height:104px">
-                        <h4 style="padding-top: 25px;"><strong>Customer Name</strong></h4>
+                        <h4 style="padding-top: 25px; text-align:center;"><strong>VidyaGxP</strong></h4>
                     </td>
                     <td class="w-30" style="text-align:center;" >
                         <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-70 h-50">
@@ -730,7 +730,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Date on Initiaton</th>
+                                        <th>Date of Initiation</th>
                                         <th>Record</th>
                                         <th>Department</th>
                                         <th>Division</th>
@@ -754,7 +754,7 @@
                                             <td>{{ $Deviation1->division_name }}</td>
                                             {{-- <td>{{ $Deviation1->process }}</td> --}}
                                             <td>{{ $Deviation1->short_description }}</td>
-                                            <td>{{ $Deviation1->Submitted_by }}</td>
+                                            <td>{{ $Deviation1->submit_by }}</td>
                                             <td>{{ $Deviation1->Deviation_category }}</td>
                                             <td>{{ $Deviation1->QA_Initial_Review_Complete_By}}</td>
                                             <td>{{ $Deviation1->record_number }}</td>

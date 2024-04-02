@@ -67,6 +67,14 @@
 
                                             <button type="submit" class="confirmation btn btn-danger">Delete</button>
                                         </form>
+
+                                        <a class="mdi mdi-table-edit" href="{{ route('user_management.duplicate', $user->id) }}" target="_blank">
+                                            <button class="btn btn-primary">Duplicate</button>
+                                        </a>
+                                        
+                                        {{-- <a class="mdi mdi-table-edit" href="{{ route('user_management.duplicate', $user->id) }}" onclick="openNewWindow(event)">
+                                            <button class="btn btn-primary">Duplicate</button>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -87,6 +95,13 @@
 
 
     </div>
+    <script>
+        function openNewWindow(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            var url = event.currentTarget.getAttribute('href'); // Get the URL from the href attribute
+            window.open(url, '_blank', 'width=600,height=400'); // Open the URL in a new window
+        }
+    </script>
 @endsection
 
 

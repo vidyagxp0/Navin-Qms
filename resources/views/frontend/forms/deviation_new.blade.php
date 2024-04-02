@@ -80,6 +80,9 @@ $users = DB::table('users')
             width: 100%;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
     <style>
         .calenderauditee {
             position: relative;
@@ -225,7 +228,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>'+
+                        '<td> <select name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
                         '<td><input type="number" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
@@ -257,9 +260,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Number[]"></td>'+
+                        '<td><input type="number" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
-                        '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td><input type="text" name="Document_Remarks[]"></td>'+
 
                         
                         '</tr>';
@@ -427,8 +430,9 @@ $users = DB::table('users')
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Initiator Group"><b>Department</b></label>
-                                        <select name="Initiator_Group" id="initiator_group">
+                                        <label for="Initiator Group"><b>Department</b><span
+                                            class="text-danger">*</span></label> 
+                                        <select name="Initiator_Group" id="initiator_group" required>
                                             <option value="">-- Select --</option>
                                             <option value="CQA" @if (old('Initiator_Group') == 'CQA') selected @endif>
                                                 Corporate Quality Assurance</option>
@@ -466,6 +470,9 @@ $users = DB::table('users')
                                             <option value="BA" @if (old('Initiator_Group') == 'BA') selected @endif>
                                                 Business Administration</option>
                                         </select>
+                                        @error('Initiator_Group')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -484,40 +491,109 @@ $users = DB::table('users')
                                     </div>
                                 </div>  
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-6 new-date-data-field ">
+                                <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Short Description Required?</label>
+                                        <label for="short_description_required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required">
                                             <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                            <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
+                                                Recurring</option>
+                                                <option value="Non_Recurring" @if (old('short_description_required') == 'Non_Recurring') selected @endif>
+                                                    Non Recurring</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature<span
-                                                class="text-danger d-none">*</span></label>
-                                        <textarea name="nature_of_repeat"></textarea>
+                                        <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: none" class="text-danger">*</span></label>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat"></textarea>
                                     </div>
                                 </div>
+                                <script>
+
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('short_description_required');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'Recurring';
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInviRecurring');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                </script>
+{{-- 
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#short_description_required').change(function () {
+                                            var selectedValue = $(this).val();
+                                            if (selectedValue === 'Recurring') {
+                                                // $('#nature_of_repeat').show();
+                                                $('textarea[name="nature_of_repeat"]').prop('required', true);
+                                            } else {
+                                                // $('#nature_of_repeat').hide();
+                                                $('textarea[name="nature_of_repeat"]').prop('required', false);
+                                            }
+                                        });
+                                
+                                        // Trigger change event on page load if already selected value is "Recurring"
+                                        $('#short_description_required').change();
+                                    });
+                                </script> --}}
+
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Deviation date">Deviation Observed</label>
+                                        <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
+                                             <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" /> 
+                                            {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
                                             <input type="date"  name="Deviation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_date')" />
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 new-time-data-field">
+                                    <div class="group-input input-time">
+                                        <label for="deviation_time">Deviation Observed On (Time)</label>
+                                        <input type="text" name="deviation_time" id="deviation_time">
+                                    </div>
+                                </div>
+                                
+                                <script>
+                                    flatpickr("#deviation_time", {
+                                        enableTime: true,
+                                        noCalendar: true,
+                                        dateFormat: "h:i K", // Format time as 12-hour with AM/PM
+                                        minuteIncrement: 1 // Set minute increment to 1
+
+                                    });
+                                </script>
+                                
+                                
+                                
+                                
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
                                         @endphp
-                                        <label for="If Other">Observed by<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
@@ -526,7 +602,7 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
@@ -554,20 +630,61 @@ $users = DB::table('users')
                                             <option value="Computer_System"> Computer System</option>
                                             <option value="Document">Document</option>
                                             <option value="Data integrity">Data integrity</option>
+                                            <option value="SOP Instruction">SOP Instruction</option>
+                                            <option value="BMR/ECR Instruction">BMR/ECR Instruction</option>
+                                            <option value="Water System">Water System</option>
                                             <option value="Anyother(specify)">Any other (specify) </option>
                                         </select>
                                     </div>
                                 </div>
                                  <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="others">Others</label>
-                                        <input type="text" id="others" name="others">
+                                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
+                                        <input type="text" id="others" name="others" class="others">
                                     </div>
                                 </div> 
-                                
+                                <script>
+
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('audit_type');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('others');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'Anyother(specify)';
+                                            console.log(this.value, isRequired, 'value');
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInviothers');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                </script>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
+                                        <select name="Facility_Equipment" id="Facility_Equipment">
+                                            <option value="">--Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+
+                                        </select>
+                                    </div>
+                                </div> 
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                        Facility/ Equipment/ Instrument/ System Details
+                                        Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvi" style="display: none" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -589,21 +706,72 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td> <select name="name" id="">  <option value="">-- Select --</option>  <option value="">Facility</option>  <option value=""> Equipment</option> <option value="">Instrument</option></select> </td>
-                                                <td><input type="number" name="IDnumber[]"></td>
-                                                <td><input type="text" name="Remarks[]"></td>
+                                                <td> <select  name="facility_name[]" id="facility_name" class="facility-name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
+                                                <td><input type="number" name="IDnumber[]" class="id-number"></td>
+                                                <td><input type="text" name="Remarks[]" class="remarks"></td>
                                                 </tbody>
 
                                             </table>
                                         </div>
                                     </div>
+                                    <script>
+
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var selectField = document.getElementById('Facility_Equipment');
+                                            var inputsToToggle = [];
+
+                                            // Add elements with class 'facility-name' to inputsToToggle
+                                            var facilityNameInputs = document.getElementsByClassName('facility-name');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+
+                                            // Add elements with class 'id-number' to inputsToToggle
+                                            var idNumberInputs = document.getElementsByClassName('id-number');
+                                            for (var j = 0; j < idNumberInputs.length; j++) {
+                                                inputsToToggle.push(idNumberInputs[j]);
+                                            }
+
+                                            // Add elements with class 'remarks' to inputsToToggle
+                                            var remarksInputs = document.getElementsByClassName('remarks');
+                                            for (var k = 0; k < remarksInputs.length; k++) {
+                                                inputsToToggle.push(remarksInputs[k]);
+                                            }
+
+                                                                            
+                                            selectField.addEventListener('change', function () {
+                                                var isRequired = this.value === 'yes';
+                                                console.log(this.value, isRequired, 'value');
+
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
+
+                                                // Show or hide the asterisk icon based on the selected value
+                                                var asteriskIcon = document.getElementById('asteriskInvi');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
+                                        });
+                                    </script>
+                                    <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Document Details Required">Document Details Required?</label>
+                                        <select name=" Document_Details_Required" id="Document_Details_Required">
+                                            <option value="">--Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+
+                                        </select>
+                                    </div>
+                                </div> 
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                         Document Details
+                                         Document Details <span id="asteriskInviDetails" style="display: none" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
+                                                data-bs-target="#document-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -623,16 +791,57 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="Number[]"></td>
-                                        <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                        <td><input type="text" name="Remarks[]"></td>
+                                        <td><input type="number" class="numberDetail" name="Number[]"></td>
+                                        <td><input type="text" class="ReferenceDocumentName" name="ReferenceDocumentName[]"></td>
+                                        <td><input type="text" class="Document_Remarks" name="Document_Remarks[]"></td>
                        
                                                 </tbody>
 
                                             </table>
                                         </div>
                                     </div>
-                                  
+                                    <script>
+
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // note-codable
+
+                                            var selectField = document.getElementById('Document_Details_Required');
+                                            var inputsToToggle = [];
+
+                                            // Add elements with class 'facility-name' to inputsToToggle
+                                            var facilityNameInputs = document.getElementsByClassName('numberDetail');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+
+                                            // Add elements with class 'id-number' to inputsToToggle
+                                            var idNumberInputs = document.getElementsByClassName('Document_Remarks');
+                                            for (var j = 0; j < idNumberInputs.length; j++) {
+                                                inputsToToggle.push(idNumberInputs[j]);
+                                            }
+
+                                            // Add elements with class 'remarks' to inputsToToggle
+                                            var remarksInputs = document.getElementsByClassName('ReferenceDocumentName');
+                                            for (var k = 0; k < remarksInputs.length; k++) {
+                                                inputsToToggle.push(remarksInputs[k]);
+                                            }
+
+                                                                            
+                                            selectField.addEventListener('change', function () {
+                                                var isRequired = this.value === 'yes';
+                                                console.log(this.value, isRequired, 'value');
+
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
+
+                                                // Show or hide the asterisk icon based on the selected value
+                                                var asteriskIcon = document.getElementById('asteriskInviDetails');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
+                                        });
+                                    </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Product Batch">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
@@ -701,9 +910,9 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <label for="Description Deviation">Description of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">
+                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
                                 </div>
@@ -730,9 +939,9 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3">
+                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
                                 </div>
@@ -752,13 +961,13 @@ $users = DB::table('users')
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                            <div class="group-input">
+                            {{-- <div class="group-input">
                                         <label for="audit-agenda-grid">
                                        Product Details 
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ProductDetails">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#observation-field-instruction-modal"
+                                                data-bs-target="#product-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -789,7 +998,7 @@ $users = DB::table('users')
 
                                             </table>
                                         </div>
-                                    </div>
+                                    </div> --}}
        
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
@@ -798,6 +1007,7 @@ $users = DB::table('users')
 
                                     </div>
                                 </div> --}}
+                               
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
@@ -825,7 +1035,9 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
                             </div>
@@ -868,7 +1080,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Investigation required">Investigation Is required ?</label>
+                                        <label for="Investigation required">Investigation  Required ?</label>
                                         <select name="Investigation_required" id="Investigation_required">
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
@@ -885,13 +1097,14 @@ $users = DB::table('users')
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Investigation Details">Investigation Details</label>
+                                    <div class="group-input" id="Investigations_details">
+                                        <label for="Investigation Details">Investigation Details<span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Details" id="summernote-6">
+                                        <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6">
                                     </textarea>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ?</label>
@@ -899,16 +1112,17 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
+                                            <option value="na">NA</option>
                                         </select>
                                   
                                     </div>
                                 </div>
                                 <div class="col-5">
-                                    <div class="group-input">
+                                    <div class="group-input" id="customer_option">
                                         @php
                                             $customers = DB::table('customer-details')->get();
                                         @endphp
-                                        <label for="customers">Customers</label>
+                                        <label for="customers">Customers<span class="text-danger">*</span></label>
                                         <select name="customers" id="customers">
                                             <option value="0"> -- Select --</option>
                                             @foreach ($customers as $data)
@@ -949,7 +1163,7 @@ $users = DB::table('users')
                                             id="related_records">
                                             @foreach ($pre as $prix)
                                                 <option value="{{ $prix->id }}">
-                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
+                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -971,7 +1185,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Audit Attachments">QA Initial Attachments</label>
+                                        <label for="QA Initial Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="Initial_attachment"></div>
@@ -986,12 +1200,136 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
                             </div>
                         </div>
                     </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#Deviation_category').change(function () {
+                                if ($(this).val() === 'major') {
+                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    $('#Investigations_details').show();
+                                    $('textarea[name="Investigations_details"]').prop('required', true);
+
+                                    $('#Customer_notification').val('yes').prop('disabled', true);
+                                    $('#customer_option').show();
+                                    $('textarea[name="customer_option"]').prop('required', true);
+                                } else {
+                                    $('#Customer_notification').prop('disabled', false);
+                                    $('#customer_option').hide();
+                                    $('textarea[name="customer_option"]').prop('required', false);
+                                    $('#Investigation_required').prop('disabled', false);
+                                    $('#Investigations_details').hide();
+                                    $('textarea[name="Investigations_details"]').prop('required', false);
+                                }
+                                // if ($(this).val() === 'major') {
+                                //     $('#Investigation_required').val('yes');
+                                //     $('#Customer_notification').val('yes');
+                                // }
+                            });
+                        });
+                        $(document).ready(function () {
+                            $('#Investigation_required').change(function () {
+                                var selectedValue = $(this).val();
+                                if (selectedValue === 'yes') {
+                                    $('#Investigations_details').show();
+                                    $('textarea[name="Investigations_details"]').prop('required', true);
+                                } else {
+                                    $('#Investigations_details').hide();
+                                    $('textarea[name="Investigations_details"]').prop('required', false);
+                                }
+                            });
+                    
+                            // Trigger change event on page load if already selected value is "Recurring"
+                            $('#Investigation_required').change();
+                        });
+                        $(document).ready(function () {
+                            $('#Customer_notification').change(function () {
+                                var selectedValue = $(this).val();
+                                if (selectedValue === 'yes') {
+                                    $('#customer_option').show();
+                                    $('textarea[name="customer_option"]').prop('required', true);
+                                } else {
+                                    $('#customer_option').hide();
+                                    $('textarea[name="customer_option"]').prop('required', false);
+                                }
+                            });
+                    
+                            // Trigger change event on page load if already selected value is "Recurring"
+                            $('#Customer_notification').change();
+                        });
+                    </script>
+                    {{-- <script>
+                        $(document).ready(function () {
+                            // Event listener for Investigation_required dropdown
+                            $('#Investigation_required').change(function () {
+                                if ($(this).val() === 'yes') {
+                                    // If "Yes" is selected, make Investigation_Details field required
+                                    $('.Investigation_Details').prop('required', true);
+                                } else {
+                                    // If "No" or any other option is selected, remove the required attribute
+                                    $('.Investigation_Details').prop('required', false);
+                                    // Hide error message when not required
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Event listener for Investigation_Details field
+                            $('.Investigation_Details').blur(function () {
+                                // Check if the field is empty and required
+                                if ($(this).prop('required') && $(this).val().trim() === '') {
+                                    // Show error message if empty
+                                    $('.error-message').show();
+                                } else {
+                                    // Hide error message if not empty
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Initial check when page loads
+                            if ($('#Investigation_required').val() === 'yes') {
+                                $('.Investigation_Details').prop('required', true);
+                            }
+                        });
+                    </script>
+                    <script>
+                        $(document).ready(function () {
+                            // Event listener for Customer_notification dropdown
+                            $('#Customer_notification').change(function () {
+                                if ($(this).val() === 'yes') {
+                                    // If "Yes" is selected, make Investigation_Details field required
+                                    $('#customers').prop('required', true);
+                                } else {
+                                    // If "No" or any other option is selected, remove the required attribute
+                                    $('#customers').prop('required', false);
+                                    // Hide error message when not required
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Event listener for Investigation_Details field
+                            $('#customers').blur(function () {
+                                // Check if the field is empty and required
+                                if ($(this).prop('required') && $(this).val().trim() === '') {
+                                    // Show error message if empty
+                                    $('.error-message').show();
+                                } else {
+                                    // Hide error message if not empty
+                                    $('.error-message').hide();
+                                }
+                            });
+                    
+                            // Initial check when page loads
+                            if ($('#Customer_notification').val() === 'yes') {
+                                $('#customers').prop('required', true);
+                            }
+                        });
+                    </script> --}}
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
              <div class="inner-block-content">
@@ -1023,7 +1361,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Production person">Production Person</label>
                                         <select name="Production_person" id="Production_person">
-                                            <option value="0">-- Select --</option>
+                                            <option value="">-- Select --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
@@ -1064,7 +1402,7 @@ $users = DB::table('users')
                                   <div class="col-md-6 mb-3"> 
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
-                                        <input type="text" name="Production_Review_Completed_By" id="Production Review Completed By" disabled>
+                                        <input disabled type="text" name="production_by" id="production_by" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -1143,7 +1481,7 @@ $users = DB::table('users')
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Warehousefeedback">Warehouse Review Completed By</label>
-                                        <input type="text" name="Warehouse_by" disabled>
+                                        <input disabled type="text"  name="Warehouse_by" id="Warehouse_by" >
                                     
                                     </div>
                                 </div>
@@ -1152,9 +1490,9 @@ $users = DB::table('users')
                                     <div class="group-input input-date">
                                         <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="Warehouse_Review_Completed_On" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="Warehouse_Review_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Warehouse_Review_Completed_On')" />
+                                            <input type="text" id="Warehouse_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Warehouse_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Warehouse_on')" />
                                         </div>
                                     </div>
                                 </div>
@@ -1985,7 +2323,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 34, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -2057,7 +2395,7 @@ $users = DB::table('users')
                                     <div class="col-md-6 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 1 Review Completed By</label>
-                                            <input type="text" name="Other1_by" disabled>
+                                            <input type="text" name="Other1_by" id="Other1_by" disabled>
                                         
                                         </div>
                                     </div>
@@ -2065,9 +2403,7 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other1_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other1_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other1_on')" />
+                                                <input type="text" id="Other1_on" name="Other1_on" readonly placeholder="DD-MMM-YYYY" />
                                             </div>
                                         </div>
                                     </div>
@@ -2089,7 +2425,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 35, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
@@ -2169,9 +2505,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On2">Other's 2 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other2_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other2_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other2_on')" />
+                                                <input type="text" id="Other2_on" name="Other2_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other2_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other2_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -2193,7 +2529,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 36, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                      @endphp
@@ -2273,9 +2609,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On3">Other's 3 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other3_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other3_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other3_on')" />
+                                                <input type="text" id="Other3_on" name="Other3_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other3_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other3_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -2298,7 +2634,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 37, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                      $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
@@ -2378,9 +2714,9 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other4_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other4_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other4_on')" />
+                                                <input type="text" id="Other4_on" name="Other4_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other4_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other4_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -2404,7 +2740,7 @@ $users = DB::table('users')
                                     </div>
                                     @php
                                     $division = DB::table('q_m_s_divisions')->where('name', Helpers::getDivisionName(session()->get('division')))->first();
-                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $division->id])->get();
+                                    $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 38, 'q_m_s_divisions_id' => $division->id])->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
@@ -2484,16 +2820,18 @@ $users = DB::table('users')
                                         <div class="group-input input-date">
                                             <label for="Review Completed On5">Other's 5 Review Completed On</label>
                                             <div class="calenderauditee">
-                                                <input type="text" id="Other5_on" readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date"  name="Other5_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Other5_on')" />
+                                                <input type="text" id="Other5_on" name="Other5_on" readonly placeholder="DD-MMM-YYYY" />
+                                                {{-- <input type="date"  name="Other5_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'Other5_on')" /> --}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="button-block">
                                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+    <a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                     <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
                                     <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                             Exit </a> </button>
@@ -2599,7 +2937,7 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
-                                        <!-- <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div> -->
+                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
                                         {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
                                             <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
@@ -2618,7 +2956,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Revised Categorization Justification</label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>
@@ -2679,7 +3017,9 @@ $users = DB::table('users')
                             
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -2726,7 +3066,9 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -2771,7 +3113,9 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -2909,7 +3253,9 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
                                 <button type="submit">Submit</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -2938,7 +3284,11 @@ $users = DB::table('users')
                     <!-- Form for adding new customer -->
                     <form method="POST" id="customerForm"> 
                         @csrf
-
+<style>
+    .validationClass{
+        margin-left: 100px
+    }
+</style>
                         <div class="modal-sub-head">
                             <div class="sub-main-head">
                                 <!-- Customer input fields -->
@@ -2946,48 +3296,56 @@ $users = DB::table('users')
                                 <div class="left-box">
                                     <!-- Customer ID -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold;" for="customer_id">Customer ID :</label>
+                                        <label style="font-weight: bold;" for="customer_id">Customer ID<span class="text-danger">*</span> :</label>
                                         <input type="text" id="customer_id" name="customer_id">
                                     </div>
+                                    <span id="customer_id_error" class="text-danger validationClass"></span>
                                     <!-- Email -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID :</label>
+                                        <label style="font-weight: bold; margin-left: 30px;" for="email">Email ID<span class="text-danger">*</span> :</label>
                                         <input type="text" id="email" name="email">
                                     </div>
+                                    <span id="email_error" class="text-danger validationClass"></span>
                                     <!-- Customer Type -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type :</label>
-                                        <input type="text" id="customer_type" name="customer_type">
+                                        <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type<span class="text-danger">*</span> :</label>
+                                        <input type="text" id="customer_type" name="customer_type"> 
                                     </div>
+                                    <span id="customer_type_error" class="text-danger validationClass"></span>
                                     <!-- Status -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 42px;" for="status">Status :</label>
+                                        <label style="font-weight: bold; margin-left: 42px;" for="status">Status<span class="text-danger">*</span> :</label>
                                         <input type="text" id="status" name="status">
                                     </div>
+                                    <span id="status_error" class="text-danger validationClass"></span>
                                 </div>
 
                                 <!-- Right box -->
                                 <div class="right-box">
                                     <!-- Customer Name -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold;" for="customer_name">Customer Name :</label>
-                                        <input type="text" id="customer_name" name="customer_name">
+                                        <label style="font-weight: bold;" for="customer_name">Customer Name<span class="text-danger">*</span> :</label>
+                                        <input type="text" id="customer_name" name="customer_name"> 
                                     </div>
+                                    <span id="customer_name_error" class="text-danger validationClass"></span>
                                     <!-- Contact No -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No :</label>
+                                        <label style="font-weight: bold; margin-left: 36px;" for="contact_no">Contact No<span class="text-danger">*</span> :</label>
                                         <input type="text" id="contact_no" name="contact_no">
                                     </div>
+                                    <span id="contact_no_error" class="text-danger validationClass"></span>
                                     <!-- Industry -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry :</label>
+                                        <label style="font-weight: bold; margin-left: 57px;" for="industry">Industry<span class="text-danger">*</span> :</label>
                                         <input type="text" id="industry" name="industry">
                                     </div>
+                                    <span id="industry_error" class="text-danger validationClass"></span>
                                     <!-- Region -->
                                     <div class="Activity-type">
-                                        <label style="font-weight: bold; margin-left: 66px; " for="region">Region :</label>
+                                        <label style="font-weight: bold; margin-left: 66px; " for="region">Region<span class="text-danger">*</span> :</label>
                                         <input type="text" id="region" name="region">
                                     </div>
+                                    <span id="region_id_error" class="text-danger validationClass"></span>
                                 </div>
                             </div>
                         </div>
@@ -3000,10 +3358,50 @@ $users = DB::table('users')
                             <button type="button" onclick="submitForm()" class="saveButton">Save</button>
                         </div>
                     </form>
+                    
                     <script>
                         function submitForm() {
+                            document.querySelectorAll('.validationClass').forEach(span => {
+                                span.textContent = '';
+                            });
+
                             var formData = new FormData(document.getElementById('customerForm'));
-                    
+
+                            // Perform basic validation
+                            if (formData.get('customer_id').trim() === '') {
+                                document.getElementById('customer_id_error').textContent = 'Customer ID is required.';
+                                return;
+                            }
+
+                            if (formData.get('email').trim() === '') {
+                                document.getElementById('email_error').textContent = 'Email is required.';
+                                return;
+                            }
+
+                            if (formData.get('customer_type').trim() === '') {
+                                document.getElementById('customer_type_error').textContent = 'Customer Type is required.';
+                                return;
+                            }
+                            if (formData.get('status').trim() === '') {
+                                document.getElementById('status_error').textContent = 'Status is required.';
+                                return;
+                            }
+                            if (formData.get('customer_name').trim() === '') {
+                                document.getElementById('customer_name_error').textContent = 'Customer Name is required.';
+                                return;
+                            }
+                            if (formData.get('industry').trim() === '') {
+                                document.getElementById('industry_error').textContent = 'Industry is required.';
+                                return;
+                            }
+                            if (formData.get('contact_no').trim() === '') {
+                                document.getElementById('contact_no_error').textContent = 'Contact Number is required.';
+                                return;
+                            }
+                            if (formData.get('region').trim() === '') {
+                                document.getElementById('region_error').textContent = 'Region is required.';
+                                return;
+                            }
                             // Send POST request to server
                             fetch("{{ route('customers.store') }}", {
                                 method: "POST",
@@ -3011,9 +3409,12 @@ $users = DB::table('users')
                             })
                             .then(response => {
                                 if (response.ok) {
-                                    // Clear the form fields
-                                    document.getElementById('customerForm').reset();
-                                    // myModal.setAttribute('data-bs-dismiss', 'modal');
+                                    // Close modal
+                                    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+                                    myModal.hide();
+
+            // Show toaster message
+            toastr.success('Record is created Successfully');
                                     // Get form data
             var customerData = {
                 customer_id: formData.get('customer_id'),
@@ -3052,6 +3453,8 @@ $users = DB::table('users')
                             });
                         }
                     </script>
+
+
                     @php
                         $customers = DB::table('customer-details')->get();
                     @endphp
@@ -3073,20 +3476,27 @@ $users = DB::table('users')
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Check if customers array is empty or null -->
+                                @if($customers && count($customers) > 0)
                                 <!-- Iterate over stored customers and display them -->
-                                @foreach($customers as $customer)
-                                <tr>
-                                    <td>{{ $customer->customer_id }}</td>
-                                    <td>{{ $customer->customer_name }}</td>
-                                    <td>{{ $customer->email }}</td>
-                                    <td>{{ $customer->customer_type }}</td>
-                                    <td>{{ $customer->status }}</td>
-                                    <td>{{ $customer->contact_no }}</td>
-                                    <td>{{ $customer->industry }}</td>
-                                    <td>{{ $customer->region }}</td>
-                                    <td>{{ $customer->remarks }}</td>
-                                </tr>
-                                @endforeach
+                                    @foreach($customers as $customer)
+                                    <tr>
+                                        <td>{{ $customer->customer_id }}</td>
+                                        <td>{{ $customer->customer_name }}</td>
+                                        <td>{{ $customer->email }}</td>
+                                        <td>{{ $customer->customer_type }}</td>
+                                        <td>{{ $customer->status }}</td>
+                                        <td>{{ $customer->contact_no }}</td>
+                                        <td>{{ $customer->industry }}</td>
+                                        <td>{{ $customer->region }}</td>
+                                        <td>{{ $customer->remarks }}</td>
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="9">No results available</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>

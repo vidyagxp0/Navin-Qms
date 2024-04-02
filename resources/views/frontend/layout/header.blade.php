@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>vidyagxp - Software</title>
+    <title>VidyaGxP - Software</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
         integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
@@ -77,8 +77,8 @@
         {{-- Header Top --}}
         <div class="container-fluid header-top">
             <div class="container">
-                <div class="text-center text-light">
-                    <small>vidhyagxp</small>
+                <div style="letter-spacing: 1px;" class="text-center text-black ">
+                    <small>VidyaGxP</small>
                 </div>
             </div>
         </div>
@@ -166,14 +166,18 @@
                     <div >
                         <a href="#"><i class="fa-solid fa-braille"></i></a>
                     </div>
-                    <div>
+                    {{-- <div>
                         <a href="/dashboard">DMS Dashboard</a>
-                    </div>
-                    <div>
+                    </div> --}}
+                    {{-- <div>
                         <a href="/TMS">TMS Dashboard</a>
-                    </div>
+                    </div> --}}
                     <div><a href="/rcms/qms-dashboard">QMS-Dashboard</a></div>
-                    @if (Auth::user())
+                    <div><a href="/New_dashboard">Dashboard</a></div>
+                    <div><a href="/analytics">Analytics</a></div>
+
+
+                    {{-- @if (Auth::user())
                         @if (Helpers::checkRoles(3) || Helpers::checkRoles(1) || Helpers::checkRoles(2))
                             <div>
                                 <a href="/mydms">My DMS</a>
@@ -188,13 +192,13 @@
                             <div>
                                 <a href="{{ url('mytaskdata') }}">My Tasks</a>
                             </div>
-                        @endif
+                        @endif --}}
                         {{-- @if (Helpers::checkRoles(4) ||Helpers::checkRoles(5) || Helpers::checkRoles(3))
                             <div>
                                 <a href="{{ route('change-control.index') }}">Change Control</a>
                             </div>
                         @endif --}}
-                    @endif
+                    {{-- @endif --}}
 
 
                     {{-- <div class="notification">
@@ -260,7 +264,7 @@
 
                 <div class="modal-body">
                     <div class="logo">
-                        <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="..." class="w-100 h-100">
                     </div>
                     <div class="bar">
                         <strong>Version : </strong> 10.0.0
@@ -722,7 +726,7 @@
     </div>
 
     {{-- ============================================
-                WHY WHY CHART INSTRUCTION MODAL
+                Deviation INSTRUCTION MODAL
     ============================================= --}}
     <div class="modal fade" id="observation-field-instruction-modal">
         <div class="modal-dialog modal-dialog-centered">
@@ -736,58 +740,87 @@
                 <div class="modal-body">
 
                     <div class="mb-2">
-                        <strong>Identification and Tracking :&nbsp;</strong>
-                        This section helps in identifying the specific facilities, equipment, instruments, or systems involved in the process where the deviation occurred.
+                        <strong>Name :&nbsp;</strong>
+                        Please specify Name Facility/Instrument/System.
                     </div>
                     <div class="mb-2">
-                        <strong>Date</strong>
-                        When the observation was made.
+                        <strong>ID Number :</strong>
+                        Specify ID related to Facility/ Instrument/System.
                     </div>
                     <div class="mb-2">
-                        <strong>Auditor :&nbsp;</strong>
-                        Name of the auditor who identified the observation.
+                        <strong>Remarks :&nbsp;</strong>
+                        Mention additional comments if any.
+                    </div>
+                  
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- -------------------------------- -->
+    <div class="modal fade" id="document-details-field-instruction-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-2">
+                        <strong>Number :&nbsp;</strong>
+                        Please specify document number related to grid.
                     </div>
                     <div class="mb-2">
-                        <strong>Auditee :&nbsp;</strong>
-                        Name of the auditee who is responsible for area of observation.
+                        <strong>Reference Document Name :</strong>
+                        Specify document name in the data field.
                     </div>
                     <div class="mb-2">
-                        <strong>Observation Description :&nbsp;</strong>
-                        Detailed description of the observation.
+                        <strong>Remarks :&nbsp;</strong>
+                        Mention additional comments if any.
                     </div>
-                    <div class="mb-2">
-                        <strong>Severity Level :&nbsp;</strong>
-                        The severity level of the observation (e.g., Minor, Major, Critical,
-                        Recommendation).
-                    </div>
-                    <div class="mb-2">
-                        <strong>Area/Process :&nbsp;</strong>
-                        The specific area or process where the observation occurred.
-                    </div>
-                    <div class="mb-2">
-                        <strong>Observation Category :&nbsp;</strong>
-                        The broad category to which the observation belongs (e.g., Documentation,
-                        Equipment, Cleanroom, Data Integrity, etc.).
-                    </div>
-                    <div class="mb-2">
-                        <strong>CAPA Required :&nbsp;</strong>
-                        Specific actions that need to be taken to address the observation.
-                    </div>
-                    <div class="mb-2">
-                        <strong>CAPA Due date :&nbsp;</strong>
-                        Deadline for completing the corrective &amp; preventive actions.
-                    </div>
-                    <div>
-                        <strong>Status :&nbsp;</strong>
-                        The current status of the observation (e.g., Open, In Progress, Closed).
-                    </div>
+                    
+                    
+                    
+                    
 
                 </div>
 
             </div>
         </div>
     </div>
+<!-- -------------------------------- -->
+    <div class="modal fade" id="product-details-field-instruction-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-2">
+                        <strong>Product Name :&nbsp;</strong>
+                        Please specify document number related to grid.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Batch No :</strong>
+                        Please Specify Batch Number related to specific product.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Remarks :&nbsp;</strong>
+                        Mention additional comments if any.
+                    </div>
+                   
+                </div>
+
+            </div>
+        </div>
+    </div>
     {{-- ============================================
                 MANAGEMENT REVIEW 1 INSTRUCTION MODAL
     ============================================= --}}

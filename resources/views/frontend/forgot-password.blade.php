@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Connexo - Software</title>
+    <title>VidyaGxP - Software</title>
     <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,9 +21,9 @@
     <section id="login-form">
         <div class="form-area">
             <div class="logo">
-                <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
             </div>
-            <form action="" method="POST">
+            <form action="{{url('forgetPassword-user')}}" method="GET">
 
                 <div class="login-fields">
                     <div class="head">Enter Your E-Mail</div>
@@ -33,15 +33,15 @@
                         <input type="email" name="email">
                     </div>
 
-                    <div class="head">Enter Your OTP</div>
+                    {{-- <div class="head">Enter Your OTP</div>
 
                     <div class="group-input">
                         <label for="otp">Enter OTP</label>
                         <input type="number" name="otp">
-                    </div>
+                    </div> --}}
 
                     <div class="group-input">
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Send Link">
                     </div>
 
                 </div>

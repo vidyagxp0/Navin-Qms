@@ -26,6 +26,7 @@ return new class extends Migration
             //$table->string('text')->nullable();
             $table->integer('assign_to')->nullable();
             $table->text('due_date')->nullable();
+            $table->text('deviation_time')->nullable();
             $table->string('Initiator_Group')->nullable();
             $table->longText('short_description')->nullable();
             $table->string('short_description_required')->nullable();
@@ -38,6 +39,8 @@ return new class extends Migration
             $table->string('Extensionchild')->nullable();
             $table->string('audit_type')->nullable();
             $table->longText('others')->nullable();
+            $table->string('Facility_Equipment')->nullable();
+            $table->string('Document_Details_Required')->nullable();
             $table->longText('Product_Batch')->nullable();
             $table->longText('Description_Deviation')->nullable();
             $table->longText('Immediate_Action')->nullable();
@@ -98,6 +101,7 @@ return new class extends Migration
             $table->string('cancelled_by')->nullable();
             $table->string('rejected_on')->nullable();
             $table->string('rejected_by')->nullable();
+            //$table->string('production_byy')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
             $table->timestamps();

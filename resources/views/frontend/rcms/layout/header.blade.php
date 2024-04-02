@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title> vidyaGxP -software</title>
+    <title> VidyaGxP -software</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
         integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
@@ -200,20 +200,23 @@
                                     <div>
                                         <a href="#"><i class="fa-solid fa-braille"></i></a>
                                     </div>
-                                    <div>
+                                    {{-- <div>
                                         <a href="/dashboard">DMS Dashboard</a>
                                     </div>
                                     <div>
                                          <a href="/TMS">TMS Dashboard</a> 
-                                    </div>
+                                    </div> --}}
                                     <div>
                                         <a href="/rcms/qms-dashboard">QMS-Dashboard</a>
                                     </div> 
+                                    <div>
+                                    <a href="/New_dashboard">Dashboard</a> 
+                                    </div>
                                      <div>
                                     <a href="/analytics">Analytics</a> 
                                     </div> 
 
-                                    @if (Auth::user())
+                                    {{-- @if (Auth::user())
                                         @if (Helpers::checkRoles(3) || Helpers::checkRoles(1) || Helpers::checkRoles(2))
                                             <div>
                                                 <a href="/mydms">My DMS</a>
@@ -228,13 +231,13 @@
                                             <div>
                                                 <a href="{{ url('mytaskdata') }}">My Tasks</a>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                         {{-- @if (Helpers::checkRoles(4) || Helpers::checkRoles(5) || Helpers::checkRoles(3))
                                             <div>
                                                 <a href="{{ route('change-control.index') }}">Change Control</a>
                                             </div>
                                         @endif --}}
-                                    @endif
+                                    {{-- @endif --}}
 
 
                                     {{-- <div class="notification">
@@ -353,10 +356,10 @@
 
                 <div class="modal-body">
                     <div class="logo">
-                        <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
+                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="..." class="w-100 h-100">
                     </div>
                     <div class="bar">
-                        <strong>Version : </strong> 10.0.0
+                        <strong>Versionsfas : </strong> 10.0.0
                     </div>
                     <div class="bar">
                         <strong>Build # : </strong> 2
@@ -365,7 +368,7 @@
                         April 23, 2023
                     </div>
                     <div class="bar">
-                        <strong>Licensed to : </strong> Connexo
+                        <strong>Licensed to : </strong> VidyaGxP
                     </div>
                     <div class="bar">
                         <strong>Environment : </strong> Master Demo Dev
@@ -375,7 +378,7 @@
                     </div>
                     <div class="copyright-bar">
                         <i class="fa-regular fa-copyright"></i>&nbsp;
-                        Copyright 2023 Connexo Asia Limited
+                        Copyright 2023 VidyaGxP Private Limited
                     </div>
                 </div>
 

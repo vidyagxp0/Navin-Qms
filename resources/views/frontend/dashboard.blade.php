@@ -13,11 +13,11 @@
             <div class="dashboard-container">
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-9">
                         <div class="dashboard-left-block">
                             <div class="inner-block main-block">
                                 <div class="top">
-                                    <div class="d-flex align-items-center">
+                                         <div class="d-flex align-items-center">
                                         <div class="icon">
                                             <i class="fa-solid fa-gauge-high"></i>
                                         </div>
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="chart-grid">
+                            <div class="chart-grid">
                                 <div class="inner-block chart-block">
                                     <div class="chart-container">
                                         <div class="head">
@@ -60,9 +60,9 @@
                                         <div id="chart-20"></div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div> 
                             <div class="row">
-                                {{-- <div class="col-12">
+                                 <div class="col-12">
                                     <div class="inner-block search-block">
                                         <div class="title">
                                             Search Documents
@@ -84,11 +84,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div> 
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-3">
+                    
+                     <div class="col-lg-3">
                         <div class="dashboard-right-block">
                             <div class="inner-block recent-record">
                                 <div class="head">
@@ -138,7 +139,7 @@
                                 <a herf="#" class="link">Go to Helpdesk</a>
                             </div>
                         </div>
-                    </div> --}}
+                    </div> 
                 </div>
 
 
@@ -146,10 +147,54 @@
                 <div>
 
                         <div class="inner-block calendar-block">
-                            <div id='calendar'></div>
+                            <div style="height: 100px;" id='calendar'></div>
                         </div>
-{{-- 
+                   <div class="row">
+                        <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
+                            <div class="head">Corporate Document By Type</div>
+                            <div id="chart-21"></div>
+                        </div>
+                        </div>
+                        <div class="col-lg-4">
+                        <div class="inner-block table-block cal-table">
+                            <div class="head">Corporate Document By Status</div>
+                            <div id="chart-22"></div>
+                           
+                        </div>
+                        </div>
+                        <div class="col-lg-4">
+                        <div class="inner-block table-block cal-table">
+                            <div class="head">Corporate Document By Department</div>
+                            <div id="chart-23"></div>
+                            
+                        </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                        <div class="inner-block table-block cal-table">
+                        <div class="head">Training Records By Status</div>
+                        <div id="chart-24"></div>
+
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                        <div class="inner-block table-block cal-table">
+                        <div class="head">Training Records By Content Type</div>
+                        <div id="chart-25"></div>
+
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                        <div class="inner-block table-block cal-table">
+                        <div class="head">Overdue Training Records</div>
+                        <div id="chart-26"></div>
+
+                              </div>
+                            </div>
+                        </div>
+                         <div class="inner-block table-block cal-table">
                             <div class="head">Batch Failure Rate</div>
                             <div class="table-container">
                                 <table class="table table-bordered">
@@ -208,7 +253,6 @@
                                 </table>
                             </div>
                         </div>
-
                         <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
@@ -309,9 +353,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div> --}}
+                        </div> 
 
-                        {{-- <div class="inner-block chart-block">
+                         <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
                                     Batch Failure Rate (Term)
@@ -477,9 +521,9 @@
                                 </div>
                                 <div id="chart-11"></div>
                             </div>
-                        </div> --}}
+                        </div> 
 
-                        {{-- <div class="inner-block table-block">
+                         <div class="inner-block table-block">
                             <div class="head">Effectivenss Check Failure Rate (Term)</div>
                             <div class="table-container">
                                 <table class="table table-bordered">
@@ -1929,7 +1973,345 @@
             }
         }
 
+// ========================new chart added I==============================================
+var options = {
+          series: [44, 41, 41, 17, 15],
+          chart: {
+          type: 'donut',
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 250
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
 
+        var chart = new ApexCharts(document.querySelector("#chart-21"), options);
+        chart.render();
+      // ========================new chart added II==============================================
+var options = {
+          series: [54, 55, 41, 17, 20],
+          chart: {
+          type: 'donut',
+        },
+        responsive: [{
+          breakpoint: 460,
+          options: {
+            chart: {
+              width: 250
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-22"), options);
+        chart.render();
+    //   ==================================================chard added new 3
+    var options = {
+          series: [44, 55, 41, 17, 15],
+          chart: {
+          width: 350,
+          type: 'donut',
+          dropShadow: {
+            enabled: true,
+            color: '#111',
+            top: -1,
+            left: 3,
+            blur: 3,
+            opacity: 0.2
+          }
+        },
+        stroke: {
+          width: 0,
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                total: {
+                  showAlways: true,
+                  show: true
+                }
+              }
+            }
+          }
+        },
+        labels: ["Approved", "Canceled", "Effective", "In Review", "Other"],
+        dataLabels: {
+          dropShadow: {
+            blur: 3,
+            opacity: 0.8
+          }
+        },
+        fill: {
+        type: 'pattern',
+          opacity: 1,
+          pattern: {
+            enabled: true,
+            style: ['verticalLines', 'squares', 'horizontalLines', 'circles','slantedLines'],
+          },
+        },
+        states: {
+          hover: {
+            filter: 'none'
+          }
+        },
+        theme: {
+          palette: 'palette2'
+        },
+        title: {
+          text: ""
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-23"), options);
+        chart.render();
+    //   ==============================================chart added 4 new
+    var options = {
+          series: [{
+          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+        }],
+          chart: {
+          type: 'bar',
+          height: 200
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: ['Assigned', 'Completed', 'Unassigned', 'Not Completed', 'In Process', 'Document Obsoleted', 'Course Obsole',
+            'United States', 'China', 'Germany'
+          ],
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-24"), options);
+        chart.render();
+    //   =========================================================new chard added 5
+
+    
+    var options = {
+          series: [
+          {
+            name: 'Actual',
+            data: [
+              {
+                x: '2011',
+                y: 12,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 14,
+                    strokeWidth: 2,
+                    strokeDashArray: 2,
+                    strokeColor: '#775DD0'
+                  }
+                ]
+              },
+              {
+                x: '2012',
+                y: 44,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 54,
+                    strokeWidth: 5,
+                    strokeHeight: 10,
+                    strokeColor: '#775DD0'
+                  }
+                ]
+              },
+              {
+                x: '2013',
+                y: 54,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 52,
+                    strokeWidth: 10,
+                    strokeHeight: 0,
+                    strokeLineCap: 'round',
+                    strokeColor: '#775DD0'
+                  }
+                ]
+              },
+              {
+                x: '2014',
+                y: 66,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 61,
+                    strokeWidth: 10,
+                    strokeHeight: 0,
+                    strokeLineCap: 'round',
+                    strokeColor: '#775DD0'
+                  }
+                ]
+              },
+              {
+                x: '2015',
+                y: 81,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 66,
+                    strokeWidth: 10,
+                    strokeHeight: 0,
+                    strokeLineCap: 'round',
+                    strokeColor: '#00E396'
+                  }
+                ]
+              },
+              {
+                x: '2016',
+                y: 67,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 70,
+                    strokeWidth: 5,
+                    strokeHeight: 10,
+                    strokeColor: '#000'
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+          chart: {
+          height: 200,
+          type: 'bar'
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          }
+        },
+        colors: ['#775DD0'],
+        dataLabels: {
+          formatter: function(val, opt) {
+            const goals =
+              opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+                .goals
+        
+            if (goals && goals.length) {
+              return `${val} / ${goals[0].value}`
+            }
+            return val
+          }
+        },
+        legend: {
+          show: true,
+          showForSingleSeries: true,
+          customLegendItems: ['Actual', 'Expected'],
+          markers: {
+            fillColors: ['#00E396', '#775DD0']
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-25"), options);
+        chart.render();
+    //   ===============================================chart new added 6 ==
+    var options = {
+          series: [44, 55, 41, 17, 15],
+          chart: {
+          width: 340,
+          type: 'donut',
+          dropShadow: {
+            enabled: true,
+            color: '#111',
+            top: -1,
+            left: 3,
+            blur: 3,
+            opacity: 0.2
+          }
+        },
+        stroke: {
+          width: 0,
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                total: {
+                  showAlways: true,
+                  show: true
+                }
+              }
+            }
+          }
+        },
+        labels: ["Approved", "Canceled", "Effective", "In Review", "Other"],
+        dataLabels: {
+          dropShadow: {
+            blur: 3,
+            opacity: 0.8
+          }
+        },
+        fill: {
+        type: 'pattern',
+          opacity: 1,
+          pattern: {
+            enabled: true,
+            style: ['verticalLines', 'squares', 'horizontalLines', 'circles','slantedLines'],
+          },
+        },
+        states: {
+          hover: {
+            filter: 'none'
+          }
+        },
+        theme: {
+          palette: 'palette2'
+        },
+        title: {
+          text: ""
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-26"), options);
+        chart.render();
 
         // ================================================= DASHBOARD CALENDAR
         document.addEventListener('DOMContentLoaded', function() {

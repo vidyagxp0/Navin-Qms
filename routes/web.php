@@ -55,11 +55,17 @@ Route::post('/rcms_check', [UserLoginController::class, 'rcmscheck']);
 Route::get('/error', function () {
     return view('error');
 })->name('error.route');
+Route::view('rcms_check', 'frontend.rcms.makePassword');
+
 
 //!---------------- starting login  ---------------------------//
 
 Route::get('/', [UserLoginController::class, 'userlogin']);
 Route::view('forgot-password', 'frontend.forgot-password');
+Route::get('reset-password/{token}', [UserLoginController::class,'resetPage']);
+Route::post('reset-password', [UserLoginController::class,'UpdateNewPassword']);
+Route::get('forgetPassword-user', [UserLoginController::class, 'forgetPassword']);
+
 // Route::view('dashboard', 'frontend.dashboard');
 
 Route::get('data-fields', function () {
@@ -221,6 +227,7 @@ Route::post('LabIncidentCancel/{id}', [LabIncidentController::class, 'LabInciden
 
 Route::get('audit-program', [AuditProgramController::class, 'auditprogram']);
 
+Route::view('New_dashboard', 'frontend.New_dashboard');
 
 
 
@@ -325,8 +332,9 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 Route::view('deviation', 'frontend.forms.deviation');
 Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
 Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
+Route::get('DeviationAuditTrialDetails/{id}', [DeviationController::class, 'DeviationAuditTrialDetails']);
 Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
-Route::get('/customers', [CustomerController::class, 'store'])->name('customers.index');
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
 Route::view('extension_form', 'frontend.forms.extension');
 

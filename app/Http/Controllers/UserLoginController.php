@@ -10,6 +10,15 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordReset;
+use DB;
+use Str;
+use Log;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Part\TextPart;
+use App\Models\PasswordLog;
+
 
 class UserLoginController extends Controller
 {
@@ -111,6 +120,35 @@ class UserLoginController extends Controller
 
     public function rcmscheck(Request $request)
     {
+        if($request->confirmPassword){
+            $user = User::find(Auth::user()->id);
+            if ($request->confirmPassword == $user->name || $request->confirmPassword == $user->email) {
+                return redirect()->back()->with('error', 'Please choose a different password. You cannot Your name or email.');
+            }
+            
+            $newPassword = $request->confirmPassword;
+            $oneYearAgo = Carbon::now()->subYear();
+            $passwordLogs = PasswordLog::where('user_id', $user->id)
+                ->where('created_at', '>=', $oneYearAgo)
+                ->get();
+
+            foreach ($passwordLogs as $passwordLog) {
+                if (Hash::check($newPassword, $passwordLog->password)) {
+                    return redirect()->back()->with('error', 'Please choose a different password. You cannot reuse a password within one year.');
+                }
+            }
+
+            $user->password = Hash::make($newPassword);
+            $user->f_login = 1;
+            $user->save();
+
+            $passwordLog = new PasswordLog();
+            $passwordLog->user_id = $user->id;
+            $passwordLog->password = Hash::make($newPassword);
+            $passwordLog->save();
+            toastr()->success('Login With New Password.');
+            return redirect('/login');
+        }
         TotalLogin::userCheck();
         $request->validate([
             'email' => ['required', 'email'],
@@ -120,6 +158,25 @@ class UserLoginController extends Controller
         // Set the timezone
         $checkEmail = User::where('email', $request->email)->count();
         if ($checkEmail > 0) {
+            $userData=User::where('email', $request->email)->first();
+            $currentTime = Carbon::now();
+            if ($userData->updated_at <= $currentTime->subMinutes(5)) {
+                $userData->attempt=1;
+                $userData->save();
+            } else {
+                if ($userData->updated_at >= $currentTime->subMinutes(5)) {
+                    // if ($userData->attempt >= 3) {
+                    //     toastr()->error('Too many login attempts. Please try again in 5 minutes .');
+                    //     return redirect()->back();
+                    // }
+                }
+                if ($userData->attempt==3) {
+                    $userData->attempt=1;
+                    $userData->save();
+                } else {
+                    $userData->increment('attempt');
+                }
+            }
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 // check user login limit
                 if (TotalLogin::ifUserExist(Auth::id())) {
@@ -130,10 +187,18 @@ class UserLoginController extends Controller
                     return redirect()->back()->withInput();
                 } else {
                     // Save the user ID to the total_logins table for check login user limit
-                    TotalLogin::addUser();
-                    toastr()->success('Login Successfully.');
-                    session()->put('last_activity', time());
-                    return redirect('rcms/qms-dashboard');
+                    if(Auth::User()->f_login==0){
+                        // dd(Auth::User()->f_login);
+                        toastr()->success('Create New Password.');
+                        return view('frontend.rcms.makePassword');
+
+                    }else{
+                        TotalLogin::addUser();
+                        toastr()->success('Login Successfully.');
+                        session()->put('last_activity', time());
+                        return redirect('rcms/qms-dashboard');
+                    }
+                   
                 }
             } else {
                 toastr()->error('Login failed.');
@@ -302,5 +367,41 @@ class UserLoginController extends Controller
         else{
             return response()->json('Email is required');
         }
+    }
+    public function forgetPassword(Request $request){
+        // $request->validate([
+        //         'email' => 'required|email|exists:users',
+        // ]);
+   
+        $employee=DB ::table('users')->where('email', $request->email)->select('users.name')->first();
+        $token = Str::random(60);
+        // dd($request->email);
+        $a=Mail::send('emails.password_reset', ['token' =>$request->email,'employee'=>$employee->name], function ($message) use ($request) {
+            $message->from('info@mydemosoftware.com');
+            $message->to($request->email); 
+            $message->subject('Reset Password Notification');
+        });
+            toastr()->success('Email sent successfully');
+            return redirect('/login');
+       
+            // return response()->json(['message' => 'Email sent successfully'], 200);
+   
+        return back();
+    }
+    public function resetPage($email){
+        return view('emails.reset',['email'=> $email]);
+    }
+    public function UpdateNewPassword(Request $request){
+        // $request->validate([
+        //     'password' => 'required|string|min:6|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
+     
+            $user = User::where('email', $request->mailId)
+            ->update(['password' => Hash::make($request->password)]);
+            toastr()->success('Your password has been changed! :');
+
+            return redirect('/login');
+        
     }
 }
