@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('division_id')->nullable();
             $table->string('intiation_date')->nullable();
             $table->string('due_date')->nullable();
-            $table->string('record')->nullable();
+            $table->integer('record')->nullable();
             $table->string('originator')->nullable();
             $table->longText('short_description')->nullable();
             //$table->string('assign_to')->nullable();

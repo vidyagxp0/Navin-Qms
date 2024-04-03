@@ -5,6 +5,9 @@ namespace App\Http\Controllers\rcms;
 use App\Models\DeviationCftsResponse;
 use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
+use App\Models\EffectivenessCheck;
+use App\Models\CC;
+use App\Models\ActionItem;
 use App\Models\Deviation;
 use App\Models\Extension;
 use App\Models\DeviationAuditTrail;
@@ -3623,13 +3626,41 @@ class DeviationController extends Controller
             return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date'));
         }
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
+        // dd($request->child_type)
         if ($request->child_type == "capa") {
             $parent_name = "CAPA";
             $Capachild = Deviation::find($id);
             $Capachild->Capachild = $record_number;
             $Capachild->save();
+        
             return view('frontend.forms.capa', compact('parent_id', 'parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'old_record', 'cft'));
-        } else {
+        } elseif ($request->child_type == "Action_Item")
+         {
+            $parent_name = "CAPA";
+            $actionchild = Deviation::find($id);
+            $actionchild->actionchild = $record_number;
+            $actionchild->save();
+        
+            return view('frontend.forms.action-item', compact('old_record', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
+        }
+        elseif ($request->child_type == "effectiveness_check")
+         {
+            $parent_name = "CAPA";
+            $effectivenesschild = Deviation::find($id);
+            $effectivenesschild->effectivenesschild = $record_number;
+            $effectivenesschild->save();
+        return view('frontend.forms.effectiveness-check', compact('old_record','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
+        }
+        elseif ($request->child_type == "Change_control") {
+            $parent_name = "CAPA";
+            $Changecontrolchild = Deviation::find($id);
+            $Changecontrolchild->Changecontrolchild = $record_number;
+
+            $Changecontrolchild->save();
+            
+            return view('frontend.change-control.new-change-control', compact('cft','pre','hod','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
+        }
+        else {
             $parent_name = "Root";
             $Rootchild = Deviation::find($id);
             $Rootchild->Rootchild = $record_number;
@@ -3699,6 +3730,7 @@ class DeviationController extends Controller
 
         $Capachild = $data->Capachild;
         $Rootchild = $data->Rootchild;
+       
         $Extensionchild = $data->Extensionchild;
         $data1 = Capa::where('record', $Capachild)->first();
         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
@@ -3728,19 +3760,28 @@ class DeviationController extends Controller
     public static function deviationfamilyReport($id)
     {
         $data = Deviation::find($id);
-
         $Capachild = $data->Capachild;
+        
         $Rootchild = $data->Rootchild;
         $Extensionchild = $data->Extensionchild;
+         $actionchild=$data->actionchild;
+         $effectivenesschild=$data->effectivenesschild;
+         $Changecontrolchild=$data->Changecontrolchild;
+        //  dd($Changecontrolchild);
         $data1 = Capa::where('record', $Capachild)->first();
         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
-
         $data3 = Extension::where('record', $Extensionchild)->first();
+        $data4 = ActionItem::where('record', $actionchild)->first();
+        $data5 = EffectivenessCheck::where('record', $effectivenesschild)->first();
+        $data6 = CC::where('record', $Changecontrolchild)->first();
+        
+        // $data4 = CC::find($id);
+
         if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3'))
+            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3','data4','data5','data6'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,

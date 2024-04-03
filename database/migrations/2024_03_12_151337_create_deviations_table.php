@@ -36,6 +36,9 @@ return new class extends Migration
             $table->string('Facility')->nullable();
             $table->string('Capachild')->nullable();
             $table->string('Rootchild')->nullable();
+            $table->string('effectivenesschild')->nullable();
+            $table->string('Changecontrolchild')->nullable();
+            $table->string('actionchild')->nullable();
             $table->string('Extensionchild')->nullable();
             $table->string('audit_type')->nullable();
             $table->longText('others')->nullable();
