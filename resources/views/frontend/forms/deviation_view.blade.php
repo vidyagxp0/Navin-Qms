@@ -372,7 +372,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
                             </button>
-                        @elseif($data->stage == 6 && (in_array(9, $userRoleIds) || in_array(18, $userRoleIds)))
+                        @elseif($data->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 More Info Required
                                 </button>
@@ -1099,7 +1099,7 @@ $users = DB::table('users')
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                <textarea class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea disabled class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                             </div>
                                         @endif 
                                 </div>
@@ -1185,9 +1185,9 @@ $users = DB::table('users')
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        @if($data->stage == 2)
+                                        @if($data->stage == 3)
                                             <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
-                                            <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
+                                            <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" required>
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data->Deviation_category == 'minor') selected @endif
                                                 value="minor">Minor</option>
@@ -1197,7 +1197,6 @@ $users = DB::table('users')
                                                 value="critical">Critical</option>
                                             </select>
                                             @else
-                                            <div class="group-input">
                                                 <label for="Deviation category">Initial Deviation category</label>
                                                 <select id="Deviation_category" name="Deviation_category"  value="{{ $data->Deviation_category }}" >
                                                     <option value="0">-- Select --</option>
@@ -1208,28 +1207,31 @@ $users = DB::table('users')
                                                     <option @if ($data->Deviation_category == 'critical') selected @endif
                                                     value="critical">Critical</option>
                                                 </select>
-                                            </div>
                                         @endif 
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Justification for  categorization</label>
-                                        <textarea class="summernote" name="Justification_for_categorization" value="Justification_for_categorization" id="" cols="30" ></textarea>
 
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12">
-                                    <div class="group-input">
-                                        <label for="Justification for  categorization">Justification for  categorization</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Justification_for_categorization" id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
-                                    </div>
-                                </div>
+                                        @if($data->stage == 3)
+                                            <div class="col-md-12">
+                                                <div class="group-input">
+                                                    <label for="Justification for  categorization">Justification for categorization <span class="text-danger">*</span></label>
+                                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                                    <textarea class="summernote Justification_for_categorization" name="Justification_for_categorization" id="summernote-5" required>{{ $data->Justification_for_categorization }}</textarea>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="col-md-12">
+                                                <div class="group-input">
+                                                    <label for="Justification for  categorization">Justification for categorization</label>
+                                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                                    <textarea class="summernote Justification_for_categorization" name="Justification_for_categorization" id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
+                                                </div>
+                                            </div>
+                                        @endif 
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Investigation required">Investigation  Required?</label>
+                                        <label for="Investigation required">Investigation Required?</label>
                                         <select name="Investigation_required" id="Investigation_required"    value="{{ $data->Investigation_required }}" >
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
@@ -1242,7 +1244,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                                <label for="Investigation Details">Investigation Details <span id="asteriskInviinvestication" style="display: none" class="text-danger">*</span></label>
+                                                <label for="Investigation Details">Investigation Details <span id="asteriskInviinvestication" style="display: {{ $data1->Investigation_required == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                                 <textarea class="summernote Investigation_Details" name="Investigation_Details" class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
                                                 {{-- <span class="error-message" style="color: red; display: none;">Please fill out this field.</span> --}}
@@ -1254,19 +1256,19 @@ $users = DB::table('users')
                                                 var inputsToToggle = [];
         
                                                 // Add elements with class 'facility-name' to inputsToToggle
-                                                // var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
-                                                // for (var i = 0; i < facilityNameInputs.length; i++) {
-                                                //     inputsToToggle.push(facilityNameInputs[i]);
-                                                // }
+                                                var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
+                                                for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                    inputsToToggle.push(facilityNameInputs[i]);
+                                                }
         
                                                                                 
                                                 selectField.addEventListener('change', function () {
                                                     var isRequired = this.value === 'yes';
         
-                                                    // inputsToToggle.forEach(function (input) {
-                                                    //     input.required = isRequired;
-                                                    //     console.log(input.required, isRequired, 'input req');
-                                                    // });
+                                                    inputsToToggle.forEach(function (input) {
+                                                        input.required = isRequired;
+                                                        console.log(input.required, isRequired, 'input req');
+                                                    });
         
                                                     // Show or hide the asterisk icon based on the selected value
                                                     var asteriskIcon = document.getElementById('asteriskInviinvestication');
@@ -1297,8 +1299,8 @@ $users = DB::table('users')
                                             $customers = DB::table('customer-details')->get();
                                             // dd($data->customer);
                                         @endphp
-                                            <label for="customers">Customers <span id="asterikCustomer_notification" style="display: none" class="text-danger">*</span></label>
-                                            <select name="customers" id="customers" required>
+                                            <label for="customers">Customers <span id="asterikCustomer_notification" style="display: {{ $data->Customer_notification == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                            <select name="customers" class="customers" id="customers" required>
                                                 <option value="0"> -- Select --</option>
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == 'yes') selected @endif
@@ -1314,19 +1316,19 @@ $users = DB::table('users')
                                             var inputsToToggle = [];
     
                                             // Add elements with class 'facility-name' to inputsToToggle
-                                            // var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
-                                            // for (var i = 0; i < facilityNameInputs.length; i++) {
-                                            //     inputsToToggle.push(facilityNameInputs[i]);
-                                            // }
+                                            var facilityNameInputs = document.getElementsByClassName('customers');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
     
                                                                             
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
     
-                                                // inputsToToggle.forEach(function (input) {
-                                                //     input.required = isRequired;
-                                                //     console.log(input.required, isRequired, 'input req');
-                                                // });
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
     
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterikCustomer_notification');
@@ -1363,9 +1365,12 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="QAInitialRemark" id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
+                                        <textarea class="summernote QAInitialRemark" name="QAInitialRemark" id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
                                     </div>
                                 </div>
+                                <script>
+
+                                </script>
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">QA Initial Attachments</label>
@@ -1642,84 +1647,9 @@ $users = DB::table('users')
                             $('#Customer_notification').prop('disabled', false);
                         });
 
-                        console.log(checkValue);
-                        // if(checkValue){
-                        //     $('#Investigation_required').prop('disabled', true);
-                        //      $('#Customer_notification').prop('disabled', true);
-                        // }
-
                     </script>
-                    {{-- <script>
-                        $(document).ready(function () {
-                            // Event listener for Investigation_required dropdown
-                            $('#Investigation_required').change(function () {
-                                if ($(this).val() === 'yes') {
-                                    // If "Yes" is selected, make Investigation_Details field required
-                                    $('.Investigation_Details').prop('required', true);
-                                } else {
-                                    // If "No" or any other option is selected, remove the required attribute
-                                    $('.Investigation_Details').prop('required', false);
-                                    // Hide error message when not required
-                                    $('.error-message').hide();
-                                }
-                            });
-                    
-                            // Event listener for Investigation_Details field
-                            $('.Investigation_Details').blur(function () {
-                                // Check if the field is empty and required
-                                if ($(this).prop('required') && $(this).val().trim() === '') {
-                                    // Show error message if empty
-                                    $('.error-message').show();
-                                } else {
-                                    // Hide error message if not empty
-                                    $('.error-message').hide();
-                                }
-                            });
-                    
-                            // Initial check when page loads
-                            if ($('#Investigation_required').val() === 'yes') {
-                                $('.Investigation_Details').prop('required', true);
-                            }
-                        });
-                    </script>
-                    <script>
-                        $(document).ready(function () {
-                            // Event listener for Customer_notification dropdown
-                            $('#Customer_notification').change(function () {
-                                if ($(this).val() === 'yes') {
-                                    // If "Yes" is selected, make Investigation_Details field required
-                                    $('#customers').prop('required', true);
-                                } else {
-                                    // If "No" or any other option is selected, remove the required attribute
-                                    $('#customers').prop('required', false);
-                                    // Hide error message when not required
-                                    $('.error-message').hide();
-                                }
-                            });
-                    
-                            // Event listener for Investigation_Details field
-                            $('#customers').blur(function () {
-                                // Check if the field is empty and required
-                                if ($(this).prop('required') && $(this).val().trim() === '') {
-                                    // Show error message if empty
-                                    $('.error-message').show();
-                                } else {
-                                    // Hide error message if not empty
-                                    $('.error-message').hide();
-                                }
-                            });
-                    
-                            // Initial check when page loads
-                            if ($('#Customer_notification').val() === 'yes') {
-                                $('#customers').prop('required', true);
-                            }
-                        });
-                    </script> --}}
                     
                     <!-- CFT -->
-                    {{-- @php
-                    $deviationsCFTs = DB::table('deviationcfts')->where('deviation_id', $id)->first();
-                    @endphp --}}
                     <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -1753,7 +1683,8 @@ $users = DB::table('users')
                             @endphp
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Production notification">Production Person  <span id="asteriskInvi123" style="display: none" class="text-danger">*</span></label>
+                                    <label for="Production notification">Production Person  <span id="asteriskProduction" style="display: {{ $data1->Production_Review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
+                                    </label>
                                     <select name="Production_person" class="Production_person" id="Production_person">
                                         <option value="">-- Select --</option>
                                         @foreach ($users as $user)
@@ -1764,17 +1695,16 @@ $users = DB::table('users')
                             </div> 
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
-                                    <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
+                                    <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskProduction1" style="display: {{ $data1->Production_Review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                    <textarea class="summernote Production_assessment" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
-                                    <label for="Production feedback">Production Feedback  <span id="asteriskInvi22" style="display: none" class="text-danger">*</span></label>
+                                    <label for="Production feedback">Production Feedback  <span id="asteriskProduction2" style="display: {{ $data1->Production_Review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
-                                </textarea>
+                                    <textarea class="summernote Production_feedback" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -1829,6 +1759,14 @@ $users = DB::table('users')
                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                         inputsToToggle.push(facilityNameInputs[i]);
                                     }
+                                    var facilityNameInputs = document.getElementsByClassName('Production_assessment');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
+                                    var facilityNameInputs = document.getElementsByClassName('Production_feedback');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
                 
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
@@ -1840,13 +1778,17 @@ $users = DB::table('users')
                                         });
 
                                         // Show or hide the asterisk icon based on the selected value
-                                        var asteriskIcon = document.getElementById('asteriskInvi123');
+                                        var asteriskIcon = document.getElementById('asteriskProduction');
+                                        var asteriskIcon1 = document.getElementById('asteriskProduction1');
+                                        var asteriskIcon2 = document.getElementById('asteriskProduction2');
+                                        asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                         asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                     });
                                 });
                             </script>
-
-                            @else
+                    {{-- Else conditon for other roles fields all fields disabled --}}
+                             @else
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production Review">Production Review Required ?</label>
@@ -1882,15 +1824,14 @@ $users = DB::table('users')
                                 <div class="group-input">
                                     <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea  class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                    <textarea disabled  class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Production feedback">Production Feedback  <span id="asteriskInvi22" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
-                                </textarea>
+                                    <textarea disabled class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -1911,14 +1852,14 @@ $users = DB::table('users')
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
+                                            <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
                                                 oninput="addMultipleFiles(this, 'production_attachment')"
                                                 multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                               <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3"> 
                                 <div class="group-input">
                                     <label for="Production Review Completed By">Production Review Completed By</label>
                                     {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
@@ -1934,9 +1875,9 @@ $users = DB::table('users')
                                     <input disabled type="date"id="production_on" name="production_on" value="{{ $data1->production_on }}" >
                                 </div>
                             </div>
-
                             @endif
                             
+                            {{-- Warehoure fields  --}}
                                 <div class="sub-head">
                                 Warehouse
                            </div>
@@ -1964,7 +1905,7 @@ $users = DB::table('users')
                     @endphp
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Warehouse Person">Warehouse Person  <span id="asteriskware" style="display: none" class="text-danger">*</span></label>
+                                <label for="Warehouse Person">Warehouse Person  <span id="asteriskware" style="display: {{ $data1->Warehouse_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <select name="Warehouse_notification" class="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}" >
                                     <option value=""> -- Select --</option>
                                     @foreach ($users as $user)
@@ -1977,18 +1918,16 @@ $users = DB::table('users')
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Impact Assessment1">Impact Assessment (By Warehouse) <span id="asteriskware2" style="display: none" class="text-danger">*</span></label>
+                                <label for="Impact Assessment1">Impact Assessment (By Warehouse) <span id="asteriskware2" style="display: {{ $data1->Warehouse_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}
-                            </textarea>
+                                <textarea class="summernote Warehouse_assessment" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Warehouse Feedback">Warehouse Feedback <span id="asteriskware3" style="display: none" class="text-danger">*</span></label>
+                                <label for="Warehouse Feedback">Warehouse Feedback <span id="asteriskware3" style="display: {{ $data1->Warehouse_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}
-                            </textarea>
+                                <textarea class="summernote Warehouse_feedback" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -2026,6 +1965,14 @@ $users = DB::table('users')
                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                         inputsToToggle.push(facilityNameInputs[i]);
                                     }
+                                    var facilityNameInputs = document.getElementsByClassName('Warehouse_assessment');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
+                                    var facilityNameInputs = document.getElementsByClassName('Warehouse_feedback');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
                 
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
@@ -2038,7 +1985,11 @@ $users = DB::table('users')
 
                                         // Show or hide the asterisk icon based on the selected value
                                         var asteriskIcon = document.getElementById('asteriskware');
+                                        var asteriskIcon2 = document.getElementById('asteriskware2');
+                                        var asteriskIcon3 = document.getElementById('asteriskware3');
                                         asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon3.style.display = isRequired ? 'inline' : 'none';
                                     });
                                 });
                         </script>
@@ -2097,16 +2048,14 @@ $users = DB::table('users')
                             <div class="group-input">
                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}
-                            </textarea>
+                                <textarea disabled class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Feedback">Warehouse Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea  class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}
-                            </textarea>
+                                <textarea disabled  class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -2127,7 +2076,7 @@ $users = DB::table('users')
                                     </div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
+                                        <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
                                             oninput="addMultipleFiles(this, 'Warehouse_attachment')"
                                             multiple>
                                     </div>
@@ -2178,7 +2127,7 @@ $users = DB::table('users')
                     @endphp
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Quality Control Person">Quality Control Person <span id="asteriskQC" style="display: none" class="text-danger">*</span></label>
+                                <label for="Quality Control Person">Quality Control Person <span id="asteriskQC" style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <select name="Quality_Control_Person" class="Quality_Control_Person" id="Quality_Control_Person">
                                     <option value="">-- Select --</option>
                                     @foreach ($users as $user)
@@ -2192,18 +2141,16 @@ $users = DB::table('users')
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
+                                <label for="Impact Assessment2">Impact Assessment (By Quality Control) <span id="asteriskQC1" style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Quality_Control_assessment" id="summernote-21">{{ $data1->Quality_Control_assessment }}
-                            </textarea>
+                                <textarea class="summernote Quality_Control_assessment" name="Quality_Control_assessment" id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Quality Control Feedback">Quality Control Feedback</label>
+                                <label for="Quality Control Feedback">Quality Control Feedback <span id="asteriskQC2" style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Quality_Control_feedback" id="summernote-22">
-                            </textarea>
+                                <textarea class="summernote Quality_Control_feedback" name="Quality_Control_feedback" id="summernote-22">{{ $data1->Quality_Control_feedback }}</textarea>
                             </div>
                         </div>
                         <script>
@@ -2216,7 +2163,14 @@ $users = DB::table('users')
                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                         inputsToToggle.push(facilityNameInputs[i]);
                                     }
-                
+                                    var facilityNameInputs = document.getElementsByClassName('Quality_Control_feedback');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
+                                    var facilityNameInputs = document.getElementsByClassName('Quality_Control_assessment');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
                                         console.log(this.value, isRequired, 'value');
@@ -2228,7 +2182,11 @@ $users = DB::table('users')
 
                                         // Show or hide the asterisk icon based on the selected value
                                         var asteriskIcon = document.getElementById('asteriskQC');
+                                        var asteriskIcon1 = document.getElementById('asteriskQC1');
+                                        var asteriskIcon2 = document.getElementById('asteriskQC2');
                                         asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                     });
                                 });
                         </script>
@@ -2294,7 +2252,7 @@ $users = DB::table('users')
                         @endphp
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Quality Assurance Person">Quality Assurance Person <span id="asteriskQQA" style="display: none" class="text-danger">*</span></label>
+                                <label for="Quality Assurance Person">Quality Assurance Person <span id="asteriskQQA" style="display: {{ $data1->Quality_Assurance_Review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <select name="QualityAssurance_person" class="QualityAssurance_person" id="QualityAssurance_person">
                                     <option value="">-- Select --</option>
                                     @foreach ($users as $user)
@@ -2306,18 +2264,16 @@ $users = DB::table('users')
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
+                                <label for="Impact Assessment3">Impact Assessment (By Quality Assurance) <span id="asteriskQQA1" style="display: {{ $data1->Quality_Assurance_Review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-23">{{ $data1->QualityAssurance_assessment }}
-                            </textarea>
+                                <textarea class="summernote QualityAssurance_assessment" name="QualityAssurance_assessment" id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                             </div>
                         </div>   
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
+                                <label for="Quality Assurance Feedback">Quality Assurance Feedback <span id="asteriskQQA2" style="display: {{ $data1->Quality_Assurance_Review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-24">{{ $data1->QualityAssurance_feedback }}
-                            </textarea>
+                                <textarea class="summernote QualityAssurance_feedback" name="QualityAssurance_feedback" id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea> 
                             </div>
                         </div>
 
@@ -2328,6 +2284,14 @@ $users = DB::table('users')
 
                                     // Add elements with class 'facility-name' to inputsToToggle
                                     var facilityNameInputs = document.getElementsByClassName('QualityAssurance_person');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
+                                    var facilityNameInputs = document.getElementsByClassName('QualityAssurance_feedback');
+                                    for (var i = 0; i < facilityNameInputs.length; i++) {
+                                        inputsToToggle.push(facilityNameInputs[i]);
+                                    }
+                                    var facilityNameInputs = document.getElementsByClassName('QualityAssurance_assessment');
                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                         inputsToToggle.push(facilityNameInputs[i]);
                                     }
@@ -2343,7 +2307,11 @@ $users = DB::table('users')
 
                                         // Show or hide the asterisk icon based on the selected value
                                         var asteriskIcon = document.getElementById('asteriskQQA');
+                                        var asteriskIcon1 = document.getElementById('asteriskQQA1');
+                                        var asteriskIcon2 = document.getElementById('asteriskQQA2');
                                         asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                        asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                     });
                                 });
                         </script>
@@ -2410,7 +2378,7 @@ $users = DB::table('users')
                             @endphp
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Customer notification">Engineering Person <span id="asteriskEP" style="display: none" class="text-danger">*</span></label>
+                                    <label for="Customer notification">Engineering Person <span id="asteriskEP" style="display: {{ $data1->Engineering_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                     <select name="Engineering_person" class="Engineering_person" id="Engineering_person">
                                         <option value="">-- Select --</option>
                                         @foreach ($users as $user)
@@ -2422,18 +2390,16 @@ $users = DB::table('users')
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
-                                    <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
+                                    <label for="Impact Assessment4">Impact Assessment (By Engineering) <span id="asteriskEP1" style="display: {{ $data1->Engineering_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Engineering_assessment" id="summernote-25" >{{$data1->Engineering_assessment}}
-                                </textarea>
+                                    <textarea class="summernote Engineering_assessment" name="Engineering_assessment" id="summernote-25" >{{$data1->Engineering_assessment}}</textarea>
                                 </div>
                             </div>  
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
-                                    <label for="Engineering Feedback">Engineering  Feedback</label>
+                                    <label for="Engineering Feedback">Engineering  Feedback <span id="asteriskEP2" style="display: {{ $data1->Engineering_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Engineering_feedback" id="summernote-26" >{{$data1->Engineering_feedback}}
-                                </textarea>
+                                    <textarea class="summernote Engineering_feedback" name="Engineering_feedback" id="summernote-26" >{{$data1->Engineering_feedback}}</textarea>
                                 </div>
                             </div>
                             <script>
@@ -2443,6 +2409,14 @@ $users = DB::table('users')
     
                                         // Add elements with class 'facility-name' to inputsToToggle
                                         var facilityNameInputs = document.getElementsByClassName('Engineering_person');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+                                        var facilityNameInputs = document.getElementsByClassName('Engineering_feedback');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+                                        var facilityNameInputs = document.getElementsByClassName('Engineering_assessment');
                                         for (var i = 0; i < facilityNameInputs.length; i++) {
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
@@ -2458,7 +2432,11 @@ $users = DB::table('users')
     
                                             // Show or hide the asterisk icon based on the selected value
                                             var asteriskIcon = document.getElementById('asteriskEP');
+                                            var asteriskIcon1 = document.getElementById('asteriskEP1');
+                                            var asteriskIcon2 = document.getElementById('asteriskEP2');
                                             asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                            asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                         });
                                     });
                             </script>
@@ -2528,7 +2506,7 @@ $users = DB::table('users')
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Analytical Development Laboratory Person"> Analytical Development Laboratory Person <span id="asteriskAD" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Analytical Development Laboratory Person"> Analytical Development Laboratory Person <span id="asteriskAD" style="display: {{ $data1->Analytical_Development_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Analytical_Development_person" class="Analytical_Development_person" id="Analytical_Development_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -2541,16 +2519,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment5">Impact Assessment (By Analytical Development Laboratory)</label>
-                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-27">{{$data1->Analytical_Development_assessment}}
-                                    </textarea>
+                                        <label for="Impact Assessment5">Impact Assessment (By Analytical Development Laboratory) <span id="asteriskAD1" style="display: {{ $data1->Analytical_Development_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Analytical_Development_assessment" name="Analytical_Development_assessment" id="summernote-27">{{$data1->Analytical_Development_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Analytical Development Laboratory Feedback"> Analytical Development Laboratory Feedback</label>
-                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-28">{{$data1->Analytical_Development_feedback}}
-                                    </textarea>
+                                        <label for="Analytical Development Laboratory Feedback"> Analytical Development Laboratory Feedback <span id="asteriskAD2" style="display: {{ $data1->Analytical_Development_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Analytical_Development_feedback" name="Analytical_Development_feedback" id="summernote-28">{{$data1->Analytical_Development_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -2560,6 +2536,14 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Analytical_Development_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -2575,7 +2559,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskAD');
+                                                var asteriskIcon1 = document.getElementById('asteriskAD1');
+                                                var asteriskIcon2 = document.getElementById('asteriskAD2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -2644,7 +2632,7 @@ $users = DB::table('users')
                             @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab  Person <span id="asteriskPDL" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab  Person <span id="asteriskPDL" style="display: {{ $data1->Kilo_Lab_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Kilo_Lab_person" class="Kilo_Lab_person" id="Kilo_Lab_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -2657,16 +2645,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
-                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-29">{{$data1->Kilo_Lab_assessment}}
-                                    </textarea>
+                                        <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab) <span id="asteriskPDL1" style="display: {{ $data1->Kilo_Lab_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Analytical_Development_assessment" name="Kilo_Lab_assessment" id="summernote-29">{{$data1->Kilo_Lab_assessment}}</textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
-                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-30">{{$data1->Kilo_Lab_feedback}}
-                                    </textarea>
+                                        <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback <span id="asteriskPDL2" style="display: {{ $data1->Kilo_Lab_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Analytical_Development_feedback" name="Kilo_Lab_feedback" id="summernote-30">{{$data1->Kilo_Lab_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -2676,6 +2662,15 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Kilo_Lab_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -2691,7 +2686,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskPDL');
+                                                var asteriskIcon1 = document.getElementById('asteriskPDL1');
+                                                var asteriskIcon2 = document.getElementById('asteriskPDL2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -2760,7 +2759,7 @@ $users = DB::table('users')
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Design Person"> Technology Transfer / Design  Person <span id="asteriskTT" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Design Person"> Technology Transfer / Design  Person <span id="asteriskTT" style="display: {{ $data1->Technology_transfer_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Technology_transfer_person" class="Technology_transfer_person" id="Technology_transfer_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -2774,16 +2773,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment7">Impact Assessment (By Technology Transfer / Design)</label>
-                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-31">{{$data1->Technology_transfer_assessment}}
-                                    </textarea>
+                                        <label for="Impact Assessment7">Impact Assessment (By Technology Transfer / Design) <span id="asteriskTT1" style="display: {{ $data1->Technology_transfer_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Technology_transfer_assessment" name="Technology_transfer_assessment" id="summernote-31">{{$data1->Technology_transfer_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Design Feedback"> Technology Transfer / Design  Feedback</label>
-                                        <textarea class="summernote" name="Technology_transfer_feedback" id="summernote-32">{{$data1->Technology_transfer_feedback}}
-                                    </textarea>
+                                        <label for="Design Feedback"> Technology Transfer / Design  Feedback <span id="asteriskTT2" style="display: {{ $data1->Technology_transfer_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Technology_transfer_feedback" name="Technology_transfer_feedback" id="summernote-32">{{$data1->Technology_transfer_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -2793,6 +2790,15 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Technology_transfer_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -2808,7 +2814,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskTT');
+                                                var asteriskIcon1 = document.getElementById('asteriskTT1');
+                                                var asteriskIcon2 = document.getElementById('asteriskTT2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -2878,7 +2888,7 @@ $users = DB::table('users')
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Safety Person"> Environment, Health & Safety  Person <span id="asteriskEH" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Safety Person"> Environment, Health & Safety  Person <span id="asteriskEH" style="display: {{ $data1->Environment_Health_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Environment_Health_Safety_person" class="Environment_Health_Safety_person" id="Environment_Health_Safety_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -2891,16 +2901,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety)</label>
-                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-33">{{$data1->Health_Safety_assessment}}
-                                    </textarea>
+                                        <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety) <span id="asteriskEH1" style="display: {{ $data1->Environment_Health_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-33">{{$data1->Health_Safety_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Safety Feedback">Environment, Health & Safety  Feedback</label>
-                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-34">{{$data1->Health_Safety_feedback}}
-                                    </textarea>
+                                        <label for="Safety Feedback">Environment, Health & Safety  Feedback <span id="asteriskEH2" style="display: {{ $data1->Environment_Health_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-34">{{$data1->Health_Safety_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -2910,6 +2918,15 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Environment_Health_Safety_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -2925,7 +2942,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskEH');
+                                                var asteriskIcon1 = document.getElementById('asteriskEH1');
+                                                var asteriskIcon2 = document.getElementById('asteriskEH2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -2995,7 +3016,7 @@ $users = DB::table('users')
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification"> Human Resource & Administration  Person <span id="asteriskHR" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Customer notification"> Human Resource & Administration  Person <span id="asteriskHR" style="display: {{ $data1->Human_Resource_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Human_Resource_person" class="Human_Resource_person" id="Human_Resource_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -3008,16 +3029,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
-                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-35">{{$data1->Human_Resource_assessment}}
-                                    </textarea>
+                                        <label for="productionfeedback">Impact Assessment (By Human Resource & Administration ) <span id="asteriskHR1" style="display: {{ $data1->Human_Resource_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Human_Resource_assessment" name="Human_Resource_assessment" id="summernote-35">{{$data1->Human_Resource_assessment}}</textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="productionfeedback">Human Resource & Administration  Feedback</label>
-                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-36">{{$data1->Human_Resource_feedback}}
-                                    </textarea>
+                                        <label for="productionfeedback">Human Resource & Administration  Feedback <span id="asteriskHR2" style="display: {{ $data1->Human_Resource_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Human_Resource_feedback" name="Human_Resource_feedback" id="summernote-36">{{$data1->Human_Resource_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -3027,6 +3046,15 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Human_Resource_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -3042,7 +3070,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskHR');
+                                                var asteriskIcon1 = document.getElementById('asteriskHR1');
+                                                var asteriskIcon2 = document.getElementById('asteriskHR2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -3114,7 +3146,7 @@ $users = DB::table('users')
                             @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Information Technology Person"> Information Technology  Person <span id="asteriskITP" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Information Technology Person"> Information Technology  Person <span id="asteriskITP" style="display: {{ $data1->Information_Technology_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name=" Information_Technology_person" class="Information_Technology_person" id=" Information_Technology_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -3127,16 +3159,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment10">Impact Assessment (By Information Technology)</label>
-                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-37">{{$data1->Information_Technology_assessment}}
-                                    </textarea>
+                                        <label for="Impact Assessment10">Impact Assessment (By Information Technology) <span id="asteriskITP" style="display: {{ $data1->Information_Technology_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Information_Technology_assessment" name="Information_Technology_assessment" id="summernote-37">{{$data1->Information_Technology_assessment}}</textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Information Technology Feedback">Information Technology Feedback</label>
-                                        <textarea class="summernote" name="Information_Technology_feedback" id="summernote-38">{{$data1->Information_Technology_feedback}}
-                                    </textarea>
+                                        <label for="Information Technology Feedback">Information Technology Feedback <span id="asteriskITP" style="display: {{ $data1->Information_Technology_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Information_Technology_feedback" name="Information_Technology_feedback" id="summernote-38">{{$data1->Information_Technology_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -3146,6 +3176,15 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Information_Technology_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -3161,7 +3200,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskITP');
+                                                var asteriskIcon1 = document.getElementById('asteriskITP1');
+                                                var asteriskIcon2 = document.getElementById('asteriskITP2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -3228,7 +3271,7 @@ $users = DB::table('users')
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Project management Person"> Project management Person <span id="asteriskPMP" style="display: none" class="text-danger">*</span></label>
+                                        <label for="Project management Person"> Project management Person <span id="asteriskPMP" style="display: {{ $data1->Project_management_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Project_management_person" class="Project_management_person" id="Project_management_person">
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
@@ -3240,16 +3283,14 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment11">Impact Assessment (By  Project management )</label>
-                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-39">{{$data1->Project_management_assessment}}
-                                    </textarea>
+                                        <label for="Impact Assessment11">Impact Assessment (By  Project management ) <span id="asteriskPMP" style="display: {{ $data1->Project_management_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Project_management_assessment" name="Project_management_assessment" id="summernote-39">{{$data1->Project_management_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Project management Feedback"> Project management  Feedback</label>
-                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-40">{{$data1->Project_management_feedback}}
-                                    </textarea>
+                                        <label for="Project management Feedback"> Project management  Feedback <span id="asteriskPMP" style="display: {{ $data1->Project_management_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="summernote Project_management_feedback" name="Project_management_feedback" id="summernote-40">{{$data1->Project_management_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -3259,6 +3300,15 @@ $users = DB::table('users')
         
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Project_management_person');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_feedback');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                                            var facilityNameInputs = document.getElementsByClassName('Analytical_Development_assessment');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
@@ -3274,7 +3324,11 @@ $users = DB::table('users')
         
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskPMP');
+                                                var asteriskIcon1 = document.getElementById('asteriskPMP1');
+                                                var asteriskIcon2 = document.getElementById('asteriskPMP2');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon1.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon2.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -3362,16 +3416,14 @@ $users = DB::table('users')
                             <div class="group-input">
                                 <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Quality_Control_assessment" id="summernote-21">{{ $data1->Quality_Control_assessment }}
-                            </textarea>
+                                <textarea class="summernote" name="Quality_Control_assessment" id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Quality Control Feedback">Quality Control Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Quality_Control_feedback" id="summernote-22">
-                            </textarea>
+                                <textarea class="summernote" name="Quality_Control_feedback" id="summernote-22">{{ $data1->Quality_Control_feedback }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -3450,16 +3502,14 @@ $users = DB::table('users')
                             <div class="group-input">
                                 <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-23">{{ $data1->QualityAssurance_assessment }}
-                            </textarea>
+                                <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                             </div>
                         </div>   
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-24">{{ $data1->QualityAssurance_feedback }}
-                            </textarea>
+                                <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -3540,16 +3590,14 @@ $users = DB::table('users')
                                 <div class="group-input">
                                     <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Engineering_assessment" id="summernote-25" >{{$data1->Engineering_assessment}}
-                                </textarea>
+                                    <textarea class="summernote" name="Engineering_assessment" id="summernote-25" >{{$data1->Engineering_assessment}}</textarea>
                                 </div>
                             </div>  
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Engineering Feedback">Engineering  Feedback</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Engineering_feedback" id="summernote-26" >{{$data1->Engineering_feedback}}
-                                </textarea>
+                                    <textarea class="summernote" name="Engineering_feedback" id="summernote-26" >{{$data1->Engineering_feedback}}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -3632,15 +3680,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development Laboratory)</label>
-                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-27">{{$data1->Analytical_Development_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-27">{{$data1->Analytical_Development_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development Laboratory Feedback</label>
-                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-28">{{$data1->Analytical_Development_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-28">{{$data1->Analytical_Development_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -3722,15 +3768,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
-                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-29">{{$data1->Kilo_Lab_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-29">{{$data1->Kilo_Lab_assessment}}</textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
-                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-30">{{$data1->Kilo_Lab_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-30">{{$data1->Kilo_Lab_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -3813,15 +3857,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer / Design)</label>
-                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-31">{{$data1->Technology_transfer_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-31">{{$data1->Technology_transfer_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design  Feedback</label>
-                                        <textarea class="summernote" name="Technology_transfer_feedback" id="summernote-32">{{$data1->Technology_transfer_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Technology_transfer_feedback" id="summernote-32">{{$data1->Technology_transfer_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -3904,15 +3946,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety)</label>
-                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-33">{{$data1->Health_Safety_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-33">{{$data1->Health_Safety_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Feedback">Environment, Health & Safety  Feedback</label>
-                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-34">{{$data1->Health_Safety_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-34">{{$data1->Health_Safety_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -3995,15 +4035,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
-                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-35">{{$data1->Human_Resource_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-35">{{$data1->Human_Resource_assessment}}</textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
-                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-36">{{$data1->Human_Resource_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-36">{{$data1->Human_Resource_feedback}}</textarea>
                                     </div>
                                 </div>
                                 
@@ -4089,15 +4127,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology)</label>
-                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-37">{{$data1->Information_Technology_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-37">{{$data1->Information_Technology_assessment}}</textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback">Information Technology Feedback</label>
-                                        <textarea class="summernote" name="Information_Technology_feedback" id="summernote-38">{{$data1->Information_Technology_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Information_Technology_feedback" id="summernote-38">{{$data1->Information_Technology_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -4177,15 +4213,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By  Project management )</label>
-                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-39">{{$data1->Project_management_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-39">{{$data1->Project_management_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Project management Feedback"> Project management  Feedback</label>
-                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-40">{{$data1->Project_management_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-40">{{$data1->Project_management_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -4324,15 +4358,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By  Other's 1)</label>
-                                        <textarea class="summernote" name="Other1_assessment" id="summernote-41">{{$data1->Other1_assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other1_assessment" id="summernote-41">{{$data1->Other1_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback1"> Other's 1 Feedback</label>
-                                        <textarea class="summernote" name="Other1_feedback" id="summernote-42">{{$data1->Other1_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other1_feedback" id="summernote-42">{{$data1->Other1_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4438,15 +4470,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By  Other's 2)</label>
-                                        <textarea class="summernote" name="Other2_Assessment" id="summernote-43">{{$data1->Other2_Assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other2_Assessment" id="summernote-43">{{$data1->Other2_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback2"> Other's 2 Feedback</label>
-                                        <textarea class="summernote" name="Other2_feedback" id="summernote-44">{{$data1->Other2_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other2_feedback" id="summernote-44">{{$data1->Other2_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4555,15 +4585,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By  Other's 3)</label>
-                                        <textarea class="summernote" name="Other3_Assessment" id="summernote-45">{{$data1->Other3_Assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other3_Assessment" id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback3"> Other's 3 Feedback</label>
-                                        <textarea class="summernote" name="Other3_feedback" id="summernote-46">{{$data1->Other3_Assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other3_feedback" id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4669,15 +4697,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By  Other's 4)</label>
-                                        <textarea class="summernote" name="Other4_Assessment" id="summernote-47">{{$data1->Other4_Assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other4_Assessment" id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback4"> Other's 4 Feedback</label>
-                                        <textarea class="summernote" name="Other4_feedback" id="summernote-48">{{$data1->Other4_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other4_feedback" id="summernote-48">{{$data1->Other4_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4786,15 +4812,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By  Other's 5)</label>
-                                        <textarea class="summernote" name="Other5_Assessment" id="summernote-49">{{$data1->Other5_Assessment}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other5_Assessment" id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback</label>
-                                        <textarea class="summernote" name="Other5_feedback" id="summernote-50">{{$data1->Other5_feedback}}
-                                    </textarea>
+                                        <textarea class="summernote" name="Other5_feedback" id="summernote-50">{{$data1->Other5_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -5075,12 +5099,19 @@ $users = DB::table('users')
                         <div class="inner-block-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{-- @if($data->stage == 4) --}}
-                                    <div class="group-input">
-                                        <label for="QA Feedbacks">QA Feedbacks <span class="text-danger">@if($data->stage == 5)*@else @endif</span></label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="QA_Feedbacks" id="summernote-14">{{ $data->QA_Feedbacks }}</textarea>
-                                    </div>
+                                    @if($data->stage == 5)
+                                        <div class="group-input">
+                                            <label for="QA Feedbacks">QA Feedbacks <span class="text-danger">*</span></label>
+                                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                            <textarea class="summernote" name="QA_Feedbacks" id="summernote-14" required>{{ $data->QA_Feedbacks }}</textarea>
+                                        </div>
+                                    @else
+                                        <div class="group-input">
+                                            <label for="QA Feedbacks">QA Feedbacks</label>
+                                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                            <textarea disabled class="summernote" name="QA_Feedbacks" id="summernote-14">{{ $data->QA_Feedbacks }}</textarea>
+                                        </div>
+                                    @endif
                                 </div>
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
@@ -5142,51 +5173,20 @@ $users = DB::table('users')
                         <div class="inner-block-content">
                             <div class="row">
                                 
-                                {{-- <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Remarks">Closure Comments</label>
-                                        <textarea class="summernote" name="Closure_Comments" value="Closure_Comments"></textarea>
-                                    </div>
-                                </div> --}}
-                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Closure Comments">Closure Comments  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Closure_Comments" id="summernote-15">{{ $data->Closure_Comments }}</textarea>
+                                        <textarea @if ($data->stage != 6) disabled @endif required class="summernote" name="Closure_Comments" id="summernote-15">{{ $data->Closure_Comments }}</textarea>
                                     </div>
                                 </div>
-
-                                
-                                {{-- <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Audit Comments">Disposition of Batch</label>
-                                        <textarea class="summernote"  name="Disposition_Batch" value="Disposition_Batch"></textarea>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Disposition of Batch">Disposition of Batch  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Disposition_Batch" id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
+                                        <textarea @if ($data->stage != 6) disabled @endif required class="summernote" name="Disposition_Batch" id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="QAH assessment ">Closure Attachments</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>                                        
-                                            </div>                                   
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
 
                                 <div class="col-12">
                                     <div class="group-input">
