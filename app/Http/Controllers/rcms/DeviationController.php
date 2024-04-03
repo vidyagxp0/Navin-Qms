@@ -3707,7 +3707,7 @@ class DeviationController extends Controller
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.singleReportdeviation', compact('data'))
+            $pdf = PDF::loadview('frontend.forms.SingleReportdeviation', compact('data'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,

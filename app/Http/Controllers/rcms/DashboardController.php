@@ -724,6 +724,7 @@ class DashboardController extends Controller
         }
 
 
+
         $html = '';
         $html = '<div class="block">
         <div class="record_no">
