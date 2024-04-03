@@ -2093,7 +2093,7 @@
                 <h4> Immediate Child -<span style="color: black; font-weight: normal;"> CAPA</span></h4>
             </td>
             <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
-                <h4>ID-<span style="color: black; font-weight: normal;">{{ isset($data1->record) ? str_pad($data3->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created ' }}</span></h4>
+                <h4>ID-<span style="color: black; font-weight: normal;">{{ isset($data1->record) ? str_pad($data1->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created ' }}</span></h4>
 
             </td>
             <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
@@ -2470,7 +2470,7 @@
                     <h4> Immediate Child - <span style="color: black; font-weight: normal;">RCA</span></h4>
                 </td>
                 <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
-                    <h4>ID-<span style="color: black; font-weight: normal;"> {{ isset($data2->record) ? str_pad($data3->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created' }}</span></h4>
+                    <h4>ID-<span style="color: black; font-weight: normal;"> {{ isset($data2->record) ? str_pad($data2->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created' }}</span></h4>
     
                 </td>
                 <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
@@ -2872,93 +2872,1389 @@
                       
                     </tr> 
                 </table>        
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="block">
-                                <div class="block-head">
-                                    QA Review
-                                </div>
-                
-                                    <table>
+                                <div class="block">
+                                    <div class="block-head">
+                                        QA Review
+                                    </div>
+                    
+                                        <table>
+                                        
+                                            <tr>
+                                                <th class="w-20">Final Comments</th>
+                                                <td class="w-80">@if($data2->cft_comments_new){{ $data2->cft_comments_new }}@else Not Applicable @endif</td>
+                                            </tr>
+                                        
+                                        </table>
+                                        <div class="border-table">
+                                            <div class="block-head">
+                                                Final Attachment
+                    
+                                            </div>
+                                            <table>
+                        
+                                                <tr class="table_bg">
+                                                    <th class="w-20">S.N.</th>
+                                                    <th class="w-60">Batch No</th>
+                                                </tr>
+                                                    @if($data2->cft_attchament_new)
+                                                    @foreach(json_decode($data2->cft_attchament_new) as $key => $file)
+                                                        <tr>
+                                                            <td class="w-20">{{ $key + 1 }}</td>
+                                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    @else
+                                                <tr>
+                                                    <td class="w-20">1</td>
+                                                    <td class="w-20">Not Applicable</td>
+                                                </tr>
+                                                @endif
+                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                
                                     
-                                        <tr>
-                                            <th class="w-20">Final Comments</th>
-                                              <td class="w-80">@if($data2->cft_comments_new){{ $data2->cft_comments_new }}@else Not Applicable @endif</td>
-                                        </tr>
-                                       
-                                    </table>
-                                    <div class="border-table">
+                                    <div class="block">
                                         <div class="block-head">
-                                            Final Attachment
-                
+                                            Activity log
                                         </div>
                                         <table>
                     
-                                            <tr class="table_bg">
-                                                <th class="w-20">S.N.</th>
-                                                <th class="w-60">Batch No</th>
+                                        <tr>
+                                            <th class="w-20">Acknowledge By</th>
+                                            <td class="w-30">{{ $data2->acknowledge_by }}</td>
+                                            <th class="w-20">Acknowledge By</th>
+                                            <td class="w-30">{{ Helpers::getdateFormat($data2->acknowledge_on) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="w-20">Submited By</th>
+                                            <td class="w-30">{{ $data2->submitted_by }}</td>
+                                            <th class="w-20">Submited On</th>
+                                            <td class="w-30">{{ Helpers::getdateFormat($data2->submitted_on) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="w-20">QA Review Completed By</th>
+                                            <td class="w-30">{{ $data2->qA_review_complete_by }}</td>
+                                            <th class="w-20">QA Review Completed On</th>
+                                            <td class="w-30">{{ Helpers::getdateFormat($data2->qA_review_complete_on) }}</td>
+                                        </tr>
+                                        {{-- <tr>
+                                            <th class="w-20">Audit preparation completed by</th>
+                                            <td class="w-30">{{ $data2->audit_preparation_completed_by }}</td>
+                                            <th class="w-20">Audit preparation completed On</th>
+                                            <td class="w-30">{{ Helpers::getdateFormat($data2->audit_preparation_completed_on) }}</td>
+                                        </tr> --}}
+                                        <tr>
+                                            <th class="w-20">Cancelled By</th>
+                                            <td class="w-30">{{ $data2->cancelled_by }}</td>
+                                            <th class="w-20">Cancelled On</th>
+                                            <td class="w-30">{{ Helpers::getdateFormat($data2->cancelled_on) }}</td>
+                                        </tr>
+                                        
+                                    </table>
+                            </div>
+                            @else
+                            <div>
+                                
+                                <h4>There is no Root Cause Analysis Child</h4>
+                            </div>
+                                @endif    
+                                 <div class="block-child">
+                                            Action Item
+                                      </div> 
+                            @if(!empty($data4))   
+                                <div class="inner-block">
+                                    <div class="content-table">
+                                        <div class="block">
+                                            <div class="block-head">
+                                                General Information
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <th class="w-20">Record Number</th>
+                                                    <td class="w-30">@if($data4->record){{  str_pad($data4->record, 4, '0', STR_PAD_LEFT) }} @else Not Applicable @endif</td>
+                                                    <th class="w-20">Site/Location Code</th>
+                                                    <td class="w-30">@if($data4->division_id){{  Helpers::getDivisionName($data4->division_id) }} @else Not Applicable @endif</td>
+                                                </tr>
+                            
+                                                <tr>  {{ $data4->created_at }} added by {{ $data4->originator }}
+                                                    <th class="w-20">Initiator</th>
+                                                    <td class="w-30">{{ Helpers::getInitiatorName($data4->initiator_id) }}</td>
+                                                    <th class="w-20">Date of Initiation</th>
+                                                    <td class="w-30">{{ Helpers::getdateFormat($data4->created_at) }}</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                   <th class="w-20">Assigned To</th>
+                                                    <td class="w-30">@if($data4->assign_to){{ Helpers::getInitiatorName($data4->assign_to) }} @else Not Applicable @endif</td>
+                                                    <th class="w-20">Due Date</th>
+                                                    <td class="w-80"> @if($data4->due_date){{ Helpers::getdateFormat($data4->due_date) }} @else Not Applicable @endif</td>
+                                                   
+                                                </tr>
+                                                 <tr>
+                                                    <th class="w-20">Short Description</th>
+                                                    <td class="w-80">@if($data4->short_description){{ $data4->short_description }}@else Not Applicable @endif</td>
+                                                   
+                            
+                                                </tr>
+                                                <tr>
+                                                        <th class="w-20">Action Item Related Records</th>
+                                                        <td class="w-80">@if($data4->Reference_Recores1){{ Helpers::getDivisionName($data4->division_id) }}/AI/{{ date('Y') }}/{{ Helpers::recordFormat($data4->record) }}@else Not Applicable @endif</td>
+                                                      
+                                               </tr>
+                                               <tr>
+                                                    <th class="w-20">HOD Persons</th>
+                                                    <td class="w-80">@if($data4->hod_preson)  @foreach(explode(',',$data4->hod_preson) as $hod) {{  Helpers::getInitiatorName($hod)  }} ,  @endforeach @else Not Applicable @endif</td>
+                                                </tr>
+                                              
+                                               <tr>
+                                                    <th class="w-20">Description</th>
+                                                    <td class="w-80">@if($data4->description){{ $data4->description }}@else Not Applicable @endif</td>
+                            
+                                                </tr>
+                                               
+                                                <tr>
+                                                    <th class="w-20">Responsible Department</th>
+                                                    <td class="w-80">@if($data4->departments){{ $data4->departments }}@else Not Applicable @endif</td>
+                            
+                                                </tr>
+                            
+                                                
+                                
+                                                   <div class="block-head">
+                                                   File Attachments
+                                                </div>
+                                                  <div class="border-table">
+                                                    <table>
+                                                        <tr class="table_bg">
+                                                            <th class="w-20">S.N.</th>
+                                                            <th class="w-60">File </th>
+                                                        </tr>
+                                                            @if($data4->file_attach)
+                                                            @foreach(json_decode($data4->file_attach) as $key => $file)
+                                                                <tr>
+                                                                    <td class="w-20">{{ $key + 1 }}</td>
+                                                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td class="w-20">1</td>
+                                                                <td class="w-20">Not Applicable</td>
+                                                            </tr>
+                                                        @endif
+                            
+                                                    </table>
+                                                  </div>
+                                            </table>
+                                        </div>
+                            
+                                        <!-- <div class="block">
+                                            <div class="head">
+                            
+                                                <table>
+                                                    <tr>
+                                                        <th class="w-20">CAPA Related Records</th>
+                                                        <td class="w-80">@if($data4->capa_related_record){{ $data4->capa_related_record }}@else Not Applicable @endif</td>
+                                                    </tr>
+                                                
+                            
+                                                    </table>
+                                                  </div>
+                                                </table>
+                                               
+                                            </div>
+                                        </div> -->
+                            
+                                              <div class="block-head">
+                                                Post Completion
+                                                </div>
+                                                <table>
+                                                 <tr>
+                                                    <th class="w-20">Action Taken</th>
+                                                    <td class="w-80">@if($data4->action_taken){{ $data4->action_taken }}@else Not Applicable @endif</td>
+                                                   
+                                                 </tr>
+                                               <tr>
+                                                    <th class="w-20">Action Start Date</th>
+                                                    <td class="w-80">@if($data4->start_date){{ Helpers::getdateFormat($data4->start_date) }}@else Not Applicable @endif</td>
+                                                    <th class="w-20">Actual End Date</th>
+                                                    <td class="w-80">@if($data4->end_date){{ Helpers::getdateFormat($data4->end_date) }}@else Not Applicable @endif</td>
+                                               </tr>
+                                               <tr>
+                                                    <th class="w-20">Comments</th>
+                                                    <td class="w-80">@if($data4->comments){{ $data4->comments }}@else Not Applicable @endif</td>
+                                                   
+                                               </tr>
+                                               </table>
+                                                 <div class="block-head">
+                                                     Action Approval
+                                                </div>
+                                                <table>
+                                               <tr>
+                                                    <th class="w-20">QA Review Comments</th>
+                                                    <td class="w-80">@if($data4->qa_comments){{ $data4->qa_comments }}@else Not Applicable @endif</td>
+                                                   
+                                               </tr>
+                                           
+                                               </table>
+                                        
+                                                
+                                                
+                                              <div class="block-head">
+                                                Extension Justification
+                                              </div>
+                                                <table>
+                                                 <tr>
+                                                    <th class="w-20">Due Date Extension Justification</th>
+                                                    <td class="w-80">@if($data4->due_date_extension){{ $data4->due_date_extension }}@else Not Applicable @endif</td>
+                                                   
+                                                  </tr>
+                                               
+                                               </table>
+                                            
+                                                
+                            
+                            
+                                        <div class="block">
+                                            <div class="block-head">
+                                                Activity Log
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <th class="w-20">Submitted By
+                                                    </th>
+                                                    <td class="w-30">{{ $data4->submitted_by }}</td>
+                                                    <th class="w-20">
+                                                    Submitted On</th>
+                                                    <td class="w-30">{{ $data4->submitted_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Cancelled By
+                                                    </th>
+                                                    <td class="w-30">{{ $data4->cancelled_by }}</td>
+                                                    <th class="w-20">
+                                                    Cancelled On</th>
+                                                    <td class="w-30">{{ $data4->cancelled_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">More information required By
+                                                    </th>
+                                                    <td class="w-30">{{ $data4->more_information_required_by }}</td>
+                                                    <th class="w-20">
+                                                    More information required On</th>
+                                                    <td class="w-30">{{ $data4->more_information_required_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Completed By
+                                                    </th>
+                                                    <td class="w-30">{{ $data4->completed_by }}</td>
+                                                    <th class="w-20">
+                                                    Completed On</th>
+                                                    <td class="w-30">{{ $data4->completed_on }}</td>
+                                                </tr>
+                                               
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>  
+                                @else
+                                    <div>
+                                        <h4>There is no Action Item Child</h4>
+                            @endif        
+                                    </div>
+                                
+                                <div class="block-child">
+                                    EffectivenessCheck
+                              </div> 
+                            @if(!empty($data5))   
+
+                                <div class="inner-block">
+                                    <div class="content-table">
+                                        <div class="block">
+                                            <div class="block-head">
+                                                General Information
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <th class="w-20">Record Number</th>
+                                                    <td class="w-30">@if($data5->record){{  str_pad($data5->record, 4, '0', STR_PAD_LEFT) }} @else Not Applicable @endif</td>
+                                                    <th class="w-20">Site/Location Code</th>
+                                                    <td class="w-30">@if($data5->division_id){{   Helpers::getDivisionName($data5->division_id) }} @else Not Applicable @endif</td>
+                                                </tr>
+                            
+                                                <tr>  {{ $data5->created_at }} added by {{ $data5->originator }}
+                                                    <th class="w-20">Initiator</th>
+                                                    <td class="w-30">{{ Helpers::getInitiatorName($data5->initiator_id) }}</td>
+                                                    <th class="w-20">Date of Initiation</th>
+                                                    <td class="w-30">{{ Helpers::getdateFormat($data5->created_at) }}</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                   <th class="w-20">Assigned To</th>
+                                                    <td class="w-30">@if($data5->assign_to){{ Helpers::getInitiatorName($data5->assign_to) }} @else Not Applicable @endif</td>
+                                                    <th class="w-20">Due Date</th>
+                                                    <td class="w-80"> @if($data5->due_date){{ Helpers::getdateFormat($data5->due_date) }} @else Not Applicable @endif</td>
+                                                   
+                                                </tr>
+                                                 <tr>
+                                                    <th class="w-20">Short Description</th>
+                                                    <td class="w-80">@if($data5->short_description){{ $data5->short_description }}@else Not Applicable @endif</td>
+                                                </tr>
+                                                </table>
+                                           
+                                                <div class="block-head">
+                                                   Effectiveness Planning Information
+                                               </div>
+                                               <table>
+                                                
+                                               <tr>
+                                                    <th class="w-20">Effectiveness check Plan</th>
+                                                    <td class="w-80">@if($data5->Effectiveness_check_Plan){{ $data5->Effectiveness_check_Plan }}@else Not Applicable @endif</td>
+                                               </tr>
+                                               </table>
+                                                <div class="block-head">
+                                                   Attachments
+                                                </div>
+                                                  <div class="border-table">
+                                                    <table>
+                                                        <tr class="table_bg">
+                                                            <th class="w-20">S.N.</th>
+                                                            <th class="w-60">File </th>
+                                                        </tr>
+                                                            @if($data5->Attachments)
+                                                            @foreach(json_decode($data5->Attachments) as $key => $file)
+                                                                <tr>
+                                                                    <td class="w-20">{{ $key + 1 }}</td>
+                                                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td class="w-20">1</td>
+                                                                <td class="w-20">Not Applicable</td>
+                                                            </tr>
+                                                        @endif
+                            
+                                                    </table>
+                                                  </div>
+                                            </table>
+                                        </div>
+                            
+                            
+                                         <div class="block-head">
+                                              Effectiveness Summary
+                                         </div>
+                                             <table>
+                                                 <tr>
+                                                    <th class="w-20">Effectiveness Summary</th>
+                                                    <td class="w-80">@if($data5->effect_summary){{ $data5->effect_summary }}@else Not Applicable @endif</td>
+                                                 </tr>
+                                              </table>
+                                          <div class="block-head">
+                                                 Effectiveness Check Results
+                                            </div>
+                                                <table>
+                                                 <tr>
+                                                    <th class="w-20">Effectiveness Results</th>
+                                                    <td class="w-80">@if($data5->Effectiveness_Results){{ $data5->Effectiveness_Results }}@else Not Applicable @endif</td>
+                                                   
+                                                  </tr>
+                                              </table>
+                                                <div class="block-head">
+                                                   Attachments
+                                                </div>
+                                                  <div class="border-table">
+                                                    <table>
+                                                        <tr class="table_bg">
+                                                            <th class="w-20">S.N.</th>
+                                                            <th class="w-60">File </th>
+                                                        </tr>
+                                                            @if($data5->Attachments)
+                                                            @foreach(json_decode($data5->Attachments) as $key => $file)
+                                                                <tr>
+                                                                    <td class="w-20">{{ $key + 1 }}</td>
+                                                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td class="w-20">1</td>
+                                                                <td class="w-20">Not Applicable</td>
+                                                            </tr>
+                                                        @endif
+                            
+                                                    </table>
+                                                  </div>
+                                           
+                                                <div class="block-head">
+                                                   Reopen
+                                                </div>
+                                                <table>
+                                                 <tr>
+                                                    <th class="w-20">Addendum Comments</th>
+                                                    <td class="w-80">@if($data5->Addendum_Comments){{ $data5->Addendum_Comments }}@else Not Applicable @endif</td>
+                                                   
+                                                  </tr>
+                                              </table>
+                                                <div class="block-head">
+                                                Addendum Attachment
+                                                </div>
+                                                  <div class="border-table">
+                                                    <table>
+                                                        <tr class="table_bg">
+                                                            <th class="w-20">S.N.</th>
+                                                            <th class="w-60">File </th>
+                                                        </tr>
+                                                            @if($data5->Addendum_Attachment)
+                                                            @foreach(json_decode($data5->Addendum_Attachment) as $key => $file)
+                                                                <tr>
+                                                                    <td class="w-20">{{ $key + 1 }}</td>
+                                                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td class="w-20">1</td>
+                                                                <td class="w-20">Not Applicable</td>
+                                                            </tr>
+                                                        @endif
+                            
+                                                    </table>
+                                                  </div>
+                            
+                                                  <div class="block-head">
+                                                  Reference Info comments
+                                                </div>
+                                                <table>
+                                                 <tr>
+                                                    <th class="w-20">Comments</th>
+                                                    <td class="w-80">@if($data5->Comments){{ $data5->Comments }}@else Not Applicable @endif</td>
+                                                   
+                                                  </tr>
+                                              </table>
+                                                <div class="block-head">
+                                                   Attachment
+                                                </div>
+                                                  <div class="border-table">
+                                                    <table>
+                                                        <tr class="table_bg">
+                                                            <th class="w-20">S.N.</th>
+                                                            <th class="w-60">File </th>
+                                                        </tr>
+                                                            @if($data5->Attachment)
+                                                            @foreach(json_decode($data5->Attachment) as $key => $file)
+                                                                <tr>
+                                                                    <td class="w-20">{{ $key + 1 }}</td>
+                                                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td class="w-20">1</td>
+                                                                <td class="w-20">Not Applicable</td>
+                                                            </tr>
+                                                        @endif
+                            
+                                                    </table>
+                                                  </div>
+                                                  <div class="block-head">
+                                                  Reference Records
+                                                </div>
+                                                  <div class="border-table">
+                                                    <table>
+                                                        <tr class="table_bg">
+                                                            <th class="w-20">S.N.</th>
+                                                            <th class="w-60">File </th>
+                                                        </tr>
+                                                            @if($data5->refer_record)
+                                                            @foreach(json_decode($data5->refer_record) as $key => $file)
+                                                                <tr>
+                                                                    <td class="w-20">{{ $key + 1 }}</td>
+                                                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td class="w-20">1</td>
+                                                                <td class="w-20">Not Applicable</td>
+                                                            </tr>
+                                                        @endif
+                            
+                                                    </table>
+                                                  </div>
+                                        <div class="block">
+                                            <div class="block-head">
+                                            Activity Log
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <th class="w-20">Submit by
+                                                    </th>
+                                                    <td class="w-30">{{ $data5->submit_by }}</td>
+                                                    <th class="w-20">
+                                                    Submit On</th>
+                                                    <td class="w-30">{{ $data5->submit_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Not Effective By
+                                                    </th>
+                                                    <td class="w-30">{{ $data5->not_effective_by }}</td>
+                                                    <th class="w-20">
+                                                    Not Effective On</th>
+                                                    <td class="w-30">{{ $data5->not_effective_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Effective by
+                                                    </th>
+                                                    <td class="w-30">{{ $data5->effective_by }}</td>
+                                                    <th class="w-20">
+                                                    Effective On</th>
+                                                    <td class="w-30">{{ $data5->effective_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Not Effective Approval Complete By
+                                                    </th>
+                                                    <td class="w-30">{{ $data5->not_effective_approval_complete_by }}</td>
+                                                    <th class="w-20">
+                                                    Not Effective Approval Complete On</th>
+                                                    <td class="w-30">{{ $data5->not_effective_approval_complete_on }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Effective Approval Complete By
+                                                    </th>
+                                                    <td class="w-30">{{ $data5->effective_approval_complete_by }}</td>
+                                                    <th class="w-20">
+                                                    Effective Approval Complete On</th>
+                                                    <td class="w-30">{{ $data5->effective_approval_complete_on }}</td>
+                                                </tr>
+                                               
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div>
+                                    
+                                    <h4>There is no EffectivenessCheck Child</h4>
+                                </div>
+                            @endif
+                            <div class="block-child">
+                              Change Control
+                          </div> 
+                            @if(!empty($data6))
+                            <div class="inner-block">
+                                <div class="content-table">
+                                    <div class="block">
+                                        <div class="block-head">
+                                            General Information
+                                        </div>
+                                        <table>
+                                            <tr>  On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}
+                                                <th class="w-20">Initiator</th>
+                                                <td class="w-30">@if($data6->originator){{ $data6->originator }} @else Not Applicable @endif</td>
+                                                
                                             </tr>
-                                                @if($data2->cft_attchament_new)
-                                                @foreach(json_decode($data2->cft_attchament_new) as $key => $file)
+                                            <tr>
+                                                <th class="w-20">Initiator Group</th>
+                                                <td class="w-30">@if($data6->Inititator_Group){{ $data6->Inititator_Group }} @else Not Applicable @endif</td>
+                                                <th class="w-20">Due Date</th>
+                                                <td class="w-30" colspan="3"> @if($data6->due_date){{ $data6->due_date }} @else Not Applicable @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Assigned To</th>
+                                                <td class="w-30">@if($data6->assign_to) {{ Helpers::getInitiatorName($data6->assign_to) }} @else Not Applicable @endif</td>
+                                                <th class="w-20">Initiator Group Code</th>
+                                                <td class="w-30" colspan="3"> @if($data6->initiator_group_code){{ $data6-> initiator_group_code}} @else Not Applicable @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">CFT</th>
+                                                <td class="w-30">{{ $data6->Microbiology }}</td>
+                                                <th class="w-20">CFT Person</th>
+                                                <td class="w-30">{{ $data6->Microbiology_Person }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Severity Level</th>
+                                                <td class="w-30">@if($data6->severity_level1){{ $data6-> severity_level1}} @else Not Applicable @endif</td>
+                                                <th class="w-20">Initiated Through</th>
+                                                <td class="w-30" colspan="3"> @if($data6->initiated_through){{ $data6->initiated_through }} @else Not Applicable @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Others</th>
+                                                <td class="w-30">@if($data6->initiated_through_req){{ $data6->initiated_through_req }} @else Not Applicable @endif</td>
+                                                <th class="w-20">Repeat</th>
+                                                <td class="w-30" colspan="3"> @if($data6->repeat){{ $data6-> repeat}} @else Not Applicable @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Repeat Nature</th>
+                                                <td class="w-30">@if($data6->repeat_nature){{ $data6-> repeat_nature}} @else Not Applicable @endif</td>
+                                                <th class="w-20">Division Code</th>
+                                                <td class="w-30" colspan="3"> @if($data6->div_code){{ $data6->div_code }} @else Not Applicable @endif</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th class="w-20">Short Description</th>
+                                                <td class="w-80" colspan="3">
+                                                    @if($data6->short_description){{ $data6->short_description }}@else Not Applicable @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Nature of Change</th>
+                                                <td class="w-30">@if($data6->doc_change){{ $data6->doc_change }}@else Not Applicable @endif</td>
+                                                <th class="w-20">If Others</th>
+                                                <td class="w-30">@if($data6->If_Others){{ $data6->If_Others }}@else Not Applicable @endif</td>
+                                            </tr>
+                                        </table>
+                                        <div class="border-table">
+                                            <div class="block-head">
+                                                Initial Attachment
+                                            </div>
+                                            <table>
+                        
+                                                <tr class="table_bg">
+                                                    <th class="w-20">S.N.</th>
+                                                    <th class="w-60">Attachment</th>
+                                                </tr>
+                                                @if($data->in_attachment)
+                                                    @foreach(json_decode($data6->in_attachment) as $key => $file)
                                                     <tr>
                                                         <td class="w-20">{{ $key + 1 }}</td>
                                                         <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
                                                     </tr>
+                                                        @endforeach
+                                                        @else
+                                                    <tr>
+                                                        <td class="w-20">1</td>
+                                                        <td class="w-20">Not Applicable</td>
+                                                    </tr>
+                                                @endif
+                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="block">
+                                        <div class="block-head">
+                                            Change Details
+                                        </div>
+                                        <div class="border-table">
+                                            <table>
+                                                <tr class="table_bg">
+                                                    <th class="w-25">Current Document No.</th>
+                                                    <th class="w-25">Current Version No.</th>
+                                                    <th class="w-25">New Document No.</th>
+                                                    <th class="w-25">New Version No.</th>
+                                                </tr>
+                                                @foreach(unserialize($data6->current_doc_no) as $key => $docdetails)
+                                                <tr>
+                                                    <td class="w-25">@if($docdetails){{ $docdetails }}@else Not Applicable @endif</td>
+                                                    <td class="w-25">{{unserialize($data6->current_version_no)[$key] }}</td>
+                                                    <td class="w-25">{{ unserialize($data6->new_doc_no)[$key] }}</td>
+                                                    <td class="w-25">{{ unserialize($data6->new_version_no)[$key] }}</td>
+                                                </tr>
                                                 @endforeach
-                                                @else
+                                            </table>
+                                        </div>
+                                        <table>
                                             <tr>
-                                                <td class="w-20">1</td>
-                                                <td class="w-20">Not Applicable</td>
+                                                <th class="w-20">Current Practice</th>
+                                                <td>
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        @if($data6->current_practice){{ $data6->current_practice }}@else Not Applicable @endif
+                                                    </div>
+                                                </td>
                                             </tr>
-                                            @endif
-                    
+                                            <tr>
+                                                <th class="w-20">Proposed Change</th>
+                                                <td>
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        @if($data6->proposed_change){{ $data6->proposed_change }}@else Not Applicable @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Reason For Change</th>
+                                                <td>
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        @if($data6->reason_change){{ $data6->reason_change }}@else Not Applicable @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Supervisor Comments</th>
+                                                <td>
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        @if($data6->supervisor_comment){{ $data6->supervisor_comment }}@else Not Applicable @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Any Other Comments</th>
+                                                <td>
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        @if($data6->other_comment){{ $data6->other_comment }}@else Not Applicable @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div> --}}
+                                    <div class="block">
+                                        <div class="head">
+                                            <div class="block-head">
+                                                QA Review
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <th class="w-20">Type of Change</th>
+                                                    <td class="w-80">{{ $data6->type_chnage }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">QA Review Comments</th>
+                                                    <td>
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                        <div>
+                                                            {{ $data6->qa_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Related Records</th>
+                                                    <td class="w-80">{{ $data6->related_records }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">QA Attachments</th>
+                                                    <td class="w-80">{{ $data6->qa_attachments}}</td>
+                                                </tr>
+                        
+                        
+                                            </table>
+                                            {{-- <div class="border-table">
+                                                <div class="block-head">
+                                                    QA Attachments
+                                                </div>
+                                                <table>
+                        
+                                                    <tr class="table_bg">
+                                                        <th class="w-20">S.N.</th>
+                                                        <th class="w-60">Attachment</th>
+                                                    </tr>
+                                                    @if($data6->qa_head)
+                                                        @foreach(json_decode($data6->qa_head) as $key => $file)
+                                                        <tr>
+                                                            <td class="w-20">{{ $key + 1 }}</td>
+                                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                        </tr>
+                                                            @endforeach
+                                                            @else
+                                                        <tr>
+                                                            <td class="w-20">1</td>
+                                                            <td class="w-20">Not Applicable</td>
+                                                        </tr>
+                                                    @endif
+                        
+                                                </table>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="head">
+                                            <div class="block-head">
+                                                Evaluation Details
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <th class="w-20">QA Evaluation Comments</th>
+                                                    <td>
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->qa_eval_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">QA Evaluation Attachments </th>
+                                                    <td>
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->qa_evaluation_attachments) }} added by {{ $data6->qa_evaluation_attachments}}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->qa_evaluation_attachments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                        
+                        
+                                                <tr>
+                                                    <th class="w-20">Training Required</th>
+                                                    <td class="w-80"> {{ $data6->training_required }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Training Comments</th>
+                                                    <td>
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->train_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="block">
+                                        <div class="head">
+                                            <div class="block-head">
+                                              Comments
+                                            </div>
+                                            <table>
+                                            <tr>
+                                                <th class="w-20">Comments</th>
+                                                <td class="w-30">{{ $data6->cft_comments }}</td>
+                                                <th class="w-20">Attachment </th>
+                                                <td class="w-30">{{ $data6->cft_attachment }}</td>
+                                            </tr>
+                                                <tr>
+                                                    <th class="w-20">QA Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->qa_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">QA Head Designee Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->designee_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Warehouse Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->Warehouse_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Engineering Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->Engineering_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Instrumentation Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->Instrumentation_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Validation Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->Validation_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Others Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->Others_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="w-20">Comments</th>
+                                                    <td class="w-80">
+                                                        <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                        </div>
+                                                        <div>
+                                                            {{ $data6->Group_comments }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                        
+                        
+                                            </table>
+                                            {{-- <div class="border-table"> --}}
+                                                {{-- <div class="block-head">
+                                                   Attachments
+                                                </div> --}}
+                                                {{-- <table>
+                        
+                                                    <tr class="table_bg">
+                                                        <th class="w-20">S.N.</th>
+                                                        <th class="w-60">Attachment</th>
+                                                    </tr>
+                                                    @if($data6->group_attachments)
+                                                        @foreach(json_decode($data6->group_attachments) as $key => $file)
+                                                        <tr>
+                                                            <td class="w-20">{{ $key + 1 }}</td>
+                                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                        </tr>
+                                                            @endforeach
+                                                            @else
+                                                        <tr>
+                                                            <td class="w-20">1</td>
+                                                            <td class="w-20">Not Applicable</td>
+                                                        </tr>
+                                                    @endif
+                        
+                                                </table> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block">
+                                        <div class="block-head">
+                                            Risk Assessment
+                                        </div>
+                                        <table>
+                                            <tr>
+                                                <th class="w-20">Risk Identification</th>
+                                                <td class="w-80" colspan="3">
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        {{ $data6->risk_identification }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Severity</th>
+                                                <td class="w-30"> {{ $data6->severity }}</td>
+                                                <th class="w-20">Occurance</th>
+                                                <td class="w-30"> {{ $data6->Occurance }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Detection</th>
+                                                <td class="w-30"> {{ $data6->Detection }}</td>
+                                                <th class="w-20">RPN</th>
+                                                <td class="w-30"> {{ $data6->RPN }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Risk Evaluation</th>
+                                                <td class="w-80" colspan="3">
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        {{ $data6->risk_evaluation }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Mitigation Action</th>
+                                                <td class="w-80" colspan="3">
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong></div>
+                                                    <div>
+                                                        {{ $data6->migration_action }}
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
-                                </div>
-                            
-                                
-                                <div class="block">
-                                    <div class="block-head">
-                                        Activity log
-                                    </div>
-                                    <table>
-                
-                                    <tr>
-                                        <th class="w-20">Acknowledge By</th>
-                                        <td class="w-30">{{ $data2->acknowledge_by }}</td>
-                                        <th class="w-20">Acknowledge By</th>
-                                        <td class="w-30">{{ Helpers::getdateFormat($data2->acknowledge_on) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="w-20">Submited By</th>
-                                        <td class="w-30">{{ $data2->submitted_by }}</td>
-                                        <th class="w-20">Submited On</th>
-                                        <td class="w-30">{{ Helpers::getdateFormat($data2->submitted_on) }}</td>
-                                    </tr>
-                                     <tr>
-                                        <th class="w-20">QA Review Completed By</th>
-                                        <td class="w-30">{{ $data2->qA_review_complete_by }}</td>
-                                        <th class="w-20">QA Review Completed On</th>
-                                        <td class="w-30">{{ Helpers::getdateFormat($data2->qA_review_complete_on) }}</td>
-                                    </tr>
-                                    {{-- <tr>
-                                        <th class="w-20">Audit preparation completed by</th>
-                                        <td class="w-30">{{ $data2->audit_preparation_completed_by }}</td>
-                                        <th class="w-20">Audit preparation completed On</th>
-                                        <td class="w-30">{{ Helpers::getdateFormat($data2->audit_preparation_completed_on) }}</td>
-                                    </tr> --}}
-                                    <tr>
-                                        <th class="w-20">Cancelled By</th>
-                                        <td class="w-30">{{ $data2->cancelled_by }}</td>
-                                        <th class="w-20">Cancelled On</th>
-                                        <td class="w-30">{{ Helpers::getdateFormat($data2->cancelled_on) }}</td>
-                                    </tr>
-                                    
-                                </table>
-                         </div>
+                                    <div class="block">
+                                        <div class="block-head">
+                                            QA Approval Comments
+                                        </div>
+                                        <table>
+                                            <tr>
+                                                <th class="w-20">QA Approval Comments</th>
+                                                <td class="w-80">
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                    </div>
+                                                    <div>
+                                                        {{ $data6->risk_identification }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Training Feedback</th>
+                                                <td class="w-80">
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                    </div>
+                                                    <div>
+                                                        {{ $data6->feedback }}
+                                                    </div>
+                                                </td>
+                                            </tr>
                         
-                    
-                    
+                                        </table>
+                                        {{-- <div class="border-table">
+                                            <div class="block-head">
+                                                Training Attachments
+                                            </div>
+                                            <table>
+                        
+                                                <tr class="table_bg">
+                                                    <th class="w-20">S.N.</th>
+                                                    <th class="w-60">Attachment</th>
+                                                </tr>
+                                                @if($data6->tran_attach)
+                                                    @foreach(json_decode($data6->tran_attach) as $key => $file)
+                                                    <tr>
+                                                        <td class="w-20">{{ $key + 1 }}</td>
+                                                        <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                    </tr>
+                                                        @endforeach
+                                                        @else
+                                                    <tr>
+                                                        <td class="w-20">1</td>
+                                                        <td class="w-20">Not Applicable</td>
+                                                    </tr>
+                                                @endif
+                        
+                                            </table>
+                                        </div> --}}
+                                    </div>
+                                    <div class="block">
+                                        <div class="block-head">
+                                        Change Closure
+                                        </div>
+                                        <table>
+                                            <!-- <tr>
+                                                <th class="w-20">Affected Documents+</th>
+                                                <td class="w-80">
+                                                    <div><strong>On {{ Helpers:: getDateFormat($data6->created_at) }} added by {{ $data6->originator }}</strong>
+                                                    </div>
+                                                    <div>
+                                                        {{ $data6->risk_identification }}
+                                                    </div>
+                                                </td>
+                                            </tr> -->
+                                            <tr>
+                                                <th class="w-20">QA Closure Comments</th>
+                                                <td class="w-30"> {{ $data6->qa_closure_comments }}</td>
+                                                <th class="w-20">List Of Attachments</th>
+                                                <td class="w-30"> {{ $data6->list_of_attachment }}</td>
+                                            </tr>
+                                            
+                        
+                                        </table>
+                                        <!-- <div class="border-table">
+                                            <div class="block-head">
+                                                Training Attachments
+                                            </div> -->
+                                            {{-- <table>
+                        
+                                                <tr class="table_bg">
+                                                    <th class="w-20">S.N.</th>
+                                                    <th class="w-60">Attachment</th>
+                                                </tr>
+                                                @if($data6->tran_attach)
+                                                    @foreach(json_decode($data6->tran_attach) as $key => $file)
+                                                    <tr>
+                                                        <td class="w-20">{{ $key + 1 }}</td>
+                                                        <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                                    </tr>
+                                                        @endforeach
+                                                        @else
+                                                    <tr>
+                                                        <td class="w-20">1</td>
+                                                        <td class="w-20">Not Applicable</td>
+                                                    </tr>
+                                                @endif
+                        
+                                            </table>
+                                        </div>
+                                    </div> --}}
+                                    
+                        
+                        
+                                     <div class="block">
+                                        <div class="block-head">
+                                            Activity Log
+                                        </div>
+                                        <table>
+                                            <tr>
+                                                <th class="w-20">Submitted By</th>
+                                                <td class="w-30">
+                                                @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 2)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach</td>
+                        
+                                                <th class="w-20">Submitted On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 2)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th class="w-20">Cancelled By</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 0)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach
+                                                </td>
+                                                <th class="w-20">Cancelled On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 0)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            {{-- <tr>
+                                                <th class="w-20">More Information Required By</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('status', 'More-info Required')
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach
+                                                </td>
+                                                <th class="w-20">More Information Required On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('status', 'More-info Required')
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr> --}}
+                                            <tr>
+                                                <th class="w-20">HOD Review Complete By</th>
+                                                <td class="w-30"> @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 3)
+                                                        ->get();
+                                                    @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach </td>
+                                                <th class="w-20">HOD Review Complete On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 3)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            {{-- <tr>
+                                                <th class="w-20">More Information Req. By</th>
+                                                <td class="w-30">Piyush Sahu</td>
+                                                <th class="w-20">More Information Req. On</th>
+                                                <td class="w-30">12-12-2203</td>
+                                            </tr> --}}
+                                            <tr>
+                                                <th class="w-20">Send to CFT/SME/QA Review By</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id',$data6->id)
+                                                        ->where('stage_id', 4)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach
+                                                </td>
+                                                <th class="w-20">Send to CFT/SME/QA Review On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 4)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <th class="w-20">More Info Req. By</th>
+                                                <td class="w-30">Piyush Sahu</td>
+                                                <th class="w-20">More Info Req. On</th>
+                                                <td class="w-30">12-12-2203</td>
+                                            </tr> -->
+                                            <tr>
+                                                <th class="w-20">CFT/SME/QA Review Not required By</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 6)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach
+                                                </td>
+                                                <th class="w-20">CFT/SME/QA Review Not required On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 6)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Review Completed By</th>
+                                                <td class="w-30">
+                                                    @php
+                                                        $submit = DB::table('c_c_stage_histories')
+                                                              ->where('type', 'Change-Control')
+                                                              ->where('doc_id', $data6->id)
+                                                              ->where('stage_id', 7)
+                                                              ->get();
+                                                    @endphp
+                                                    @foreach ($submit as $data6)
+                                                        <div class="static">{{ $data6->user_name }}</div>
+                                                    @endforeach 
+                                                </td>
+                                                <th class="w-20">Review Completed On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 7)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="w-20">Implemented By</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 9)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->user_name }}</div>
+                                                @endforeach
+                                                </td>
+                                                <th class="w-20">Implemented On</th>
+                                                <td class="w-30">
+                                                    @php
+                                                    $submit = DB::table('c_c_stage_histories')
+                                                        ->where('type', 'Change-Control')
+                                                        ->where('doc_id', $data6->id)
+                                                        ->where('stage_id', 9)
+                                                        ->get();
+                                                @endphp
+                                                @foreach ($submit as $data6)
+                                                    <div class="static">{{ $data6->created_at }}</div>
+                                                @endforeach
+                                                </td>
+                                            </tr>
+                                            {{-- <tr>
+                                                <th class="w-20">Change Implemented By</th>
+                                                <td class="w-30">Piyush Sahu</td>
+                                                <th class="w-20">Change Implemented On</th>
+                                                <td class="w-30">12-12-2203</td>
+                                            </tr> --}}
+                                            <!-- <tr>
+                                                <th class="w-20">QA More Information Required By</th>
+                                                <td class="w-30">Piyush Sahu</td>
+                                                <th class="w-20">QA More Information Required On</th>
+                                                <td class="w-30">12-12-2203</td>
+                                            </tr> -->
+                                            {{-- <tr>
+                                                <th class="w-20">QA Final Review Completed By</th>
+                                                <td class="w-30">Piyush Sahu</td>
+                                                <th class="w-20">QA Final Review Completed On</th>
+                                                <td class="w-30">12-12-2203</td>
+                                            </tr> --}}
+                                        </table>
+                                    </div> 
+                                </div>
+                            </div>
+                             
+                             @else
+                               <div>
+                                
+                                <h4>There is no Change Control Child</h4>
+                               </div>
+                            @endif
 
 
 
@@ -2977,12 +4273,7 @@
                 </td> --}}
             </tr>
         </table>
-        @else
-        <div>
-           
-            <h4>There is no Root Cause Analysis Child</h4>
-        </div>
-             @endif
+       
     </footer>
 
 </body>

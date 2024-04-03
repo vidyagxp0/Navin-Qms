@@ -9,6 +9,7 @@ use App\Models\RecordNumber;
 use App\Models\User;
 use App\Models\CapaAuditTrial;
 use App\Models\RoleGroup;
+use App\Models\Deviation;
 use App\Models\CapaGrid;
 use App\Models\Extension;
 use App\Models\CC;
@@ -1732,6 +1733,7 @@ class CapaController extends Controller
     {
         $cft =[];
         $parent_id = $id;
+       
         $parent_type = "Audit_Program";
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
@@ -1750,6 +1752,14 @@ class CapaController extends Controller
         if(!empty($changeControl->cft)) $cft = explode(',', $changeControl->cft);
         // return $capa_data;
         if ($request->child_type == "Change_control") {
+            $record_number = ((RecordNumber::first()->value('counter')) + 1);
+            $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+            $parent_name = "CAPA";
+            $Changecontrolchild = Deviation::find($id);
+            $Changecontrolchild->Changecontrolchild = $record_number;
+
+            $Changecontrolchild->save();
+            
             return view('frontend.change-control.new-change-control', compact('cft','pre','hod','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
         if ($request->child_type == "extension") {
@@ -1766,10 +1776,22 @@ class CapaController extends Controller
         }
         $old_record = Capa::select('id', 'division_id', 'record')->get();
         if ($request->child_type == "Action_Item") {
+            $record_number = ((RecordNumber::first()->value('counter')) + 1);
+            $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
             $parent_name = "CAPA";
+            $actionchild = Deviation::find($id);
+            $actionchild->actionchild = $record_number;
 
+            $actionchild->save();
             return view('frontend.forms.action-item', compact('old_record','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
         } else {
+            $record_number = ((RecordNumber::first()->value('counter')) + 1);
+            $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+            $parent_name = "CAPA";
+            $effectivenesschild = Deviation::find($id);
+            $effectivenesschild->effectivenesschild = $record_number;
+            $effectivenesschild->save();
+            // dd($effectivenesschild);
             return view('frontend.forms.effectiveness-check', compact('old_record','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
     }
@@ -1779,6 +1801,7 @@ class CapaController extends Controller
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
+        dd($currentDate);
         $formattedDate = $currentDate->addDays(30);
         $due_date= $formattedDate->format('Y-m-d');
         return view("frontend.forms.effectiveness-check", compact('due_date', 'record_number'));

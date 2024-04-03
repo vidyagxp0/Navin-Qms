@@ -1575,7 +1575,9 @@
                         <div class="modal-header">
                             <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ route('capa_effectiveness_check', $data->id) }}" method="POST">
+                        {{-- <form action="{{ route('capa_effectiveness_check', $data->parent_id) }}" method="POST"> --}}
+                             <form action="{{ route('capa_child_changecontrol', $data->parent_id ? $data->parent_id : $data->id) }}" method="POST">
+
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">
@@ -1609,7 +1611,8 @@
                         <div class="modal-header">
                             <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ route('capa_child_changecontrol', $data->id) }}" method="POST">
+                        {{--pr <form action="{{ route('capa_child_changecontrol', $data->id) }}" method="POST"> --}}
+                            <form action="{{ route('capa_child_changecontrol', $data->parent_id ? $data->parent_id : $data->id) }}" method="POST">
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">

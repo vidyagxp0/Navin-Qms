@@ -2089,7 +2089,7 @@
                 <h4> Immediate Child -<span style="color: black; font-weight: normal;"> CAPA</span></h4>
             </td>
             <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
-                <h4>ID-<span style="color: black; font-weight: normal;">{{ isset($data1->record) ? str_pad($data3->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created ' }}</span></h4>
+                <h4>ID-<span style="color: black; font-weight: normal;">{{ isset($data1->record) ? str_pad($data1->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created ' }}</span></h4>
 
             </td>
             <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
@@ -2466,7 +2466,7 @@
                     <h4> Immediate Child - <span style="color: black; font-weight: normal;">RCA</span></h4>
                 </td>
                 <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
-                    <h4>ID-<span style="color: black; font-weight: normal;"> {{ isset($data2->record) ? str_pad($data3->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created' }}</span></h4>
+                    <h4>ID-<span style="color: black; font-weight: normal;"> {{ isset($data2->record) ? str_pad($data2->record, 4, '0', STR_PAD_LEFT) : 'Yet Not Created' }}</span></h4>
     
                 </td>
                 <td style="width: 30%; border: 1.5px solid #150707; padding: -5px;">
