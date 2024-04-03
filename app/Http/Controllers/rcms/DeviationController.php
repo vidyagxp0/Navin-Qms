@@ -139,6 +139,41 @@ class DeviationController extends Controller
         $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
+        
+            // Get the current date
+            $due_date = new Deviation();
+
+            // Threshold for sending notification (e.g., 7 days)
+            $threshold_days = 30;
+
+            // Iterate through the CEO user list
+            $list = Helpers::getCEOUserList();
+            foreach ($list as $u) {
+                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                    $email = Helpers::getInitiatorEmail($u->user_id);
+                    if ($email !== null) {
+                        // Calculate remaining days until due date
+                        $due_date = new Deviation($deviation->due_date);
+                        $remaining_days = $due_date->diff($due_date)->days;
+
+                        // Check if remaining days are within the threshold
+                        if ($remaining_days <= $threshold_days) {
+                            // Send email notification
+                            Mail::send(
+                                'mail.duedateapproaching',
+                                ['data' => $deviation],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                }
+                            );
+                        }
+                    }
+                }
+            }
+        
+
+
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
             $list = Helpers::getHeadoperationsUserList();
                     foreach ($list as $u) {
