@@ -12,6 +12,7 @@ use App\Http\Controllers\DocumentDetailsController;
 use App\Http\Controllers\rcms\DesktopController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\MytaskController;
+use App\Http\Controllers\DueDateApproaching;
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\EffectivenessCheckController;
@@ -413,6 +414,8 @@ Route::view('new-root-cause-analysis', 'frontend.forms.new-root-cause-analysis')
 Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
+//notification
+Route::get('/send-notification-before-five-due-date', [DueDateApproaching::class, 'sendNotificationBeforeFiveDueDate']);
 
 
 //! ============================================
