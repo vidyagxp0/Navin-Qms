@@ -411,11 +411,11 @@ $users = DB::table('users')
                                     </div>
                                 </div> --}}
                                
-                                    <?php
+                                    {{-- <?php
                                         // Calculate the due date (30 days from the initiation date)
                                         $initiationDate = date('Y-m-d'); // Current date as initiation date
                                         $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
-                                        ?>
+                                        ?> --}}
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
@@ -430,13 +430,13 @@ $users = DB::table('users')
                                                 <label for="Due Date">Due Date</label>
                                                 <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                                 <div class="calenderauditee">
-                                                    <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $dueDate }}" />
+                                                    <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
                                                     <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <script>
+                                        {{-- <script>
                                             // Format the due date to DD-MM-YYYY
                                             var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
                                                 day: '2-digit',
@@ -446,7 +446,7 @@ $users = DB::table('users')
 
                                             // Set the formatted due date value to the input field
                                             document.getElementById('due_date').value = dueDateFormatted;
-                                        </script>
+                                        </script> --}}
 
                                 <div class="col-lg-6">
                                     <div class="group-input">

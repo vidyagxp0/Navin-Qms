@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DueDateApproaching extends Controller
+class CronNotification extends Controller
 {
     public function sendNotificationBeforeFiveDueDate()
     {
-        $deviation = new Deviation();
+      //  $deviation = new Deviation();
         $fiveDaysFromNow = Carbon::now()->addDays(5)->startOfDay();
 
-        $dueDates = Deviation::where('due_date', $fiveDaysFromNow)->get();
+        $deviation = Deviation::where('due_date', $fiveDaysFromNow)->get();
         $list = Helpers::getCEOUserList();
-        
-        foreach ($list as $u) {
-            if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                foreach ($dueDates as $dueDate) {
+        foreach ($deviation as $dueDate) {
+                foreach ($list as $u) {
+           // if ($u->q_m_s_divisions_id == $deviation->division_id) {
+               
                     // Send notification via email
-                    $email = Helpers::getInitiatorEmail($dueDate->user_id);
+                    $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
                         Mail::send(
                             'mail.duedateapproaching',
@@ -38,7 +38,7 @@ class DueDateApproaching extends Controller
                         );
                     }
                 }
-            }
+            //}
         }
     }
 }

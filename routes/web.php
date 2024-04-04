@@ -12,7 +12,7 @@ use App\Http\Controllers\DocumentDetailsController;
 use App\Http\Controllers\rcms\DesktopController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\MytaskController;
-use App\Http\Controllers\DueDateApproaching;
+use App\Http\Controllers\CronNotification;
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\EffectivenessCheckController;
@@ -405,7 +405,7 @@ Route::view('project', 'frontend.forms.project');
 
 Route::get('extension', [ExtensionController::class, 'extension_child']);
 
-//Route::view('observation', 'frontend.forms.observation');
+//Route::view('observation', 'frontend.forms.observation'); 
 Route::get('observation', [ObservationController::class, 'observation']);
 Route::get('deviation', [DeviationController::class, 'deviation']);
 
@@ -415,7 +415,7 @@ Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
 //notification
-Route::get('/send-notification-before-five-due-date', [DueDateApproaching::class, 'sendNotificationBeforeFiveDueDate']);
+Route::get('send-notification-before-five-due-date', [CronNotification::class, 'sendNotificationBeforeFiveDueDate']);
 
 
 //! ============================================
