@@ -428,7 +428,7 @@ $users = DB::table('users')
                             @if ($data->stage >= 6)
                                 <div class="active">QA Head/Manager Designee</div>
                             @else
-                                <div class="">Approval</div>
+                                <div class="">QA Head Designee Approval</div>
                             @endif
                             @if ($data->stage >= 7)
                                 <div class="bg-danger">Closed - Done</div>
