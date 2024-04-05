@@ -819,8 +819,10 @@ class DeviationController extends Controller
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $deviation->status;
+    
         $history->action_name = 'Submit';
         $history->save();
+    
 
         $history = new DeviationAuditTrail();
         $history->deviation_id = $deviation->id;
@@ -948,6 +950,7 @@ class DeviationController extends Controller
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+       
         $history->origin_state = $deviation->status;
         $history->action_name = 'Submit';
         $history->save();
@@ -1833,17 +1836,17 @@ class DeviationController extends Controller
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
             $history->activity_type = 'Short Description';
-            $history->previous = $lastDeviation->short_description;
+             $history->previous = $lastDeviation->short_description;
             $history->current = $deviation->short_description;
-            $history->comment = $request->comment;
+            $history->comment = $deviation->submit_comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
-            $history->action_name = 'Update';
+            // $previousStatus = $history->origin_state;
+            $history->action_name = $history->origin_state;
             $history->save();
         }
-
         if ($lastDeviation->Initiator_Group != $deviation->Initiator_Group || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
@@ -2375,6 +2378,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $history->action='Submit';
                 $history->current = $deviation->submit_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -2383,6 +2387,7 @@ class DeviationController extends Controller
                 $history->origin_state = $lastDocument->status;
                 $history->stage = 'Plan Proposed';
                 $history->save();
+
 
                 $list = Helpers::getHodUserList();
                 foreach ($list as $u) {
@@ -2434,13 +2439,13 @@ class DeviationController extends Controller
                 $deviation->HOD_Review_Complete_By = Auth::user()->name;
                 $deviation->HOD_Review_Complete_On = Carbon::now()->format('d-M-Y');
                 $deviation->HOD_Review_Comments = $request->comment;
-
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
                 $history->current = $deviation->HOD_Review_Complete_By;
                 $history->comment = $request->comment;
+                $history->action= 'HOD Review Complete';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -2496,6 +2501,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $history->action= 'QA Initial Review Complete';
                 $history->current = $deviation->QA_Initial_Review_Complete_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -2710,6 +2716,7 @@ class DeviationController extends Controller
                     $history->deviation_id = $id;
                     $history->activity_type = 'Activity Log';
                     $history->previous = "";
+                    $history->action='CFT Review Complete';
                     $history->current = $deviation->CFT_Review_Complete_By;
                     $history->comment = $request->comment;
                     $history->user_id = Auth::user()->id;
@@ -2753,6 +2760,7 @@ class DeviationController extends Controller
                 $history->previous = "";
                 $history->current = $deviation->QA_Final_Review_Complete_By;
                 $history->comment = $request->comment;
+                $history->action ='QA Final Review Complete';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -2790,6 +2798,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $history->action ='Approved';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -2842,6 +2851,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $history->action ='QA Final Review Complete';
                 $history->current = $deviation->QA_Final_Review_Complete_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3169,6 +3179,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $histor->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3215,6 +3226,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $histor->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3481,6 +3493,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $histor->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3543,6 +3556,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $histor->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3589,6 +3603,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
+                $histor->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3596,6 +3611,7 @@ class DeviationController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->stage = 'More Info Required';
+                dd();
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
