@@ -234,8 +234,8 @@
                  </td>
                  <!-- ----------------------- -->
                         <td>
-                         <div><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->origin_state  : "Not Applicable"}}</div>
-                         <div style="margin-top: 5px;"><strong>Comments :</strong> {{$dataDemo->comment ? $dataDemo->origin_state  : "Not Applicable"}}</div>   <!--Record Is send by Hod Review--->
+                         <div><strong>Changed To :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+                         {{-- <div style="margin-top: 5px;"><strong>Comments :</strong> {{$dataDemo->comment ? $dataDemo->origin_state  : "Not Applicable"}}</div>   <!--Record Is send by Hod Review---> --}}
 
                         </td>
                         <!-- ------Record Is send by Hod Review----------- -->
@@ -243,18 +243,18 @@
                         <div>
                      <strong> Data Field Name :</strong><a href="{{ url('DeviationAuditTrialDetails', $dataDemo->id) }}">{{ $dataDemo->activity_type ? $dataDemo->activity_type  : "Not Applicable" }}</a> </div>
                       <div style="margin-top: 5px;">
-                      <strong>Change From :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+                      <strong>Change From :</strong>{{$dataDemo->previous ? $dataDemo->previous  : "Not Applicable"}}</div>
                             <br>
                             <!--  -->
                       <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
                             <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
                             </div>
-                            <div style="margin-top: 5px;"><strong>Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div>
+                            {{-- <div style="margin-top: 5px;"><strong>Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div> --}}
                         </td>
                         <!--  -->
                         <td>
                         <div>
-                       <strong> Action Name :</strong>{{$dataDemo->action_name? $dataDemo->action_name  : "Not Applicable"}}
+                       <strong> Action Name :</strong>{{$dataDemo->action? $dataDemo->action  : "Not Applicable"}}
 
                         </div>
 
