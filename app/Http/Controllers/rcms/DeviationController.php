@@ -1322,7 +1322,7 @@ class DeviationController extends Controller
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
-
+        
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Deviation_category = $request->Deviation_category;
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
