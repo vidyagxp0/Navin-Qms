@@ -1099,7 +1099,8 @@ $users = DB::table('users')
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                <textarea disabled class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea class="summernote" name="HOD_Remarks" id="summernote-4" readonly>{{ $data->HOD_Remarks }}</textarea>
+
                                             </div>
                                         @endif 
                                 </div>
@@ -1793,7 +1794,7 @@ $users = DB::table('users')
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production Review">Production Review Required ?</label>
-                                    <select disabled name="Production_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_Review">
+                                    <select readonly name="Production_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_Review">
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Production_Review == 'yes') selected @endif
                                          value='yes'>Yes</option>
@@ -1813,7 +1814,7 @@ $users = DB::table('users')
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production notification">Production Person  <span id="asteriskInvi11" style="display: none" class="text-danger">*</span></label>
-                                    <select disabled name="Production_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_person">
+                                    <select readonly name="Production_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_person">
                                         <option value="0">-- Select --</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" @if ($user->id == $data1->Production_person) selected @endif>{{ $user->name }}</option>
@@ -1841,14 +1842,14 @@ $users = DB::table('users')
                                 <div class="group-input">
                                     <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea disabled class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                    <textarea readonly class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Production feedback">Production Feedback  <span id="asteriskInvi22" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea disabled class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
+                                    <textarea readonly class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
                                 </div>
                             </div>
                             @endif
