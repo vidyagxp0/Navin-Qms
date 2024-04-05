@@ -242,6 +242,12 @@
                         <th class="w-20">Preliminary Impact of Deviation</th>
                         <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
                     </tr>
+                    <tr>
+                        <th class="w-20">Facility/ Equipment/ Instrument/ System Details Required?</th>
+                        <td class="w-30">@if($data->Immediate_Action){{ $data->Immediate_Action }}@else Not Applicable @endif</td>
+                        <th class="w-20">Document Details Required?</th>
+                        <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
+                    </tr>
         
 
                 </table>            

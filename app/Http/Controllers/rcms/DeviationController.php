@@ -2471,6 +2471,11 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 3) {
+
+                if(empty($updateCFT->Production_Review)){
+                    return back();
+                }
+
                 $deviation->stage = "4";
                 $deviation->status = "CFT Review";
 
