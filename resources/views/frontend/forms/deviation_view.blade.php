@@ -1136,7 +1136,7 @@ $users = DB::table('users')
                                         <label for="Inv Attachments">HOD Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div disabled class="file-attachment-list" id="Audit_file">
+                                            <div readonly class="file-attachment-list" id="Audit_file">
                                                 @if ($data->Audit_file)
                                                     @foreach(json_decode($data->Audit_file) as $file)
                                                         <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
@@ -1392,7 +1392,7 @@ $users = DB::table('users')
                                         <label for="QA Initial Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div disabled class="file-attachment-list" id="Initial_attachment">
+                                            <div readonly class="file-attachment-list" id="Initial_attachment">
                                                 @if ($data->Initial_attachment)
                                                 @foreach(json_decode($data->Initial_attachment) as $file)
                                                 <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
@@ -1420,7 +1420,7 @@ $users = DB::table('users')
                                     <div class="group-input input-date">
                                         @if($data->stage == 3)
                                             <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
-                                            <select disabled id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" >
+                                            <select readonly id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" >
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data->Deviation_category == 'minor') selected @endif
                                                 value="minor">Minor</option>
@@ -1432,7 +1432,7 @@ $users = DB::table('users')
                                             @else
                                             <div class="group-input">
                                                 <label for="Deviation category">Initial Deviation category</label>
-                                                <select disabled id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" >
+                                                <select readonly id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" >
                                                     <option value="0">-- Select --</option>
                                                     <option @if ($data->Deviation_category == 'minor') selected @endif
                                                     value="minor">Minor</option>
@@ -1456,7 +1456,7 @@ $users = DB::table('users')
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation  Required?</label>
-                                        <select disabled name="Investigation_required" id="Investigation_required"    value="{{ $data->Investigation_required }}" >
+                                        <select readonly name="Investigation_required" id="Investigation_required"    value="{{ $data->Investigation_required }}" >
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value='yes'>Yes</option>
@@ -1505,7 +1505,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? </label>
-                                        <select disabled name="Customer_notification"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
+                                        <select readonly name="Customer_notification"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
@@ -1524,7 +1524,7 @@ $users = DB::table('users')
                                             // dd($data->customer);
                                         @endphp
                                             <label for="customers">Customers <span id="asterikCustomer_notification" style="display: none" class="text-danger">*</span></label>
-                                            <select disabled name="customers"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="customers" required>
+                                            <select readonly name="customers"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="customers" required>
                                                 <option value="0"> -- Select --</option>
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == 'yes') selected @endif
@@ -1555,7 +1555,7 @@ $users = DB::table('users')
                                 <div class="col-1">
                                     <div class="group-input">
                                         <!-- <label for="Comments(If Any)">Customers</label> -->
-                                        <button disabled style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        <button readonly style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
                                     </div>
@@ -1586,7 +1586,7 @@ $users = DB::table('users')
                                         <label for="QA Initial Attachments">QA Initial Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div disabled class="file-attachment-list" id="Initial_attachment">
+                                            <div readonly class="file-attachment-list" id="Initial_attachment">
                                                 @if ($data->Initial_attachment)
                                                 @foreach(json_decode($data->Initial_attachment) as $file)
                                                 <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
@@ -1858,7 +1858,7 @@ $users = DB::table('users')
                                     <label for="production attachment">Production Attachments</label>
                                     <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                     <div class="file-attachment-field">
-                                        <div disabled class="file-attachment-list" id="production_attachment">
+                                        <div readonly class="file-attachment-list" id="production_attachment">
                                             @if ($data1->production_attachment)
                                             @foreach(json_decode($data1->production_attachment) as $file)
                                             <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
@@ -1871,7 +1871,7 @@ $users = DB::table('users')
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
+                                            <input readonly {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="production_attachment[]"
                                                 oninput="addMultipleFiles(this, 'production_attachment')"
                                                 multiple>
                                         </div>
@@ -1954,7 +1954,7 @@ $users = DB::table('users')
                                 <label for="Warehouse attachment">Warehouse Attachments</label>
                                 <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div disabled class="file-attachment-list" id="Warehouse_attachment">
+                                    <div readonly class="file-attachment-list" id="Warehouse_attachment">
                                         @if ($data1->Warehouse_attachment)
                                         @foreach(json_decode($data1->Warehouse_attachment) as $file)
                                         <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
@@ -2016,7 +2016,7 @@ $users = DB::table('users')
                         <div class="col-md-6 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
-                                <input disabled type="text" value="{{ $data1->Warehouse_by }}" name="Warehouse_by" id="Warehouse_by">
+                                <input readonly type="text" value="{{ $data1->Warehouse_by }}" name="Warehouse_by" id="Warehouse_by">
                                 {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
                             
                             </div>
@@ -2032,7 +2032,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Warehouse Review Required">Warehouse Review Required ?</label>
-                                <select disabled name="Warehouse_review" id="Warehouse_review">
+                                <select readonly name="Warehouse_review" id="Warehouse_review">
                                     <option value="0">-- Select --</option>
                                     <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                         value="yes">Yes</option>
@@ -2053,7 +2053,7 @@ $users = DB::table('users')
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Warehouse Person">Warehouse Person  </label>
-                                <select disabled name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}" >
+                                <select readonly name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}" >
                                     <option value=""> -- Select --</option>
                                     @foreach ($users as $user)
                                     <option {{ $data1->Warehouse_notification == $user->id ? 'selected' : '' }}
@@ -2085,14 +2085,14 @@ $users = DB::table('users')
                             <div class="group-input">
                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea disabled class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
+                                <textarea readonly class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Feedback">Warehouse Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea disabled  class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
+                                <textarea readonly  class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
                             </div>
                         </div>
                         @endif
@@ -2101,7 +2101,7 @@ $users = DB::table('users')
                                 <label for="Warehouse attachment">Warehouse Attachments</label>
                                 <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div disabled class="file-attachment-list" id="Warehouse_attachment">
+                                    <div readonly class="file-attachment-list" id="Warehouse_attachment">
                                         @if ($data1->Warehouse_attachment)
                                         @foreach(json_decode($data1->Warehouse_attachment) as $file)
                                         <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
@@ -2114,7 +2114,7 @@ $users = DB::table('users')
                                     </div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
+                                        <input readonly {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Warehouse_attachment[]"
                                             oninput="addMultipleFiles(this, 'Warehouse_attachment')"
                                             multiple>
                                     </div>
@@ -2233,7 +2233,7 @@ $users = DB::table('users')
                                 <label for="Quality Control Attachments">Quality Control Attachments</label>
                                 <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div disabled class="file-attachment-list" id="Quality_Control_attachment">
+                                    <div readonly class="file-attachment-list" id="Quality_Control_attachment">
                                         @if ($data1->Quality_Control_attachment)
                                         @foreach(json_decode($data1->Quality_Control_attachment) as $file)
                                         <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
