@@ -513,11 +513,11 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                                {{-- <?php
+                                <?php
                                 // Calculate the due date (30 days from the initiation date)
                                 $initiationDate = date('Y-m-d'); // Current date as initiation date
                                 $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
-                                ?> --}}
+                                ?>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -532,13 +532,13 @@ $users = DB::table('users')
                                         <label for="Due Date">Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY"  value="{{ Helpers::getdateFormat($data->due_date) }}"/>
+                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $dueDate }}"/>
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- <script>
+                                <script>
                                     // Format the due date to DD-MM-YYYY
                                     var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
                                         day: '2-digit',
@@ -548,7 +548,7 @@ $users = DB::table('users')
 
                                     // Set the formatted due date value to the input field
                                     document.getElementById('due_date').value = dueDateFormatted;
-                                </script> --}}
+                                </script>
 
 
                                 {{-- <div class="col-lg-6">
@@ -794,7 +794,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To</label>
                                         <select multiple name="audit_type[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="audit_type">
-                                            <option value="">Enter Your Selection Here</option>
+                                            {{-- <option value="">Enter Your Selection Here</option> --}}
                                             <option value="Facility"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} {{ strpos($data->audit_type, 'Facility') !== false ? 'selected' : '' }}>Facility</option>
                                             <option value="Equipment/Instrument" {{ strpos($data->audit_type, 'Equipment/Instrument') !== false ? 'selected' : '' }}>Equipment/Instrument</option>
                                             <option value="Documentationerror" {{ strpos($data->audit_type, 'Documentationerror') !== false ? 'selected' : '' }}>Documentation error</option>
@@ -1787,6 +1787,7 @@ $users = DB::table('users')
                                     });
                                 });
                             </script>
+                            
                     {{-- Else conditon for other roles fields all fields disabled --}}
                              @else
                             <div class="col-lg-6">
@@ -1820,11 +1821,27 @@ $users = DB::table('users')
                                     </select>
                                 </div>
                             </div> 
+                            @if ($data->stage==4)
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea disabled  class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                    <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Production feedback">Production Feedback  <span id="asteriskInvi22" style="display: none" class="text-danger">*</span></label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
+                                </div>
+                            </div>
+                            @else
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea disabled class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
@@ -1834,6 +1851,7 @@ $users = DB::table('users')
                                     <textarea disabled class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
                                 </div>
                             </div>
+                            @endif
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="production attachment">Production Attachments</label>
@@ -2002,7 +2020,7 @@ $users = DB::table('users')
                             
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                 <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -2044,6 +2062,24 @@ $users = DB::table('users')
                           
                             </div>
                         </div>
+                       
+                        @if ($data->stage==4)
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Warehouse Feedback">Warehouse Feedback</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
+                            </div>
+                        </div>
+                        </div>
+                        @else
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
@@ -2058,6 +2094,7 @@ $users = DB::table('users')
                                 <textarea disabled  class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
                             </div>
                         </div>
+                        @endif
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Warehouse attachment">Warehouse Attachments</label>

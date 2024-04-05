@@ -194,7 +194,7 @@
                                         <tr>
                                             <td>
                                                 @if ($datas->type == 'Change-Control')
-                                                    <a href="{{ route('CC.show', $datas->id) }}">
+                                                    <a href="{{ route('CC.show', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     <a href="{{ url('rcms/qms-dashboard', $datas->id) }}/CC">
@@ -206,7 +206,7 @@
                                                     </a>
                                                     {{-- -----------------------by pankaj-------------------- --}}
                                                 @elseif ($datas->type == 'Internal-Audit')
-                                                    <a href="{{ route('showInternalAudit', $datas->id) }}">
+                                                    <a href="{{ route('showInternalAudit', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -220,7 +220,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif ($datas->type == 'Risk-Assesment')
-                                                    <a href="{{ route('showRiskManagement', $datas->id) }}">
+                                                    <a href="{{ route('showRiskManagement', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -234,7 +234,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif ($datas->type == 'Lab-Incident')
-                                                    <a href="{{ route('ShowLabIncident', $datas->id) }}">
+                                                    <a href="{{ route('ShowLabIncident', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -248,7 +248,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif ($datas->type == 'External-Audit')
-                                                    <a href="{{ route('showExternalAudit', $datas->id) }}">
+                                                    <a href="{{ route('showExternalAudit', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -263,7 +263,7 @@
                                                     @endif
                                                     
                                                 @elseif ($datas->type == 'Audit-Program')
-                                                    <a href="{{ route('ShowAuditProgram', $datas->id) }}">
+                                                    <a href="{{ route('ShowAuditProgram', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -277,7 +277,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif ($datas->type == 'Observation')
-                                                    <a href="{{ route('showobservation', $datas->id) }}">
+                                                    <a href="{{ route('showobservation', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -292,7 +292,7 @@
                                                     @endif
                                                     {{-- ----------------------------------------------- --}}
                                                 @elseif($datas->type == 'Action-Item')
-                                                    <a href="{{ route('actionItem.show', $datas->id) }}">
+                                                    <a href="{{ route('actionItem.show', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -306,7 +306,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif($datas->type == 'Extension')
-                                                    <a href="{{ route('extension.show', $datas->id) }}">
+                                                    <a href="{{ route('extension.show', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -320,7 +320,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif($datas->type == 'Effectiveness-Check')
-                                                    <a href="{{ route('effectiveness.show', $datas->id) }}">
+                                                    <a href="{{ route('effectiveness.show', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -334,7 +334,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif($datas->type == 'Capa')
-                                                    <a href="{{ route('capashow', $datas->id) }}">
+                                                    <a href="{{ route('capashow', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -347,7 +347,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif($datas->type == 'Management-Review')
-                                                    <a href="{{ route('manageshow', $datas->id) }}">
+                                                    <a href="{{ route('manageshow', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -361,7 +361,7 @@
                                                         </a>
                                                     @endif
                                                     @elseif($datas->type == 'Deviation')
-                                                    <a href="{{ route('devshow', $datas->id) }}">
+                                                    <a href="{{ route('devshow', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -375,7 +375,7 @@
                                                         </a>
                                                     @endif
                                                 @elseif($datas->type == 'Root-Cause-Analysis')
-                                                    <a href="{{ route('root_show', $datas->id) }}">
+                                                    <a href="{{ route('root_show', $datas->id) }}" style="color: blue">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))

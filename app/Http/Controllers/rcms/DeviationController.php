@@ -393,7 +393,7 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
-
+       
         $record = RecordNumber::first();
         $record->counter = ((RecordNumber::first()->value('counter')) + 1);
         $record->update(); 

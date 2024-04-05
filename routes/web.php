@@ -415,7 +415,14 @@ Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
 //notification
+Route::get('send-notification-before-seven-due-date', [CronNotification::class, 'sendNotificationBeforeSevenDueDate']);
+Route::get('send-notification-before-six-due-date', [CronNotification::class, 'sendNotificationBeforeSixDueDate']);
 Route::get('send-notification-before-five-due-date', [CronNotification::class, 'sendNotificationBeforeFiveDueDate']);
+Route::get('send-notification-before-four-due-date', [CronNotification::class, 'sendNotificationBeforeFourDueDate']);
+Route::get('send-notification-before-three-due-date', [CronNotification::class, 'sendNotificationBeforeThreeDueDate']);
+Route::get('send-notification-before-two-due-date', [CronNotification::class, 'sendNotificationBeforeTwoDueDate']);
+Route::get('send-notification-before-one-due-date', [CronNotification::class, 'sendNotificationBeforeOneDueDate']);
+
 
 
 //! ============================================

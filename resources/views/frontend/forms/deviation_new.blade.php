@@ -411,11 +411,11 @@ $users = DB::table('users')
                                     </div>
                                 </div> --}}
                                
-                                    {{-- <?php
+                                    <?php
                                         // Calculate the due date (30 days from the initiation date)
                                         $initiationDate = date('Y-m-d'); // Current date as initiation date
                                         $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
-                                        ?> --}}
+                                        ?>
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
@@ -436,7 +436,7 @@ $users = DB::table('users')
                                             </div>
                                         </div>
 
-                                        {{-- <script>
+                                        <script>
                                             // Format the due date to DD-MM-YYYY
                                             var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
                                                 day: '2-digit',
@@ -446,7 +446,7 @@ $users = DB::table('users')
 
                                             // Set the formatted due date value to the input field
                                             document.getElementById('due_date').value = dueDateFormatted;
-                                        </script> --}}
+                                        </script>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -605,11 +605,6 @@ $users = DB::table('users')
 
                                     });
                                 </script>
-                                
-                                
-                                
-                                
-                                
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
@@ -640,7 +635,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To </label>
                                         <select multiple name="audit_type[]" id="audit_type">
-                                            <option value="">Enter Your Selection Here</option>
+                                            {{-- <option value="">Enter Your Selection Here</option> --}}
                                             <option value="Facility">Facility</option>
                                             <option value="Equipment/Instrument">Equipment/ Instrument </option>
                                             <option value="Documentationerror">Documentation error </option>
@@ -995,10 +990,9 @@ $users = DB::table('users')
                                 
                             </div>
                             <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                                <button type="submit" id="ChangesaveButton001" onclick="handleClick001()" class="saveButton">Save</button>
                                 <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
                             </div>
                         </div>
                     </div>
@@ -3790,6 +3784,32 @@ $users = DB::table('users')
         }
     </style>
     <script>
+
+const saveButton = document.getElementById("ChangeSaveButton001");
+
+    // Add a click event listener to the button
+    saveButton.addEventListener("click", function() {
+    // Handle the click event here
+    document.getElementById("ChangesaveButton001").disabled = true;
+    console.log("Save Changes button clicked");
+ 
+});
+
+            function handleClick001() {
+                // Disable the button to prevent multiple clicks
+                document.getElementById("ChangesaveButton001").disabled = true;
+
+                .then(() => {
+                    // Re-enable the button after the action is completed
+                    document.getElementById("ChangesaveButton001").disabled = false;
+                })
+                .catch(error => {
+                    // Re-enable the button if an error occurs
+                    document.getElementById("ChangesaveButton001").disabled = false;
+                    console.error('An error occurred:', error);
+                });
+            }  
+
         document.getElementById('myfile').addEventListener('change', function() {
             var fileListDiv = document.querySelector('.file-list');
             fileListDiv.innerHTML = ''; // Clear previous entries
@@ -4060,6 +4080,9 @@ $users = DB::table('users')
         $('#docname').keyup(function() {
             var textlen = maxLength - $(this).val().length;
             $('#rchars').text(textlen);});
+
+
+            
     </script>
 
 
