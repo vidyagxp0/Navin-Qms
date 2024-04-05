@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\Session;
 
 class DeviationController extends Controller
 {
@@ -68,6 +68,38 @@ class DeviationController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
+        if ($request->form_name == 'general')
+        {
+            $this->validate($request, [
+                'Initiator_Group' => 'required',
+                'short_description' => 'required'
+                
+            ], [
+                'Initiator_Group.required' => 'Department field required!',
+                'short_description_required.required' => 'Nature of repeat field required!'
+            ]);
+        }
+        if ($request->form_name == 'hod')
+        {
+            $this->validate($request, [
+                'HOD_Remarks' => 'required'
+                
+            ]);
+        }
+        
+        // QA INITAL FORM VALIDATION
+        if ($request->form_name == 'qa')
+        {
+            $this->validate($request, [
+                'Deviation_category' => 'required',
+                'Justification_for_categorization' => 'required',
+                'Investigation_required' => 'required',
+                'Investigation_Details' => 'required_if:Investigation_required,1',
+            ]);
+        }
+
+
         if (!$request->short_description) {
             toastr()->error("Short description is required");
             return response()->redirect()->back()->withInput();
@@ -2429,6 +2461,19 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 2) {
+                
+                // Check HOD remark value
+                if (!$deviation->HOD_Remarks) {
+                    
+                    Session::flash('swal', [
+                        'title' => 'Error!',
+                        'message' => 'HOD Remarks required',
+                        'type' => 'error',
+                    ]);
+
+                    return redirect()->back();
+                }
+
                 $deviation->stage = "3";
                 $deviation->status = "QA Initial Review";
                 $deviation->HOD_Review_Complete_By = Auth::user()->name;

@@ -63,7 +63,16 @@ $users = DB::table('users')
     </style>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+     @if (Session::has('swal'))
+     <script>
+        swal ( "{{ Session::get('swal')['title'] }}" ,  "{{ Session::get('swal')['message'] }}" ,  "{{ Session::get('swal')['type'] }}" )
+     </script>
+     @endif
+    
     <script>
+
         function otherController(value, checkValue, blockID) {
             let block = document.getElementById(blockID)
             let blockTextarea = block.getElementsByTagName('textarea')[0];
@@ -443,6 +452,29 @@ $users = DB::table('users')
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
         </div>
+<script>
+    console.log('Script working')
+
+    $(document).ready(function() {
+        
+        function submitForm() {
+            let auditForm = document.getElementById('auditform');
+            auditForm.submit();
+        }
+
+        $('#ChangesaveButton02').click(function() {
+            document.getElementById('formNameField').value = 'hod';
+            submitForm();
+        });
+
+        $('#ChangesaveButton03').click(function() {
+            document.getElementById('formNameField').value = 'qa';
+            submitForm();
+        });
+        
+        
+    });
+</script>
 
     <div style="background: #e0903230;" id="change-control-fields">
         <div class="container-fluid">
@@ -462,7 +494,7 @@ $users = DB::table('users')
 
             <form  action="{{ route('deviationupdate', $data->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                
+                <input type="hidden" name="form_name" id="formNameField" value="">
                 <div id="step-form">
 
                     <!-- General information content -->
@@ -1102,6 +1134,9 @@ $users = DB::table('users')
                                                 <textarea disabled class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                             </div>
                                         @endif 
+                                        @error('HOD_Remarks')
+                                            <div class="text-danger">{{  $message  }}</div>
+                                        @enderror
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
@@ -1169,7 +1204,8 @@ $users = DB::table('users')
 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton">Save</button>
+                                
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton" id="ChangesaveButton02">Save 2</button>
                                 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -1442,6 +1478,9 @@ $users = DB::table('users')
                                                 </select>
                                             </div>
                                         @endif 
+                                        @error('Deviation_category')
+                                            <div class="text-danger">{{  $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -1450,6 +1489,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
                                     </div>
+                                    @error('Justification_for_categorization')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                                 <div class="col-lg-12">
@@ -1462,7 +1504,9 @@ $users = DB::table('users')
                                             <option  @if ($data->Investigation_required == 'no') selected @endif 
                                             value='no'>No</option>
                                         </select>
-                                  
+                                        @error('Investigation_required')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -1471,7 +1515,9 @@ $users = DB::table('users')
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                                 <textarea class="summernote Investigation_Details" name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
                                                 {{-- <span class="error-message" style="color: red; display: none;">Please fill out this field.</span> --}}
-                                            
+                                                @error('Investigation_Details')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         <script>
 
                                             document.addEventListener('DOMContentLoaded', function () {
@@ -1609,7 +1655,7 @@ $users = DB::table('users')
                             @endif
                             
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton03"  class="">Save 3</button>
                                     <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>

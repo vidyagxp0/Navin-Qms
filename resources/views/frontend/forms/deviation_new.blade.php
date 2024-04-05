@@ -172,6 +172,28 @@ $users = DB::table('users')
             container.append(textarea)
         }
     </script> -->
+
+    <script>
+        console.log('Script working')
+        $(document).ready(function() {
+            function submitForm() {
+                let auditForm = document.getElementById('auditform');
+                auditForm.submit();
+            }
+
+            $('#ChangesaveButton0011').click(function() {
+                document.getElementById('formNameField').value = 'general';
+                submitForm();
+            });
+
+            $('#ChangesaveButton0011').click(function() {
+                document.getElementById('formNameField').value = 'general';
+                submitForm();
+            });
+            
+            
+        });
+    </script>
     
     <script>
         $(document).ready(function() {
@@ -351,9 +373,17 @@ $users = DB::table('users')
 
             <form id="auditform" action="{{ route('deviationstore') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="form_name" id="formNameField" value="">
                 <div id="step-form">
 
                     <!-- General information content -->
+
+                    @if ($errors->any())
+                        @foreach ($errors as $error)
+                            <div class="text-danger">{{ $error }}</div>
+                        @endforeach
+                    @endif
+
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -388,34 +418,12 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                 
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input ">
-                                        <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-12 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Date Due">Due Date</label>
-                                        <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
-                                        </div>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly
-                                                placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')"/>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                
-                                    <?php
+                                   @php
                                         // Calculate the due date (30 days from the initiation date)
                                         $initiationDate = date('Y-m-d'); // Current date as initiation date
                                         $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
-                                        ?>
+                                     @endphp
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
@@ -509,6 +517,9 @@ $users = DB::table('users')
                                                 class="text-danger">*</span></label><span id="rchars">255</span> Characters remaining
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
+                                    @error('short_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>  
                                 
                                 <div class="col-lg-6 new-date-data-field">
@@ -523,6 +534,9 @@ $users = DB::table('users')
                                                     Non Recurring</option>
                                         </select>
                                     </div>
+                                    @error('short_description_required')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
@@ -557,24 +571,6 @@ $users = DB::table('users')
                                         });
                                     });
                                 </script>
-{{-- 
-                                <script>
-                                    $(document).ready(function () {
-                                        $('#short_description_required').change(function () {
-                                            var selectedValue = $(this).val();
-                                            if (selectedValue === 'Recurring') {
-                                                // $('#nature_of_repeat').show();
-                                                $('textarea[name="nature_of_repeat"]').prop('required', true);
-                                            } else {
-                                                // $('#nature_of_repeat').hide();
-                                                $('textarea[name="nature_of_repeat"]').prop('required', false);
-                                            }
-                                        });
-                                
-                                        // Trigger change event on page load if already selected value is "Recurring"
-                                        $('#short_description_required').change();
-                                    });
-                                </script> --}}
 
 
                                  <div class="col-lg-6 new-date-data-field">
@@ -588,6 +584,9 @@ $users = DB::table('users')
                                                 oninput="handleDateInput(this, 'Deviation_date')"required />
                                         </div>
                                     </div>
+                                    @error('Deviation_date')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror
                                 </div> 
                                 
                                 
@@ -597,6 +596,9 @@ $users = DB::table('users')
                                             class="text-danger">*</span></label>
                                         <input type="text" name="deviation_time" id="deviation_time"required>
                                     </div>
+                                    @error('Deviation_date')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror
                                 </div>
                                 
                                 <script>
@@ -728,6 +730,9 @@ $users = DB::table('users')
 
                                         </select>
                                     </div>
+                                    @error('Facility_Equipment')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror
                                 </div> 
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
@@ -899,6 +904,9 @@ $users = DB::table('users')
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
+                                    @error('Product_Batch')
+                                        <div class="text-danger">{{ $message  }}</div>
+                                    @enderror
                           </div>
                                <!-- <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
@@ -965,6 +973,9 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
+                                    @error('Description_Deviation[]')
+                                        <div class="text-danger">{{ $message  }}</div>
+                                    @enderror
                                 </div>
                                
                                 {{-- <div class="col-6">
@@ -981,6 +992,9 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Immediate_Action[]" id="summernote-2"required>
                                     </textarea>
                                     </div>
+                                    @error('record')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-6">
                                 <div class="group-input">
@@ -996,11 +1010,14 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
+                                    @error('Preliminary_Impact')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                             </div>
                             <div class="button-block">
-                                <button type="submit" id="ChangesaveButton001" onclick="handleClick001()" class="saveButton">Save</button>
+                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton">Save</button>
                                 <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
                             </div>
@@ -1085,7 +1102,7 @@ $users = DB::table('users')
                                
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
+                                <button type="submit" class="saveButton">Save hshsh</button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
@@ -1260,7 +1277,10 @@ $users = DB::table('users')
                         </div>
                     </div>
                     <script>
+
                         $(document).ready(function () {
+
+
                             $('#Deviation_category').change(function () {
                                 if ($(this).val() === 'major') {
                                     $('#Investigation_required').val('yes').prop('disabled', true);
