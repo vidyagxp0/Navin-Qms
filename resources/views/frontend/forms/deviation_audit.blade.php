@@ -155,7 +155,17 @@
     padding: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
-    background: #e6a226ba;
+    background: #e99b0dba;
+    }
+
+    .heading-new{
+        font-size: 27px;
+    color: #2f2f58;
+    }
+    .buttons-new{
+        display: flex;
+    justify-content: end;
+    gap: 10px;
     }
 </style>
 
@@ -164,17 +174,16 @@
     <header>
         <table>
             <tr>
-                <td class="w-90 head">
-                       Audit Trail
-                </td>
-                <td class="w-30">
-                    <div class="btn-group" style="font-size: 1rem; text-align: center; border-radius: 20px; color: white; margin-left : 5px; padding: 7px 50px; cursor: pointer;">
+               
+                {{-- <td class="w-30"> --}}
+                    {{-- <div class="btn-group" style="font-size: 1rem; text-align: center; border-radius: 20px; color: white; margin-left : 5px; padding: 7px 50px; cursor: pointer;">
                         <button onclick="window.print();return false;" type="button">Print</button>
-                    </div>
+                    </div> --}}
                     <div class="logo">
                         <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
-                </td>
+               {{-- + </td> --}}
+               
             </tr>
         </table>
         {{-- <table style="margin-top: 5px;">
@@ -190,9 +199,22 @@
                 </td>
             </tr>
         </table> --}}
+       <div class="buttons-new">
+        <button class="button_theme1" >
+           Back
+        </button>
+        <button class="button_theme1" onclick="window.print();">
+         Print
+        </button>
+       </div>
         <table>
         <div class="heading">
-            <div> <strong>Record No.</strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>     
+           
+              <div class="heading-new">
+                Audit Trail
+              </div>
+         
+            <div> <strong>Record ID.</strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>     
             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}</div>
             <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$document->short_description}}</div>
             <div style="margin-bottom: 5px;  font-weight: bold;">Due Date :  {{$document->due_date}}</div>
@@ -215,8 +237,8 @@
             <table>
                 <tr class="table_bg">
                     <th>S.No</th>
-                    <th>Changed From</th>
-                    <th>Changed To</th>
+                    <th>Flow Changed From</th>
+                    <th>Flow Changed To</th>
                     <th>Data Field</th>
                     <th>Action Type</th>
                     <th>Performer</th>

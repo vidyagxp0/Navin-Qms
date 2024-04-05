@@ -2157,15 +2157,15 @@ section#pdf-page .watermark {
 ===============================================*/
 #audit-trial {
     padding: 20px 0px;
-    background: #4274da;
+    /* background: #4274da; */
     min-height: calc(100vh - 150px);
-    background: #E8A936;
+    background: #fefdfc;
 }
 
 #audit-trial .inner-block {
-    padding: 20px;
+    /* padding: 20px; */
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+     /* box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff; */
     background: #ffffff;
 }
 

@@ -265,7 +265,7 @@ $users = DB::table('users')
 
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName(session()->get('division')) }} / Deviation
+            {{ Helpers::getDivisionName(session()->get('division')) }}/Deviation
         </div>
     </div>
 
