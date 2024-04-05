@@ -173,14 +173,14 @@
                             <table class="table table-bordered" id="auditTable">
                                 <thead >
                                     <tr>
-                                        <th>Record</th>
+                                        <th style="width: 2%;">Record</th>
                                         {{-- <th>Parent ID</th> --}}
-                                        <th>Division</th>
+                                        <th style="width: 10%">Division</th>
                                         <th>Process</th>
-                                        <th class="td_desc">Short Description</th>
-                                        <th>Date Opened</th>
+                                        <th style="width: 25%" class="td_desc">Short Description</th>
+                                        <th style="width: 12%">Date Opened</th>
                                         <th>Originator</th>
-                                        <th> Initiation Date</th>
+                                        <th> Due Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>

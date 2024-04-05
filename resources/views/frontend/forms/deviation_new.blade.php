@@ -322,8 +322,8 @@ $users = DB::table('users')
     <div class="form-field-head">
 
         <div class="division-bar">
-            <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName(session()->get('division')) }} / Deviation
+            <strong>Site Division/Project</strong>:
+            {{ Helpers::getDivisionName(session()->get('division')) }}/Deviation
         </div>
     </div>
 
@@ -359,7 +359,7 @@ $users = DB::table('users')
                             <div class="row">
 
                                 @if (!empty($parent_id))
-                                    <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+                                     <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                                     <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                                 @endif
                                 <div class="col-lg-6">
@@ -506,7 +506,7 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
-                                                class="text-danger">*</span></label><span id="rchars">255</span>characters remaining
+                                                class="text-danger">*</span></label><span id="rchars">255</span> Characters remaining
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>  
