@@ -3330,7 +3330,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $histor->action='More Information Required';
+                $history->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -4005,6 +4005,7 @@ class DeviationController extends Controller
             return $pdf->stream('Deviation' . $id . '.pdf');
         }
     }
+
     public static function auditReport($id)
     {
         $doc = Deviation::find($id);

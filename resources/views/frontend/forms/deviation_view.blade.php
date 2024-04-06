@@ -836,9 +836,9 @@ $users = DB::table('users')
                                             $users = DB::table('users')->get();
                                             $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
                                             $inputFacilities = [];
-                                            if ( old('Facility') ) {
-                                                $inputFacilities = explode(',', old('Facility'));
-                                            }
+                                            // if ( old('Facility') ) {
+                                            //     $inputFacilities = explode(',', old('Facility'));
+                                            // }
                                         @endphp
                                         <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
                                         <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
