@@ -54,6 +54,11 @@ $users = DB::table('users')
         margin-top: 50px;
         gap: 20px;
     }
+    .text-danger{
+        margin-top: -20px;
+        padding: 2px;
+        margin-bottom: 5px;
+    }
     </style>
     <style>
         .calenderauditee {
@@ -106,6 +111,12 @@ $users = DB::table('users')
 
         .calenderauditee input::-webkit-calendar-picker-indicator {
             width: 100%;
+        }
+
+        .saveButton:disabled {
+            cursor: no-drop;
+            background-color: black!important;
+            border-color: black!important;
         }
     </style>
 
@@ -499,7 +510,7 @@ $users = DB::table('users')
                                                 Business Administration</option>
                                         </select>
                                         @error('Initiator_Group')
-                                            <div class="text-danger">{{ $message }}</div>
+                                            <div  class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -518,14 +529,13 @@ $users = DB::table('users')
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                     @error('short_description')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <div  class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>  
                                 
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="short_description_required">Nature of Repeat?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="short_description_required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required" required>
                                             <option value="0">-- Select --</option>
                                             <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
@@ -575,8 +585,7 @@ $users = DB::table('users')
 
                                  <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Deviation date">Deviation Observed On<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                              <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" /> 
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
@@ -592,8 +601,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time">
-                                        <label for="deviation_time">Deviation Observed On (Time)<span
-                                            class="text-danger">*</span></label>
+                                        <label for="deviation_time">Deviation Observed On (Time)</label>
                                         <input type="text" name="deviation_time" id="deviation_time"required>
                                     </div>
                                     @error('Deviation_date')
@@ -615,7 +623,7 @@ $users = DB::table('users')
                                         @php
                                             $users = DB::table('users')->get();
                                         @endphp
-                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By</label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
@@ -626,8 +634,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Deviation Reported on<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -721,8 +728,7 @@ $users = DB::table('users')
                                 </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
                                         <select name="Facility_Equipment" id="Facility_Equipment"required>
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
@@ -808,8 +814,7 @@ $users = DB::table('users')
                                     </script>
                                     <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Document Details Required">Document Details Required?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Document Details Required">Document Details Required?</label>
                                         <select name=" Document_Details_Required" id="Document_Details_Required">
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
@@ -897,8 +902,7 @@ $users = DB::table('users')
                                     </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Product Batch">Name of Product & Batch No<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Product Batch">Name of Product & Batch No</label>
                                         <input type="text" name="Product_Batch" id="Product_Batch"required>
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
@@ -967,8 +971,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Description Deviation">Description of Deviation <span
-                                            class="text-danger">*</span></label>
+                                        <label for="Description Deviation">Description of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
@@ -986,8 +989,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Immediate Action">Immediate Action (if any)<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Immediate_Action[]" id="summernote-2"required>
                                     </textarea>
@@ -1004,8 +1006,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Preliminary Impact">Preliminary Impact of Deviation <span
-                                            class="text-danger">*</span></label>
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
@@ -1017,7 +1018,7 @@ $users = DB::table('users')
                                 
                             </div>
                             <div class="button-block">
-                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton">Save</button>
+                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton" >Save</button>
                                 <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
                             </div>

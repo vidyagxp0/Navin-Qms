@@ -60,6 +60,11 @@ $users = DB::table('users')
         margin-top: 50px;
         gap: 20px;
     }
+    .saveButton:disabled {
+            cursor: no-drop;
+            background-color: black!important;
+            border-color: black!important;
+        }
     </style>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
