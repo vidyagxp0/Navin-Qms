@@ -200,7 +200,7 @@
                     </tr>
                     <tr>
                         <th class="w-20">Department</th>
-                        <td class="w-30">  @if($data->Initiator_Group){{ \Helpers::getInitiatorGroupFullName($data->Initiator_Group) }} @else Not Applicable @endif</td>
+                        <td class="w-30">  @if($data->Initiator_Group){{ Helpers::getInitiatorGroupFullName($data->Initiator_Group) }} @else Not Applicable @endif</td>
                         <th class="w-20">Department Code</th>
                         <td class="w-30">@if($data->initiator_group_code){{ $data->initiator_group_code }} @else Not Applicable @endif</td>
                     </tr>
@@ -216,7 +216,20 @@
                     </tr>
                     <tr>
                         <th class="w-20">Deviation Observed by</th>
-                        <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td>
+                     @php
+                         $users = DB::table('users')->get();
+                      @endphp
+
+                        <td>
+                            @if($data->Facility)
+                             @foreach ($users as $user)
+                               <option value="{{ $user->id }}" {{ $user->id == $data->Facility ? 'selected' : '' }}>
+                             {{ $user->name }}
+                          </option>
+                           @endforeach
+                           @else Not Applicable @endif</td>
+                    
+                        {{-- <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td> --}}
                         <th class="w-20">Deviation Reported On </th>
                         <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
                     </tr>
@@ -263,6 +276,32 @@
                             <th class="w-30">HOD Remarks</th>
                             <td class="w-20">@if($data->HOD_Remarks){{ $data->HOD_Remarks }}@else Not Applicable @endif</td>
                         </tr>
+                        <div class="border-table">
+                            <div class="block-head">
+                                HOD Attachments
+                            </div>
+                            <table>
+            
+                                <tr class="table_bg">
+                                    <th class="w-20">S.N.</th>
+                                    <th class="w-60">Batch No</th>
+                                </tr>
+                                    @if($data->Audit_file)
+                                    @foreach(json_decode($data->Audit_file) as $key => $file)
+                                        <tr>
+                                            <td class="w-20">{{ $key + 1 }}</td>
+                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                        </tr>
+                                    @endforeach
+                                    @else
+                                <tr>
+                                    <td class="w-20">1</td>
+                                    <td class="w-20">Not Applicable</td>
+                                </tr>
+                                @endif
+            
+                            </table>
+                        </div>
                     </table>   
                        
                              
@@ -548,7 +587,7 @@
                                         @if($data->QualityAssurance__by){{ $data->QualityAssurance__by }}@else Not Applicable @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Quality Control feedback Review Completed On</th>
+                                <th class="w-20">Quality Review Completed On</th>
                                 <td class="w-30">
                                     <div>
                                         @if($data->Quality_Control_on){{ $data->Quality_Control_on }}@else Not Applicable @endif
@@ -559,7 +598,7 @@
                     </div>  
                   <div class="border-table">
                     <div class="block-">
-                        Quality Control feedback Attachments 
+                        Quality Control Attachments 
                     </div>                                   
                     <table>
     
