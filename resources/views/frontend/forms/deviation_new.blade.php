@@ -176,8 +176,18 @@ $users = DB::table('users')
     <script>
         console.log('Script working')
         $(document).ready(function() {
+            
+            let auditForm = document.getElementById('auditform');
+            
             function submitForm() {
-                let auditForm = document.getElementById('auditform');
+                document.querySelectorAll('.saveAuditFormBtn').forEach(function(button) {
+                    button.disabled = true;
+                })
+
+                document.querySelectorAll('.auditFormSpinner').forEach(function(spinner) {
+                    spinner.style.display = 'flex';
+                })
+
                 auditForm.submit();
             }
 
@@ -186,11 +196,6 @@ $users = DB::table('users')
                 submitForm();
             });
 
-            $('#ChangesaveButton0011').click(function() {
-                document.getElementById('formNameField').value = 'general';
-                submitForm();
-            });
-            
             
         });
     </script>
@@ -1017,7 +1022,14 @@ $users = DB::table('users')
                                 
                             </div>
                             <div class="button-block">
-                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton">Save</button>
+                                
+                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                        Save
+                                </button>
+
                                 <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
                             </div>

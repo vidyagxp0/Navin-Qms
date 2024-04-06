@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class DeviationController extends Controller
 {
@@ -1322,6 +1323,111 @@ class DeviationController extends Controller
             toastr()->error("Short description is required");
             return redirect()->back();
         }
+        
+        if ($request->form_name == 'general-open') 
+        {
+            // return $request;
+            $validator = Validator::make($request->all(), [
+                'short_description_required' => 'required|in:Recurring,Non_Recurring',
+                'nature_of_repeat' => 'required_if:short_description_required,Recurring',
+                'Deviation_date' => 'required',
+                'deviation_time' => 'required',
+                'Facility' => [
+                    'required',
+                    'array',
+                    function($attribute, $value, $fail) {
+                        if (count($value) === 1 && reset($value) === null) {
+                            return $fail('Facility must contain some values.');
+                        }
+                    },
+                ],
+                'audit_type' => [
+                    'required',
+                    'array',
+                    function($attribute, $value, $fail) {
+                        if (count($value) === 1 && reset($value) === null) {
+                            return $fail($attribute.' must not contain only null values.');
+                        }
+                    },
+                ],
+                'Deviation_reported_date' => 'required',
+                'Facility_Equipment' => 'required|in:yes,no',
+                'facility_name' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        if ($request->input('Facility_Equipment') === 'yes' && (count($value) === 1 && reset($value) === null)) {
+                            $fail('The Facility name is required when Facility Equipment is yes.');
+                        }
+                    },
+                ],
+                'IDnumber' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        if ($request->input('Facility_Equipment') === 'yes' && (count($value) === 1 && reset($value) === null)) {
+                            $fail('The ID Number field is required when Facility Equipment is yes.');
+                        }
+                    },
+                ],
+                'Document_Details_Required' => 'required|in:yes,no',
+                'Number' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        if ($request->input('Document_Details_Required') === 'yes' && (count($value) === 1 && reset($value) === null)) {
+                            $fail('The Document Number field is required when Document Details Required is yes.');
+                        }
+                    },
+                ],
+                'ReferenceDocumentName' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        if ($request->input('Document_Details_Required') === 'yes' && (count($value) === 1 && reset($value) === null)) {
+                            $fail('The Referrence Document Number field is required when Document Details Required is yes.');
+                        }
+                    },
+                ],
+                'Product_Batch' => 'required',
+                'Description_Deviation' => [
+                    'required',
+                    'array',
+                    function($attribute, $value, $fail) {
+                        if (count($value) === 1 && reset($value) === null) {
+                            return $fail('Description of deviation must not be empty!.');
+                        }
+                    },
+                ],
+                'Immediate_Action' => [
+                    'required',
+                    'array',
+                    function($attribute, $value, $fail) {
+                        if (count($value) === 1 && reset($value) === null) {
+                            return $fail('Immediate Action field must not be empty!.');
+                        }
+                    },
+                ],
+                'Preliminary_Impact' => [
+                    'required',
+                    'array',
+                    function($attribute, $value, $fail) {
+                        if (count($value) === 1 && reset($value) === null) {
+                            return $fail('Preliminary Impact field must not be empty!.');
+                        }
+                    },
+                ],
+            ], [
+                'short_description_required.required' => 'Nature of Repeat required!',
+                'nature_of_repeat.required' =>  'The nature of repeat field is required when nature of repeat is Recurring.',
+                'audit_type' => 'Deviation related to field required!'
+            ]);
+
+            $validator->sometimes('others', 'required|string|min:1', function ($input) {
+                return in_array('Anyother(specify)', explode(',', $input->audit_type[0]));
+            });
+
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            } else {
+                // general_view_passed boolean set to 1
+            }
+        }
+
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
         //$deviation->parent_id = $request->parent_id;

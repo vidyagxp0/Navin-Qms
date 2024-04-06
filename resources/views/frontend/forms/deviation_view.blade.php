@@ -457,11 +457,30 @@ $users = DB::table('users')
 
     $(document).ready(function() {
         
+            
         function submitForm() {
-            let auditForm = document.getElementById('auditform');
+
+            let auditForm = document.getElementById('auditForm');
+
+
+            console.log('sumitting form')
+            
+            document.querySelectorAll('.saveAuditFormBtn').forEach(function(button) {
+                button.disabled = true;
+            })
+
+            document.querySelectorAll('.auditFormSpinner').forEach(function(spinner) {
+                spinner.style.display = 'flex';
+            })
+
             auditForm.submit();
         }
 
+        $('#ChangesaveButton01').click(function() {
+            document.getElementById('formNameField').value = 'general-open';
+            submitForm();
+        });
+        
         $('#ChangesaveButton02').click(function() {
             document.getElementById('formNameField').value = 'hod';
             submitForm();
@@ -492,7 +511,7 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
 
-            <form  action="{{ route('deviationupdate', $data->id) }}" method="post" enctype="multipart/form-data">
+            <form id="auditForm"  action="{{ route('deviationupdate', $data->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="form_name" id="formNameField" value="">
                 <div id="step-form">
@@ -689,16 +708,22 @@ $users = DB::table('users')
                                         <label for="Short Description required">Nature of Repeat?</label>
                                         <select name="short_description_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="short_description_required" onchange="checkRecurring(this)" value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring" @if ($data->short_description_required == 'Recurring') selected @endif>Recurring</option>
-                                            <option value="Non_Recurring" @if ($data->short_description_required == 'Non_Recurring') selected @endif>Non Recurring</option>
+                                            <option value="Recurring" @if ($data->short_description_required == 'Recurring' || old('short_description_required') == 'Recurring') selected @endif>Recurring</option>
+                                            <option value="Non_Recurring" @if ($data->short_description_required == 'Non_Recurring' || old('short_description_required') == 'Non_Recurring') selected @endif>Non Recurring</option>
                                         </select>
                                     </div>
+                                    @error('short_description_required')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature @if($data->short_description_required == 'Recurring')<span class="text-danger">*</span>@endif</label>
-                                        <textarea name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
+                                        <textarea name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="nature_of_repeat" class="nature_of_repeat">{{ old('nature_of_repeat') ? old('nature_of_repeat') : $data->nature_of_repeat }}</textarea>
                                     </div>
+                                    @error('nature_of_repeat')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                                 <script>
@@ -715,13 +740,19 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed On</label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" id="Deviation_date" name="Deviation_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $data->Deviation_date }}">
+                                       <input type="date" id="Deviation_date" name="Deviation_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ old('Deviation_date') ? old('Deviation_date') : $data->Deviation_date }}">
+                                       @error('Deviation_date')
+                                           <div class="text-dnager">{{ $message }}</div>
+                                       @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time">
                                         <label for="deviation_time">Deviation Observed On (Time)</label>
-                                        <input type="text" name="deviation_time"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="deviation_time" value="{{ $data->deviation_time }}">
+                                        <input type="text" name="deviation_time"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="deviation_time" value="{{ old('deviation_time') ? old('deviation_time') : $data->deviation_time }}">
+                                        @error('deviation_time')
+                                           <div class="text-dnager">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 
@@ -804,13 +835,20 @@ $users = DB::table('users')
                                         @php
                                             $users = DB::table('users')->get();
                                             $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
+                                            $inputFacilities = [];
+                                            if ( old('Facility') ) {
+                                                $inputFacilities = explode(',', old('Facility'));
+                                            }
                                         @endphp
                                         <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
                                         <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
-                                                <option {{ in_array($user->id, $selectedFacilities) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                                <option {{ (in_array($user->id, $selectedFacilities) || in_array($user->id, $inputFacilities))  ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach                                           
                                         </select>
+                                        @error('Facility')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -819,6 +857,9 @@ $users = DB::table('users')
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
                                         <input type="date"id="Deviation_reported_date" name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $data->Deviation_reported_date }}" >
                                     </div>
+                                    @error('Deviation_reported_date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                              
@@ -842,6 +883,9 @@ $users = DB::table('users')
                                             <option value="Anyother(specify)" {{ strpos($data->audit_type, 'Anyother(specify)') !== false ? 'selected' : '' }}>Anyother(specify)</option>
                                         </select>
                                     </div>
+                                    @error('audit_type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                                 
@@ -849,6 +893,9 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="others">Others </label>
                                         <input type="text" name="others" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="others" value="{{ $data->others }}">
+                                        @error('others')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -867,11 +914,14 @@ $users = DB::table('users')
                                         <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
                                         <select name="Facility_Equipment" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Facility_Equipment"  value="{{ $data->Facility_Equipment }}" >
                                             <option value="">-- Select --</option>
-                                            <option @if ($data->Facility_Equipment == 'yes') selected @endif
+                                            <option @if ($data->Facility_Equipment == 'yes' || old('Facility_Equipment') == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Facility_Equipment == 'no') selected @endif 
+                                            <option  @if ($data->Facility_Equipment == 'no' || old('Facility_Equipment') == 'no') selected @endif 
                                             value="no">No</option>>
                                         </select>
+                                        @error('Facility_Equipment')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="group-input">
@@ -951,19 +1001,29 @@ $users = DB::table('users')
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
                                     </div>
+                                    @error('facility_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    @error('IDnumber')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+
+
                                     <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Document Details Required">Document Details Required?</label>
                                         <select name="Document_Details_Required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Document_Details_Required"  value="{{ $data->Document_Details_Required }}" >
                                             <option value="">-- Select --</option>
-                                            <option @if ($data->Document_Details_Required == 'yes') selected @endif
+                                            <option @if ($data->Document_Details_Required == 'yes' || old('Document_Details_Required') == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Document_Details_Required == 'no') selected @endif 
+                                            <option  @if ($data->Document_Details_Required == 'no' || old('Document_Details_Required') == 'no') selected @endif 
                                             value="no">No</option>>
                                         </select>
                                     </div>
+                                    @error('Document_Details_Required')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div> 
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
@@ -1004,15 +1064,23 @@ $users = DB::table('users')
 
                                             </table>
                                         </div>
+                                        @error('Number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('ReferenceDocumentName')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                   
                                 <div class="col-lg-12">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
-                                        <input type="text" value="{{$data->Product_Batch}}" name="Product_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>
+                                        <input type="text" value="{{ old('Product_Batch') ? old('Product_Batch') : $data->Product_Batch}}" name="Product_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
-                                    
+                                        @error('Product_Batch')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                       </div>
                                
@@ -1026,8 +1094,11 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
+                                        <textarea class="summernote" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-1">{{ old('Description_Deviation') ? old('Description_Deviation') : $data->Description_Deviation }}</textarea>
                                     </div>
+                                    @error('Description_Deviation')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <!-- <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -1047,8 +1118,11 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-2">{{ $data->Immediate_Action }}</textarea>
+                                        <textarea class="summernote" name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-2">{{ old('Immediate_Action') ? old('Immediate_Action') : $data->Immediate_Action }}</textarea>
                                     </div>
+                                    @error('Immediate_Action')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                
                                 {{-- <div class="col-6">
@@ -1061,13 +1135,21 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
+                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ old('Preliminary_Impact') ? old('Preliminary_Impact') : $data->Preliminary_Impact }}</textarea>
                                     </div>
+                                    @error('Preliminary_Impact')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton" class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton01" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                      Save
+                                </button>
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangeNextButton" class="nextButton">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}"  class="text-white">
                                         Exit </a> </button>
@@ -1205,7 +1287,12 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton" id="ChangesaveButton02">Save 2</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;" id="ChangesaveButton02">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    Save 2
+                                </button>
                                 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -1655,7 +1742,12 @@ $users = DB::table('users')
                             @endif
                             
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton03"  class="">Save 3</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton03"  class="saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                      Save 3
+                                </button>
                                     <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -4948,7 +5040,12 @@ $users = DB::table('users')
  
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton" class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    Save
+                                </button>
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangeNextButton" class="nextButton">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -5166,7 +5263,12 @@ $users = DB::table('users')
                                 </div>
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                      Save
+                                </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -5240,7 +5342,12 @@ $users = DB::table('users')
 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                      Save
+                                </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -5299,7 +5406,12 @@ $users = DB::table('users')
 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                      Save
+                                </button>
                                   <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -5440,7 +5552,12 @@ $users = DB::table('users')
 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton">Save</button>
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                      Save
+                                </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a>
@@ -5675,7 +5792,12 @@ $users = DB::table('users')
                     </div>
                     <!-- Save button -->
                     <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-                        <button type="button" onclick="submitForm()" class="saveButton">Save</button>
+                        <button type="button" onclick="submitForm()" class="saveButton saveAuditFormBtn">
+                            <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                              Save
+                        </button>
                     </div>
                 </form>
                 
