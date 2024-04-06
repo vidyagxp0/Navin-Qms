@@ -491,6 +491,21 @@ $users = DB::table('users')
             submitForm();
         });
         
+        $('#ChangesaveButton04').click(function() {
+            document.getElementById('formNameField').value = 'capa';
+            submitForm();
+        });
+        
+        $('#ChangesaveButton05').click(function() {
+            document.getElementById('formNameField').value = 'qa-final';
+            submitForm();
+        });
+        
+        $('#ChangesaveButton06').click(function() {
+            document.getElementById('formNameField').value = 'qah';
+            submitForm();
+        });
+        
         
     });
 </script>
@@ -1308,17 +1323,18 @@ $users = DB::table('users')
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
-                                        @if($data->stage == 3)
-                                            <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
-                                            <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" required>
-                                                <option value="0">-- Select --</option>
-                                                <option @if ($data->Deviation_category == 'minor') selected @endif
-                                                value="minor">Minor</option>
-                                                <option  @if ($data->Deviation_category == 'major') selected @endif 
-                                                value="major">Major</option>
-                                                <option @if ($data->Deviation_category == 'critical') selected @endif
-                                                value="critical">Critical</option>
-                                            </select>
+                                             
+                                            @if($data->stage == 3)
+                                                <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
+                                                <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" required>
+                                                    <option value="0">-- Select --</option>
+                                                    <option @if ($data->Deviation_category == 'minor') selected @endif
+                                                    value="minor">Minor</option>
+                                                    <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                    value="major">Major</option>
+                                                    <option @if ($data->Deviation_category == 'critical') selected @endif
+                                                    value="critical">Critical</option>
+                                                </select>
                                             @else
                                                 <label for="Deviation category">Initial Deviation category</label>
                                                 <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" >
@@ -1330,7 +1346,11 @@ $users = DB::table('users')
                                                     <option @if ($data->Deviation_category == 'critical') selected @endif
                                                     value="critical">Critical</option>
                                                 </select>
-                                        @endif 
+                                            @endif 
+
+                                            @error('Deviation_category')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                 </div>
 
@@ -1351,6 +1371,9 @@ $users = DB::table('users')
                                                 </div>
                                             </div>
                                         @endif 
+                                        @error('Justification_for_categorization')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -1362,7 +1385,9 @@ $users = DB::table('users')
                                             <option  @if ($data->Investigation_required == 'no') selected @endif 
                                             value='no'>No</option>
                                         </select>
-                                  
+                                        @error('Investigation_required')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -1398,7 +1423,10 @@ $users = DB::table('users')
                                                     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                                 });
                                             });
-                                        </script>                                      
+                                        </script>  
+                                        @error('Investigation_Details')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror                                    
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1413,7 +1441,9 @@ $users = DB::table('users')
                                             <option  @if ($data->Customer_notification == 'na') selected @endif 
                                                 value="na">Na</option>
                                         </select>
-                                  
+                                        @error('Customer_notification')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-5">
@@ -1431,6 +1461,9 @@ $users = DB::table('users')
                                                 {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
                                             @endforeach
                                             </select>
+                                            @error('customers')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                     <script>
 
@@ -1490,6 +1523,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea @if ($data->stage==3) required @endif class="summernote QAInitialRemark" name="QAInitialRemark"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
                                     </div>
+                                    @error('QAInitialRemark')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <script>
 
@@ -1760,7 +1796,7 @@ $users = DB::table('users')
                         var checkValue = false;
                         $(document).ready(function () {
                             $('#Deviation_category').change(function () {
-                                if ($(this).val() === 'major') {
+                                if ( $(this).val() === 'major' || $(this).val() === 'critical' ) {
                                     checkValue = true;
                                     $('#Investigation_required').val('yes').prop('disabled', true);
                                     $('#Customer_notification').val('yes').prop('disabled', true);
@@ -5625,6 +5661,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
+                                    @error('Investigation_Summary')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
@@ -5638,6 +5677,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
+                                    @error('Impact_assessment')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
@@ -5651,6 +5693,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
+                                    @error('Root_cause')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                                 
@@ -5664,6 +5709,9 @@ $users = DB::table('users')
                                         <option  @if ($data->CAPA_Rquired == 'no') selected @endif 
                                            value="no">No</option>
                                       </select>
+                                      @error('CAPA_Rquired')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -5678,6 +5726,9 @@ $users = DB::table('users')
                                         <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
                                             value="Corrective&Preventive">Corrective & Preventive Action both</option>   
                                       </select>
+                                      @error('capa_type')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -5712,6 +5763,9 @@ $users = DB::table('users')
                                            <option  @if ($data->Post_Categorization == 'critical') selected @endif 
                                             value="critical">Critical</option>
                                       </select>
+                                      @error('Post_Categorization')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -5726,6 +5780,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>
+                                    @error('Post_Categorization')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
@@ -5819,11 +5876,11 @@ $users = DB::table('users')
                                 </div>
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save
+                                      Save 4
                                 </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -5853,6 +5910,9 @@ $users = DB::table('users')
                                             <textarea disabled class="summernote" name="QA_Feedbacks"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-14">{{ $data->QA_Feedbacks }}</textarea>
                                         </div>
                                     @endif
+                                    @error('QA_Feedbacks')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
@@ -5898,11 +5958,11 @@ $users = DB::table('users')
 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton05" class="saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save
+                                      Save 5
                                 </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -5923,8 +5983,11 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Closure Comments">Closure Comments  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea @if ($data->stage != 6) disabled @endif required class="summernote" name="Closure_Comments{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} " id="summernote-15">{{ $data->Closure_Comments }}</textarea>
+                                        <textarea @if ($data->stage != 6) disabled @endif required class="summernote" name="Closure_Comments"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-15">{{ $data->Closure_Comments }}</textarea>
                                     </div>
+                                    @error('Closure_Comments')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-12">
                                     <div class="group-input">
@@ -5932,6 +5995,9 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea @if ($data->stage != 6) disabled @endif required class="summernote" name="Disposition_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
                                     </div>
+                                    @error('Disposition_Batch')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-12">
@@ -5962,11 +6028,11 @@ $users = DB::table('users')
 
                             </div>
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton06" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save
+                                      Save 6
                                 </button>
                                   <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -5996,7 +6062,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px;">
+                                <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px;">
                                     <label for="submit comment">Submit Comments :-</label>
                                     <div class="">{{ $data->submit_comment }}</div> 
                                 </div>    
@@ -6016,7 +6082,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                    <div class="group-input" style=" ">
                                         <label for="HOD Review Comments">HOD Review Comments :-</label>
                                         <div class="">{{ $data->HOD_Review_Comments }}</div>
                                     </div>
@@ -6037,7 +6103,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px;">
                                         <label for="QA Initial Review Comments">QA Initial Review Comments:-</label>
                                         <div class="">{{ $data->QA_Initial_Review_Comments }}</div>
                                     </div>
@@ -6057,7 +6123,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
                                         <label for="CFT Review Comments">CFT Review Comments :-</label>
                                         <div class="">{{ $data->CFT_Review_Comments }}</div>
                                     </div>
@@ -6075,7 +6141,7 @@ $users = DB::table('users')
                                         <div class="static">{{ $data->QA_Final_Review_Complete_On }}</div>
                                     </div>
                                 </div> <div class="col-lg-12">
-                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
                                         <label for="QA Final Review Comments"> QA Final Review Comments :-</label>
                                         <div class="">{{ $data->QA_Final_Review_Comments }}</div>
                                     </div>
@@ -6095,7 +6161,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px; ">
+                                    <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
                                         <label for="Approved Comments">Approved Comments :-</label>
                                         <div class="">{{ $data->Approved_Comments }}</div>
                                     </div>
