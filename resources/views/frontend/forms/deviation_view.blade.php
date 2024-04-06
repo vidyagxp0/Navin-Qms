@@ -1668,7 +1668,7 @@ $users = DB::table('users')
                         var checkValue = false;
                         $(document).ready(function () {
                             $('#Deviation_category').change(function () {
-                                if ($(this).val() === 'major') {
+                                if ($(this).val() === 'major' ||$(this).val() === 'critical') {
                                     checkValue = true;
                                     $('#Investigation_required').val('yes').prop('disabled', true);
                                     $('#Customer_notification').val('yes').prop('disabled', true);
@@ -1834,7 +1834,7 @@ $users = DB::table('users')
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production Review">Production Review Required ?</label>
-                                    <select readonly name="Production_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_Review">
+                                    <select name="Production_Review" disabled id="Production_Review">
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Production_Review == 'yes') selected @endif
                                          value='yes'>Yes</option>
@@ -1854,7 +1854,7 @@ $users = DB::table('users')
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production notification">Production Person  <span id="asteriskInvi11" style="display: none" class="text-danger">*</span></label>
-                                    <select readonly name="Production_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_person">
+                                    <select name="Production_person" disabled id="Production_person">
                                         <option value="0">-- Select --</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" @if ($user->id == $data1->Production_person) selected @endif>{{ $user->name }}</option>
@@ -2066,7 +2066,7 @@ $users = DB::table('users')
                            <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Warehouse Review Required">Warehouse Review Required ?</label>
-                                <select readonly name="Warehouse_review" id="Warehouse_review">
+                                <select disabled name="Warehouse_review" id="Warehouse_review">
                                     <option value="0">-- Select --</option>
                                     <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                         value="yes">Yes</option>
@@ -2087,7 +2087,7 @@ $users = DB::table('users')
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Warehouse Person">Warehouse Person  </label>
-                                <select readonly name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}" >
+                                <select disabled name="Warehouse_notification" id="Warehouse_notification" value="{{ $data1->Warehouse_notification}}" >
                                     <option value=""> -- Select --</option>
                                     @foreach ($users as $user)
                                     <option {{ $data1->Warehouse_notification == $user->id ? 'selected' : '' }}
