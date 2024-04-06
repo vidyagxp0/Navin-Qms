@@ -90,24 +90,24 @@ return new class extends Migration
 
             $table->text('Human_Resource_review')->nullable();
             $table->text('Human_Resource_person')->nullable();
-            $table->string('Human_Resource_assessment')->nullable();
-            $table->string('Human_Resource_feedback')->nullable();
-            $table->longText('Human_Resource_attachment')->nullable();
+            $table->longtext('Human_Resource_assessment')->nullable();
+            $table->longtext('Human_Resource_feedback')->nullable();
+            $table->longtext('Human_Resource_attachment')->nullable();
             $table->string('Human_Resource_by')->nullable();
             $table->date('Human_Resource_on')->nullable();
 
             $table->text('Information_Technology_review')->nullable();
             $table->text('Information_Technology_person')->nullable();
-            $table->longText('Information_Technology_assessment')->nullable();
-            $table->longText('Information_Technology_feedback')->nullable();
+            $table->longtext('Information_Technology_assessment')->nullable();
+            $table->longtext('Information_Technology_feedback')->nullable();
             $table->string('Information_Technology_attachment')->nullable();
             $table->text('Information_Technology_by')->nullable();
             $table->date('Information_Technology_on')->nullable();
 
             $table->text('Project_management_review')->nullable();
             $table->text('Project_management_person')->nullable();
-            $table->longText('Project_management_assessment')->nullable();
-            $table->longText('Project_management_feedback')->nullable();
+            $table->longtext('Project_management_assessment')->nullable();
+            $table->longtext('Project_management_feedback')->nullable();
             $table->string('Project_management_attachment')->nullable();
             $table->string('Project_management_by')->nullable();
             $table->date('Project_management_on')->nullable();
@@ -115,8 +115,8 @@ return new class extends Migration
             $table->text('Other1_review')->nullable();
             $table->text('Other1_person')->nullable();
             $table->text('Other1_Department_person')->nullable();
-            $table->longText('Other1_assessment')->nullable();
-            $table->longText('Other1_feedback')->nullable();
+            $table->longtext('Other1_assessment')->nullable();
+            $table->longtext('Other1_feedback')->nullable();
             $table->string('Other1_attachment')->nullable();
             $table->text('Other1_by')->nullable();
             $table->date('Other1_on')->nullable();
@@ -124,8 +124,8 @@ return new class extends Migration
             $table->text('Other2_review')->nullable();
             $table->text('Other2_person')->nullable();
             $table->text('Other2_Department_person')->nullable();
-            $table->longText('Other2_Assessment')->nullable();
-            $table->longText('Other2_feedback')->nullable();
+            $table->longtext('Other2_Assessment')->nullable();
+            $table->longtext('Other2_feedback')->nullable();
             $table->string('Other2_attachment')->nullable();
             $table->text('Other2_by')->nullable();
             $table->date('Other2_on')->nullable();
@@ -133,8 +133,8 @@ return new class extends Migration
             $table->text('Other3_review')->nullable();
             $table->text('Other3_person')->nullable();
             $table->text('Other3_Department_person')->nullable();
-            $table->longText('Other3_Assessment')->nullable();
-            $table->longText('Other3_feedback')->nullable();
+            $table->longtext('Other3_Assessment')->nullable();
+            $table->longtext('Other3_feedback')->nullable();
             $table->string('Other3_attachment')->nullable();
             $table->text('Other3_by')->nullable();
             $table->date('Other3_on')->nullable();
@@ -142,8 +142,8 @@ return new class extends Migration
             $table->text('Other4_review')->nullable();
             $table->text('Other4_person')->nullable();
             $table->string('Other4_Department_person')->nullable();
-            $table->longText('Other4_Assessment')->nullable();
-            $table->longText('Other4_feedback')->nullable();
+            $table->longtext('Other4_Assessment')->nullable();
+            $table->longtext('Other4_feedback')->nullable();
             $table->string('Other4_attachment')->nullable();
             $table->text('Other4_by')->nullable();
             $table->date('Other4_on')->nullable();
@@ -151,8 +151,8 @@ return new class extends Migration
             $table->text('Other5_review')->nullable();
             $table->text('Other5_person')->nullable();
             $table->string('Other5_Department_person')->nullable();
-            $table->longText('Other5_Assessment')->nullable();
-            $table->longText('Other5_feedback')->nullable();
+            $table->longtext('Other5_Assessment')->nullable();
+            $table->longtext('Other5_feedback')->nullable();
             $table->string('Other5_attachment')->nullable();
             $table->text('Other5_by')->nullable();
             $table->date('Other5_on')->nullable();

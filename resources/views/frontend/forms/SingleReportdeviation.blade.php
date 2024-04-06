@@ -200,21 +200,36 @@
                     </tr>
                     <tr>
                         <th class="w-20">Department</th>
-                        <td class="w-30">  @if($data->Initiator_Group){{ \Helpers::getInitiatorGroupFullName($data->Initiator_Group) }} @else Not Applicable @endif</td>
+                        <td class="w-30">  @if($data->Initiator_Group){{ Helpers::getInitiatorGroupFullName($data->Initiator_Group) }} @else Not Applicable @endif</td>
                         <th class="w-20">Department Code</th>
                         <td class="w-30">@if($data->initiator_group_code){{ $data->initiator_group_code }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Site/Location Code</th>
-                        <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed<</th>
+                        <td class="w-30"> {{ Helpers::getDivisionName(session()->get('division')) }}</td>
+                        <th class="w-20"> Deviation Observed</th>
                         <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed On (Time)<</th>
+                    </tr>
+                    <tr>
+                        <th class="w-20"> Deviation Observed On (Time)</th>
                         <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Observed by</th>
-                        <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td>
+                        <th class="w-20">Deviation Observed by</th>
+                     @php
+                         $users = DB::table('users')->get();
+                      @endphp
+
+                        <td>
+                            @if($data->Facility)
+                             @foreach ($users as $user)
+                               <option value="{{ $user->id }}" {{ $user->id == $data->Facility ? 'selected' : '' }}>
+                             {{ $user->name }}
+                          </option>
+                           @endforeach
+                           @else Not Applicable @endif</td>
+                    
+                        {{-- <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td> --}}
                         <th class="w-20">Deviation Reported On </th>
                         <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
                     </tr>
@@ -251,7 +266,7 @@
         
 
                 </table>            
-         <
+         
             <div class="block">
                     <div class="block-head">
                         HOD Review
@@ -261,6 +276,32 @@
                             <th class="w-30">HOD Remarks</th>
                             <td class="w-20">@if($data->HOD_Remarks){{ $data->HOD_Remarks }}@else Not Applicable @endif</td>
                         </tr>
+                        <div class="border-table">
+                            <div class="block-head">
+                                HOD Attachments
+                            </div>
+                            <table>
+            
+                                <tr class="table_bg">
+                                    <th class="w-20">S.N.</th>
+                                    <th class="w-60">Batch No</th>
+                                </tr>
+                                    @if($data->Audit_file)
+                                    @foreach(json_decode($data->Audit_file) as $key => $file)
+                                        <tr>
+                                            <td class="w-20">{{ $key + 1 }}</td>
+                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                        </tr>
+                                    @endforeach
+                                    @else
+                                <tr>
+                                    <td class="w-20">1</td>
+                                    <td class="w-20">Not Applicable</td>
+                                </tr>
+                                @endif
+            
+                            </table>
+                        </div>
                     </table>   
                        
                              
@@ -531,7 +572,7 @@
                                         @if($data->Quality_Control_assessment){{ $data->Quality_Control_assessment }}@else Not Applicable @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Quality_Control_feedback Feedback</th>
+                                <th class="w-20">Quality Control Feedback</th>
                                 <td class="w-30">
                                     <div>
                                         @if($data->Quality_Control_feedback){{ $data->Quality_Control_feedback }}@else Not Applicable @endif
@@ -546,7 +587,7 @@
                                         @if($data->QualityAssurance__by){{ $data->QualityAssurance__by }}@else Not Applicable @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Quality_Control_feedback Review Completed On</th>
+                                <th class="w-20">Quality Review Completed On</th>
                                 <td class="w-30">
                                     <div>
                                         @if($data->Quality_Control_on){{ $data->Quality_Control_on }}@else Not Applicable @endif
@@ -557,7 +598,7 @@
                     </div>  
                   <div class="border-table">
                     <div class="block-">
-                        Quality_Control_feedback Attachments 
+                        Quality Control Attachments 
                     </div>                                   
                     <table>
     
@@ -1808,8 +1849,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="w-20">Impact_assessment
-                                    </th>
+                                    <th class="w-20">Root cause</th>
                                     <td class="w-80">
                                         <div>
                                             @if($data->Root_cause){{ $data->Root_cause }}@else Not Applicable @endif
@@ -2003,43 +2043,51 @@
                 <table>
                     <tr>
                         <th class="w-20">Submit By</th>
-                        <td class="w-30">{{ $data->audit_schedule_by }}</td>
+                        <td class="w-30">{{ $data->submit_by }}</td>
                         <th class="w-20">Submit On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->created_at) }}</td>
+                        <td class="w-30">{{ $data->submit_on }}</td>
                         <th class="w-20">Submit Comments</th>
-                        {{-- <td class="w-30">{{ $data }}</td> --}}
+                        <td class="w-30">{{ $data->submit_comment }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">HOD Review Complete By</th>
-                        <td class="w-30">{{ $data->cancelled_by}}</td>
+                        <td class="w-30">{{ $data->HOD_Review_Complete_By}}</td>
                         <th class="w-20">HOD Review Complete On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
+                        <td class="w-30">{{ $data->HOD_Review_Complete_On }}</td>
                         <th class="w-20">HOD Review Comments</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <td class="w-30">{{ $data->HOD_Review_Comments }}</td> 
                     </tr>
                     <tr>
                         <th class="w-20">QA Initial Review Complete by</th>
-                        <td class="w-30">{{ $data->audit_preparation_completed_by }}</td>
+                        <td class="w-30">{{ $data->QA_Initial_Review_Complete_By }}</td>
                         <th class="w-20">QA Initial Review Complete On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_preparation_completed_on) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->QA_Initial_Review_Complete_On) }}</td>
                         <th class="w-20">QA Initial Review Comments</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <td class="w-30">{{ $data->QA_Initial_Review_Comments }}</td> 
+                    </tr>
+                    <tr>
+                        <th class="w-20">CFT Review Complete By</th>
+                        <td class="w-30">{{ $data->CFT_Review_Complete_By }}</td>
+                        <th class="w-20">CFT Review Complete On</th>
+                        <td class="w-30">{{ $data->CFT_Review_Complete_On }}</td>
+                        <th class="w-20">CFT Review Comments</th>
+                        <td class="w-30">{{ $data->CFT_Review_Comments }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">QA Final Review Complete By</th>
-                        <td class="w-30">{{ $data->audit_mgr_more_info_reqd_by }}</td>
+                        <td class="w-30">{{ $data->QA_Final_Review_Complete_By }}</td>
                         <th class="w-20">QA Final Review Complete On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_mgr_more_info_reqd_on) }}</td>
+                        <td class="w-30">{{ $data->QA_Final_Review_Complete_On }}</td>
                         <th class="w-20">QA Final Review Comments</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <td class="w-30">{{ $data->QA_Final_Review_Comments }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Approved By</th>
-                        <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
+                        <td class="w-30">{{ $data->Approved_By }}</td>
                         <th class="w-20">Approved ON</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on) }}</td>
+                        <td class="w-30">{{ $data->Approved_On }}</td>
                         <th class="w-20">Approved Comments</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <td class="w-30">{{ $data->Approved_Comments }}</td>
                    
 
 
