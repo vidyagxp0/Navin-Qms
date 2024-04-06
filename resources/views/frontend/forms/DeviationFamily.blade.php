@@ -221,7 +221,7 @@
                     </tr>
                     <tr>
                         <th class="w-20">Site/Location Code</th>
-                        <td class="w-30">@if($data->division_id){{ session()->get('division') }} @else Not Applicable @endif</td>
+                        <td class="w-30">{{ Helpers::getDivisionName(session()->get('division')) }}</td>
                         <th class="w-20"> Deviation Observed</th>
                         <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
 
@@ -274,8 +274,8 @@
                         <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
                     </tr>
                       <tr>
-                            <th class="w-20"> Deviation Observed On (Time)<</th>
-                            <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
+                        <th class="w-20"> Deviation Observed On (Time)</th>
+                        <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
                       </tr>
                       
         
@@ -305,7 +305,7 @@
                                     <th class="w-20">S.N.</th>
                                     <th class="w-60">Batch No</th>
                                 </tr>
-                                    @if($data->QA_attachments)
+                                    @if($data->Audit_file)
                                     @foreach(json_decode($data->Audit_file) as $key => $file)
                                         <tr>
                                             <td class="w-20">{{ $key + 1 }}</td>
@@ -602,7 +602,7 @@
                                         @if($data->QualityAssurance__by){{ $data->QualityAssurance__by }}@else Not Applicable @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Quality_Control_feedback Review Completed On</th>
+                                <th class="w-20">Quality Review Completed On</th>
                                 <td class="w-30">
                                     <div>
                                         @if($data->Quality_Control_on){{ $data->Quality_Control_on }}@else Not Applicable @endif
