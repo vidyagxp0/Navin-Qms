@@ -308,7 +308,7 @@
                         <!--  -->
                         <td>
                         <div>
-                       <strong> Action Name :</strong>{{$dataDemo->action? $dataDemo->action  : "Not Applicable"}}
+                       <strong> Action Name :</strong>{{$dataDemo->action ? $dataDemo->action  : "Not Applicable"}}
 
                         </div>
 
