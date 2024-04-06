@@ -224,12 +224,32 @@
                         <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
                         <th class="w-20"> Deviation Observed<</th>
                         <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed On (Time)<</th>
-                        <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
+
                     </tr>
+                  <tr>
+                    <th class="w-20"> Deviation Observed On (Time)</th>
+                    <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
+                  </tr>
                     <tr>
-                        <th class="w-20">Deviation Observed by</th>
-                        <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td>
+                        <tr>
+                            <th class="w-20">Deviation Observed by</th>
+                         @php
+                             $users = DB::table('users')->get();
+                          @endphp
+    
+                            <td>
+                                @if($data->Facility)
+                                 @foreach ($users as $user)
+                                   <option value="{{ $user->id }}" {{ $user->id == $data->Facility ? 'selected' : '' }}>
+                                 {{ $user->name }}
+                              </option>
+                               @endforeach
+                               @else Not Applicable @endif</td>
+                        
+                            {{-- <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td> --}}
+                            <th class="w-20">Deviation Reported On </th>
+                            <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
+                        </tr>
                         <th class="w-20">Deviation Reported On </th>
                         <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
                     </tr>
