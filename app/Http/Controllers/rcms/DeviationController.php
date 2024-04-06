@@ -1317,7 +1317,7 @@ class DeviationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $id 
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -1492,85 +1492,127 @@ class DeviationController extends Controller
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
         $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
-        $Cft->Production_Review = $request->Production_Review;
-        $Cft->Production_person = $request->Production_person;
+        if($Cft && $deviation->stage == 4 ){ 
+            $Cft->Production_Review = $request->Production_Review == null ? $Cft->Production_Review : $request->Production_Review;
+            $Cft->Production_person = $request->Production_person == null ? $Cft->Production_person : $request->Production_Review;
+            $Cft->Warehouse_review = $request->Warehouse_review == null ? $Cft->Warehouse_review : $request->Warehouse_review;
+            $Cft->Warehouse_notification = $request->Warehouse_notification == null ? $Cft->Warehouse_notification : $request->Warehouse_notification;
+            $Cft->Quality_review = $request->Quality_review == null ? $Cft->Quality_review : $request->Quality_review;;
+            $Cft->Quality_Control_Person = $request->Quality_Control_Person == null ? $Cft->Quality_Control_Person : $request->Quality_Control_Person;
+            $Cft->Quality_Assurance_Review = $request->Quality_Assurance_Review == null ? $Cft->Quality_Assurance_Review : $request->Quality_Assurance_Review;
+            $Cft->QualityAssurance_person = $request->QualityAssurance_person == null ? $Cft->QualityAssurance_person : $request->QualityAssurance_person;
+
+            $Cft->Engineering_review = $request->Engineering_review == null ? $Cft->Engineering_review : $request->Engineering_review;
+            $Cft->Engineering_person = $request->Engineering_person == null ? $Cft->Engineering_person : $request->Engineering_person;
+            $Cft->Analytical_Development_review = $request->Analytical_Development_review == null ? $Cft->Analytical_Development_review : $request->Analytical_Development_review;
+            $Cft->Analytical_Development_person = $request->Analytical_Development_person == null ? $Cft->Warehouse_notification : $request->Warehouse_notification;
+            $Cft->Kilo_Lab_review = $request->Kilo_Lab_review == null ? $Cft->Kilo_Lab_review : $request->Kilo_Lab_review;
+            $Cft->Kilo_Lab_person = $request->Kilo_Lab_person == null ? $Cft->Kilo_Lab_person : $request->Kilo_Lab_person;
+            $Cft->Technology_transfer_review = $request->Technology_transfer_review == null ? $Cft->Technology_transfer_review : $request->Technology_transfer_review;
+            $Cft->Technology_transfer_person = $request->Technology_transfer_person == null ? $Cft->Technology_transfer_person : $request->Technology_transfer_person;
+            $Cft->Environment_Health_review = $request->Environment_Health_review == null ? $Cft->Environment_Health_review : $request->Environment_Health_review;
+            $Cft->Environment_Health_Safety_person = $request->Environment_Health_Safety_person == null ? $Cft->Environment_Health_Safety_person : $request->Environment_Health_Safety_person;
+            $Cft->Human_Resource_review = $request->Human_Resource_review == null ? $Cft->Human_Resource_review : $request->Human_Resource_review;
+            $Cft->Human_Resource_person = $request->Human_Resource_person == null ? $Cft->Human_Resource_person : $request->Human_Resource_person;
+            $Cft->Project_management_review = $request->Project_management_review == null ? $Cft->Project_management_review : $request->Project_management_review;
+            $Cft->Project_management_person = $request->Project_management_person == null ? $Cft->Project_management_person : $request->Project_management_person;
+            $Cft->Information_Technology_review = $request->Information_Technology_review == null ? $Cft->Information_Technology_review : $request->Information_Technology_review;
+            $Cft->Information_Technology_person = $request->Information_Technology_person == null ? $Cft->Information_Technology_person : $request->Information_Technology_person;
+        }
+        else{
+            $Cft->Production_Review = $request->Production_Review;
+            $Cft->Production_person = $request->Production_person;
+            $Cft->Warehouse_review = $request->Warehouse_review;
+            $Cft->Warehouse_notification = $request->Warehouse_notification;
+            $Cft->Quality_review = $request->Quality_review;
+            $Cft->Quality_Control_Person = $request->Quality_Control_Person;
+            $Cft->Quality_Assurance_Review = $request->Quality_Assurance_Review;
+            $Cft->QualityAssurance_person = $request->QualityAssurance_person;
+            $Cft->Engineering_review = $request->Engineering_review;
+            $Cft->Engineering_person = $request->Engineering_person;
+            $Cft->Analytical_Development_review = $request->Analytical_Development_review;
+            $Cft->Analytical_Development_person = $request->Analytical_Development_person;
+            $Cft->Kilo_Lab_review = $request->Kilo_Lab_review;
+            $Cft->Kilo_Lab_person = $request->Kilo_Lab_person;
+            $Cft->Technology_transfer_review = $request->Technology_transfer_review;
+            $Cft->Technology_transfer_person = $request->Technology_transfer_person;
+            $Cft->Environment_Health_review = $request->Environment_Health_review;
+            $Cft->Environment_Health_Safety_person = $request->Environment_Health_Safety_person;
+            $Cft->Human_Resource_review = $request->Human_Resource_review;
+            $Cft->Human_Resource_person = $request->Human_Resource_person;
+            $Cft->Project_management_review = $request->Project_management_review;
+            $Cft->Project_management_person = $request->Project_management_person;
+            $Cft->Information_Technology_review = $request->Information_Technology_review;
+            $Cft->Information_Technology_person = $request->Information_Technology_person;
+        }
+
+        // dd($request->Production_Review, $request->Production_person);
         $Cft->Production_assessment = $request->Production_assessment;
         $Cft->Production_feedback = $request->Production_feedback;
         $Cft->production_on = $request->production_on;
         $Cft->production_by = $request->production_by; 
 
-        $Cft->Warehouse_review = $request->Warehouse_review;
-        $Cft->Warehouse_notification = $request->Warehouse_notification;
+        
         $Cft->Warehouse_assessment = $request->Warehouse_assessment;
         $Cft->Warehouse_feedback = $request->Warehouse_feedback;
         $Cft->Warehouse_by = $request->Warehouse_Review_Completed_By;
         $Cft->Warehouse_on = $request->Warehouse_on;
 
-        $Cft->Quality_review = $request->Quality_review;
-        $Cft->Quality_Control_Person = $request->Quality_Control_Person;
+        
         $Cft->Quality_Control_assessment = $request->Quality_Control_assessment;
         $Cft->Quality_Control_feedback = $request->Quality_Control_feedback;
         $Cft->Quality_Control_by = $request->Quality_Control_by;
         $Cft->Quality_Control_on = $request->Quality_Control_on;
 
-        $Cft->Quality_Assurance_Review = $request->Quality_Assurance_Review;
-        $Cft->QualityAssurance_person = $request->QualityAssurance_person;
+        
         $Cft->QualityAssurance_assessment = $request->QualityAssurance_assessment;
         $Cft->QualityAssurance_feedback = $request->QualityAssurance_feedback;
         $Cft->QualityAssurance_by = $request->QualityAssurance_by;
         $Cft->QualityAssurance_on = $request->QualityAssurance_on;
 
-        $Cft->Engineering_review = $request->Engineering_review;
-        $Cft->Engineering_person = $request->Engineering_person;
+        
         $Cft->Engineering_assessment = $request->Engineering_assessment;
         $Cft->Engineering_feedback = $request->Engineering_feedback;
         $Cft->Engineering_by = $request->Engineering_by;
         $Cft->Engineering_on = $request->Engineering_on;
 
-        $Cft->Analytical_Development_review = $request->Analytical_Development_review;
-        $Cft->Analytical_Development_person = $request->Analytical_Development_person;
+        
         $Cft->Analytical_Development_assessment = $request->Analytical_Development_assessment;
         $Cft->Analytical_Development_feedback = $request->Analytical_Development_feedback;
         $Cft->Analytical_Development_by = $request->Analytical_Development_by;
         $Cft->Analytical_Development_on = $request->Analytical_Development_on;
 
-        $Cft->Kilo_Lab_review = $request->Kilo_Lab_review;
-        $Cft->Kilo_Lab_person = $request->Kilo_Lab_person;
+        
         $Cft->Kilo_Lab_assessment = $request->Kilo_Lab_assessment;
         $Cft->Kilo_Lab_feedback = $request->Kilo_Lab_feedback;
         $Cft->Kilo_Lab_attachment_by = $request->Kilo_Lab_attachment_by;
         $Cft->Kilo_Lab_attachment_on = $request->Kilo_Lab_attachment_on;
 
-        $Cft->Technology_transfer_review = $request->Technology_transfer_review;
-        $Cft->Technology_transfer_person = $request->Technology_transfer_person;
+        
         $Cft->Technology_transfer_assessment = $request->Technology_transfer_assessment;
         $Cft->Technology_transfer_feedback = $request->Technology_transfer_feedback;
         $Cft->Technology_transfer_by = $request->Technology_transfer_by;
         $Cft->Technology_transfer_on = $request->Technology_transfer_on;
 
-        $Cft->Environment_Health_review = $request->Environment_Health_review;
-        $Cft->Environment_Health_Safety_person = $request->Environment_Health_Safety_person;
+        
         $Cft->Health_Safety_assessment = $request->Health_Safety_assessment;
         $Cft->Health_Safety_feedback = $request->Health_Safety_feedback;
         $Cft->Environment_Health_Safety_by = $request->Environment_Health_Safety_by;
         $Cft->Environment_Health_Safety_on = $request->Environment_Health_Safety_on;
 
-        $Cft->Human_Resource_review = $request->Human_Resource_review;
-        $Cft->Human_Resource_person = $request->Human_Resource_person;
+       
         $Cft->Human_Resource_assessment = $request->Human_Resource_assessment;
         $Cft->Human_Resource_feedback = $request->Human_Resource_feedback;
         $Cft->Human_Resource_by = $request->Human_Resource_by;
         $Cft->Human_Resource_on = $request->Human_Resource_on;
 
-        $Cft->Information_Technology_review = $request->Information_Technology_review;
-        $Cft->Information_Technology_person = $request->Information_Technology_person;
+        
         $Cft->Information_Technology_assessment = $request->Information_Technology_assessment;
         $Cft->Information_Technology_feedback = $request->Information_Technology_feedback;
         $Cft->Information_Technology_by = $request->Information_Technology_by;
         $Cft->Information_Technology_on = $request->Information_Technology_on;
 
-        $Cft->Project_management_review = $request->Project_management_review;
-        $Cft->Project_management_person = $request->Project_management_person;
+       
         $Cft->Project_management_assessment = $request->Project_management_assessment;
         $Cft->Project_management_feedback = $request->Project_management_feedback;
         $Cft->Project_management_by = $request->Project_management_by;
