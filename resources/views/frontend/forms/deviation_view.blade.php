@@ -1131,7 +1131,7 @@ $users = DB::table('users')
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                <textarea disabled class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea readonly class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                             </div>
                                         @endif 
                                         @error('HOD_Remarks')
@@ -1709,8 +1709,8 @@ $users = DB::table('users')
                             @if($data->stage==3 || $data->stage==4)
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Production Review">Production Review Required ?  <span  class="text-danger">*</span></label>
-                                    <select name="Production_Review" id="Production_Review" @if ($data->stage==4) disabled @endif>
+                                    <label for="Production Review"> Production Review Required ? <span  class="text-danger">*</span></label>
+                                    <select name="Production_Review" id="Production_Review" @if ($data->stage==4) disabled @endif @if ($data->stage==3) required @endif>
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Production_Review == 'yes') selected @endif
                                          value='yes'>Yes</option>
@@ -1943,8 +1943,8 @@ $users = DB::table('users')
                            @if($data->stage==3 || $data->stage==4)
                            <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Warehouse Review Required">Warehouse Review Required ?</label>
-                                <select name="Warehouse_review" id="Warehouse_review" @if ($data->stage==4) disabled @endif>
+                                <label for="Warehouse Review Required">Warehouse Review Required ? <span  class="text-danger">*</span></label>
+                                <select @if ($data->stage==3) required @endif name="Warehouse_review" id="Warehouse_review"  @if ($data->stage==4) disabled @endif>
                                     <option value="0">-- Select --</option>
                                     <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                         value="yes">Yes</option>
@@ -2178,8 +2178,8 @@ $users = DB::table('users')
                            @if($data->stage==3 || $data->stage==4)
                            <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Quality Control Review Required">Quality Control Review Required?</label>
-                                <select name="Quality_review" id="Quality_review" @if ($data->stage==4) disabled @endif>
+                                <label for="Quality Control Review Required">Quality Control Review Required? <span  class="text-danger">*</span></label>
+                                <select @if ($data->stage==3) required @endif name="Quality_review" id="Quality_review" @if ($data->stage==4) disabled @endif>
                                     <option value="">-- Select --</option>
                                     <option @if ($data1->Quality_review == 'yes') selected @endif
                                         value="yes">Yes</option>
@@ -2293,8 +2293,8 @@ $users = DB::table('users')
                    </div>
                    <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Quality Assurance Review Required">Quality Assurance Review Required ?</label>
-                                <select name="Quality_Assurance_Review" id="Quality_Assurance_Review" @if ($data->stage==4) disabled @endif>
+                                <label for="Quality Assurance Review Required">Quality Assurance Review Required ? <span  class="text-danger">*</span></label>
+                                <select @if ($data->stage==3) required @endif name="Quality_Assurance_Review" id="Quality_Assurance_Review" @if ($data->stage==4) disabled @endif >
                                     <option value="">-- Select --</option>
                                     <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif
                                         value="yes">Yes</option>
@@ -2404,8 +2404,8 @@ $users = DB::table('users')
                        </div>
                        <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Customer notification">Engineering Review Required ?</label>
-                                    <select name="Engineering_review"  id="Engineering_review" @if ($data->stage==4) disabled @endif>
+                                    <label for="Customer notification">Engineering Review Required ? <span  class="text-danger">*</span></label>
+                                    <select @if ($data->stage==3) required @endif name="Engineering_review"  id="Engineering_review" @if ($data->stage==4) disabled @endif>
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Engineering_review == 'yes') selected @endif
                                             value="yes">Yes</option>
@@ -2517,8 +2517,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Analytical Development Laboratory Review Required">Analytical Development Laboratory Review Required ?</label>
-                                        <select name="Analytical_Development_review" id="Analytical_Development_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Analytical Development Laboratory Review Required">Analytical Development Laboratory Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name="Analytical_Development_review" id="Analytical_Development_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Analytical_Development_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -2629,8 +2629,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab Review Required ?</label>
-                                        <select name="Kilo_Lab_review" id="Kilo_Lab_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Process Development Laboratory"> Process Development Laboratory / Kilo Lab Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name="Kilo_Lab_review" id="Kilo_Lab_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Kilo_Lab_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -2741,8 +2741,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Design Review Required">Technology Transfer / Design Review Required ?</label>
-                                        <select name="Technology_transfer_review" id="Technology_transfer_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Design Review Required">Technology Transfer / Design Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name="Technology_transfer_review" id="Technology_transfer_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Technology_transfer_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -2855,8 +2855,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Safety Review Required">Environment, Health & Safety Review Required ?</label>
-                                        <select name="Environment_Health_review" id="Environment_Health_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Safety Review Required">Environment, Health & Safety Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name="Environment_Health_review" id="Environment_Health_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Environment_Health_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -2969,8 +2969,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Human Resource & Administration Review Required ?</label>
-                                        <select name="Human_Resource_review" id="Human_Resource_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Customer notification">Human Resource & Administration Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name="Human_Resource_review" id="Human_Resource_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Human_Resource_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -3082,8 +3082,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Information Technology Review Required"> Information Technology Review Required ?</label>
-                                        <select name=" Information_Technology_review" id=" Information_Technology_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Information Technology Review Required"> Information Technology Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name=" Information_Technology_review" id=" Information_Technology_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Information_Technology_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
@@ -3194,8 +3194,8 @@ $users = DB::table('users')
                            </div>
                            <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Project management Review Required"> Project management Review Required ?</label>
-                                        <select name="Project_management_review" id="Project_management_review" @if ($data->stage==4) disabled @endif>
+                                        <label for="Project management Review Required"> Project management Review Required ? <span  class="text-danger">*</span></label>
+                                        <select @if ($data->stage==3) required @endif name="Project_management_review" id="Project_management_review" @if ($data->stage==4) disabled @endif>
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Project_management_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
