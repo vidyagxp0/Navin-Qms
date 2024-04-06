@@ -222,13 +222,45 @@
                     <th>Performer</th>
                 </tr>
                 
-                    <tr>
+                    <tr>@php
+                        $previousItem = null; 
+                        // if($previousItem == null){
+                        //     $previousItem = "Intiation";
+                        // }
+                        
+                    @endphp
+
                         @foreach ($audit as $audits => $dataDemo)
                         <td>{{$dataDemo ? $audits + 1  : "Not Applicable"}}</td>
                         <!-- --------- -->
                         <td>
-                       
-                         <div><strong>Changed From :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+                            @if($previousItem == null)
+                            <div><strong>Changed From :</strong>{{" Intiation"}}</div>
+                            @else
+                         <div><strong>Changed From :</strong>{{$previousItem->origin_state ? $previousItem->origin_state  : "Not Applicable"}}</div>
+                         @endif
+                         @php
+                         $previousItem  = $dataDemo;
+                      @endphp
+                      
+                               {{-- <tr>
+                                  @php
+                                    if ($previousItem === null) {
+                                        // Initialization
+                                        // $previousItem = "Intiation"; // Replace "Initialization Value" with whatever you want to initialize $previousItem with
+                                    }
+                                @endphp
+
+                                @foreach ($audit as $audits => $dataDemo)
+                                    <td>{{$dataDemo ? $audits + 1  : "Not Applicable"}}</td>
+                                    <!-- --------- -->
+                                    <td>
+                                        <div><strong>Changed From :</strong>{{ $previousItem && $previousItem->status ? $previousItem->status : "Not Applicable" }}</div>
+                                    </td>
+                                    @php
+                                        $previousItem = $dataDemo; // Resetting $previousItem inside the loop
+                                    @endphp --}}
+                    
 
                        
                  </td>
