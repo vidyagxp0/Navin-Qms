@@ -82,24 +82,24 @@ return array (
     'normal' => $fontDir . '/roboto_normal_7bc701b343c10631f60048716b96e4f7',
   ),
   'font awesome 6 brands' => array(
-    'normal' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/font_awesome_6_brands_normal_6d28cbedf2b3132f58520d6a619eceae',
+    'normal' => 'C:\xampp\htdocs\QMS\storage\fonts/font_awesome_6_brands_normal_6d28cbedf2b3132f58520d6a619eceae',
   ),
   'font awesome 6 free' => array(
-    'normal' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/font_awesome_6_free_normal_6741e90968eb0c21eff14367518191b4',
-    '900' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/font_awesome_6_free_900_1c7e013816b57de67a750c458f216e4f',
+    'normal' => 'C:\xampp\htdocs\QMS\storage\fonts/font_awesome_6_free_normal_6741e90968eb0c21eff14367518191b4',
+    '900' => 'C:\xampp\htdocs\QMS\storage\fonts/font_awesome_6_free_900_1c7e013816b57de67a750c458f216e4f',
   ),
   'font awesome 5 brands' => array(
-    'normal' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/font_awesome_5_brands_normal_6d28cbedf2b3132f58520d6a619eceae',
+    'normal' => 'C:\xampp\htdocs\QMS\storage\fonts/font_awesome_5_brands_normal_6d28cbedf2b3132f58520d6a619eceae',
   ),
   'font awesome 5 free' => array(
-    '900' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/font_awesome_5_free_900_1c7e013816b57de67a750c458f216e4f',
-    'normal' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/font_awesome_5_free_normal_6741e90968eb0c21eff14367518191b4',
+    '900' => 'C:\xampp\htdocs\QMS\storage\fonts/font_awesome_5_free_900_1c7e013816b57de67a750c458f216e4f',
+    'normal' => 'C:\xampp\htdocs\QMS\storage\fonts/font_awesome_5_free_normal_6741e90968eb0c21eff14367518191b4',
   ),
   'fontawesome' => array(
-    'normal' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/fontawesome_normal_ddeb9d9d3324e2191aadfdd6169f69e7',
+    'normal' => 'C:\xampp\htdocs\QMS\storage\fonts/fontawesome_normal_ddeb9d9d3324e2191aadfdd6169f69e7',
   ),
   'summernote' => array(
-    'normal' => 'C:\Users\HP\Documents\GitHub\QMS\storage\fonts/summernote_normal_753d0c2cf5939cd20e699c2bff28492a',
+    'normal' => 'C:\xampp\htdocs\QMS\storage\fonts/summernote_normal_753d0c2cf5939cd20e699c2bff28492a',
   ),
 );
 }; ?>

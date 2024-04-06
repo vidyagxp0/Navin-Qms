@@ -173,6 +173,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
              Route::get('deviation', [DeviationController::class, 'deviation']);
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
+             Route::get('deviationAuditReport/{id}', [DeviationController::class, 'auditReport'])->name('deviationAuditReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
              Route::get('DeviationFamily/{id}', [DeviationController::class, 'deviationfamilyReport'])->name('DeviationFamily');
              
