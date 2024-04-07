@@ -1581,7 +1581,7 @@ class DeviationController extends Controller
         $deviation->CAPA_Description = $request->CAPA_Description;
         $deviation->Post_Categorization = $request->Post_Categorization;
         $deviation->Investigation_Of_Review = $request->Investigation_Of_Review;
-        $deviation->QA_Feedbacks = $request->QA_Feedbacks;
+        $deviation->QA_Feedbacks = $request->has('QA_Feedbacks') ? $request->QA_Feedbacks : $deviation->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
         $deviation->Facility_Equipment = $request->Facility_Equipment;
@@ -2649,7 +2649,7 @@ class DeviationController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
-            $updateCFT = DeviationCft::find($id);
+            $updateCFT = DeviationCft::where('deviation_id', $id)->latest()->first();
             $lastDocument = Deviation::find($id);
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
             

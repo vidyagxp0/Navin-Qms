@@ -812,20 +812,22 @@ $users = DB::table('users')
                                 </script>
                              <div class="col-6" >
                                     <div class="group-input">
-                                        <label for="severity-level">Deviation Observed On</label>
+                                        <label for="severity-level">Deviation Observed On <span
+                                            class="text-danger">*</span></label>
                                         <!-- <span class="text-primary">Severity levels in a QMS record gauge issue seriousness, guiding priority for corrective actions. Ranging from low to high, they ensure quality standards and mitigate critical risks.</span> -->
-                                       <input type="date" id="Deviation_date" name="Deviation_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ old('Deviation_date') ? old('Deviation_date') : $data->Deviation_date }}">
+                                       <input type="date" id="Deviation_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  name="Deviation_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ old('Deviation_date') ? old('Deviation_date') : $data->Deviation_date }}">
                                        @error('Deviation_date')
-                                           <div class="text-dnager">{{ $message }}</div>
+                                           <div class="text-danger">{{ $message }}</div>
                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time">
-                                        <label for="deviation_time">Deviation Observed On (Time)</label>
+                                        <label for="deviation_time">Deviation Observed On (Time) <span
+                                            class="text-danger">*</span></label>
                                         <input type="text" name="deviation_time"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="deviation_time" value="{{ old('deviation_time') ? old('deviation_time') : $data->deviation_time }}">
                                         @error('deviation_time')
-                                           <div class="text-dnager">{{ $message }}</div>
+                                           <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -914,7 +916,7 @@ $users = DB::table('users')
                                             //     $inputFacilities = explode(',', old('Facility'));
                                             // }
                                         @endphp
-                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By<span class="text-danger">*</span></label>
                                         <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option {{ (in_array($user->id, $selectedFacilities) || in_array($user->id, $inputFacilities))  ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
@@ -927,9 +929,10 @@ $users = DB::table('users')
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Initiator Group">Deviation Reported On</label>
+                                        <label for="Initiator Group">Deviation Reported On <span
+                                            class="text-danger">*</span></label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="Deviation_reported_date" name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $data->Deviation_reported_date }}" >
+                                        <input type="date"id="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $data->Deviation_reported_date }}" >
                                     </div>
                                     @error('Deviation_reported_date')
                                         <div class="text-danger">{{ $message }}</div>
@@ -939,7 +942,8 @@ $users = DB::table('users')
                              
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="audit type">Deviation Related To</label>
+                                        <label for="audit type">Deviation Related To <span
+                                            class="text-danger">*</span></label>
                                         <select multiple name="audit_type[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="audit_type">
                                             {{-- <option value="">Enter Your Selection Here</option> --}}
                                             <option value="Facility"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} {{ strpos($data->audit_type, 'Facility') !== false ? 'selected' : '' }}>Facility</option>
@@ -965,8 +969,8 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="others">Others </label>
-                                        <input type="text" name="others" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="others" value="{{ $data->others }}">
+                                        <label for="others">Others <span id="asteriskInOther" style="display: {{ $data->audit_type == 'Anyother(specify)' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <input type="text" class="otherrr" name="others" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="others" value="{{ $data->others }}">
                                         @error('others')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -974,15 +978,31 @@ $users = DB::table('users')
                                 </div>
 
                                 <script>
-                                    function checkDeviationRelated(selectElement) {
-                                        var others = document.getElementById('others');
-                                        if (selectElement.value === 'Anyother(specify)') {
-                                            others.setAttribute('required', 'required');
-                                        } else {
-                                            others.removeAttribute('required');
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('audit_type');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('otherrr');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
                                         }
-                                    }
-                                </script>
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'Anyother(specify)';
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInOther');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                    </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required? <span
@@ -1575,7 +1595,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Customer Notification Required ? </label>
+                                        <label for="Customer notification">Customer Notification Required ? <span
+                                            class="text-danger">*</span></label>
                                         <select name="Customer_notification"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
