@@ -60,6 +60,20 @@ $users = DB::table('users')
         margin-top: 50px;
         gap: 20px;
     }
+    .text-danger{
+            margin-top: -22px;
+            padding: 4px;
+            margin-bottom: 3px;
+        }
+        /* .saveButton:disabled{
+            background: black!important;
+            border:  black!important;
+
+        } */
+
+        .main-danger-block{
+            display: flex;
+        }
     </style>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -1036,6 +1050,9 @@ $users = DB::table('users')
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="main-danger-block">
+
+                                  
                                     @error('facility_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -1043,7 +1060,7 @@ $users = DB::table('users')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
-
+                                </div>
                                     <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Document Details Required">Document Details Required?</label>
