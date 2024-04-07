@@ -79,6 +79,16 @@ $users = DB::table('users')
         .calenderauditee input::-webkit-calendar-picker-indicator {
             width: 100%;
         }
+        .text-danger{
+            margin-top: -22px;
+            padding: 4px;
+            margin-bottom: 3px;
+        }
+        /* .saveButton:disabled{
+            background: black!important;
+            border:  black!important;
+
+        } */
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -172,6 +182,33 @@ $users = DB::table('users')
             container.append(textarea)
         }
     </script> -->
+
+    <script>
+        console.log('Script working')
+        $(document).ready(function() {
+            
+            let auditForm = document.getElementById('auditform');
+            
+            function submitForm() {
+                document.querySelectorAll('.saveAuditFormBtn').forEach(function(button) {
+                    button.disabled = true;
+                })
+
+                document.querySelectorAll('.auditFormSpinner').forEach(function(spinner) {
+                    spinner.style.display = 'flex';
+                })
+
+                auditForm.submit();
+            }
+
+            $('#ChangesaveButton0011').click(function() {
+                document.getElementById('formNameField').value = 'general';
+                submitForm();
+            });
+
+            
+        });
+    </script>
     
     <script>
         $(document).ready(function() {
@@ -351,9 +388,17 @@ $users = DB::table('users')
 
             <form id="auditform" action="{{ route('deviationstore') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="form_name" id="formNameField" value="">
                 <div id="step-form">
 
                     <!-- General information content -->
+
+                    @if ($errors->any())
+                        @foreach ($errors as $error)
+                            <div class="text-danger">{{ $error }}</div>
+                        @endforeach
+                    @endif
+
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -388,51 +433,22 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                 
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input ">
-                                        <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-12 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Date Due">Due Date</label>
-                                        <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
-                                        </div>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly
-                                                placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')"/>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                
-                                    {{-- <?php
+                                   @php
                                         // Calculate the due date (30 days from the initiation date)
                                         $initiationDate = date('Y-m-d'); // Current date as initiation date
                                         $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
-                                        ?> --}}
+                                     @endphp
 
-                                        {{-- <div class="col-lg-6">
+                                        <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="Date of Initiation"><b>Date of Initiation</b></label>
                                                 <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
                                                 <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                             </div>
-                                        </div> --}}
-                                        <div class="col-lg-6">
-                                            <div class="group-input ">
-                                                <label for="Date Due"><b>Date of Initiation</b></label>
-                                                <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                                <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                            </div>
                                         </div>
 
-                                        {{-- <div class="col-lg-12 new-date-data-field">
+                                        <div class="col-lg-12 new-date-data-field">
                                             <div class="group-input input-date">
                                                 <label for="Due Date">Due Date</label>
                                                 <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
@@ -441,22 +457,9 @@ $users = DB::table('users')
                                                     <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                                 </div>
                                             </div>
-                                        </div> --}}
-                                        <div class="col-lg-12 new-date-data-field">
-                                            <div class="group-input input-date">
-                                                <label for="Date Due">Due Date</label>
-                                                <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
-                                                </div>
-                                                <div class="calenderauditee">
-                                                    <input type="text" id="due_date" readonly
-                                                        placeholder="DD-MMM-YYYY" />
-                                                    <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                        oninput="handleDateInput(this, 'due_date')" />
-                                                </div>
-                                            </div>
                                         </div>
 
-                                        {{-- <script>
+                                        <script>
                                             // Format the due date to DD-MM-YYYY
                                             var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
                                                 day: '2-digit',
@@ -466,7 +469,7 @@ $users = DB::table('users')
 
                                             // Set the formatted due date value to the input field
                                             document.getElementById('due_date').value = dueDateFormatted;
-                                        </script> --}}
+                                        </script>
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -529,12 +532,14 @@ $users = DB::table('users')
                                                 class="text-danger">*</span></label><span id="rchars">255</span> Characters remaining
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
+                                    @error('short_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>  
                                 
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="short_description_required">Nature of Repeat?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="short_description_required">Nature of Repeat?</label>
                                         <select name="short_description_required" id="short_description_required" required>
                                             <option value="0">-- Select --</option>
                                             <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
@@ -543,10 +548,13 @@ $users = DB::table('users')
                                                     Non Recurring</option>
                                         </select>
                                     </div>
+                                    @error('short_description_required')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: none" class="text-danger">*</span></label>
+                                        <label for="nature_of_repeat">Repeat Nature </label>
                                         <textarea name="nature_of_repeat" class="nature_of_repeat"required></textarea>
                                     </div>
                                 </div>
@@ -577,30 +585,11 @@ $users = DB::table('users')
                                         });
                                     });
                                 </script>
-{{-- 
-                                <script>
-                                    $(document).ready(function () {
-                                        $('#short_description_required').change(function () {
-                                            var selectedValue = $(this).val();
-                                            if (selectedValue === 'Recurring') {
-                                                // $('#nature_of_repeat').show();
-                                                $('textarea[name="nature_of_repeat"]').prop('required', true);
-                                            } else {
-                                                // $('#nature_of_repeat').hide();
-                                                $('textarea[name="nature_of_repeat"]').prop('required', false);
-                                            }
-                                        });
-                                
-                                        // Trigger change event on page load if already selected value is "Recurring"
-                                        $('#short_description_required').change();
-                                    });
-                                </script> --}}
 
 
                                  <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Deviation date">Deviation Observed On<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                              <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" /> 
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
@@ -608,15 +597,20 @@ $users = DB::table('users')
                                                 oninput="handleDateInput(this, 'Deviation_date')"required />
                                         </div>
                                     </div>
+                                    @error('Deviation_date')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror
                                 </div> 
                                 
                                 
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time">
-                                        <label for="deviation_time">Deviation Observed On (Time)<span
-                                            class="text-danger">*</span></label>
+                                        <label for="deviation_time">Deviation Observed On (Time)</label>
                                         <input type="text" name="deviation_time" id="deviation_time"required>
                                     </div>
+                                    @error('Deviation_date')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror
                                 </div>
                                 
                                 <script>
@@ -633,7 +627,7 @@ $users = DB::table('users')
                                         @php
                                             $users = DB::table('users')->get();
                                         @endphp
-                                        <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
+                                        <label for="If Other">Deviation Observed By</label>
                                         <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
@@ -644,8 +638,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Deviation Reported on<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -739,8 +732,7 @@ $users = DB::table('users')
                                 </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
                                         <select name="Facility_Equipment" id="Facility_Equipment"required>
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
@@ -748,10 +740,13 @@ $users = DB::table('users')
 
                                         </select>
                                     </div>
+                                    @error('Facility_Equipment')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror
                                 </div> 
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                        Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvi" style="display: none" class="text-danger">*</span>
+                                        Facility/ Equipment/ Instrument/ System Details 
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -823,8 +818,7 @@ $users = DB::table('users')
                                     </script>
                                     <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Document Details Required">Document Details Required?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Document Details Required">Document Details Required?</label>
                                         <select name=" Document_Details_Required" id="Document_Details_Required">
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
@@ -835,7 +829,7 @@ $users = DB::table('users')
                                 </div> 
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                         Document Details <span id="asteriskInviDetails" style="display: none" class="text-danger">*</span>
+                                         Document Details 
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -912,13 +906,15 @@ $users = DB::table('users')
                                     </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Product Batch">Name of Product & Batch No<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Product Batch">Name of Product & Batch No</label>
                                         <input type="text" name="Product_Batch" id="Product_Batch"required>
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
                                     
                                     </div>
+                                    @error('Product_Batch')
+                                        <div class="text-danger">{{ $message  }}</div>
+                                    @enderror
                           </div>
                                <!-- <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
@@ -979,12 +975,14 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Description Deviation">Description of Deviation <span
-                                            class="text-danger">*</span></label>
+                                        <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
+                                    @error('Description_Deviation[]')
+                                        <div class="text-danger">{{ $message  }}</div>
+                                    @enderror
                                 </div>
                                
                                 {{-- <div class="col-6">
@@ -995,12 +993,14 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Immediate Action">Immediate Action (if any)<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Immediate_Action[]" id="summernote-2"required>
                                     </textarea>
                                     </div>
+                                    @error('record')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-6">
                                 <div class="group-input">
@@ -1010,17 +1010,26 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Preliminary Impact">Preliminary Impact of Deviation <span
-                                            class="text-danger">*</span></label>
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
+                                    @error('Preliminary_Impact')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                             </div>
                             <div class="button-block">
-                                <button type="submit" id="ChangesaveButton001" onclick="handleClick001()" class="saveButton">Save</button>
+                                
+                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                        Save
+                                </button>
+
                                 <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
                             </div>
@@ -1105,7 +1114,7 @@ $users = DB::table('users')
                                
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
+                                <button type="submit" class="saveButton">Save </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
@@ -1280,7 +1289,10 @@ $users = DB::table('users')
                         </div>
                     </div>
                     <script>
+
                         $(document).ready(function () {
+
+
                             $('#Deviation_category').change(function () {
                                 if ($(this).val() === 'major') {
                                     $('#Investigation_required').val('yes').prop('disabled', true);

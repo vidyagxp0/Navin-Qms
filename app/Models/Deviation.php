@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Deviation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'Closure_Comments'
+    ];
 }
