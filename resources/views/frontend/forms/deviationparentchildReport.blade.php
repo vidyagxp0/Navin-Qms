@@ -180,7 +180,7 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://navin.mydemosoftware.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
@@ -221,8 +221,8 @@
                     </tr>
                     <tr>
                         <th class="w-20">Site/Location Code</th>
-                        <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed<</th>
+                        <td class="w-30">{{ Helpers::getDivisionName(session()->get('division')) }}</td>
+                        <th class="w-20"> Deviation Observed On</th>
                         <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
 
                     </tr>
@@ -233,26 +233,27 @@
                     <tr>
                         <tr>
                             <th class="w-20">Deviation Observed by</th>
-                         @php
-                             $users = DB::table('users')->get();
-                          @endphp
-    
-                            <td>
-                                @if($data->Facility)
-                                 @foreach ($users as $user)
-                                   <option value="{{ $user->id }}" {{ $user->id == $data->Facility ? 'selected' : '' }}>
-                                 {{ $user->name }}
-                              </option>
-                               @endforeach
-                               @else Not Applicable @endif</td>
+                            @php
+                            $facilityIds = explode(',', $data->Facility);
+                            $users = $facilityIds ? DB::table('users')->whereIn('id', $facilityIds)->get() : [];
+                        @endphp
+                        
+                        <td>
+                            @if($facilityIds && count($users) > 0)
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                @endforeach
+                            @else
+                                Not Applicable
+                            @endif
+                    
+                        </td>
                         
                             {{-- <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td> --}}
                             <th class="w-20">Deviation Reported On </th>
                             <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
                         </tr>
-                        <th class="w-20">Deviation Reported On </th>
-                        <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
-                    </tr>
+                                           </tr>
                     <tr>
                         <th class="w-20">Deviation Related To</th>
                         <td class="w-30">@if($data->audit_type){{ $data->audit_type }} @else Not Applicable @endif</td>
@@ -277,9 +278,87 @@
                         <th class="w-20">Preliminary Impact of Deviation</th>
                         <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
                     </tr>
-        
+                    <tr>
+                        <th class="w-20">Facility/ Equipment/ Instrument/ System Details Required?</th>
+                        <td class="w-30">@if($data->Immediate_Action){{ $data->Immediate_Action }}@else Not Applicable @endif</td>
+                        <th class="w-20">Document Details Required?</th>
+                        <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
+                    </tr>
 
                 </table>
+                <div class="block">
+                    <div class="block-head">
+                        Facility/ Equipment/ Instrument/ System Details 
+                    </div>
+                    <div class="border-table">
+                        <table>
+                            <tr class="table_bg">
+                            <th class="w-10">SR no.</th>
+                                <th class="w-25">Name</th>
+                                <th class="w-25">ID Number</th>
+                                <th class="w-25">Remarks</th>
+                            
+                            </tr>
+                            @if(!empty($grid_data->IDnumber))
+                            @foreach (unserialize($grid_data->IDnumber) as $key => $dataDemo)
+                            <tr>
+                                <td class="w-5">{{ $dataDemo ? $key + 1  : "Not Applicable" }}</td>
+                                
+                                <td class="w-15">{{ unserialize($grid_data->facility_name)[$key] ?  unserialize($grid_data->facility_name)[$key]: "Not Applicable"}}</td>
+                                <td class="w-15">{{unserialize($grid_data->IDnumber)[$key] ?  unserialize($grid_data->IDnumber)[$key] : "Not Applicable" }}</td>
+                                <td class="w-15">{{unserialize($grid_data->Remarks)[$key] ?  unserialize($grid_data->Remarks)[$key] : "Not Applicable" }}</td>
+                               
+                            </tr>
+                            @endforeach
+                            @else
+                            <tr>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                               
+                            </tr>
+                            @endif
+                        </table>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <div class="block-head">
+                        Document Details 
+                    </div>
+                    <div class="border-table">
+                        <table>
+                            <tr class="table_bg">
+                            <th class="w-25">SR no.</th>
+                                <th class="w-25">Number</th>
+                                <th class="w-25">Reference Document Name</th>
+                                <th class="w-25">Remarks</th>
+                            
+                            </tr>
+                            @if(!empty($grid_data1->Number))
+                            @foreach (unserialize($grid_data1->Number) as $key => $dataDemo)
+                            <tr>
+                                <td class="w-15">{{ $dataDemo ? $key + 1  : "Not Applicable" }}</td>
+                                <td class="w-15">{{ unserialize($grid_data1->Number)[$key] ?  unserialize($grid_data1->Number)[$key]: "Not Applicable"}}</td>
+                                <td class="w-15">{{unserialize($grid_data1->ReferenceDocumentName)[$key] ?  unserialize($grid_data1->ReferenceDocumentName)[$key] : "Not Applicable" }}</td>
+                                <td class="w-15">{{unserialize($grid_data1->Document_Remarks)[$key] ?  unserialize($grid_data1->Document_Remarks)[$key] : "Not Applicable" }}</td>
+                               
+                            </tr>
+                            @endforeach
+                            @else
+                            <tr>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                               
+                            </tr>
+                            @endif
+                        </table>
+                    </div>
+                </div>
+    
                
             </div>
 
@@ -294,6 +373,7 @@
                             <th class="w-30">HOD Remarks</th>
                             <td class="w-20">@if($data->HOD_Remarks){{ $data->HOD_Remarks }}@else Not Applicable @endif</td>
                         </tr>
+                    </table>
                         <div class="border-table">
                             <div class="block-head">
                                 HOD Attachments
@@ -302,7 +382,7 @@
             
                                 <tr class="table_bg">
                                     <th class="w-20">S.N.</th>
-                                    <th class="w-60">Batch No</th>
+                                    <th class="w-60">Attachment</th>
                                 </tr>
                                     @if($data->QA_attachments)
                                     @foreach(json_decode($data->Audit_file) as $key => $file)
@@ -320,7 +400,7 @@
             
                             </table>
                         </div>
-                             </table>
+                            
                 </div>
             </div>
             <div class="block">
@@ -338,7 +418,7 @@
                     <tr>
                         <th class="w-20">Investigation Is required ?</th>
                         <td class="w-30">@if($data->Investigation_required){{ $data->Investigation_required }}@else Not Applicable @endif</td>
-                        <th class="w-20">Relevant Guidelines / Industry Standards</th>
+                        <th class="w-20">Investigation Details</th>
                         <td class="w-30">@if($data->Investigation_Details){{ $data->Investigation_Details }}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
@@ -364,7 +444,7 @@
 
                     <tr class="table_bg">
                         <th class="w-20">S.N.</th>
-                        <th class="w-60">Batch No</th>
+                        <th class="w-60">Attachment</th>
                     </tr>
                         @if($data->Initial_attachment)
                         @foreach(json_decode($data->Initial_attachment) as $key => $file)
@@ -452,7 +532,7 @@
 
                     <tr class="table_bg">
                         <th class="w-20">S.N.</th>
-                        <th class="w-60">Batch No</th>
+                        <th class="w-60">Attachment</th>
                     </tr>
                         @if($data->production_attachment)
                         @foreach(json_decode($data->production_attachment) as $key => $file)
@@ -535,7 +615,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Warehouse_attachment)
                             @foreach(json_decode($data->Warehouse_attachment) as $key => $file)
@@ -601,7 +681,7 @@
                                         @if($data->QualityAssurance__by){{ $data->QualityAssurance__by }}@else Not Applicable @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Quality_Control_feedback Review Completed On</th>
+                                <th class="w-20">Quality Review Completed On</th>
                                 <td class="w-30">
                                     <div>
                                         @if($data->Quality_Control_on){{ $data->Quality_Control_on }}@else Not Applicable @endif
@@ -618,7 +698,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Quality_Control_attachment)
                             @foreach(json_decode($data->Quality_Control_attachment) as $key => $file)
@@ -671,7 +751,7 @@
                                         @if($data->QualityAssurance_assessment){{ $data->QualityAssurance_assessment }}@else Not Applicable @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Quality_Assurance_feedback Feedback</th>
+                                <th class="w-20">Quality Assurance Feedback</th>
                                 <td class="w-30">
                                     <div>
                                         @if($data->Quality_Assurance_feedback){{ $data->Quality_Assurance_feedback }}@else Not Applicable @endif
@@ -703,7 +783,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Quality_Assurance_attachment)
                             @foreach(json_decode($data->Quality_Assurance_attachment) as $key => $file)
@@ -786,7 +866,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Engineering_attachment)
                             @foreach(json_decode($data->Engineering_attachment) as $key => $file)
@@ -869,7 +949,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Analytical_Development_attachment)
                             @foreach(json_decode($data->Analytical_Development_attachment) as $key => $file)
@@ -952,7 +1032,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Kilo_Lab_attachment)
                             @foreach(json_decode($data->Kilo_Lab_attachment) as $key => $file)
@@ -1036,7 +1116,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Technology_transfer_attachment)
                             @foreach(json_decode($data->Technology_transfer_attachment) as $key => $file)
@@ -1120,7 +1200,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Human_Resource_attachment)
                             @foreach(json_decode($data->Human_Resource_attachment) as $key => $file)
@@ -1203,7 +1283,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Initial_attachment)
                             @foreach(json_decode($data->Initial_attachment) as $key => $file)
@@ -1288,7 +1368,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Information_Technology_attachment)
                             @foreach(json_decode($data->Information_Technology_attachment) as $key => $file)
@@ -1373,7 +1453,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Project_management_attachment)
                             @foreach(json_decode($data->Project_management_attachment) as $key => $file)
@@ -1462,7 +1542,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Other1_attachment)
                             @foreach(json_decode($data->Other1_attachment) as $key => $file)
@@ -1551,7 +1631,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Other2_attachment)
                             @foreach(json_decode($data->Other2_attachment) as $key => $file)
@@ -1640,7 +1720,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Other3_attachment)
                             @foreach(json_decode($data->Other3_attachment) as $key => $file)
@@ -1729,7 +1809,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Other4_attachment)
                             @foreach(json_decode($data->Other4_attachment) as $key => $file)
@@ -1818,7 +1898,7 @@
     
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
-                            <th class="w-60">Batch No</th>
+                            <th class="w-60">Attachment</th>
                         </tr>
                             @if($data->Other5_attachment)
                             @foreach(json_decode($data->Other5_attachment) as $key => $file)
@@ -1923,7 +2003,7 @@
 
                     <tr class="table_bg">
                         <th class="w-20">S.N.</th>
-                        <th class="w-60">Batch No</th>
+                        <th class="w-60">Attachment</th>
                     </tr>
                         @if($data->Investigation_attachment)
                         @foreach(json_decode($data->Investigation_attachment) as $key => $file)
@@ -1949,7 +2029,7 @@
 
                     <tr class="table_bg">
                         <th class="w-20">S.N.</th>
-                        <th class="w-60">Batch No</th>
+                        <th class="w-60">Attachment</th>
                     </tr>
                         @if($data->Capa_attachment)
                         @foreach(json_decode($data->Capa_attachment) as $key => $file)
@@ -2583,7 +2663,7 @@
             
                                     <tr class="table_bg">
                                         <th class="w-20">S.N.</th>
-                                        <th class="w-60">Batch No</th>
+                                        <th class="w-60">Attachment</th>
                                     </tr>
                                         @if($data2->root_cause_initial_attachment)
                                         @foreach(json_decode($data2->root_cause_initial_attachment) as $key => $file)
@@ -2923,7 +3003,7 @@
                     
                                             <tr class="table_bg">
                                                 <th class="w-20">S.N.</th>
-                                                <th class="w-60">Batch No</th>
+                                                <th class="w-60">Attachment</th>
                                             </tr>
                                                 @if($data2->cft_attchament_new)
                                                 @foreach(json_decode($data2->cft_attchament_new) as $key => $file)
