@@ -243,7 +243,7 @@
                             <div class="group-input">
                                 <label for="Reviewer commnet">Reviewer Comment <span id="" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea {{ $auditCollect ? 'disabled' : '' }} class="summernote" name="reviewer_comment" id="summernote-17">{{ $auditCollect ? $auditCollect->reviewer_comment : '' }}</textarea>
+                                <textarea {{ $auditCollect ? 'disabled' : '' }} class="summernote w-100" name="reviewer_comment" id="summernote-17">{{ $auditCollect ? $auditCollect->reviewer_comment : '' }}</textarea>
                             </div>
                             <div class="group-input">
                                 <label for="Reviewer Completed By">Reviewer Completed By</label>
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                        <button type="submit">Submit</button>
+                            {{ $auditCollect ? '' : '<button type="submit" >Submit</button>' }} 
                             <button type="button" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -305,7 +305,7 @@
                     @endphp
 
                         @foreach ($audit as $audits => $dataDemo)
-                        <td>{{$dataDemo ? $audits + 1  : "Not Applicable"}}</td>
+                        <td>{{$dataDemo ? ($audit->currentPage() - 1) * $audit->perPage() + $audits + 1  : "Not Applicable"}}</td>
                         <td>
                             @if($previousItem == null)
                             <div><strong>Changed From :</strong>{{" Intiation"}}</div>
