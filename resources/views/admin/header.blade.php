@@ -8,8 +8,8 @@
     <style>
         .mt-100{margin-top: 100px}body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh}
     </style>
-    <link rel="shortcut icon" href="{{ asset('admin/images/logo/logo.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('admin/images/logo/logo.png') }}" type="image/x-icon">
+    {{-- <link rel="shortcut icon" href="{{ asset('admin/images/logo/logo.png') }}" type="image/x-icon"> --}}
+    <link rel="shortcut icon" href="{{ asset('user/images/vidyagxp.png.ico') }}" type="image/x-icon">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
