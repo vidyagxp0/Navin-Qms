@@ -79,6 +79,16 @@ $users = DB::table('users')
         .calenderauditee input::-webkit-calendar-picker-indicator {
             width: 100%;
         }
+        .text-danger{
+            margin-top: -22px;
+            padding: 4px;
+            margin-bottom: 3px;
+        }
+        /* .saveButton:disabled{
+            background: black!important;
+            border:  black!important;
+
+        } */
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -808,8 +818,7 @@ $users = DB::table('users')
                                     </script>
                                     <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Document Details Required">Document Details Required?<span
-                                            class="text-danger">*</span></label>
+                                        <label for="Document Details Required">Document Details Required?</label>
                                         <select name=" Document_Details_Required" id="Document_Details_Required">
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
@@ -1105,7 +1114,7 @@ $users = DB::table('users')
                                
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save hshsh</button>
+                                <button type="submit" class="saveButton">Save </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
