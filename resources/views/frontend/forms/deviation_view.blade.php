@@ -1075,7 +1075,18 @@ $users = DB::table('users')
                                                     @endif
                                                 </tbody>
                                             </table>
-                                        </div>                                        
+                                        </div>  
+                                        <div class="main-danger-block">
+
+                                  
+                                            @error('facility_name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                            @error('IDnumber')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+        
+                                        </div>                                      
                                     </div>
                                     <script>
 
