@@ -1345,6 +1345,17 @@ class DeviationController extends Controller
         // }
         
         $form_progress = null;
+
+        $lastDeviation = deviation::find($id);
+        $deviation = deviation::find($id);
+
+        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
+        {
+            $request->merge([
+                'Investigation_required' => 'yes',
+                'Customer_notification' => 'yes'
+            ]);
+        } 
         
         if ($request->form_name == 'general-open') 
         {
@@ -1531,8 +1542,9 @@ class DeviationController extends Controller
             }
         }
 
-        $lastDeviation = deviation::find($id);
-        $deviation = deviation::find($id);
+       
+        $deviation->Investigation_required = $request->Investigation_required;
+        $deviation->Customer_notification = $request->Customer_notification;
         //$deviation->parent_id = $request->parent_id;
         //$deviation->parent_type = $request->parent_type;
         //$deviation->division_id = $request->division_id;
@@ -1567,11 +1579,9 @@ class DeviationController extends Controller
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Deviation_category = $request->Deviation_category;
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
-        $deviation->Investigation_required = $request->Investigation_required;
 
 
         $deviation->Investigation_Details = $request->Investigation_Details;
-        $deviation->Customer_notification = $request->Customer_notification;
         $deviation->customers = $request->customers;
 
 
