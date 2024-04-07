@@ -70,9 +70,12 @@ class DeviationController extends Controller
     public function store(Request $request)
     {
         // return $request;
+        
+        $form_progress = null; // initialize form progress
+
         if ($request->form_name == 'general')
         {
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
                 'short_description' => 'required'
                 
@@ -80,25 +83,34 @@ class DeviationController extends Controller
                 'Initiator_Group.required' => 'Department field required!',
                 'short_description_required.required' => 'Nature of repeat field required!'
             ]);
-        }
-        if ($request->form_name == 'hod')
-        {
-            $this->validate($request, [
-                'HOD_Remarks' => 'required'
-                
-            ]);
+
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            } else {
+                $form_progress = 'general';
+            }
         }
         
-        // QA INITAL FORM VALIDATION
-        if ($request->form_name == 'qa')
-        {
-            $this->validate($request, [
-                'Deviation_category' => 'required',
-                'Justification_for_categorization' => 'required',
-                'Investigation_required' => 'required',
-                'Investigation_Details' => 'required_if:Investigation_required,1',
-            ]);
-        }
+        // if ($request->form_name == 'hod')
+        // {
+        //     $this->validate($request, [
+        //         'HOD_Remarks' => 'required'
+                
+        //     ]);
+        // }
+        
+        // // QA INITAL FORM VALIDATION
+        // if ($request->form_name == 'qa')
+        // {
+        //     $this->validate($request, [
+        //         'Deviation_category' => 'required',
+        //         'Justification_for_categorization' => 'required',
+        //         'Investigation_required' => 'required',
+        //         'Investigation_Details' => 'required_if:Investigation_required,1',
+        //     ]);
+        // }
 
 
         if (!$request->short_description) {
@@ -108,8 +120,11 @@ class DeviationController extends Controller
 
         $deviation = new Deviation();
         $deviation->form_type = "Deviation";
+        
         $deviation->record = ((RecordNumber::first()->value('counter')) + 1);
         $deviation->initiator_id = Auth::user()->id;
+
+        $deviation->form_progress = isset($form_progress) ? $form_progress : null;
 
         # -------------new-----------
         //  $deviation->record_number = $request->record_number;
@@ -1326,7 +1341,8 @@ class DeviationController extends Controller
         //     toastr()->error("Short description is required");
         //     return redirect()->back();
         // }
-
+        
+        $form_progress = null;
         
         if ($request->form_name == 'general-open') 
         {
@@ -1427,7 +1443,7 @@ class DeviationController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-                // update db form progress
+                $form_progress = 'general-open';
             }
         }
         if ($request->form_name == 'qa')
@@ -1454,7 +1470,7 @@ class DeviationController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-                // update db form progress
+                $form_progress = 'qa';
             }
         }
         
@@ -1475,7 +1491,7 @@ class DeviationController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-                // update db form progress
+                $form_progress = 'capa';
             }
         }
         
@@ -1490,7 +1506,7 @@ class DeviationController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-                // update db form progress
+                $form_progress = 'qa-final';
             }
         }
 
@@ -1506,7 +1522,7 @@ class DeviationController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-                // update db form progress
+                $form_progress = 'qah';
             }
         }
 
@@ -1571,6 +1587,10 @@ class DeviationController extends Controller
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
         if($deviation->stage == 3 || $deviation->stage == 4 ){
+            if (!$form_progress) {
+                $form_progress = 'cft';
+            }
+
             $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
             if($Cft && $deviation->stage == 4 ){ 
                 $Cft->Production_Review = $request->Production_Review == null ? $Cft->Production_Review : $request->Production_Review;
@@ -2061,6 +2081,7 @@ class DeviationController extends Controller
                 $deviation->closure_attachment = json_encode($files);
             }
         }
+        $deviation->form_progress = isset($form_progress) ? $form_progress : null;
         $deviation->update();
         // grid
          $data3=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Deviation")->first();
@@ -2624,13 +2645,31 @@ class DeviationController extends Controller
     public function deviation_send_stage(Request $request, $id)
     {
 
-
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
             $updateCFT = DeviationCft::find($id);
             $lastDocument = Deviation::find($id);
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
+            
             if ($deviation->stage == 1) {
+
+                if ($deviation->form_progress !== 'general-open') 
+                {
+                    Session::flash('swal', [
+                        'type' => 'error',
+                        'title' => 'Form not filled',
+                        'message' => 'General Information form is not completed'
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Sent for HOD review state'
+                    ]);
+                }
+
                 $deviation->stage = "2";
                 $deviation->status = "HOD Review";
                 $deviation->submit_by = Auth::user()->name;
@@ -2707,6 +2746,12 @@ class DeviationController extends Controller
                     ]);
 
                     return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Sent for QA initial review state'
+                    ]);
                 }
 
                 $deviation->stage = "3";
@@ -2752,8 +2797,26 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 3) {
 
-                if(empty($updateCFT->Production_Review)){
-                    return back();
+                // if(empty($updateCFT->Production_Review)){
+                //     return back();
+                // }
+
+
+                if ($deviation->form_progress !== 'cft') 
+                {
+                    Session::flash('swal', [
+                        'type' => 'error',
+                        'title' => 'Form not filled',
+                        'message' => 'QA initial review / CFT form not filled'
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Sent for CFT review state'
+                    ]);
                 }
 
                 $deviation->stage = "4";
@@ -2869,6 +2932,25 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 4) {
 
+                // CFT review state update form_progress
+                if ($deviation->form_progress !== 'cft') 
+                {
+                    Session::flash('swal', [
+                        'type' => 'error',
+                        'title' => 'Form not filled',
+                        'message' => 'CFT form not filled'
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Sent for Investigation & CAPA review state'
+                    ]);
+                }
+
+
                 $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 1, 'deviation_id' => $id])->latest()->first();
                 $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
                 // Define the column names
@@ -2981,6 +3063,7 @@ class DeviationController extends Controller
                 // dd(count(array_unique($valuesArray)), $checkCFTCount);
 
                 if (!$IsCFTRequired || $checkCFTCount) {
+
                     $deviation->stage = "5";
                     $deviation->status = "QA Final Review";
                     $deviation->CFT_Review_Complete_By = Auth::user()->name;
@@ -3023,6 +3106,26 @@ class DeviationController extends Controller
             }
 
             if ($deviation->stage == 5) {
+
+                if ($deviation->form_progress === 'capa' || $deviation->form_progress === 'qa-final') 
+                {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Sent for QA Final review state'
+                    ]);
+
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'error',
+                        'title' => 'Form not filled',
+                        'message' => 'Investigation & CAPA / QA Final review form not filled'
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                
                 $deviation->stage = "6";
                 $deviation->status = "QA Head/Manager Designee Approval";
                 $deviation->QA_Final_Review_Complete_By = Auth::user()->name;
@@ -3063,6 +3166,25 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 6) {
+
+                if ($deviation->form_progress !== 'qah')  
+                {
+                    
+                    Session::flash('swal', [
+                        'title' => 'Form not filled',
+                        'message' => 'QAH/Designee Approval form not filled',
+                        'type' => 'error',
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Deviation sent to Closed/Done state'
+                    ]);
+                }
+
                 $deviation->stage = "7";
                 $deviation->status = "Closed - Done";
                 $deviation->Approved_By = Auth::user()->name;
@@ -3721,11 +3843,15 @@ class DeviationController extends Controller
     public function deviation_reject(Request $request, $id)
     {
 
+        // return $request;
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();
+
+
             if ($deviation->stage == 2) {
+
                 $deviation->stage = "1";
                 $deviation->status = "Opened";
                 $deviation->rejected_by = Auth::user()->name;
@@ -3762,6 +3888,7 @@ class DeviationController extends Controller
             if ($deviation->stage == 3) {
                 $deviation->stage = "2";
                 $deviation->status = "HOD Review";
+                $deviation->form_progress = 'hod';
                 $deviation->qa_more_info_required_by = Auth::user()->name;
                 $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
                 $history = new DeviationAuditTrail();
@@ -3825,6 +3952,8 @@ class DeviationController extends Controller
 
                 $deviation->stage = "3";
                 $deviation->status = "QA Initial Review";
+                $deviation->form_progress = 'qa';
+
                 $deviation->qa_more_info_required_by = Auth::user()->name;
                 $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
                 $history = new DeviationAuditTrail();
@@ -3872,6 +4001,8 @@ class DeviationController extends Controller
             if ($deviation->stage == 6) {
                 $deviation->stage = "5";
                 $deviation->status = "QA Final Review";
+                $deviation->form_progress = 'qa-final';
+
                 $deviation->qa_more_info_required_by = Auth::user()->name;
                 $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
                 $history = new DeviationAuditTrail();

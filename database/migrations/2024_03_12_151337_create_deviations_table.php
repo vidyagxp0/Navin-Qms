@@ -108,6 +108,9 @@ return new class extends Migration
             //$table->string('production_byy')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
+
+            $table->string('form_progress')->nullable();
+
             $table->timestamps();
         });
     }

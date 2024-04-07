@@ -505,9 +505,28 @@ $users = DB::table('users')
             document.getElementById('formNameField').value = 'qah';
             submitForm();
         });
+
+        $('#signatureModalButton').click(function() {
+
+        });
         
         
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var signatureForm = document.getElementById('signatureModalForm');
+
+        signatureForm.addEventListener('submit', function (e) {
+
+            var submitButton = signatureForm.querySelector('.signatureModalButton');
+            var spinner = signatureForm.querySelector('.signatureModalSpinner');
+
+            submitButton.disabled = true;
+
+            spinner.style.display = 'inline-block';
+        });
+    });
+
 </script>
 
     <div style="background: #e0903230;" id="change-control-fields">
@@ -1306,7 +1325,7 @@ $users = DB::table('users')
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                    Save 2
+                                    Save
                                 </button>
                                 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -1782,7 +1801,7 @@ $users = DB::table('users')
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save 3
+                                      Save
                                 </button>
                                     <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -5880,7 +5899,7 @@ $users = DB::table('users')
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save 4
+                                      Save
                                 </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -5962,7 +5981,7 @@ $users = DB::table('users')
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save 5
+                                      Save
                                 </button>
 <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -6032,7 +6051,7 @@ $users = DB::table('users')
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
-                                      Save 6
+                                      Save
                                 </button>
                                   <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
@@ -6978,7 +6997,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button>Close</button>
                     </div> -->
                     <div class="modal-footer">
-                      <button type="submit">Submit</button>
+                        <button type="submit">
+                            Submit
+                        </button>
                         <button type="button" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -7229,7 +7250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST">
+                <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST" id="signatureModalForm">
                     @csrf
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -7258,7 +7279,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button>Close</button>
                     </div> -->
                     <div class="modal-footer">
-                      <button type="submit">Submit</button>
+                        <button type="submit" class="signatureModalButton">
+                            <div class="spinner-border spinner-border-sm signatureModalSpinner" style="display: none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            Submit
+                        </button>
                         <button type="button" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
