@@ -188,7 +188,7 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong> Audit No.</strong>
+                    <strong> Deviation No.</strong>
                 </td>
                 <td class="w-40">
                    {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}

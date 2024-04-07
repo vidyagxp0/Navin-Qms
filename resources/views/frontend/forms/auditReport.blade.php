@@ -143,6 +143,9 @@
     .table_bg {
         background: #4274da57;
     }
+    .pagenum:before {
+        content: counter(page);
+    }
 </style>
 
 <body>
@@ -221,6 +224,7 @@
                     <th>Person Responsible</th>
                     <th>Change Type</th>
                 </tr>
+                
                 @foreach ($data as $datas)
                     <tr>
                         <td>
@@ -264,7 +268,7 @@
                     <strong>Printed By :</strong> {{ Auth::user()->name }}
                 </td>
                 <td class="w-30">
-                    <strong>Page :</strong> 1 of 1
+                    <strong>Page :</strong>  <span class="pagenum"></span> of 1
                 </td>
             </tr>
         </table>
