@@ -1499,17 +1499,20 @@ class DeviationController extends Controller
         
         if ($request->form_name == 'qa-final')
         {
-            $validator = Validator::make($request->all(), [
-                'Investigation_Summary' => 'required',
-            ]);
+            // $validator = Validator::make($request->all(), [
+            //     'Investigation_Summary' => 'required|string|regex:/\S/',
+            //     'QA_Feedbacks' => 'required'
+            // ], [
+            //     'QA_Feedbacks.required' => 'The QA Feedbacks field is required!'
+            // ]);
 
-            if ($validator->fails()) {
-                return back()
-                    ->withErrors($validator)
-                    ->withInput();
-            } else {
-                $form_progress = 'qa-final';
-            }
+            // if ($validator->fails()) {
+            //     return back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // } else {
+                $form_progress = 'capa';
+            // }
         }
 
         if ($request->form_name == 'qah')
@@ -2659,8 +2662,8 @@ class DeviationController extends Controller
                 {
                     Session::flash('swal', [
                         'type' => 'error',
-                        'title' => 'Form not filled',
-                        'message' => 'General Information form is not completed'
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'General Information Tab is yet to be filled'
                     ]);
 
                     return redirect()->back();
@@ -2808,8 +2811,8 @@ class DeviationController extends Controller
                 {
                     Session::flash('swal', [
                         'type' => 'error',
-                        'title' => 'Form not filled',
-                        'message' => 'QA initial review / CFT form not filled'
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'QA initial review / CFT Mandatory Tab is yet to be filled!'
                     ]);
 
                     return redirect()->back();
@@ -2939,8 +2942,8 @@ class DeviationController extends Controller
                 {
                     Session::flash('swal', [
                         'type' => 'error',
-                        'title' => 'Form not filled',
-                        'message' => 'CFT form not filled'
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'CFT Tab is yet to be filled'
                     ]);
 
                     return redirect()->back();
@@ -3109,7 +3112,7 @@ class DeviationController extends Controller
 
             if ($deviation->stage == 5) {
 
-                if ($deviation->form_progress === 'capa' || $deviation->form_progress === 'qa-final') 
+                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks)) 
                 {
                     Session::flash('swal', [
                         'type' => 'success',
@@ -3120,8 +3123,8 @@ class DeviationController extends Controller
                 } else {
                     Session::flash('swal', [
                         'type' => 'error',
-                        'title' => 'Form not filled',
-                        'message' => 'Investigation & CAPA / QA Final review form not filled'
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'Investigation and CAPA / QA Final review Tab is yet to be filled!'
                     ]);
 
                     return redirect()->back();
@@ -3173,8 +3176,8 @@ class DeviationController extends Controller
                 {
                     
                     Session::flash('swal', [
-                        'title' => 'Form not filled',
-                        'message' => 'QAH/Designee Approval form not filled',
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'QAH/Designee Approval Tab is yet to be filled!',
                         'type' => 'error',
                     ]);
 
@@ -3845,8 +3848,8 @@ class DeviationController extends Controller
     public function deviation_reject(Request $request, $id)
     {
 
-        // return $request;
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            // return $request;
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();
@@ -4003,7 +4006,7 @@ class DeviationController extends Controller
             if ($deviation->stage == 6) {
                 $deviation->stage = "5";
                 $deviation->status = "QA Final Review";
-                $deviation->form_progress = 'qa-final';
+                $deviation->form_progress = 'capa';
 
                 $deviation->qa_more_info_required_by = Auth::user()->name;
                 $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
@@ -4019,7 +4022,7 @@ class DeviationController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->stage = 'More Info Required';
-                dd();
+                // dd();
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
