@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            {{ $auditCollect ? '' : '<button type="submit" >Submit</button>' }} 
+                            {!! $auditCollect ? '' : '<button type="submit" >Submit</button>' !!} 
                             <button type="button" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
