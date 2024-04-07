@@ -753,7 +753,8 @@ $users = DB::table('users')
                                 </div>  
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Nature of Repeat?</label>
+                                        <label for="Short Description required">Nature of Repeat? <span
+                                            class="text-danger">*</span></label>
                                         <select name="short_description_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="short_description_required" onchange="checkRecurring(this)" value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
                                             <option value="Recurring" @if ($data->short_description_required == 'Recurring' || old('short_description_required') == 'Recurring') selected @endif>Recurring</option>
@@ -766,14 +767,39 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature @if($data->short_description_required == 'Recurring')<span class="text-danger">*</span>@endif</label>
-                                        <textarea name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="nature_of_repeat" class="nature_of_repeat">{{ old('nature_of_repeat') ? old('nature_of_repeat') : $data->nature_of_repeat }}</textarea>
+                                        <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: {{ $data->short_description_required == 'Recurring' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <textarea class="nature_of_repeat" name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                     @error('nature_of_repeat')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('short_description_required');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'Recurring';
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInviRecurring');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                    </script>
                                 <script>
                                     function checkRecurring(selectElement) {
                                         var repeatNatureField = document.getElementById('nature_of_repeat');
@@ -959,7 +985,8 @@ $users = DB::table('users')
                                 </script>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
+                                        <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required? <span
+                                            class="text-danger">*</span></label>
                                         <select name="Facility_Equipment" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Facility_Equipment"  value="{{ $data->Facility_Equipment }}" >
                                             <option value="">-- Select --</option>
                                             <option @if ($data->Facility_Equipment == 'yes' || old('Facility_Equipment') == 'yes') selected @endif
@@ -974,7 +1001,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                            Facility/ Equipment/ Instrument/ System Details
+                                            Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvifaci" style="display: {{ $data->Facility_Equipment == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -1024,7 +1051,7 @@ $users = DB::table('users')
                                                                 <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                                     value="{{ $key + 1 }}"></td>
                                                                 <td>
-                                                                    <select name="facility_name[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="facility_name">
+                                                                    <select class="facility-name" name="facility_name[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="facility_name">
                                                                         @if(isset($grid_data->facility_name))
                                                                              @php
                                                                                 $facility_name = unserialize($grid_data->facility_name);
@@ -1041,29 +1068,59 @@ $users = DB::table('users')
                                                                         <option value="3" {{ (unserialize($grid_data->facility_name)[$key] == "3")?"selected":"2"}}>Instrument</option>--}}
                                                                     </select>
                                                                 </td>
-                                                                <td><input type="text" name="IDnumber[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
-                                                                <td><input type="text" name="Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
+                                                                <td><input class="id-number" type="text" name="IDnumber[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
+                                                                <td><input class="remarks" type="text" name="Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
                                                             </tr>
                                                         @endforeach
                                                     @endif
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div>                                        
                                     </div>
-                                    <div class="main-danger-block">
+                                    <script>
 
-                                  
-                                    @error('facility_name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                    @error('IDnumber')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var selectField = document.getElementById('Facility_Equipment');
+                                        var inputsToToggle = [];
 
-                                </div>
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('facility-name');
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+                                        // Add elements with class 'id-number' to inputsToToggle
+                                        var idNumberInputs = document.getElementsByClassName('id-number');
+                                        for (var j = 0; j < idNumberInputs.length; j++) {
+                                            inputsToToggle.push(idNumberInputs[j]);
+                                        }
+
+                                        // Add elements with class 'remarks' to inputsToToggle
+                                        var remarksInputs = document.getElementsByClassName('remarks');
+                                        for (var k = 0; k < remarksInputs.length; k++) {
+                                            inputsToToggle.push(remarksInputs[k]);
+                                        }
+
+                                                                        
+                                        selectField.addEventListener('change', function () {
+                                            var isRequired = this.value === 'yes';
+                                            console.log(this.value, isRequired, 'value');
+
+                                            inputsToToggle.forEach(function (input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInvifaci');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                    </script>
                                     <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Document Details Required">Document Details Required?</label>
+                                        <label for="Document Details Required">Document Details Required? <span
+                                            class="text-danger">*</span></label>
                                         <select name="Document_Details_Required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Document_Details_Required"  value="{{ $data->Document_Details_Required }}" >
                                             <option value="">-- Select --</option>
                                             <option @if ($data->Document_Details_Required == 'yes' || old('Document_Details_Required') == 'yes') selected @endif
@@ -1078,7 +1135,7 @@ $users = DB::table('users')
                                 </div> 
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                         Document Details
+                                         Document Details <span id="asteriskInvidoc" style="display: {{ $data->Document_Details_Required == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -1105,9 +1162,9 @@ $users = DB::table('users')
                                                     @foreach (unserialize($grid_data1->ReferenceDocumentName) as $key => $temps)
                                                         <tr>
                                                           <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
-                                                            <td><input type="text" name="Number[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
-                                                            <td><input type="text" name="ReferenceDocumentName[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->ReferenceDocumentName)[$key] ? unserialize($grid_data1->ReferenceDocumentName)[$key] : '' }}"></td>
-                                                            <td><input type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
+                                                            <td><input class="numberDetail" type="text" name="Number[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
+                                                            <td><input class="ReferenceDocumentName" type="text" name="ReferenceDocumentName[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->ReferenceDocumentName)[$key] ? unserialize($grid_data1->ReferenceDocumentName)[$key] : '' }}"></td>
+                                                            <td><input class="Document_Remarks" type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
                                                         </tr>           
                                                     @endforeach
                                                @endif
@@ -1122,10 +1179,50 @@ $users = DB::table('users')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                  
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // note-codable
+
+                                            var selectField = document.getElementById('Document_Details_Required');
+                                            var inputsToToggle = [];
+
+                                            // Add elements with class 'facility-name' to inputsToToggle
+                                            var facilityNameInputs = document.getElementsByClassName('numberDetail');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+
+                                            // Add elements with class 'id-number' to inputsToToggle
+                                            var idNumberInputs = document.getElementsByClassName('Document_Remarks');
+                                            for (var j = 0; j < idNumberInputs.length; j++) {
+                                                inputsToToggle.push(idNumberInputs[j]);
+                                            }
+
+                                            // Add elements with class 'remarks' to inputsToToggle
+                                            var remarksInputs = document.getElementsByClassName('ReferenceDocumentName');
+                                            for (var k = 0; k < remarksInputs.length; k++) {
+                                                inputsToToggle.push(remarksInputs[k]);
+                                            }
+
+                                                                            
+                                            selectField.addEventListener('change', function () {
+                                                var isRequired = this.value === 'yes';
+                                                console.log(this.value, isRequired, 'value');
+
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
+
+                                                // Show or hide the asterisk icon based on the selected value
+                                                var asteriskIcon = document.getElementById('asteriskInvidoc');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
+                                        });
+                                        </script>
                                 <div class="col-lg-12">
                                     <div class="group-input" id="external_agencies_req">
-                                        <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
+                                        <label for="others">Name of Product & Batch No<span class="text-danger">*</span></label>
                                         <input type="text" value="{{ old('Product_Batch') ? old('Product_Batch') : $data->Product_Batch}}" name="Product_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>
                                         
                                             <!-- <p class="text-danger">this field is required</p> -->
@@ -1143,7 +1240,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <label for="Description Deviation">Description of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
                                     </div>
@@ -1153,7 +1250,7 @@ $users = DB::table('users')
                                 </div>
                                 <!-- <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Production feedback">Production Feedback</label>
+                                        <label for="Production feedback">Production Feedback <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
                                     </textarea>
@@ -1167,7 +1264,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Immediate Action">Immediate Action (if any)</label>
+                                        <label for="Immediate Action">Immediate Action (if any) <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-2">{{ $data->Immediate_Action }}</textarea>
                                     </div>
@@ -1184,7 +1281,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
                                     </div>
@@ -1998,7 +2095,7 @@ $users = DB::table('users')
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production Review">Production Review Required ?</label>
-                                    <select disabled name="Production_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_Review">
+                                    <select name="Production_Review" disabled id="Production_Review">
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Production_Review == 'yes') selected @endif
                                          value='yes'>Yes</option>
@@ -2018,7 +2115,7 @@ $users = DB::table('users')
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Production notification">Production Person  <span id="asteriskInvi11" style="display: none" class="text-danger">*</span></label>
-                                    <select disabled name="Production_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Production_person">
+                                    <select name="Production_person" disabled id="Production_person">
                                         <option value="0">-- Select --</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" @if ($user->id == $data1->Production_person) selected @endif>{{ $user->name }}</option>
@@ -5693,7 +5790,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary</label>
+                                        <label for="Investigation Summary">Investigation Summary <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
@@ -5709,7 +5806,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment</label>
+                                        <label for="Impact Assessment">Impact Assessment <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
@@ -5725,7 +5822,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Root Cause">Root Cause</label>
+                                        <label for="Root Cause">Root Cause <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
@@ -5737,7 +5834,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="CAPA Rquired">CAPA Required ? </label>
+                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger">*</span></label>
                                       <select name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
@@ -5788,7 +5885,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         <select name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
@@ -5812,7 +5909,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>

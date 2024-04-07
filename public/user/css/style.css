@@ -3615,6 +3615,14 @@ section#pdf-page .watermark {
     border-radius: 5px;
     margin-bottom: 20px;
 }
+#auditReviewer .group-input input,
+#auditReviewer .group-input select {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
 #modal1 .group-input input,
 #modal1 .group-input select
 #cft-not-reqired .group-input input,
@@ -3655,6 +3663,11 @@ section#pdf-page .watermark {
 }
 
 #signature-modal .modal-footer button {
+    color: white;
+    background: #4274da;
+    border: 1px solid rgb(202, 202, 202);
+}
+#auditReviewer .modal-footer button {
     color: white;
     background: #4274da;
     border: 1px solid rgb(202, 202, 202);

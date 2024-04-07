@@ -31,8 +31,9 @@ class DatabaseSeeder extends Seeder
             DocumentSeeder::class,
             DivisionSeeder::class,
             ProcessSeeder::class,
-            //UserLoginSeeder::class,
+            // UserLoginSeeder::class,
             QMSRolesSeeder::class,
+            CustomerSeeder::class,
 
         ]);
     }

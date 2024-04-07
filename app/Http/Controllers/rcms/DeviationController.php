@@ -14,6 +14,7 @@ use App\Models\DeviationAuditTrail;
 use App\Models\DeviationGrid;
 use App\Models\DeviationHistory;
 use App\Models\DeviationCft;
+use App\Models\AuditReviewersDetails;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use App\Models\Capa;
@@ -22,6 +23,7 @@ use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
 use Helpers;
+use Illuminate\Pagination\Paginator;
 use PDF;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
@@ -4133,10 +4135,16 @@ class DeviationController extends Controller
 
     public function DeviationAuditTrial($id)
     {
-        $audit = DeviationAuditTrail::where('deviation_id', $id)->orderByDESC('id')->get()->unique('activity_type');
-        //dd( $audit);
+        // $audit = DeviationAuditTrail::where('deviation_id', $id)->orderByDESC('id')->get()->unique('activity_type');
+        $audit = DeviationAuditTrail::where('deviation_id', $id)
+        ->orderByDesc('id')
+        ->paginate(5);
+
+        // dd($audit);
         $today = Carbon::now()->format('d-m-y');
         $document = Deviation::where('id', $id)->first();
+        // dd( $document);
+
         $document->initiator = User::where('id', $document->initiator_id)->value('name');
 
 
@@ -4296,4 +4304,16 @@ class DeviationController extends Controller
         }
     }
 
+    public function store_audit_review(Request $request, $id)
+    {
+            $history = new AuditReviewersDetails;
+            $history->deviation_id = $id;
+            $history->user_id = Auth::user()->id;
+            $history->reviewer_comment = $request->reviewer_comment;
+            $history->reviewer_comment_by = Auth::user()->name;
+            $history->reviewer_comment_on = Carbon::now()->toDateString();
+            $history->save();
+
+        return redirect()->back();
+    }
 }

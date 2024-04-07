@@ -199,14 +199,70 @@
                 </td>
             </tr>
         </table> --}}
-       <div class="buttons-new">
-        <button class="button_theme1" >
-           Back
-        </button>
-        <button class="button_theme1" onclick="window.print();">
-         Print
-        </button>
+        @php
+                $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $document->division_id])->get();
+                $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                $auditCollect = DB::table('audit_reviewers_details')->where(['deviation_id' => $document->id])->latest()->first();
+        @endphp
+
+       <div class="d-flex justify-content-between align-items-center">
+            @if($auditCollect)
+            <div style="color: green; font-weight: 600">The Audit Trail has been reviewed.</div>
+            @else
+            <div style="color: red; font-weight: 600">The Audit Trail has not yet been reviewed.</div>
+            @endif
+            <div class="buttons-new">
+                @if ($document->stage < 7 && (in_array(4, $userRoleIds) || in_array(7, $userRoleIds) || in_array(18, $userRoleIds) || in_array(39, $userRoleIds)))
+                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditReviewer">
+                    Review
+                </button>
+                @endif
+                <button class="button_theme1" ><a class="text-white" href="{{ url('rcms/devshow/' . $document->id)  }}"> Back
+                </a>
+                </button>
+                <button class="button_theme1" onclick="window.print();">
+                Print
+                </button>
+            </div>
        </div>
+
+       <div class="modal fade" id="auditReviewer">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Audit Reviewers</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="" method="POST">
+                        <form action="{{ route('store_audit_review', $document->id) }}" method="POST">
+                        @csrf
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="group-input">
+                                <label for="Reviewer commnet">Reviewer Comment <span id="" class="text-danger">*</span></label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea {{ $auditCollect ? 'disabled' : '' }} class="summernote w-100" name="reviewer_comment" id="summernote-17">{{ $auditCollect ? $auditCollect->reviewer_comment : '' }}</textarea>
+                            </div>
+                            <div class="group-input">
+                                <label for="Reviewer Completed By">Reviewer Completed By</label>
+                                <input disabled type="text" name="reviewer_completed_by" id="reviewer_completed_by" value="{{ $auditCollect ? $auditCollect->reviewer_comment_by : '' }}">
+                            </div>
+                            <div class="group-input">
+                                <label for="Reviewer Completed on">Reviewer Completed On</label>
+                                <input disabled type="text" name="reviewer_completed_on" id="reviewer_completed_on" value="{{ $auditCollect ? $auditCollect->reviewer_comment_on : '' }}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            {!! $auditCollect ? '' : '<button type="submit" >Submit</button>' !!} 
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <table>
         <div class="heading">
            
@@ -245,16 +301,11 @@
                 </tr>
                 
                     <tr>@php
-                        $previousItem = null; 
-                        // if($previousItem == null){
-                        //     $previousItem = "Intiation";
-                        // }
-                        
+                        $previousItem = null;
                     @endphp
 
                         @foreach ($audit as $audits => $dataDemo)
-                        <td>{{$dataDemo ? $audits + 1  : "Not Applicable"}}</td>
-                        <!-- --------- -->
+                        <td>{{$dataDemo ? ($audit->currentPage() - 1) * $audit->perPage() + $audits + 1  : "Not Applicable"}}</td>
                         <td>
                             @if($previousItem == null)
                             <div><strong>Changed From :</strong>{{" Intiation"}}</div>
@@ -263,33 +314,12 @@
                          @endif
                          @php
                          $previousItem  = $dataDemo;
-                      @endphp
-                      
-                               {{-- <tr>
-                                  @php
-                                    if ($previousItem === null) {
-                                        // Initialization
-                                        // $previousItem = "Intiation"; // Replace "Initialization Value" with whatever you want to initialize $previousItem with
-                                    }
-                                @endphp
-
-                                @foreach ($audit as $audits => $dataDemo)
-                                    <td>{{$dataDemo ? $audits + 1  : "Not Applicable"}}</td>
-                                    <!-- --------- -->
-                                    <td>
-                                        <div><strong>Changed From :</strong>{{ $previousItem && $previousItem->status ? $previousItem->status : "Not Applicable" }}</div>
-                                    </td>
-                                    @php
-                                        $previousItem = $dataDemo; // Resetting $previousItem inside the loop
-                                    @endphp --}}
-                    
+                      @endphp                 
 
                        
                  </td>
-                 <!-- ----------------------- -->
                         <td>
                          <div><strong>Changed To :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
-                         {{-- <div style="margin-top: 5px;"><strong>Comments :</strong> {{$dataDemo->comment ? $dataDemo->origin_state  : "Not Applicable"}}</div>   <!--Record Is send by Hod Review---> --}}
 
                         </td>
                         <!-- ------Record Is send by Hod Review----------- -->
@@ -303,15 +333,12 @@
                       <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
                             <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
                             </div>
-                            {{-- <div style="margin-top: 5px;"><strong>Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div> --}}
                         </td>
-                        <!--  -->
                         <td>
                         <div>
                        <strong> Action Name :</strong>{{$dataDemo->action ? $dataDemo->action  : "Not Applicable"}}
 
                         </div>
-
                         </td>
                         <td>
                        <div ><strong> Peformed By :</strong>{{$dataDemo->user_name ? $dataDemo->user_name  : "Not Applicable"}}</div>
@@ -320,92 +347,37 @@
 
                         </td>
                     </tr>
-                    @endforeach
-<!-- ------------------------------------------------- -->
-                    {{-- <tr>
-                       
-                        <td>2</td>
-                        <td>
-                       
-                        <div><strong>Changed From :</strong>{{$audits->origin_state}}</div>
-
-                 </td>
-                        <td>
-                        <div ><strong>Changed To :</strong>{{$audits->current}}</div>
-                         <div style="margin-top: 5px;"><strong>Comments : {{$audits->comment}}</strong> Not Applicable</div>
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong>Data Field Name :</strong>{{$audits->activity_type}}</div>
-                       <div style="margin-top: 5px;"> <strong>Change From :</strong>{{$audits->origin_state}}</div>
-                       <div style="margin-top: 5px;"> <strong>Changed To : </strong>{{$audits->current}}</div>
-                        <div ><strong>Change Type :</strong>{{$audits->action_name}}</div>
-
-
-                        </td>
-                        <td>
-                          <div><strong>Action Name :</strong>{{$audits->action_name}}</div> 
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong> Peformed By :</strong>{{$audits->user_name}}</div>
-                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>{{$audits->created_at}}</div>
-                       <div style="margin-top: 5px;"><strong> Comments :</strong>{{$audits->comment}}</div>
-
-                        </td>
-                    </tr>
-               <!-- ---------------------------------------- -->
-               <tr>
-                       
-                        <td>3</td>
-                        <td>
-                       
-                        <div style="margin-top: 5px;"><strong>Changed From :</strong> HOD Review</div>
-                        <div  style="margin-top: 5px;"><strong>Changed To :</strong> Hod REVIEW</div>
-                        <div  style="margin-top: 5px;"><strong>Comments :</strong> Not Applicable</div>
-
-                 </td>
-                        <td>
-                          <!-- <div><strong>Changed To :</strong> HOD Review</div> -->
-                         
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong>Data Field Name :</strong> Description</div>
-                       <div style="margin-top: 5px;"> <strong>Change From :</strong> This is a test record</div>
-                       <div style="margin-top: 5px;"> <strong>Changed To : </strong>This is a test record</div>
-                        <div style="margin-top: 5px;"><strong>Change Type :</strong> Update</div>
-
-
-                        </td>
-                        <td>
-                          <div><strong>Action Name :</strong> Remove </div> 
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong> Peformed By :</strong> David</div>
-                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>16-Mar-2024</div>
-                       <div style="margin-top: 5px;"><strong> Comments :</strong> Record sent for QA Review</div>
-
-                        </td>
-                    </tr> --}}
-              
+                    @endforeach              
             </table>
         </div>
-
     </div>
+<!-- Pagination links -->
+<div style="float: inline-end; margin: 10px;">
+    <style>
+        .pagination > .active > span {
+            background-color: #e99b0dba !important;
+            border-color: #e99b0dba !important;
+            color: #fff !important;
+        }
 
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> 
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> 
-                </td>
-                {{-- <td class="w-30">
-                    <strong>Page :</strong> 1 of 1
-                </td> --}}
-            </tr>
-        </table>
-    </footer>
+        .pagination > .active > span:hover {
+            background-color: #e99b0dba !important;
+            border-color: #e99b0dba !important;
+        }
+
+        .pagination > li > a,
+        .pagination > li > span {
+            color: #e99b0dba !important;
+        }
+
+        .pagination > li > a:hover {
+            background-color: #e99b0dba !important;
+            border-color: #e99b0dba !important;
+            color: #fff !important;
+        }
+    </style>
+    {{ $audit->links() }}
+</div>
 
 </body>
 
