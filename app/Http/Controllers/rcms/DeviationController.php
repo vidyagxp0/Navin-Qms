@@ -1649,7 +1649,7 @@ class DeviationController extends Controller
         $deviation->Product_Batch = $request->Product_Batch;
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
-        $deviation->Related_Records1 =  implode(',', $request->related_records);
+        //$deviation->Related_Records1 =  implode(',', $request->related_records);
         $deviation->Facility = implode(',', $request->Facility);  
 
 
