@@ -74,17 +74,22 @@ $users = DB::table('users')
         .main-danger-block{
             display: flex;
         }
+        .swal-modal {
+            scale: 0.7!important;
+        }
+        .swal-icon {
+            scale: 0.8!important;
+        }
     </style>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
      @if (Session::has('swal'))
      <script>
         swal ( "{{ Session::get('swal')['title'] }}" ,  "{{ Session::get('swal')['message'] }}" ,  "{{ Session::get('swal')['type'] }}" )
      </script>
      @endif
-    
+
     <script>
 
         function otherController(value, checkValue, blockID) {
@@ -520,11 +525,18 @@ $users = DB::table('users')
             submitForm();
         });
 
-        $('#signatureModalButton').click(function() {
+        // $('.summernote').summernote({
+        //     toolbar: [
+        //         ['style', ['style']],
+        //         ['font', ['bold', 'underline', 'clear', 'italic']],
+        //         ['color', ['color']],
+        //         ['para', ['ul', 'ol', 'paragraph']],
+        //         ['table', ['table']],
+        //         ['insert', ['link', 'picture', 'video']],
+        //         ['view', ['fullscreen', 'codeview', 'help']]
+        //     ]
+        // });
 
-        });
-        
-        
     });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -1273,7 +1285,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
+                                        <textarea class="summernote" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote">{{ $data->Description_Deviation }}</textarea>
                                     </div>
                                     @error('Description_Deviation')
                                         <div class="text-danger">{{ $message }}</div>
@@ -5869,7 +5881,7 @@ $users = DB::table('users')
                                         <label for="CAPA Rquired">CAPA Required ? <span class="text-danger">*</span></label>
                                       <select name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value="0"> -- Select --</option>
-                                        <option @if ($data->CAPA_Rquired == 'yes') selected @endif
+                                        <option @if ($data->CAPA_Rquired == 'yes' ) selected @endif
                                             value="yes">Yes</option>
                                         <option  @if ($data->CAPA_Rquired == 'no') selected @endif 
                                            value="no">No</option>
@@ -5907,6 +5919,9 @@ $users = DB::table('users')
                                         <label for="CAPA Description">CAPA Description</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
+                                        @error('CAPA_Description')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -6632,11 +6647,6 @@ $users = DB::table('users')
                             return;
                         }
 
-//                         var myModal = document.getElementById('myModal');
-// // var bootstrapModal = new bootstrap.Modal(myModal); // Initialize the Bootstrap modal
-
-// // bootstrapModal.hide();
-// myModal.style.display = 'none';
 
                         // Send POST request to server
                         fetch("{{ route('customers.store') }}", {
@@ -6646,16 +6656,7 @@ $users = DB::table('users')
                         .then(response => {
                             console.log(response);
                             if (response.ok) {
-                                // Close modal
-//                                 var myModal = document.getElementById('myModal');
-// var bootstrapModal = new bootstrap.Modal(myModal); // Initialize the Bootstrap modal
-
-// bootstrapModal.hide();
-location.reload();
-
-                        // Show toaster message
-                        // toastr.success('Record is created Successfully');
-                                                // Get form data
+                        location.reload();
                         var customerData = {
                             customer_id: formData.get('customer_id'),
                             customer_name: formData.get('customer_name'),
@@ -6801,6 +6802,7 @@ location.reload();
         }
     </style>
     <script>
+        
         document.getElementById('myfile').addEventListener('change', function() {
             var fileListDiv = document.querySelector('.file-list');
             fileListDiv.innerHTML = ''; // Clear previous entries
@@ -6814,35 +6816,42 @@ location.reload();
         });
     </script>
 
+
 <script>
+        // $('#summernote').summernote({
+        //     toolbar: [
+        //         ['style', ['style']],
+        //         ['font', ['bold', 'underline', 'clear', 'italic']],
+        //         ['color', ['color']],
+        //         ['para', ['ul', 'ol', 'paragraph']],
+        //         ['table', ['table']],
+        //         ['insert', ['link', 'picture', 'video']],
+        //         ['view', ['fullscreen', 'codeview', 'help']]
+        //     ]
+        // });
+
         VirtualSelect.init({
             ele: '#reference_record, #notify_to'
         });
 
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear', 'italic']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
 
-        $('.summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear', 'italic']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
+        
 
+        $(document).ready(function() {
+
+
+            $('.summernote').summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear', 'italic']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        })
         let referenceCount = 1;
 
         function addReference() {
@@ -7527,7 +7536,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    
+
     <style>
         #step-form>div {
             display: none

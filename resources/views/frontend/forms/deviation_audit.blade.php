@@ -209,7 +209,7 @@
             @if($auditCollect)
             <div style="color: green; font-weight: 600">The Audit Trail has been reviewed.</div>
             @else
-            <div style="color: red; font-weight: 600">The Audit Trail has not yet been reviewed.</div>
+            <div style="color: red; font-weight: 600">The Audit Trail has is yet to be reviewed.</div>
             @endif
             <div class="buttons-new">
                 @if ($document->stage < 7 && (in_array(4, $userRoleIds) || in_array(7, $userRoleIds) || in_array(18, $userRoleIds) || in_array(39, $userRoleIds)))
@@ -230,6 +230,12 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
         
+                    <style>
+                        .validationClass{
+                            margin-left: 100px
+                        }
+                        </style>
+
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">Audit Reviewers</h4>
@@ -259,6 +265,86 @@
                             <button type="button" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
+                    {{-- <script>
+                        function submitForm() {
+                            document.querySelectorAll('.validationClass').forEach(span => {
+                                span.textContent = '';
+                            });
+    
+                            var formData = new FormData(document.getElementById('customerForm'));
+    
+    
+                            // Send POST request to server
+                            fetch("{{ route('customers.store') }}", {
+                                method: "POST",
+                                body: formData
+                            })
+                            .then(response => {
+                                console.log(response);
+                                if (response.ok) {
+                            location.reload();
+                            var customerData = {
+                                id: formData.get('id'),
+                                reviewer_comment_by: formData.get('reviewer_comment_by'),
+                                reviewer_comment_on: formData.get('reviewer_comment_on'),
+                                reviewer_comment: formData.get('reviewer_comment'),
+                            };
+                            
+                            // Append new row with form data to the table
+                            var newRow = `
+                                <tr>
+                                    <td>${customerData.id}</td>
+                                    <td>${customerData.reviewer_comment_by}</td>
+                                    <td>${customerData.reviewer_comment_on}</td>
+                                    <td>${customerData.reviewer_comment}</td>
+                                </tr>
+                            `;
+                            
+                            document.querySelector('.table tbody').innerHTML += newRow;
+                                                } else {
+                                                    console.error('Failed to create customer');
+                                                }
+                                            })
+                        .catch(error => {
+                            console.error('Error:', error);
+                       });
+                                        }
+                    </script>     --}}
+                    @php
+                    $reviewer = DB::table('audit_reviewers_details')->get();
+                @endphp
+                <!-- Customer grid view -->
+                <div class="table-responsive">
+                    <h5>Stored Customers</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Review By</th>
+                                <th>Review On</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Check if reviewer array is empty or null -->
+                            @if($reviewer && count($reviewer) > 0)
+                            <!-- Iterate over stored reviewer and display them -->
+                                @foreach($reviewer as $review)
+                                <tr>
+                                    <td>{{ $review->id }}</td>
+                                    <td>{{ $review->reviewer_comment_by }}</td>
+                                    <td>{{ $review->reviewer_comment_on }}</td>
+                                    <td>{{ $review->reviewer_comment }}</td>
+                                </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="9">No results available</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
                 </div>
             </div>
         </div>
@@ -300,26 +386,64 @@
                     <th>Performer</th>
                 </tr>
                 
-                    <tr>@php
-                        $previousItem = null;
-                    @endphp
+                    <tr>
+                        @php
+                            $previousItem = null;
+                        @endphp
 
                         @foreach ($audit as $audits => $dataDemo)
-                        <td>{{$dataDemo ? ($audit->currentPage() - 1) * $audit->perPage() + $audits + 1  : "Not Applicable"}}</td>
-                        <td>
-                            @if($previousItem == null)
-                            <div><strong>Changed From :</strong>{{" Intiation"}}</div>
-                            @else
-                         <div><strong>Changed From :</strong>{{$previousItem->origin_state ? $previousItem->origin_state  : "Not Applicable"}}</div>
-                         @endif
-                         @php
-                         $previousItem  = $dataDemo;
-                      @endphp                 
+                            <td>{{$dataDemo ? ($audit->currentPage() - 1) * $audit->perPage() + $audits + 1  : "Not Applicable"}}</td>
+                            {{-- <td>1</td> --}}
 
-                       
-                 </td>
+                        {{-- <td>
+                                @php
+                                    $newPrevState = null;
+                                    
+                                    if (!$dataDemo->action) {
+                                        switch ($dataDemo->deviation->status) {
+                                            case 'Opened':
+                                                $prevState = null;
+                                                break;
+                                            case 'HOD Review':
+                                                $prevState = 'Opened';
+                                                break;
+                                            case 'QA Initial Review':
+                                                $prevState = 'HOD Review';
+                                                break;
+                                            case 'CFT Review':
+                                                $prevState = 'QA Initial Review';
+                                                break;
+                                            case 'QA Final Review':
+                                                $prevState = 'CFT Review';
+                                                break;
+                                            case 'QA Head DEsignee Approva;':
+                                                $prevState = 'QA Final Review';
+                                                break;
+                                            default:
+                                                $prevState = null;
+                                                break;
+                                        }
+                                    } else {
+                                        $newPrevState = $dataDemo->origin_state;
+                                    }
+
+                                    $previousItem  = $newPrevState;
+                                @endphp    
+
+                                @if($previousItem == null)
+                                    <div><strong>Changed From :</strong>{{ "Intiation" }}</div>
+                                @else
+                                    <div><strong>Changed From :</strong>{{ $previousItem ? $previousItem  : "Not Applicable"}}</div>
+                                @endif
+
+                        </td> --}}
                         <td>
-                         <div><strong>Changed To :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+                            <div><strong>Changed From :</strong>{{ $dataDemo->change_from }}</div>
+                        </td>
+                        
+                        <td>
+                         {{-- <div><strong>Changed To :</strong>{{ !$dataDemo->action ? "Not Applicable" : $dataDemo->deviation->status}}</div> --}}
+                         <div><strong>Changed To :</strong>{{ $dataDemo->change_to}}</div>
 
                         </td>
                         <!-- ------Record Is send by Hod Review----------- -->
