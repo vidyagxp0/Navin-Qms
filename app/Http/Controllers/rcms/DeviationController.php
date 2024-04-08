@@ -1419,6 +1419,8 @@ class DeviationController extends Controller
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
 
+        // return $deviation;
+
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
         {
             $request->merge([
@@ -1564,7 +1566,16 @@ class DeviationController extends Controller
                 'Impact_assessment' => 'required',
                 'Root_cause' => 'required',
                 'CAPA_Rquired' => 'required|in:yes,no|not_in:0',
-                'Post_Categorization' => 'required'
+                'Post_Categorization' => 'required',
+                'capa_type' => [
+                    'required_if:CAPA_Rquired,yes',
+                    function ($attribute, $value, $fail) use ($request) {
+                        if ($value === '0' && $request->CAPA_Rquired == 'yes') {
+                            $fail('The capa type field is required when CAPA required is set to yes.');
+                        }
+                    }
+                ],
+                'CAPA_Description' => 'required_if:CAPA_Rquired,yes',
             ],  [
                 'CAPA_Rquired.required' => 'Capa required field cannot be empty!',
             ]);
@@ -2891,9 +2902,9 @@ class DeviationController extends Controller
                 if (!$deviation->HOD_Remarks) {
                     
                     Session::flash('swal', [
-                        'title' => 'Error!',
-                        'message' => 'HOD Remarks required',
-                        'type' => 'error',
+                        'title' => 'Mandatory Fields Required!',
+                        'message' => 'HOD Remarks is yet to be filled!',
+                        'type' => 'warning',
                     ]);
 
                     return redirect()->back();
@@ -3101,7 +3112,7 @@ class DeviationController extends Controller
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Sent for Investigation & CAPA review state'
+                        'message' => 'Sent for Investigation and CAPA review state'
                     ]);
                 }
 

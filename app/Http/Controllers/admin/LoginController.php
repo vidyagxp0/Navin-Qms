@@ -21,6 +21,7 @@ class LoginController extends Controller
         ]);
 
         $remember_me = $request->has('remember') ? true : false;
+        
 
         if (Auth::guard('admin')->attempt($credentials, $remember_me)) {
             $request->session()->regenerate();

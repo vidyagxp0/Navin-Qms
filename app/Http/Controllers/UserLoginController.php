@@ -18,7 +18,7 @@ use Log;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Part\TextPart;
 use App\Models\PasswordLog;
-
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class UserLoginController extends Controller
 {
@@ -90,6 +90,7 @@ class UserLoginController extends Controller
                     // Save the user ID to the total_logins table for check login user limit
                     TotalLogin::addUser();
                     toastr()->success('Login Successfully.');
+                    
                     return redirect('dashboard');
                 }
             } else {
@@ -194,6 +195,11 @@ class UserLoginController extends Controller
 
                     }else{
                         TotalLogin::addUser();
+                        
+                        $user = User::find(Auth::id());
+                        $user->session_id = FacadesSession::getId();
+                        $user->save();
+                        
                         toastr()->success('Login Successfully.');
                         session()->put('last_activity', time());
                         return redirect('rcms/qms-dashboard');

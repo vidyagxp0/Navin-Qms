@@ -97,13 +97,13 @@
                             <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                         </div>
                     </div>
-                    <div class="search-bar">
+                    {{-- <div class="search-bar">
                         <form action="#" class="w-100">
                             <label for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                             <input id="searchInput" type="text" name="search" placeholder="Search">
                             <div data-bs-toggle="modal" data-bs-target="#advanced-search">Advanced Search</div>
                         </form>
-                    </div>
+                    </div> --}}
                     <div class="icon-grid">
                         <!-- <div class="icon-drop">
                             <div class="icon">
