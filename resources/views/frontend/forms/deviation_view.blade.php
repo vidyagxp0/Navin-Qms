@@ -553,11 +553,6 @@ $users = DB::table('users')
         });
     });
 
-    $(document).on('click', '.remove-file', function() {
-        $(this).closest('div').remove();
-        console.log('removing')
-    })
-
 </script>
 
     <div style="background: #e0903230;" id="change-control-fields">
@@ -621,7 +616,6 @@ $users = DB::table('users')
                                         {{-- <div class="static">QMS-North America</div> --}}
                                     </div>
                                 </div>
-                                
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator"><b>Initiator</b></label>
@@ -1332,7 +1326,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3" >{{ $data->Preliminary_Impact }}</textarea>
+                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
                                     </div>
                                     @error('Preliminary_Impact')
                                         <div class="text-danger">{{ $message }}</div>
