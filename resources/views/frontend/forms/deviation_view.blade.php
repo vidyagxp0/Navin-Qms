@@ -6632,11 +6632,6 @@ $users = DB::table('users')
                             return;
                         }
 
-//                         var myModal = document.getElementById('myModal');
-// // var bootstrapModal = new bootstrap.Modal(myModal); // Initialize the Bootstrap modal
-
-// // bootstrapModal.hide();
-// myModal.style.display = 'none';
 
                         // Send POST request to server
                         fetch("{{ route('customers.store') }}", {
@@ -6646,16 +6641,7 @@ $users = DB::table('users')
                         .then(response => {
                             console.log(response);
                             if (response.ok) {
-                                // Close modal
-//                                 var myModal = document.getElementById('myModal');
-// var bootstrapModal = new bootstrap.Modal(myModal); // Initialize the Bootstrap modal
-
-// bootstrapModal.hide();
-location.reload();
-
-                        // Show toaster message
-                        // toastr.success('Record is created Successfully');
-                                                // Get form data
+                        location.reload();
                         var customerData = {
                             customer_id: formData.get('customer_id'),
                             customer_name: formData.get('customer_name'),

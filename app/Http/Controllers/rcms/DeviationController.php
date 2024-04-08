@@ -135,7 +135,7 @@ class DeviationController extends Controller
         $deviation->due_date = $request->due_date;
         $deviation->intiation_date = $request->intiation_date;
         $deviation->Initiator_Group = $request->Initiator_Group;
-        $deviation->due_date = $request->due_date;
+        $deviation->due_date = Carbon::now()->addDays(30)->format('d-M-Y');
         $deviation->initiator_group_code = $request->initiator_group_code;
         $deviation->short_description = $request->short_description;
         $deviation->Deviation_date = $request->Deviation_date;
@@ -231,14 +231,14 @@ class DeviationController extends Controller
                             $email = Helpers::getInitiatorEmail($u->user_id);
                             if ($email !== null) {
                                  // Add this if statement
-                                    Mail::send(
-                                        'mail.Categorymail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("Activity Performed By " . Auth::user()->name);
-                                        }
-                                    );
+                                    // Mail::send(
+                                    //     'mail.Categorymail',
+                                    //     ['data' => $deviation],
+                                    //     function ($message) use ($email) {
+                                    //         $message->to($email)
+                                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                                    //     }
+                                    // );
                                 
                             }
                         }
@@ -253,14 +253,14 @@ class DeviationController extends Controller
                                     $email = Helpers::getInitiatorEmail($u->user_id);
                                     if ($email !== null) {
                                          // Add this if statement
-                                            Mail::send(
-                                                'mail.Categorymail',
-                                                ['data' => $deviation],
-                                                function ($message) use ($email) {
-                                                    $message->to($email)
-                                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                                }
-                                            );
+                                            // Mail::send(
+                                            //     'mail.Categorymail',
+                                            //     ['data' => $deviation],
+                                            //     function ($message) use ($email) {
+                                            //         $message->to($email)
+                                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                                            //     }
+                                            // );
                                         
                                     }
                                 }
@@ -273,14 +273,14 @@ class DeviationController extends Controller
                                             $email = Helpers::getInitiatorEmail($u->user_id);
                                             if ($email !== null) {
                                                  // Add this if statement
-                                                    Mail::send(
-                                                        'mail.Categorymail',
-                                                        ['data' => $deviation],
-                                                        function ($message) use ($email) {
-                                                            $message->to($email)
-                                                                ->subject("Activity Performed By " . Auth::user()->name);
-                                                        }
-                                                    );
+                                                    // Mail::send(
+                                                    //     'mail.Categorymail',
+                                                    //     ['data' => $deviation],
+                                                    //     function ($message) use ($email) {
+                                                    //         $message->to($email)
+                                                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                                                    //     }
+                                                    // );
                                                 
                                             }
                                         }
@@ -294,14 +294,14 @@ class DeviationController extends Controller
                                                     $email = Helpers::getInitiatorEmail($u->user_id);
                                                     if ($email !== null) {
                                                          // Add this if statement
-                                                            Mail::send(
-                                                                'mail.Categorymail',
-                                                                ['data' => $deviation],
-                                                                function ($message) use ($email) {
-                                                                    $message->to($email)
-                                                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                                                }
-                                                            );
+                                                            // Mail::send(
+                                                            //     'mail.Categorymail',
+                                                            //     ['data' => $deviation],
+                                                            //     function ($message) use ($email) {
+                                                            //         $message->to($email)
+                                                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                                                            //     }
+                                                            // );
                                                         
                                                     }
                                                 }
@@ -314,14 +314,14 @@ class DeviationController extends Controller
                                                             $email = Helpers::getInitiatorEmail($u->user_id);
                                                             if ($email !== null) {
                                                                  // Add this if statement
-                                                                    Mail::send(
-                                                                        'mail.Categorymail',
-                                                                        ['data' => $deviation],
-                                                                        function ($message) use ($email) {
-                                                                            $message->to($email)
-                                                                                ->subject("Activity Performed By " . Auth::user()->name);
-                                                                        }
-                                                                    );
+                                                                    // Mail::send(
+                                                                    //     'mail.Categorymail',
+                                                                    //     ['data' => $deviation],
+                                                                    //     function ($message) use ($email) {
+                                                                    //         $message->to($email)
+                                                                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                                                                    //     }
+                                                                    // );
                                                                 
                                                             }
                                                         }
@@ -334,14 +334,14 @@ class DeviationController extends Controller
                                                                     $email = Helpers::getInitiatorEmail($u->user_id);
                                                                     if ($email !== null) {
                                                                          // Add this if statement
-                                                                            Mail::send(
-                                                                                'mail.Categorymail',
-                                                                                ['data' => $deviation],
-                                                                                function ($message) use ($email) {
-                                                                                    $message->to($email)
-                                                                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                                                                }
-                                                                            );
+                                                                            // Mail::send(
+                                                                            //     'mail.Categorymail',
+                                                                            //     ['data' => $deviation],
+                                                                            //     function ($message) use ($email) {
+                                                                            //         $message->to($email)
+                                                                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                                                                            //     }
+                                                                            // );
                                                                         
                                                                     }
                                                                 }
@@ -860,165 +860,229 @@ class DeviationController extends Controller
         $data5->save();
 
         $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Short Description';
-        $history->previous = "Null";
-        $history->current = $deviation->short_description;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-    
-        $history->action_name = 'Submit';
-        $history->save();
-    
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Initiator';
+            $history->previous = "Null";
+            $history->current = Auth::user()->name;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Due Date';
-        $history->previous = "Null";
-        $history->current = $deviation->due_date;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Due Date';
+            $history->previous = "Null";
+            $history->current = $deviation->due_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Initiator Group';
-        $history->previous = "Null";
-        $history->current = $deviation->Initiator_Group;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Date of Initiation';
+            $history->previous = "Null";
+            $history->current = Carbon::now()->format('d-M-Y');
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Deviation Observed';
-        $history->previous = "Null";
-        $history->current = $deviation->Deviation_date;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Observed by';
-        $history->previous = "Null";
-        $history->current = $deviation->Observed_by;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Deviation Reported on';
-        $history->previous = "Null";
-        $history->current = $deviation->Deviation_reported_date;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Deviation Related To';
-        $history->previous = "Null";
-        $history->current = $deviation->audit_type;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Others';
-        $history->previous = "Null";
-        $history->current = $deviation->others;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Facility/ Equipment/ Instrument/ System Details Required?';
-        $history->previous = "Null";
-        $history->current = $deviation->Facility_Equipment;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Document Details Required';
-        $history->previous = "Null";
-        $history->current = $deviation->Document_Details_Required;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Name of Product & Batch No';
-        $history->previous = "Null";
-        $history->current = $deviation->Product_Batch;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-       
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Description of Deviation';
-        $history->previous = "Null";
-        $history->current = $deviation->Description_Deviation;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
+        if (!empty ($request->short_description)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Short Description';
+            $history->previous = "Null";
+            $history->current = $deviation->short_description;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+            
+        if (!empty ($request->Initiator_Group)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Department';
+            $history->previous = "Null";
+            $history->current = $deviation->Initiator_Group;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if (!empty ($request->Deviation_date)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Deviation Observed';
+            $history->previous = "Null";
+            $history->current = $deviation->Deviation_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if ($request->Facility[0] !== null){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Observed by';
+            $history->previous = "Null";
+            $history->current = $deviation->Facility;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if (!empty ($request->Deviation_reported_date)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Deviation Reported on';
+            $history->previous = "Null";
+            $history->current = $deviation->Deviation_reported_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if ($request->audit_type[0] !== null){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Deviation Related To';
+            $history->previous = "Null";
+            $history->current = $deviation->audit_type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if (!empty ($request->others)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Others';
+            $history->previous = "Null";
+            $history->current = $deviation->others;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->action_name = 'Create';
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->save();
+        }
+        if (!empty ($request->Facility_Equipment)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Facility/ Equipment/ Instrument/ System Details Required?';
+            $history->previous = "Null";
+            $history->current = $deviation->Facility_Equipment;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if (!empty ($request->Document_Details_Required)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Document Details Required';
+            $history->previous = "Null";
+            $history->current = $deviation->Document_Details_Required;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if (!empty ($request->Product_Batch)){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Name of Product & Batch No';
+            $history->previous = "Null";
+            $history->current = $deviation->Product_Batch;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if ($request->Description_Deviation[0] !== null){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Description of Deviation';
+            $history->previous = "Null";
+            $history->current = $deviation->Description_Deviation;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if ($request->Immediate_Action[0] !== null){
+            $history = new DeviationAuditTrail();
         $history->deviation_id = $deviation->id;
         $history->activity_type = 'Immediate Action (if any)';
         $history->previous = "Null";
@@ -1026,270 +1090,276 @@ class DeviationController extends Controller
         $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
+        $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
+        $history->action_name = 'Create';
         $history->save();
+        }
+        if ($request->Preliminary_Impact[0] !== null){
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Preliminary Impact of Deviation';
+            $history->previous = "Null";
+            $history->current = $deviation->Preliminary_Impact;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->action_name = 'Create';
+            $history->save();
+        }
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Preliminary Impact of Deviation';
-        $history->previous = "Null";
-        $history->current = $deviation->Preliminary_Impact;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'HOD Remarks';
+        // $history->previous = "Null";
+        // $history->current = $deviation->HOD_Remarks;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'HOD Remarks';
-        $history->previous = "Null";
-        $history->current = $deviation->HOD_Remarks;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Initial Deviation Category';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Deviation_category;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Initial Deviation Category';
-        $history->previous = "Null";
-        $history->current = $deviation->Deviation_category;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Justification for Categorization';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Justification_for_categorization;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Justification for Categorization';
-        $history->previous = "Null";
-        $history->current = $deviation->Justification_for_categorization;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Investigation Is required ?';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Investigation_required;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Investigation Is required ?';
-        $history->previous = "Null";
-        $history->current = $deviation->Investigation_required;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Investigation Details';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Investigation_Details;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Investigation Details';
-        $history->previous = "Null";
-        $history->current = $deviation->Investigation_Details;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Customer Notification Required ?';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Customer_notification;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Customer Notification Required ?';
-        $history->previous = "Null";
-        $history->current = $deviation->Customer_notification;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Customer';
+        // $history->previous = "Null";
+        // $history->current = $deviation->customers;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Customer';
-        $history->previous = "Null";
-        $history->current = $deviation->customers;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'QA Initial Remarks';
+        // $history->previous = "Null";
+        // $history->current = $deviation->QAInitialRemark;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'QA Initial Remarks';
-        $history->previous = "Null";
-        $history->current = $deviation->QAInitialRemark;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Investigation Summary';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Investigation_Summary;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Investigation Summary';
-        $history->previous = "Null";
-        $history->current = $deviation->Investigation_Summary;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Impact Assessment';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Impact_assessment;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Impact Assessment';
-        $history->previous = "Null";
-        $history->current = $deviation->Impact_assessment;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Root Cause';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Root_cause;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Root Cause';
-        $history->previous = "Null";
-        $history->current = $deviation->Root_cause;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'CAPA Required ?';
+        // $history->previous = "Null";
+        // $history->current = $deviation->CAPA_Rquired;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'CAPA Required ?';
-        $history->previous = "Null";
-        $history->current = $deviation->CAPA_Rquired;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'CAPA Type?';
+        // $history->previous = "Null";
+        // $history->current = $deviation->capa_type;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'CAPA Type?';
-        $history->previous = "Null";
-        $history->current = $deviation->capa_type;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'CAPA Description';
+        // $history->previous = "Null";
+        // $history->current = $deviation->CAPA_Description;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'CAPA Description';
-        $history->previous = "Null";
-        $history->current = $deviation->CAPA_Description;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Post Categorization Of Deviation';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Post_Categorization;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Post Categorization Of Deviation';
-        $history->previous = "Null";
-        $history->current = $deviation->Post_Categorization;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Investigation Of Revised Categorization';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Investigation_Of_Review;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Investigation Of Revised Categorization';
-        $history->previous = "Null";
-        $history->current = $deviation->Investigation_Of_Review;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'QA Feedbacks';
+        // $history->previous = "Null";
+        // $history->current = $deviation->QA_Feedbacks;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'QA Feedbacks';
-        $history->previous = "Null";
-        $history->current = $deviation->QA_Feedbacks;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Closure Comments';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Closure_Comments;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Closure Comments';
-        $history->previous = "Null";
-        $history->current = $deviation->Closure_Comments;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
-
-        $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
-        $history->activity_type = 'Disposition of Batch';
-        $history->previous = "Null";
-        $history->current = $deviation->Disposition_Batch;
-        $history->comment = "Not Applicable";
-        $history->user_id = Auth::user()->id;
-        $history->user_name = Auth::user()->name;
-        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        $history->origin_state = $deviation->status;
-        $history->action_name = 'Submit';
-        $history->save();
+        // $history = new DeviationAuditTrail();
+        // $history->deviation_id = $deviation->id;
+        // $history->activity_type = 'Disposition of Batch';
+        // $history->previous = "Null";
+        // $history->current = $deviation->Disposition_Batch;
+        // $history->comment = "Not Applicable";
+        // $history->user_id = Auth::user()->id;
+        // $history->user_name = Auth::user()->name;
+        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        // $history->origin_state = $deviation->status;
+        // $history->action_name = 'Submit';
+        // $history->save();
 
 
         toastr()->success("Record is created Successfully");
@@ -2141,7 +2211,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
-            // $previousStatus = $history->origin_state;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = $history->origin_state;
             $history->save();
         }
@@ -2157,6 +2228,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2173,6 +2246,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2189,6 +2264,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2205,6 +2282,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2221,6 +2300,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2237,6 +2318,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2253,6 +2336,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2269,6 +2354,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2285,6 +2372,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2301,6 +2390,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2317,6 +2408,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2333,6 +2426,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2349,6 +2444,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2365,6 +2462,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2381,6 +2480,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2397,6 +2498,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2413,6 +2516,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2429,6 +2534,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2445,6 +2552,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2461,6 +2570,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2478,6 +2589,8 @@ class DeviationController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
             $history->action_name = 'Update';
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->save();
         }
 
@@ -2493,6 +2606,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2509,6 +2624,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2525,6 +2642,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2541,6 +2660,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2557,6 +2678,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2573,6 +2696,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2589,6 +2714,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2605,6 +2732,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2621,6 +2750,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2637,6 +2768,8 @@ class DeviationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
             $history->action_name = 'Update';
             $history->save();
         }
@@ -2690,6 +2823,7 @@ class DeviationController extends Controller
                 $deviation->submit_by = Auth::user()->name;
                 $deviation->submit_on = Carbon::now()->format('d-M-Y');
                 $deviation->submit_comment = $request->comment;
+
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -2701,6 +2835,8 @@ class DeviationController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to =   "HOD Review";
+                $history->change_from = $lastDocument->status;
                 $history->stage = 'Plan Proposed';
                 $history->save();
 
@@ -2711,14 +2847,14 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -2785,6 +2921,8 @@ class DeviationController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to =   "QA Initial Review";
+                $history->change_from = $lastDocument->status;
                 $history->stage = 'Plan Approved';
                 $history->save();
                 // dd($history->action);
@@ -2793,14 +2931,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -2859,6 +2997,8 @@ class DeviationController extends Controller
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
+                $history->change_to =   "CFT Review";
+                $history->change_from = $lastDocument->status;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->stage = 'Completed';
@@ -2868,14 +3008,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -2887,14 +3027,14 @@ class DeviationController extends Controller
                                     $email = Helpers::getInitiatorEmail($u->user_id);
                                     if ($email !== null) {
                                          // Add this if statement
-                                            Mail::send(
-                                                'mail.Categorymail',
-                                                ['data' => $deviation],
-                                                function ($message) use ($email) {
-                                                    $message->to($email)
-                                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                                }
-                                            );
+                                            // Mail::send(
+                                            //     'mail.Categorymail',
+                                            //     ['data' => $deviation],
+                                            //     function ($message) use ($email) {
+                                            //         $message->to($email)
+                                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                                            //     }
+                                            // );
                                         
                                     }
                                 }
@@ -2907,14 +3047,14 @@ class DeviationController extends Controller
                                             $email = Helpers::getInitiatorEmail($u->user_id);
                                             if ($email !== null) {
                                                  // Add this if statement
-                                                    Mail::send(
-                                                        'mail.Categorymail',
-                                                        ['data' => $deviation],
-                                                        function ($message) use ($email) {
-                                                            $message->to($email)
-                                                                ->subject("Activity Performed By " . Auth::user()->name);
-                                                        }
-                                                    );
+                                                    // Mail::send(
+                                                    //     'mail.Categorymail',
+                                                    //     ['data' => $deviation],
+                                                    //     function ($message) use ($email) {
+                                                    //         $message->to($email)
+                                                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                                                    //     }
+                                                    // );
                                                 
                                             }
                                         }
@@ -2927,14 +3067,14 @@ class DeviationController extends Controller
                                                     $email = Helpers::getInitiatorEmail($u->user_id);
                                                     if ($email !== null) {
                                                          // Add this if statement
-                                                            Mail::send(
-                                                                'mail.Categorymail',
-                                                                ['data' => $deviation],
-                                                                function ($message) use ($email) {
-                                                                    $message->to($email)
-                                                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                                                }
-                                                            );
+                                                            // Mail::send(
+                                                            //     'mail.Categorymail',
+                                                            //     ['data' => $deviation],
+                                                            //     function ($message) use ($email) {
+                                                            //         $message->to($email)
+                                                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                                                            //     }
+                                                            // );
                                                         
                                                     }
                                                 }
@@ -3076,6 +3216,7 @@ class DeviationController extends Controller
 
                 $checkCFTCount = DeviationCftsResponse::withoutTrashed()->where(['status' => 'Completed', 'deviation_id' => $id])->count();
                 // dd(count(array_unique($valuesArray)), $checkCFTCount);
+                
 
                 if (!$IsCFTRequired || $checkCFTCount) {
 
@@ -3096,6 +3237,8 @@ class DeviationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->origin_state = $lastDocument->status;
+                    $history->change_to =   "QA Final Review";
+                    $history->change_from = $lastDocument->status;
                     $history->stage = 'Complete';
                     $history->save();
                     $list = Helpers::getQAUserList();
@@ -3103,14 +3246,14 @@ class DeviationController extends Controller
                         if ($u->q_m_s_divisions_id == $deviation->division_id) {
                             $email = Helpers::getInitiatorEmail($u->user_id);
                             if ($email !== null) {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
+                                // Mail::send(
+                                //     'mail.view-mail',
+                                //     ['data' => $deviation],
+                                //     function ($message) use ($email) {
+                                //         $message->to($email)
+                                //             ->subject("Activity Performed By " . Auth::user()->name);
+                                //     }
+                                // );
                             }
                         }
                     }
@@ -3158,6 +3301,8 @@ class DeviationController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to =   "QA Head/Manager Designee Approval";
+                $history->change_from = $lastDocument->status;
                 $history->stage = 'Approved';
                 $history->save();
                 $list = Helpers::getQAUserList();
@@ -3165,14 +3310,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3217,6 +3362,8 @@ class DeviationController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to =   "Closed - Done";
+                $history->change_from = $lastDocument->status;
                 $history->stage = 'Completed';
                 $history->save();
                 $list = Helpers::getQAUserList();
@@ -3224,14 +3371,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3277,14 +3424,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3336,14 +3483,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
 
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Activity Performed By " . Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Activity Performed By " . Auth::user()->name);
+                        //     }
+                        // );
                     }
                 }
             }
@@ -3382,14 +3529,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
 
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Activity Performed By " . Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Activity Performed By " . Auth::user()->name);
+                        //     }
+                        // );
                     }
                 }
             }
@@ -3438,14 +3585,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
 
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Activity Performed By " . Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Activity Performed By " . Auth::user()->name);
+                        //     }
+                        // );
                     }
                 }
             }
@@ -3500,14 +3647,14 @@ class DeviationController extends Controller
                     $email = Helpers::getInitiatorEmail($u->user_id);
                     if ($email !== null) {
 
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Activity Performed By " . Auth::user()->name);
-                            }
-                        );
+                        // Mail::send(
+                        //     'mail.view-mail',
+                        //     ['data' => $deviation],
+                        //     function ($message) use ($email) {
+                        //         $message->to($email)
+                        //             ->subject("Activity Performed By " . Auth::user()->name);
+                        //     }
+                        // );
                     }
                 }
             }
@@ -3568,14 +3715,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3614,14 +3761,14 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3708,14 +3855,14 @@ class DeviationController extends Controller
                 $email = Helpers::getInitiatorEmail($u->user_id);
                 if ($email !== null) {
 
-                    Mail::send(
-                        'mail.view-mail',
-                        ['data' => $deviation],
-                        function ($message) use ($email) {
-                            $message->to($email)
-                                ->subject("Activity Performed By " . Auth::user()->name);
-                        }
-                    );
+                    // Mail::send(
+                    //     'mail.view-mail',
+                    //     ['data' => $deviation],
+                    //     function ($message) use ($email) {
+                    //         $message->to($email)
+                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                    //     }
+                    // );
                 }
             }
         }
@@ -3771,14 +3918,14 @@ class DeviationController extends Controller
                 $email = Helpers::getInitiatorEmail($u->user_id);
                 if ($email !== null) {
 
-                    Mail::send(
-                        'mail.view-mail',
-                        ['data' => $deviation],
-                        function ($message) use ($email) {
-                            $message->to($email)
-                                ->subject("Activity Performed By " . Auth::user()->name);
-                        }
-                    );
+                    // Mail::send(
+                    //     'mail.view-mail',
+                    //     ['data' => $deviation],
+                    //     function ($message) use ($email) {
+                    //         $message->to($email)
+                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                    //     }
+                    // );
                 }
             }
         }
@@ -3834,14 +3981,14 @@ class DeviationController extends Controller
                 $email = Helpers::getInitiatorEmail($u->user_id);
                 if ($email !== null) {
 
-                    Mail::send(
-                        'mail.view-mail',
-                        ['data' => $deviation],
-                        function ($message) use ($email) {
-                            $message->to($email)
-                                ->subject("Activity Performed By " . Auth::user()->name);
-                        }
-                    );
+                    // Mail::send(
+                    //     'mail.view-mail',
+                    //     ['data' => $deviation],
+                    //     function ($message) use ($email) {
+                    //         $message->to($email)
+                    //             ->subject("Activity Performed By " . Auth::user()->name);
+                    //     }
+                    // );
                 }
             }
         }
@@ -3884,14 +4031,14 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3932,14 +4079,14 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -3997,14 +4144,14 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
@@ -4038,14 +4185,14 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
+                            // Mail::send(
+                            //     'mail.view-mail',
+                            //     ['data' => $deviation],
+                            //     function ($message) use ($email) {
+                            //         $message->to($email)
+                            //             ->subject("Activity Performed By " . Auth::user()->name);
+                            //     }
+                            // );
                         }
                     }
                 }
