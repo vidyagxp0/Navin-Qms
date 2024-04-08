@@ -1351,48 +1351,6 @@ $users = DB::table('users')
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
-
-                                
-                                
-                                {{-- <div class="group-input">
-                                        <label for="audit-agenda-grid">
-                                       Product Details 
-                                            <button type="button" name="audit-agenda-grid"
-                                                id="ProductDetails">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#product-details-field-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="ProductDetails_details"
-                                                style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                    <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%"> Product Name</th>
-                                                        
-                                                        <th style="width: 16%"> Batch No</th>
-                                                        <th style="width: 16%"> Remarks</th>
-                                                                                                         
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                               <td><input disabled type="text" name="serial[]" value="1"></td>
-                                              <td><input type="text" name="Product_Name[]"></td>
-                                                    <td><input type="text" name=" Batch_No[]"></td>
-                                                    <td><input type="text" name="Remarks[]"></td>
-                       
-                                                  
-                                              
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div> --}}
-                                
                                     <div class="col-md-12">
                                         @if($data->stage == 2)
                                             <div class="group-input">
@@ -1411,34 +1369,56 @@ $users = DB::table('users')
                                             <div class="text-danger">{{  $message  }}</div>
                                         @enderror
                                 </div>
-                                {{-- <div class="col-12">
+                                 <div class="col-12">
+                                    @if($data->stage == 2)
+                                        <div class="group-input">
+                                            <label for="Inv Attachments">HOD Attachments</label>
+                                            <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                            <div class="file-attachment-field">
+                                                <div disabled class="file-attachment-list" id="Audit_file">
+                                                    @if ($data->Audit_file)
+                                                        @foreach(json_decode($data->Audit_file) as $file)
+                                                            <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                                <b>{{ $file }}</b>
+                                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                                <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                            </h6>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                                <div class="add-btn">
+                                                    <div>Add</div>
+                                                    <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                        oninput="addMultipleFiles(this, 'Audit_file')"
+                                                        multiple>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
                                     <div class="group-input">
                                         <label for="Inv Attachments">HOD Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div disabled class="file-attachment-list" id="Audit_file">
                                                 @if ($data->Audit_file)
-                                                @foreach(json_decode($data->Audit_file) as $file)
-                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
-                                                    <b>{{ $file }}</b>
-                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
-                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
-                                                </h6>
-                                           @endforeach
+                                                    @foreach(json_decode($data->Audit_file) as $file)
+                                                        <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                            <b>{{ $file }}</b>
+                                                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                            <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                        </h6>
+                                                    @endforeach
                                                 @endif
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Audit_file')"
                                                     multiple>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                 --}}
-                               
-                                 <div class="col-12">
+                                    @endif
                                     <div class="group-input">
                                         <label for="Inv Attachments">HOD Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
@@ -1704,24 +1684,6 @@ $users = DB::table('users')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <script>
-
-                                </script>
-                                {{-- <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Audit Attachments">QA Initial Attachments</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="audit_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'audit_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Initial Attachments">QA Initial Attachments</label>
@@ -1740,7 +1702,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Initial_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                <input type="file" id="myfile" name="Initial_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Initial_attachment')"
                                                     multiple>
                                             </div>
@@ -1787,7 +1749,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Justification for  categorization">Justification for  categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
+                                        <textarea disabled class="summernote" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
                                     </div>
                                     @error('Justification_for_categorization')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1813,7 +1775,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                                 <label for="Investigation Details">Investigation Details <span id="asteriskInviinvestication" style="display: none" class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                <textarea class="summernote Investigation_Details" name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
+                                                <textarea disabled class="summernote Investigation_Details" name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
                                                 {{-- <span class="error-message" style="color: red; display: none;">Please fill out this field.</span> --}}
                                                 @error('Investigation_Details')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -1944,7 +1906,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input  type="file" id="myfile" name="Initial_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                <input disabled type="file" id="myfile" name="Initial_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Initial_attachment')"
                                                     multiple>
                                             </div>
@@ -5834,7 +5796,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary <span class="text-danger">*</span></label>
+                                        <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
@@ -5850,7 +5812,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment <span class="text-danger">*</span></label>
+                                        <label for="Impact Assessment">Impact Assessment <span  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
@@ -5866,7 +5828,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Root Cause">Root Cause <span class="text-danger">*</span></label>
+                                        <label for="Root Cause">Root Cause <span class="text-danger"  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
@@ -5878,7 +5840,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger">*</span></label>
+                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                       <select name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes' ) selected @endif
@@ -5893,7 +5855,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="capa type">CAPA Type?</label>
+                                        <label for="capa type">CAPA Type? <span id="asteriskIcon321" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                       <select name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->capa_type == 'Corrective_Action') selected @endif
@@ -5908,6 +5870,30 @@ $users = DB::table('users')
                                       @enderror
                                     </div>
                                 </div>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                            var selectField = document.getElementById('CAPA_Rquired');
+                                            var inputsToToggle = [];
+        
+                                            // Add elements with class 'facility-name' to inputsToToggle
+                                            var facilityNameInputs = document.getElementsByClassName('capa_type');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
+                        
+                                            selectField.addEventListener('change', function () {
+                                                var isRequired = this.value === 'yes';
+        
+                                                inputsToToggle.forEach(function (input) {
+                                                    input.required = isRequired;
+                                                });
+        
+                                                // Show or hide the asterisk icon based on the selected value
+                                                var asteriskIcon321 = document.getElementById('asterisko5');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
+                                        });
+                                </script>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
@@ -5932,7 +5918,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span class="text-danger">*</span></label>
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         <select name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
@@ -5956,7 +5942,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger">*</span></label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 6 ? 'inline' : 'none' }}">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>
@@ -5964,26 +5950,6 @@ $users = DB::table('users')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigatiom Attachment </label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            
-                                            
-                                            </div>
-                                       
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Investigatiom Attachment">Investigatiom Attachment</label>
@@ -6002,7 +5968,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
                                                     oninput="addMultipleFiles(this, 'Investigation_attachment')"
                                                     multiple>
                                             </div>
@@ -6047,7 +6013,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
                                                     oninput="addMultipleFiles(this, 'Capa_attachment')"
                                                     multiple>
                                             </div>
@@ -6128,7 +6094,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="QA_attachments[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="QA_attachments[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
                                                     oninput="addMultipleFiles(this, 'QA_attachments')"
                                                     multiple>
                                             </div>
@@ -6198,7 +6164,7 @@ $users = DB::table('users')
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="closure_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 6 ? '' : 'disabled' }} type="file" id="myfile" name="closure_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
                                                     oninput="addMultipleFiles(this, 'closure_attachment')"
                                                     multiple>
                                             </div>

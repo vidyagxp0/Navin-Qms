@@ -2960,12 +2960,6 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 3) {
-
-                // if(empty($updateCFT->Production_Review)){
-                //     return back();
-                // }
-
-
                 if ($deviation->form_progress !== 'cft') 
                 {
                     Session::flash('swal', [
@@ -3220,7 +3214,7 @@ class DeviationController extends Controller
                         $stage->cft_user_id = Auth::user()->id;
                         $stage->status = "In-progress";
                         // $stage->cft_stage = ;
-                        $stage->comment = $request->comment;
+                        $stage->comment = $request->comment; 
                         $stage->save();
                     }
                 }

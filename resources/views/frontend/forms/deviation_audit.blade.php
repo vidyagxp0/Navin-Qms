@@ -202,7 +202,7 @@
         @php
                 $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $document->division_id])->get();
                 $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
-                $auditCollect = DB::table('audit_reviewers_details')->where(['deviation_id' => $document->id])->latest()->first();
+                $auditCollect = DB::table('audit_reviewers_details')->where(['deviation_id' => $document->id, 'user_id' => Auth::user()->id])->latest()->first();
         @endphp
 
        <div class="d-flex justify-content-between align-items-center">
@@ -213,10 +213,13 @@
             @endif
             <div class="buttons-new">
                 @if ($document->stage < 7 && (in_array(4, $userRoleIds) || in_array(7, $userRoleIds) || in_array(18, $userRoleIds) || in_array(39, $userRoleIds)))
-                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditReviewer">
+                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditReviewer" >
                     Review
                 </button>
                 @endif
+                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditViewers">
+                    View
+                    </button>
                 <button class="button_theme1" ><a class="text-white" href="{{ url('rcms/devshow/' . $document->id)  }}"> Back
                 </a>
                 </button>
@@ -225,6 +228,59 @@
                 </button>
             </div>
        </div>
+       <div class="modal fade" id="auditViewers">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <style>
+                    .validationClass{
+                        margin-left: 100px
+                    }
+                    </style>
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Audit Reviewers Details</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                @php
+                $reviewer = DB::table('audit_reviewers_details')->get();
+            @endphp
+            <!-- Customer grid view -->
+            <div class="table-responsive" style="
+            padding: 20px;
+        ">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Review By</th>
+                            <th>Review On</th>
+                            <th>Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Check if reviewer array is empty or null -->
+                        @if($reviewer && count($reviewer) > 0)
+                        <!-- Iterate over stored reviewer and display them -->
+                            @foreach($reviewer as $review)
+                            <tr>
+                                <td>{{ $review->reviewer_comment_by }}</td>
+                                <td>{{ $review->reviewer_comment_on }}</td>
+                                <td>{{ $review->reviewer_comment }}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="9">No results available</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
 
        <div class="modal fade" id="auditReviewer">
             <div class="modal-dialog modal-dialog-centered">
@@ -265,86 +321,7 @@
                             <button type="button" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
-                    {{-- <script>
-                        function submitForm() {
-                            document.querySelectorAll('.validationClass').forEach(span => {
-                                span.textContent = '';
-                            });
-    
-                            var formData = new FormData(document.getElementById('customerForm'));
-    
-    
-                            // Send POST request to server
-                            fetch("{{ route('customers.store') }}", {
-                                method: "POST",
-                                body: formData
-                            })
-                            .then(response => {
-                                console.log(response);
-                                if (response.ok) {
-                            location.reload();
-                            var customerData = {
-                                id: formData.get('id'),
-                                reviewer_comment_by: formData.get('reviewer_comment_by'),
-                                reviewer_comment_on: formData.get('reviewer_comment_on'),
-                                reviewer_comment: formData.get('reviewer_comment'),
-                            };
-                            
-                            // Append new row with form data to the table
-                            var newRow = `
-                                <tr>
-                                    <td>${customerData.id}</td>
-                                    <td>${customerData.reviewer_comment_by}</td>
-                                    <td>${customerData.reviewer_comment_on}</td>
-                                    <td>${customerData.reviewer_comment}</td>
-                                </tr>
-                            `;
-                            
-                            document.querySelector('.table tbody').innerHTML += newRow;
-                                                } else {
-                                                    console.error('Failed to create customer');
-                                                }
-                                            })
-                        .catch(error => {
-                            console.error('Error:', error);
-                       });
-                                        }
-                    </script>     --}}
-                    @php
-                    $reviewer = DB::table('audit_reviewers_details')->get();
-                @endphp
-                <!-- Customer grid view -->
-                <div class="table-responsive">
-                    <h5>Stored Customers</h5>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Review By</th>
-                                <th>Review On</th>
-                                <th>Comment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Check if reviewer array is empty or null -->
-                            @if($reviewer && count($reviewer) > 0)
-                            <!-- Iterate over stored reviewer and display them -->
-                                @foreach($reviewer as $review)
-                                <tr>
-                                    <td>{{ $review->id }}</td>
-                                    <td>{{ $review->reviewer_comment_by }}</td>
-                                    <td>{{ $review->reviewer_comment_on }}</td>
-                                    <td>{{ $review->reviewer_comment }}</td>
-                                </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="9">No results available</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
+                
                 </div>
             </div>
         </div>
