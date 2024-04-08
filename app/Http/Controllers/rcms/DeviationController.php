@@ -4186,14 +4186,15 @@ class DeviationController extends Controller
     public static function singleReport($id)
     {
         $data = Deviation::find($id);
+        $data1 =  DeviationCft::where('deviation_id', $id)->first();
         if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
-           
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.singleReportdeviation', compact('data','grid_data','grid_data1'))
+         
+            $pdf = PDF::loadview('frontend.forms.singleReportdeviation', compact('data','grid_data','grid_data1','data1'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
@@ -4213,7 +4214,7 @@ class DeviationController extends Controller
     public static function parentchildReport($id)
     {
         $data = Deviation::find($id);
-
+        $data4 =  DeviationCft::where('deviation_id', $id)->first();
         $Capachild = $data->Capachild;
         $Rootchild = $data->Rootchild;
        
@@ -4229,7 +4230,7 @@ class DeviationController extends Controller
            
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data', 'data1', 'data2', 'data3','grid_data1','grid_data'))
+            $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data', 'data1', 'data2', 'data3','data4','grid_data1','grid_data'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
@@ -4249,6 +4250,7 @@ class DeviationController extends Controller
     public static function deviationfamilyReport($id)
     {
         $data = Deviation::find($id);
+        $data7 =  DeviationCft::where('deviation_id', $id)->first();
         $Capachild = $data->Capachild;
         
         $Rootchild = $data->Rootchild;
@@ -4273,7 +4275,7 @@ class DeviationController extends Controller
            
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3','data4','data5','data6','grid_data1','grid_data'))
+            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3','data4','data5','data6','grid_data1','grid_data','data7'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
