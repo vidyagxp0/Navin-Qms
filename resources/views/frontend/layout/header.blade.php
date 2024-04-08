@@ -19,12 +19,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
+    </script> --}}
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    
     <script src="https://cdn.tiny.cloud/1/nlsiabbt295w89cjmcocv6qjdg3k7ozef0q9meowv2nkwyd3/tinymce/6/tinymce.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -97,13 +100,13 @@
                             <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
                         </div>
                     </div>
-                    <div class="search-bar">
+                    {{-- <div class="search-bar">
                         <form action="#" class="w-100">
                             <label for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
                             <input id="searchInput" type="text" name="search" placeholder="Search">
                             <div data-bs-toggle="modal" data-bs-target="#advanced-search">Advanced Search</div>
                         </form>
-                    </div>
+                    </div> --}}
                     <div class="icon-grid">
                         <!-- <div class="icon-drop">
                             <div class="icon">

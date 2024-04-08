@@ -16,12 +16,17 @@ function addMultipleFiles(input, block_id) {
         viewLink.href = URL.createObjectURL(files[i]);
         viewLink.textContent = "<View>";
 
+        let removeLink = document.createElement("a");
+        removeLink.className = 'remove-file';
+        removeLink.textContent = "<Remove>";
+
         let fileClone = files[i].slice();
         viewLink.addEventListener('click',function(e){
             e.preventDefault();
             window.open(viewLink.href,'_blank');
         });
         div.appendChild(viewLink);
+        div.appendChild(removeLink);
         block.appendChild(div);
     }
 }

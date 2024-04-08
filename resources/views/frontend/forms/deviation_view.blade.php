@@ -541,6 +541,11 @@ $users = DB::table('users')
         });
     });
 
+    $(document).on('click', '.remove-file', function() {
+        $(this).closest('div').remove();
+        console.log('removing')
+    })
+
 </script>
 
     <div style="background: #e0903230;" id="change-control-fields">
@@ -604,6 +609,7 @@ $users = DB::table('users')
                                         {{-- <div class="static">QMS-North America</div> --}}
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator"><b>Initiator</b></label>
@@ -1314,7 +1320,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
+                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3" >{{ $data->Preliminary_Impact }}</textarea>
                                     </div>
                                     @error('Preliminary_Impact')
                                         <div class="text-danger">{{ $message }}</div>
@@ -6814,55 +6820,9 @@ location.reload();
         });
     </script>
 
-<script>
-        VirtualSelect.init({
-            ele: '#reference_record, #notify_to'
-        });
+ 
 
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear', 'italic']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
 
-        $('.summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear', 'italic']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
-
-        let referenceCount = 1;
-
-        function addReference() {
-            referenceCount++;
-            let newReference = document.createElement('div');
-            newReference.classList.add('row', 'reference-data-' + referenceCount);
-            newReference.innerHTML = `
-            <div class="col-lg-6">
-                <input type="text" name="reference-text">
-            </div>
-            <div class="col-lg-6">
-                <input type="file" name="references" class="myclassname">
-            </div><div class="col-lg-6">
-                <input type="file" name="references" class="myclassname">
-            </div>
-        `;
-            let referenceContainer = document.querySelector('.reference-data');
-            referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
-        }
-    </script>
     <script>
         VirtualSelect.init({
             ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record, #related_records, #audit_type'
