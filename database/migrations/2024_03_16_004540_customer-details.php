@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('customer-details', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_id');
-            $table->string('email');
-            $table->string('customer_type');
-            $table->string('status');
-            $table->string('customer_name');
-            $table->string('contact_no');
-            $table->string('industry');
-            $table->string('region');
+            $table->string('customer_id')->nullable();
+            $table->string('email')->nullable();
+            $table->string('customer_type')->nullable();
+            $table->string('status')->nullable();
+            $table->string('customer_name')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('industry')->nullable();
+            $table->string('region')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
         });
