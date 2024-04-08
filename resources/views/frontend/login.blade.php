@@ -250,6 +250,15 @@
                     Welcome to Doculife
                 </div> --}}
             </div>
+
+            {{-- @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="text-danger">
+                        {{ $error }}
+                    </div>
+                @endforeach
+            @endif --}}
+
             <form action="{{ url('rcms_check') }}" method="POST" >
                 @csrf
                 <div class="head">

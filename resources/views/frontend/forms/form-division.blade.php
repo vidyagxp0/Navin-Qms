@@ -5,6 +5,17 @@
             display: none;
         }
     </style>
+    <script>
+        
+        $(document).ready(function() {
+            $('input[type=radio]').first().click();
+        });
+
+        $(document).on('click', '.form-division-radio-click', function() {
+            const inputValue = $(this).data('id');
+            $('input[value='+ inputValue +']').click();
+        });
+    </script>
     {{-- <style>
         /* CSS for changing the color of active site/location option to blue */
             .divisionlinks.active {
@@ -42,7 +53,7 @@
                                     <div class="divisionlinks">
                                         <input type="radio" value="{{ $temp->id }}" name="division_id"
                                             onclick="openDivision(event, {{ $temp->id }})" required>
-                                        <div>{{ $temp->name }}</div>
+                                        <div class="form-division-radio-click" data-id="{{ $temp->id }}">{{ $temp->name }}</div>
                                     </div>
                                 @endforeach
 
