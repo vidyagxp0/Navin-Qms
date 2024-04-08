@@ -2787,7 +2787,7 @@ class DeviationController extends Controller
                 $history->origin_state = $lastDocument->status;
                 $history->stage = 'Plan Approved';
                 $history->save();
-
+                // dd($history->action);
                 $list = Helpers::getQAUserList();
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {

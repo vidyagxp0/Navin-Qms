@@ -666,55 +666,81 @@ class DashboardController extends Controller
             $data = CC::find($id);
             $single = "change_control_single_pdf/" . $data->id;
             $audit = "audit/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Capa") {
             $data = Capa::find($id);
             $single = "capaSingleReport/" . $data->id;
             $audit = "capaAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Internal-Audit") {
             $data = InternalAudit::find($id);
             $single = "internalSingleReport/" . $data->id;
             $audit = "internalauditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Risk-Assesment") {
             $data = RiskManagement::find($id);
             $single = "riskSingleReport/" . $data->id;
             $audit = "riskAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Lab-Incident") {
             $data = LabIncident::find($id);
             $single = "LabIncidentSingleReport/" . $data->id;
             $audit = "LabIncidentAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "External-Audit") {
             $data = Auditee::find($id);
             $single = "ExternalAuditSingleReport/" . $data->id;
             $audit = "ExternalAuditTrialReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Audit-Program") {
             $data = AuditProgram::find($id);
             $single = "auditProgramSingleReport/" . $data->id;
             $audit = "auditProgramAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Action-Item") {
             $data = ActionItem::find($id);
             $single = "actionitemSingleReport/"  . $data->id;
             $audit = "actionitemAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Extension") {
             $data = Extension::find($id);
             $single = "extensionSingleReport/" .$data->id;
             $audit = "extensionAuditReport/" .$data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
 
         } elseif ($type == "Observation") {
             $data = Observation::find($id);
             $single = "#";
             $audit = "ObservationAuditTrialShow/" .$data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Effectiveness-Check") {
             $data = EffectivenessCheck::find($id);
             $single = "effectiveSingleReport/" .$data->id;
             $audit = "effectiveAuditReport/" .$data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Management-Review") {
             $data = ManagementReview::find($id);
             $single = "managementReview/" . $data->id;
             $audit = "managementReviewReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Root-Cause-Analysis") {
             $data = RootCauseAnalysis::find($id);
             $single = "rootSingleReport/" . $data->id;
             $audit = "rootAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Deviation") {
             $data = Deviation::find($id);
             $single = "deviationSingleReport/". $data->id;
@@ -751,8 +777,8 @@ class DashboardController extends Controller
                         <div class="drop-list">
                             <a target="__blank" href="' . $audit . '" class="inner-item">Audit Trail</a>
                             <a target="__blank" href="' . $single . '" class="inner-item">' . $type . ' Single Report</a>
-                            <a target="__blank" href="' . $parent . '" class="inner-item">' . $type . ' Parent with immediate child Report</a>
-                            <a target="__blank" href="' . $family . '" class="inner-item">' . $type . ' Family Report</a>
+                            <a target="__blank" href="' . $parent . '" class="inner-item"> Deviation Parent with immediate child Report</a>
+                            <a target="__blank" href="' . $family . '" class="inner-item">  Deviation  Family Report</a>
                         </div>
                     </div>
                 </div>
