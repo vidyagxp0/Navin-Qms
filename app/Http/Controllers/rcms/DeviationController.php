@@ -1666,6 +1666,8 @@ class DeviationController extends Controller
         //$deviation->initiator_Group= $request->initiator_Group;
         if ($deviation->stage < 2) {
             $deviation->short_description = $request->short_description;
+        } else {
+            $deviation->short_description = $deviation->short_description;
         }
         $deviation->initiator_group_code = $request->initiator_group_code;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
