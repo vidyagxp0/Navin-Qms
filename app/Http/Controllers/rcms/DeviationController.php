@@ -4361,7 +4361,7 @@ class DeviationController extends Controller
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.SingleReportdeviation', compact('data','grid_data','grid_data1'))
+            $pdf = PDF::loadview('frontend.forms.SingleReportdeviation', compact('data','grid_data','grid_data1', 'data1'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
