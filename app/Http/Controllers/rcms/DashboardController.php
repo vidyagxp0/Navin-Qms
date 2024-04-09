@@ -65,6 +65,7 @@ class DashboardController extends Controller
         $datas11 = RootCauseAnalysis::orderByDesc('id')->get();
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
+        // dd($datas2);
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -74,7 +75,7 @@ class DashboardController extends Controller
                 "parent" => $data->cc_id ? $data->cc_id : "-",
                 "record" => $data->record,
                 "type" => "Change-Control",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -94,7 +95,7 @@ class DashboardController extends Controller
                 "parent" => $data->cc_id ? $data->cc_id : "-",
                 "record" => $data->record,
                 "type" => "Action-Item",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -112,7 +113,7 @@ class DashboardController extends Controller
                 "parent" => $data->cc_id ? $data->cc_id : "-",
                 "record" => $data->record,
                 "type" => "Extension",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -131,7 +132,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Effectiveness-Check",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -150,7 +151,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Internal-Audit",
-                "parent_id" => $data->parent_id,
+                "parent_id" =>  $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -170,7 +171,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Capa",
-                "parent_id" => $data->parent_id,
+                "parent_id" =>  $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -189,7 +190,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Risk-Assesment",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -208,7 +209,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Management-Review",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -226,7 +227,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Lab-Incident",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_desc ? $data->short_desc : "-",
@@ -245,7 +246,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "External-Audit",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -264,7 +265,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "type" => "Audit-Program",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -284,7 +285,7 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "Root-Cause-Analysis",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id ? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
@@ -303,7 +304,7 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "Observation",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
@@ -322,7 +323,7 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "Deviation",
-                "parent_id" => $data->parent_id,
+                "parent_id" => $data->parent_id? $data->parent_id : "-",
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
@@ -666,55 +667,81 @@ class DashboardController extends Controller
             $data = CC::find($id);
             $single = "change_control_single_pdf/" . $data->id;
             $audit = "audit/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Capa") {
             $data = Capa::find($id);
             $single = "capaSingleReport/" . $data->id;
             $audit = "capaAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Internal-Audit") {
             $data = InternalAudit::find($id);
             $single = "internalSingleReport/" . $data->id;
             $audit = "internalauditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Risk-Assesment") {
             $data = RiskManagement::find($id);
             $single = "riskSingleReport/" . $data->id;
             $audit = "riskAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Lab-Incident") {
             $data = LabIncident::find($id);
             $single = "LabIncidentSingleReport/" . $data->id;
             $audit = "LabIncidentAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "External-Audit") {
             $data = Auditee::find($id);
             $single = "ExternalAuditSingleReport/" . $data->id;
             $audit = "ExternalAuditTrialReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Audit-Program") {
             $data = AuditProgram::find($id);
             $single = "auditProgramSingleReport/" . $data->id;
             $audit = "auditProgramAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Action-Item") {
             $data = ActionItem::find($id);
             $single = "actionitemSingleReport/"  . $data->id;
             $audit = "actionitemAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Extension") {
             $data = Extension::find($id);
             $single = "extensionSingleReport/" .$data->id;
             $audit = "extensionAuditReport/" .$data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
 
         } elseif ($type == "Observation") {
             $data = Observation::find($id);
             $single = "#";
             $audit = "ObservationAuditTrialShow/" .$data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Effectiveness-Check") {
             $data = EffectivenessCheck::find($id);
             $single = "effectiveSingleReport/" .$data->id;
             $audit = "effectiveAuditReport/" .$data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Management-Review") {
             $data = ManagementReview::find($id);
             $single = "managementReview/" . $data->id;
             $audit = "managementReviewReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Root-Cause-Analysis") {
             $data = RootCauseAnalysis::find($id);
             $single = "rootSingleReport/" . $data->id;
             $audit = "rootAuditReport/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+            $family="DeviationFamily/". $data->id;
         } elseif ($type == "Deviation") {
             $data = Deviation::find($id);
             $single = "deviationSingleReport/". $data->id;
@@ -751,8 +778,8 @@ class DashboardController extends Controller
                         <div class="drop-list">
                             <a target="__blank" href="' . $audit . '" class="inner-item">Audit Trail</a>
                             <a target="__blank" href="' . $single . '" class="inner-item">' . $type . ' Single Report</a>
-                            <a target="__blank" href="' . $parent . '" class="inner-item">' . $type . ' Parent with immediate child Report</a>
-                            <a target="__blank" href="' . $family . '" class="inner-item">' . $type . ' Family Report</a>
+                            <a target="__blank" href="' . $parent . '" class="inner-item"> Deviation Parent with immediate child Report</a>
+                            <a target="__blank" href="' . $family . '" class="inner-item">  Deviation  Family Report</a>
                         </div>
                     </div>
                 </div>

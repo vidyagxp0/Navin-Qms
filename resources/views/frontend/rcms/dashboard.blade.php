@@ -159,12 +159,16 @@
                                 <label for="query">Criteria</label>
                                 <select id="query" name="stage" >
                                     <option value="">All Records</option>
-                                    <option value="Closed">Closed Records</option>
                                     <option value="Opened">Opened Records</option>
+
+                                    <option value="Closed">Closed Records</option>
                                     <option value="Cancelled">Cancelled Records</option>
-                                    {{-- <option value="4">Overdue Records</option>
-                                    <option value="Assigned">Assigned To Me</option>
-                                    <option value="Records">Records Created Today</option> --}}
+                                    <option value="">Initial Deviation Category= Minor</option>
+                                    <option value="">Initial Deviation Category= Major</option>
+                                    <option value="">Initial Deviation Category= Critical</option>
+                                     <option value="">Post Categorization Of Deviation= Minor</option>
+                                    <option value="">Post Categorization Of Deviation= Major</option>
+                                    <option value="">Post Categorization Of Deviation= Critical</option> 
                                 </select>
                             </div>
                             <div class="item-btn" onclick="window.print()">Print</div>
@@ -174,7 +178,7 @@
                                 <thead >
                                     <tr>
                                         <th style="width: 2%;">Record</th>
-                                        {{-- <th>Parent ID</th> --}}
+                                         <th>Parent ID</th> 
                                         <th style="width: 10%">Division</th>
                                         <th>Process</th>
                                         <th style="width: 25%" class="td_desc">Short Description</th>
@@ -391,15 +395,15 @@
                                                 
                                                 @endif
                                             </td>
-                                            {{-- @if ($datas->parent != '-')
+                                            @if ($datas->parent_id != '-')
                                                         <td>
-                                                            {{ str_pad($datas->parent, 4, '0', STR_PAD_LEFT) }}
+                                                            {{ str_pad($datas->parent_id, 4, '0', STR_PAD_LEFT) }}
                                                         </td>
                                                     @else
                                                         <td>
-                                                            {{ $datas->parent }}
+                                                            {{ $datas->parent_id }}
                                                         </td>
-                                                    @endif --}}
+                                                    @endif
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">

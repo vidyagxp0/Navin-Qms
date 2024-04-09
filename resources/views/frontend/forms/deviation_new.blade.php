@@ -354,6 +354,11 @@ $users = DB::table('users')
                 tableBody.append(newRow);
             });
         });
+        
+        $(document).on('click', '.remove-file', function() {
+        $(this).closest('div').remove();
+        console.log('removing')
+    })
     </script>
     
     <div class="form-field-head">
@@ -768,7 +773,7 @@ $users = DB::table('users')
                                                 </thead>
                                                 <tbody>
                                                 <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td> <select  name="facility_name[]" id="facility_name" class="facility-name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
+                                                <td> <select  name="facility_name[]" id="facility_name" class="facility-name">  <option value="">-- Select --</option>  <option value="Facility">Facility</option>  <option value="Equipment"> Equipment</option> <option value="Instrument">Instrument</option></select> </td>
                                                 <td><input type="text" name="IDnumber[]" class="id-number"></td>
                                                 <td><input type="text" name="Remarks[]" class="remarks"></td>
                                                 </tbody>

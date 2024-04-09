@@ -4342,6 +4342,7 @@ section#pdf-page .watermark {
     color: #0039bd;
     font-size: 0.8rem;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 #change-control-fields .group-input .file-attachment-field .add-btn {
@@ -4477,10 +4478,19 @@ section#pdf-page .watermark {
 }
 
 #change-control-fields .cctabcontent .button-block {
-    display: flex;
+    /* display: flex; */
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
+    position: fixed;
+    top: 70%;
+    right: 0;
+    transform: translate(0, -50%);
+    display: grid;
+    gap: 10px;
+    background: #fff;
+    z-index: 5;
+    background: transparent;
 }
 
 #change-control-fields .cctabcontent .button-block button {
@@ -5561,9 +5571,12 @@ section#pdf-page .watermark {
 
 
 #child-modal .group-input label:nth-child(1) {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
+    /* font-weight: bold;
+    margin-bottom: 10px; */
+    /* display: block; */
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 #child-modal .example {

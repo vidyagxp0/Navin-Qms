@@ -218,43 +218,75 @@
 
         <div class="second-table">
             <table>
-                <tr class="table_bg">
-                    <th>Field History</th>
-                    <th>Date Performed</th>
-                    <th>Person Responsible</th>
-                    <th>Change Type</th>
-                </tr>
-                
-                @foreach ($data as $datas)
-                    <tr>
-                        <td>
-                            <div>{{ $datas->activity_type }}</div>
-                            <div>
-                                <div><strong>Changed From :</strong></div>
-                                @if(!empty($datas->previous))
-                                <div>{{ $datas->previous }}</div>
-                                @else
-                                <div>Null</div>
-                                @endif
-                            </div>
-                            <div>
-                                <div><strong>Changed To :</strong></div>
-                                <div>{{ $datas->current }}</div>
-                            </div>
-                        </td>
-                        <td>{{ $datas->created_at }}</td>
-                        <td>{{ $datas->user_name }}</td>
-                        <td>
-                            @if ($datas->previous == "NULL")
-                                Modify
-                            @else
-                                New
-                            @endif
-                        </td>
+                <thead>
+                    <tr class="table_bg">
+                        <th>Flow Changed From</th>
+                        <th>Flow Changed To</th>
+                        <th>Data Field</th>
+                        <th>Action Type</th>
+                        <th>Performer</th>
                     </tr>
-                @endforeach
+                </thead>
+                <tbody>
+                    @php
+                    $previousItem = null;
+                    @endphp
+                    @foreach ($data as $datas => $dataDemo)
+                        <tr>
+                            <td>
+                                @if($previousItem == null)
+                                <div><strong>Changed From :</strong>{{" Intiation"}}</div>
+                                @else
+                             <div><strong>Changed From :</strong>{{$previousItem->origin_state ? $previousItem->origin_state  : "Not Applicable"}}</div>
+                                @endif
+                                  @php
+                                 $previousItem  = $dataDemo;
+                                @endphp                 
+    
+                           
+                             </td>
+                            <td>
+                                <div><strong>Changed To :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+       
+                               </td>
+                            <td>
+                                    <div>
+                                <strong> Data Field Name :</strong>{{ $dataDemo->activity_type ? $dataDemo->activity_type  : "Not Applicable" }}</a> </div>
+                                <div style="margin-top: 5px;">
+                                <strong>Change From :</strong>{{$dataDemo->previous ? $dataDemo->previous  : "Not Applicable"}}</div>
+                                        <br>
+                                        <!--  -->
+                                <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
+                                        <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
+                                        </div>
+                            </td>
+                            {{-- <td>
+                                {{$dataDemo->previous == "NULL" ? 'Modify' : 'New'}}
+                            </td> --}}
+                            {{-- <td>
+                                {{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
+                            </td> --}}
+                            <td>
+                                <div>
+                               <strong> Action Name :</strong>{{$dataDemo->action ? $dataDemo->action  : "Not Applicable"}}
+        
+                                </div>
+                                </td>
+                            <td>
+                                <div ><strong> Peformed By :</strong>{{$dataDemo->user_name ? $dataDemo->user_name  : "Not Applicable"}}</div>
+                                <div style="margin-top: 5px;">  <strong>Performed On :</strong>{{$dataDemo->created_at ? $dataDemo->created_at  : "Not Applicable"}}</div>
+                                 <div style="margin-top: 5px;"><strong> Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div>       
+                            </td>
+                            
+                        </tr>
+                        @php
+                        $previousItem = $dataDemo;
+                        @endphp
+                    @endforeach
+                </tbody>
             </table>
         </div>
+        
 
     </div>
 

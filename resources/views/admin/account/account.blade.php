@@ -55,7 +55,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->dname }}</td>
-                                    <th>{{ $roleName }}</th>
+                                    <td>{{ $roleName }}</td> 
                                     <td>
                                         <a class="mdi mdi-table-edit"
                                             href="{{ route('user_management.edit', $user->id) }}"><button
