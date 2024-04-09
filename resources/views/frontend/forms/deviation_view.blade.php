@@ -1633,7 +1633,7 @@ $users = DB::table('users')
                                             <select name="customers"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="customers" id="customers" required>
                                                 <option value="0"> -- Select --</option>
                                                 @foreach ($customers as $data1)
-                                                <option  @if ($data->customers == 'yes') selected @endif
+                                                <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
                                                 {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
                                             @endforeach
@@ -1872,7 +1872,7 @@ $users = DB::table('users')
                                             <select disabled name="customers"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="customers" required>
                                                 <option value="0"> -- Select --</option>
                                                 @foreach ($customers as $data1)
-                                                <option  @if ($data->customers == 'yes') selected @endif
+                                                <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
                                                 {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
                                             @endforeach

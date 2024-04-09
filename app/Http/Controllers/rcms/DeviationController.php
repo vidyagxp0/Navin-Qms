@@ -18,6 +18,7 @@ use App\Models\AuditReviewersDetails;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use App\Models\Capa;
+use App\Models\Customer;
 use Carbon\Carbon;
 use App\Models\RecordNumber;
 use App\Models\RoleGroup;
@@ -1339,6 +1340,7 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return $request;
         // if (!$request->short_description) {
         //     toastr()->error("Short description is required");
         //     return redirect()->back();
@@ -1554,8 +1556,7 @@ class DeviationController extends Controller
         }
 
        
-        $deviation->Investigation_required = $request->Investigation_required;
-        $deviation->Customer_notification = $request->Customer_notification;
+        // $deviation->Customer_notification = $request->Customer_notification;
         //$deviation->parent_id = $request->parent_id;
         //$deviation->parent_type = $request->parent_type;
         //$deviation->division_id = $request->division_id;
@@ -1567,8 +1568,10 @@ class DeviationController extends Controller
         //$deviation->due_date = $request->due_date;
 
         //$deviation->initiator_Group= $request->initiator_Group;
+        if ($deviation->stage < 2) {
+            $deviation->short_description = $request->short_description;
+        }
         $deviation->initiator_group_code = $request->initiator_group_code;
-        $deviation->short_description = $request->short_description;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
@@ -1588,12 +1591,12 @@ class DeviationController extends Controller
         $deviation->Product_Details_Required = $request->Product_Details_Required;
         
         $deviation->HOD_Remarks = $request->HOD_Remarks;
-        $deviation->Deviation_category = $request->Deviation_category;
+        // $deviation->Deviation_category = $request->Deviation_category;
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
 
 
         $deviation->Investigation_Details = $request->Investigation_Details;
-        $deviation->customers = $request->customers;
+        // $deviation->customers = $request->customers;
 
 
         $deviation->QAInitialRemark = $request->QAInitialRemark;
@@ -1612,7 +1615,17 @@ class DeviationController extends Controller
         $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
+        if ($deviation->stage == 3) 
+        {
+            $deviation->Customer_notification = $request->Customer_notification;
+            $deviation->Investigation_required = $request->Investigation_required;
+            $deviation->Deviation_category = $request->Deviation_category;
+            $deviation->customers = $request->customers;
+        }
+
         if($deviation->stage == 3 || $deviation->stage == 4 ){
+    
+
             if (!$form_progress) {
                 $form_progress = 'cft';
             }
@@ -4204,7 +4217,7 @@ class DeviationController extends Controller
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.singleReportdeviation', compact('data','grid_data','grid_data1'))
+            $pdf = PDF::loadview('frontend.forms.SingleReportdeviation', compact('data','grid_data','grid_data1'))
                 ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
