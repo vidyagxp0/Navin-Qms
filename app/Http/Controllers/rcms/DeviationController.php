@@ -143,7 +143,9 @@ class DeviationController extends Controller
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Facility = implode(',', $request->Facility);
         // $deviation->Observed_by = $request->Observed_by;
-        $deviation->audit_type = implode(',', $request->audit_type);
+        if (is_array($request->audit_type)) {
+            $deviation->audit_type = implode(',', $request->audit_type);
+        }
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
