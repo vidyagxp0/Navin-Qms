@@ -174,7 +174,7 @@
                                 <thead >
                                     <tr>
                                         <th style="width: 2%;">Record</th>
-                                        {{-- <th>Parent ID</th> --}}
+                                         <th>Parent ID</th> 
                                         <th style="width: 10%">Division</th>
                                         <th>Process</th>
                                         <th style="width: 25%" class="td_desc">Short Description</th>
@@ -391,15 +391,15 @@
                                                 
                                                 @endif
                                             </td>
-                                            {{-- @if ($datas->parent != '-')
+                                            @if ($datas->parent_id != '-')
                                                         <td>
-                                                            {{ str_pad($datas->parent, 4, '0', STR_PAD_LEFT) }}
+                                                            {{ str_pad($datas->parent_id, 4, '0', STR_PAD_LEFT) }}
                                                         </td>
                                                     @else
                                                         <td>
-                                                            {{ $datas->parent }}
+                                                            {{ $datas->parent_id }}
                                                         </td>
-                                                    @endif --}}
+                                                    @endif
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">

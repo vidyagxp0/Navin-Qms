@@ -202,21 +202,24 @@
         @php
                 $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $document->division_id])->get();
                 $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
-                $auditCollect = DB::table('audit_reviewers_details')->where(['deviation_id' => $document->id])->latest()->first();
+                $auditCollect = DB::table('audit_reviewers_details')->where(['deviation_id' => $document->id, 'user_id' => Auth::user()->id])->latest()->first();
         @endphp
 
        <div class="d-flex justify-content-between align-items-center">
             @if($auditCollect)
             <div style="color: green; font-weight: 600">The Audit Trail has been reviewed.</div>
             @else
-            <div style="color: red; font-weight: 600">The Audit Trail has not yet been reviewed.</div>
+            <div style="color: red; font-weight: 600">The Audit Trail has is yet to be reviewed.</div>
             @endif
             <div class="buttons-new">
                 @if ($document->stage < 7 && (in_array(4, $userRoleIds) || in_array(7, $userRoleIds) || in_array(18, $userRoleIds) || in_array(39, $userRoleIds)))
-                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditReviewer">
+                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditReviewer" >
                     Review
                 </button>
                 @endif
+                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#auditViewers">
+                    View
+                    </button>
                 <button class="button_theme1" ><a class="text-white" href="{{ url('rcms/devshow/' . $document->id)  }}"> Back
                 </a>
                 </button>
@@ -225,11 +228,70 @@
                 </button>
             </div>
        </div>
+       <div class="modal fade" id="auditViewers">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <style>
+                    .validationClass{
+                        margin-left: 100px
+                    }
+                    </style>
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Audit Reviewers Details</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                @php
+                $reviewer = DB::table('audit_reviewers_details')->get();
+            @endphp
+            <!-- Customer grid view -->
+            <div class="table-responsive" style="
+            padding: 20px;
+        ">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Review By</th>
+                            <th>Review On</th>
+                            <th>Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Check if reviewer array is empty or null -->
+                        @if($reviewer && count($reviewer) > 0)
+                        <!-- Iterate over stored reviewer and display them -->
+                            @foreach($reviewer as $review)
+                            <tr>
+                                <td>{{ $review->reviewer_comment_by }}</td>
+                                <td>{{ $review->reviewer_comment_on }}</td>
+                                <td>{{ $review->reviewer_comment }}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="9">No results available</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
 
        <div class="modal fade" id="auditReviewer">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
         
+                    <style>
+                        .validationClass{
+                            margin-left: 100px
+                        }
+                        </style>
+
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">Audit Reviewers</h4>
@@ -259,6 +321,7 @@
                             <button type="button" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
+                
                 </div>
             </div>
         </div>
@@ -300,26 +363,64 @@
                     <th>Performer</th>
                 </tr>
                 
-                    <tr>@php
-                        $previousItem = null;
-                    @endphp
+                    <tr>
+                        @php
+                            $previousItem = null;
+                        @endphp
 
                         @foreach ($audit as $audits => $dataDemo)
-                        <td>{{$dataDemo ? ($audit->currentPage() - 1) * $audit->perPage() + $audits + 1  : "Not Applicable"}}</td>
-                        <td>
-                            @if($previousItem == null)
-                            <div><strong>Changed From :</strong>{{" Intiation"}}</div>
-                            @else
-                         <div><strong>Changed From :</strong>{{$previousItem->origin_state ? $previousItem->origin_state  : "Not Applicable"}}</div>
-                         @endif
-                         @php
-                         $previousItem  = $dataDemo;
-                      @endphp                 
+                            <td>{{$dataDemo ? ($audit->currentPage() - 1) * $audit->perPage() + $audits + 1  : "Not Applicable"}}</td>
+                            {{-- <td>1</td> --}}
 
-                       
-                 </td>
+                        {{-- <td>
+                                @php
+                                    $newPrevState = null;
+                                    
+                                    if (!$dataDemo->action) {
+                                        switch ($dataDemo->deviation->status) {
+                                            case 'Opened':
+                                                $prevState = null;
+                                                break;
+                                            case 'HOD Review':
+                                                $prevState = 'Opened';
+                                                break;
+                                            case 'QA Initial Review':
+                                                $prevState = 'HOD Review';
+                                                break;
+                                            case 'CFT Review':
+                                                $prevState = 'QA Initial Review';
+                                                break;
+                                            case 'QA Final Review':
+                                                $prevState = 'CFT Review';
+                                                break;
+                                            case 'QA Head DEsignee Approva;':
+                                                $prevState = 'QA Final Review';
+                                                break;
+                                            default:
+                                                $prevState = null;
+                                                break;
+                                        }
+                                    } else {
+                                        $newPrevState = $dataDemo->origin_state;
+                                    }
+
+                                    $previousItem  = $newPrevState;
+                                @endphp    
+
+                                @if($previousItem == null)
+                                    <div><strong>Changed From :</strong>{{ "Intiation" }}</div>
+                                @else
+                                    <div><strong>Changed From :</strong>{{ $previousItem ? $previousItem  : "Not Applicable"}}</div>
+                                @endif
+
+                        </td> --}}
                         <td>
-                         <div><strong>Changed To :</strong>{{$dataDemo->origin_state ? $dataDemo->origin_state  : "Not Applicable"}}</div>
+                            <div><strong>Changed From :</strong>{{ $dataDemo->change_from }}</div>
+                        </td>
+                        
+                        <td>
+                         {{-- <div><strong>Changed To :</strong>{{ !$dataDemo->action ? "Not Applicable" : $dataDemo->deviation->status}}</div> --}}
+                         <div><strong>Changed To :</strong>{{ $dataDemo->change_to}}</div>
 
                         </td>
                         <!-- ------Record Is send by Hod Review----------- -->
