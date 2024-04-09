@@ -159,12 +159,16 @@
                                 <label for="query">Criteria</label>
                                 <select id="query" name="stage" >
                                     <option value="">All Records</option>
-                                    <option value="Closed">Closed Records</option>
                                     <option value="Opened">Opened Records</option>
+
+                                    <option value="Closed">Closed Records</option>
                                     <option value="Cancelled">Cancelled Records</option>
-                                    {{-- <option value="4">Overdue Records</option>
-                                    <option value="Assigned">Assigned To Me</option>
-                                    <option value="Records">Records Created Today</option> --}}
+                                    <option value="">Initial Deviation Category= Minor</option>
+                                    <option value="">Initial Deviation Category= Major</option>
+                                    <option value="">Initial Deviation Category= Critical</option>
+                                     <option value="">Post Categorization Of Deviation= Minor</option>
+                                    <option value="">Post Categorization Of Deviation= Major</option>
+                                    <option value="">Post Categorization Of Deviation= Critical</option> 
                                 </select>
                             </div>
                             <div class="item-btn" onclick="window.print()">Print</div>

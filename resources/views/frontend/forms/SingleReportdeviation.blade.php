@@ -430,9 +430,9 @@
                         <th class="w-20">Customers</th>
                         {{-- <td class="w-30">@if($data->customers){{ $data->customers }}@else Not Applicable @endif</td> --}}
                         @php
-                        $customer = DB::table('customer-details')->where('id', $data->customers)->first();
-                        $customer_name = $customer->customer_name;
-                    @endphp
+                            $customer = DB::table('customer-details')->where('id', $data->customers)->first();
+                            $customer_name = $customer ? $customer->customer_name : 'Not Applicable';
+                        @endphp
                     
                     <td>
                         @if($data->customers)

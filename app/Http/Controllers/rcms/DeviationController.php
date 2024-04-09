@@ -4338,6 +4338,7 @@ class DeviationController extends Controller
     public static function singleReport($id)
     {
         $data = Deviation::find($id);
+        // return $data;
         $data1 =  DeviationCft::where('deviation_id', $id)->first();
         if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
