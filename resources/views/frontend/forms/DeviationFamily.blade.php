@@ -217,7 +217,8 @@
                     <tr>
                         <th class="w-20">Date of Initiation</th>
                         {{-- <td class="w-30">@if{{ Helpers::getdateFormat($data->intiation_date) }} @else Not Applicable @endif</td> --}}
-                        <td class="w-30">@if (Helpers::getdateFormat($data->initiation_date)) {{ Helpers::getdateFormat($data->initiation_date) }} @else Not Applicable @endif</td>
+                        {{-- <td class="w-30">@if (Helpers::getdateFormat($data->initiation_date)) {{ Helpers::getdateFormat($data->initiation_date) }} @else Not Applicable @endif</td> --}}
+                        <td class="w-30"> {{  $data->created_at ? $data->created_at->format('d-M-Y') : 'Not Applicable' }} </td>
 
                         <th class="w-20">Due Date</th>
                         <td class="w-30"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
@@ -446,7 +447,7 @@
                         {{-- <td class="w-30">@if($data->customers){{ $data->customers }}@else Not Applicable @endif</td> --}}
                         @php
                         $customer = DB::table('customer-details')->where('id', $data->customers)->first();
-                        $customer_name = $customer->customer_name;
+                        $customer_name = $customer ? $customer->customer_name : 'Not Applicable';
                     @endphp
                     
                     <td>

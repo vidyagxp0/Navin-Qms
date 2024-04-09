@@ -202,7 +202,8 @@
                     <tr>
                         <th class="w-20">Date of Initiation</th>
                         {{-- <td class="w-30">@if{{ Helpers::getdateFormat($data->intiation_date) }} @else Not Applicable @endif</td> --}}
-                        <td class="w-30">@if (Helpers::getdateFormat($data->initiation_date)) {{ Helpers::getdateFormat($data->initiation_date) }} @else Not Applicable @endif</td>
+                        {{-- <td class="w-30">@if (Helpers::getdateFormat($data->intiation_date)) {{ Helpers::getdateFormat($data->intiation_date) }} @else Not Applicable @endif</td> --}}
+                        <td class="w-30">{{ $data->created_at ? $data->created_at->format('d-M-Y') : ''  }} </td>
 
                         <th class="w-20">Due Date</th>
                         <td class="w-30"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
