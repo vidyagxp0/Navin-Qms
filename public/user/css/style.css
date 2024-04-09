@@ -4490,6 +4490,7 @@ section#pdf-page .watermark {
     gap: 10px;
     background: #fff;
     z-index: 5;
+    background: transparent;
 }
 
 #change-control-fields .cctabcontent .button-block button {
