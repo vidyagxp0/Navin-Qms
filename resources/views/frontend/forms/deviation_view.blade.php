@@ -74,6 +74,12 @@ $users = DB::table('users')
         .main-danger-block{
             display: flex;
         }
+        .swal-modal {
+            scale: 0.7!important;
+        }
+        .swal-icon {
+            scale: 0.8!important;
+        }
     </style>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

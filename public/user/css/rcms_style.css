@@ -45,7 +45,15 @@ a:hover {
 
 button {
     border: 0;
-    background: #d68e58;
+    /* background: #d68e58; */
+    color: white;
+    border: 2px solid black;
+    transition: all 0.3s linear;
+    padding: 2px;
+    padding-right: 10px;
+    border-radius: 2px;
+    padding-left: 10px;
+    background: #1f1d1b;
     color: white;
     border: 2px solid black;
     transition: all 0.3s linear;
@@ -1290,14 +1298,14 @@ header .header_rcms_bottom .drop-block:hover .drop-items {
 /*! =================================================================================*/
 #audit-trial {
     padding: 20px 0px;
-    background: #4274da;
+    background: #eb7f00d9;
     min-height: calc(100vh - 150px);
 }
 
 #audit-trial .inner-block {
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #fde0bf, -12px -12px 24px #fae1c4;
     background: #ffffff;
 }
 

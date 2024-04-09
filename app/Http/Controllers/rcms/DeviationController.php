@@ -2815,7 +2815,7 @@ class DeviationController extends Controller
                 if ($deviation->form_progress !== 'general-open') 
                 {
                     Session::flash('swal', [
-                        'type' => 'error',
+                        'type' => 'warning',
                         'title' => 'Mandatory Fields!',
                         'message' => 'General Information Tab is yet to be filled'
                     ]);
@@ -2963,7 +2963,7 @@ class DeviationController extends Controller
                 if ($deviation->form_progress !== 'cft') 
                 {
                     Session::flash('swal', [
-                        'type' => 'error',
+                        'type' => 'warning',
                         'title' => 'Mandatory Fields!',
                         'message' => 'QA initial review / CFT Mandatory Tab is yet to be filled!'
                     ]);
@@ -3096,7 +3096,7 @@ class DeviationController extends Controller
                 if ($deviation->form_progress !== 'cft') 
                 {
                     Session::flash('swal', [
-                        'type' => 'error',
+                        'type' => 'warning',
                         'title' => 'Mandatory Fields!',
                         'message' => 'CFT Tab is yet to be filled'
                     ]);
@@ -3280,7 +3280,7 @@ class DeviationController extends Controller
 
                 } else {
                     Session::flash('swal', [
-                        'type' => 'error',
+                        'type' => 'warning',
                         'title' => 'Mandatory Fields!',
                         'message' => 'Investigation and CAPA / QA Final review Tab is yet to be filled!'
                     ]);
@@ -3338,7 +3338,7 @@ class DeviationController extends Controller
                     Session::flash('swal', [
                         'title' => 'Mandatory Fields!',
                         'message' => 'QAH/Designee Approval Tab is yet to be filled!',
-                        'type' => 'error',
+                        'type' => 'warning',
                     ]);
 
                     return redirect()->back();
