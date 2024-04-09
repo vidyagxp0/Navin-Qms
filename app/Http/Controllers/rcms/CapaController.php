@@ -1757,6 +1757,7 @@ class CapaController extends Controller
             $parent_name = "CAPA";
             $Changecontrolchild = Deviation::find($id);
             $Changecontrolchild->Changecontrolchild = $record_number;
+            $parent_id = $id;
 
             $Changecontrolchild->save();
             
@@ -1769,6 +1770,7 @@ class CapaController extends Controller
             if ($request->due_date) {
                 $parent_due_date = $request->due_date;
             }
+            $parent_id = $id;
 
             $record_number = ((RecordNumber::first()->value('counter')) + 1);
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
@@ -1781,6 +1783,7 @@ class CapaController extends Controller
             $parent_name = "CAPA";
             $actionchild = Deviation::find($id);
             $actionchild->actionchild = $record_number;
+            $parent_id = $id;
 
             $actionchild->save();
             return view('frontend.forms.action-item', compact('old_record','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
@@ -1790,6 +1793,7 @@ class CapaController extends Controller
             $parent_name = "CAPA";
             $effectivenesschild = Deviation::find($id);
             $effectivenesschild->effectivenesschild = $record_number;
+            $parent_id = $id;
             $effectivenesschild->save();
             // dd($effectivenesschild);
             return view('frontend.forms.effectiveness-check', compact('old_record','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
