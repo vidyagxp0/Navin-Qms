@@ -1413,7 +1413,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                     @endif
-                                    <div class="group-input">
+                                    {{-- <div class="group-input">
                                         <label for="Inv Attachments">HOD Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
@@ -1435,7 +1435,7 @@ $users = DB::table('users')
                                                     multiple>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 
                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -124,6 +124,17 @@
 
     }
 </script>
+
+<style>
+    #hide_content{
+        display: inline-block;
+    width: 315px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    }
+  
+</style>
 @section('rcms_container')
     <div id="rcms-dashboard">
         <div class="container-fluid">
@@ -418,7 +429,7 @@
                                                 data-bs-target="#record-modal">
                                                 {{ $datas->type }}
                                             </td>
-                                            <td class="viewdetails" data-id="{{ $datas->id }}"
+                                            <td id="hide_content" class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
                                                 {{ $datas->short_description }}
