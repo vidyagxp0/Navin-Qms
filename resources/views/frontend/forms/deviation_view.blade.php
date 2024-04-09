@@ -996,7 +996,9 @@ $users = DB::table('users')
 
                                                                         
                                         selectField.addEventListener('change', function () {
-                                            var isRequired = this.value === 'Anyother(specify)';
+                                            // var isRequired = this.value === 'Anyother(specify)';
+                                            var isRequired = this.value.includes('Anyother(specify)');
+                                            console.log('isRequired', isRequired)
 
                                             inputsToToggle.forEach(function (input) {
                                                 input.required = isRequired;
@@ -1458,9 +1460,9 @@ $users = DB::table('users')
                                       </div>
                                     Save
                                 </button>
-                                <a href="/rcms/qms-dashboard">
+                                {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a>
+                                    </a> --}}
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
                             </div>
@@ -1527,7 +1529,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Investigation required">Investigation Required?</label>
+                                        <label for="Investigation required">Investigation Required?  <span class="text-danger">*</span></label>
                                         <select name="Investigation_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Investigation_required"    value="{{ $data->Investigation_required }}" >
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
@@ -1917,9 +1919,9 @@ $users = DB::table('users')
                                       </div>
                                       Save
                                 </button>
-                                    <a href="/rcms/qms-dashboard">
+                                    {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a>
+                                    </a> --}}
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
                             </div>
@@ -6233,9 +6235,9 @@ $users = DB::table('users')
                                       </div>
                                       Save
                                 </button>
-<a href="/rcms/qms-dashboard">
+{{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a>
+                                    </a> --}}
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -6315,9 +6317,9 @@ $users = DB::table('users')
                                       </div>
                                       Save
                                 </button>
-<a href="/rcms/qms-dashboard">
+{{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a>
+                                    </a> --}}
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
@@ -6385,9 +6387,9 @@ $users = DB::table('users')
                                       </div>
                                       Save
                                 </button>
-                                  <a href="/rcms/qms-dashboard">
+                                  {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a>
+                                    </a> --}}
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
