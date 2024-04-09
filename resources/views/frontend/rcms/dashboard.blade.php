@@ -449,7 +449,7 @@
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
-                                                {{ Helpers::getdateFormat($datas->intiation_date) }}
+                                                {{ Helpers::getdateFormat($datas->due_date) }}
 
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
