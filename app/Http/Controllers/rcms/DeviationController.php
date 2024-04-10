@@ -1744,7 +1744,7 @@ class DeviationController extends Controller
                 $Cft->Engineering_review = $request->Engineering_review == null ? $Cft->Engineering_review : $request->Engineering_review;
                 $Cft->Engineering_person = $request->Engineering_person == null ? $Cft->Engineering_person : $request->Engineering_person;
                 $Cft->Analytical_Development_review = $request->Analytical_Development_review == null ? $Cft->Analytical_Development_review : $request->Analytical_Development_review;
-                $Cft->Analytical_Development_person = $request->Analytical_Development_person == null ? $Cft->Warehouse_notification : $request->Warehouse_notification;
+                $Cft->Analytical_Development_person = $request->Analytical_Development_person == null ? $Cft->Analytical_Development_person : $request->Analytical_Development_person;
                 $Cft->Kilo_Lab_review = $request->Kilo_Lab_review == null ? $Cft->Kilo_Lab_review : $request->Kilo_Lab_review;
                 $Cft->Kilo_Lab_person = $request->Kilo_Lab_person == null ? $Cft->Kilo_Lab_person : $request->Kilo_Lab_person;
                 $Cft->Technology_transfer_review = $request->Technology_transfer_review == null ? $Cft->Technology_transfer_review : $request->Technology_transfer_review;
@@ -1757,6 +1757,21 @@ class DeviationController extends Controller
                 $Cft->Project_management_person = $request->Project_management_person == null ? $Cft->Project_management_person : $request->Project_management_person;
                 $Cft->Information_Technology_review = $request->Information_Technology_review == null ? $Cft->Information_Technology_review : $request->Information_Technology_review;
                 $Cft->Information_Technology_person = $request->Information_Technology_person == null ? $Cft->Information_Technology_person : $request->Information_Technology_person;
+                $Cft->Other1_review = $request->Other1_review  == null ? $Cft->Other1_review : $request->Other1_review;
+                $Cft->Other1_person = $request->Other1_person  == null ? $Cft->Other1_person : $request->Other1_person;
+                $Cft->Other1_Department_person = $request->Other1_Department_person  == null ? $Cft->Other1_Department_person : $request->Other1_Department_person;
+                $Cft->Other2_review = $request->Other2_review  == null ? $Cft->Other2_review : $request->Other2_review;
+                $Cft->Other2_person = $request->Other2_person  == null ? $Cft->Other2_person : $request->Other2_person;
+                $Cft->Other2_Department_person = $request->Other2_Department_person  == null ? $Cft->Other2_Department_person : $request->Other2_Department_person;
+                $Cft->Other3_review = $request->Other3_review  == null ? $Cft->Other3_review : $request->Other3_review;
+                $Cft->Other3_person = $request->Other3_person  == null ? $Cft->Other3_person : $request->Other3_person;
+                $Cft->Other3_Department_person = $request->Other3_Department_person  == null ? $Cft->Other3_Department_person : $request->Other3_Department_person;
+                $Cft->Other4_review = $request->Other4_review  == null ? $Cft->Other4_review : $request->Other4_review;
+                $Cft->Other4_person = $request->Other4_person  == null ? $Cft->Other4_person : $request->Other4_person;
+                $Cft->Other4_Department_person = $request->Other4_Department_person  == null ? $Cft->Other4_Department_person : $request->Other4_Department_person;
+                $Cft->Other5_review = $request->Other5_review  == null ? $Cft->Other5_review : $request->Other5_review;
+                $Cft->Other5_person = $request->Other5_person  == null ? $Cft->Other5_person : $request->Other5_person;
+                $Cft->Other5_Department_person = $request->Other5_Department_person  == null ? $Cft->Other5_Department_person : $request->Other5_Department_person;
             }
             else{
                 $Cft->Production_Review = $request->Production_Review;
@@ -1783,118 +1798,58 @@ class DeviationController extends Controller
                 $Cft->Project_management_person = $request->Project_management_person;
                 $Cft->Information_Technology_review = $request->Information_Technology_review;
                 $Cft->Information_Technology_person = $request->Information_Technology_person;
+                $Cft->Other1_review = $request->Other1_review;
+                $Cft->Other1_person = $request->Other1_person;
+                $Cft->Other1_Department_person = $request->Other1_Department_person;
+                $Cft->Other2_review = $request->Other2_review;
+                $Cft->Other2_person = $request->Other2_person;
+                $Cft->Other2_Department_person = $request->Other2_Department_person;
+                $Cft->Other3_review = $request->Other3_review;
+                $Cft->Other3_person = $request->Other3_person;
+                $Cft->Other3_Department_person = $request->Other3_Department_person;
+                $Cft->Other4_review = $request->Other4_review;
+                $Cft->Other4_person = $request->Other4_person;
+                $Cft->Other4_Department_person = $request->Other4_Department_person;
+                $Cft->Other5_review = $request->Other5_review;
+                $Cft->Other5_person = $request->Other5_person;
+                $Cft->Other5_Department_person = $request->Other5_Department_person;
             }
             // dd($request->Production_Review, $request->Production_person);
             $Cft->Production_assessment = $request->Production_assessment;
             $Cft->Production_feedback = $request->Production_feedback;
-            $Cft->production_on = $request->production_on;
-            $Cft->production_by = $request->production_by; 
-
-            
             $Cft->Warehouse_assessment = $request->Warehouse_assessment;
             $Cft->Warehouse_feedback = $request->Warehouse_feedback;
-            $Cft->Warehouse_by = $request->Warehouse_Review_Completed_By;
-            $Cft->Warehouse_on = $request->Warehouse_on;
-
-            
             $Cft->Quality_Control_assessment = $request->Quality_Control_assessment;
             $Cft->Quality_Control_feedback = $request->Quality_Control_feedback;
-            $Cft->Quality_Control_by = $request->Quality_Control_by;
-            $Cft->Quality_Control_on = $request->Quality_Control_on;
-
-            
             $Cft->QualityAssurance_assessment = $request->QualityAssurance_assessment;
             $Cft->QualityAssurance_feedback = $request->QualityAssurance_feedback;
-            $Cft->QualityAssurance_by = $request->QualityAssurance_by;
-            $Cft->QualityAssurance_on = $request->QualityAssurance_on;
-
-            
             $Cft->Engineering_assessment = $request->Engineering_assessment;
             $Cft->Engineering_feedback = $request->Engineering_feedback;
-            $Cft->Engineering_by = $request->Engineering_by;
-            $Cft->Engineering_on = $request->Engineering_on;
-
-            
             $Cft->Analytical_Development_assessment = $request->Analytical_Development_assessment;
             $Cft->Analytical_Development_feedback = $request->Analytical_Development_feedback;
-            $Cft->Analytical_Development_by = $request->Analytical_Development_by;
-            $Cft->Analytical_Development_on = $request->Analytical_Development_on;
-
-            
             $Cft->Kilo_Lab_assessment = $request->Kilo_Lab_assessment;
-            $Cft->Kilo_Lab_feedback = $request->Kilo_Lab_feedback;
-            $Cft->Kilo_Lab_attachment_by = $request->Kilo_Lab_attachment_by;
-            $Cft->Kilo_Lab_attachment_on = $request->Kilo_Lab_attachment_on;
-
-            
+            $Cft->Kilo_Lab_feedback = $request->Kilo_Lab_feedback;            
             $Cft->Technology_transfer_assessment = $request->Technology_transfer_assessment;
             $Cft->Technology_transfer_feedback = $request->Technology_transfer_feedback;
-            $Cft->Technology_transfer_by = $request->Technology_transfer_by;
-            $Cft->Technology_transfer_on = $request->Technology_transfer_on;
-
-            
             $Cft->Health_Safety_assessment = $request->Health_Safety_assessment;
             $Cft->Health_Safety_feedback = $request->Health_Safety_feedback;
-            $Cft->Environment_Health_Safety_by = $request->Environment_Health_Safety_by;
-            $Cft->Environment_Health_Safety_on = $request->Environment_Health_Safety_on;
-
-        
             $Cft->Human_Resource_assessment = $request->Human_Resource_assessment;
             $Cft->Human_Resource_feedback = $request->Human_Resource_feedback;
-            $Cft->Human_Resource_by = $request->Human_Resource_by;
-            $Cft->Human_Resource_on = $request->Human_Resource_on;
-
-            
             $Cft->Information_Technology_assessment = $request->Information_Technology_assessment;
             $Cft->Information_Technology_feedback = $request->Information_Technology_feedback;
-            $Cft->Information_Technology_by = $request->Information_Technology_by;
-            $Cft->Information_Technology_on = $request->Information_Technology_on;
-
-        
             $Cft->Project_management_assessment = $request->Project_management_assessment;
-            $Cft->Project_management_feedback = $request->Project_management_feedback;
-            $Cft->Project_management_by = $request->Project_management_by;
-            $Cft->Project_management_on = $request->Project_management_on;
-
-            $Cft->Other1_review = $request->Other1_review;
-            $Cft->Other1_person = $request->Other1_person;
-            $Cft->Other1_Department_person = $request->Other1_Department_person;
+            $Cft->Project_management_feedback = $request->Project_management_feedback;      
             $Cft->Other1_assessment = $request->Other1_assessment;
             $Cft->Other1_feedback = $request->Other1_feedback;
-            $Cft->Other1_by = $request->Other1_by;
-            $Cft->Other1_on = $request->Other1_on;
-
-            $Cft->Other2_review = $request->Other2_review;
-            $Cft->Other2_person = $request->Other2_person;
-            $Cft->Other2_Department_person = $request->Other2_Department_person;
             $Cft->Other2_Assessment = $request->Other2_Assessment;
             $Cft->Other2_feedback = $request->Other2_feedback;
-            $Cft->Other2_by = $request->Other2_by;
-            $Cft->Other2_on = $request->Other2_on;
-
-            $Cft->Other3_review = $request->Other3_review;
-            $Cft->Other3_person = $request->Other3_person;
-            $Cft->Other3_Department_person = $request->Other3_Department_person;
             $Cft->Other3_Assessment = $request->Other3_Assessment;
-            $Cft->Other3_feedback = $request->Other3_feedback;
-            $Cft->Other3_by = $request->Other3_by;
-            $Cft->Other3_on = $request->Other3_on;
-
-            $Cft->Other4_review = $request->Other4_review;
-            $Cft->Other4_person = $request->Other4_person;
-            $Cft->Other4_Department_person = $request->Other4_Department_person;
+            $Cft->Other3_feedback = $request->Other3_feedback;            
             $Cft->Other4_Assessment = $request->Other4_Assessment;
             $Cft->Other4_feedback = $request->Other4_feedback;
-            $Cft->Other4_by = $request->Other4_by;
-            $Cft->Other4_on = $request->Other4_on;
-
-            $Cft->Other5_review = $request->Other5_review;
-            $Cft->Other5_person = $request->Other5_person;
-            $Cft->Other5_Department_person = $request->Other5_Department_person;
             $Cft->Other5_Assessment = $request->Other5_Assessment;
             $Cft->Other5_feedback = $request->Other5_feedback;
-            $Cft->Other5_by = $request->Other5_by;
-            $Cft->Other5_on = $request->Other5_on;
+            
 
             if (!empty ($request->production_attachment)) {
                 $files = [];
@@ -2120,6 +2075,44 @@ class DeviationController extends Controller
 
 
         $Cft->save();
+                $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 1, 'deviation_id' => $id])->latest()->first();
+                $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
+                // Define the column names
+                $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person','Other1_person','Other2_person','Other3_person','Other4_person','Other5_person'];
+                
+                // Initialize an array to store the values
+                $valuesArray = [];
+
+                foreach ($columns as $index => $column) {
+                    $value = $cftUsers->$column;
+                    // Check if the value is not null and not equal to 0
+                    if ($value != null && $value != 0) {
+                        $valuesArray[] = $value;
+                    }
+                }
+                // Remove duplicates from the array
+                $valuesArray = array_unique($valuesArray);
+
+                // Convert the array to a re-indexed array
+                $valuesArray = array_values($valuesArray);
+
+                foreach ($valuesArray as $u) {
+                        $email = Helpers::getInitiatorEmail($u);
+                        if ($email !== null) {
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("CFT Assgineed by " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Exception $e) {
+                                //log error
+                            }                        
+                    }
+                }
             
         
             if (!empty ($request->Initial_attachment)) {
@@ -3256,7 +3249,7 @@ class DeviationController extends Controller
                         $updateCFT->Analytical_Development_on = Carbon::now()->format('Y-m-d');
                     }
                     if($index == 6 && $cftUsers->$column == Auth::user()->id){
-                        $updateCFT->Kilo_Lab_attachment_on = Auth::user()->name;
+                        $updateCFT->Kilo_Lab_attachment_by = Auth::user()->name;
                         $updateCFT->Kilo_Lab_attachment_on = Carbon::now()->format('Y-m-d');
                     }
                     if($index == 7 && $cftUsers->$column == Auth::user()->id){

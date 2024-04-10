@@ -2045,7 +2045,7 @@ $users = DB::table('users')
                                 <div class="group-input">
                                     <label for="Production Review Completed By">Production Review Completed By</label>
                                     {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
-                                    <input disabled type="text" value="{{ $data1->Production_by }}" name="production_by"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="production_by">
+                                    <input readonly type="text" value="{{ $data1->Production_by }}" name="production_by"{{ $data->stage == 0 || $data->stage == 7 ? 'readonly' : '' }} id="production_by">
 
                                 
                                 </div>
@@ -2185,7 +2185,7 @@ $users = DB::table('users')
                                 <div class="group-input">
                                     <label for="Production Review Completed By">Production Review Completed By</label>
                                     {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
-                                    <input disabled type="text" value="{{ $data1->Production_by }}" name="production_by" id="production_by">
+                                    <input readonly type="text" value="{{ $data1->Production_by }}" name="production_by" id="production_by">
 
                                 
                                 </div>
@@ -2194,7 +2194,7 @@ $users = DB::table('users')
                                 <div class="group-input">
                                     <label for="Production Review Completed On">Production Review Completed On</label>
                                     <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                    <input disabled type="date"id="production_on" name="production_on" value="{{ $data1->production_on }}" >
+                                    <input readonly type="date"id="production_on" name="production_on" value="{{ $data1->production_on }}" >
                                 </div>
                             </div>
                             @endif
@@ -4476,7 +4476,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 34, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -4499,29 +4499,29 @@ $users = DB::table('users')
                                         <label for="Department1"> Other's 1 Department <span id="asteriskod1" style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Other1_Department_person" @if ($data->stage==4) disabled @endif id="Other1_Department_person" value="{{ $data1->Other1_Department_person }}">
                                             <option value="0">-- Select --</option>
-                                            <option @if ($data->Other1_Department_person == 'Production') selected @endif
+                                            <option @if ($data1->Other1_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data->Other1_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif 
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data->Other1_Department_person == 'Quality_Control') selected @endif 
+                                            <option  @if ($data1->Other1_Department_person == 'Quality_Control') selected @endif 
                                                 value="Quality_Control">Quality Control</option>  
-                                                <option @if ($data->Other1_Department_person == 'Quality_Assurance') selected @endif
+                                                <option @if ($data1->Other1_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data->Other1_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other1_Department_person == 'Engineering') selected @endif 
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                <option  @if ($data1->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
                                                     value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
-                                                    <option @if ($data->Other1_Department_person == 'Process_Development_Lab') selected @endif
+                                                    <option @if ($data1->Other1_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data->Other1_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other1_Department_person == 'Technology transfer/Design') selected @endif 
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                    <option  @if ($data1->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
                                                         value="Environment, Health & Safety">Environment, Health & Safety</option>   
-                                                        <option @if ($data->Other1_Department_person == 'Human Resource & Administration') selected @endif
+                                                        <option @if ($data1->Other1_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data->Other1_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other1_Department_person == 'Information Technology') selected @endif 
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data->Other1_Department_person == 'Project management') selected @endif 
+                                                        <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif 
                                                             value="Project management">Project management</option>  
 
                                         </select>
@@ -4531,13 +4531,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By  Other's 1) <span id="" style="display: {{ $data1->Other1_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Other1_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_review) readonly @endif id="summernote-41">{{$data1->Other1_assessment}}</textarea>
+                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Other1_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-41">{{$data1->Other1_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback1"> Other's 1 Feedback  <span id="" style="display: {{ $data1->Other1_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Other1_feedback" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_review) readonly @endif id="summernote-42">{{$data1->Other1_feedback}}</textarea>
+                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Other1_feedback" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-42">{{$data1->Other1_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -4629,7 +4629,7 @@ $users = DB::table('users')
                                 </div>
                                
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 35, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -4651,18 +4651,30 @@ $users = DB::table('users')
                                         <label for="Department2"> Other's 2 Department  <span id="asteriskod2" style="display: {{ $data1->Other2_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Other2_Department_person"  @if ($data->stage==4) disabled @endif id="Other2_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
+                                            <option @if ($data1->Other2_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other2_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other2_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other2_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other2_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other2_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other2_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other2_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other2_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other2_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other2_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other2_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         
                                         </select>
                                   
@@ -4701,13 +4713,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By  Other's 2) <span id="" style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other1_review) readonly @endif class="summernote" name="Other2_Assessment" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-43">{{$data1->Other2_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other2_person) readonly @endif class="summernote" name="Other2_Assessment" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-43">{{$data1->Other2_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback2"> Other's 2 Feedback <span id="" style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other1_review) readonly @endif class="summernote" name="Other2_feedback" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-44">{{$data1->Other2_feedback}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other2_person) readonly @endif class="summernote" name="Other2_feedback" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-44">{{$data1->Other2_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4771,7 +4783,7 @@ $users = DB::table('users')
                                 </div>
                                
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 36, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -4794,18 +4806,30 @@ $users = DB::table('users')
                                         <label for="Department3">Other's 3 Department  <span id="asteriskod3" style="display: {{ $data1->Other3_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Other3_Department_person"  @if ($data->stage==4) disabled @endif id="Other3_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
+                                            <option @if ($data1->Other3_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other3_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other3_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other3_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other3_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other3_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other3_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other3_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other3_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other3_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other3_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other3_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>
                                         </select>
                                   
                                     </div>
@@ -4843,13 +4867,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By  Other's 3) <span id="" style="display: {{ $data1->Other3_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_review) readonly @endif class="summernote" name="Other3_Assessment" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_person) readonly @endif class="summernote" name="Other3_Assessment" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback3"> Other's 3 Feedback <span id="" style="display: {{ $data1->Other3_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_review) readonly @endif class="summernote" name="Other3_feedback" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_person) readonly @endif class="summernote" name="Other3_feedback" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4911,7 +4935,7 @@ $users = DB::table('users')
                                 </div>
                                 
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 37, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -4933,21 +4957,30 @@ $users = DB::table('users')
                                         <label for="Department4"> Other's 4 Department  <span id="asteriskod4" style="display: {{ $data1->Other4_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Other4_Department_person"  @if ($data->stage==4) disabled @endif id="Other4_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
-                                            
-
-
+                                            <option @if ($data1->Other4_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other4_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other4_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other4_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other4_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other4_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other4_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other4_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other4_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other4_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other4_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other4_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         </select>
                                   
                                     </div>
@@ -4985,13 +5018,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By  Other's 4) <span id="" style="display: {{ $data1->Other4_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_review) readonly @endif class="summernote" name="Other4_Assessment" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_person) readonly @endif class="summernote" name="Other4_Assessment" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback4"> Other's 4 Feedback <span id="" style="display: {{ $data1->Other4_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_review) readonly @endif class="summernote" name="Other4_feedback" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-48">{{$data1->Other4_feedback}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_person) readonly @endif class="summernote" name="Other4_feedback" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-48">{{$data1->Other4_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5056,7 +5089,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 38, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -5078,21 +5111,30 @@ $users = DB::table('users')
                                         <label for="Department5"> Other's 5 Department  <span id="asteriskod5" style="display: {{ $data1->Other5_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <select name="Other5_Department_person" @if ($data->stage==4) disabled @endif id="Other5_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
-                                            
-
-
+                                            <option @if ($data1->Other5_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other5_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other5_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other5_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other5_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other5_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other5_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other5_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other5_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other5_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other5_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other5_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         </select>
                                   
                                     </div>
@@ -5130,13 +5172,13 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By  Other's 5) <span id="" style="display: {{ $data1->Other5_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_review) readonly @endif class="summernote" name="Other5_Assessment"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="summernote" name="Other5_Assessment"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback <span id="" style="display: {{ $data1->Other5_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_review) readonly @endif class="summernote" name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-50">{{$data1->Other5_feedback}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="summernote" name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-50">{{$data1->Other5_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -5199,7 +5241,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 34, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -5222,29 +5264,29 @@ $users = DB::table('users')
                                         <label for="Department1"> Other's 1 Department</label>
                                         <select disabled name="Other1_Department_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Other1_Department_person" value="{{ $data1->Other1_Department_person }}">
                                             <option value="0">-- Select --</option>
-                                            <option @if ($data->Other1_Department_person == 'Production') selected @endif
+                                            <option @if ($data1->Other1_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data->Other1_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif 
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data->Other1_Department_person == 'Quality_Control') selected @endif 
+                                            <option  @if ($data1->Other1_Department_person == 'Quality_Control') selected @endif 
                                                 value="Quality_Control">Quality Control</option>  
-                                                <option @if ($data->Other1_Department_person == 'Quality_Assurance') selected @endif
+                                                <option @if ($data1->Other1_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data->Other1_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other1_Department_person == 'Engineering') selected @endif 
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                <option  @if ($data1->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
                                                     value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
-                                                    <option @if ($data->Other1_Department_person == 'Process_Development_Lab') selected @endif
+                                                    <option @if ($data1->Other1_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data->Other1_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other1_Department_person == 'Technology transfer/Design') selected @endif 
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                    <option  @if ($data1->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
                                                         value="Environment, Health & Safety">Environment, Health & Safety</option>   
-                                                        <option @if ($data->Other1_Department_person == 'Human Resource & Administration') selected @endif
+                                                        <option @if ($data1->Other1_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data->Other1_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other1_Department_person == 'Information Technology') selected @endif 
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data->Other1_Department_person == 'Project management') selected @endif 
+                                                        <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif 
                                                             value="Project management">Project management</option>  
 
                                         </select>
@@ -5323,7 +5365,7 @@ $users = DB::table('users')
                                 </div>
                                
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 35, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -5345,18 +5387,30 @@ $users = DB::table('users')
                                         <label for="Department2"> Other's 2 Department</label>
                                         <select disabled name="Other2_Department_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Other2_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
+                                            <option @if ($data1->Other2_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other2_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other2_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other2_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other2_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other2_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other2_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other2_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other2_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other2_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other2_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other2_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         
                                         </select>
                                   
@@ -5436,7 +5490,7 @@ $users = DB::table('users')
                                 </div>
                                
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 36, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -5459,21 +5513,30 @@ $users = DB::table('users')
                                         <label for="Department3">Other's 3 Department</label>
                                         <select disabled name="Other3_Department_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Other3_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
-                                            
-
-
+                                            <option @if ($data1->Other3_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other3_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other3_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other3_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other3_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other3_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other3_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other3_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other3_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other3_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other3_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other3_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         </select>
                                   
                                     </div>
@@ -5549,7 +5612,7 @@ $users = DB::table('users')
                                 </div>
                                 
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 37, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where([ 'q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -5571,21 +5634,30 @@ $users = DB::table('users')
                                         <label for="Department4"> Other's 4 Department</label>
                                         <select disabled name="Other4_Department_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Other4_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
-                                            
-
-
+                                            <option @if ($data1->Other4_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other4_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other4_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other4_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other4_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other4_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other4_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other4_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other4_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other4_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other4_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other4_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         </select>
                                   
                                     </div>
@@ -5664,7 +5736,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                  @php
-                                 $userRoles = DB::table('user_roles')->where(['q_m_s_roles_id' => 38, 'q_m_s_divisions_id' => $data->division_id])->get();
+                                 $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                  $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
@@ -5686,21 +5758,30 @@ $users = DB::table('users')
                                         <label for="Department5"> Other's 5 Department</label>
                                         <select disabled name="Other5_Department_person"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Other5_Department_person">
                                             <option value="0">-- Select --</option>
-                                            <option value="Production">Production</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Quality_Control">Quality Control</option>
-                                            <option value="Quality_Assurance">Quality Assurance</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
-                                            <option value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                            <option value="Technology transfer/Design">Technology Transfer/Design</option>
-                                            <option value="Environment, Health & Safety">Environment, Health & Safety</option>
-                                            <option value="Human Resource & Administration">Human Resource & Administration</option>
-                                            <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
-                                            
-
-
+                                            <option @if ($data1->Other5_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other5_Department_person == 'Warehouse') selected @endif 
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other5_Department_person == 'Quality_Control') selected @endif 
+                                                value="Quality_Control">Quality Control</option>  
+                                                <option @if ($data1->Other5_Department_person == 'Quality_Assurance') selected @endif
+                                                    value="Quality_Assurance">Quality Assurance</option>
+                                                <option  @if ($data1->Other5_Department_person == 'Engineering') selected @endif 
+                                                   value="Engineering">Engineering</option>
+                                                <option  @if ($data1->Other5_Department_person == 'Analytical_Development_Laboratory') selected @endif 
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                    <option @if ($data1->Other5_Department_person == 'Process_Development_Lab') selected @endif
+                                                        value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
+                                                    <option  @if ($data1->Other5_Department_person == 'Technology transfer/Design') selected @endif 
+                                                       value="Technology transfer/Design"> Technology Transfer/Design</option>
+                                                    <option  @if ($data1->Other5_Department_person == 'Environment, Health & Safety') selected @endif 
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                        <option @if ($data1->Other5_Department_person == 'Human Resource & Administration') selected @endif
+                                                            value="Human Resource & Administration">Human Resource & Administration</option>
+                                                        <option  @if ($data1->Other5_Department_person == 'Information Technology') selected @endif 
+                                                           value="Information Technology">Information Technology</option>
+                                                        <option  @if ($data1->Other5_Department_person == 'Project management') selected @endif 
+                                                            value="Project management">Project management</option>  
                                         </select>
                                   
                                     </div>
@@ -5793,7 +5874,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
@@ -5809,7 +5890,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
@@ -5825,7 +5906,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
@@ -5837,7 +5918,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"   style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" >*</span></label>
+                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"   style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" >*</span></label>
                                       <select name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
@@ -5852,8 +5933,8 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="capa type">CAPA Type? <span id="asteriskIcon321" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                      <select name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
+                                        <label for="capa type">CAPA Type? <span id="asteriskIcon32q1" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                      <select class="capa_type" name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->capa_type == 'Corrective_Action') selected @endif
                                             value="Corrective_Action">Corrective Action</option>
@@ -5863,6 +5944,17 @@ $users = DB::table('users')
                                             value="Corrective&Preventive">Corrective & Preventive Action both</option>   
                                       </select>
                                       @error('capa_type')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="CAPA Description">CAPA Description  <span id="asteriskIcon32q13" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="CAPA_Description summernote" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
+                                    
+                                        @error('CAPA_Description')
                                           <div class="text-danger">{{ $message }}</div>
                                       @enderror
                                     </div>
@@ -5877,6 +5969,10 @@ $users = DB::table('users')
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
+                                            var facilityNameInputs = document.getElementsByClassName('CAPA_Description');
+                                            for (var i = 0; i < facilityNameInputs.length; i++) {
+                                                inputsToToggle.push(facilityNameInputs[i]);
+                                            }
                         
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
@@ -5886,8 +5982,10 @@ $users = DB::table('users')
                                                 });
         
                                                 // Show or hide the asterisk icon based on the selected value
-                                                var asteriskIcon321 = document.getElementById('asterisko5');
-                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                                var asteriskIcon321 = document.getElementById('asteriskIcon32q1');
+                                                var asteriskIcon3211 = document.getElementById('asteriskIcon32q13');
+                                                asteriskIcon321.style.display = isRequired ? 'inline' : 'none';
+                                                asteriskIcon3211.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
                                 </script>
@@ -5897,17 +5995,7 @@ $users = DB::table('users')
                                         <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-12">
-                                    <div class="group-input">
-                                        <label for="CAPA Description">CAPA Description</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
-                                    
-                                        @error('CAPA_Description')
-                                          <div class="text-danger">{{ $message }}</div>
-                                      @enderror
-                                    </div>
-                                </div>
+                                
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
@@ -5916,7 +6004,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         <select name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
@@ -5940,7 +6028,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 6 ? 'inline' : 'none' }}">*</span></label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 5 ? 'inline' : 'none' }}">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>
@@ -6029,7 +6117,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary <span class="text-danger">*</span></label>
+                                        <label for="Investigation Summary">Investigation Summary</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea readonly class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
@@ -6045,7 +6133,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment <span class="text-danger">*</span></label>
+                                        <label for="Impact Assessment">Impact Assessment</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea readonly class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
@@ -6061,7 +6149,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Root Cause">Root Cause <span class="text-danger">*</span></label>
+                                        <label for="Root Cause">Root Cause </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea readonly class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
@@ -6073,7 +6161,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger">*</span></label>
+                                        <label for="CAPA Rquired">CAPA Required ?</label>
                                       <select disabled name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
@@ -6124,7 +6212,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         <select disabled name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
@@ -6148,7 +6236,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 6 ? 'inline' : 'none' }}">*</span></label>
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea readonly class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>
