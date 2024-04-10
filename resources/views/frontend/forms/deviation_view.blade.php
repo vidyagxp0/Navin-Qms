@@ -5809,7 +5809,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment <span  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
@@ -5825,7 +5825,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="Root Cause">Root Cause <span class="text-danger"  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
@@ -5837,7 +5837,7 @@ $users = DB::table('users')
                                 
                                 <div class="col-6">
                                     <div class="group-input">
-                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"  <span style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"   style="display: {{ $data->stage == 6 ? 'inline' : 'none' }}" >*</span></label>
                                       <select name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
