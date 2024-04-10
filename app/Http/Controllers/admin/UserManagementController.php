@@ -230,6 +230,7 @@ class UserManagementController extends Controller
                 return redirect()->back();
             }else{
                 $user->password = Hash::make($request->password);
+                $user->f_login = 0;
             }
         }
     }
@@ -240,7 +241,7 @@ class UserManagementController extends Controller
         $user->userRoles()->delete();
 
         // Attach new roles
-        foreach ($request->roles as $roleId) {
+        foreach ($request->roles as $roleId) { 
             $userRole = new UserRole();                
             $checkRole = Roles::find($roleId);
 
