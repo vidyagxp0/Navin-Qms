@@ -2120,27 +2120,15 @@ class DeviationController extends Controller
 
 
         $Cft->save();
-        }
+            
         
-        
-
-        if (!empty ($request->Audit_file)) {
-            $files = [];
-            if ($request->hasfile('Audit_file')) {
-                foreach ($request->file('Audit_file') as $file) {
-                    $name = $request->name . 'Audit_file' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                    $file->move('upload/', $name);
-                    $files[] = $name;
-                }
-            }
-
-
-            $deviation->Audit_file = json_encode($files);
-
-
-
             if (!empty ($request->Initial_attachment)) {
                 $files = [];
+                
+                if ($deviation->Initial_attachment) {
+                    $files = is_array(json_decode($deviation->Initial_attachment)) ? $deviation->Initial_attachment : [];
+                }
+
                 if ($request->hasfile('Initial_attachment')) {
                     foreach ($request->file('Initial_attachment') as $file) {
                         $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
@@ -2152,74 +2140,127 @@ class DeviationController extends Controller
 
                 $deviation->Initial_attachment = json_encode($files);
             }
-            if (!empty ($request->QA_attachment)) {
-                $files = [];
-                if ($request->hasfile('QA_attachment')) {
-                    foreach ($request->file('QA_attachment') as $file) {
-                        $name = $request->name . 'QA_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-
-
-                $deviation->QA_attachment = json_encode($files);
-            }
-            if (!empty ($request->Investigation_attachment)) {
-                $files = [];
-                if ($request->hasfile('Investigation_attachment')) {
-                    foreach ($request->file('Investigation_attachment') as $file) {
-                        $name = $request->name . 'Investigation_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-
-
-                $deviation->Investigation_attachment = json_encode($files);
-            }
-            if (!empty ($request->Capa_attachment)) {
-                $files = [];
-                if ($request->hasfile('Capa_attachment')) {
-                    foreach ($request->file('Capa_attachment') as $file) {
-                        $name = $request->name . 'Capa_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-
-
-                $deviation->Capa_attachment = json_encode($files);
-            }
-
-            if (!empty ($request->QA_attachments)) {
-                $files = [];
-                if ($request->hasfile('QA_attachments')) {
-                    foreach ($request->file('QA_attachments') as $file) {
-                        $name = $request->name . 'QA_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-
-
-                $deviation->QA_attachments = json_encode($files);
-            }
-
-            if (!empty ($request->closure_attachment)) {
-                $files = [];
-                if ($request->hasfile('closure_attachment')) {
-                    foreach ($request->file('closure_attachment') as $file) {
-                        $name = $request->name . 'closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-
-
-                $deviation->closure_attachment = json_encode($files);
-            }
         }
+        
+        
+
+        if (!empty ($request->Audit_file)) {
+            
+            $files = [];
+            
+            if ($deviation->Audit_file) {
+                $files = is_array(json_decode($deviation->Audit_file)) ? $deviation->Audit_file : [];
+            }
+
+            if ($request->hasfile('Audit_file')) {
+                foreach ($request->file('Audit_file') as $file) {
+                    $name = $request->name . 'Audit_file' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+            $deviation->Audit_file = json_encode($files);
+        }
+
+        if (!empty ($request->QA_attachment)) {
+            $files = [];
+
+            if ($deviation->QA_attachment) {
+                $files = is_array(json_decode($deviation->QA_attachment)) ? $deviation->QA_attachment : [];
+            }
+
+            if ($request->hasfile('QA_attachment')) {
+                foreach ($request->file('QA_attachment') as $file) {
+                    $name = $request->name . 'QA_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->QA_attachment = json_encode($files);
+        }
+            
+        if (!empty ($request->Investigation_attachment)) {
+            
+            $files = [];
+
+            if ($deviation->Investigation_attachment) {
+                $files = is_array(json_decode($deviation->QA_attachment)) ? $deviation->QA_attachment : [];
+            }
+
+            if ($request->hasfile('Investigation_attachment')) {
+                foreach ($request->file('Investigation_attachment') as $file) {
+                    $name = $request->name . 'Investigation_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->Investigation_attachment = json_encode($files);
+        }
+
+        if (!empty ($request->Capa_attachment)) {
+            
+            $files = [];
+
+            if ($deviation->Capa_attachment) {
+                $files = is_array(json_decode($deviation->Capa_attachment)) ? $deviation->Capa_attachment : [];
+            }
+
+            if ($request->hasfile('Capa_attachment')) {
+                foreach ($request->file('Capa_attachment') as $file) {
+                    $name = $request->name . 'Capa_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->Capa_attachment = json_encode($files);
+        }
+
+        if (!empty ($request->QA_attachments)) {
+            
+            $files = [];
+
+            if ($deviation->QA_attachments) {
+                $files = is_array(json_decode($deviation->QA_attachments)) ? $deviation->QA_attachments : [];
+            }
+
+            if ($request->hasfile('QA_attachments')) {
+                foreach ($request->file('QA_attachments') as $file) {
+                    $name = $request->name . 'QA_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->QA_attachments = json_encode($files);
+        }
+
+        if (!empty ($request->closure_attachment)) {
+            
+            $files = [];
+            
+            if ($deviation->closure_attachment) {
+                $files = is_array(json_decode($deviation->closure_attachment)) ? $deviation->closure_attachment : [];
+            }
+            
+            if ($request->hasfile('closure_attachment')) {
+                foreach ($request->file('closure_attachment') as $file) {
+                    $name = $request->name . 'closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $deviation->closure_attachment = json_encode($files);
+        }
+
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
         $deviation->update();
         // grid

@@ -1687,13 +1687,13 @@ $users = DB::table('users')
                                         <div class="file-attachment-field">
                                             <div disabled class="file-attachment-list" id="Initial_attachment">
                                                 @if ($data->Initial_attachment)
-                                                @foreach(json_decode($data->Initial_attachment) as $file)
-                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
-                                                    <b>{{ $file }}</b>
-                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
-                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
-                                                </h6>
-                                           @endforeach
+                                                    @foreach(json_decode($data->Initial_attachment) as $file)
+                                                        <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                            <b>{{ $file }}</b>
+                                                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                            <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                        </h6>
+                                                    @endforeach
                                                 @endif
                                             </div>
                                             <div class="add-btn">
@@ -5950,7 +5950,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigatiom Attachment</label>
+                                        <label for="Investigatiom Attachment">Investigation Attachment</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
                                             <div disabled class="file-attachment-list" id="Investigation_attachment">
