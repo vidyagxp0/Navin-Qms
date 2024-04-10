@@ -71,6 +71,7 @@ class EffectivenessCheckController extends Controller
         $openState->parent_record = CC::where('id', $request->cc_id)->value('id');
         $openState->record = DB::table('record_numbers')->value('counter') + 1;
         $openState->originator = CC::where('id', $request->cc_id)->value('initiator_id');
+        $openState->parent_record = $request->parent_record;
         $openState->assign_to = $request->assign_to;
         $openState->due_date = $request->due_date;
         $openState->short_description = $request->short_description;

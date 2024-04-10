@@ -107,6 +107,7 @@
                     @if (!empty($parent_id))
                         <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                         <input type="hidden" name="parent_type" value="{{ $parent_type }}">
+                        <input type="hidden" name="parent_record" value="{{ $parent_record }}">
                     @endif
                     <!-- General information content -->
                     <div id="CCForm1" class="inner-block cctabcontent">

@@ -81,6 +81,7 @@
                                 </div>
                                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                                 <input type="hidden" name="parent_type" value="{{ $parent_name }}">
+                                <input type="hidden" name="parent_record" value="{{ $parent_record }}">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number">Record Number</label>

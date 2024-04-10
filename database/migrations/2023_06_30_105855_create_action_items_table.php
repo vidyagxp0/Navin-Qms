@@ -26,7 +26,8 @@ return new class extends Migration
             $table->integer('parent_id')->nullable();
             $table->string('parent_type')->nullable();
              $table->text('Reference_Recores1')->nullable();
-            $table->longText('description')->nullable();
+             $table->text('parent_record')->nullable();
+           $table->longText('description')->nullable();
             $table->string('title')->nullable();
             $table->string('dept')->nullable();
             $table->text('hod_preson')->nullable();

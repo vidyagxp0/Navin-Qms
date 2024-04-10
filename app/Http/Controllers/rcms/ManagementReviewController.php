@@ -1457,17 +1457,20 @@ class ManagementReviewController extends Controller
     public function child_management_Review(Request $request, $id)
     {
         $parent_id = $id;
+        // $parent_record= $request->parent_record;
         $parent_initiator_id = ManagementReview::where('id', $id)->value('initiator_id');
         $parent_type = "Action-Item";
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
-        $parent_record = $record_number;
+        // $parent_record = $record_number;
+        $parent_record = ManagementReview::where('id', $id)->value('record');
+        $parent_record = str_pad($parent_record, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $parent_intiation_date = $currentDate;
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('d-M-Y');
         $old_record = ManagementReview::select('id', 'division_id', 'record')->get();
-        return view('frontend.forms.action-item', compact('parent_intiation_date','parent_initiator_id','parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type','old_record'));
+        return view('frontend.forms.action-item', compact('parent_intiation_date','parent_record','parent_initiator_id','parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type','old_record'));
     }
 
     public static function managementReviewReport($id)

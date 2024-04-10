@@ -33,6 +33,7 @@ class ExtensionController extends Controller
         
         $parent_due_date = "";
         $parent_id = '';
+        $parent_record= $request->parent_record;
         $parent_name = $request->parent_name;
         if ($request->due_date) {
             $parent_due_date = $request->due_date;
@@ -43,7 +44,7 @@ class ExtensionController extends Controller
         if($request->child_type=='documents'){
             return redirect('documents/create');
         }
-        return view('frontend.forms.extension', compact('parent_id', 'parent_name','old_record', 'record_number', 'parent_due_date'));
+        return view('frontend.forms.extension', compact('parent_id','parent_record', 'parent_name','old_record', 'record_number', 'parent_due_date'));
     }
     public function index()
     {
@@ -64,8 +65,11 @@ class ExtensionController extends Controller
         $openState = new Extension();
         $openState->cc_id = $request->cc_id;
         $openState->parent_id = $request->parent_id;
+        $openState->parent_record = $request->parent_record;
         $openState->parent_type = $request->parent_type;
         $openState->initiator_id = Auth::user()->id;
+        
+
 
         $openState->intiation_date = $request->intiation_date;
         $openState->revised_date = $request->revised_date;

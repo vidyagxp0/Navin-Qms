@@ -67,6 +67,7 @@ class ActionItemController extends Controller
         $openState->initiator_id = Auth::user()->id;
         $openState->record = DB::table('record_numbers')->value('counter') + 1;
         $openState->parent_id = $request->parent_id;
+        $openState->parent_record = $request->parent_record;
         $openState->division_code = $request->division_code;
         $openState->parent_type = $request->parent_type;
         $openState->division_id = $request->division_id;

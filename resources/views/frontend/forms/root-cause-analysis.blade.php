@@ -48,7 +48,10 @@
                     <div id="CCForm1" class="inner-block cctabcontent">
                          <div class="inner-block-content">
                             <div class="row"> 
-                      
+                            @if (!empty($parent_id))
+
+                                <input type="hidden" name="parent_record" value="{{ $parent_record }}">
+                            @endif
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
@@ -61,7 +64,7 @@
                            
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Division Code"><b>Site/Location Code </b></label>
+                                <label for="Division Code"><b>Site/Location Code111 </b></label>
                                 <input readonly type="text" name="division_code"
                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                 <input type="hidden" name="division_id" value="{{ session()->get('division') }}">

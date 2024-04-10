@@ -30,7 +30,9 @@ use Illuminate\Support\Facades\Hash;
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
-        return view("frontend.forms.root-cause-analysis", compact('due_date', 'record_number'));
+        // $parent_record= $request->parent_record;
+        // $parent_record= $request->parent_record;
+        return view("frontend.forms.root-cause-analysis", compact('due_date','record_number'));
     }
     public function root_store(Request $request)
     { 
@@ -43,6 +45,7 @@ use Illuminate\Support\Facades\Hash;
         $root->originator_id = $request->originator_id;
         $root->date_opened = $request->date_opened;
         $root->division_id = $request->division_id;
+        $root->parent_record = $request->parent_record;
         $root->priority_level = $request->priority_level;
         $root->severity_level = $request->severity_level;
         $root->short_description =($request->short_description);

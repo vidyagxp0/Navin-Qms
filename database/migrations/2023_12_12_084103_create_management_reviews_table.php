@@ -37,6 +37,7 @@ return new class extends Migration
             $table->text('summary_recommendation')->nullable();
             $table->text('conclusion_new')->nullable();
             $table->text('additional_suport_required')->nullable();
+            $table->text('parent_record')->nullable();
             $table->integer('serial_number')->nullable();
             $table->date('date')->nullable();
             $table->string('topic')->nullable();

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('due_date')->nullable();
             $table->integer('record')->nullable();
             $table->string('originator')->nullable();
+            // $table->text('parent_record')->nullable();
             $table->longText('short_description')->nullable();
             //$table->string('assign_to')->nullable();
             $table->string('assign_to')->nullable();

@@ -73,6 +73,7 @@ return new class extends Migration
             $table->longText('investigation_summary')->nullable();
             $table->integer('record')->nullable(); 
             $table->integer('parent_id')->nullable();
+            $table->text('parent_record')->nullable();
             $table->integer('initiator_id')->nullable(); 
             $table->string('division_code')->nullable();
             $table->string('intiation_date')->nullable();

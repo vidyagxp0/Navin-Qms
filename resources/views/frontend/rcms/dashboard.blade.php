@@ -406,15 +406,15 @@
                                                 
                                                 @endif
                                             </td>
-                                            @if ($datas->parent_id != '-')
+                                            @if ($datas->parent_record != '-')
                                                         <td>
-                                                            {{ str_pad($datas->parent_id, 4, '0', STR_PAD_LEFT) }}
+                                                            {{ str_pad($datas->parent_record, 4, '0', STR_PAD_LEFT) }}
                                                         </td>
                                                     @else
                                                         <td>
-                                                            {{ $datas->parent_id }}
+                                                            {{ $datas->parent_record }}
                                                         </td>
-                                                    @endif
+                                            @endif
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">

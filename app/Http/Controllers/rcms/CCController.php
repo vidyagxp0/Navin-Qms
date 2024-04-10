@@ -93,6 +93,7 @@ class CCController extends Controller
         $openState->parent_id = $request->parent_id;
         $openState->parent_type = $request->parent_type;
         $openState->intiation_date = $request->intiation_date;
+        $openState->parent_record = $request->parent_record;
         $openState->Initiator_Group = $request->Initiator_Group;
         $openState->initiator_group_code = $request->initiator_group_code;
         $openState->short_description = $request->short_description;

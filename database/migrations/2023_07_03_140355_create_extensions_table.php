@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('intiation_date')->nullable();
             $table->text('due_date')->nullable();
             $table->text('revised_date')->nullable();
+            $table->text('parent_record')->nullable();
             $table->string('division_id')->nullable();
             $table->text('short_description')->nullable();
             $table->text('justification')->nullable();

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('form_type')->nullable();
             $table->integer('record')->nullable();
             $table->integer('parent_id')->nullable();
+            $table->integer('parent_record')->nullable();
             $table->string('parent_type')->nullable();
             $table->longText('short_description')->nullable();
             $table->longText('severity_level1')->nullable();    

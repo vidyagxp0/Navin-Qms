@@ -45,6 +45,11 @@
                         General Information
                     </div>
                     <div class="row">
+                        @if (!empty($parent_id))
+
+                          <input type="hidden" name="parent_record" value="{{ $parent_record }}">
+                        @endif
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="originator">Originator</label>

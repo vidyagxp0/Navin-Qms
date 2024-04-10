@@ -46,6 +46,11 @@
                     @if (!empty($parent_id))
                         <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                         <input type="hidden" name="parent_type" value="{{ $parent_type }}">
+                       
+                     
+                    @endif
+                    @if (!empty($parent_record))
+                    <input type="hidden" name="parent_record" value="{{ $parent_record }}">
                     @endif
                     <!-- Tab content -->
                     <div id="CCForm1" class="inner-block cctabcontent">
@@ -58,7 +63,7 @@
                                     <div class="group-input"> 
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record_number"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/AI/{{ date('Y') }}/{{ $parent_record }}">
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/AI/{{ date('Y') }}/{{ $record_number }}">
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>

@@ -69,6 +69,7 @@ class CapaController extends Controller
         $capa->initiated_through = $request->initiated_through;
         $capa->initiated_through_req = $request->initiated_through_req;
         $capa->repeat = $request->repeat;
+        $capa->parent_record = $request->parent_record;
         $capa->initiator_Group= $request->initiator_Group;
         $capa->initiator_group_code= $request->initiator_group_code;
         $capa->repeat_nature = $request->repeat_nature;
@@ -1733,6 +1734,7 @@ class CapaController extends Controller
     {
         $cft =[];
         $parent_id = $id;
+        $parent_record= $request->parent_record;
        
         $parent_type = "Audit_Program";
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
@@ -1761,7 +1763,7 @@ class CapaController extends Controller
 
             $Changecontrolchild->save();
             
-            return view('frontend.change-control.new-change-control', compact('cft','pre','hod','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
+            return view('frontend.change-control.new-change-control', compact('cft','parent_record','parent_record','pre','hod','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
         if ($request->child_type == "extension") {
             $parent_due_date = "";
@@ -1774,7 +1776,7 @@ class CapaController extends Controller
 
             $record_number = ((RecordNumber::first()->value('counter')) + 1);
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
-            return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date'));
+            return view('frontend.forms.extension', compact('parent_id', 'parent_record','parent_name', 'record_number', 'parent_due_date'));
         }
         $old_record = Capa::select('id', 'division_id', 'record')->get();
         if ($request->child_type == "Action_Item") {
@@ -1795,7 +1797,7 @@ class CapaController extends Controller
             $effectivenesschild->effectivenesschild = $record_number;
             $parent_id = $id;
             $effectivenesschild->save();
-            // dd($effectivenesschild);
+            //  dd($effectivenesschild);
             return view('frontend.forms.effectiveness-check', compact('old_record','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
     }
