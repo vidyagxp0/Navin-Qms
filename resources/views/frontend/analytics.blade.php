@@ -1,5 +1,14 @@
 @extends('frontend.rcms.layout.main_rcms')
-
+<style>
+    .chart_header{
+        padding: 5px;
+                            background: #4274da;
+                            border: 1px solid #6b6565;
+                            font-size: 19px;
+                           
+                            color: #fff;"
+    }
+</style>
 <script>
     // Function to update the options of the second dropdown based on the selection in the first dropdown
     function updateQueryOptions() {
@@ -126,7 +135,7 @@
                         <div class="group-input">
                             <label for="scope">Process</label>
                             <select id="test" onchange="showChart(null)">
-                                <option value="">All Records</option>
+                                <option value="" selected>All Records</option>
                                 {{-- <option value="Internal-Audit">Internal Audit</option>
                                 <option value="External-Audit">External Audit</option> --}}
                                 <option value="Capa">CAPA</option>
@@ -170,13 +179,13 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
                     <div class="main-scope-table">
-                        <div>
+                        {{-- <div>
                             <button id="toggleChartButton">Bar Chart</button>
                             <canvas id="myChart" width="400" height="115"></canvas>
                             <canvas id="myLineChart" width="400" height="115" style="display:none;"></canvas>
                             <div id="paichart" style="width: 400px; height: 115px; margin: 0 auto; display:none;">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <script>
                             var chartTypes = ['bar', 'pie', 'line']; // Available chart types
@@ -342,27 +351,27 @@
                             </br>
                             <hr>
                             </br>
-                            <h4 align="center" id="selectedValueText"></h4>
-                            <div id="chart1"></div>
-                            <h4 align="center" id="selectedValueTextDepartment"></h4>
-                            <div id="chart2"></div>
-                            <h4 align="center" id="selectedValueTextDepartmentReleted"></h4>
-                            <div id="chart3"></div>
-                            <h4 align="center" id="selectedValueTextInitialDeviationCategory"></h4>
-                            <div id="chart4"></div>
-                            <h4 align="center" id="selectedValueTextPostCategorizationOfDeviation"></h4>
-                            <div id="chart5"></div>
-                            <h4 align="center" id="selectedValueTextCAPARequired"></h4>
-                            <div id="chart6"></div>
-                            <h4 align="center" id="selectedValueTextCAPARequiredRCA"></h4>
-                            <div id="chart7"></div>
+                            <h4 class="chart_header"  align="center" id="selectedValueText"></h4>
+                            <div style="border: 1px solid;" id="chart1"></div>
+                            <h4 class="chart_header" align="center" id="selectedValueTextDepartment"></h4>
+                            <div style="border: 1px solid;" id="chart2"></div>
+                            <h4 class="chart_header"  align="center" id="selectedValueTextDepartmentReleted"></h4>
+                            <div style="border: 1px solid;" class="" id="chart3"></div>
+                            <h4 class="chart_header" align="center" id="selectedValueTextInitialDeviationCategory"></h4>
+                            <div style="border: 1px solid;" id="chart4"></div>
+                            <h4 class="chart_header" align="center" id="selectedValueTextPostCategorizationOfDeviation"></h4>
+                            <div style="border: 1px solid;" id="chart5"></div>
+                            <h4 class="chart_header" align="center" id="selectedValueTextCAPARequired"></h4>
+                            <div style="border: 1px solid;" id="chart6"></div>
+                            <h4 class="chart_header" align="center" id="selectedValueTextCAPARequiredRCA"></h4>
+                            <div style="border: 1px solid;" id="chart7"></div>
                         </div>
                         <hr>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <h4 align="center">Due Date</h4>
-                        <canvas id="myChartDue" width="400" height="115"></canvas>
+                        {{-- <h4 align="center">Due Date</h4> --}}
+                        {{-- <canvas id="myChartDue" width="400" height="115"></canvas> --}}
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-                        <script>
+                         <script>
                             axios.get('/api/analyticsData?value=due')
                                 .then(function(response) {
                                     var dataCountsDue = response.data;
@@ -421,7 +430,7 @@
                                         }
                                     });
                                 })
-                        </script>
+                        </script> 
                         {{-- <div class="scope-pagination">
                             {{ $datag->links() }}
                     </div> --}}
@@ -511,16 +520,18 @@
         if (chartElement) {
             chartElement.innerHTML = ""; // Clear the chart container
         }
+        // selectedValue +
         var selectedValue = selectElement.value;
-        document.getElementById("selectedValueText").textContent = selectedValue + " (Division)";
-        document.getElementById("selectedValueTextDepartment").textContent = selectedValue + " (Department)";
-        document.getElementById("selectedValueTextDepartmentReleted").textContent = selectedValue + " (Related To)";
-        document.getElementById("selectedValueTextInitialDeviationCategory").textContent = selectedValue + " (Initial Deviation Category)";
-        document.getElementById("selectedValueTextPostCategorizationOfDeviation").textContent = selectedValue + " (Post Categorization Of Deviation)";
-        document.getElementById("selectedValueTextCAPARequired").textContent = selectedValue + " (CAPA Required)";
-        document.getElementById("selectedValueTextCAPARequiredRCA").textContent = selectedValue + " (RCA)";
+        
         fetchData(selectedValue, chartType);
     }
+    document.getElementById("selectedValueText").textContent = " Sitewise Categorization of Deviation";
+    document.getElementById("selectedValueTextDepartment").textContent =  " Departmentwise Categorization of Deviation";
+    document.getElementById("selectedValueTextDepartmentReleted").textContent =  " Deviation Related To Data Analysis";
+    document.getElementById("selectedValueTextInitialDeviationCategory").textContent =  " Deviation Categorization from Initial Deviation Category";
+    document.getElementById("selectedValueTextPostCategorizationOfDeviation").textContent = " Deviation Categorization from Post Deviation Category";
+    document.getElementById("selectedValueTextCAPARequired").textContent =  " CAPA-wise Categorization of Deviations";
+    document.getElementById("selectedValueTextCAPARequiredRCA").textContent = "Statewise Categorization of Deviation";
 </script>
 
 <script>
@@ -531,6 +542,10 @@
     let chart5;
     let chart6;
     let chart7;
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     function fetchData(selectedValue, chartType) {
         let currentChartType = chartType == null ? 'bar' : chartType;
@@ -635,6 +650,7 @@
                     enabled: true
                 }
             },
+            colors: ['#000000', '#000000'],
             plotOptions: {
                 pie: {
                     startAngle: 0,
@@ -656,8 +672,9 @@
                 offsetY: 40
             },
             fill: {
-                opacity: 1
-            }
+                opacity: 1,
+            },
+            
         };
 
         // Check if chart exists and destroy
@@ -688,6 +705,7 @@
                     enabled: true
                 }
             },
+            colors: ['#000000', '#000000'],
             plotOptions: {
                 bar: {
                     horizontal: false,
@@ -712,7 +730,8 @@
                 offsetY: 40
             },
             fill: {
-                opacity: 1
+                opacity: 1,
+                colors: ['#1A73E8', '#B32824']
             }
         };
 
@@ -1198,7 +1217,7 @@
             },
             xaxis: {
                 type: 'category',
-                categories: data.map(item => item.division)
+                categories: data.map(item => capitalizeFirstLetter(item.division))
             },
             legend: {
                 position: 'right',
@@ -1219,6 +1238,7 @@
     }
 
     function renderFourthLineChart(data) {
+        console.log('data4', data)
         var options = {
             series: [{
                 name: 'Total',
@@ -1254,7 +1274,7 @@
             },
             xaxis: {
                 type: 'category',
-                categories: data.map(item => item.division)
+                categories: data.map(item => capitalizeFirstLetter(item.division))
             },
             legend: {
                 position: 'right',
@@ -1278,7 +1298,7 @@
         console.log('pie', data);
         var options = {
             series: data.map(item => item.value),
-            labels: data.map(item => item.division),
+            labels: data.map(item => capitalizeFirstLetter(item.division)),
             chart: {
                 type: 'pie',
                 height: 350,
@@ -1362,7 +1382,7 @@
             },
             xaxis: {
                 type: 'category',
-                categories: data.map(item => item.division)
+                categories: data.map(item => capitalizeFirstLetter(item.division))
             },
             legend: {
                 position: 'right',
@@ -1418,7 +1438,7 @@
             },
             xaxis: {
                 type: 'category',
-                categories: data.map(item => item.division)
+                categories: data.map(item => capitalizeFirstLetter(item.division))
             },
             legend: {
                 position: 'right',
@@ -1442,7 +1462,7 @@
         console.log('pie', data);
         var options = {
             series: data.map(item => item.value),
-            labels: data.map(item => item.division),
+            labels: data.map(item => capitalizeFirstLetter(item.division)),
             chart: {
                 type: 'pie',
                 height: 350,
@@ -1526,7 +1546,7 @@
             },
             xaxis: {
                 type: 'category',
-                categories: data.map(item => item.division)
+                categories: data.map(item => capitalizeFirstLetter(item.division))
             },
             legend: {
                 position: 'right',
@@ -1582,7 +1602,7 @@
             },
             xaxis: {
                 type: 'category',
-                categories: data.map(item => item.division)
+                categories: data.map(item => capitalizeFirstLetter(item.division))
             },
             legend: {
                 position: 'right',
