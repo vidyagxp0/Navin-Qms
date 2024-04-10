@@ -141,6 +141,7 @@ class UserLoginController extends Controller
 
             $user->password = Hash::make($newPassword);
             $user->f_login = 1;
+            $user->session_id = FacadesSession::getId();
             $user->save();
 
             $passwordLog = new PasswordLog();
