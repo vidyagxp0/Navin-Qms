@@ -3462,6 +3462,32 @@ class DeviationController extends Controller
                     ]);
                 }
 
+                $extension = Extension::where('parent_id', $deviation->id)->first();
+
+                $rca = RootCauseAnalysis::where('parent_id', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
+
+                if ($extension && $extension->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'Extension record pending!',
+                        'message' => 'There is an Extension record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                if ($rca && $rca->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'RCA record pending!',
+                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                // return "PAUSE";
+
                 $deviation->stage = "7";
                 $deviation->status = "Closed - Done";
                 $deviation->Approved_By = Auth::user()->name;

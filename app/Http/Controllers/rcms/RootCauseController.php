@@ -846,14 +846,18 @@ use Illuminate\Support\Facades\Hash;
                          if ($email !== null) {
                         
                       
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $root],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document sent ".Auth::user()->name);
-                            }
-                          );
+                          try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $root],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document sent ".Auth::user()->name);
+                                }
+                                );
+                          } catch  (\Exception $e) {
+                            // 
+                          }
                         }
                  } 
               }
@@ -978,14 +982,18 @@ use Illuminate\Support\Facades\Hash;
                     $email = Helpers::getInitiatorEmail($u->user_id);
                      if ($email !== null) {
                   
-                      Mail::send(
-                          'mail.view-mail',
-                           ['data' => $root],
-                        function ($message) use ($email) {
-                            $message->to($email)
-                                ->subject("Document sent ".Auth::user()->name);
-                        }
-                      );
+                      try {
+                        Mail::send(
+                            'mail.view-mail',
+                             ['data' => $root],
+                          function ($message) use ($email) {
+                              $message->to($email)
+                                  ->subject("Document sent ".Auth::user()->name);
+                          }
+                        );
+                      } catch (\Exception $e) {
+                        // 
+                      }
                     }
              } 
           }

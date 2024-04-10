@@ -2220,14 +2220,18 @@ class CCController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By".Auth::user()->name);
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                     ['data' => $changeControl],
+                                  function ($message) use ($email) {
+                                      $message->to($email)
+                                          ->subject("Document is Send By".Auth::user()->name);
+                                  }
+                                );
+                            } catch (\Exception $e) {
+                                // 
                             }
-                          );
                         }
                  } 
               }
@@ -2274,15 +2278,18 @@ class CCController extends Controller
                                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                                         $email = Helpers::getInitiatorEmail($u->user_id);
                                          if ($email !== null) {
-                                      
-                                          Mail::send(
-                                              'mail.view-mail',
-                                               ['data' => $changeControl],
-                                            function ($message) use ($email) {
-                                                $message->to($email)
-                                                    ->subject("Document is Send By".Auth::user()->name);
+                                            try {
+                                                Mail::send(
+                                                    'mail.view-mail',
+                                                     ['data' => $changeControl],
+                                                  function ($message) use ($email) {
+                                                      $message->to($email)
+                                                          ->subject("Document is Send By".Auth::user()->name);
+                                                  }
+                                                );
+                                            } catch (\Exception $e) {
+                                                // 
                                             }
-                                          );
                                         }
                                  } 
                               }            
@@ -2319,15 +2326,18 @@ class CCController extends Controller
                                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                                         $email = Helpers::getInitiatorEmail($u->user_id);
                                          if ($email !== null) {
-                                      
-                                          Mail::send(
-                                              'mail.view-mail',
-                                               ['data' => $changeControl],
-                                            function ($message) use ($email) {
-                                                $message->to($email)
-                                                    ->subject("Document is Send By".Auth::user()->name);
+                                            try {
+                                                Mail::send(
+                                                    'mail.view-mail',
+                                                     ['data' => $changeControl],
+                                                  function ($message) use ($email) {
+                                                      $message->to($email)
+                                                          ->subject("Document is Send By".Auth::user()->name);
+                                                  }
+                                                );
+                                            } catch (\Exception $e) {
+                                                // 
                                             }
-                                          );
                                         }
                                  } 
                               }     
@@ -2353,15 +2363,18 @@ class CCController extends Controller
                         if($u->q_m_s_divisions_id == $changeControl->division_id){
                             $email = Helpers::getInitiatorEmail($u->user_id);
                              if ($email !== null) {
-                          
-                              Mail::send(
-                                  'mail.view-mail',
-                                   ['data' => $changeControl],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Document is Send By".Auth::user()->name);
+                                try {
+                                    Mail::send(
+                                        'mail.view-mail',
+                                         ['data' => $changeControl],
+                                      function ($message) use ($email) {
+                                          $message->to($email)
+                                              ->subject("Document is Send By".Auth::user()->name);
+                                      }
+                                    );
+                                } catch (\Exception $e) {
+                                    // 
                                 }
-                              );
                             }
                      } 
                   }
@@ -2499,15 +2512,18 @@ class CCController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                      
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By".Auth::user()->name);
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                     ['data' => $changeControl],
+                                  function ($message) use ($email) {
+                                      $message->to($email)
+                                          ->subject("Document is Send By".Auth::user()->name);
+                                  }
+                                );
+                            } catch (\Exception $e) {
+                                // 
                             }
-                          );
                         }
                  } 
               }
@@ -2543,15 +2559,18 @@ class CCController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                      
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By".Auth::user()->name);
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                     ['data' => $changeControl],
+                                  function ($message) use ($email) {
+                                      $message->to($email)
+                                          ->subject("Document is Send By".Auth::user()->name);
+                                  }
+                                );
+                            } catch (\Exception $e) {
+                                // 
                             }
-                          );
                         }
                  } 
               }
@@ -2575,15 +2594,18 @@ class CCController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                      
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By".Auth::user()->name);
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                     ['data' => $changeControl],
+                                  function ($message) use ($email) {
+                                      $message->to($email)
+                                          ->subject("Document is Send By".Auth::user()->name);
+                                  }
+                                );
+                            } catch (\Exception $e) {
+                                // 
                             }
-                          );
                         }
                  } 
               }
@@ -2607,15 +2629,19 @@ class CCController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                      
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By".Auth::user()->name);
+                            try {
+
+                                Mail::send(
+                                    'mail.view-mail',
+                                     ['data' => $changeControl],
+                                  function ($message) use ($email) {
+                                      $message->to($email)
+                                          ->subject("Document is Send By".Auth::user()->name);
+                                  }
+                                );
+                            } catch (\Exception $e) {
+                                // 
                             }
-                          );
                         }
                  } 
               }
@@ -2639,15 +2665,18 @@ class CCController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                      
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By".Auth::user()->name);
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                     ['data' => $changeControl],
+                                  function ($message) use ($email) {
+                                      $message->to($email)
+                                          ->subject("Document is Send By".Auth::user()->name);
+                                  }
+                                );
+                            } catch (\Exception $e) {
+                                // 
                             }
-                          );
                         }
                  } 
               }
