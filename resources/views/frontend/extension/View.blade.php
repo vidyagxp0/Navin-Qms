@@ -188,8 +188,8 @@
                                             <div class="group-input input-date">
                                                 <label for="Date Due">Current Parent Due Date</label>
                                                 <div class="calenderauditee">
-                                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" disabled/>
-                                                    <input type="date" name="due_date" value="{{ $data->due_date }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" disabled />
+                                                    <input readonly type="text" id="due_date"  placeholder="DD-MMM-YYYY" value="{{ $data->due_date }}" />
+                                                    <input readonly type="text" name="due_date" value="{{ $data->due_date }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                                 </div>
                                             </div>
                                         </div>
@@ -210,13 +210,13 @@
                                                 <label for="Date Due">Revised Due Date</label>
                                                 <div class="calenderauditee">
                                                     @if ($data->revised_date < $today_date)
-                                                    <input type="text" id="revised_date" readonly
+                                                    <input readonly type="text" id="revised_date" 
                                                         placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->revised_date) }}" />
                                                         <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="revised_date" value="{{ $data->revised_date }}" class="hide-input" oninput="handleDateInput(this, 'revised_date')" {{ $data->stage == 0 || $data->stage == 3 ? "disabled" : "" }} />
                                                     @else
-                                                    <input type="text" id="revised_date" readonly
-                                                        placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->revised_date) }}" disabled/>
-                                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="revised_date" value="{{ $data->revised_date }}" class="hide-input" oninput="handleDateInput(this, 'revised_date')" {{ $data->stage == 0 || $data->stage == 3 ? "disabled" : "" }} disabled/>
+                                                    <input readonly type="text" id="revised_date" 
+                                                        placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->revised_date) }}" readonly/>
+                                                        <input readonly type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="revised_date" value="{{ $data->revised_date }}" class="hide-input" oninput="handleDateInput(this, 'revised_date')" {{ $data->stage == 0 || $data->stage == 3 ? "disabled" : "" }} />
                                                     
                                                     @endif
                                                 </div>
@@ -411,7 +411,7 @@
                                     </div>
                                     <div class="button-block">
                                         <button type="submit" class="saveButton">Save</button>
-<a href="/rcms/qms-dashboard">                                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                       <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                     </div>
                                 </div>
                             </div>

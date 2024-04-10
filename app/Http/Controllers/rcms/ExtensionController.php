@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CC;
 use App\Models\CCStageHistory;
 use App\Models\Extension;
+use App\Models\Deviation;
 use App\Models\QaApproval;
 use App\Models\RecordNumber;
 use App\Models\ExtensionAuditTrail;
@@ -418,6 +419,7 @@ class ExtensionController extends Controller
     public function stageChange(Request $request, $id)
     {
         $openState = Extension::find($id);
+        $deviation = Deviation::find($openState->parent_id);
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $changeControl = Extension::find($id);
             $lastDocument = Extension::find($id);
@@ -502,6 +504,10 @@ class ExtensionController extends Controller
                 $changeControl->status = "Closed-Done";
                 $changeControl->ext_approved_by = Auth::user()->name;
                 $changeControl->ext_approved_on = Carbon::now()->format('d-M-Y');
+                if( !empty($openState->revised_date)){
+                $deviation->due_date = Helpers::getdateFormat($openState->revised_date);
+                $deviation->save();
+                }
                         $history = new ExtensionAuditTrail();
                         $history->extension_id = $id;
                         $history->activity_type = 'Activity Log';
