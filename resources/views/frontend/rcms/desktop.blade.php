@@ -158,7 +158,7 @@
      tr
      td,
      table {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         border-collapse: collapse;
     }
 
@@ -183,10 +183,10 @@
             {{-- <div onclick="openTab('lab-incident', this)">Lab Incident</div>
             <div onclick="openTab('change-control', this)">Change Control</div>
             <div onclick="openTab('risk-assessment', this)">Risk Assessment</div> --}}
-            <div onclick="openTab('root-cause-analysis', this)">Root Cause Analysis</div>
-            <div onclick="openTab('management-review', this)">Management Review</div>
+            {{-- <div onclick="openTab('root-cause-analysis', this)">Root Cause Analysis</div> --}}
+            {{-- <div onclick="openTab('management-review', this)">Management Review</div> --}}
             <div onclick="openTab('Deviation', this)">Deviation</div>
-            <div onclick="openTab('effectiveness_check', this)">Effectiveness Check</div>
+            {{-- <div onclick="openTab('effectiveness_check', this)">Effectiveness Check</div> --}}
             {{-- <div onclick="openTab('documents', this)">Documents</div>
             <div onclick="openTab('extension', this)">Extension</div>
             <div onclick="openTab('observation', this)">Observation</div>
@@ -197,21 +197,15 @@
 
         <div class="main-content">
             <table>
-                <tr class="h-30 w-100" style="display: flex; flex-direction:row; align-items:center; ">
+                <tr class="h-30 w-100" style="display: flex; flex-direction:row; align-items:center; border:2px solid black; margin-top:2px margin-bottom: 2px;">
                     <td class="w-100" style="height:104px">
-                        <h4 style="padding-top: 25px; text-align:center;"><strong>VidyaGxP</strong></h4>
+                        <h4 style="padding-top: 25px; text-align:center;"><strong>Deviation Log Book</strong></h4>
                     </td>
                     <td class="w-30" style="text-align:center;" >
                         <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-70 h-50">
                     </td>
                     
-                    <tr class="w-100" style="display: flex; flex-direction:row;">
-                        <td class="w-100"  style="text-align:center;">
-                            <h3>Deviation Log Book</h3>
-                        </td>
-                    <td class="w-30" style="text-align:center;">
-                        <Strong>Page</Strong>                               
-                    </td>
+                  
                 </tr>       
             </table>
             <div class="container-fluid">

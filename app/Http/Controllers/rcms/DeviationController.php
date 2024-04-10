@@ -1691,22 +1691,25 @@ class DeviationController extends Controller
         $deviation->Product_Details_Required = $request->Product_Details_Required;
         
         $deviation->HOD_Remarks = $request->HOD_Remarks;
-        // $deviation->Deviation_category = $request->Deviation_category;
-        $deviation->Justification_for_categorization = $request->Justification_for_categorization;
+        $deviation->Justification_for_categorization = !empty($request->Justification_for_categorization) ? $request->Justification_for_categorization : $deviation->Justification_for_categorization;
 
-
-        $deviation->Investigation_Details = $request->Investigation_Details;
-        // $deviation->customers = $request->customers;
-
+        $deviation->Investigation_Details = !empty($request->Investigation_Details) ? $request->Investigation_Details : $deviation->Investigation_Details;
 
         $deviation->QAInitialRemark = $request->QAInitialRemark;
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
-        $deviation->CAPA_Rquired = $request->CAPA_Rquired;
-        $deviation->capa_type = $request->capa_type;
-        $deviation->CAPA_Description = $request->CAPA_Description;
-        $deviation->Post_Categorization = $request->Post_Categorization;
+        
+        if ($deviation->stage < 6) {
+            $deviation->CAPA_Rquired = $request->CAPA_Rquired;
+        } 
+
+        if ($deviation->stage < 6) {
+            $deviation->capa_type = $request->capa_type;
+        }
+
+        $deviation->CAPA_Description = !empty($request->CAPA_Description) ? $request->CAPA_Description : $deviation->CAPA_Description;
+        $deviation->Post_Categorization = !empty($request->Post_Categorization) ? $request->Post_Categorization : $deviation->Post_Categorization; 
         $deviation->Investigation_Of_Review = $request->Investigation_Of_Review;
         $deviation->QA_Feedbacks = $request->has('QA_Feedbacks') ? $request->QA_Feedbacks : $deviation->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;

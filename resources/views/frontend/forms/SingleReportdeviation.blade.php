@@ -211,7 +211,7 @@
                     </tr>
                     <tr>
                         <th class="w-20">Department</th>    
-                        <td class="w-30">  @if($data->Initiator_Group){{ Helpers::getInitiatorGroupFullName($data->Initiator_Group) }} @else Not Applicable @endif</td>
+                        <td class="w-30">  @if($data->Initiator_Group){{ Helpers::getFullDepartmentName($data->Initiator_Group) }} @else Not Applicable @endif</td>
                         <th class="w-20">Department Code</th>
                         <td class="w-30">@if($data->initiator_group_code){{ $data->initiator_group_code }} @else Not Applicable @endif</td>
                     </tr>
@@ -292,7 +292,7 @@
                 </table>  
                     <div class="block">
                         <div class="block-head">
-                            Facility/ Equipment/ Instrument/ System Details 
+                            Facility/ Equipment/ Instrument/ System Details
                         </div>
                         <div class="border-table">
                             <table>
@@ -304,23 +304,23 @@
                                 
                                 </tr>
                                 @if(!empty($grid_data->IDnumber))
-                                @foreach (unserialize($grid_data->IDnumber) as $key => $dataDemo)
-                                <tr>
-                                    <td class="w-15">{{ $dataDemo ? $key + 1  : "Not Applicable" }}</td>
-                                    <td class="w-15">{{ unserialize($grid_data->facility_name)[$key] ?  unserialize($grid_data->facility_name)[$key]: "Not Applicable"}}</td>
-                                    <td class="w-15">{{unserialize($grid_data->IDnumber)[$key] ?  unserialize($grid_data->IDnumber)[$key] : "Not Applicable" }}</td>
-                                    <td class="w-15">{{unserialize($grid_data->Remarks)[$key] ?  unserialize($grid_data->Remarks)[$key] : "Not Applicable" }}</td>
-                                   
-                                </tr>
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                   
-                                </tr>
+                                    @foreach (unserialize($grid_data->IDnumber) as $key => $dataDemo)
+                                        <tr>
+                                            <td class="w-15">{{ $loop->index + 1 }}</td>
+                                            <td class="w-15">{{ unserialize($grid_data->facility_name)[$key] ?  unserialize($grid_data->facility_name)[$key]: "Not Applicable"}}</td>
+                                            <td class="w-15">{{unserialize($grid_data->IDnumber)[$key] ?  unserialize($grid_data->IDnumber)[$key] : "Not Applicable" }}</td>
+                                            <td class="w-15">{{unserialize($grid_data->Remarks)[$key] ?  unserialize($grid_data->Remarks)[$key] : "Not Applicable" }}</td>
+                                        
+                                        </tr>
+                                    @endforeach
+                                    @else
+                                        <tr>
+                                            <td>Not Applicable</td>
+                                            <td>Not Applicable</td>
+                                            <td>Not Applicable</td>
+                                            <td>Not Applicable</td>
+                                        
+                                        </tr>
                                 @endif
                             </table>
                         </div>
@@ -342,7 +342,7 @@
                                 @if(!empty($grid_data1->Number))
                                 @foreach (unserialize($grid_data1->Number) as $key => $dataDemo)
                                 <tr>
-                                    <td class="w-15">{{ $dataDemo ? $key + 1  : "Not Applicable" }}</td>
+                                    <td class="w-15">{{ $loop->index + 1 }}</td>
                                     <td class="w-15">{{ unserialize($grid_data1->Number)[$key] ?  unserialize($grid_data1->Number)[$key]: "Not Applicable"}}</td>
                                     <td class="w-15">{{unserialize($grid_data1->ReferenceDocumentName)[$key] ?  unserialize($grid_data1->ReferenceDocumentName)[$key] : "Not Applicable" }}</td>
                                     <td class="w-15">{{unserialize($grid_data1->Document_Remarks)[$key] ?  unserialize($grid_data1->Document_Remarks)[$key] : "Not Applicable" }}</td>
