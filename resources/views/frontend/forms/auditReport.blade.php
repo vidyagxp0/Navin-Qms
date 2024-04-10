@@ -154,7 +154,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Deviation Audit Trial Report
+                   Deviation Audit Trail Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -180,7 +180,7 @@
 
     <div class="inner-block">
 
-        <div class="head">Deviation Audit Trial Report</div>
+        <div class="head">Deviation Audit Trail Report</div>
 
         <div class="division">
             {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}

@@ -2503,5 +2503,89 @@ $group->save();
 // $group->id = 365;
 // $group->name = "Corporate/India-Deviation- Head QA/Designee";
 // $group->description = "Corporate/India-Deviation- Head QA/Designee";
+
+        $group  = new RoleGroup();
+        $group->id = 374;
+        $group->name = "Dewas/India-Change Control- Initiator";
+        $group->description = "Dewas/India-Change Control- Initiator";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 375;
+        $group->name = "Dewas/India-Change Control- HOD/Designee";
+        $group->description = "Dewas/India-Change Control- HOD/Designee";
+        $group->permission = json_encode(['read' => true, 'create' => false, 'edit' => true, 'delete' => false]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 376;
+        $group->name = "Dewas/India-Change Control- QA";
+        $group->description = "Dewas/India-Change Control- QA";
+        $group->permission = json_encode(['read' => true, 'create' => false, 'edit' => true, 'delete' => false]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 377;
+        $group->name = "Dewas/India-Change Control- CFT/SME";
+        $group->description = "Dewas/India-Change Control- CFT/SME";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 378;
+        $group->name = "Dewas/India-Change Control- FP";
+        $group->description = "Dewas/India-Change Control- FP";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 379;
+        $group->name = "Dewas/India-Change Control- View Only";
+        $group->description = "Dewas/India-Change Control- View Only";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 380;
+        $group->name = "Corporate/India-Change Control- Initiator";
+        $group->description = "Corporate/India-Change Control- Initiator";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 381;
+        $group->name = "Corporate/India-Change Control- HOD/Designee";
+        $group->description = "Corporate/India-Change Control- HOD/Designee";
+        $group->permission = json_encode(['read' => true, 'create' => false, 'edit' => true, 'delete' => false]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 382;
+        $group->name = "Corporate/India-Change Control- QA";
+        $group->description = "Corporate/India-Change Control- QA";
+        $group->permission = json_encode(['read' => true, 'create' => false, 'edit' => true, 'delete' => false]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 383;
+        $group->name = "Corporate/India-Change Control- CFT/SME";
+        $group->description = "Corporate/India-Change Control- CFT/SME";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 384;
+        $group->name = "Corporate/India-Change Control- FP";
+        $group->description = "Corporate/India-Change Control- FP";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
+
+        $group  = new RoleGroup();
+        $group->id = 385;
+        $group->name = "Corporate/India-Change Control- View Only";
+        $group->description = "Corporate/India-Change Control- View Only";
+        $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+        $group->save();
 }
 }
