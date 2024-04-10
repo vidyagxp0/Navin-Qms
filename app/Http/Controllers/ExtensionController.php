@@ -83,6 +83,7 @@ class ExtensionController extends Controller
         if($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password))
         {
             $changeControl = Extension::find($id);
+            
             if($changeControl->stage == 1){
                 $changeControl->stage = "2";
                 $changeControl->status = "Submitted";

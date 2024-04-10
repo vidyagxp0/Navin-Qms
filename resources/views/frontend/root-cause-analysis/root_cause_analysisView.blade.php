@@ -404,8 +404,15 @@
                                         <label for="Due Date"> Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                        
-                                            <input type="text" id="due_date" name="due_date" 
-                                                placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}"min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                        <div class="calenderauditee">
+                                            <input type="text"  id="due_date"  readonly placeholder="DD-MMM-YYYY"  value="{{ \Carbon\Carbon::parse($data->due_date)->format('Y-m-d')  }}"/>
+                                            <input type="date" name="due_date" value="{{ \Carbon\Carbon::parse($data->due_date)->format('Y-m-d') }}" 
+                                            class="hide-input"
+                                            oninput="handleDateInput(this, 'due_date')"/>
+                                        </div>
+
+                                            {{-- <input type="date" id="due_date" name="due_date" class="form-control"
+                                                placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" /> --}}
                                             <!-- <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" -->
  
                                     </div>  

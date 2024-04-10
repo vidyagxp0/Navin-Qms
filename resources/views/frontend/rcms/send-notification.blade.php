@@ -45,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th>Recipent</th>
-                                    <th>Relationship</th>
+                                    {{-- <th>Relationship</th> --}}
                                     <th>Method</th>
 
                                 </tr>
@@ -87,10 +87,11 @@
                     success: function(response) {
 
                         // Update the table with the selected data
+                        // line removed middle row - <th>${response.role}<input type="hidden" value="${response.role}"></th>
                         $('#my-table-body').html(`
                             <tr>
                                 <th>${response.name}<input type="hidden" value="${response.name}"></th>
-                                <th>${response.role}<input type="hidden" value="${response.role}"></th>
+                                
                                 <th>
                                         <select name="method" required>
                                             <option>-- Select --</option>

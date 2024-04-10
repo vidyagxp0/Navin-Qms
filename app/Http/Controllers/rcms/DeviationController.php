@@ -1664,7 +1664,7 @@ class DeviationController extends Controller
         //$deviation->due_date = $request->due_date;
 
         //$deviation->initiator_Group= $request->initiator_Group;
-        if ($deviation->stage < 2) {
+        if ($deviation->stage < 3) {
             $deviation->short_description = $request->short_description;
         } else {
             $deviation->short_description = $deviation->short_description;
@@ -3462,6 +3462,32 @@ class DeviationController extends Controller
                     ]);
                 }
 
+                $extension = Extension::where('parent_id', $deviation->id)->first();
+
+                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
+
+                if ($extension && $extension->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'Extension record pending!',
+                        'message' => 'There is an Extension record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                if ($rca && $rca->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'RCA record pending!',
+                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                // return "PAUSE";
+
                 $deviation->stage = "7";
                 $deviation->status = "Closed - Done";
                 $deviation->Approved_By = Auth::user()->name;
@@ -4409,6 +4435,7 @@ class DeviationController extends Controller
         $parent_division_id = Deviation::where('id', $id)->value('division_id');
         $parent_initiator_id = Deviation::where('id', $id)->value('initiator_id');
         $parent_intiation_date = Deviation::where('id', $id)->value('intiation_date');
+        $parent_created_at = Deviation::where('id', $id)->value('created_at');
         $parent_short_description = Deviation::where('id', $id)->value('short_description');
         $hod = User::where('role', 4)->get();
         if ($request->child_type == "extension") {
@@ -4424,7 +4451,7 @@ class DeviationController extends Controller
             $Extensionchild = Deviation::find($id);
             $Extensionchild->Extensionchild = $record_number;
             $Extensionchild->save();
-            return view('frontend.forms.extension', compact('parent_id','parent_record', 'parent_name', 'record_number', 'parent_due_date'));
+            return view('frontend.forms.extension', compact('parent_id','parent_record', 'parent_name', 'record_number', 'parent_due_date', 'due_date', 'parent_created_at'));
         }
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         // dd($request->child_type)
