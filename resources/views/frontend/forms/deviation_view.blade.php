@@ -637,7 +637,8 @@ $users = DB::table('users')
                                         <label for="Due Date">Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $dueDate }}"/>
+                                            <input readonly type="text"
+                                            value="{{ Helpers::getdateFormat($data->due_date) }}" name="due_date"/>
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>

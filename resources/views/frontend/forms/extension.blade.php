@@ -154,9 +154,15 @@
                                     </div>
                                 </div> --}}
 
-                                   
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Date Due">Current Parent Due Date</label>
+                                        <input readonly type="text" id="due_date"  name="due_date" value="{{ $due_date }}">
+                                    </div>
+                                </div>
+                                
 
-
+{{-- 
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Current Parent Due Date</label>
@@ -167,19 +173,34 @@
                                                 oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
+                                {{-- <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Date Due">Revised Due Date</label>
+                                        <div class="calenderauditee">
+                                             <input type="text" id="revised_date" readonly
+                                                placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="revised_date_checkdate" name="revised_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" 
+                                            oninput="handleDateInput(this, 'revised_date');checkDate(' $due_date','revised_date_checkdate')"/>
+                                            {{-- <input type="text" id="revised_date" 
+                                                placeholder="DD-MMM-YYYY" />
+                                            <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="revised_date" class="hide-input"
+                                                oninput="handleDateInput(this, 'revised_date')" /> 
+                                        </div>
+                                    </div>
+                                </div> --}}
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Revised Due Date</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="revised_date" readonly
                                                 placeholder="DD-MMM-YYYY" />
-                                            <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="revised_date" class="hide-input"
-                                                oninput="handleDateInput(this, 'revised_date')" />
+                                            <input type="date" id="revised_date_checkParentDate" name="revised_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" 
+                                                oninput="handleDateInput(this, 'revised_date');checkParentDate('due_date','revised_date_checkParentDate')" />
                                         </div>
+
                                     </div>
                                 </div>
-                                
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span

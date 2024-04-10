@@ -1003,3 +1003,25 @@ function handleDateInput(element, textInputID) {
       }
     }
   }
+  function checkParentDate(textInputID,textInputID2){
+    const startDate = $('#'+textInputID).val();  // Replace with your start date
+    const endDate = $('#'+textInputID2).val();    // Replace with your end date 
+    if ((startDate.trim() !== '') && (endDate.trim() !== '')) {
+        let endDataStr = textInputID2.replace(/_checkParentDate/g, ""); 
+        if (isStartDateLessThanEndDate(startDate, endDate)) {
+            console.log("Revised Due Date is less than Current Parent Due Date.");
+            //let textInput = document.getElementById(endDataStr)
+            // const date = new Date(element.value);
+            // const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
+            // const month = months[date.getMonth()];
+            // const day = date.getDate();
+            // const year = date.getFullYear();
+            // textInput.setAttribute('value', `${day}-${month}-${year}`)
+        } else { 
+        alert("Revised Due Date is less than Current Parent Due Date.");
+        let textInput = document.getElementById(endDataStr)
+        textInput.setAttribute('value', ``)
+        console.log("Revised Due Date is less than Current Parent Due Date.");
+      }
+    }
+  }

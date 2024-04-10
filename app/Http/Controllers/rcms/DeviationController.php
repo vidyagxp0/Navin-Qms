@@ -4428,7 +4428,7 @@ class DeviationController extends Controller
             $Extensionchild = Deviation::find($id);
             $Extensionchild->Extensionchild = $record_number;
             $Extensionchild->save();
-            return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date'));
+            return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date','due_date'));
         }
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         // dd($request->child_type)
