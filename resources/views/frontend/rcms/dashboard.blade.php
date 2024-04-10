@@ -450,7 +450,7 @@
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
                                                 {{-- {{ Helpers::getdateFormat($datas->intiation_date) }} --}}
-                                                {{ Helpers::getDueDate($datas->due_date) }}
+                                                {{ $datas->type !== 'Extension' ? Helpers::getDueDate($datas->due_date, false) : ''  }}
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"

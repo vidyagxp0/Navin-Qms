@@ -4,7 +4,7 @@ use App\Models\ActionItem;
 use App\Models\Division;
 use App\Models\QMSDivision;
 use App\Models\User;
-use Carbon\Carbon;
+use Carbon\Carbon;  
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -30,13 +30,16 @@ class Helpers
 
     }
 
-    static public function getDueDate($date)
+    static public function getDueDate($date, $addDays = false, $format = null)
     {
         try {
             if ($date) {
+                $format = $format ? $format : 'd M Y';
                 $dateInstance = Carbon::parse($date);
-                $dateInstance->addDays(30);
-                return $dateInstance->format('d M Y');
+                if ($addDays) {
+                    $dateInstance->addDays(30);
+                }
+                return $dateInstance->format($format);
         }
         } catch (\Exception $e) {
             return 'NA';

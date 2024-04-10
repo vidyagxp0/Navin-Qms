@@ -196,7 +196,7 @@
                                         <div class="calenderauditee">
                                             <input type="text" id="revised_date" readonly
                                                 placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="revised_date_checkParentDate" name="revised_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" 
+                                            <input type="date" id="revised_date_checkParentDate" name="revised_date" min="{{ Helpers::getDueDate($parent_created_at, true, 'Y-m-d') }}" class="hide-input" 
                                                 oninput="handleDateInput(this, 'revised_date');checkParentDate('due_date','revised_date_checkParentDate')" />
                                         </div>
 
