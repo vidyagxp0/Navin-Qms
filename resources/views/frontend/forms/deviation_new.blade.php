@@ -92,7 +92,6 @@ $users = DB::table('users')
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    
     <style>
         .calenderauditee {
             position: relative;
@@ -117,7 +116,7 @@ $users = DB::table('users')
         .calenderauditee input::-webkit-calendar-picker-indicator {
             width: 100%;
         }
-    </style>
+            </style>
 
     <script>
         function otherController(value, checkValue, blockID) {
@@ -208,6 +207,18 @@ $users = DB::table('users')
 
             
         });
+        // ==================================
+
+        wow = new WOW(
+                      {
+                      boxClass:     'wow',      // default
+                      animateClass: 'animated', // default
+                      offset:       0,          // default
+                      mobile:       true,       // default
+                      live:         true        // default
+                    }
+                    )
+                    wow.init();
     </script>
     
     <script>
@@ -3354,9 +3365,149 @@ $users = DB::table('users')
 
                 </div>
             </form>
+<div class="sticky-buttons">
+          <div
+            
 
+          >
+      <a type="button" class="" data-toggle="modal" data-target="#myModal">
+          
+            <svg width="18" height="24" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="#ffffff"
+                d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34M332.1 128H256V51.9zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288zm220.1-208c-5.7 0-10.6 4-11.7 9.5c-20.6 97.7-20.4 95.4-21 103.5c-.2-1.2-.4-2.6-.7-4.3c-.8-5.1.3.2-23.6-99.5c-1.3-5.4-6.1-9.2-11.7-9.2h-13.3c-5.5 0-10.3 3.8-11.7 9.1c-24.4 99-24 96.2-24.8 103.7c-.1-1.1-.2-2.5-.5-4.2c-.7-5.2-14.1-73.3-19.1-99c-1.1-5.6-6-9.7-11.8-9.7h-16.8c-7.8 0-13.5 7.3-11.7 14.8c8 32.6 26.7 109.5 33.2 136c1.3 5.4 6.1 9.1 11.7 9.1h25.2c5.5 0 10.3-3.7 11.6-9.1l17.9-71.4c1.5-6.2 2.5-12 3-17.3l2.9 17.3c.1.4 12.6 50.5 17.9 71.4c1.3 5.3 6.1 9.1 11.6 9.1h24.7c5.5 0 10.3-3.7 11.6-9.1c20.8-81.9 30.2-119 34.5-136c1.9-7.6-3.8-14.9-11.6-14.9h-15.8z"
+              />
+            </svg>
+        </a>
+          </div>
+          {{-- <div
+            
+          >
+          <a type="button" class="" data-toggle="modal" data-target="#myModal1">
+
+            <svg width="24" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="#ffffff"
+                d="M25.01 49v46H103V49zM153 49v46h78V49zm128 0v46h78V49zm128 0v46h78V49zM55.01 113v64H119v46h18v-46h64v-64h-18v46H73.01v-46zM311 113v64h64v46h18v-46h64v-64h-18v46H329v-46zM89.01 241v46H167v-46zM345 241v46h78v-46zm-226 64v48h128v46h18v-46h128v-48h-18v30H137v-30zm98 112v46h78v-46z"
+              />
+            </svg>
+        </a>
+
+          </div> --}}
+        </div>
         </div>
     </div>
+
+
+
+
+    {{-- ==================================================================== --}}
+
+
+    <div class="container">
+      
+     
+      <!-- Modal -->
+      <div class="modal right fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Workflow</h4>
+            </div>
+            <div style="padding: 2px; " class="modal-body">
+             
+                <div style="padding:3px;" class="modal-body">
+           
+                    <Div class="button-box">
+                     <div class="mini_buttons">
+                       Opened
+                     </div>
+       <div class="down-logo">
+           <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
+       
+       </div>
+                     <div class="mini_buttons">
+                       HOD Review
+                   </div>
+                   <div class="down-logo">
+                       <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
+                   
+                   </div>
+                   <div class="mini_buttons">
+                       QA Initial Review
+                   </div>
+                   <div class="down-logo">
+                       <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
+                   
+                   </div>
+                   <div class="mini_buttons">
+                       CFT Review
+                   </div>
+                   <div class="down-logo">
+                       <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
+                   
+                   </div>
+                   <div class="mini_buttons">
+                       QA Final Review
+                   </div>
+                   <div class="down-logo">
+                       <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
+                   
+                   </div>
+                   <div class="mini_buttons">
+                       QA Head Designee Approval
+                   </div>
+                   <div class="down-logo">
+                       <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
+                   
+                   </div>
+                   <div class="mini_buttons">
+                       Closed - Done
+                   </div>
+                    </Div>
+                   </div>
+                 {{-- <div class="modal-footer">
+                   <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                 </div> --}}
+               </div>
+               
+             </div>
+      </div>
+    {{-- --------------------------------------------------------------   --}}
+    </div>
+    <div class="container">
+      
+     
+    
+      <div class="modal right fade" id="myModal1" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+              <h4 class="modal-title">WorkFlow</h4>
+            </div>
+            <div class="modal-body">
+             
+               
+                    
+          
+              </div> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+    {{-- ==================================================================== --}}
+
+
 <!-- -----------------------------------------------------------modal body---------------------- -->
     <div class="modal" id="myModal">
         <div class="modal-dialog modal-lg">
