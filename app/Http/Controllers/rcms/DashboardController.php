@@ -183,6 +183,7 @@ class DashboardController extends Controller
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
                 "intiation_date" => $revised_date ? $revised_date : $data->created_at,
+                "due_date" => $data->due_date,
                 "stage" => $data->status,
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
