@@ -289,6 +289,10 @@ $users = DB::table('users')
                 tableBody.append(newRow);
             });
         });
+
+        $(document).on('click', '.remove-file', function() {
+            $(this).closest('div').remove()
+        })
     </script>
     <div class="form-field-head">
 
