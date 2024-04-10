@@ -20,7 +20,7 @@ class SingleSessionMiddleware
     {
         if (Auth::check()) {
             $currentSessionId = Auth::user()->session_id;
-            if ($currentSessionId != Session::getId()) {
+            if ($currentSessionId && $currentSessionId != Session::getId()) {
                 toastr()->error('Your account is logged in from another device.');
                 Auth::logout();
                 return redirect('/login')->withErrors(['Your account is logged in from another device.']);

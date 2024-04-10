@@ -201,7 +201,7 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="facility_name[]" id="facility_name"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
+                        '<td> <select name="facility_name[]" id="facility_name"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>  <option value="">-- Select --</option>  <option value="Facility">Facility</option>  <option value="Equipment"> Equipment</option> <option value="Instrument">Instrument</option></select> </td>'+
                         '<td><input type="text" name="IDnumber[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '<td><input type="text" name="Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '</tr>';
@@ -1085,9 +1085,9 @@ $users = DB::table('users')
                                                                                 $facility_name = unserialize($grid_data->facility_name);
                                                                            @endphp
                                                                            <option value="">-- Select --</option>
-                                                                             <option value="1" {{ (isset($facility_name[$key]) && $facility_name[$key] == "1") ? "selected" : "1" }}>Facility</option>
-                                                                             <option value="2" {{ (isset($facility_name[$key]) && $facility_name[$key] == "2") ? "selected" : "2" }}>Equipment</option>
-                                                                             <option value="3" {{ (isset($facility_name[$key]) && $facility_name[$key] == "3") ? "selected" : "3" }}>Instrument</option>
+                                                                             <option value="Facility" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Facility") ? "selected" : "Facility" }}>Facility</option>
+                                                                             <option value="Equipment" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Facility") ? "selected" : "Equipment" }}>Equipment</option>
+                                                                             <option value="Instrument" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Instrument") ? "selected" : "Instrument" }}>Instrument</option>
                                                                          @endif
 
                                                                         
