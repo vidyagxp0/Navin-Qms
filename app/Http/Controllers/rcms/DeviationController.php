@@ -3464,7 +3464,7 @@ class DeviationController extends Controller
 
                 $extension = Extension::where('parent_id', $deviation->id)->first();
 
-                $rca = RootCauseAnalysis::where('parent_id', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
+                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
 
                 if ($extension && $extension->status !== 'Closed-Done') {
                     Session::flash('swal', [
