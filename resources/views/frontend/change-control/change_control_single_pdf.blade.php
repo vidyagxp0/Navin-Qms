@@ -165,7 +165,7 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://navin.mydemosoftware.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
@@ -200,7 +200,7 @@
                     </tr>
                     <tr>
                         <th class="w-20">Initiator Group</th>
-                        <td class="w-30">@if($data->Inititator_Group){{ $data->Inititator_Group }} @else Not Applicable @endif</td>
+                        <td class="w-30">@if($data->Initiator_Group){{ $data->Initiator_Group }} @else Not Applicable @endif</td>
                         <th class="w-20">Due Date</th>
                         <td class="w-30" colspan="3"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
                     </tr>
@@ -231,8 +231,8 @@
                     <tr>
                         <th class="w-20">Repeat Nature</th>
                         <td class="w-30">@if($data->repeat_nature){{ $data-> repeat_nature}} @else Not Applicable @endif</td>
-                        <th class="w-20">Division Code</th>
-                        <td class="w-30" colspan="3"> @if($data->div_code){{ $data->div_code }} @else Not Applicable @endif</td>
+                        <th class="w-20">Site/Location Code</th>
+                        <td class="w-30"> {{ Helpers::getDivisionName(session()->get('division')) }}</td>
                     </tr>
                     
                     <tr>
@@ -419,7 +419,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th class="w-20">QA Evaluation Attachments </th>
                             <td>
                                 <div><strong>On {{ Helpers:: getDateFormat($evaluation->qa_evaluation_attachments) }} added by {{ $data->qa_evaluation_attachments}}</strong>
@@ -428,8 +428,8 @@
                                     {{ $evaluation->qa_evaluation_attachments }}
                                 </div>
                             </td>
-                        </tr>
-
+                        </tr> --}}
+                        
 
                         <tr>
                             <th class="w-20">Training Required</th>
@@ -446,6 +446,32 @@
                             </td>
                         </tr>
                     </table>
+                    <div class="border-table">
+                        <div class="block-head">
+                            QA Evaluation Attachments
+                        </div>
+                        <table>
+
+                            <tr class="table_bg">
+                                <th class="w-20">S.N.</th>
+                                <th class="w-60">Attachment</th>
+                            </tr>
+                            @if($evaluation->qa_eval_attach)
+                                @foreach(json_decode($evaluation->qa_eval_attach) as $key => $file)
+                                <tr>
+                                    <td class="w-20">{{ $key + 1 }}</td>
+                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                </tr>
+                                    @endforeach
+                                    @else
+                                <tr>
+                                    <td class="w-20">1</td>
+                                    <td class="w-20">Not Applicable</td>
+                                </tr>
+                            @endif
+
+                        </table>
+                    </div>
                 </div>
             </div>
             {{-- <div class="block">
@@ -524,9 +550,9 @@
                     <table>
                     <tr>
                         <th class="w-20">Comments</th>
-                        <td class="w-30">{{ $info->cft_comments }}</td>
-                        <th class="w-20">Attachment </th>
-                        <td class="w-30">{{ $info->cft_attachment }}</td>
+                        <td class="w-30">{{ $comments->cft_comments }}</td>
+                        {{-- <th class="w-20">Attachment </th>
+                        <td class="w-30">{{ $comments->cft_attachment }}</td> --}}
                     </tr>
                         <tr>
                             <th class="w-20">QA Comments</th>
@@ -534,7 +560,7 @@
                                 <div><strong>On {{ Helpers:: getDateFormat($comments->created_at) }} added by {{ $data->originator }}</strong>
                                 </div>
                                 <div>
-                                    {{ $comments->qa_comments }}
+                                    {{ $comments->qa_commentss }}
                                 </div>
                             </td>
                         </tr>
@@ -611,6 +637,32 @@
 
 
                     </table>
+                    <div class="border-table">
+                        <div class="block-head">
+                            Attachment
+                        </div>
+                        <table>
+
+                            <tr class="table_bg">
+                                <th class="w-20">S.N.</th>
+                                <th class="w-60">Attachment</th>
+                            </tr>
+                            @if($comments->cft_attchament)
+                                @foreach(json_decode($comments->cft_attchament) as $key => $file)
+                                <tr>
+                                    <td class="w-20">{{ $key + 1 }}</td>
+                                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                </tr>
+                                    @endforeach
+                                    @else
+                                <tr>
+                                    <td class="w-20">1</td>
+                                    <td class="w-20">Not Applicable</td>
+                                </tr>
+                            @endif
+
+                        </table>
+                    </div>
                     <div class="border-table">
                         <div class="block-head">
                            Attachments
@@ -696,7 +748,7 @@
                             <div><strong>On {{ Helpers:: getDateFormat($approcomments->created_at) }} added by {{ $data->originator }}</strong>
                             </div>
                             <div>
-                                {{ $approcomments->risk_identification }}
+                                {{ $approcomments->qa_appro_comments }}
                             </div>
                         </td>
                     </tr>
@@ -756,7 +808,7 @@
                     </tr> -->
                     <tr>
                         <th class="w-20">QA Closure Comments</th>
-                        <td class="w-30"> {{ $assessment->qa_closure_comments }}</td>
+                        <td class="w-30"> {{ $closure->qa_closure_comments }}</td>
                         <th class="w-20">List Of Attachments</th>
                         <td class="w-30"> {{ $assessment->list_of_attachment }}</td>
                     </tr>

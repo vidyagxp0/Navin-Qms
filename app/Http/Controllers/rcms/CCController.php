@@ -415,257 +415,352 @@ class CCController extends Controller
         $closure->save();
 
         //<!------------------------RCMS Documents---------------->
-
+        if (!empty ($request->short_description)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'Short Description';
         $history->previous = "Null";
         $history->current = $openState->short_description;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Initiator_Group)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'Inititator Group';
         $history->previous = "Null";
         $history->current = $openState->Initiator_Group;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+       if (!empty ($request->assign_to)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'Assigned To';
         $history->previous = "Null";
         $history->current = $openState->assign_to;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+       }
 
+       if (!empty ($request->due_date)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'Due Date';
-        $history->previous = "Null";
+        $history->comment = "Not Applicable";
         $history->current = $openState->due_date;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+       }
 
+       if (!empty ($request->doc_change)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'Supporting Documents';
         $history->previous = "Null";
         $history->current = $openState->doc_change;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+       }
 
+        if (!empty ($request->If_Others)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'If Others';
         $history->previous = "Null";
         $history->current = $openState->If_Others;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Division_Code)){
         $history = new RcmDocHistory;
         $history->cc_id = $openState->id;
         $history->activity_type = 'Division Code';
         $history->previous = "Null";
         $history->current = $openState->Division_Code;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
 
         //<!---------------Change Details History---------------->
 
-
+        if (!empty ($request->current_practice)){
         $history = new RcmDocHistory;
         $history->cc_id = $docdetail->id;
         $history->activity_type = 'Current Practice';
         $history->previous = "Null";
         $history->current = $docdetail->current_practice;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->proposed_change)){
         $history = new RcmDocHistory;
         $history->cc_id = $docdetail->id;
         $history->activity_type = 'Proposed Change';
         $history->previous = "Null";
         $history->current = $docdetail->proposed_change;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->reason_change)){
         $history = new RcmDocHistory;
         $history->cc_id = $docdetail->id;
         $history->activity_type = 'Reason for Change';
         $history->previous = "Null";
-        $history->current = $docdetail->proposed_change;
-        $history->comment = "NA";
+        $history->current = $docdetail->reason_change;
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->other_comment)){
         $history = new RcmDocHistory;
         $history->cc_id = $docdetail->id;
         $history->activity_type = 'Any Other Comments';
         $history->previous = "Null";
         $history->current = $docdetail->other_comment;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->supervisor_comment)){
         $history = new RcmDocHistory;
         $history->cc_id = $docdetail->id;
         $history->activity_type = 'Supervisor Comments';
         $history->previous = "Null";
         $history->current = $docdetail->supervisor_comment;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
         //----------------------------------------------//
 
+        if (!empty ($request->type_chnage)){
         $history = new RcmDocHistory;
         $history->cc_id = $review->id;
         $history->activity_type = 'Type of Change';
         $history->previous = "Null";
         $history->current = $review->type_chnage;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
-        
+        if (!empty ($request->qa_head)){
         $history = new RcmDocHistory;
         $history->cc_id = $review->id;
         $history->activity_type = 'QA Attachments';
         $history->previous = "Null";
         $history->current = $review->qa_head;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
         
-
+        if (!empty ($request->qa_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $review->id;
         $history->activity_type = 'QA Review Comments';
         $history->previous = "Null";
         $history->current = $review->qa_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->related_records)){
         $history = new RcmDocHistory;
         $history->cc_id = $review->id;
         $history->activity_type = 'Related Records';
         $history->previous = "Null";
         $history->current = $review->related_records;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         //---------------------------------------------//
 
+        if (!empty ($request->qa_eval_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $evaluation->id;
         $history->activity_type = 'QA Evaluation Comments';
         $history->previous = "Null";
         $history->current = $evaluation->qa_eval_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         // if (!empty($evaluation->qa_eval_attach)){
+        if (!empty ($request->qa_eval_attach)){
         $history = new RcmDocHistory;
         $history->cc_id = $evaluation->id;
         $history->activity_type = 'QA Evaluation Attachments';
         $history->previous = "Null";
         $history->current = $evaluation->qa_eval_attach;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
         
-
+        if (!empty ($request->train_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $evaluation->id;
         $history->activity_type = 'Training Comments';
         $history->previous = "Null";
         $history->current = $evaluation->train_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->training_required)){
         $history = new RcmDocHistory;
         $history->cc_id = $evaluation->id;
         $history->activity_type = 'Training Required';
         $history->previous = "Null";
         $history->current = $evaluation->training_required;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         //---------------------------------------//
 
@@ -674,7 +769,7 @@ class CCController extends Controller
         // $history->activity_type = 'Is Group Review Required?';
         // $history->previous = "Null";
         // $history->current = $info->goup_review;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -686,7 +781,7 @@ class CCController extends Controller
         // $history->activity_type = 'Production';
         // $history->previous = "Null";
         // $history->current = $info->Production;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -698,7 +793,7 @@ class CCController extends Controller
         // $history->activity_type = 'Production Person';
         // $history->previous = "Null";
         // $history->current = $info->Production_Person;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -710,7 +805,7 @@ class CCController extends Controller
         // $history->activity_type = 'Quality Approver';
         // $history->previous = "Null";
         // $history->current = $info->Quality_Approver;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -722,43 +817,53 @@ class CCController extends Controller
         // $history->activity_type = 'Quality Approver Person';
         // $history->previous = "Null";
         // $history->current = $info->Quality_Approver_Person;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         // $history->origin_state = $openState->status;
         // $history->save();
 
+        if (!empty ($request->Microbiology)){
         $history = new RcmDocHistory;
         $history->cc_id = $info->id;
         $history->activity_type = 'CFT Reviewer';
         $history->previous = "Null";
         $history->current = $info->Microbiology;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Microbiology_Person)){
         $history = new RcmDocHistory;
         $history->cc_id = $info->id;
         $history->activity_type = 'CFT Reviewer Person';
         $history->previous = "Null";
         $history->current = $info->Microbiology_Person;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         // $history = new RcmDocHistory;
         // $history->cc_id = $info->id;
         // $history->activity_type = 'Others';
         // $history->previous = "Null";
         // $history->current = $info->bd_domestic;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -770,7 +875,7 @@ class CCController extends Controller
         // $history->activity_type = 'Others Person';
         // $history->previous = "Null";
         // $history->current = $info->bd_domesticBd_Person;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -782,7 +887,7 @@ class CCController extends Controller
         // $history->activity_type = 'Additional Attachments';
         // $history->previous = "Null";
         // $history->current = $info->additional_attachments;
-        // $history->comment = "NA";
+        // $history->comment = "Not Applicable";
         // $history->user_id = Auth::user()->id;
         // $history->user_name = Auth::user()->name;
         // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -792,302 +897,419 @@ class CCController extends Controller
 
         // ----------------------Group Comments History------------------------
 
+        if (!empty ($request->qa_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'QA Comments';
         $history->previous = "Null";
         $history->current = $comments->qa_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->designee_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'QA Head Designee Comments';
         $history->previous = "Null";
         $history->current = $comments->designee_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Warehouse_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Warehouse Comments';
         $history->previous = "Null";
         $history->current = $comments->Warehouse_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Engineering_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Engineering Comments';
         $history->previous = "Null";
         $history->current = $comments->Engineering_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Instrumentation_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Instrumentation Comments';
         $history->previous = "Null";
         $history->current = $comments->Instrumentation_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Validation_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Validation Comments';
         $history->previous = "Null";
         $history->current = $comments->Validation_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Others_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Others Comments';
         $history->previous = "Null";
         $history->current = $comments->Others_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Group_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Comments';
         $history->previous = "Null";
         $history->current = $comments->Group_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->group_attachments)){
         $history = new RcmDocHistory;
         $history->cc_id = $comments->id;
         $history->activity_type = 'Attachments';
         $history->previous = "Null";
         $history->current = $comments->group_attachments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         // ----------------------Risk Assesments------------------------
 
-
+        if (!empty ($request->risk_identification)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'Risk Identification';
         $history->previous = "Null";
         $history->current = $assessment->risk_identification;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->severity)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'Severity';
         $history->previous = "Null";
         $history->current = $assessment->severity;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Occurance)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'Occurance';
         $history->previous = "Null";
         $history->current = $assessment->Occurance;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->Detection)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'Detection';
         $history->previous = "Null";
         $history->current = $assessment->Detection;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->RPN)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'RPN';
         $history->previous = "Null";
         $history->current = $assessment->RPN;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->risk_evaluation)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'Risk Evaluation';
         $history->previous = "Null";
         $history->current = $assessment->risk_evaluation;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->migration_action)){
         $history = new RcmDocHistory;
         $history->cc_id = $assessment->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $assessment->migration_action;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         //-----------------------QA Approval Comments-----------------
 
-
+        if (!empty ($request->qa_appro_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $approcomments->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $approcomments->qa_appro_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->feedback)){
         $history = new RcmDocHistory;
         $history->cc_id = $approcomments->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $approcomments->feedback;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->tran_attach)){
         $history = new RcmDocHistory;
         $history->cc_id = $approcomments->id;
         $history->activity_type = 'Training Attachments';
         $history->previous = "Null";
         $history->current = $approcomments->tran_attach;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
         // --------------------Change Closure------------------
-
+        if (!empty ($request->qa_closure_comments)){
         $history = new RcmDocHistory;
         $history->cc_id = $closure->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $closure->qa_closure_comments;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
         // return $closure;
 
+        if (!empty ($request->Effectiveness_checker)){
         $history = new RcmDocHistory;
         $history->cc_id = $closure->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $closure->Effectiveness_checker;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->feedbackeffective_check)){
         $history = new RcmDocHistory;
         $history->cc_id = $closure->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $closure->feedbackeffective_check;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->feedbackeffective_check_date)){
         $history = new RcmDocHistory;
         $history->cc_id = $closure->id;
         $history->activity_type = 'Migration Action';
         $history->previous = "Null";
         $history->current = $closure->feedbackeffective_check_date;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
 
+        if (!empty ($request->attach_list)){
         $history = new RcmDocHistory;
         $history->cc_id = $closure->id;
         $history->activity_type = 'List Of Attachments 2';
         $history->previous = "Null";
         $history->current = $closure->attach_list;
-        $history->comment = "NA";
+        $history->comment = "Not Applicable";
         $history->user_id = Auth::user()->id;
         $history->user_name = Auth::user()->name;
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $openState->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiator";
+        $history->action_name = 'Create';
         $history->save();
+        }
        // toastr()->success('Record is created Successfully ');
 
         return redirect('rcms/qms-dashboard');
@@ -1468,6 +1690,9 @@ class CCController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = $history->origin_state;
             $history->save();
         }
 
@@ -1477,11 +1702,14 @@ class CCController extends Controller
             $history->activity_type = 'Inititator Group';
             $history->previous = $lastDocument->Initiator_Group;
             $history->current = $openState->Initiator_Group;
-            $history->comment = $request->Initiator_Group_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         
@@ -1491,11 +1719,14 @@ class CCController extends Controller
             $history->activity_type = 'Assigned To';
             $history->previous = $lastDocument->assign_to;
             $history->current = $openState->assign_to;
-            $history->comment = $request->assign_to_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1505,11 +1736,14 @@ class CCController extends Controller
             $history->activity_type = 'Due Date';
             $history->previous = $lastDocument->due_date;
             $history->current = $openState->due_date;
-            $history->comment = $request->due_date_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1519,11 +1753,14 @@ class CCController extends Controller
             $history->activity_type = 'Supporting Documents';
             $history->previous = $lastDocument->doc_change;
             $history->current = $openState->doc_change;
-            $history->comment = $request->doc_change_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastDocument->If_Others != $openState->If_Others || !empty($request->If_Others_comment)) {
@@ -1532,11 +1769,14 @@ class CCController extends Controller
             $history->activity_type = 'If Others';
             $history->previous = $lastDocument->If_Others;
             $history->current = $openState->If_Others;
-            $history->comment = $request->If_Others_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastDocument->Division_Code != $openState->Division_Code || !empty($request->Division_Code_comment)) {
@@ -1545,11 +1785,14 @@ class CCController extends Controller
             $history->activity_type = 'Division Code';
             $history->previous = $lastDocument->Division_Code;
             $history->current = $openState->Division_Code;
-            $history->comment = $request->Division_Code_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1561,11 +1804,14 @@ class CCController extends Controller
             $history->activity_type = 'Current Practice';
             $history->previous = $lastdocdetail->current_practice;
             $history->current = $docdetail->current_practice;
-            $history->comment = $request->current_practice_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1575,11 +1821,14 @@ class CCController extends Controller
             $history->activity_type = 'Proposed Change';
             $history->previous = $lastdocdetail->proposed_change;
             $history->current = $docdetail->proposed_change;
-            $history->comment = $request->proposed_change_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastdocdetail->reason_change != $docdetail->reason_change || !empty($request->proposed_change_comment)) {
@@ -1588,11 +1837,14 @@ class CCController extends Controller
             $history->activity_type = 'Reason for Change';
             $history->previous = $lastdocdetail->proposed_change;
             $history->current = $docdetail->proposed_change;
-            $history->comment = $request->proposed_change_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastdocdetail->other_comment != $docdetail->other_comment || !empty($request->other_comment_comment)) {
@@ -1601,11 +1853,14 @@ class CCController extends Controller
             $history->activity_type = 'Any Other Comments';
             $history->previous = $lastdocdetail->other_comment;
             $history->current = $docdetail->other_comment;
-            $history->comment = $request->other_comment_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1615,11 +1870,14 @@ class CCController extends Controller
             $history->activity_type = 'Supervisor Comments';
             $history->previous = $lastdocdetail->supervisor_comment;
             $history->current = $docdetail->supervisor_comment;
-            $history->comment = $request->supervisor_comment_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastreview->type_chnage != $review->type_chnage || !empty($request->type_chnage_comment)) {
@@ -1628,11 +1886,14 @@ class CCController extends Controller
             $history->activity_type = 'Type of Change';
             $history->previous = $lastreview->type_chnage;
             $history->current = $review->type_chnage;
-            $history->comment = $request->type_chnage_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1642,11 +1903,14 @@ class CCController extends Controller
             $history->activity_type = 'QA Attachments';
             $history->previous = $lastreview->qa_head;
             $history->current = $review->qa_head;
-            $history->comment = $request->qa_head_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastreview->qa_comments != $review->qa_comments || !empty($request->qa_comments_comment)) {
@@ -1655,11 +1919,14 @@ class CCController extends Controller
             $history->activity_type = 'QA Review Comments';
             $history->previous = $lastreview->qa_comments;
             $history->current = $review->qa_comments;
-            $history->comment = $request->qa_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastreview->related_records != $review->related_records || !empty($request->related_records_comment)) {
@@ -1668,11 +1935,14 @@ class CCController extends Controller
             $history->activity_type = 'Related Records';
             $history->previous = $lastreview->related_records;
             $history->current = $review->related_records;
-            $history->comment = $request->related_records_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -1683,11 +1953,14 @@ class CCController extends Controller
             $history->activity_type = 'QA Evaluation Comments';
             $history->previous = $lastevaluation->qa_eval_comments;
             $history->current = $evaluation->qa_eval_comments;
-            $history->comment = $request->qa_eval_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastevaluation->qa_eval_attach != $evaluation->qa_eval_attach || !empty($request->qa_eval_attach_comment)) {
@@ -1696,11 +1969,14 @@ class CCController extends Controller
             $history->activity_type = 'QA Evaluation Attachments';
             $history->previous = $lastevaluation->qa_eval_attach;
             $history->current = $evaluation->qa_eval_attach;
-            $history->comment = $request->qa_eval_attach_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastevaluation->train_comments != $evaluation->train_comments || !empty($request->train_comments_comment)) {
@@ -1709,11 +1985,14 @@ class CCController extends Controller
             $history->activity_type = 'Training Comments';
             $history->previous = $lastevaluation->train_comments;
             $history->current = $evaluation->train_comments;
-            $history->comment = $request->train_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastevaluation->training_required != $evaluation->training_required || !empty($request->training_required_comment)) {
@@ -1722,11 +2001,14 @@ class CCController extends Controller
             $history->activity_type = 'Training Required';
             $history->previous = $lastevaluation->training_required;
             $history->current = $evaluation->training_required;
-            $history->comment = $request->training_required_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         // if ($lastinfo->goup_review != $info->goup_review || !empty($request->goup_review_comment)) {
@@ -1801,11 +2083,14 @@ class CCController extends Controller
             $history->activity_type = 'CFT Reviewer';
             $history->previous = $lastinfo->Microbiology;
             $history->current = $info->Microbiology;
-            $history->comment = $request->Microbiology_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastinfo->Microbiology_Person != $info->Microbiology_Person || !empty($request->Microbiology_Person_comment)) {
@@ -1814,11 +2099,14 @@ class CCController extends Controller
             $history->activity_type = 'CFT Reviewer Person';
             $history->previous = $lastinfo->Microbiology_Person;
             $history->current = $info->Microbiology_Person;
-            $history->comment = $request->Microbiology_Person_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         // if ($lastinfo->bd_domestic != $info->bd_domestic || !empty($request->bd_domestic_comment)) {
@@ -1869,11 +2157,14 @@ class CCController extends Controller
             $history->activity_type = 'QA Comments';
             $history->previous = $lastcomments->qa_comments;
             $history->current = $comments->qa_comments;
-            $history->comment = $request->qa_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->designee_comments != $comments->designee_comments || !empty($request->designee_comments_comment)) {
@@ -1882,11 +2173,14 @@ class CCController extends Controller
             $history->activity_type = 'QA Head Designee Comments';
             $history->previous = $lastcomments->designee_comments;
             $history->current = $comments->designee_comments;
-            $history->comment = $request->designee_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->Warehouse_comments != $comments->Warehouse_comments || !empty($request->Warehouse_comments_comment)) {
@@ -1895,11 +2189,14 @@ class CCController extends Controller
             $history->activity_type = 'Warehouse Comments';
             $history->previous = $lastcomments->Warehouse_comments;
             $history->current = $comments->Warehouse_comments;
-            $history->comment = $request->Warehouse_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->Engineering_comments != $comments->Engineering_comments || !empty($request->Engineering_comments_comment)) {
@@ -1908,11 +2205,14 @@ class CCController extends Controller
             $history->activity_type = 'Engineering Comments';
             $history->previous = $lastcomments->Engineering_comments;
             $history->current = $comments->Engineering_comments;
-            $history->comment = $request->Engineering_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->Instrumentation_comments != $comments->Instrumentation_comments || !empty($request->Instrumentation_comments_comment)) {
@@ -1921,11 +2221,14 @@ class CCController extends Controller
             $history->activity_type = 'Instrumentation Comments';
             $history->previous = $lastcomments->Instrumentation_comments;
             $history->current = $comments->Instrumentation_comments;
-            $history->comment = $request->Instrumentation_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->Validation_comments != $comments->Validation_comments || !empty($request->Validation_comments_comment)) {
@@ -1934,11 +2237,14 @@ class CCController extends Controller
             $history->activity_type = 'Validation Comments';
             $history->previous = $lastcomments->Validation_comments;
             $history->current = $comments->Validation_comments;
-            $history->comment = $request->Validation_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->Others_comments != $comments->Others_comments || !empty($request->Others_comments_comment)) {
@@ -1947,11 +2253,14 @@ class CCController extends Controller
             $history->activity_type = 'Others Comments';
             $history->previous = $lastcomments->Others_comments;
             $history->current = $comments->Others_comments;
-            $history->comment = $request->Others_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->Group_comments != $comments->Group_comments || !empty($request->Group_comments_comment)) {
@@ -1960,11 +2269,14 @@ class CCController extends Controller
             $history->activity_type = 'Comments';
             $history->previous = $lastcomments->Group_comments;
             $history->current = $comments->Group_comments;
-            $history->comment = $request->Group_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastcomments->group_attachments != $comments->group_attachments || !empty($request->group_attachments_comment)) {
@@ -1973,11 +2285,14 @@ class CCController extends Controller
             $history->activity_type = 'Attachments';
             $history->previous = $lastcomments->group_attachments;
             $history->current = $comments->group_attachments;
-            $history->comment = $request->group_attachments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         // ----------------------Risk Assesments------------------------
@@ -1988,11 +2303,14 @@ class CCController extends Controller
             $history->activity_type = 'Risk Identification';
             $history->previous = $lastassessment->risk_identification;
             $history->current = $assessment->risk_identification;
-            $history->comment = $request->risk_identification_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
 
@@ -2002,11 +2320,14 @@ class CCController extends Controller
             $history->activity_type = 'Severity';
             $history->previous = $lastassessment->severity;
             $history->current = $assessment->severity;
-            $history->comment = $request->severity_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastassessment->Occurance != $assessment->Occurance || !empty($request->Occurance_comment)) {
@@ -2015,11 +2336,14 @@ class CCController extends Controller
             $history->activity_type = 'Occurance';
             $history->previous = $lastassessment->Occurance;
             $history->current = $assessment->Occurance;
-            $history->comment = $request->Occurance_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastassessment->Detection != $assessment->Detection || !empty($request->Detection_comment)) {
@@ -2028,11 +2352,14 @@ class CCController extends Controller
             $history->activity_type = 'Detection';
             $history->previous = $lastassessment->Detection;
             $history->current = $assessment->Detection;
-            $history->comment = $request->Detection_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastassessment->RPN != $assessment->RPN || !empty($request->RPN_comment)) {
@@ -2041,11 +2368,14 @@ class CCController extends Controller
             $history->activity_type = 'RPN';
             $history->previous = $lastassessment->RPN;
             $history->current = $assessment->RPN;
-            $history->comment = $request->RPN_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastassessment->risk_evaluation != $assessment->risk_evaluation || !empty($request->risk_evaluation_comment)) {
@@ -2054,11 +2384,14 @@ class CCController extends Controller
             $history->activity_type = 'Risk Evaluation';
             $history->previous = $lastassessment->risk_evaluation;
             $history->current = $assessment->risk_evaluation;
-            $history->comment = $request->risk_evaluation_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastassessment->migration_action != $assessment->migration_action || !empty($request->migration_action_comment)) {
@@ -2067,11 +2400,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastassessment->migration_action;
             $history->current = $assessment->migration_action;
-            $history->comment = $request->migration_action_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         //-----------------------QA Approval Comments-----------------
@@ -2082,11 +2418,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastapprocomments->qa_appro_comments;
             $history->current = $approcomments->qa_appro_comments;
-            $history->comment = $request->qa_appro_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastapprocomments->feedback != $approcomments->feedback || !empty($request->feedback_comment)) {
@@ -2095,11 +2434,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastapprocomments->feedback;
             $history->current = $approcomments->feedback;
-            $history->comment = $request->feedback_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastapprocomments->tran_attach != $approcomments->tran_attach || !empty($request->tran_attach_comment)) {
@@ -2108,11 +2450,14 @@ class CCController extends Controller
             $history->activity_type = 'Training Attachments';
             $history->previous = $lastapprocomments->tran_attach;
             $history->current = $approcomments->tran_attach;
-            $history->comment = $request->tran_attach_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         // --------------------Change Closure------------------
@@ -2122,11 +2467,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastclosure->qa_closure_comments;
             $history->current = $closure->qa_closure_comments;
-            $history->comment = $request->qa_closure_comments_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
             // return $closure;
         }
@@ -2136,11 +2484,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastclosure->Effectiveness_checker;
             $history->current = $closure->Effectiveness_checker;
-            $history->comment = $request->Effectiveness_checker_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
             // return $closure;
         }
@@ -2150,11 +2501,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastclosure->effective_check;
             $history->current = $closure->feedbackeffective_check;
-            $history->comment = $request->effective_check_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         
@@ -2164,11 +2518,14 @@ class CCController extends Controller
             $history->activity_type = 'Migration Action';
             $history->previous = $lastclosure->effective_check_date;
             $history->current = $closure->feedbackeffective_check_date;
-            $history->comment = $request->effective_check_date_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
         }
         if ($lastclosure->attach_list != $closure->attach_list || !empty($request->attach_list_comment)) {
@@ -2177,11 +2534,14 @@ class CCController extends Controller
             $history->activity_type = 'List Of Attachments 1';
             $history->previous = $lastclosure->attach_list;
             $history->current = $closure->attach_list;
-            $history->comment = $request->attach_list_comment;
+            $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
             $history->save();
            // return $history;
         }
