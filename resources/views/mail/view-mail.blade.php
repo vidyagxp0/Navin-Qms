@@ -194,10 +194,10 @@ h2{
                
             <div class="logo-container">
                 <div class="logo">
-                    <img src="https://naveen.vidyagxp.com/public/user/images/logo.png" alt="...">
+                    <img src="https://navin.mydemosoftware.com/public/user/images/logo.png" alt="...">
                 </div>
                 <div class="logo">
-                    <img src="https://naveen.vidyagxp.com/public/user/images/navin.png" alt="...">
+                    <img src="https://navin.mydemosoftware.com/public/user/images/navin.png" alt="...">
                 </div>
             </div>
                 <div class="mail-content">

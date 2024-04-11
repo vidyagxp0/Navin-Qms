@@ -143,9 +143,9 @@
     .table_bg {
         background: #4274da57;
     }
-    .pagenum:before {
+    /* .pagenum:before {
         content: counter(page);
-    }
+    } */
 </style>
 
 <body>
@@ -300,7 +300,7 @@
                     <strong>Printed By :</strong> {{ Auth::user()->name }}
                 </td>
                 <td class="w-30">
-                    <strong>Page :</strong>  <span class="pagenum"></span> of 1
+                    
                 </td>
             </tr>
         </table>

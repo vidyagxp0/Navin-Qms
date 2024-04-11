@@ -14,6 +14,7 @@
                     element.classList.add('active');
                 }
             }
+            // $('#logBookTitle').text($(this).data('title'));
         }
     </script>
     <script>
@@ -178,14 +179,14 @@
         <div class="process-groups">
             {{-- <div class="active" onclick="openTab('internal-audit', this)">Internal Audit</div>
             <div onclick="openTab('external-audit', this)">External Audit</div> --}}
-            <div onclick="openTab('capa', this)">CAPA</div>
+            {{-- <div data-title="Capa Log Book" onclick="openTab('capa', this)">CAPA</div> --}}
             {{-- <div onclick="openTab('audit-program', this)">Audit Program</div> --}}
             {{-- <div onclick="openTab('lab-incident', this)">Lab Incident</div>
             <div onclick="openTab('change-control', this)">Change Control</div>
             <div onclick="openTab('risk-assessment', this)">Risk Assessment</div> --}}
             {{-- <div onclick="openTab('root-cause-analysis', this)">Root Cause Analysis</div> --}}
             {{-- <div onclick="openTab('management-review', this)">Management Review</div> --}}
-            <div onclick="openTab('Deviation', this)">Deviation</div>
+            <div data-title="Deviation Log Book" onclick="openTab('Deviation', this)">Deviation</div>
             {{-- <div onclick="openTab('effectiveness_check', this)">Effectiveness Check</div> --}}
             {{-- <div onclick="openTab('documents', this)">Documents</div>
             <div onclick="openTab('extension', this)">Extension</div>
@@ -199,7 +200,7 @@
             <table>
                 <tr class="h-30 w-100" style="display: flex; flex-direction:row; align-items:center; border:2px solid black; margin-top:2px margin-bottom: 2px;">
                     <td class="w-100" style="height:104px">
-                        <h4 style="padding-top: 25px; text-align:center;"><strong>Deviation Log Book</strong></h4>
+                        <h4 style="padding-top: 25px; text-align:center;" id="logBookTitle"><strong>Deviation Log Book</strong></h4>
                     </td>
                     <td class="w-30" style="text-align:center;" >
                         <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-70 h-50">
@@ -742,7 +743,7 @@
                                 <tbody>
                                     @foreach ($Deviation as $Deviation1)
                                         <tr>
-                                            <td>{{ $Deviation1->intiation_date }}</td>
+                                            <td>{{ $Deviation1->created_at->format('d-M-Y') }}</td>
                                             <td>{{ $Deviation1->record_number }}</td>
                                             <td>{{ $Deviation1->Initiator_Group }}</td>
                                             <td>{{ $Deviation1->division_name }}</td>

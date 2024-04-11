@@ -643,7 +643,7 @@ wow = new WOW(
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
+                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date" style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))">
                                         <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                     </div>
                                 </div>
@@ -695,7 +695,7 @@ wow = new WOW(
                                     </div>
                                 </div> --}}
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Department</b> <span
                                             class="text-danger">*</span></label>
@@ -757,7 +757,7 @@ wow = new WOW(
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group Code">Department Code</label>
                                         <input type="text" name="initiator_group_code"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
@@ -765,7 +765,7 @@ wow = new WOW(
                                             readonly>
 
                                     </div>
-                                </div>
+                                </div> --}}
                             
                                 <div class="col-12">
                                     <div class="group-input">
@@ -776,19 +776,19 @@ wow = new WOW(
                                 </div>  
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Nature of Repeat? <span
+                                        <label for="Short Description required">Repeat Deviation? <span
                                             class="text-danger">*</span></label>
                                         <select name="short_description_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="short_description_required" onchange="checkRecurring(this)" value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
-                                            <option value="Recurring" @if ($data->short_description_required == 'Recurring' || old('short_description_required') == 'Recurring') selected @endif>Recurring</option>
-                                            <option value="Non_Recurring" @if ($data->short_description_required == 'Non_Recurring' || old('short_description_required') == 'Non_Recurring') selected @endif>Non Recurring</option>
+                                            <option value="Recurring" @if ($data->short_description_required == 'Recurring' || old('short_description_required') == 'Recurring') selected @endif>Yes</option>
+                                            <option value="Non_Recurring" @if ($data->short_description_required == 'Non_Recurring' || old('short_description_required') == 'Non_Recurring') selected @endif>No</option>
                                         </select>
                                     </div>
                                     @error('short_description_required')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" id="nature_of_repeat_block" style="display: none">
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: {{ $data->short_description_required == 'Recurring' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <textarea class="nature_of_repeat" name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
@@ -811,8 +811,16 @@ wow = new WOW(
                                                                         
                                         selectField.addEventListener('change', function () {
                                             var isRequired = this.value === 'Recurring';
+                                            // var natureOfRepeatBlock = document.getElementsById('nature_of_repeat_block');
 
                                             inputsToToggle.forEach(function (input) {
+                                                
+                                                if (!isRequired) {
+                                                    document.getElementById('nature_of_repeat_block').style.display = 'none';
+                                                } else {
+                                                    document.getElementById('nature_of_repeat_block').style.display = 'block';
+                                                }
+
                                                 input.required = isRequired;
                                                 console.log(input.required, isRequired, 'input req');
                                             });
@@ -859,7 +867,7 @@ wow = new WOW(
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
                                         noCalendar: true,
-                                        dateFormat: "h:i K", // Format time as 12-hour with AM/PM
+                                        dateFormat: "H:i", // 24-hour format without AM/PM
                                         minuteIncrement: 1 // Set minute increment to 1
 
                                     });
@@ -933,18 +941,19 @@ wow = new WOW(
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
-                                            $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
-                                            $inputFacilities = [];
+                                            // $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
+                                            // $inputFacilities = [];
                                             // if ( old('Facility') ) {
                                             //     $inputFacilities = explode(',', old('Facility'));
-                                            // }
+                                            // 
                                         @endphp
                                         <label for="If Other">Deviation Observed By<span class="text-danger">*</span></label>
-                                        <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
+                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name" value="{{ !is_array($data->Facility) ? $data->Facility : '' }}">
+                                        {{-- <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option {{ (in_array($user->id, $selectedFacilities) || in_array($user->id, $inputFacilities))  ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach                                           
-                                        </select>
+                                        </select> --}}
                                         @error('Facility')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -980,6 +989,8 @@ wow = new WOW(
                                             <option value="Computer_System" {{ strpos($data->audit_type, 'Computer_System') !== false ? 'selected' : '' }}>Computer System</option>
                                             <option value="Document" {{ strpos($data->audit_type, 'Document') !== false ? 'selected' : '' }}>Document</option>
                                             <option value="Data integrity" {{ strpos($data->audit_type, 'Data integrity') !== false ? 'selected' : '' }}>Data integrity</option>
+                                            <option value="SOP Instruction" {{ strpos($data->audit_type, 'SOP Instruction') !== false ? 'selected' : '' }}>SOP Instruction</option>
+                                            <option value="BMR/ECR Instruction" {{ strpos($data->audit_type, 'BMR/ECR Instruction') !== false ? 'selected' : '' }}>BMR/ECR Instruction</option>
                                             <option value="Water System" {{ strpos($data->audit_type, 'Water System') !== false ? 'selected' : '' }}>Water System</option>
                                             <option value="Anyother(specify)" {{ strpos($data->audit_type, 'Anyother(specify)') !== false ? 'selected' : '' }}>Anyother(specify)</option>
                                         </select>
@@ -990,7 +1001,7 @@ wow = new WOW(
                                 </div>
                                 
                                 
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" id="others_block" style="display: none">
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInOther" style="display: {{ $data->audit_type == 'Anyother(specify)' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <input type="text" class="otherrr" name="others" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="others" value="{{ $data->others }}">
@@ -1022,6 +1033,8 @@ wow = new WOW(
                                                 console.log(input.required, isRequired, 'input req');
                                             });
 
+                                            document.getElementById('others_block').style.display = isRequired ? 'block' : 'none';
+
                                             // Show or hide the asterisk icon based on the selected value
                                             var asteriskIcon = document.getElementById('asteriskInOther');
                                             asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -1044,7 +1057,7 @@ wow = new WOW(
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="group-input">
+                                <div class="group-input" id="facilityRow" style="display: none">
                                         <label for="audit-agenda-grid">
                                             Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvifaci" style="display: {{ $data->Facility_Equipment == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="audit-agenda-grid"
@@ -1169,6 +1182,7 @@ wow = new WOW(
 
                                             // Show or hide the asterisk icon based on the selected value
                                             var asteriskIcon = document.getElementById('asteriskInvifaci');
+                                            document.getElementById('facilityRow').style.display = isRequired ? 'block' : 'none';
                                             asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                         });
                                     });
@@ -1189,7 +1203,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div> 
-                                    <div class="group-input">
+                                    <div class="group-input" id="documentsRow" style="display: none">
                                         <label for="audit-agenda-grid">
                                          Document Details <span id="asteriskInvidoc" style="display: {{ $data->Document_Details_Required == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="audit-agenda-grid"
@@ -1206,7 +1220,7 @@ wow = new WOW(
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%">Number</th>
+                                                        <th style="width: 12%">Document Number</th>
                                                         
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
@@ -1271,6 +1285,7 @@ wow = new WOW(
                                                 });
 
                                                 // Show or hide the asterisk icon based on the selected value
+                                                document.getElementById('documentsRow').style.display = isRequired ? 'block' : 'none';
                                                 var asteriskIcon = document.getElementById('asteriskInvidoc');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                             });
@@ -1560,7 +1575,7 @@ wow = new WOW(
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="group-input">
+                                    <div class="group-input" id="investigation_details_block" style="display: none">
                                                 <label for="Investigation Details">Investigation Details <span id="asteriskInviinvestication" style="display: {{ $data1->Investigation_required == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                                 <textarea class="summernote Investigation_Details" name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
@@ -1587,6 +1602,7 @@ wow = new WOW(
                                                         console.log(input.required, isRequired, 'input req');
                                                     });
         
+                                                    document.getElementById('investigation_details_block').style.display = isRequired ? 'inline' : 'none'; 
                                                     // Show or hide the asterisk icon based on the selected value
                                                     var asteriskIcon = document.getElementById('asteriskInviinvestication');
                                                     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -1598,7 +1614,7 @@ wow = new WOW(
                                         @enderror                                    
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? <span
                                             class="text-danger">*</span></label>
@@ -1615,26 +1631,26 @@ wow = new WOW(
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="col-5">
-                                    <div class="group-input">
-                                        @php
-                                            $customers = DB::table('customer-details')->get();
-                                            // dd($data->customer);
-                                        @endphp
+                                </div> --}}
+                                {{-- <div class="col-5">
+                                    {{-- <div class="group-input">
+                                            @php
+                                                $customers = DB::table('customer-details')->get();
+                                                // dd($data->customer);
+                                            @endphp
                                             <label for="customers">Customers <span id="asterikCustomer_notification" style="display: {{ $data->Customer_notification == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                             <select name="customers"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="customers" id="customers" required>
                                                 <option value="0"> -- Select --</option>
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
-                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
+                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option>
                                             @endforeach
                                             </select>
                                             @error('customers')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
-                                    </div>
+                                    </div> 
                                     <script>
 
                                         document.addEventListener('DOMContentLoaded', function () {
@@ -1663,16 +1679,16 @@ wow = new WOW(
                                         });
                                     </script>                                      
     
-                                </div>
-                                <div class="col-1">
+                                </div> --}}
+                                {{-- <div class="col-1">
                                     <div class="group-input">
                                         <!-- <label for="Comments(If Any)">Customers</label> -->
                                         <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
                                     </div>
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                         <div class="group-input">
                                             <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
                                             <select  multiple id="related_records"  placeholder="Select Facility Name"
@@ -1685,7 +1701,7 @@ wow = new WOW(
                                                 @endforeach                                         
                                             </select>
                                         </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12">
                                     <div class="group-input">
@@ -1822,7 +1838,7 @@ wow = new WOW(
                                         </script>                                      
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? </label>
                                         <select disabled name="Customer_notification"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
@@ -1836,8 +1852,8 @@ wow = new WOW(
                                         </select>
                                   
                                     </div>
-                                </div>
-                                <div class="col-5">
+                                </div> --}}
+                                {{-- <div class="col-5">
                                     <div class="group-input">
                                         @php
                                             $customers = DB::table('customer-details')->get();
@@ -1849,7 +1865,7 @@ wow = new WOW(
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
-                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> --}}
+                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> 
                                             @endforeach
                                             </select>
                                     </div>
@@ -1871,16 +1887,16 @@ wow = new WOW(
                                         });
                                     </script>                                      
     
-                                </div>
-                                <div class="col-1">
+                                </div> --}}
+                                {{-- <div class="col-1">
                                     <div class="group-input">
                                         <!-- <label for="Comments(If Any)">Customers</label> -->
                                         <button disabled style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
                                     </div>
-                                </div>
-                                <div class="col-12">
+                                </div> --}}
+                                {{-- <div class="col-12">
                                         <div class="group-input">
                                             <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
                                             <select  multiple name="related_records[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name"
@@ -1893,7 +1909,7 @@ wow = new WOW(
                                                 @endforeach                                         
                                             </select>
                                         </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
@@ -5933,7 +5949,7 @@ wow = new WOW(
                                 </div>
                                 
                                 
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="group-input">
                                         <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"   style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" >*</span></label>
                                       <select name="CAPA_Rquired"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="CAPA_Rquired" value="{{ $data->CAPA_Rquired }}">
@@ -5948,7 +5964,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="capa type">CAPA Type? <span id="asteriskIcon32q1" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                       <select class="capa_type" name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
@@ -5964,7 +5980,7 @@ wow = new WOW(
                                           <div class="text-danger">{{ $message }}</div>
                                       @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description  <span id="asteriskIcon32q13" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -6191,7 +6207,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="capa type">CAPA Type?</label>
                                       <select disabled name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
@@ -6207,7 +6223,7 @@ wow = new WOW(
                                           <div class="text-danger">{{ $message }}</div>
                                       @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>

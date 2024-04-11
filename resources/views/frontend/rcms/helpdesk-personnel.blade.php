@@ -30,43 +30,43 @@
                                 <tr>
                                     <td>01.</td>
                                     <td>Yes</td>
-                                    <td>Vikas Prajapati</td>
+                                    <td>Amit G</td>
                                     <td>Tech Support</td>
-                                    <td>6264992922</td>
-                                    <td>vikas.prajapati@VidhyaGxP.io</td>
-                                    <td>470001</td>
-                                    <td>Sagar</td>
+                                    <td>9179099211</td>
+                                    <td>amit.g@vidyagxp.com</td>
+                                    <td>452001</td>
+                                    <td>Indore</td>
                                     <td>Madhya Pradesh</td>
                                 </tr>
                                 <tr>
                                     <td>02.</td>
                                     <td>Yes</td>
-                                    <td>Gopal Sen</td>
+                                    <td>Amit P</td>
                                     <td>Tech Support</td>
-                                    <td>8009109401</td>
-                                    <td>gopal.sen@VidhyaGxP.io</td>
-                                    <td>470001</td>
-                                    <td>Sagar</td>
+                                    <td>7354654474</td>
+                                    <td>admin@vidyagxp.com</td>
+                                    <td>452001</td>
+                                    <td>Indore</td>
                                     <td>Madhya Pradesh</td>
                                 </tr>
                                 <tr>
                                     <td>03.</td>
                                     <td>Yes</td>
-                                    <td>Amit Patel</td>
+                                    <td>Madhur M</td>
                                     <td>Tech Support</td>
-                                    <td>7354654474</td>
-                                    <td>amit.patel@VidhyaGxP.io</td>
-                                    <td>470001</td>
-                                    <td>Sagar</td>
+                                    <td>8770691509</td>
+                                    <td>madhur.m@vidyagxp.com</td>
+                                    <td>452001</td>
+                                    <td>Indore</td>
                                     <td>Madhya Pradesh</td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <td>04.</td>
                                     <td>Yes</td>
                                     <td>Anshul Patel</td>
                                     <td>Tech Support</td>
                                     <td>8305375136</td>
-                                    <td>anshul.patel@VidhyaGxP.io</td>
+                                    <td>anshul.patel@vidyagxp.com</td>
                                     <td>470001</td>
                                     <td>Sagar</td>
                                     <td>Madhya Pradesh</td>
@@ -77,7 +77,7 @@
                                     <td>Anshul Jain</td>
                                     <td>Tech Support</td>
                                     <td>8303993561</td>
-                                    <td>anshul.jain@VidhyaGxP.io</td>
+                                    <td>anshul.jain@vidyagxp.com</td>
                                     <td>470001</td>
                                     <td>Sagar</td>
                                     <td>Madhya Pradesh</td>
@@ -88,11 +88,11 @@
                                     <td>Rohit Thakur</td>
                                     <td>Tech Support</td>
                                     <td>7447011439</td>
-                                    <td>rohit.thakur@VidhyaGxP.io</td>
+                                    <td>rohit.thakur@vidyagxp.com</td>
                                     <td>470001</td>
                                     <td>Sagar</td>
                                     <td>Madhya Pradesh</td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>

@@ -460,7 +460,7 @@ $users = DB::table('users')
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                                <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date">
+                                                <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date" id="initiation_date" style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))">
                                                 <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                             </div>
                                         </div>
@@ -471,24 +471,38 @@ $users = DB::table('users')
                                                 <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                                 <div class="calenderauditee">
                                                     <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                                    <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                                    <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <script>
                                             // Format the due date to DD-MM-YYYY
-                                            var dueDateFormatted = new Date("{{$dueDate}}").toLocaleDateString('en-GB', {
-                                                day: '2-digit',
-                                                month: '2-digit',
-                                                year: 'numeric'
-                                            }).split('/').join('-');
+                                            // Your input date
+                                            var dueDate = "{{$dueDate}}"; // Replace {{$dueDate}} with your actual date variable
+
+                                            // Create a Date object
+                                            var date = new Date(dueDate);
+
+                                            // Array of month names
+                                            var monthNames = [
+                                                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                            ];
+
+                                            // Extracting day, month, and year from the date
+                                            var day = date.getDate().toString().padStart(2, '0'); // Ensuring two digits
+                                            var monthIndex = date.getMonth();
+                                            var year = date.getFullYear();
+
+                                            // Formatting the date in "dd-MMM-yyyy" format
+                                            var dueDateFormatted = `${day}-${monthNames[monthIndex]}-${year}`;
 
                                             // Set the formatted due date value to the input field
                                             document.getElementById('due_date').value = dueDateFormatted;
                                         </script>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Department</b><span
                                             class="text-danger">*</span></label> 
@@ -535,13 +549,13 @@ $users = DB::table('users')
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group Code">Department Code</label>
                                         <input type="text" name="initiator_group_code" id="initiator_group_code"
                                             value="" readonly>
                                     </div>
-                                </div>
+                                </div> --}}
                             
                                 <div class="col-12">
                                     <div class="group-input">
@@ -556,20 +570,20 @@ $users = DB::table('users')
                                 
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="short_description_required">Nature of Repeat?</label>
+                                        <label for="short_description_required">Repeat Deviation?</label>
                                         <select name="short_description_required" id="short_description_required" required>
                                             <option value="0">-- Select --</option>
                                             <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
-                                                Recurring</option>
+                                                Yes</option>
                                                 <option value="Non_Recurring" @if (old('short_description_required') == 'Non_Recurring') selected @endif>
-                                                    Non Recurring</option>
+                                                    No</option>
                                         </select>
                                     </div>
                                     @error('short_description_required')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" id="nature_of_repeat_block" style="display: none">
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature </label>
                                         <textarea name="nature_of_repeat" class="nature_of_repeat"required></textarea>
@@ -583,6 +597,7 @@ $users = DB::table('users')
 
                                         // Add elements with class 'facility-name' to inputsToToggle
                                         var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
+                                        
                                         for (var i = 0; i < facilityNameInputs.length; i++) {
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
@@ -592,6 +607,11 @@ $users = DB::table('users')
                                             var isRequired = this.value === 'Recurring';
 
                                             inputsToToggle.forEach(function (input) {
+                                                if (!isRequired) {
+                                                    document.getElementById('nature_of_repeat_block').style.display = 'none';
+                                                } else {
+                                                    document.getElementById('nature_of_repeat_block').style.display = 'block';
+                                                }
                                                 input.required = isRequired;
                                                 console.log(input.required, isRequired, 'input req');
                                             });
@@ -634,7 +654,7 @@ $users = DB::table('users')
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
                                         noCalendar: true,
-                                        dateFormat: "h:i K", // Format time as 12-hour with AM/PM
+                                        dateFormat: "H:i", // 24-hour format without AM/PM
                                         minuteIncrement: 1 // Set minute increment to 1
 
                                     });
@@ -645,12 +665,14 @@ $users = DB::table('users')
                                             $users = DB::table('users')->get();
                                         @endphp
                                         <label for="If Other">Deviation Observed By</label>
-                                        <select  multiple name="Facility[]" placeholder="Select Facility Name"
+                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name">
+                                    
+                                        {{-- <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach                                           
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -713,7 +735,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 
                                 
-                                 <div class="col-lg-6">
+                                 <div class="col-lg-6" id="others_block" style="display: none;">
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
                                         <input type="text" id="others" name="others" class="others">
@@ -733,13 +755,16 @@ $users = DB::table('users')
 
                                                                         
                                         selectField.addEventListener('change', function () {
-                                            var isRequired = this.value === 'Anyother(specify)';
+                                            // var isRequired = this.value === 'Anyother(specify)';
+                                            var isRequired = this.value.includes('Anyother(specify)');
                                             console.log(this.value, isRequired, 'value');
 
                                             inputsToToggle.forEach(function (input) {
                                                 input.required = isRequired;
                                                 console.log(input.required, isRequired, 'input req');
                                             });
+
+                                            document.getElementById('others_block').style.display = isRequired ? 'block' : 'none';
 
                                             // Show or hide the asterisk icon based on the selected value
                                             var asteriskIcon = document.getElementById('asteriskInviothers');
@@ -761,7 +786,7 @@ $users = DB::table('users')
                                         <div class="text-danger">{{  $message  }}</div>
                                     @enderror
                                 </div> 
-                                <div class="group-input">
+                                <div class="group-input" id="facilityRow" style="display: none">
                                         <label for="audit-agenda-grid">
                                         Facility/ Equipment/ Instrument/ System Details 
                                             <button type="button" name="audit-agenda-grid"
@@ -827,6 +852,7 @@ $users = DB::table('users')
                                                     console.log(input.required, isRequired, 'input req');
                                                 });
 
+                                                document.getElementById('facilityRow').style.display = isRequired ? 'block' : 'none';
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskInvi');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -844,7 +870,7 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div> 
-                                    <div class="group-input">
+                                    <div class="group-input" id="documentsRow" style="display: none">
                                         <label for="audit-agenda-grid">
                                          Document Details 
                                             <button type="button" name="audit-agenda-grid"
@@ -861,7 +887,7 @@ $users = DB::table('users')
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%">Number</th>
+                                                        <th style="width: 12%">Document Number</th>
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
                                                        
@@ -915,6 +941,8 @@ $users = DB::table('users')
                                                     console.log(input.required, isRequired, 'input req');
                                                 });
 
+
+                                                document.getElementById('documentsRow').style.display = isRequired ? 'block' : 'none';
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskInviDetails');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -1202,7 +1230,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ?</label>
                                         <select name="Customer_notification" id="Customer_notification">
@@ -1213,8 +1241,8 @@ $users = DB::table('users')
                                         </select>
                                   
                                     </div>
-                                </div>
-                                <div class="col-5">
+                                </div> --}}
+                                {{-- <div class="col-5">
                                     <div class="group-input" id="customer_option">
                                         @php
                                             $customers = DB::table('customer-details')->get();
@@ -1227,15 +1255,15 @@ $users = DB::table('users')
                                         @endforeach
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-1">
+                                </div> --}}
+                                {{-- <div class="col-1">
                                     <div class="group-input">
                                         <!-- <label for="Comments(If Any)">Customers</label> -->
                                         <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 {{-- <div class="col-12">
                                     <div class="group-input"> 
@@ -1251,7 +1279,7 @@ $users = DB::table('users')
                                     </div>
                                 </div> --}}
                                 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="related_records">Related Records</label>
 
@@ -1265,7 +1293,7 @@ $users = DB::table('users')
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>

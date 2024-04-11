@@ -72,7 +72,7 @@ class DivisionSeeder extends Seeder
         $division->save();
 
         $division = new QMSDivision();
-        $division->name = "Dewas/India";
+        $division->name = "Dewas";
         $division->status = 1;
         $division->save();
 
