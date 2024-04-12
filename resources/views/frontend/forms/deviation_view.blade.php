@@ -788,7 +788,8 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6" id="nature_of_repeat_block" style="display: none">
+                                <div class="col-lg-6" id="nature_of_repeat_block" 
+                                @if ( $data->short_description_required != 'Recurring')  style="display: none" @endif>
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: {{ $data->short_description_required == 'Recurring' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <textarea class="nature_of_repeat" name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="nature_of_repeat" class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
@@ -947,8 +948,9 @@ wow = new WOW(
                                             //     $inputFacilities = explode(',', old('Facility'));
                                             // 
                                         @endphp
+
                                         <label for="If Other">Deviation Observed By<span class="text-danger">*</span></label>
-                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name" value="{{ !is_array($data->Facility) ? $data->Facility : '' }}">
+                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name" value="{{ $data->Facility }}">
                                         {{-- <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option {{ (in_array($user->id, $selectedFacilities) || in_array($user->id, $inputFacilities))  ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
@@ -1001,7 +1003,7 @@ wow = new WOW(
                                 </div>
                                 
                                 
-                                <div class="col-lg-6" id="others_block" style="display: none">
+                                <div class="col-lg-6" id="others_block" @if (strpos($data->audit_type, 'Anyother(specify)')) style="display: none" @endif>
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInOther" style="display: {{ $data->audit_type == 'Anyother(specify)' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <input type="text" class="otherrr" name="others" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="others" value="{{ $data->others }}">
@@ -1057,7 +1059,7 @@ wow = new WOW(
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="group-input" id="facilityRow" style="display: none">
+                                <div class="group-input" id="facilityRow" @if ($data->Facility_Equipment == 'no') style="display: none" @endif>
                                         <label for="audit-agenda-grid">
                                             Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvifaci" style="display: {{ $data->Facility_Equipment == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="audit-agenda-grid"
@@ -1203,7 +1205,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div> 
-                                    <div class="group-input" id="documentsRow" style="display: none">
+                                    <div class="group-input" id="documentsRow" @if ($data->Document_Details_Required == 'no') style="display: none" @endif>
                                         <label for="audit-agenda-grid">
                                          Document Details <span id="asteriskInvidoc" style="display: {{ $data->Document_Details_Required == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
                                             <button type="button" name="audit-agenda-grid"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="audit-agenda-grid"
