@@ -588,7 +588,7 @@ $users = DB::table('users')
 
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature </label>
-                                        <textarea name="nature_of_repeat" class="nature_of_repeat" required>{{ $data->short_description_required }}</textarea>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat" required>{{ isset($data) ? $data->short_description_required : '' }}</textarea>
                                     </div>
                                 </div>
 
