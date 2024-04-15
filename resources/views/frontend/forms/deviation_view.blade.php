@@ -81,6 +81,8 @@ $users = DB::table('users')
             scale: 0.8!important;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -204,6 +206,8 @@ $users = DB::table('users')
                         '<td> <select name="facility_name[]" id="facility_name"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>  <option value="">-- Select --</option>  <option value="Facility">Facility</option>  <option value="Equipment"> Equipment</option> <option value="Instrument">Instrument</option></select> </td>'+
                         '<td><input type="text" name="IDnumber[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '<td><input type="text" name="Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
+                        '<td><button class="removeRowBtn">Remove</button></td>'+
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -237,6 +241,7 @@ $users = DB::table('users')
                         '<td><input type="text" name="Number[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '<td><input type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
+                        '<td><button class="removeRowBtn">Remove</button></td>'+
                         
                         '</tr>';
 
@@ -258,7 +263,7 @@ $users = DB::table('users')
             });
         });
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#ProductDetails').click(function(e) {
                 function generateTableRow(serialNumber) {
@@ -293,6 +298,50 @@ $users = DB::table('users')
         $(document).on('click', '.remove-file', function() {
             $(this).closest('div').remove()
         })
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#Product_Details').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
+                    
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
+                        '<td><input type="text" name="Product[]"></td>'+
+                        '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
+        
+                        '<td><input type="text" name="BatchNo[]"></td>'+
+                        '<td><button class="removeRowBtn">Remove</button></td>'+
+    
+    
+                        
+                        '</tr>';
+    
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
+    
+                    html += '</select></td>' + 
+                  
+                        '</tr>';
+    
+                    return html;
+                }
+    
+                var tableBody = $('#Product_Details_Details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
+        });
+       
+    </script>
+    <script>
+        $(document).on('click', '.removeRowBtn', function() {
+            $(this).closest('tr').remove();
+        })
+       
     </script>
     <div class="form-field-head">
 
@@ -863,7 +912,52 @@ wow = new WOW(
                                         @enderror
                                     </div>
                                 </div>
-                                
+
+
+                                <div class="col-lg-6 new-time-data-field">
+                                    <div class="group-input input-time delayJustificationBlock">
+                                        <label for="deviation_time">Delay Justification</label>
+                                        <textarea  id="Delay_Justification" name="Delay_Justification[]"></textarea>
+                                    </div>
+                                    {{-- @error('Deviation_date')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror --}}
+                                </div>
+
+                                <script>
+                                    $('.delayJustificationBlock').hide();
+
+                                    function calculateDateDifference() {
+                                        let deviationDate = $('input[name=Deviation_date]').val();
+                                        let reportedDate = $('input[name=Deviation_reported_date]').val();
+
+                                        if (!deviationDate || !reportedDate) {
+                                            console.error('Deviation date or reported date is missing.');
+                                            return;
+                                        }
+
+                                        let deviationDateMoment = moment(deviationDate);
+                                        let reportedDateMoment = moment(reportedDate);
+
+                                        let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
+
+                                        if (diffInDays > 0) {
+                                            $('.delayJustificationBlock').show();
+                                        } else {
+                                            $('.delayJustificationBlock').hide();
+                                        }
+
+                                    }
+
+                                    $('input[name=Deviation_date]').on('change', function() {
+                                        calculateDateDifference();  
+                                    })
+
+                                    $('input[name=Deviation_reported_date]').on('change', function() {
+                                        calculateDateDifference();  
+                                    })
+                                </script>
+                             
                                 <script>
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
@@ -1102,6 +1196,8 @@ wow = new WOW(
                                                         <th style="width: 12%">Name</th>
                                                         <th style="width: 16%">ID Number</th>
                                                         <th style="width: 15%">Remarks</th>
+                                                        <th style="width: 8%">Action</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1130,6 +1226,8 @@ wow = new WOW(
                                                                 </td>
                                                                 <td><input class="id-number" type="text" name="IDnumber[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
                                                                 <td><input class="remarks" type="text" name="Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
+                                            <td><input type="text" class="Removebtn" name="Action[]"></td>
+
                                                             </tr>
                                                         @endforeach
                                                     @endif
@@ -1226,6 +1324,8 @@ wow = new WOW(
                                                         
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
+                                                        <th style="width: 8%"> Action</th>
+
                                                                                                          
                                                     </tr>
                                                 </thead>
@@ -1237,6 +1337,8 @@ wow = new WOW(
                                                             <td><input class="numberDetail" type="text" name="Number[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
                                                             <td><input class="ReferenceDocumentName" type="text" name="ReferenceDocumentName[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->ReferenceDocumentName)[$key] ? unserialize($grid_data1->ReferenceDocumentName)[$key] : '' }}"></td>
                                                             <td><input class="Document_Remarks" type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
+                                            <td><input type="text" class="Removebtn" name="Action[]"></td>
+
                                                         </tr>           
                                                     @endforeach
                                                @endif
@@ -1294,15 +1396,69 @@ wow = new WOW(
                                         });
                                         </script>
                                 <div class="col-lg-12">
-                                    <div class="group-input" id="external_agencies_req">
-                                        <label for="others">Name of Product & Batch No<span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ old('Product_Batch') ? old('Product_Batch') : $data->Product_Batch}}" name="Product_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>
-                                        
-                                            <!-- <p class="text-danger">this field is required</p> -->
-                                        @error('Product_Batch')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="group-input" id="documentsRow">
+                                            <label for="audit-agenda-grid">
+                                             Product/Batch Details
+                                                <button type="button" name="audit-agenda-grid"
+                                                    id="Product_Details">+</button>
+                                                <span class="text-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#document-details-field-instruction-modal"
+                                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                    (Launch Instruction)
+                                                </span>
+                                            </label>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="Product_Details_Details"
+                                                    style="width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 4%">Row#</th>
+                                                            <th style="width: 12%">Product</th>
+                                                            <th style="width: 16%"> Stage</th>
+                                                            <th style="width: 16%">Batch No</th>
+                                                            <th style="width: 8%">Action</th>
+    
+                                                           
+                                                                                                             
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                            <td><input disabled type="text" name="serial[]" value="1"></td>
+                                            <td><input type="text" class="numberDetail" name="Product[]"></td>
+                                            <td>
+                                               
+                                            <select name="Stage[]" id="">
+                                                <option value="">-- Select --</option>
+    
+                                                <option value="">1</option>
+                                                <option value="">2</option>
+                                                <option value="">3</option>
+                                                <option value="">4</option>
+    
+                                                <option value="">5</option>
+                                                <option value="">6</option>
+                                                <option value="">7</option>
+                                                <option value="">8</option>
+                                                <option value="">9</option>
+    
+                                                <option value="">Final</option>
+    
+                                            </select>
+                                            </td>
+                                            <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
+                                            <td><input type="text" class="Removebtn" name="Action[]"></td>
+    
+                           
+                                                    </tbody>
+    
+                                                </table>
+                                            </div>
+                                        </div>
+                                        {{-- @error('Product_Batch')
+                                            <div class="text-danger">{{ $message  }}</div>
+                                        @enderror --}}
+                              </div>
                       </div>
                                
                                 {{-- <div class="col-6">
@@ -1362,7 +1518,20 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments">Initial Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Audit_file"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                    oninput="addMultipleFiles(this, 'Audit_file')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="button-block">
                                 <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton01" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">

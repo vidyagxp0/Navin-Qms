@@ -7,6 +7,7 @@ $users = DB::table('users')
 
     @endphp
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
     <style>
@@ -279,6 +280,9 @@ $users = DB::table('users')
                         '<td> <select name="facility_name[]" id="facility_name">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>'+
                         '<td><input type="text" name="IDnumber[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td><button class="removeRowBtn">Remove</button></td>'+
+
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -311,6 +315,10 @@ $users = DB::table('users')
                         '<td><input type="text" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
                         '<td><input type="text" name="Document_Remarks[]"></td>'+
+                        '<td><button class="removeRowBtn">Remove</button></td>'+
+
+
+
 
                         
                         '</tr>';
@@ -332,9 +340,58 @@ $users = DB::table('users')
                 tableBody.append(newRow);
             });
         });
+        $(document).on('click', '.remove-file', function() {
+        $(this).closest('div').remove();
+        console.log('removing')
+    })
     </script>
+
+<script>
+    $(document).ready(function() {
+        $('#Product_Details').click(function(e) {
+            function generateTableRow(serialNumber) {
+                var users = @json($users);
+                
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
+                    '<td><input type="text" name="Product[]"></td>'+
+                    '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
     
-    <script>
+                    '<td><input type="text" name="BatchNo[]"></td>'+
+                    '<td><button class="removeRowBtn">Remove</button></td>'+
+
+
+                    
+                    '</tr>';
+
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                }
+
+                html += '</select></td>' + 
+              
+                    '</tr>';
+
+                return html;
+            }
+
+            var tableBody = $('#Product_Details_Details tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
+        });
+    });
+   
+</script>
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+    
+</script>
+    
+    {{-- <script>
         $(document).ready(function() {
             $('#ProductDetails').click(function(e) {
                 function generateTableRow(serialNumber) {
@@ -370,7 +427,7 @@ $users = DB::table('users')
         $(this).closest('div').remove();
         console.log('removing')
     })
-    </script>
+    </script> --}}
     
     <div class="form-field-head">
 
@@ -588,7 +645,7 @@ $users = DB::table('users')
 
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature </label>
-                                        <textarea name="nature_of_repeat" class="nature_of_repeat" required>{{ $data->short_description_required }}</textarea>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat" required>{{ isset($data) ? $data->short_description_required : '' }}</textarea>
                                     </div>
                                 </div>
 
@@ -652,7 +709,20 @@ $users = DB::table('users')
                                         <div class="text-danger">{{  $message  }}</div>
                                     @enderror
                                 </div>
+
+                                <div class="col-lg-6 new-time-data-field">
+                                    <div class="group-input input-time delayJustificationBlock">
+                                        <label for="deviation_time">Delay Justification</label>
+                                        <textarea  id="Delay_Justification" name="Delay_Justification[]"></textarea>
+                                    </div>
+                                    {{-- @error('Deviation_date')
+                                        <div class="text-danger">{{  $message  }}</div>
+                                    @enderror --}}
+                                </div>
                                 
+
+                               
+                                    
                                 <script>
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
@@ -688,7 +758,39 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <script>
+                                    $('.delayJustificationBlock').hide();
+
+                                    function calculateDateDifference() {
+                                        let deviationDate = $('input[name=Deviation_date]').val();
+                                        let reportedDate = $('input[name=Deviation_reported_date]').val();
+
+                                        if (!deviationDate || !reportedDate) {
+                                            console.error('Deviation date or reported date is missing.');
+                                            return;
+                                        }
+
+                                        let deviationDateMoment = moment(deviationDate);
+                                        let reportedDateMoment = moment(reportedDate);
+
+                                        let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
+
+                                        if (diffInDays > 0) {
+                                            $('.delayJustificationBlock').show();
+                                        } else {
+                                            $('.delayJustificationBlock').hide();
+                                        }
+
+                                    }
+
+                                    $('input[name=Deviation_date]').on('change', function() {
+                                        calculateDateDifference();  
+                                    })
+
+                                    $('input[name=Deviation_reported_date]').on('change', function() {
+                                        calculateDateDifference();  
+                                    })
+                                </script>
                              
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -805,10 +907,12 @@ $users = DB::table('users')
                                                 >
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 5%">Row#</th>
+                                                        <th style="width: 4%">Row#</th>
                                                         <th style="width: 12%">Name</th>
                                                         <th style="width: 16%"> ID Number</th>
                                                          <th style="width: 15%">Remarks</th>
+                                                         <th style="width: 8%">Action</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -816,6 +920,8 @@ $users = DB::table('users')
                                                 <td> <select  name="facility_name[]" id="facility_name" class="facility-name">  <option value="">-- Select --</option>  <option value="Facility">Facility</option>  <option value="Equipment"> Equipment</option> <option value="Instrument">Instrument</option></select> </td>
                                                 <td><input type="text" name="IDnumber[]" class="id-number"></td>
                                                 <td><input type="text" name="Remarks[]" class="remarks"></td>
+                                                <td><input type="text" name="Action[]" class="action"></td>
+
                                                 </tbody>
 
                                             </table>
@@ -878,6 +984,7 @@ $users = DB::table('users')
                                          Document Details 
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
+                                                
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#document-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
@@ -893,6 +1000,8 @@ $users = DB::table('users')
                                                         <th style="width: 12%">Document Number</th>
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
+                                                        
+                                                        <th style="width: 8%"> Action</th>
                                                        
                                                                                                          
                                                     </tr>
@@ -902,6 +1011,8 @@ $users = DB::table('users')
                                         <td><input type="text" class="numberDetail" name="Number[]"></td>
                                         <td><input type="text" class="ReferenceDocumentName" name="ReferenceDocumentName[]"></td>
                                         <td><input type="text" class="Document_Remarks" name="Document_Remarks[]"></td>
+                                        <td><input type="text" class="" name="Action[]"></td>
+
                        
                                                 </tbody>
 
@@ -953,12 +1064,63 @@ $users = DB::table('users')
                                         });
                                     </script>
                                 <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Product Batch">Name of Product & Batch No</label>
-                                        <input type="text" name="Product_Batch" id="Product_Batch"required>
-                                        
-                                            <!-- <p class="text-danger">this field is required</p> -->
-                                    
+                                    <div class="group-input" id="documentsRow">
+                                        <label for="audit-agenda-grid">
+                                         Product/Batch Details
+                                            <button type="button" name="audit-agenda-grid"
+                                                id="Product_Details">+</button>
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#document-details-field-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                (Launch Instruction)
+                                            </span>
+                                        </label>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="Product_Details_Details"
+                                                style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 4%">Row#</th>
+                                                        <th style="width: 12%">Product</th>
+                                                        <th style="width: 16%"> Stage</th>
+                                                        <th style="width: 16%">Batch No</th>
+                                                        <th style="width: 8%">Action</th>
+
+                                                       
+                                                                                                         
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                        <td><input type="text" class="numberDetail" name="Product[]"></td>
+                                        <td>
+                                           
+                                        <select name="Stage[]" id="">
+                                            <option value="">-- Select --</option>
+
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                            <option value="">4</option>
+
+                                            <option value="">5</option>
+                                            <option value="">6</option>
+                                            <option value="">7</option>
+                                            <option value="">8</option>
+                                            <option value="">9</option>
+
+                                            <option value="">Final</option>
+
+                                        </select>
+                                        </td>
+                                        <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
+                                        <td><input type="text" class="Removebtn" name="Action[]"></td>
+
+                       
+                                                </tbody>
+
+                                            </table>
+                                        </div>
                                     </div>
                                     @error('Product_Batch')
                                         <div class="text-danger">{{ $message  }}</div>
@@ -1067,7 +1229,20 @@ $users = DB::table('users')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Audit Attachments">Initial Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Audit_file"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                    oninput="addMultipleFiles(this, 'Audit_file')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="button-block">
                                 
@@ -3445,7 +3620,7 @@ $users = DB::table('users')
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Workflow</h4>
+              <h4 class="modal-title">Deviation Workflow</h4>
             </div>
             <div style="padding: 2px; " class="modal-body">
              

@@ -212,25 +212,29 @@
                     <tr>
                         <th class="w-20">Department</th>    
                         <td class="w-30">  @if($data->Initiator_Group){{ Helpers::getFullDepartmentName($data->Initiator_Group) }} @else Not Applicable @endif</td>
-                        <th class="w-20">Department Code</th>
-                        <td class="w-30">@if($data->initiator_group_code){{ $data->initiator_group_code }} @else Not Applicable @endif</td>
-                    </tr>
-                    <tr>
                         <th class="w-20">Short Description</th>
                         <td class="w-30"> @if($data->short_description){{ $data->short_description }}@else Not Applicable @endif</td>
-                        <th class="w-20"> Nature of Repeat?</th>
-                        <td class="w-30">@if($data->short_description_required){{ $data->short_description_required }} @else Not Applicable @endif</td>
-
+                      
+                        {{-- <th class="w-20">Department Code</th> --}}
+                        {{-- <td class="w-30">@if($data->initiator_group_code){{ $data->initiator_group_code }} @else Not Applicable @endif</td> --}}
                     </tr>
                     <tr>
+                          <th class="w-20"> Repeat Deviation?</th>
+                        <td class="w-30">@if($data->short_description_required){{ $data->short_description_required }} @else Not Applicable @endif</td>
                         <th class="w-20"> Repeat Nature</th>
                         <td class="w-30">@if($data->nature_of_repeat){{ $data->nature_of_repeat }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed On</th>
-                        <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
+                        
                     </tr>
                     <tr>
+                       <th class="w-20"> Deviation Observed On</th>
+                        <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
                         <th class="w-20"> Deviation Observed On (Time)</th>
                         <td class="w-30">@if($data->deviation_time){{ $data->deviation_time }} @else Not Applicable @endif</td>
+                       
+                    </tr>
+                    <tr>
+                         <th class="w-20"> Delay Justification</th>
+                        <td class="w-30"></td>
                         <th class="w-20">Deviation Observed by</th>
                         @php
                         $facilityIds = explode(',', $data->Facility);
@@ -246,10 +250,12 @@
                             Not Applicable
                         @endif
                     </td>
+                       
                     
                         {{-- <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td> --}}
                         
                     </tr>
+                   
                     <tr>
                         <th class="w-20">Deviation Reported On </th>
                         <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
@@ -259,29 +265,27 @@
                     <tr>
                        
                         <th class="w-20"> Others</th>
-                        <td class="w-30">@if($data->others){{ $data->others }}@else Not Applicable @endif</td>                       
+                        <td class="w-30">@if($data->others){{ $data->others }}@else Not Applicable @endif</td> 
+                        <th class="w-20">Facility/ Equipment/ Instrument/ System Details Required?</th>
+                        <td class="w-30">@if($data->Facility_Equipment){{ $data->Facility_Equipment }}@else Not Applicable @endif</td>
+                                           
                     </tr>
                     <tr>
             
-                            <th class="w-20">Facility/ Equipment/ Instrument/ System Details Required?</th>
-                            <td class="w-30">@if($data->Facility_Equipment){{ $data->Facility_Equipment }}@else Not Applicable @endif</td>
-                            <th class="w-20">Document Details Required?</th>
+                              <th class="w-20">Document Details Required?</th>
                             <td class="w-30">@if($data->Document_Details_Required){{ $data->Document_Details_Required }}@else Not Applicable @endif</td>
-
-
-                    </tr>
-
-
-                    <tr>
-                        <th class="w-20">Name of Product & Batch No</th>
-                        <td class="w-30">@if($data->Product_Batch){{ ($data->Product_Batch) }} @else Not Applicable @endif</td>
-                        <th class="w-20">Description of Deviation</th>
-                        <td class="w-30">@if($data->Description_Deviation){{ $data->Description_Deviation }} @else Not Applicable @endif</td>
-                    </tr>
-                    <tr>
-                       
+                            <th class="w-20">Description of Deviation</th>
+                            <td class="w-30">@if($data->Description_Deviation){{ $data->Description_Deviation }} @else Not Applicable @endif</td>
                         
+
                     </tr>
+
+
+                    {{-- <tr> --}}
+                        {{-- <th class="w-20">Name of Product & Batch No</th> --}}
+                        {{-- <td class="w-30">@if($data->Product_Batch){{ ($data->Product_Batch) }} @else Not Applicable @endif</td> --}}
+                        {{-- </tr> --}}
+                   
                     <tr>
                         <th class="w-20">Immediate Action (if any)</th>
                         <td class="w-30">@if($data->Immediate_Action){{ $data->Immediate_Action }}@else Not Applicable @endif</td>
@@ -297,7 +301,7 @@
                         <div class="border-table">
                             <table>
                                 <tr class="table_bg">
-                                <th class="w-25">SR no.</th>
+                                <th class="w-10">Sr. No.</th>
                                     <th class="w-25">Name</th>
                                     <th class="w-25">ID Number</th>
                                     <th class="w-25">Remarks</th>
@@ -333,7 +337,7 @@
                         <div class="border-table">
                             <table>
                                 <tr class="table_bg">
-                                <th class="w-25">SR no.</th>
+                                <th class="w-10">Sr. No.</th>
                                     <th class="w-25">Number</th>
                                     <th class="w-25">Reference Document Name</th>
                                     <th class="w-25">Remarks</th>
@@ -361,9 +365,70 @@
                             </table>
                         </div>
                     </div>
-        
+        {{-- ==================================new Added=================== --}}
+                    <div class="block">
+                        <div class="block-head">
+                           Product/Batch Details
+                        </div>
+                        <div class="border-table">
+                            <table>
+                                <tr class="table_bg">
+                                <th class="w-10">Sr. No.</th>
+                                    <th class="w-25">Product</th>
+                                    <th class="w-25">Stage</th>
+                                    <th class="w-25">Batch No.</th>
+                                
+                                </tr>
+                                @if(!empty($grid_data1->Number))
+                                @foreach (unserialize($grid_data1->Number) as $key => $dataDemo)
+                                <tr>
+                                    <td class="w-15">{{ $loop->index + 1 }}</td>
+                                    <td class="w-15">{{ unserialize($grid_data1->Number)[$key] ?  unserialize($grid_data1->Number)[$key]: "Not Applicable"}}</td>
+                                    <td class="w-15">{{unserialize($grid_data1->ReferenceDocumentName)[$key] ?  unserialize($grid_data1->ReferenceDocumentName)[$key] : "Not Applicable" }}</td>
+                                    <td class="w-15">{{unserialize($grid_data1->Document_Remarks)[$key] ?  unserialize($grid_data1->Document_Remarks)[$key] : "Not Applicable" }}</td>
+                                   
+                                </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                   
+                                </tr>
+                                @endif
+                            </table>
+                        </div>
+                    </div>
 
-                       
+                    <div class="border-table">
+                        <div class="block-head">
+                            Initial Attachments
+                        </div>
+                        <table>
+        
+                            <tr class="table_bg">
+                                <th class="w-20">S.N.</th>
+                                <th class="w-60">Attachment</th>
+                            </tr>
+                                @if($data->Audit_file)
+                                @foreach(json_decode($data->Audit_file) as $key => $file)
+                                    <tr>
+                                        <td class="w-20">{{ $key + 1 }}</td>
+                                        <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                                    </tr>
+                                @endforeach
+                                @else
+                            <tr>
+                                <td class="w-20">1</td>
+                                <td class="w-20">Not Applicable</td>
+                            </tr>
+                            @endif
+        
+                        </table>
+                    </div>
+                  {{-- ==================================      --}}
          
             <div class="block">
                     <div class="block-head">
@@ -426,27 +491,27 @@
                         <td class="w-30">@if($data->Investigation_Details){{ $data->Investigation_Details }}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Customer Notification Required ?</th>
-                        <td class="w-30">@if($data->Customer_notification){{$data->Customer_notification}}@else Not Applicable @endif</td>
-                        <th class="w-20">Customers</th>
+                        {{-- <th class="w-20">Customer Notification Required ?</th> --}}
+                        {{-- <td class="w-30">@if($data->Customer_notification){{$data->Customer_notification}}@else Not Applicable @endif</td> --}}
+                        {{-- <th class="w-20">Customers</th> --}}
                         {{-- <td class="w-30">@if($data->customers){{ $data->customers }}@else Not Applicable @endif</td> --}}
-                        @php
+                        {{-- @php
                             $customer = DB::table('customer-details')->where('id', $data->customers)->first();
                             $customer_name = $customer ? $customer->customer_name : 'Not Applicable';
-                        @endphp
+                        @endphp --}}
                     
-                    <td>
+                    {{-- <td>
                         @if($data->customers)
                             {{ $customer_name }}
                         @else
                             Not Applicable
                         @endif
-                    </td>
+                    </td> --}}
                     </tr>
 
                     <tr>
-                        <th class="w-20">Related Records</th>
-                        <td class="w-30">@if($data->related_records){{$data->related_records }}@else Not Applicable @endif</td>
+                        {{-- <th class="w-20">Related Records</th> --}}
+                        {{-- <td class="w-30">@if($data->related_records){{$data->related_records }}@else Not Applicable @endif</td> --}}
                         <th class="w-20">QA Initial Remarks</th>
                         <td class="w-30">@if($data->QAInitialRemark){{$data->QAInitialRemark }}@else Not Applicable @endif</td>
                         
@@ -1968,23 +2033,24 @@
                                             @if($data->Root_cause){{ $data->Root_cause }}@else Not Applicable @endif
                                         </div>
                                     </td>
-                                </tr>
-                                
-                                <tr>
-                            
                                     <th class="w-20">CAPA Required ?</th>
                                     <td class="w-30">
                                         <div>
                                             @if($data->CAPA_Rquired){{ $data->CAPA_Rquired }}@else Not Applicable @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">CAPA Type?</th>
-                                    <td class="w-30">
+                                </tr>
+                                
+                                {{-- <tr> --}}
+                            
+                                    
+                                    {{-- <th class="w-20">CAPA Type?</th> --}}
+                                    {{-- <td class="w-30">
                                         <div>
                                             @if($data->capa_type){{ $data->capa_type }}@else Not Applicable @endif
                                         </div>
-                                    </td>
-                                </tr>
+                                    </td> --}}
+                                {{-- </tr> --}}
                                 <tr>
                             
                                     <th class="w-20">CAPA Description</th>
@@ -2002,7 +2068,7 @@
                                 </tr>
                                 <tr>
                             
-                                    <th class="w-20">Revised Categorization Justification
+                                    <th class="w-20"> Justification For Revised category
                                     </th>
                                     <td class="w-30">
                                         <div>

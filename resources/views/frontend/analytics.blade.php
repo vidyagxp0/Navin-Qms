@@ -2,7 +2,7 @@
 <style>
     .chart_header{
         padding: 5px;
-                            background: #4274da;
+                            background: #f4a54a;
                             border: 1px solid #6b6565;
                             font-size: 19px;
                            
