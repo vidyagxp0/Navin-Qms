@@ -6888,49 +6888,49 @@ wow = new WOW(
           <div style="padding:3px;" class="modal-body">
            
              <Div class="button-box">
-              <div class="mini_buttons">
+              <div style="background: #85be859e;" class="mini_buttons">
                 Opened
               </div>
 <div class="down-logo">
     <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
 
 </div>
-              <div class="mini_buttons">
+              <div style="background: #0000ff1f;" class="mini_buttons">
                 HOD Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
             
             </div>
-            <div class="mini_buttons">
+            <div style="background: #0000ff1f;" class="mini_buttons">
                 QA Initial Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
             
             </div>
-            <div class="mini_buttons">
+            <div style="background: #0000ff1f;" class="mini_buttons">
                 CFT Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
             
             </div>
-            <div class="mini_buttons">
+            <div style="background: #0000ff1f;" class="mini_buttons">
                 QA Final Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
             
             </div>
-            <div class="mini_buttons">
+            <div style="background: #0000ff1f;" class="mini_buttons">
                 QA Head Designee Approval
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
             
             </div>
-            <div class="mini_buttons">
+            <div style="background: #ff000042;" class="mini_buttons">
                 Closed - Done
             </div>
              </Div>
