@@ -124,9 +124,19 @@ class UserManagementController extends Controller
                 $division = QMSDivision::where('name', $q_m_s_divisions_name)->first();
                 $process = QMSProcess::where('process_name', $q_m_s_processes_name)->first();
                 $qmsroles = QMSRoles::where('name', $q_m_s_roles_name)->first();
-                $q_m_s_divisions_id = $division->id;
-                $q_m_s_processes_id = $process->id;
-                $q_m_s_roles_id = $qmsroles->id;
+                if ($division) 
+                {
+                    $q_m_s_divisions_id = $division->id;
+                }
+                if ($process) 
+                {
+                    $q_m_s_processes_id = $process->id;
+                } 
+                if ($qmsroles) 
+                {
+                    $q_m_s_roles_id = $qmsroles->id;
+                }
+
 
                 // Concatenate the q_m_s_roles_id with previous ones
                 $usertableRole .= $q_m_s_roles_id . ',';
