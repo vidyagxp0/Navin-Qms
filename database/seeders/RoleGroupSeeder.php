@@ -1990,43 +1990,43 @@ $group->save();
 //Dewas-India-Deviation
 $group = new RoleGroup();
 $group->id = 275;
-$group->name = "Dewas/India-Deviation- Initiator";
-$group->description = "Dewas/India-Deviation- Initiator";
+$group->name = "Dewas-Deviation- Initiator";
+$group->description = "Dewas-Deviation- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 276;
-$group->name = "Dewas/India-Deviation- HOD/Designee";
-$group->description = "Dewas/India-Deviation- HOD/Designee";
+$group->name = "Dewas-Deviation- HOD/Designee";
+$group->description = "Dewas-Deviation- HOD/Designee";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 277;
-$group->name = "Dewas/India-Deviation- QA";
-$group->description = "Dewas/India-Deviation- QA";
+$group->name = "Dewas-Deviation- QA";
+$group->description = "Dewas-Deviation- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 278;
-$group->name = "Dewas/India-Deviation- FP";
-$group->description = "Dewas/India-Deviation- FP";
+$group->name = "Dewas-Deviation- FP";
+$group->description = "Dewas-Deviation- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 279;
-$group->name = "Dewas/India-Deviation- View Only";
-$group->description = "Dewas/India-Deviation- View Only";
+$group->name = "Dewas-Deviation- View Only";
+$group->description = "Dewas-Deviation- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group  = new RoleGroup();
 $group->id = 280;
-$group->name = "Dewas/India-Deviation- CFT/SME";
-$group->description = "Dewas/India-Deviation- CFT/SME";
+$group->name = "Dewas-Deviation- CFT/SME";
+$group->description = "Dewas-Deviation- CFT/SME";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2073,133 +2073,133 @@ $group->description = "Corporate/India-Deviation- CFT/SME";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-//Dewas/India-CAPA
+//Dewas-CAPA
 $group = new RoleGroup();
 $group->id = 287;
-$group->name = "Dewas/India-CAPA- Initiator";
-$group->description = "Dewas/India-CAPA- Initiator";
+$group->name = "Dewas-CAPA- Initiator";
+$group->description = "Dewas-CAPA- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 288;
-$group->name = "Dewas/India-CAPA- HOD/Designee";
-$group->description = "Dewas/India-CAPA- HOD/Designee";
+$group->name = "Dewas-CAPA- HOD/Designee";
+$group->description = "Dewas-CAPA- HOD/Designee";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 289;
-$group->name = "Dewas/India-CAPA- QA";
-$group->description = "Dewas/India-CAPA- QA";
+$group->name = "Dewas-CAPA- QA";
+$group->description = "Dewas-CAPA- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 290;
-$group->name = "Dewas/India-CAPA- FP";
-$group->description = "Dewas/India-CAPA- FP";
+$group->name = "Dewas-CAPA- FP";
+$group->description = "Dewas-CAPA- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 291;
-$group->name = "Dewas/India-CAPA- View Only";
-$group->description = "Dewas/India-CAPA- View Only";
+$group->name = "Dewas-CAPA- View Only";
+$group->description = "Dewas-CAPA- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-//Dewas/India-Management Review
+//Dewas-Management Review
 $group = new RoleGroup();
 $group->id = 292;
-$group->name = "Dewas/India-Management Review- Initiator";
-$group->description = "Dewas/India-Management Review- Initiator";
+$group->name = "Dewas-Management Review- Initiator";
+$group->description = "Dewas-Management Review- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 293;
-$group->name = "Dewas/India-Management Review- Responsible Person";
-$group->description = "Dewas/India-Management Review- Responsible Person";
+$group->name = "Dewas-Management Review- Responsible Person";
+$group->description = "Dewas-Management Review- Responsible Person";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 294;
-$group->name = "Dewas/India-Management Review- FP";
-$group->description = "Dewas/India-Management Review- FP";
+$group->name = "Dewas-Management Review- FP";
+$group->description = "Dewas-Management Review- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 295;
-$group->name = "Dewas/India-Management Review- View Only";
-$group->description = "Dewas/India-Management Review- View Only";
+$group->name = "Dewas-Management Review- View Only";
+$group->description = "Dewas-Management Review- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-// Dewas/India-Root Cause Analysis
+// Dewas-Root Cause Analysis
 $group = new RoleGroup();
 $group->id = 296;
-$group->name = "Dewas/India-Root Cause Analysis- Initiator";
-$group->description = "Dewas/India-Root Cause Analysis- Initiator";
+$group->name = "Dewas-Root Cause Analysis- Initiator";
+$group->description = "Dewas-Root Cause Analysis- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 297;
-$group->name = "Dewas/India-Root Cause Analysis- QA";
-$group->description = "Dewas/India-Root Cause Analysis- QA";
+$group->name = "Dewas-Root Cause Analysis- QA";
+$group->description = "Dewas-Root Cause Analysis- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 298;
-$group->name = "Dewas/India-Root Cause Analysis- FP";
-$group->description = "Dewas/India-Root Cause Analysis- FP";
+$group->name = "Dewas-Root Cause Analysis- FP";
+$group->description = "Dewas-Root Cause Analysis- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 299;
-$group->name = "Dewas/India-Root Cause Analysis- View Only";
-$group->description = "Dewas/India-Root Cause Analysis- View Only";
+$group->name = "Dewas-Root Cause Analysis- View Only";
+$group->description = "Dewas-Root Cause Analysis- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-//Dewas/India-Effective Check
+//Dewas-Effective Check
 $group = new RoleGroup();
 $group->id = 300;
-$group->name = "Dewas/India-Effective Check- Initiator";
-$group->description = "Dewas/India-Effective Check- Initiator";
+$group->name = "Dewas-Effective Check- Initiator";
+$group->description = "Dewas-Effective Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 301;
-$group->name = "Dewas/India-Effective Check- Supervisor";
-$group->description = "Dewas/India-Effective Check- Supervisor";
+$group->name = "Dewas-Effective Check- Supervisor";
+$group->description = "Dewas-Effective Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 302;
-$group->name = "Dewas/India-Effective Check- QA";
-$group->description = "Dewas/India-Effective Check- QA";
+$group->name = "Dewas-Effective Check- QA";
+$group->description = "Dewas-Effective Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 304;
-$group->name = "Dewas/India-Effective Check- FP";
-$group->description = "Dewas/India-Effective Check- FP";
+$group->name = "Dewas-Effective Check- FP";
+$group->description = "Dewas-Effective Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 305;
-$group->name = "Dewas/India-Effective Check- View Only";
-$group->description = "Dewas/India-Effective Check- View Only";
+$group->name = "Dewas-Effective Check- View Only";
+$group->description = "Dewas-Effective Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2336,22 +2336,22 @@ $group->save();
 
 $group = new RoleGroup();
 $group->id = 324;
-$group->name = "Dewas/India-Deviation- Head Operations";
-$group->description = "Dewas/India-Deviation- Head Operations";
+$group->name = "Dewas-Deviation- Head Operations";
+$group->description = "Dewas-Deviation- Head Operations";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 325;
-$group->name = "Dewas/India-Deviation- CEO";
-$group->description = "Dewas/India-Deviation- CEO";
+$group->name = "Dewas-Deviation- CEO";
+$group->description = "Dewas-Deviation- CEO";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 326;
-$group->name = "Dewas/India-Deviation- Corporate EHS Head";
-$group->description = "Dewas/India-Deviation- Corporate EHS Head";
+$group->name = "Dewas-Deviation- Corporate EHS Head";
+$group->description = "Dewas-Deviation- Corporate EHS Head";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2403,8 +2403,8 @@ $incrementCount = 330;
 foreach ($cft_roles as $role) {
     $group = new RoleGroup();
     $group->id = $incrementCount++;
-    $group->name = "Dewas/India-Deviation- $role";
-    $group->description = "Dewas/India-Deviation- $role";
+    $group->name = "Dewas-Deviation- $role";
+    $group->description = "Dewas-Deviation- $role";
     $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
     $group->save();
 }
@@ -2420,8 +2420,8 @@ foreach ($cft_roles as $role) {
 
 $group = new RoleGroup();
 $group->id = 364;
-$group->name = "Dewas/India-Deviation- Head QA/Designee";
-$group->description = "Dewas/India-Deviation- Head QA/Designee";
+$group->name = "Dewas-Deviation- Head QA/Designee";
+$group->description = "Dewas-Deviation- Head QA/Designee";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2434,29 +2434,29 @@ $group->save();
 
 $group = new RoleGroup();
 $group->id = 366;
-$group->name = "Dewas/India-Extension- Initiator";
-$group->description = "Dewas/India-Extension- Initiator";
+$group->name = "Dewas-Extension- Initiator";
+$group->description = "Dewas-Extension- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 367;
-$group->name = "Dewas/India-Extension- Approver";
-$group->description = "Dewas/India-Extension- Approver";
+$group->name = "Dewas-Extension- Approver";
+$group->description = "Dewas-Extension- Approver";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 368;
-$group->name = "Dewas/India-Extension- FP";
-$group->description = "Dewas/India-Extension- FP";
+$group->name = "Dewas-Extension- FP";
+$group->description = "Dewas-Extension- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 369;
-$group->name = "Dewas/India-Extension- View Only";
-$group->description = "Dewas/India-Extension- View Only";
+$group->name = "Dewas-Extension- View Only";
+$group->description = "Dewas-Extension- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2494,8 +2494,8 @@ $group->save();
 
 // $group = new RoleGroup();
 // $group->id = 364;
-// $group->name = "Dewas/India-Deviation- Head QA/Designee";
-// $group->description = "Dewas/India-Deviation- Head QA/Designee";
+// $group->name = "Dewas-Deviation- Head QA/Designee";
+// $group->description = "Dewas-Deviation- Head QA/Designee";
 // $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 // $group->save();
 
@@ -2506,43 +2506,43 @@ $group->save();
 
         $group  = new RoleGroup();
         $group->id = 374;
-        $group->name = "Dewas/India-Change Control- Initiator";
-        $group->description = "Dewas/India-Change Control- Initiator";
+        $group->name = "Dewas-Change Control- Initiator";
+        $group->description = "Dewas-Change Control- Initiator";
         $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
         $group->save();
 
         $group  = new RoleGroup();
         $group->id = 375;
-        $group->name = "Dewas/India-Change Control- HOD/Designee";
-        $group->description = "Dewas/India-Change Control- HOD/Designee";
+        $group->name = "Dewas-Change Control- HOD/Designee";
+        $group->description = "Dewas-Change Control- HOD/Designee";
         $group->permission = json_encode(['read' => true, 'create' => false, 'edit' => true, 'delete' => false]);
         $group->save();
 
         $group  = new RoleGroup();
         $group->id = 376;
-        $group->name = "Dewas/India-Change Control- QA";
-        $group->description = "Dewas/India-Change Control- QA";
+        $group->name = "Dewas-Change Control- QA";
+        $group->description = "Dewas-Change Control- QA";
         $group->permission = json_encode(['read' => true, 'create' => false, 'edit' => true, 'delete' => false]);
         $group->save();
 
         $group  = new RoleGroup();
         $group->id = 377;
-        $group->name = "Dewas/India-Change Control- CFT/SME";
-        $group->description = "Dewas/India-Change Control- CFT/SME";
+        $group->name = "Dewas-Change Control- CFT/SME";
+        $group->description = "Dewas-Change Control- CFT/SME";
         $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
         $group->save();
 
         $group  = new RoleGroup();
         $group->id = 378;
-        $group->name = "Dewas/India-Change Control- FP";
-        $group->description = "Dewas/India-Change Control- FP";
+        $group->name = "Dewas-Change Control- FP";
+        $group->description = "Dewas-Change Control- FP";
         $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
         $group->save();
 
         $group  = new RoleGroup();
         $group->id = 379;
-        $group->name = "Dewas/India-Change Control- View Only";
-        $group->description = "Dewas/India-Change Control- View Only";
+        $group->name = "Dewas-Change Control- View Only";
+        $group->description = "Dewas-Change Control- View Only";
         $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
         $group->save();
 
