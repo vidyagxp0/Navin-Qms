@@ -1,10 +1,10 @@
 @extends('frontend.layout.main')
 @section('container')
     @php
-$users = DB::table('users')
+    $users = DB::table('users')
     ->select('id', 'name')
     ->get();
-
+    $facility = $data->Facility;
     @endphp
     <style>
         textarea.note-codable {
@@ -272,9 +272,9 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Product_Name[]"></td>'+
-                        '<td><input type="text" name=" Batch_No[]"></td>'+
-                        '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td><input type="text" name="product_name[]"></td>'+
+                        '<td> <select name="product_stage[]" id="product_stage"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}>  <option value="">-- Select --</option>  <option value="0">0</option>  <option value="Equipment"> Equipment</option> <option value="Instrument">Instrument</option></select> </td>'
+                        '<td><input type="text" name=" batch_no[]"></td>'+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -308,10 +308,10 @@ $users = DB::table('users')
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Product[]"></td>'+
-                        '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
+                        '<td><input type="text" name="product_name[]"></td>'+
+                        '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
         
-                        '<td><input type="text" name="BatchNo[]"></td>'+
+                        '<td><input type="text" name="batch_no[]"></td>'+
                         '<td><button class="removeRowBtn">Remove</button></td>'+
     
     
@@ -657,15 +657,7 @@ wow = new WOW(
                                         @endif
                                     </div>
                                 </div>
-                    
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="RLS Record Number"><b>Record Number</b></label>
-                                        <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
-                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> 
-                                    </div>
-                                </div> --}}
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Site/Location Code</b></label>
@@ -720,29 +712,6 @@ wow = new WOW(
                                     // Set the formatted due date value to the input field
                                     document.getElementById('due_date').value = dueDateFormatted;
                                 </script>
-
-
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input ">
-                                        <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                        <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Date Due">Due Date</label>
-                                        <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
-                                        </div>
-                                        <input readonly type="text"
-                                            value="{{ Helpers::getdateFormat($data->due_date) }}"
-                                            name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}>
-                                        {{-- <input type="text" value="{{ $data->due_date }}" name="due_date">
-                                        {{-- <div class="static"> {{ $due_date }}</div> 
-
-                                    </div>
-                                </div> --}}
 
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -806,7 +775,8 @@ wow = new WOW(
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6">
+
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group Code">Department Code</label>
                                         <input type="text" name="initiator_group_code"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
@@ -814,7 +784,7 @@ wow = new WOW(
                                             readonly>
 
                                     </div>
-                                </div> --}}
+                                </div> -->
                             
                                 <div class="col-12">
                                     <div class="group-input">
@@ -823,6 +793,7 @@ wow = new WOW(
                                     <textarea name="short_description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                  </div>
                                 </div>  
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Short Description required">Repeat Deviation? <span
@@ -837,6 +808,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                                 <div class="col-lg-6" id="nature_of_repeat_block" 
                                 @if ( $data->short_description_required != 'Recurring')  style="display: none" @endif>
                                     <div class="group-input" id="nature_of_repeat">
@@ -847,6 +819,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
                                         var selectField = document.getElementById('short_description_required');
@@ -891,6 +864,7 @@ wow = new WOW(
                                         }
                                     }
                                 </script>
+
                              <div class="col-6" >
                                     <div class="group-input">
                                         <label for="severity-level">Deviation Observed On <span
@@ -967,7 +941,7 @@ wow = new WOW(
 
                                     });
                                 </script>
-                              {{--  <div class="col-lg-6">
+                               <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
@@ -981,11 +955,10 @@ wow = new WOW(
                                             @endforeach                                           
                                         </select>
                                     </div>
-                                </div> --}}
-                                 {{-- <div class="col-lg-6">
+                                </div>  -->
+                                 <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
                                         <input type="date"id="Deviation_reported_date" name="Deviation_reported_date" value="{{ $data->Deviation_reported_date }}" >
                                     </div>
                                 </div>
@@ -1031,25 +1004,16 @@ wow = new WOW(
                                         <input type="text" id="others" name="others">
                                     </div>
                                 </div> 
-                               <div>  --}}
+                               <div>  -->
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
-                                            // $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
-                                            // $inputFacilities = [];
-                                            // if ( old('Facility') ) {
-                                            //     $inputFacilities = explode(',', old('Facility'));
-                                            // 
                                         @endphp
 
-                                        <label for="If Other">Deviation Observed By<span class="text-danger">*</span></label>
-                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name" value="{{ $data->Facility }}">
-                                        {{-- <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
-                                            @foreach ($users as $user)
-                                                <option {{ (in_array($user->id, $selectedFacilities) || in_array($user->id, $inputFacilities))  ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                           
-                                        </select> --}}
+                                        <label for="Facility">Deviation Observed By<span class="text-danger">*</span></label>
+                                        <input type="text" name="Facility" placeholder="Enter Facility Name" value="{{$data->Facility}}">
+                                        
                                         @error('Facility')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -1153,6 +1117,8 @@ wow = new WOW(
                                         @enderror
                                     </div>
                                 </div>
+
+
                                 <div class="group-input" id="facilityRow" @if ($data->Facility_Equipment == 'no') style="display: none" @endif>
                                         <label for="audit-agenda-grid">
                                             Facility/ Equipment/ Instrument/ System Details <span id="asteriskInvifaci" style="display: {{ $data->Facility_Equipment == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
@@ -1164,7 +1130,7 @@ wow = new WOW(
                                                 (Launch Instruction)
                                             </span>
                                         </label>
-                                        {{-- <div class="table-responsive">
+                                        <!-- <div class="table-responsive">
                                             <table class="table table-bordered" id="onservation-field-table"
                                                 style="width: 100%;">
                                                 <thead>
@@ -1187,7 +1153,7 @@ wow = new WOW(
                                                 </tbody>
 
                                             </table>
-                                        </div> --}}
+                                        </div> -->
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="onservation-field-table" style="width: 100%;">
                                                 <thead>
@@ -1214,7 +1180,7 @@ wow = new WOW(
                                                                            @endphp
                                                                            <option value="">-- Select --</option>
                                                                              <option value="Facility" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Facility") ? "selected" : "Facility" }}>Facility</option>
-                                                                             <option value="Equipment" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Facility") ? "selected" : "Equipment" }}>Equipment</option>
+                                                                             <option value="Equipment" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Equipment") ? "selected" : "Equipment" }}>Equipment</option>
                                                                              <option value="Instrument" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Instrument") ? "selected" : "Instrument" }}>Instrument</option>
                                                                          @endif
 
@@ -1226,7 +1192,7 @@ wow = new WOW(
                                                                 </td>
                                                                 <td><input class="id-number" type="text" name="IDnumber[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data->IDnumber)[$key]) ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
                                                                 <td><input class="remarks" type="text" name="Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
-                                            <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                            <td><input type="text" class="Removebtn" name="Action[]" readonly></td>
 
                                                             </tr>
                                                         @endforeach
@@ -1337,7 +1303,7 @@ wow = new WOW(
                                                             <td><input class="numberDetail" type="text" name="Number[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Number)[$key] ? unserialize($grid_data1->Number)[$key] : '' }}"></td>
                                                             <td><input class="ReferenceDocumentName" type="text" name="ReferenceDocumentName[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->ReferenceDocumentName)[$key] ? unserialize($grid_data1->ReferenceDocumentName)[$key] : '' }}"></td>
                                                             <td><input class="Document_Remarks" type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
-                                            <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                            <td><input type="text" class="Removebtn" name="Action[]" readonly></td>
 
                                                         </tr>           
                                                     @endforeach
@@ -1394,7 +1360,7 @@ wow = new WOW(
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
-                                        </script>
+                                    </script>
                                 <div class="col-lg-12">
                                     <div class="col-lg-12">
                                         <div class="group-input" id="documentsRow">
@@ -1424,49 +1390,78 @@ wow = new WOW(
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" class="numberDetail" name="Product[]"></td>
-                                            <td>
-                                               
-                                            <select name="Stage[]" id="">
-                                                <option value="">-- Select --</option>
-    
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4</option>
-    
-                                                <option value="">5</option>
-                                                <option value="">6</option>
-                                                <option value="">7</option>
-                                                <option value="">8</option>
-                                                <option value="">9</option>
-    
-                                                <option value="">Final</option>
-    
-                                            </select>
-                                            </td>
-                                            <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
-                                            <td><input type="text" class="Removebtn" name="Action[]"></td>
-    
-                           
-                                                    </tbody>
-    
+                                                    @if ($grid_data2->product_name)
+                                                        @foreach (unserialize($grid_data2->product_name) as $key => $temps)
+                                                            <td><input disabled type="text" name="serial[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
+                                                            <td><input class="productName" type="text" name="product_name[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data2->product_name)[$key]) ? unserialize($grid_data2->product_name)[$key] : '' }}"></td>
+                                                            <td>                                                            
+                                                                <select class="productStage" name="product_stage[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="product_stage">
+                                                                    @if(isset($grid_data2->product_stage))
+                                                                        @php
+                                                                            $product_stage = unserialize($grid_data2->product_stage);
+                                                                        @endphp
+                                                                            <option value="">-- Select --</option>
+                                                                            <option value="1" {{ (isset($product_stage[$key]) && $product_stage[$key] == "1") ? "selected" : "1" }}>1</option>
+                                                                            <option value="2" {{ (isset($product_stage[$key]) && $product_stage[$key] == "2") ? "selected" : "2" }}>2</option>
+                                                                            <option value="3" {{ (isset($product_stage[$key]) && $product_stage[$key] == "3") ? "selected" : "3" }}>3</option>
+                                                                            <option value="4" {{ (isset($product_stage[$key]) && $product_stage[$key] == "4") ? "selected" : "4" }}>4</option>
+                                                                            <option value="5" {{ (isset($product_stage[$key]) && $product_stage[$key] == "5") ? "selected" : "5" }}>5</option>
+                                                                            <option value="6" {{ (isset($product_stage[$key]) && $product_stage[$key] == "6") ? "selected" : "6" }}>6</option>
+                                                                            <option value="7" {{ (isset($product_stage[$key]) && $product_stage[$key] == "7") ? "selected" : "7" }}>7</option>
+                                                                            <option value="8" {{ (isset($product_stage[$key]) && $product_stage[$key] == "8") ? "selected" : "8" }}>8</option>
+                                                                            <option value="9" {{ (isset($product_stage[$key]) && $product_stage[$key] == "9") ? "selected" : "9" }}>9</option>
+                                                                            <option value="Final" {{ (isset($product_stage[$key]) && $product_stage[$key] == "Final") ? "selected" : "Final" }}>Final</option>        
+                                                                    @endif  
+                                                                </select>
+                                                            </td>
+                                                            <td><input class="productBatchNo" type="text" name="batch_no[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data2->batch_no)[$key]) ? unserialize($grid_data2->batch_no)[$key] : '' }}"></td>
+                                                            <td><input type="text" class="Removebtn" name="Action[]" readonly></td> 
+                                                        @endforeach
+                                                    @endif
+                                                    </tbody>    
                                                 </table>
                                             </div>
                                         </div>
-                                        {{-- @error('Product_Batch')
-                                            <div class="text-danger">{{ $message  }}</div>
-                                        @enderror --}}
+                                        @error('product_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('product_stage')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('batch_no')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                               </div>
+
+                              <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // note-codable
+                                            
+                                            var inputsToToggle = [];
+
+                                            // Add elements with class 'productName' to inputsToToggle
+                                            var productNameInput = document.getElementsByClassName('productName');
+                                            for (var i = 0; i < productNameInput.length; i++) {
+                                                inputsToToggle.push(productNameInput[i]);
+                                            }
+
+                                            // Add elements with class 'productStage' to inputsToToggle
+                                            var productStageInput = document.getElementsByClassName('productStage');
+                                            for (var j = 0; j < productStageInput.length; j++) {
+                                                inputsToToggle.push(productStageInput[j]);
+                                            }
+
+                                            // Add elements with class 'productBatchNo' to inputsToToggle
+                                            var batchNoInput = document.getElementsByClassName('productBatchNo');
+                                            for (var k = 0; k < batchNoInput.length; k++) {
+                                                inputsToToggle.push(batchNoInput[k]);
+                                            }
+                                        });
+                                    </script>
+
+                                    
                       </div>
                                
-                                {{-- <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Description Deviation">Description of Deviation</label>
-                                        <textarea class="summernote"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation <span class="text-danger">*</span></label>
@@ -1485,12 +1480,13 @@ wow = new WOW(
                                     </textarea>
                                     </div>
                                 </div> -->
-                                {{-- <div class="col-6">
+                                <!-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
                                         <textarea class="summernote" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
-                                </div> --}}
+                                </div> -->
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any) <span class="text-danger">*</span></label>
@@ -1502,12 +1498,12 @@ wow = new WOW(
                                     @enderror
                                 </div>
                                
-                                {{-- <div class="col-6">
+                                <!-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
                                         <textarea class="summernote" name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
                                     </div>
-                                </div> --}}
+                                </div>  -->
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation <span class="text-danger">*</span></label>
@@ -1785,7 +1781,7 @@ wow = new WOW(
                                         @enderror                                    
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? <span
                                             class="text-danger">*</span></label>
@@ -1802,9 +1798,9 @@ wow = new WOW(
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div> --}}
-                                {{-- <div class="col-5">
-                                    {{-- <div class="group-input">
+                                </div> -->
+                                <!-- <div class="col-5">
+                                    <div class="group-input">
                                             @php
                                                 $customers = DB::table('customer-details')->get();
                                                 // dd($data->customer);
@@ -1815,7 +1811,7 @@ wow = new WOW(
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
-                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option>
+                                                <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option>
                                             @endforeach
                                             </select>
                                             @error('customers')
@@ -1850,16 +1846,15 @@ wow = new WOW(
                                         });
                                     </script>                                      
     
-                                </div> --}}
-                                {{-- <div class="col-1">
+                                </div>  -->
+                                 <!-- <div class="col-1">
                                     <div class="group-input">
-                                        <!-- <label for="Comments(If Any)">Customers</label> -->
                                         <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
                                     </div>
-                                </div> --}}
-                                {{-- <div class="col-12">
+                                </div>  -->
+                                <!-- <div class="col-12">
                                         <div class="group-input">
                                             <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
                                             <select  multiple id="related_records"  placeholder="Select Facility Name"
@@ -1872,7 +1867,7 @@ wow = new WOW(
                                                 @endforeach                                         
                                             </select>
                                         </div>
-                                </div> --}}
+                                </div> -->
 
                                 <div class="col-md-12">
                                     <div class="group-input">
@@ -2024,7 +2019,7 @@ wow = new WOW(
                                   
                                     </div>
                                 </div> --}}
-                                {{-- <div class="col-5">
+                                <!-- <div class="col-5">
                                     <div class="group-input">
                                         @php
                                             $customers = DB::table('customer-details')->get();
@@ -2036,7 +2031,7 @@ wow = new WOW(
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
-                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> 
+                                                 <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> 
                                             @endforeach
                                             </select>
                                     </div>
@@ -2058,16 +2053,15 @@ wow = new WOW(
                                         });
                                     </script>                                      
     
-                                </div> --}}
-                                {{-- <div class="col-1">
+                                </div> -->
+                                <!-- <div class="col-1">
                                     <div class="group-input">
-                                        <!-- <label for="Comments(If Any)">Customers</label> -->
                                         <button disabled style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
                                               Customer
                                     </button>
                                     </div>
-                                </div> --}}
-                                {{-- <div class="col-12">
+                                </div>  -->
+                                <!-- <div class="col-12">
                                         <div class="group-input">
                                             <label for="related_records">Related Records<span class="text-danger d-none"></span></label>
                                             <select  multiple name="related_records[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name"
@@ -2080,7 +2074,7 @@ wow = new WOW(
                                                 @endforeach                                         
                                             </select>
                                         </div>
-                                </div> --}}
+                                </div> -->
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>

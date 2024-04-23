@@ -496,6 +496,7 @@ class DeviationController extends Controller
             $data3->Remarks = serialize($request->Remarks);
         }
         $data3->save();
+
         $data4 = new DeviationGrid();
         $data4->deviation_grid_id = $deviation->id;
         $data4->type = "Document ";
@@ -510,6 +511,21 @@ class DeviationController extends Controller
             $data4->Document_Remarks = serialize($request->Document_Remarks);
         }
         $data4->save();
+
+        $data5 = new DeviationGrid();
+        $data5->deviation_grid_id = $deviation->id;
+        $data5->type = "Product ";
+        if (!empty($request->product_name)) {
+            $data5->product_name = serialize($request->product_name);
+        }
+        if (!empty($request->product_stage)) {
+            $data5->product_stage = serialize($request->product_stage);
+        }
+        
+        if (!empty($request->batch_no)) {
+            $data5->batch_no = serialize($request->batch_no);
+        }
+        $data5->save();
         
 
 
@@ -1408,13 +1424,14 @@ class DeviationController extends Controller
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
         $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
+        $grid_data2 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Product")->first();
     //    dd( $grid_data1);
         // dd($grid_data );
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1','grid_data2'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1436,6 +1453,7 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         // return $request;
         // if (!$request->short_description) {
         //     toastr()->error("Short description is required");
@@ -1446,8 +1464,6 @@ class DeviationController extends Controller
 
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
-
-        // return $deviation;
 
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
         {
@@ -1464,15 +1480,7 @@ class DeviationController extends Controller
                 'nature_of_repeat' => 'required_if:short_description_required,Recurring',
                 'Deviation_date' => 'required',
                 'deviation_time' => 'required',
-                'Facility' => [
-                    'required',
-                    'array',
-                    function($attribute, $value, $fail) {
-                        if (count($value) === 1 && reset($value) === null) {
-                            return $fail('Facility must contain some values.');
-                        }
-                    },
-                ],
+                'Facility' => 'required',
                 'audit_type' => [
                     'required',
                     'array',
@@ -1484,36 +1492,8 @@ class DeviationController extends Controller
                 ],
                 'Deviation_reported_date' => 'required',
                 'Facility_Equipment' => 'required|in:yes,no',
-                'facility_name' => [
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($request->input('Facility_Equipment') === 'yes' && (count($value) === 1 && reset($value) === null)) {
-                            $fail('The Facility name is required when Facility Equipment is yes.');
-                        }
-                    },
-                ],
-                'IDnumber' => [
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($request->input('Facility_Equipment') === 'yes' && (count($value) === 1 && reset($value) === null)) {
-                            $fail('The ID Number field is required when Facility Equipment is yes.');
-                        }
-                    },
-                ],
+                
                 'Document_Details_Required' => 'required|in:yes,no',
-                'Number' => [
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($request->input('Document_Details_Required') === 'yes' && (count($value) === 1 && reset($value) === null)) {
-                            $fail('The Document Number field is required when Document Details Required is yes.');
-                        }
-                    },
-                ],
-                'ReferenceDocumentName' => [
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($request->input('Document_Details_Required') === 'yes' && (count($value) === 1 && reset($value) === null)) {
-                            $fail('The Referrence Document Number field is required when Document Details Required is yes.');
-                        }
-                    },
-                ],
-                'Product_Batch' => 'required',
                 'Description_Deviation' => [
                     'required',
                     'array',
@@ -1566,15 +1546,15 @@ class DeviationController extends Controller
                 'Justification_for_categorization' => 'required',
                 'Investigation_required' => 'required|in:yes,no|not_in:0',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
-                'Customer_notification' => 'required|not_in:0',
-                'customers' => [
-                    'required_if:Customer_notification,yes', 
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($value === '0' && $request->Customer_notification == 'yes') {
-                            $fail('The customers field must not be empty when Customer Notification is set to yes.');
-                        }
-                    },
-                ],
+                // 'Customer_notification' => 'required|not_in:0',
+                // 'customers' => [
+                //     'required_if:Customer_notification,yes', 
+                //     function ($attribute, $value, $fail) use ($request) {
+                //         if ($value === '0' && $request->Customer_notification == 'yes') {
+                //             $fail('The customers field must not be empty when Customer Notification is set to yes.');
+                //         }
+                //     },
+                // ],
                 'QAInitialRemark' => 'required'
             ]);
 
@@ -1634,7 +1614,7 @@ class DeviationController extends Controller
                 $form_progress = 'capa';
             // }
         }
-
+        
         if ($request->form_name == 'qah')
         {
             $validator = Validator::make($request->all(), [
@@ -1650,8 +1630,7 @@ class DeviationController extends Controller
                 $form_progress = 'qah';
             }
         }
-
-       
+         
         // $deviation->Customer_notification = $request->Customer_notification;
         //$deviation->parent_id = $request->parent_id;
         //$deviation->parent_type = $request->parent_type;
@@ -1683,7 +1662,7 @@ class DeviationController extends Controller
         if ($request->related_records) {
             $deviation->Related_Records1 =  implode(',', $request->related_records);
         }
-        $deviation->Facility = implode(',', $request->Facility);  
+        $deviation->Facility = $request->Facility;
 
 
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
@@ -2288,6 +2267,19 @@ class DeviationController extends Controller
                 $data4->Document_Remarks = serialize($request->Document_Remarks);
             }
             $data4->update();
+
+            $data5=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Product")->first();
+            if (!empty($request->product_name)) {
+                $data5->product_name = serialize($request->product_name);
+            }
+            if (!empty($request->product_stage)) {
+                $data5->product_stage = serialize($request->product_stage);
+            }
+            
+            if (!empty($request->batch_no)) {
+                $data5->batch_no = serialize($request->batch_no);
+            }
+            $data5->update();
             
 
         if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {
