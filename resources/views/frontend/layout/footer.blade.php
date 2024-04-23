@@ -81,6 +81,51 @@
 <script src="{{ asset('user/js/countryState.js') }}"></script>
 {{-- @toastr_js @toastr_render @jquery --}}
 
+
+<script src="https://cdn.tiny.cloud/1/{{ config('data.tiny_api_key') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    $(document).ready(function() {
+        
+        const api_key = '{{ config("data.openai_api_key") }}';
+
+        tinymce.init({
+            selector: 'textarea', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'ai preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker editimage help formatpainter permanentpen pageembed charmap mentions quickbars linkchecker emoticons advtable footnotes mergetags autocorrect typography advtemplate markdown',
+            toolbar: 'undo redo | aidialog aishortcuts | blocks fontsizeinput | bold italic | align numlist bullist | link image | table media pageembed | lineheight  outdent indent | strikethrough forecolor backcolor formatpainter removeformat | charmap emoticons checklist | code fullscreen preview | save print | pagebreak anchor codesample footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | ltr rtl casechange | spellcheckdialog a11ycheck',
+            ai_request: (request, respondWith) => {
+                const openAiOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${api_key}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    temperature: 0.7,
+                    max_tokens: 800,
+                    messages: [{ role: 'user', content: request.prompt }],
+                })
+                };
+                respondWith.string((signal) => window.fetch('https://api.openai.com/v1/chat/completions', { signal, ...openAiOptions })
+                .then(async (response) => {
+                    if (response) {
+                    const data = await response.json();
+                    if (data.error) {
+                        throw new Error(`${data.error.type}: ${data.error.message}`);
+                    } else if (response.ok) {
+                        // Extract the response content from the data returned by the API
+                        return data?.choices[0]?.message?.content?.trim();
+                    }
+                    } else {
+                        throw new Error('Failed to communicate with the AI');
+                    }
+                })
+                );
+            }
+        });
+    })
+</script>
+
 <script>
     function addRow() {
         var table = document.getElementById("myTable");

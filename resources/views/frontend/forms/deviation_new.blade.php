@@ -448,10 +448,6 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm9')">Investigation</button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm10')">CAPA</button>
-
-
 
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
@@ -1060,63 +1056,8 @@ $users = DB::table('users')
                                             });
                                         });
                                     </script>
-
-<div class="col-lg-12">
-    <div class="group-input">
-        <label for="Document Details Required">Product/Batch Details Required?</label>
-        <select name="Product_batch_details_required" id="Product_batch_details_required">
-            <option value="">--Select --</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-
-        </select>
-    </div>
-</div>
-<script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectField = document.getElementById('Product_batch_details_required');
-        var inputsToToggle = [];
-
-        // Add elements with class 'facility-name' to inputsToToggle
-        var facilityNameInputs = document.getElementsByClassName('Product');
-        for (var i = 0; i < facilityNameInputs.length; i++) {
-            inputsToToggle.push(facilityNameInputs[i]);
-        }
-
-        // Add elements with class 'id-number' to inputsToToggle
-        var idNumberInputs = document.getElementsByClassName('Stage');
-        for (var j = 0; j < idNumberInputs.length; j++) {
-            inputsToToggle.push(idNumberInputs[j]);
-        }
-
-        // Add elements with class 'remarks' to inputsToToggle
-        var remarksInputs = document.getElementsByClassName('BatchNo');
-        for (var k = 0; k < remarksInputs.length; k++) {
-            inputsToToggle.push(remarksInputs[k]);
-        }
-
-                                        
-        selectField.addEventListener('change', function () {
-            var isRequired = this.value === 'yes';
-            console.log(this.value, isRequired, 'value');
-
-            inputsToToggle.forEach(function (input) {
-                input.required = isRequired;
-                console.log(input.required, isRequired, 'input req');
-            });
-
-            document.getElementById('documentsRowname').style.display = isRequired ? 'block' : 'none';
-            // Show or hide the asterisk icon based on the selected value
-            var asteriskIcon = document.getElementById('asteriskInvinew');
-            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
-        });
-    });
-</script>
-
-
                                 <div class="col-lg-12">
-                                    <div class="group-input" id="documentsRowname" style="display: none">
+                                    <div class="group-input" id="documentsRow">
                                         <label for="audit-agenda-grid">
                                          Product/Batch Details
                                             <button type="button" name="audit-agenda-grid"
@@ -1232,14 +1173,14 @@ $users = DB::table('users')
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
-                                        <textarea class="summernote" id="Description_Deviation" name="Description_Deviation[]"></textarea>
+                                        <textarea class="" id="Description_Deviation" name="Description_Deviation[]"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1" required>
+                                        <textarea class="" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
                                     @error('Description_Deviation[]')
@@ -1250,14 +1191,14 @@ $users = DB::table('users')
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="ImmediateAction">Immediate Action (if any)</label>
-                                        <textarea class="summernote" id="Immediate_Action" name="Immediate_Action[]"></textarea>
+                                        <textarea class="" id="Immediate_Action" name="Immediate_Action[]"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Immediate_Action[]" id="summernote-2"required>
+                                        <textarea class="" name="Immediate_Action[]" id="summernote-2"required>
                                     </textarea>
                                     </div>
                                     @error('record')
@@ -1267,14 +1208,14 @@ $users = DB::table('users')
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
-                                        <textarea class="summernote" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
+                                        <textarea class="" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3" required>
+                                        <textarea class="" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
                                     @error('Preliminary_Impact')
@@ -1358,7 +1299,7 @@ $users = DB::table('users')
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Product Name">HOD Remarks </label>
-                                        <textarea class="summernote" name="HOD_Remarks[]" id="HOD_Remarks"></textarea>
+                                        <textarea class="" name="HOD_Remarks[]" id="HOD_Remarks"></textarea>
 
                                     </div>
                                 </div> --}}
@@ -1367,7 +1308,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="HOD_Remarks" id="summernote-4">
+                                        <textarea class="" name="HOD_Remarks" id="summernote-4">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1420,7 +1361,7 @@ $users = DB::table('users')
                                 {{-- <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label class="mt-4"  for="Audit Schedule End Date">Justification for Categorization</label>
-                                        <textarea class="summernote" name="Justification_for_categorization" id="" cols="30" ></textarea>
+                                        <textarea class="" name="Justification_for_categorization" id="" cols="30" ></textarea>
 
                                     </div>
                                 </div> --}}
@@ -1428,7 +1369,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Justification for Categorization">Justification for Categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Justification_for_categorization" id="summernote-5">
+                                        <textarea class="" name="Justification_for_categorization" id="summernote-5">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1447,7 +1388,7 @@ $users = DB::table('users')
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea class="summernote" name="Investigation_Details" id="" cols="30" ></textarea>
+                                        <textarea class="" name="Investigation_Details" id="" cols="30" ></textarea>
                                   
                                     </div>
                                 </div> --}}
@@ -1455,7 +1396,7 @@ $users = DB::table('users')
                                     <div class="group-input" id="Investigations_details">
                                         <label for="Investigation Details">Investigation Details<span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote Investigation_Details" name="Investigation_Details" id="summernote-6">
+                                        <textarea class=" Investigation_Details" name="Investigation_Details" id="summernote-6">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1527,14 +1468,14 @@ $users = DB::table('users')
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="Comments(If Any)">QA Initial Remarks</label>
-                                      <textarea class="summernote" name="QAInitialRemark" id="" cols="30" ></textarea>
+                                      <textarea class="" name="QAInitialRemark" id="" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="QAInitialRemark" id="summernote-7">
+                                        <textarea class="" name="QAInitialRemark" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1730,7 +1671,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Production assessment">Impact Assessment (By Production)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Production_assessment" id="summernote-17">
+                                        <textarea class="" name="Production_assessment" id="summernote-17">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1738,7 +1679,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Production feedback">Production Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">
+                                        <textarea class="" name="Production_feedback" id="summernote-18">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1810,7 +1751,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Warehouse_assessment" id="summernote-19">
+                                        <textarea class="" name="Warehouse_assessment" id="summernote-19">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1818,7 +1759,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="productionfeedback">Warehouse Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Warehouse_feedback" id="summernote-20">
+                                        <textarea class="" name="Warehouse_feedback" id="summernote-20">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1891,14 +1832,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
-                                        <textarea class="summernote" name="Quality_Control_assessment" id="summernote-21">
+                                        <textarea class="" name="Quality_Control_assessment" id="summernote-21">
                                     </textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Control Feedback">Quality Control Feedback</label>
-                                        <textarea class="summernote" name="Quality_Control_feedback" id="summernote-22">
+                                        <textarea class="" name="Quality_Control_feedback" id="summernote-22">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1971,7 +1912,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-23">
+                                        <textarea class="" name="QualityAssurance_assessment" id="summernote-23">
                                     </textarea>
                                     </div>
                                 </div>  
@@ -1979,7 +1920,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="QualityAssurance_feedback" id="summernote-24">
+                                        <textarea class="" name="QualityAssurance_feedback" id="summernote-24">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2051,7 +1992,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Engineering_assessment" id="summernote-25">
+                                        <textarea class="" name="Engineering_assessment" id="summernote-25">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2059,7 +2000,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="productionfeedback">Engineering  Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Engineering_feedback" id="summernote-26">
+                                        <textarea class="" name="Engineering_feedback" id="summernote-26">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2130,14 +2071,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development Laboratory)</label>
-                                        <textarea class="summernote" name="Analytical_Development_assessment" id="summernote-27">
+                                        <textarea class="" name="Analytical_Development_assessment" id="summernote-27">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development Laboratory Feedback</label>
-                                        <textarea class="summernote" name="Analytical_Development_feedback" id="summernote-28">
+                                        <textarea class="" name="Analytical_Development_feedback" id="summernote-28">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2218,14 +2159,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
-                                        <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-29">
+                                        <textarea class="" name="Kilo_Lab_assessment" id="summernote-29">
                                     </textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
-                                        <textarea class="summernote" name="Kilo_Lab_feedback" id="summernote-30">
+                                        <textarea class="" name="Kilo_Lab_feedback" id="summernote-30">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2300,14 +2241,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer / Design)</label>
-                                        <textarea class="summernote" name="Technology_transfer_assessment" id="summernote-31">
+                                        <textarea class="" name="Technology_transfer_assessment" id="summernote-31">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design  Feedback</label>
-                                        <textarea class="summernote" name="Technology_transfer_feedback" id="summernote-32">
+                                        <textarea class="" name="Technology_transfer_feedback" id="summernote-32">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2379,14 +2320,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety)</label>
-                                        <textarea class="summernote" name="Health_Safety_assessment" id="summernote-33">
+                                        <textarea class="" name="Health_Safety_assessment" id="summernote-33">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety  Feedback</label>
-                                        <textarea class="summernote" name="Health_Safety_feedback" id="summernote-34">
+                                        <textarea class="" name="Health_Safety_feedback" id="summernote-34">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2461,14 +2402,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment9">Impact Assessment (By Human Resource & Administration )</label>
-                                        <textarea class="summernote" name="Human_Resource_assessment" id="summernote-35">
+                                        <textarea class="" name="Human_Resource_assessment" id="summernote-35">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
-                                        <textarea class="summernote" name="Human_Resource_feedback" id="summernote-36">
+                                        <textarea class="" name="Human_Resource_feedback" id="summernote-36">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2539,14 +2480,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology)</label>
-                                        <textarea class="summernote" name="Information_Technology_assessment" id="summernote-37">
+                                        <textarea class="" name="Information_Technology_assessment" id="summernote-37">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback"> Information Technology Feedback</label>
-                                        <textarea class="summernote" name="Information_Technology_feedback" id="summernote-38">
+                                        <textarea class="" name="Information_Technology_feedback" id="summernote-38">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2620,14 +2561,14 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By  Project management )</label>
-                                        <textarea class="summernote" name="Project_management_assessment" id="summernote-39">
+                                        <textarea class="" name="Project_management_assessment" id="summernote-39">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Project management Feedback"> Project management  Feedback</label>
-                                        <textarea class="summernote" name="Project_management_feedback" id="summernote-40">
+                                        <textarea class="" name="Project_management_feedback" id="summernote-40">
                                     </textarea>
                                     </div>
                                 </div>
@@ -2725,14 +2666,14 @@ $users = DB::table('users')
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback">Impact Assessment (By  Other's 1)</label>
-                                            <textarea class="summernote" name="Other1_assessment" id="summernote-41">
+                                            <textarea class="" name="Other1_assessment" id="summernote-41">
                                         </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 1 Feedback</label>
-                                            <textarea class="summernote" name="Other1_feedback" id="summernote-42">
+                                            <textarea class="" name="Other1_feedback" id="summernote-42">
                                         </textarea>
                                         </div>
                                     </div>
@@ -2827,14 +2768,14 @@ $users = DB::table('users')
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Impact Assessment13">Impact Assessment (By  Other's 2)</label>
-                                            <textarea class="summernote" name="Other2_Assessment" id="summernote-43">
+                                            <textarea class="" name="Other2_Assessment" id="summernote-43">
                                         </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Feedback2"> Other's 2 Feedback</label>
-                                            <textarea class="summernote" name="Other2_feedback" id="summernote-44">
+                                            <textarea class="" name="Other2_feedback" id="summernote-44">
                                         </textarea>
                                         </div>
                                     </div>
@@ -2931,14 +2872,14 @@ $users = DB::table('users')
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback">Impact Assessment (By  Other's 3)</label>
-                                            <textarea class="summernote" name="Other3_Assessment" id="summernote-45">
+                                            <textarea class="" name="Other3_Assessment" id="summernote-45">
                                         </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 3 Feedback</label>
-                                            <textarea class="summernote" name="Other3_feedback" id="summernote-46">
+                                            <textarea class="" name="Other3_feedback" id="summernote-46">
                                         </textarea>
                                         </div>
                                     </div>
@@ -3036,14 +2977,14 @@ $users = DB::table('users')
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Impact Assessment15">Impact Assessment (By  Other's 4)</label>
-                                            <textarea class="summernote" name="Other4_Assessment" id="summernote-47">
+                                            <textarea class="" name="Other4_Assessment" id="summernote-47">
                                         </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="feedback4"> Other's 4 Feedback</label>
-                                            <textarea class="summernote" name="Other4_feedback" id="summernote-48">
+                                            <textarea class="" name="Other4_feedback" id="summernote-48">
                                         </textarea>
                                         </div>
                                     </div>
@@ -3142,14 +3083,14 @@ $users = DB::table('users')
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback">Impact Assessment (By  Other's 5)</label>
-                                            <textarea class="summernote" name="Other5_Assessment" id="summernote-49">
+                                            <textarea class="" name="Other5_Assessment" id="summernote-49">
                                         </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 5 Feedback</label>
-                                            <textarea class="summernote" name="Other5_feedback" id="summernote-50">
+                                            <textarea class="" name="Other5_feedback" id="summernote-50">
                                         </textarea>
                                         </div>
                                     </div>
@@ -3677,42 +3618,42 @@ $users = DB::table('users')
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
-                                        <textarea class="summernote" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
+                                        <textarea class="" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Summary" id="summernote-8">
+                                        <textarea class="" name="Investigation_Summary" id="summernote-8">
                                     </textarea>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
-                                        <textarea class="summernote" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
+                                        <textarea class="" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Impact_assessment" id="summernote-9">
+                                        <textarea class="" name="Impact_assessment" id="summernote-9">
                                     </textarea>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Root cause">Root Cause</label>
-                                        <textarea class="summernote" name="Root_cause" id="Root_cause" cols="30" ></textarea>
+                                        <textarea class="" name="Root_cause" id="Root_cause" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Root_cause" id="summernote-10">
+                                        <textarea class="" name="Root_cause" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3742,28 +3683,28 @@ $users = DB::table('users')
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea class="summernote" name="CAPA_Description"></textarea>
+                                        <textarea class="" name="CAPA_Description"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="CAPA_Description" id="summernote-11">
+                                        <textarea class="" name="CAPA_Description" id="summernote-11">
                                     </textarea>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="summernote" name="Post_Categorization"></textarea>
+                                        <textarea class="" name="Post_Categorization"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                        <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
-                                        {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
+                                        {{-- <textarea class="" name="Post_Categorization" id="summernote-12"> --}}
                                             <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
                                                 <option value="major">Major</option>
@@ -3776,14 +3717,14 @@ $users = DB::table('users')
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
+                                        <textarea class="" name="Investigation_Of_Review"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
+                                        <textarea class="" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3861,14 +3802,14 @@ $users = DB::table('users')
                             {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
-                                        <textarea class="summernote" name="QA_Feedbacks"></textarea>
+                                        <textarea class="" name="QA_Feedbacks"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="QA_Feedbacks" id="summernote-14">
+                                        <textarea class="" name="QA_Feedbacks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3909,13 +3850,13 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label  class="mt-4" for="Remarks">Closure Comments</label>
-                                        <textarea class="summernote" name="Closure_Comments" id="summernote-15"></textarea>
+                                        <textarea class="" name="Closure_Comments" id="summernote-15"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Audit Comments">Disposition of Batch</label>
-                                        <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                        <textarea class="" name="Disposition_Batch" id="summernote-16"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4254,7 +4195,8 @@ $users = DB::table('users')
         margin-left: 100px
     }
 </style>
-                        <div class="modal-sub-head">
+
+                <div class="modal-sub-head">
                             <div class="sub-main-head">
                                 <!-- Customer input fields -->
                                 <!-- Left box -->
