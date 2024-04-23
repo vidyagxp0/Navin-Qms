@@ -382,49 +382,48 @@ $users = DB::table('users')
    
 </script>
 <script>
+    $(document).ready(function() {
+        $('#investigation_Details').click(function(e) {
+            function generateTableRow(serialNumber) {
+                var users = @json($users);
+                
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>'+
+                    '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+
+                    '<td><input type="text" class="numberDetail" name="Responsibility[]"></td>'+
+                    '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
+                    '<td><input type="text" class="Removebtn" name="Action[]"></td>'+
+
+                    '</tr>';
+
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                }
+
+                html += '</select></td>' + 
+              
+                    '</tr>';
+
+                return html;
+            }
+
+            var tableBody = $('#investigation_Details_Details tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
+        });
+    });
+   
+</script>
+<script>
     $(document).on('click', '.removeRowBtn', function() {
         $(this).closest('tr').remove();
     })
     
 </script>
     
-    {{-- <script>
-        $(document).ready(function() {
-            $('#ProductDetails').click(function(e) {
-                function generateTableRow(serialNumber) {
-                    var users = @json($users);
-                    
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                                                    '<td><input type="text" name="Product_Name[]"></td>'+
-                                                    '<td><input type="text" name=" Batch_No[]"></td>'+
-                                                    '<td><input type="text" name="Remarks[]"></td>'+
-                        '</tr>';
 
-                    for (var i = 0; i < users.length; i++) {
-                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    }
-
-                    html += '</select></td>' + 
-                  
-                        '</tr>';
-
-                    return html;
-                }
-
-                var tableBody = $('#ProductDetails_details tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
-                tableBody.append(newRow);
-            });
-        });
-        
-        $(document).on('click', '.remove-file', function() {
-        $(this).closest('div').remove();
-        console.log('removing')
-    })
-    </script> --}}
     
     <div class="form-field-head">
 
@@ -3129,7 +3128,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="button-block">
                                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-    <a href="/rcms/qms-dashboard">
+                                             <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
                                     <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
@@ -3143,8 +3142,475 @@ $users = DB::table('users')
                          </div>
                      </div>
                 </div>
-                 
+                  <!-- investigation -->
+                  <div id="CCForm9" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="row">
+                            
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Investigation Summary">Discription of Event</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Discription_Event" id="summernote-8">
+                                </textarea>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Impact Assessment">Objective</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="objective" id="summernote-9">
+                                </textarea>
+                                </div>
+                            </div>
 
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Root Cause">Scope</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="scope" id="summernote-10">
+                                </textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Root Cause">Immediate Action</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="imidiate_action" id="summernote-10">
+                                </textarea>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-lg-12">
+                                <div class="group-input" id="documentsRowname" >
+                                    <label for="audit-agenda-grid">
+                                        Investigation team and responsibilities
+                                        <button type="button" name="audit-agenda-grid"
+                                            id="investigation_Details">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#document-details-field-instruction-modal"
+                                            style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="investigation_Details_Details"
+                                            style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 4%">Row#</th>
+                                                    <th style="width: 12%">Investigation Team</th>
+                                                    <th style="width: 16%">Responsibility</th>
+                                                    <th style="width: 16%">Remarks</th>
+                                                    <th style="width: 8%">Action</th>
+
+                                                   
+                                                                                                     
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                    <td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>
+                                    <td><input type="text" class="numberDetail" name="Responsibility[]"></td>
+                                    <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
+                                    <td><input type="text" class="Removebtn" name="Action[]"></td>
+
+                   
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- @error('Product_Batch')
+                                    <div class="text-danger">{{ $message  }}</div>
+                                @enderror --}}
+                          </div>
+
+                          <div class="col-lg-12">
+                            <div class="group-input">
+                                <label for="audit type">Investigation Approach </label>
+                                <select multiple name="audit_type[]" id="audit_type">
+                                    {{-- <option value="">Enter Your Selection Here</option> --}}
+                                    <option value="1">Why-Why Chart</option>
+                                    <option value="2">Failure Mode and Efect Analysis</option>
+                                    <option value="3">Fishbone or Ishikawa Diagram</option>
+                                    <option value="4">Is/Is Not Analysis</option>
+                                    <option value="4">Brainstorming</option>
+
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="group-input" id="documentsRowname" >
+                                <label for="audit-agenda-grid">
+                                  Root Cause
+                                    <button type="button" name="audit-agenda-grid"
+                                        id="root_cause_Details">+</button>
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Launch Instruction)
+                                    </span>
+                                </label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="Root_cause_Details_Details"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4%">Row#</th>
+                                                <th style="width: 12%">	Root Cause Category</th>
+                                                <th style="width: 16%">Root Cause Sub-Category</th>
+                                                <th style="width: 16%">If Others</th>
+
+                                                <th style="width: 16%">	Probability</th>
+                                                <th style="width: 16%">	Remarks</th>
+
+                                                <th style="width: 8%">Action</th>
+
+                                                                                                 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                <td>
+                                   
+                                <select name="Root_Cause_Category[]" id="">
+                                    <option value="">-- Select --</option>
+
+                                    <option value="">name   </option>
+                                   
+
+                                   
+                                </select>
+                                </td>
+                                <td> <select name="Root_Cause_Sub-Category[]" id="">
+                                    <option value="">-- Select --</option>
+
+                                    <option value="">name</option>
+                                   
+
+                                   
+                                </select></td>
+                                <td><input type="text" class="Document_Remarks" name="ifother[]"></td>
+
+                                <td><input type="text" class="Document_Remarks" name="Probability[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="remarks[]"></td>
+
+                                <td><input type="text" class="Removebtn" name="Action[]"></td>
+
+               
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                            {{-- @error('Product_Batch')
+                                <div class="text-danger">{{ $message  }}</div>
+                            @enderror --}}
+                      </div>
+                      <div class="col-12">
+                        <div class="group-input">
+                            <label for="why-why-chart">
+                               Category Of Human Error
+                                <span class="text-primary" data-bs-toggle="modal"
+                                    data-bs-target="#is_is_not-instruction-modal"
+                                    style="font-size: 0.8rem; font-weight: 400;">
+                                    (Launch Instruction)
+                                </span>
+                            </label>
+                            <div class="why-why-chart">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:7%;">ROw #</th>
+                                            <th style="width:15%;">Gap Category</th>
+
+                                            <th>Issues</th>
+                                            <th>Actions</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                {{-- <input disabled type="text"  value=""> --}}
+                                                1
+                                            </td>
+                                            <th style="background: ">Attention</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="what_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="what_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="what_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                               2
+                                            </td>
+                                            <th >Understanding</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="where_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="where_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="where_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                3
+                                            </td>
+                                            <th >Procedural</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="when_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="when_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="when_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                           4
+                                            </td>
+                                            <th >Behavioral</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="coverage_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="coverage_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="coverage_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                               5
+                                            </td>
+                                            <th >Skill</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="who_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="who_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="who_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                        
+                        </div>
+                        
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                                   <a href="/rcms/qms-dashboard">
+                                    <button type="button" class="backButton">Back</button>
+                                </a>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a> </button>
+                        </div>
+                    </div>
+                </div>
+
+                             <!-- investigation and capa -->
+                    <div id="CCForm10" class="inner-block cctabcontent">
+                        <div class="inner-block-content">
+                            <div class="row">
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
+                                        <textarea class="summernote" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Summary">Investigation Summary</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Summary" id="summernote-8">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
+                                        <textarea class="summernote" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Impact Assessment">Impact Assessment</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Impact_assessment" id="summernote-9">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Root cause">Root Cause</label>
+                                        <textarea class="summernote" name="Root_cause" id="Root_cause" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Root Cause">Root Cause</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Root_cause" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="CAPA Rquired">CAPA Required ?</label>
+                                      <select name="CAPA_Rquired" id="CAPA_Rquired">
+                                        <option value="0"> -- Select --</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no"> No</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="capa type">CAPA Type?</label>
+                                      <select name="capa_type" id="capa_type">
+                                        <option value="0"> -- Select --</option>
+                                        <option value="Corrective_Action">Corrective Action</option>
+                                        <option value="Preventive_Action">Preventive Action</option>
+                                        <option value="Corrective&Preventive">Corrective & Preventive Action both</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="External Auditing Agency">CAPA Description</label>
+                                        <textarea class="summernote" name="CAPA_Description"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="CAPA Description">CAPA Description</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="CAPA_Description" id="summernote-11">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
+                                        <textarea class="summernote" name="Post_Categorization"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
+                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
+                                        {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
+                                            <select name="Post_Categorization" id="Post_Categorization">
+                                                <option value=""> -- Select --</option>
+                                                <option value="major">Major</option>
+                                                <option value="minor">Minor</option>
+                                                <option value="critical">Critical</option>
+                                              </select>
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
+                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Investigatiom Attachment">Investigation Attachment </label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting
+                                                documents</small>
+                                            
+                                            
+                                            </div>
+                                       
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Investigation_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Investigatiom Attachment">Investigation Attachment</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Investigation_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="capa_Attachments">CAPA Attachment </label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting
+                                                documents</small>
+                                            </div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="Capa_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="Capa_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'Capa_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- investigation and capa -->
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">

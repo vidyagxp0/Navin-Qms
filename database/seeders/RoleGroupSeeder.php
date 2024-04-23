@@ -1743,147 +1743,147 @@ $group->description = "Jordan-Lab Incident- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-// KSA Effective Check
+// KSA Effectiveness Check
 $group = new RoleGroup();
 $group->id = 241;
-$group->name = "KSA-Effective Check- Initiator";
-$group->description = "KSA-Effective Check- Initiator";
+$group->name = "KSA-Effectiveness Check- Initiator";
+$group->description = "KSA-Effectiveness Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 242;
-$group->name = "KSA-Effective Check- Supervisor";
-$group->description = "KSA-Effective Check- Supervisor";
+$group->name = "KSA-Effectiveness Check- Supervisor";
+$group->description = "KSA-Effectiveness Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 243;
-$group->name = "KSA-Effective Check- QA";
-$group->description = "KSA-Effective Check- QA";
+$group->name = "KSA-Effectiveness Check- QA";
+$group->description = "KSA-Effectiveness Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 244;
-$group->name = "KSA-Effective Check- FP";
-$group->description = "KSA-Effective Check- FP";
+$group->name = "KSA-Effectiveness Check- FP";
+$group->description = "KSA-Effectiveness Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 245;
-$group->name = "KSA-Effective Check- View Only";
-$group->description = "KSA-Effective Check- View Only";
+$group->name = "KSA-Effectiveness Check- View Only";
+$group->description = "KSA-Effectiveness Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 // Estonia
 $group = new RoleGroup();
 $group->id = 246;
-$group->name = "Estonia-Effective Check- Initiator";
-$group->description = "Estonia-Effective Check- Initiator";
+$group->name = "Estonia-Effectiveness Check- Initiator";
+$group->description = "Estonia-Effectiveness Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 247;
-$group->name = "Estonia-Effective Check- Supervisor";
-$group->description = "Estonia-Effective Check- Supervisor";
+$group->name = "Estonia-Effectiveness Check- Supervisor";
+$group->description = "Estonia-Effectiveness Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 248;
-$group->name = "Estonia-Effective Check- QA";
-$group->description = "Estonia-Effective Check- QA";
+$group->name = "Estonia-Effectiveness Check- QA";
+$group->description = "Estonia-Effectiveness Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 249;
-$group->name = "Estonia-Effective Check- FP";
-$group->description = "Estonia-Effective Check- FP";
+$group->name = "Estonia-Effectiveness Check- FP";
+$group->description = "Estonia-Effectiveness Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 250;
-$group->name = "Estonia-Effective Check- View Only";
-$group->description = "Estonia-Effective Check- View Only";
+$group->name = "Estonia-Effectiveness Check- View Only";
+$group->description = "Estonia-Effectiveness Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 // Egypt
 $group = new RoleGroup();
 $group->id = 251;
-$group->name = "Egypt-Effective Check- Initiator";
-$group->description = "Egypt-Effective Check- Initiator";
+$group->name = "Egypt-Effectiveness Check- Initiator";
+$group->description = "Egypt-Effectiveness Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 252;
-$group->name = "Egypt-Effective Check- Supervisor";
-$group->description = "Egypt-Effective Check- Supervisor";
+$group->name = "Egypt-Effectiveness Check- Supervisor";
+$group->description = "Egypt-Effectiveness Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 253;
-$group->name = "Egypt-Effective Check- QA";
-$group->description = "Egypt-Effective Check- QA";
+$group->name = "Egypt-Effectiveness Check- QA";
+$group->description = "Egypt-Effectiveness Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 254;
-$group->name = "Egypt-Effective Check- FP";
-$group->description = "Egypt-Effective Check- FP";
+$group->name = "Egypt-Effectiveness Check- FP";
+$group->description = "Egypt-Effectiveness Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 255;
-$group->name = "Egypt-Effective Check- View Only";
-$group->description = "Egypt-Effective Check- View Only";
+$group->name = "Egypt-Effectiveness Check- View Only";
+$group->description = "Egypt-Effectiveness Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 // Jordan
 $group = new RoleGroup();
 $group->id = 256;
-$group->name = "Jordan-Effective Check- Initiator";
-$group->description = "Jordan-Effective Check- Initiator";
+$group->name = "Jordan-Effectiveness Check- Initiator";
+$group->description = "Jordan-Effectiveness Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 257;
-$group->name = "Jordan-Effective Check- Supervisor";
-$group->description = "Jordan-Effective Check- Supervisor";
+$group->name = "Jordan-Effectiveness Check- Supervisor";
+$group->description = "Jordan-Effectiveness Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 258;
-$group->name = "Jordan-Effective Check- QA";
-$group->description = "Jordan-Effective Check- QA";
+$group->name = "Jordan-Effectiveness Check- QA";
+$group->description = "Jordan-Effectiveness Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 259;
-$group->name = "Jordan-Effective Check- FP";
-$group->description = "Jordan-Effective Check- FP";
+$group->name = "Jordan-Effectiveness Check- FP";
+$group->description = "Jordan-Effectiveness Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 260;
-$group->name = "Jordan-Effective Check- View Only";
-$group->description = "Jordan-Effective Check- View Only";
+$group->name = "Jordan-Effectiveness Check- View Only";
+$group->description = "Jordan-Effectiveness Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2167,39 +2167,39 @@ $group->description = "Dewas-Root Cause Analysis- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-//Dewas-Effective Check
+//Dewas-Effectiveness Check
 $group = new RoleGroup();
 $group->id = 300;
-$group->name = "Dewas-Effective Check- Initiator";
-$group->description = "Dewas-Effective Check- Initiator";
+$group->name = "Dewas-Effectiveness Check- Initiator";
+$group->description = "Dewas-Effectiveness Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 301;
-$group->name = "Dewas-Effective Check- Supervisor";
-$group->description = "Dewas-Effective Check- Supervisor";
+$group->name = "Dewas-Effectiveness Check- Supervisor";
+$group->description = "Dewas-Effectiveness Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 302;
-$group->name = "Dewas-Effective Check- QA";
-$group->description = "Dewas-Effective Check- QA";
+$group->name = "Dewas-Effectiveness Check- QA";
+$group->description = "Dewas-Effectiveness Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 304;
-$group->name = "Dewas-Effective Check- FP";
-$group->description = "Dewas-Effective Check- FP";
+$group->name = "Dewas-Effectiveness Check- FP";
+$group->description = "Dewas-Effectiveness Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 305;
-$group->name = "Dewas-Effective Check- View Only";
-$group->description = "Dewas-Effective Check- View Only";
+$group->name = "Dewas-Effectiveness Check- View Only";
+$group->description = "Dewas-Effectiveness Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
@@ -2297,39 +2297,39 @@ $group->description = "Corporate/India-Root Cause Analysis- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
-//Corporate/India-Effective Check
+//Corporate/India-Effectiveness Check
 $group = new RoleGroup();
 $group->id = 319;
-$group->name = "Corporate/India-Effective Check- Initiator";
-$group->description = "Corporate/India-Effective Check- Initiator";
+$group->name = "Corporate/India-Effectiveness Check- Initiator";
+$group->description = "Corporate/India-Effectiveness Check- Initiator";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 320;
-$group->name = "Corporate/India-Effective Check- Supervisor";
-$group->description = "Corporate/India-Effective Check- Supervisor";
+$group->name = "Corporate/India-Effectiveness Check- Supervisor";
+$group->description = "Corporate/India-Effectiveness Check- Supervisor";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 321;
-$group->name = "Corporate/India-Effective Check- QA";
-$group->description = "Corporate/India-Effective Check- QA";
+$group->name = "Corporate/India-Effectiveness Check- QA";
+$group->description = "Corporate/India-Effectiveness Check- QA";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 322;
-$group->name = "Corporate/India-Effective Check- FP";
-$group->description = "Corporate/India-Effective Check- FP";
+$group->name = "Corporate/India-Effectiveness Check- FP";
+$group->description = "Corporate/India-Effectiveness Check- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
 $group = new RoleGroup();
 $group->id = 323;
-$group->name = "Corporate/India-Effective Check- View Only";
-$group->description = "Corporate/India-Effective Check- View Only";
+$group->name = "Corporate/India-Effectiveness Check- View Only";
+$group->description = "Corporate/India-Effectiveness Check- View Only";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
 $group->save();
 
