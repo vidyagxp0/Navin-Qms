@@ -3387,11 +3387,102 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
+                                 <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CAPA_Number"><b>CAPA No</b></label>
+                                        <input disabled type="text" name="capa_number">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Initiator Group"><b>Name of the Department</b><span
+                                            class="text-danger">*</span></label> 
+                                        <select name="department_capa" id="department_capa" >
+                                            <option value="">-- Select --</option>
+                                            <option value="CQA" @if (old('department_capa') == 'CQA') selected @endif>
+                                                Corporate Quality Assurance</option>
+                                            <option value="QAB" @if (old('department_capa') == 'QAB') selected @endif>Quality
+                                                Assurance Biopharma</option>
+                                            <option value="CQC" @if (old('department_capa') == 'CQC') selected @endif>Central
+                                                Quality Control</option>
+                                            <option value="MANU" @if (old('department_capa') == 'MANU') selected @endif>
+                                                Manufacturing</option>
+                                            <option value="PSG" @if (old('department_capa') == 'PSG') selected @endif>Plasma
+                                                Sourcing Group</option>
+                                            <option value="CS" @if (old('department_capa') == 'CS') selected @endif>Central
+                                                Stores</option>
+                                            <option value="ITG" @if (old('department_capa') == 'ITG') selected @endif>
+                                                Information Technology Group</option>
+                                            <option value="MM" @if (old('department_capa') == 'MM') selected @endif>
+                                                Molecular Medicine</option>
+                                            <option value="CL" @if (old('department_capa') == 'CL') selected @endif>Central
+                                                Laboratory</option>
+
+                                            <option value="TT" @if (old('department_capa') == 'TT') selected @endif>Tech
+                                                team</option>
+                                            <option value="QA" @if (old('department_capa') == 'QA') selected @endif>
+                                                Quality Assurance</option>
+                                            <option value="QM" @if (old('department_capa') == 'QM') selected @endif>
+                                                Quality Management</option>
+                                            <option value="IA" @if (old('department_capa') == 'IA') selected @endif>IT
+                                                Administration</option>
+                                            <option value="ACC" @if (old('department_capa') == 'ACC') selected @endif>
+                                                Accounting</option>
+                                            <option value="LOG" @if (old('department_capa') == 'LOG') selected @endif>
+                                                Logistics</option>
+                                            <option value="SM" @if (old('department_capa') == 'SM') selected @endif>
+                                                Senior Management</option>
+                                            <option value="BA" @if (old('department_capa') == 'BA') selected @endif>
+                                                Business Administration</option>
+                                        </select>
+                                        @error('department_capa')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                    <div class="group-input input-date">
+                                        <label for="Deviation category">Source of CAPA</label>
+                                        <select name="Deviation_category" id="Deviation_category">
+                                            <option value="0">-- Select -- </option>
+                                            <option value="Deviation">Deviation </option>
+                                            <option value="OS/OT">OS/OT</option>
+                                            <option value="Audit_Obs">Audit Observation </option>
+
+                                            <option value="Complaint">Complaint</option>
+                                            <option value="Product_Recall">Product Recall</option>
+                                            <option value="Returned_Goods">Returned Goods</option>
+                                            <option value="APQR">APQR</option>
+                                            <option value="Management_Review_Action_Plan">Management Review Action Plan</option>
+                                            <option value="Investigation">Investigation</option>
+                                            <option value="Internal_Review">Internal Review</option>
+                                            <option value="Quality_Risk_Assessment">Quality Risk Assessment</option>
+                                            <option value="Others">Others</option>
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                                
+                                 <div class="col-lg-6" id="others_block" >
+                                    <div class="group-input">
+                                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
+                                        <input type="text" id="others" name="others" class="others">
+                                    </div>
+                                </div> 
+
+                                <div class="col-lg-6" id="others_block" >
+                                    <div class="group-input">
+                                        <label for="others">Source Document</label>
+                                        <input type="text" id="source_doc" name="source_doc" class="source_doc">
+                                    </div>
+                                </div> 
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Summary" id="summernote-8">
+                                        <label for="Description_of_Discrepancy">Description of Discrepancy </label>
+                                        <textarea class="summernote" name="Description_of_Discrepancy" id="summernote-8">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3403,9 +3494,9 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment</label>
+                                        <label for="Root_Cause">Root Cause</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Impact_assessment" id="summernote-9">
+                                        <textarea class="summernote" name="Root_Cause" id="summernote-9">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3417,134 +3508,91 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Root Cause">Root Cause</label>
+                                        <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Root_cause" id="summernote-10">
+                                        <textarea class="summernote" name="Immediate_Action_Take" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
-                                
-                                
-                                <div class="col-6">
+                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="CAPA Rquired">CAPA Required ?</label>
-                                      <select name="CAPA_Rquired" id="CAPA_Rquired">
-                                        <option value="0"> -- Select --</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no"> No</option>
-                                      </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="capa type">CAPA Type?</label>
-                                      <select name="capa_type" id="capa_type">
-                                        <option value="0"> -- Select --</option>
-                                        <option value="Corrective_Action">Corrective Action</option>
-                                        <option value="Preventive_Action">Preventive Action</option>
-                                        <option value="Corrective&Preventive">Corrective & Preventive Action both</option>
-                                      </select>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea class="summernote" name="CAPA_Description"></textarea>
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="CAPA Description">CAPA Description</label>
+                                        <label for="Corrective_Action_Details">Corrective Action Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="CAPA_Description" id="summernote-11">
+                                        <textarea class="summernote" name="Corrective_Action_Details" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
+                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="summernote" name="Post_Categorization"></textarea>
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
-                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
-                                        {{-- <textarea class="summernote" name="Post_Categorization" id="summernote-12"> --}}
-                                            <select name="Post_Categorization" id="Post_Categorization">
-                                                <option value=""> -- Select --</option>
-                                                <option value="major">Major</option>
-                                                <option value="minor">Minor</option>
-                                                <option value="critical">Critical</option>
-                                              </select>
-                                    </textarea>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
+                                        <label for="Preventive_Action_Details">Preventive Action Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Of_Review" id="summernote-13">
+                                        <textarea class="summernote" name="Preventive_Action_Details" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigation Attachment </label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            
-                                            
-                                            </div>
-                                       
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="Investigation_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
-                                            </div>
+                                 <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Target Completion Date</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_reported_date')"required />
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
-                                <div class="col-lg-12">
+                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigation Attachment</label>
+                                        <label for="Interim_Control">Interim Control(If Any)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Interim_Control" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                  <div class="sub-head">
+                                            CAPA Implementation
+                                            </div>
+                                             <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Corrective_Action_Taken">Corrective Action Taken</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Corrective_Action_Taken" id="summernote-10">
+                                    </textarea>
+                                    </div>
+
+                                </div> <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preventive_action_Taken">Preventive Action Taken</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Preventive_action_Taken" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                            CAPA Closure
+                                            </div>
+                                     <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="CAPA_Closure_Comments">CAPA Closure Comments</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="CAPA_Closure_Comments" id="summernote-10">
+                                    </textarea>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
+                                            <div class="file-attachment-list" id="CAPA_Closure_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="Investigation_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
+                                                <input type="file" id="myfile" name="CAPA_Closure_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="capa_Attachments">CAPA Attachment </label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            </div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Capa_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="Capa_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Capa_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            
+                                </div>                            
                             </div>
                             
                             <div class="button-block">
@@ -4875,6 +4923,12 @@ const saveButton = document.getElementById("ChangeSaveButton001");
         document.getElementById('initiator_group').addEventListener('change', function() {
             var selectedValue = this.value;
             document.getElementById('initiator_group_code').value = selectedValue;
+        });
+    </script>
+     <script>
+        document.getElementById('department_capa').addEventListener('change', function() {
+            var selectedValue = this.value;
+            document.getElementById('department_capa_code').value = selectedValue;
         });
     </script>
     
