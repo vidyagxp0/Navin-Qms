@@ -1422,7 +1422,7 @@ class DeviationController extends Controller
         $data1 = DeviationCft::where('deviation_id', $id)->latest()->first();
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
-        $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
+        $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first(); 
         $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
         $grid_data2 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Product")->first();
     //    dd( $grid_data1);
