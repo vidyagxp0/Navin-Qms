@@ -702,7 +702,7 @@ wow = new WOW(
                                         <label for="Due Date">Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
-                                            <input disabled type="text"
+                                            <input readonly type="text"
                                             value="{{ Helpers::getdateFormat($data->due_date) }}" name="due_date"/>
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                         </div>
@@ -1097,7 +1097,7 @@ wow = new WOW(
                                 </div>
                                 
                                 
-                                <div class="col-lg-6" id="others_block" @if ($data->audit_type != 'Anyother(specify)') style="display: none" @endif>
+                                <div class="col-lg-6" id="others_block" @if (strpos($data->audit_type, 'Anyother(specify)')) style="display: none" @endif>
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInOther" style="display: {{ $data->audit_type == 'Anyother(specify)' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <input type="text" class="otherrr" name="others" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="others" value="{{ $data->others }}">
@@ -1395,64 +1395,9 @@ wow = new WOW(
                                             });
                                         });
                                         </script>
-
-<div class="col-lg-12">
-    <div class="group-input">
-        <label for="Document Details Required">Product/Batch Details Required?</label>
-        <select name="Product_batch_details_required_new" id="Product_batch_details_required_new">
-            <option value="">--Select --</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-
-        </select>
-    </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // note-codable
-
-        var selectField = document.getElementById('Product_batch_details_required_new');
-        var inputsToToggle = [];
-
-        // Add elements with class 'facility-name' to inputsToToggle
-        var facilityNameInputs = document.getElementsByClassName('Product');
-        for (var i = 0; i < facilityNameInputs.length; i++) {
-            inputsToToggle.push(facilityNameInputs[i]);
-        }
-
-        // Add elements with class 'id-number' to inputsToToggle
-        var idNumberInputs = document.getElementsByClassName('Stage');
-        for (var j = 0; j < idNumberInputs.length; j++) {
-            inputsToToggle.push(idNumberInputs[j]);
-        }
-
-        // Add elements with class 'remarks' to inputsToToggle
-        var remarksInputs = document.getElementsByClassName('BatchNo');
-        for (var k = 0; k < remarksInputs.length; k++) {
-            inputsToToggle.push(remarksInputs[k]);
-        }
-
-                                        
-        selectField.addEventListener('change', function () {
-            var isRequired = this.value === 'yes';
-            console.log(this.value, isRequired, 'value');
-
-            inputsToToggle.forEach(function (input) {
-                input.required = isRequired;
-                console.log(input.required, isRequired, 'input req');
-            });
-
-            // Show or hide the asterisk icon based on the selected value
-            document.getElementById('documentsRownewnew').style.display = isRequired ? 'block' : 'none';
-            var asteriskIcon = document.getElementById('asteriskInvinewnew');
-            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
-        });
-    });
-    </script>
-
                                 <div class="col-lg-12">
                                     <div class="col-lg-12">
-                                        <div class="group-input" id="documentsRownewnew">
+                                        <div class="group-input" id="documentsRow">
                                             <label for="audit-agenda-grid">
                                              Product/Batch Details
                                                 <button type="button" name="audit-agenda-grid"

@@ -382,48 +382,49 @@ $users = DB::table('users')
    
 </script>
 <script>
-    $(document).ready(function() {
-        $('#investigation_Details').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var users = @json($users);
-                
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>'+
-                    '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+
-                    '<td><input type="text" class="numberDetail" name="Responsibility[]"></td>'+
-                    '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
-                    '<td><input type="text" class="Removebtn" name="Action[]"></td>'+
-
-                    '</tr>';
-
-                for (var i = 0; i < users.length; i++) {
-                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                }
-
-                html += '</select></td>' + 
-              
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#investigation_Details_Details tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-   
-</script>
-<script>
     $(document).on('click', '.removeRowBtn', function() {
         $(this).closest('tr').remove();
     })
     
 </script>
     
+    {{-- <script>
+        $(document).ready(function() {
+            $('#ProductDetails').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
+                    
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
+                                                    '<td><input type="text" name="Product_Name[]"></td>'+
+                                                    '<td><input type="text" name=" Batch_No[]"></td>'+
+                                                    '<td><input type="text" name="Remarks[]"></td>'+
+                        '</tr>';
 
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
+
+                    html += '</select></td>' + 
+                  
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#ProductDetails_details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
+        });
+        
+        $(document).on('click', '.remove-file', function() {
+        $(this).closest('div').remove();
+        console.log('removing')
+    })
+    </script> --}}
     
     <div class="form-field-head">
 
@@ -448,7 +449,9 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-
+                <button class="cctablinks " onclick="openCity(event, 'CCForm9')">Investigation</button>
+                <button class="cctablinks " onclick="openCity(event, 'CCForm11')">QRM</button>
+                <button class="cctablinks " onclick="openCity(event, 'CCForm10')">CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
@@ -3128,7 +3131,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="button-block">
                                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                             <a href="/rcms/qms-dashboard">
+    <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
                                     <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
@@ -3430,7 +3433,182 @@ $users = DB::table('users')
                     </div>
                 </div>
 
-                             <!-- investigation and capa -->
+{{-- -------------QRM----------------- --}}
+<div id="CCForm11" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+            <div class="col-12 sub-head"></div>
+            <div class="col-12 mb-4">
+                <div class="group-input">
+                    <label for="agenda">
+                        Failure Mode and Effect Analysis
+                        <button type="button" name="agenda"
+                            onclick="addRiskAssessment('risk-assessment-risk-management')">+</button>
+                        <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                            (Launch Instruction)
+                        </span>
+                    </label>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" style="width: 200%"
+                            id="risk-assessment-risk-management">
+                            <thead>
+                                <tr>
+                                    <th>Row #</th>
+                                    <th>Risk Factor</th>
+                                    <th>Risk element </th>
+                                    <th>Probable cause of risk element</th>
+                                    <th>Existing Risk Controls</th>
+                                    <th>Initial Severity- H(3)/M(2)/L(1)</th>
+                                    <th>Initial Probability- H(3)/M(2)/L(1)</th>
+                                    <th>Initial Detectability- H(1)/M(2)/L(3)</th>
+                                    <th>Initial RPN</th>
+                                    <th>Risk Acceptance (Y/N)</th>
+                                    <th>Proposed Additional Risk control measure (Mandatory for Risk
+                                        elements having RPN>4)</th>
+                                    <th>Residual Severity- H(3)/M(2)/L(1)</th>
+                                    <th>Residual Probability- H(3)/M(2)/L(1)</th>
+                                    <th>Residual Detectability- H(1)/M(2)/L(3)</th>
+                                    <th>Residual RPN</th>
+                                    <th>Risk Acceptance (Y/N)</th>
+                                    <th>Mitigation proposal (Mention either CAPA reference number, IQ,
+                                        OQ or
+                                        PQ)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Investigation Summary">Conclusion</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Conclusion" id="summernote-8">
+                </textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Investigation Summary">Identified Risk</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Identified_Risk" id="summernote-8">
+                </textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Severity Rate">Severity Rate</label>
+                    <select name="severity_rate" id="analysisR"
+                        onchange='calculateRiskAnalysis(this)'>
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="1">Negligible</option>
+                        <option value="2">Moderate</option>
+                        <option value="3">Major</option>
+                        <option value="4">Fatal</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Occurrence">Occurrence</label>
+                    <select name="occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="5">Extremely Unlikely</option>
+                        <option value="4">Rare</option>
+                        <option value="3">Unlikely</option>
+                        <option value="2">Likely</option>
+                        <option value="1">Very Likely</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Detection">Detection</label>
+                    <select name="detection" id="analysisN" onchange='calculateRiskAnalysis(this)'>
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="5">Impossible</option>
+                        <option value="4">Rare</option>
+                        <option value="3">Unlikely</option>
+                        <option value="2">Likely</option>
+                        <option value="1">Very Likely</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="RPN">RPN</label>
+                    <div><small class="text-primary">Auto - Calculated</small></div>
+                    <input type="text" name="rpn" id="analysisRPN" value="" readonly>
+                </div>
+            </div>
+            <div class="col-12 sub-head"></div>
+            <div class="col-12 mb-4">
+                <div class="group-input">
+                    <label for="agenda">
+                       Risk Matrix
+                        <button type="button" name="agenda"
+                            onclick="addRiskAssessment('risk-assessment-risk-management')">+</button>
+                        <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                            (Launch Instruction)
+                        </span>
+                    </label>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" style="width: 200%"
+                            id="risk-assessment-risk-management">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No #</th>
+                                    <th>Risk Assessment</th>
+                                    <th>Review Schedule</th>
+                                    <th>Actual Reviewed On</th>
+                                    <th>Remarks</th>
+                                    <th>Recorded By Sign and Date</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        <script>
+            function calculateRiskAnalysis(selectElement) {
+                // Get the row containing the changed select element
+                let row = selectElement.closest('tr');
+
+                // Get values from select elements within the row
+                let R = parseFloat(document.getElementById('analysisR').value) || 0;
+                let P = parseFloat(document.getElementById('analysisP').value) || 0;
+                let N = parseFloat(document.getElementById('analysisN').value) || 0;
+
+                // Perform the calculation
+                let result = R * P * N;
+
+                // Update the result field within the row
+                document.getElementById('analysisRPN').value = result;
+            }
+        </script>
+        <div class="button-block">
+            <button type="submit" class="saveButton">Save</button>
+              <a href="/rcms/qms-dashboard">
+                    <button type="button" class="backButton">Back</button>
+                </a>
+            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+        </div>
+    </div>
+</div>
+
+
+                             <!-- capa -->
                     <div id="CCForm10" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -3659,6 +3837,9 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
+                </div>
+
+
                     <!-- investigation and capa -->
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
