@@ -89,7 +89,7 @@
         const api_key = '{{ config("data.openai_api_key") }}';
 
         tinymce.init({
-            selector: 'textarea', // Replace this CSS selector to match the placeholder element for TinyMCE
+            selector: 'textarea.tiny', // Replace this CSS selector to match the placeholder element for TinyMCE
             plugins: 'ai preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker editimage help formatpainter permanentpen pageembed charmap mentions quickbars linkchecker emoticons advtable footnotes mergetags autocorrect typography advtemplate markdown',
             toolbar: 'undo redo | aidialog aishortcuts | blocks fontsizeinput | bold italic | align numlist bullist | link image | table media pageembed | lineheight  outdent indent | strikethrough forecolor backcolor formatpainter removeformat | charmap emoticons checklist | code fullscreen preview | save print | pagebreak anchor codesample footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | ltr rtl casechange | spellcheckdialog a11ycheck',
             ai_request: (request, respondWith) => {
