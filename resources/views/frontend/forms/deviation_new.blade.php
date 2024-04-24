@@ -3303,7 +3303,7 @@ $users = DB::table('users')
                           <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="audit type">Investigation Approach </label>
-                                <select multiple name="audit_type[]" id="audit_type">
+                                <select multiple name="Investigation_approach[]" id="audit_type">
                                     {{-- <option value="">Enter Your Selection Here</option> --}}
                                     <option value="1">Why-Why Chart</option>
                                     <option value="2">Failure Mode and Efect Analysis</option>
@@ -5261,7 +5261,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
 
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type ,#Investigation_approach'
         });
 
         function openCity(evt, cityName) {
