@@ -1437,14 +1437,7 @@ $users = DB::table('users')
 
                                     </div>
                                 </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Justification for Categorization">Justification for Categorization</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Justification_for_categorization" id="summernote-5">
-                                    </textarea>
-                                    </div>
-                                </div>
+                               
                                 
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -1457,6 +1450,84 @@ $users = DB::table('users')
                                   
                                     </div>
                                 </div>
+
+
+
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="QRM Rquired">QRM Required ?</label>
+                                      <select name="QRM_Rquired" id="QRM_Rquired">
+                                        <option value="0"> -- Select --</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no"> No</option>
+                                      </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="CAPA Rquired">CAPA Required ?</label>
+                                      <select name="CAPA_Rquired" id="CAPA_Rquired">
+                                        <option value="0"> -- Select --</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no"> No</option>
+                                      </select>
+                                    </div>
+                                </div>
+
+
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        var deviationCategory = document.getElementById("Deviation_category");
+                                        var investigationRequired = document.getElementById("Investigation_required");
+                                        var qrmRequired = document.getElementById("QRM_Rquired");
+                                        var capaRequired = document.getElementById("CAPA_Rquired");
+                                        
+                                        // Function to show or hide fields based on "Initial Deviation Category"
+                                        function toggleFields() {
+                                            if (deviationCategory.value === "major" || deviationCategory.value === "critical") {
+                                                investigationRequired.parentElement.style.display = "block";
+                                                qrmRequired.parentElement.style.display = "block";
+                                                capaRequired.parentElement.style.display = "block";
+                                                
+                                                investigationRequired.value = "yes";
+                                                qrmRequired.value = "yes";
+                                                capaRequired.value = "yes";
+                                                // Set default value to "Yes" for Investigation Required
+                                            } else {
+                                                // investigationRequired.parentElement.style.display = "none";
+                                                // qrmRequired.parentElement.style.display = "none";
+                                                // capaRequired.parentElement.style.display = "none";
+                                                investigationRequired.parentElement.style.display = "block";
+                                                qrmRequired.parentElement.style.display = "block";
+                                                capaRequired.parentElement.style.display = "block";
+                                            }
+                                        }
+                                        
+                                        // Initial call to toggleFields to set initial state
+                                        toggleFields();
+                                        
+                                        // Event listener to toggle fields on change of "Initial Deviation Category"
+                                        deviationCategory.addEventListener("change", function () {
+                                            toggleFields();
+                                        });
+                                    });
+                                </script>
+
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Justification for Categorization">Justification for Categorization</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Justification_for_categorization" id="summernote-5">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                
+                                
+
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
