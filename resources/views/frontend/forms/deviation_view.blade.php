@@ -6184,7 +6184,7 @@ wow = new WOW(
                                 <div class="group-input">
                                     <label for="Investigation Summary">Description of Event</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="Discription_Event" id="summernote-8">{{$data1->Discription_Event}}</textarea>
+                                    <textarea class="tiny" name="Discription_Event" id="summernote-8"></textarea>
                                 </div>
                             </div>
                            
@@ -6192,7 +6192,7 @@ wow = new WOW(
                                 <div class="group-input">
                                     <label for="Impact Assessment">Objective</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="objective" id="summernote-9">{{$data1->Other5_feedback}}</textarea>
+                                    <textarea class="tiny" name="objective" id="summernote-9"></textarea>
                                 </div>
                             </div>
 
@@ -6200,14 +6200,14 @@ wow = new WOW(
                                 <div class="group-input">
                                     <label for="Root Cause">Scope</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="scope" id="summernote-10">{{$data1->Other5_feedback}}</textarea>
+                                    <textarea class="tiny" name="scope" id="summernote-10"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Root Cause">Immediate Action</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="imidiate_action" id="summernote-10">{{$data1->Other5_feedback}}</textarea>
+                                    <textarea class="tiny" name="imidiate_action" id="summernote-10"></textarea>
                                 </div>
                             </div>
                             
@@ -6922,7 +6922,7 @@ wow = new WOW(
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Deviation category">Source of CAPA</label>
-                                        <select name="Deviation_category" id="Deviation_category">
+                                        <select name="source_of_capa" id="Deviation_category">
                                             <option value="0">-- Select -- </option>
                                             <option value="Deviation">Deviation </option>
                                             <option value="OS/OT">OS/OT</option>
@@ -6937,18 +6937,23 @@ wow = new WOW(
                                             <option value="Internal_Review">Internal Review</option>
                                             <option value="Quality_Risk_Assessment">Quality Risk Assessment</option>
                                             <option value="Others">Others</option>
-
                                         </select>
 
                                     </div>
                                 </div>
                                 
-                                 <div class="col-lg-6" id="others_block" >
+                                 <div class="col-lg-6" id="capa_others_block" style="display: none">
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
-                                        <input type="text" id="others" name="others" class="others">
+                                        <input type="text" id="others" name="capa_others" class="others">
                                     </div>
                                 </div> 
+
+                                <script>
+                                    $('select[name=source_of_capa]').change(function() {
+                                        $(this).val() == 'Others' ? $('#capa_others_block').fadeIn() : $('#capa_others_block').fadeOut()
+                                    })
+                                </script>
 
                                 <div class="col-lg-6" id="others_block" >
                                     <div class="group-input">
@@ -6974,7 +6979,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Root_Cause">Root Cause</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Root_Cause" id="summernote-9">
+                                        <textarea class="tiny" name="capa_root_cause" id="summernote-9">
                                     </textarea>
                                     </div>
                                 </div>
@@ -7012,9 +7017,9 @@ wow = new WOW(
                                     <div class="group-input input-date">
                                         <label for="Audit Schedule End Date">Target Completion Date</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_reported_date')"required />
+                                            <input type="text" id="Capa_reported_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="capa_completed_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Capa_reported_date')"required />
                                         </div>
                                     </div>
                                 </div>
@@ -7132,7 +7137,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
+                                        <textarea class="summernote" name="Root_cause" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
                                     @error('Root_cause')
                                         <div class="text-danger">{{ $message }}</div>

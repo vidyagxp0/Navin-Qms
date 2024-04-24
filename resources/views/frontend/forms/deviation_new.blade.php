@@ -1150,9 +1150,6 @@ $users = DB::table('users')
                                                         <th style="width: 16%"> Stage</th>
                                                         <th style="width: 16%">Batch No</th>
                                                         <th style="width: 8%">Action</th>
-
-                                                       
-                                                                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
