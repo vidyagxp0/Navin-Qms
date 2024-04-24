@@ -196,7 +196,7 @@ class DeviationController extends Controller
             // // Get the current date
             // $due_date = new Deviation();
 
-            // // Threshold for sending notification (e.g., 7 days)
+            // // Threshold for sending notification (e.g., 7 days)`
             // $threshold_days = 30;
 
             // // Iterate through the CEO user list
@@ -1436,6 +1436,7 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         // return $request;
         // if (!$request->short_description) {
         //     toastr()->error("Short description is required");

@@ -359,6 +359,11 @@ Route::view('quality-event', 'frontend.forms.quality-event');
 Route::view('vendor-entity', 'frontend.forms.vendor-entity');
 Route::view('deviation_new', 'frontend.forms.deviation_new');
 
+// ==========================new deviation stand-alone ==
+Route::view('deviation_stand_alone', 'frontend.forms.deviation_stand_alone');
+
+// ======================================================
+
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 

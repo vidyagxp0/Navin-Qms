@@ -388,18 +388,20 @@ $users = DB::table('users')
     
 </script>
     
-    {{-- <script>
+     <script>
         $(document).ready(function() {
-            $('#ProductDetails').click(function(e) {
+            $('#investigation_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
                     
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                                                    '<td><input type="text" name="Product_Name[]"></td>'+
-                                                    '<td><input type="text" name=" Batch_No[]"></td>'+
-                                                    '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+           
+                        '<td><input type="text" class="numberDetail" name="Responsibility[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
+                        '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -413,19 +415,86 @@ $users = DB::table('users')
                     return html;
                 }
 
-                var tableBody = $('#ProductDetails_details tbody');
+                var tableBody = $('#investigation_Details_Details tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });
-        
-        $(document).on('click', '.remove-file', function() {
-        $(this).closest('div').remove();
-        console.log('removing')
-    })
-    </script> --}}
-    
+        });  
+    </script> 
+    <script>
+        $(document).ready(function() {
+            $('#root_cause_Details').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
+                    
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
+                        '<td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>'+
+                        '<td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="ifother[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Probability[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="remarks[]"></td>'+
+                        '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
+
+                        '</tr>';
+
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
+
+                    html += '</select></td>' + 
+                  
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#Root_cause_Details_Details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
+        });  
+    </script> 
+    <script>
+        $(document).ready(function() {
+            $('#risk_matrix_details').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
+                    
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Risk_Assessment[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Review_Schedule[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Actual_Reviewed[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Recorded_By[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
+                        '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
+
+                        '</tr>';
+
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
+
+                    html += '</select></td>' + 
+                  
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#risk_matrix_details_details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
+        });  
+    </script> 
+   
     <div class="form-field-head">
 
         <div class="division-bar">
@@ -449,7 +518,9 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-
+                <button class="cctablinks " onclick="openCity(event, 'CCForm9')">Investigation</button>
+                <button class="cctablinks " onclick="openCity(event, 'CCForm11')">QRM</button>
+                <button class="cctablinks " onclick="openCity(event, 'CCForm10')">CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
@@ -1181,7 +1252,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="Description_Deviation[]" id="summernote-1" required>
+                                        <textarea class="tiny" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
                                     @error('Description_Deviation[]')
@@ -1199,7 +1270,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="Immediate_Action[]" id="summernote-2"required>
+                                        <textarea class="tiny" name="Immediate_Action[]" id="summernote-2"required>
                                     </textarea>
                                     </div>
                                     @error('record')
@@ -1216,7 +1287,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="Preliminary_Impact[]" id="summernote-3" required>
+                                        <textarea class="tiny" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
                                     @error('Preliminary_Impact')
@@ -1309,7 +1380,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="HOD_Remarks" id="summernote-4">
+                                        <textarea class="tiny" name="HOD_Remarks" id="summernote-4">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1370,7 +1441,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Justification for Categorization">Justification for Categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="Justification_for_categorization" id="summernote-5">
+                                        <textarea class="tiny" name="Justification_for_categorization" id="summernote-5">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1476,7 +1547,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="QAInitialRemark" id="summernote-7">
+                                        <textarea class="tiny" name="QAInitialRemark" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3143,7 +3214,921 @@ $users = DB::table('users')
                          </div>
                      </div>
                 </div>
-                 
+                  <!-- investigation -->
+                  <div id="CCForm9" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="row">
+                            
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Investigation Summary">Description of Event</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="tiny" name="Discription_Event" id="summernote-8">
+                                </textarea>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Impact Assessment">Objective</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="tiny" name="objective" id="summernote-9">
+                                </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Root Cause">Scope</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="tiny" name="scope" id="summernote-10">
+                                </textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Root Cause">Immediate Action</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="tiny" name="imidiate_action" id="summernote-10">
+                                </textarea>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-lg-12">
+                                <div class="group-input" id="documentsRowna">
+                                    <label for="audit-agenda-grid">
+                                        Investigation team and Responsibilities
+                                        <button type="button" name="audit-agenda-grid"
+                                            id="investigation_Details">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#document-details-field-instruction-modal"
+                                            style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="investigation_Details_Details"
+                                            style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 4%">Row#</th>
+                                                    <th style="width: 12%">Investigation Team</th>
+                                                    <th style="width: 16%">Responsibility</th>
+                                                    <th style="width: 16%">Remarks</th>
+                                                    <th style="width: 8%">Action</th>
+
+                                                   
+                                                                                                     
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                    <td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>
+                                    <td><input type="text" class="numberDetail" name="Responsibility[]"></td>
+                                    <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
+                                    <td><input type="text" class="Action" name="Action[]"></td>
+
+                   
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- @error('Product_Batch')
+                                    <div class="text-danger">{{ $message  }}</div>
+                                @enderror --}}
+                          </div>
+
+                          <div class="col-lg-12">
+                            <div class="group-input">
+                                <label for="audit type">Investigation Approach </label>
+                                <select multiple name="audit_type[]" id="audit_type">
+                                    {{-- <option value="">Enter Your Selection Here</option> --}}
+                                    <option value="1">Why-Why Chart</option>
+                                    <option value="2">Failure Mode and Efect Analysis</option>
+                                    <option value="3">Fishbone or Ishikawa Diagram</option>
+                                    <option value="4">Is/Is Not Analysis</option>
+                                    <option value="4">Brainstorming</option>
+
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="group-input" id="documentsRowname" >
+                                <label for="audit-agenda-grid">
+                                  Root Cause
+                                    <button type="button" name="audit-agenda-grid"
+                                        id="root_cause_Details">+</button>
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Launch Instruction)
+                                    </span>
+                                </label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="Root_cause_Details_Details"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4%">Row#</th>
+                                                <th style="width: 12%">	Root Cause Category</th>
+                                                <th style="width: 16%">Root Cause Sub-Category</th>
+                                                <th style="width: 16%">If Others</th>
+
+                                                <th style="width: 16%">	Probability</th>
+                                                <th style="width: 16%">	Remarks</th>
+
+                                                <th style="width: 8%">Action</th>
+
+                                                                                                 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>
+                                <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>
+                                <td><input type="text" class="Document_Remarks" name="ifother[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="Probability[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="remarks[]"></td>
+                                <td><input type="text" class="Removebtn" name="Action[]"></td>
+
+               
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                            {{-- @error('Product_Batch')
+                                <div class="text-danger">{{ $message  }}</div>
+                            @enderror --}}
+                      </div>
+
+
+                      <div class="col-12 sub-head"></div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="fishbone">
+                                            Fishbone or Ishikawa Diagram
+                                            <button type="button" name="agenda"
+                                                onclick="addFishBone('.top-field-group', '.bottom-field-group')">+</button>
+                                            <button type="button" name="agenda" class="fishbone-del-btn"
+                                                onclick="deleteFishBone('.top-field-group', '.bottom-field-group')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#fishbone-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400;">
+                                                (Launch Instruction)
+                                            </span>
+                                        </label>
+                                        <div class="fishbone-ishikawa-diagram">
+                                            <div class="left-group">
+                                                <div class="grid-field field-name">
+                                                    <div>Measurement</div>
+                                                    <div>Materials</div>
+                                                    <div>Methods</div>
+                                                </div>
+                                                <div class="top-field-group">
+                                                    <div class="grid-field fields top-field">
+                                                        <div><input type="text" name="measurement[]"></div>
+                                                        <div><input type="text" name="materials[]"></div>
+                                                        <div><input type="text" name="methods[]"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mid"></div>
+                                                <div class="bottom-field-group">
+                                                    <div class="grid-field fields bottom-field">
+                                                        <div><input type="text" name="environment[]"></div>
+                                                        <div><input type="text" name="manpower[]"></div>
+                                                        <div><input type="text" name="machine[]"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="grid-field field-name">
+                                                    <div>Environment</div>
+                                                    <div>Manpower</div>
+                                                    <div>Machine</div>
+                                                </div>
+                                            </div>
+                                            <div class="right-group">
+                                                <div class="field-name">
+                                                    Problem Statement
+                                                </div>
+                                                <div class="field">
+                                                    <textarea name="problem_statement"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 sub-head"></div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="why-why-chart">
+                                            Why-Why Chart
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#why_chart-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400;">
+                                                (Launch Instruction)
+                                            </span>
+                                        </label>
+                                        <div class="why-why-chart">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr style="background: #f4bb22">
+                                                        <th style="width:150px;">Problem Statement :</th>
+                                                        <td>
+                                                            <textarea name="why_problem_statement"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 1 <span
+                                                                onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_1_block">
+                                                                <textarea name="why_1[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 2 <span
+                                                                onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_2_block">
+                                                                <textarea name="why_2[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 3 <span
+                                                                onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_3_block">
+                                                                <textarea name="why_3[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 4 <span
+                                                                onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_4_block">
+                                                                <textarea name="why_4[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="why-row">
+                                                        <th style="width:150px; color: #393cd4;">
+                                                            Why 5 <span
+                                                                onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
+                                                        </th>
+                                                        <td>
+                                                            <div class="why_5_block">
+                                                                <textarea name="why_5[]"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="background: #0080006b;">
+                                                        <th style="width:150px;">Root Cause :</th>
+                                                        <td>
+                                                            <textarea name="root-cause"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                      <div class="sub-head"></div>
+                      <div class="col-12">
+                        <div class="group-input">
+                            <label for="why-why-chart">
+                               Category Of Human Error
+                                <span class="text-primary" data-bs-toggle="modal"
+                                    data-bs-target="#is_is_not-instruction-modal"
+                                    style="font-size: 0.8rem; font-weight: 400;">
+                                    (Launch Instruction)
+                                </span>
+                            </label>
+                            <div class="why-why-chart">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:7%;">Row #</th>
+                                            <th style="width:15%;">Gap Category</th>
+
+                                            <th>Issues</th>
+                                            <th>Actions</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                {{-- <input disabled type="text"  value=""> --}}
+                                                1
+                                            </td>
+                                            <th style="background: ">Attention</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="what_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="what_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="what_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                               2
+                                            </td>
+                                            <th >Understanding</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="where_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="where_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="where_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                3
+                                            </td>
+                                            <th >Procedural</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="when_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="when_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="when_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                           4
+                                            </td>
+                                            <th >Behavioral</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="coverage_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="coverage_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="coverage_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                               5
+                                            </td>
+                                            <th >Skill</th>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="who_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="who_will_not_be"></textarea>
+                                            </td>
+                                            <td style="background: rgb(222 220 220 / 58%)">
+                                                <textarea name="who_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sub-head"></div>
+                    <div class="col-12">
+                        <div class="group-input">
+                            <label for="why-why-chart">
+                                Is/Is Not Analysis
+                                <span class="text-primary" data-bs-toggle="modal"
+                                    data-bs-target="#is_is_not-instruction-modal"
+                                    style="font-size: 0.8rem; font-weight: 400;">
+                                    (Launch Instruction)
+                                </span>
+                            </label>
+                            <div class="why-why-chart">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>Will Be</th>
+                                            <th>Will Not Be</th>
+                                            <th>Rationale</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th style="background: rgb(222 220 220 / 58%)">What</th>
+                                            <td>
+                                                <textarea name="what_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="what_will_not_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="what_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background: rgb(222 220 220 / 58%)">Where</th>
+                                            <td>
+                                                <textarea name="where_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="where_will_not_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="where_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background: rgb(222 220 220 / 58%)">When</th>
+                                            <td>
+                                                <textarea name="when_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="when_will_not_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="when_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background:rgb(222 220 220 / 58%)">Coverage</th>
+                                            <td>
+                                                <textarea name="coverage_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="coverage_will_not_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="coverage_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background:rgb(222 220 220 / 58%)">Who</th>
+                                            <td>
+                                                <textarea name="who_will_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="who_will_not_be"></textarea>
+                                            </td>
+                                            <td>
+                                                <textarea name="who_rationable"></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                        
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                                   <a href="/rcms/qms-dashboard">
+                                    <button type="button" class="backButton">Back</button>
+                                </a>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a> </button>
+                        </div>
+                    </div>
+                </div>
+
+{{-- -------------QRM----------------- --}}
+<div id="CCForm11" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+            <div class="col-12 sub-head"></div>
+            <div class="col-12 mb-4">
+                <div class="group-input">
+                    <label for="agenda">
+                        Failure Mode and Effect Analysis
+                        <button type="button" name="agenda"
+                            onclick="addRiskAssessment('risk-assessment-risk-management')">+</button>
+                        <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                            (Launch Instruction)
+                        </span>
+                    </label>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" style="width: 200%"
+                            id="risk-assessment-risk-management">
+                            <thead>
+                                <tr>
+                                    <th>Row #</th>
+                                    <th>Risk Factor</th>
+                                    <th>Risk element </th>
+                                    <th>Probable cause of risk element</th>
+                                    <th>Existing Risk Controls</th>
+                                    <th>Initial Severity- H(3)/M(2)/L(1)</th>
+                                    <th>Initial Probability- H(3)/M(2)/L(1)</th>
+                                    <th>Initial Detectability- H(1)/M(2)/L(3)</th>
+                                    <th>Initial RPN</th>
+                                    <th>Risk Acceptance (Y/N)</th>
+                                    <th>Proposed Additional Risk control measure (Mandatory for Risk
+                                        elements having RPN>4)</th>
+                                    <th>Residual Severity- H(3)/M(2)/L(1)</th>
+                                    <th>Residual Probability- H(3)/M(2)/L(1)</th>
+                                    <th>Residual Detectability- H(1)/M(2)/L(3)</th>
+                                    <th>Residual RPN</th>
+                                    <th>Risk Acceptance (Y/N)</th>
+                                    <th>Mitigation proposal (Mention either CAPA reference number, IQ,
+                                        OQ or
+                                        PQ)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Investigation Summary">Conclusion</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="tiny" name="Conclusion" id="summernote-8">
+                </textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Investigation Summary">Identified Risk</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="tiny" name="Identified_Risk" id="summernote-8">
+                </textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Severity Rate">Severity Rate</label>
+                    <select name="severity_rate" id="analysisR"
+                        onchange='calculateRiskAnalysis(this)'>
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="1">Negligible</option>
+                        <option value="2">Moderate</option>
+                        <option value="3">Major</option>
+                        <option value="4">Fatal</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Occurrence">Occurrence</label>
+                    <select name="occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="5">Extremely Unlikely</option>
+                        <option value="4">Rare</option>
+                        <option value="3">Unlikely</option>
+                        <option value="2">Likely</option>
+                        <option value="1">Very Likely</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Detection">Detection</label>
+                    <select name="detection" id="analysisN" onchange='calculateRiskAnalysis(this)'>
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="5">Impossible</option>
+                        <option value="4">Rare</option>
+                        <option value="3">Unlikely</option>
+                        <option value="2">Likely</option>
+                        <option value="1">Very Likely</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="RPN">RPN</label>
+                    <div><small class="text-primary">Auto - Calculated</small></div>
+                    <input type="text" name="rpn" id="analysisRPN" value="" readonly>
+                </div>
+            </div>
+            <div class="col-12 sub-head"></div>
+            <div class="col-12 mb-4">
+                <div class="group-input">
+                    <label for="agenda">
+                       Risk Matrix
+                        <button type="button" name="agenda" id="risk_matrix_details">+</button>
+                        <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                            (Launch Instruction)
+                        </span>
+                    </label>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" style="width: 150%"
+                            id="risk_matrix_details_details">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No #</th>
+                                    <th>Risk Assessment</th>
+                                    <th>Review Schedule</th>
+                                    <th>Actual Reviewed On</th>
+                                    <th>Recorded By Sign and Date</th>
+                                    <th>Remarks</th>
+                                    <th>Action</th>
+
+
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                <td><input type="text" class="Document_Remarks" name="Risk_Assessment[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="Review_Schedule[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="Actual_Reviewed[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="Recorded_By[]"></td>
+                                <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
+                                <td><input type="text" class="Removebtn" name="Action[]"></td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        <script>
+            function calculateRiskAnalysis(selectElement) {
+                // Get the row containing the changed select element
+                let row = selectElement.closest('tr');
+
+                // Get values from select elements within the row
+                let R = parseFloat(document.getElementById('analysisR').value) || 0;
+                let P = parseFloat(document.getElementById('analysisP').value) || 0;
+                let N = parseFloat(document.getElementById('analysisN').value) || 0;
+
+                // Perform the calculation
+                let result = R * P * N;
+
+                // Update the result field within the row
+                document.getElementById('analysisRPN').value = result;
+            }
+        </script>
+        <div class="button-block">
+            <button type="submit" class="saveButton">Save</button>
+              <a href="/rcms/qms-dashboard">
+                    <button type="button" class="backButton">Back</button>
+                </a>
+            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+        </div>
+    </div>
+</div>
+
+
+                             <!-- capa -->
+                    <div id="CCForm10" class="inner-block cctabcontent">
+                        <div class="inner-block-content">
+                            <div class="row">
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
+                                        <textarea class="" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                 <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CAPA_Number"><b>CAPA No</b></label>
+                                        <input disabled type="text" name="capa_number">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Initiator Group"><b>Name of the Department</b><span
+                                            class="text-danger">*</span></label> 
+                                        <select name="department_capa" id="department_capa" >
+                                            <option value="">-- Select --</option>
+                                            <option value="CQA" @if (old('department_capa') == 'CQA') selected @endif>
+                                                Corporate Quality Assurance</option>
+                                            <option value="QAB" @if (old('department_capa') == 'QAB') selected @endif>Quality
+                                                Assurance Biopharma</option>
+                                            <option value="CQC" @if (old('department_capa') == 'CQC') selected @endif>Central
+                                                Quality Control</option>
+                                            <option value="MANU" @if (old('department_capa') == 'MANU') selected @endif>
+                                                Manufacturing</option>
+                                            <option value="PSG" @if (old('department_capa') == 'PSG') selected @endif>Plasma
+                                                Sourcing Group</option>
+                                            <option value="CS" @if (old('department_capa') == 'CS') selected @endif>Central
+                                                Stores</option>
+                                            <option value="ITG" @if (old('department_capa') == 'ITG') selected @endif>
+                                                Information Technology Group</option>
+                                            <option value="MM" @if (old('department_capa') == 'MM') selected @endif>
+                                                Molecular Medicine</option>
+                                            <option value="CL" @if (old('department_capa') == 'CL') selected @endif>Central
+                                                Laboratory</option>
+
+                                            <option value="TT" @if (old('department_capa') == 'TT') selected @endif>Tech
+                                                team</option>
+                                            <option value="QA" @if (old('department_capa') == 'QA') selected @endif>
+                                                Quality Assurance</option>
+                                            <option value="QM" @if (old('department_capa') == 'QM') selected @endif>
+                                                Quality Management</option>
+                                            <option value="IA" @if (old('department_capa') == 'IA') selected @endif>IT
+                                                Administration</option>
+                                            <option value="ACC" @if (old('department_capa') == 'ACC') selected @endif>
+                                                Accounting</option>
+                                            <option value="LOG" @if (old('department_capa') == 'LOG') selected @endif>
+                                                Logistics</option>
+                                            <option value="SM" @if (old('department_capa') == 'SM') selected @endif>
+                                                Senior Management</option>
+                                            <option value="BA" @if (old('department_capa') == 'BA') selected @endif>
+                                                Business Administration</option>
+                                        </select>
+                                        @error('department_capa')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                    <div class="group-input input-date">
+                                        <label for="Deviation category">Source of CAPA</label>
+                                        <select name="Deviation_category" id="Deviation_category">
+                                            <option value="0">-- Select -- </option>
+                                            <option value="Deviation">Deviation </option>
+                                            <option value="OS/OT">OS/OT</option>
+                                            <option value="Audit_Obs">Audit Observation </option>
+
+                                            <option value="Complaint">Complaint</option>
+                                            <option value="Product_Recall">Product Recall</option>
+                                            <option value="Returned_Goods">Returned Goods</option>
+                                            <option value="APQR">APQR</option>
+                                            <option value="Management_Review_Action_Plan">Management Review Action Plan</option>
+                                            <option value="Investigation">Investigation</option>
+                                            <option value="Internal_Review">Internal Review</option>
+                                            <option value="Quality_Risk_Assessment">Quality Risk Assessment</option>
+                                            <option value="Others">Others</option>
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                                
+                                 <div class="col-lg-6" id="others_block" >
+                                    <div class="group-input">
+                                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
+                                        <input type="text" id="others" name="others" class="others">
+                                    </div>
+                                </div> 
+
+                                <div class="col-lg-6" id="others_block" >
+                                    <div class="group-input">
+                                        <label for="others">Source Document</label>
+                                        <input type="text" id="source_doc" name="source_doc" class="source_doc">
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Description_of_Discrepancy">Description of Discrepancy </label>
+                                        <textarea class="tiny" name="Description_of_Discrepancy" id="summernote-8">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
+                                        <textarea class="" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Root_Cause">Root Cause</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Root_Cause" id="summernote-9">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <div class="group-input">
+                                        <label class="mt-4"  for="Root cause">Root Cause</label>
+                                        <textarea class="" name="Root_cause" id="Root_cause" cols="30" ></textarea>
+                                    </div>
+                                </div> --}}
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Immediate_Action_Take" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Corrective_Action_Details">Corrective Action Details</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Corrective_Action_Details" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preventive_Action_Details">Preventive Action Details</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Preventive_Action_Details" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Target Completion Date</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_reported_date')"required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Interim_Control">Interim Control(If Any)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Interim_Control" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                  <div class="sub-head">
+                                            CAPA Implementation
+                                            </div>
+                                             <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Corrective_Action_Taken">Corrective Action Taken</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Corrective_Action_Taken" id="summernote-10">
+                                    </textarea>
+                                    </div>
+
+                                </div> <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preventive_action_Taken">Preventive Action Taken</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Preventive_action_Taken" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="sub-head">
+                                            CAPA Closure
+                                            </div>
+                                     <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="CAPA_Closure_Comments">CAPA Closure Comments</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="" name="CAPA_Closure_Comments" id="summernote-10">
+                                    </textarea>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="CAPA_Closure_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="CAPA_Closure_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>
+                            
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+<a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                     <!-- investigation and capa -->
                     <div id="CCForm3" class="inner-block cctabcontent">
@@ -3343,7 +4328,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="QA_Feedbacks" id="summernote-14">
+                                        <textarea class="tiny" name="QA_Feedbacks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3384,13 +4369,13 @@ $users = DB::table('users')
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label  class="mt-4" for="Remarks">Closure Comments</label>
-                                        <textarea class="" name="Closure_Comments" id="summernote-15"></textarea>
+                                        <textarea class="tiny" name="Closure_Comments" id="summernote-15"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="Audit Comments">Disposition of Batch</label>
-                                        <textarea class="" name="Disposition_Batch" id="summernote-16"></textarea>
+                                        <textarea class="tiny" name="Disposition_Batch" id="summernote-16"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4465,6 +5450,12 @@ const saveButton = document.getElementById("ChangeSaveButton001");
             document.getElementById('initiator_group_code').value = selectedValue;
         });
     </script>
+     <script>
+        document.getElementById('department_capa').addEventListener('change', function() {
+            var selectedValue = this.value;
+            document.getElementById('department_capa_code').value = selectedValue;
+        });
+    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -4485,6 +5476,86 @@ const saveButton = document.getElementById("ChangeSaveButton001");
 
             
     </script>
+<script>
+    function addFishBone(top, bottom) {
+        let mainBlock = document.querySelector('.fishbone-ishikawa-diagram');
+        let topBlock = mainBlock.querySelector(top)
+        let bottomBlock = mainBlock.querySelector(bottom)
 
+        let topField = document.createElement('div')
+        topField.className = 'grid-field fields top-field'
+
+        let measurement = document.createElement('div')
+        let measurementInput = document.createElement('input')
+        measurementInput.setAttribute('type', 'text')
+        measurementInput.setAttribute('name', 'measurement[]')
+        measurement.append(measurementInput)
+        topField.append(measurement)
+
+        let materials = document.createElement('div')
+        let materialsInput = document.createElement('input')
+        materialsInput.setAttribute('type', 'text')
+        materialsInput.setAttribute('name', 'materials[]')
+        materials.append(materialsInput)
+        topField.append(materials)
+
+        let methods = document.createElement('div')
+        let methodsInput = document.createElement('input')
+        methodsInput.setAttribute('type', 'text')
+        methodsInput.setAttribute('name', 'methods[]')
+        methods.append(methodsInput)
+        topField.append(methods)
+
+        topBlock.prepend(topField)
+
+        let bottomField = document.createElement('div')
+        bottomField.className = 'grid-field fields bottom-field'
+
+        let environment = document.createElement('div')
+        let environmentInput = document.createElement('input')
+        environmentInput.setAttribute('type', 'text')
+        environmentInput.setAttribute('name', 'environment[]')
+        environment.append(environmentInput)
+        bottomField.append(environment)
+
+        let manpower = document.createElement('div')
+        let manpowerInput = document.createElement('input')
+        manpowerInput.setAttribute('type', 'text')
+        manpowerInput.setAttribute('name', 'manpower[]')
+        manpower.append(manpowerInput)
+        bottomField.append(manpower)
+
+        let machine = document.createElement('div')
+        let machineInput = document.createElement('input')
+        machineInput.setAttribute('type', 'text')
+        machineInput.setAttribute('name', 'machine[]')
+        machine.append(machineInput)
+        bottomField.append(machine)
+
+        bottomBlock.append(bottomField)
+    }
+
+    function deleteFishBone(top, bottom) {
+        let mainBlock = document.querySelector('.fishbone-ishikawa-diagram');
+        let topBlock = mainBlock.querySelector(top)
+        let bottomBlock = mainBlock.querySelector(bottom)
+        if (topBlock.firstChild) {
+            topBlock.removeChild(topBlock.firstChild);
+        }
+        if (bottomBlock.lastChild) {
+            bottomBlock.removeChild(bottomBlock.lastChild);
+        }
+    }
+</script>
+
+<script>
+    function addWhyField(con_class, name) {
+        let mainBlock = document.querySelector('.why-why-chart')
+        let container = mainBlock.querySelector(`.${con_class}`)
+        let textarea = document.createElement('textarea')
+        textarea.setAttribute('name', name);
+        container.append(textarea)
+    }
+</script>
 
 @endsection
