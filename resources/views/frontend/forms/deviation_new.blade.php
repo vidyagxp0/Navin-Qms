@@ -55,6 +55,32 @@ $users = DB::table('users')
         margin-top: 50px;
         gap: 20px;
     }
+
+    .launch_extension{
+        background: #4274da;
+    color: white;
+    border: 0;
+    padding: 4px 15px;
+    border: 1px solid #4274da;
+    transition: all 0.3s linear;
+    }
+    .main_head_modal{
+        display: flex;
+        flex-direction: column;
+    gap: 20px;
+    }
+    .modal-header{
+        background: gainsboro !important;
+    }
+    .main_head_modal li{
+        margin-bottom: 10px;
+    }
+    .extension_modal_signature{
+        display: block;
+    width: 100%;
+    border: 1px solid #837f7f;
+    border-radius: 5px;
+    }
     </style>
     <style>
         .calenderauditee {
@@ -1311,15 +1337,20 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 
-                                <button type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                <button style="  justify-content: center; width: 4rem; margin-left: auto;" type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
                                         Save
                                 </button>
-
-                                <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
+                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" id="ChangeNextButton" class="nextButton">Next</button>
+                                <button style=" justify-content: center; width: 4rem; margin-left: auto;"type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
+                                <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button" class="button  launch_extension" data-bs-toggle="modal" data-bs-target="#launch_extension">
+                                  Launch Extension
+                                </a>
+                                <a type="button" class="button  launch_extension" data-bs-toggle="modal" data-bs-target="#effectivenss_extension">
+                                    Launch Effectiveness Check
+                                  </a>
                             </div>
                         </div>
                     </div>
@@ -1568,11 +1599,13 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-<a href="/rcms/qms-dashboard">
+                                         <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
+
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
+                                
                             </div>
                         </div>
                     </div>
@@ -3303,7 +3336,7 @@ $users = DB::table('users')
                           <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="audit type">Investigation Approach </label>
-                                <select multiple name="Investigation_approach[]" id="audit_type">
+                                <select multiple name="audit_type[]" id="audit_type">
                                     {{-- <option value="">Enter Your Selection Here</option> --}}
                                     <option value="1">Why-Why Chart</option>
                                     <option value="2">Failure Mode and Efect Analysis</option>
@@ -4692,6 +4725,376 @@ $users = DB::table('users')
     </div>
     {{-- ==================================================================== --}}
 
+{{-- =================================launch extension============ --}}
+<div class="modal fade" id="launch_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="launch_extension_header"><h4 class="modal-title text-center">Launch Extension</h4></div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form  method="POST">
+                           <!-- Modal body -->
+                <div class="modal-body">
+                <div class="main_head_modal">
+                    <ul>
+                        <li>
+                  <div> <a href="" data-bs-toggle="modal" data-bs-target="#qrm_extension"> QRM</a></div>
+                  </li>
+                  <li>
+                  <div> <a href=""data-bs-toggle="modal" data-bs-target="#investigation_extension"> Investigation</a></div>
+                  </li>
+                  <li>
+                  <div> <a href="" data-bs-toggle="modal" data-bs-target="#capa_extension"> CAPA</a></div>
+                  </li>
+               <li>
+                <div> <a href="" data-bs-toggle="modal" data-bs-target="#deviation_extension"> Deviation</a></div>
+               </li>
+                    </ul>
+                   </div>
+                </div>
+                 <div class="modal-footer">
+                    {{-- <button type="submit">
+                        Submit
+                    </button> --}}
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- =================================effectiveness extension============ --}}
+<div class="modal fade" id="effectivenss_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="launch_extension_header"><h4 class="modal-title text-center">Launch Effectiveness Check</h4></div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form  method="POST">
+                           <!-- Modal body -->
+                <div class="modal-body">
+                <div class="main_head_modal">
+                    <ul>
+                        <li>
+                            <div> <a href="" data-bs-toggle="modal" data-bs-target="#deviation_extension"> Deviation Effectiveness Check</a></div>
+                           </li>
+                      
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal" data-bs-target="#capa_extension"> CAPA Effectivenss Check</a></div>
+                                </li>
+                                <li>        
+                  <div> <a href="" data-bs-toggle="modal" data-bs-target="#qrm_extension"> QRM Effectiveness Check</a></div>
+                  </li>
+                  <li>
+                  <div> <a href=""data-bs-toggle="modal" data-bs-target="#investigation_extension"> Investigation Effectiveness Check</a></div>
+                  </li>
+                 
+                    </ul>
+                   </div>
+                </div>
+                 <div class="modal-footer">
+                    {{-- <button type="submit">
+                        Submit
+                    </button> --}}
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===================================================qrm================== --}}
+<div class="modal fade" id="qrm_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form >
+               
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. 
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date(QRM)</label>
+                        <input class="extension_modal_signature" type="date" name="proposed_due_date" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (QRM)<span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="extension_justification" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Quality Risk Management Extension Completed By </label>
+                        <input class="extension_modal_signature" type="text" name="quality_risk_management_by" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Quality Risk Management Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="quality_risk_management_on" >
+                    </div>
+                   
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================invesigation=========== --}}
+<div class="modal fade" id="investigation_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form >
+               
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. 
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date(Investigation)</label>
+                        <input class="extension_modal_signature" type="date" name="proposed_due_investigation" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (Investigation)<span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="investigation_justification" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Extension Completed By </label>
+                        <input class="extension_modal_signature" type="text" name="investigation_by" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="investigation_on" >
+                    </div>
+                   
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================CAPA=========== --}}
+<div class="modal fade" id="capa_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form >
+               
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. 
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date (CAPA)</label>
+                        <input class="extension_modal_signature" type="date" name="proposed_due_capa" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (CAPA)<span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="capa_justification" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Extension Completed By </label>
+                        <input class="extension_modal_signature" type="text" name="capa_by" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="capa_on" >
+                    </div>
+                   
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================deviation=========== --}}
+<div class="modal fade" id="deviation_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form >
+               
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. 
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date (Deviation)</label>
+                        <input class="extension_modal_signature" type="date" name="deviation_due_capa" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (Deviation)<span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="deviation_justification" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Extension Completed By </label>
+                        <input class="extension_modal_signature" type="text" name="deviation_by" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="deviation_on" >
+                    </div>
+                   
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================effectiveness=========== --}}
+<div class="modal fade" id="effectivenss_check">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"> 
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form >
+               
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. 
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date (Deviation)</label>
+                        <input class="extension_modal_signature" type="date" name="deviation_due_capa" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (Deviation)<span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="deviation_justification" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Extension Completed By </label>
+                        <input class="extension_modal_signature" type="text" name="deviation_by" >
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="deviation_on" >
+                    </div>
+                   
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    {{-- ==================================================================== --}}
 
 <!-- -----------------------------------------------------------modal body---------------------- -->
     <div class="modal" id="myModal">
@@ -5261,7 +5664,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
 
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type ,#Investigation_approach'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type'
         });
 
         function openCity(evt, cityName) {
