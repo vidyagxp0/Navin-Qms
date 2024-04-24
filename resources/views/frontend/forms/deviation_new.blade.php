@@ -388,18 +388,20 @@ $users = DB::table('users')
     
 </script>
     
-    {{-- <script>
+     <script>
         $(document).ready(function() {
-            $('#ProductDetails').click(function(e) {
+            $('#investigation_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
                     
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                                                    '<td><input type="text" name="Product_Name[]"></td>'+
-                                                    '<td><input type="text" name=" Batch_No[]"></td>'+
-                                                    '<td><input type="text" name="Remarks[]"></td>'+
+                        '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+           
+                        '<td><input type="text" class="numberDetail" name="Responsibility[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
+                        '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
@@ -413,19 +415,50 @@ $users = DB::table('users')
                     return html;
                 }
 
-                var tableBody = $('#ProductDetails_details tbody');
+                var tableBody = $('#investigation_Details_Details tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });
-        
-        $(document).on('click', '.remove-file', function() {
-        $(this).closest('div').remove();
-        console.log('removing')
-    })
-    </script> --}}
-    
+        });  
+    </script> 
+    <script>
+        $(document).ready(function() {
+            $('#root_cause_Details').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
+                    
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
+                        '<td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>'+
+                        '<td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="ifother[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="Probability[]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="remarks[]"></td>'+
+                        '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
+
+                        '</tr>';
+
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
+
+                    html += '</select></td>' + 
+                  
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#Root_cause_Details_Details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
+        });  
+    </script> 
+   
     <div class="form-field-head">
 
         <div class="division-bar">
@@ -3187,7 +3220,7 @@ $users = DB::table('users')
                             
                             
                             <div class="col-lg-12">
-                                <div class="group-input" id="documentsRowname" >
+                                <div class="group-input" id="documentsRowna">
                                     <label for="audit-agenda-grid">
                                         Investigation team and responsibilities
                                         <button type="button" name="audit-agenda-grid"
@@ -3218,7 +3251,7 @@ $users = DB::table('users')
                                     <td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>
                                     <td><input type="text" class="numberDetail" name="Responsibility[]"></td>
                                     <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
-                                    <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                    <td><input type="text" class="Action" name="Action[]"></td>
 
                    
                                             </tbody>
@@ -3278,30 +3311,11 @@ $users = DB::table('users')
                                         </thead>
                                         <tbody>
                                 <td><input disabled type="text" name="serial[]" value="1"></td>
-                                <td>
-                                   
-                                <select name="Root_Cause_Category[]" id="">
-                                    <option value="">-- Select --</option>
-
-                                    <option value="">name   </option>
-                                   
-
-                                   
-                                </select>
-                                </td>
-                                <td> <select name="Root_Cause_Sub-Category[]" id="">
-                                    <option value="">-- Select --</option>
-
-                                    <option value="">name</option>
-                                   
-
-                                   
-                                </select></td>
+                                <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>
+                                <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>
                                 <td><input type="text" class="Document_Remarks" name="ifother[]"></td>
-
                                 <td><input type="text" class="Document_Remarks" name="Probability[]"></td>
                                 <td><input type="text" class="Document_Remarks" name="remarks[]"></td>
-
                                 <td><input type="text" class="Removebtn" name="Action[]"></td>
 
                
