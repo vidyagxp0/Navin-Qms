@@ -1450,16 +1450,20 @@ class DeviationController extends Controller
         if ($request->form_name == 'general-open') 
         {
             $validator = Validator::make($request->all(), [
+                'Initiator_Group' => 'required',
+                'short_description' => 'required',
                 'short_description_required' => 'required|in:Recurring,Non_Recurring',
                 'nature_of_repeat' => 'required_if:short_description_required,Recurring',
                 'Deviation_date' => 'required',
                 'deviation_time' => 'required',
+                'Deviation_reported_date' => 'required',
                 'Facility' => [
-                    'required',
-                    'array',
-                    function($attribute, $value, $fail) {
-                        if (count($value) === 1 && reset($value) === null) {
-                            return $fail('Facility must contain some values.');
+                    function ($attribute, $value, $fail) use ($request) {
+                        $deviation_date = Carbon::parse($request->Deviation_date);
+                        $reported_date = Carbon::parse($request->Deviation_reported_date);
+                        $diff_in_days = $reported_date->diffInDays($deviation_date);
+                        if ($diff_in_days !== 0) {
+                            $fail('The Delay Justification is required!');
                         }
                     },
                 ],
@@ -1472,7 +1476,6 @@ class DeviationController extends Controller
                         }
                     },
                 ],
-                'Deviation_reported_date' => 'required',
                 'Facility_Equipment' => 'required|in:yes,no',
                 'facility_name' => [
                     function ($attribute, $value, $fail) use ($request) {
@@ -1503,7 +1506,6 @@ class DeviationController extends Controller
                         }
                     },
                 ],
-                'Product_Batch' => 'required',
                 'Description_Deviation' => [
                     'required',
                     'array',
@@ -1556,15 +1558,6 @@ class DeviationController extends Controller
                 'Justification_for_categorization' => 'required',
                 'Investigation_required' => 'required|in:yes,no|not_in:0',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
-                'Customer_notification' => 'required|not_in:0',
-                'customers' => [
-                    'required_if:Customer_notification,yes', 
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($value === '0' && $request->Customer_notification == 'yes') {
-                            $fail('The customers field must not be empty when Customer Notification is set to yes.');
-                        }
-                    },
-                ],
                 'QAInitialRemark' => 'required'
             ]);
 
@@ -1668,7 +1661,7 @@ class DeviationController extends Controller
         if ($request->related_records) {
             $deviation->Related_Records1 =  implode(',', $request->related_records);
         }
-        $deviation->Facility = implode(',', $request->Facility);  
+        $deviation->Facility = $request->Facility;  
 
 
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);

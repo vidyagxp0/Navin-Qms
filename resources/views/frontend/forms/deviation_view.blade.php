@@ -913,6 +913,9 @@ wow = new WOW(
 
                                         </select>
                                     </div>
+                                    @error('Initiator_Group')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
@@ -928,14 +931,17 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
                                             class="text-danger"> *</span></label><span id="rchars">255</span>characters remaining
-                                    <textarea name="short_description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
-                                 </div>
+                                        <textarea name="short_description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
+                                    </div>
+                                    @error('short_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>  
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Short Description required">Repeat Deviation? <span
                                             class="text-danger">*</span></label>
-                                        <select name="short_description_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="short_description_required" onchange="checkRecurring(this)" value="{{ $data->short_description_required }}">
+                                        <select name="short_description_required" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="short_description_required" onchange="checkRecurring(this)" value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
                                             <option value="Recurring" @if ($data->short_description_required == 'Recurring' || old('short_description_required') == 'Recurring') selected @endif>Yes</option>
                                             <option value="Non_Recurring" @if ($data->short_description_required == 'Non_Recurring' || old('short_description_required') == 'Non_Recurring') selected @endif>No</option>
@@ -1025,46 +1031,14 @@ wow = new WOW(
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time delayJustificationBlock">
                                         <label for="deviation_time">Delay Justification</label>
-                                        <textarea  id="Delay_Justification" name="Delay_Justification[]"></textarea>
+                                        <textarea  id="Delay_Justification" name="Delay_Justification"></textarea>
                                     </div>
                                     {{-- @error('Deviation_date')
                                         <div class="text-danger">{{  $message  }}</div>
                                     @enderror --}}
                                 </div>
 
-                                <script>
-                                    $('.delayJustificationBlock').hide();
-
-                                    function calculateDateDifference() {
-                                        let deviationDate = $('input[name=Deviation_date]').val();
-                                        let reportedDate = $('input[name=Deviation_reported_date]').val();
-
-                                        if (!deviationDate || !reportedDate) {
-                                            console.error('Deviation date or reported date is missing.');
-                                            return;
-                                        }
-
-                                        let deviationDateMoment = moment(deviationDate);
-                                        let reportedDateMoment = moment(reportedDate);
-
-                                        let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
-
-                                        if (diffInDays > 0) {
-                                            $('.delayJustificationBlock').show();
-                                        } else {
-                                            $('.delayJustificationBlock').hide();
-                                        }
-
-                                    }
-
-                                    $('input[name=Deviation_date]').on('change', function() {
-                                        calculateDateDifference();  
-                                    })
-
-                                    $('input[name=Deviation_reported_date]').on('change', function() {
-                                        calculateDateDifference();  
-                                    })
-                                </script>
+                                
                              
                                 <script>
                                     flatpickr("#deviation_time", {
@@ -1144,20 +1118,10 @@ wow = new WOW(
                                     <div class="group-input">
                                         @php
                                             $users = DB::table('users')->get();
-                                            // $selectedFacilities = explode(',', $data->Facility); // Convert to array if it's not already
-                                            // $inputFacilities = [];
-                                            // if ( old('Facility') ) {
-                                            //     $inputFacilities = explode(',', old('Facility'));
-                                            // 
                                         @endphp
 
                                         <label for="If Other">Deviation Observed By<span class="text-danger">*</span></label>
-                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name" value="{{ $data->Facility }}">
-                                        {{-- <select multiple name="Facility[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
-                                            @foreach ($users as $user)
-                                                <option {{ (in_array($user->id, $selectedFacilities) || in_array($user->id, $inputFacilities))  ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                           
-                                        </select> --}}
+                                        <input type="text" name="Facility" placeholder="Select Facility Name" value="{{ $data->Facility }}">
                                         @error('Facility')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -1176,6 +1140,40 @@ wow = new WOW(
                                 </div>
                                 
                              
+                                <script>
+                                    $('.delayJustificationBlock').hide();
+
+                                    function calculateDateDifference() {
+                                        let deviationDate = $('input[name=Deviation_date]').val();
+                                        let reportedDate = $('input[name=Deviation_reported_date]').val();
+
+                                        if (!deviationDate || !reportedDate) {
+                                            console.error('Deviation date or reported date is missing.');
+                                            return;
+                                        }
+
+                                        let deviationDateMoment = moment(deviationDate);
+                                        let reportedDateMoment = moment(reportedDate);
+
+                                        let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
+
+                                        if (diffInDays > 0) {
+                                            $('.delayJustificationBlock').show();
+                                        } else {
+                                            $('.delayJustificationBlock').hide();
+                                        }
+
+                                    }
+
+                                    $('input[name=Deviation_date]').on('change', function() {
+                                        calculateDateDifference();  
+                                    })
+
+                                    $('input[name=Deviation_reported_date]').on('change', function() {
+                                        calculateDateDifference();  
+                                    })
+                                </script>
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To <span
@@ -1526,9 +1524,6 @@ wow = new WOW(
                                                             <th style="width: 16%"> Stage</th>
                                                             <th style="width: 16%">Batch No</th>
                                                             <th style="width: 8%">Action</th>
-    
-                                                           
-                                                                                                             
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1572,14 +1567,14 @@ wow = new WOW(
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
-                                        <textarea class="summernote"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
+                                        <textarea class="tiny"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
+                                        <textarea class="tiny" name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
                                     </div>
                                     @error('Description_Deviation')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1589,21 +1584,21 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Production feedback">Production Feedback <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
+                                        <textarea class="tiny" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}
                                     </textarea>
                                     </div>
                                 </div> -->
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Immediate Action (if any)</label>
-                                        <textarea class="summernote" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
+                                        <textarea class="tiny" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any) <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-2">{{ $data->Immediate_Action }}</textarea>
+                                        <textarea class="tiny" name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-2">{{ $data->Immediate_Action }}</textarea>
                                     </div>
                                     @error('Immediate_Action')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1613,14 +1608,14 @@ wow = new WOW(
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
-                                        <textarea class="summernote" name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
+                                        <textarea class="tiny" name="Preliminary_Impact[]" value="{{$data->Preliminary_Impact}}"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation <span class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
+                                        <textarea class="tiny" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
                                     </div>
                                     @error('Preliminary_Impact')
                                         <div class="text-danger">{{ $message }}</div>
@@ -1663,13 +1658,13 @@ wow = new WOW(
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks <span class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                <textarea class="summernote" name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea class="tiny" name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
                                             </div>
                                             @else
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                <textarea readonly class="summernote" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea readonly class="tiny" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                             </div>
                                         @endif 
                                         @error('HOD_Remarks')
@@ -1822,7 +1817,7 @@ wow = new WOW(
                                                 <div class="group-input">
                                                     <label for="Justification for  categorization">Justification for categorization <span class="text-danger">*</span></label>
                                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                    <textarea class="summernote Justification_for_categorization" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5" required>{{ $data->Justification_for_categorization }}</textarea>
+                                                    <textarea class="tiny Justification_for_categorization" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5" required>{{ $data->Justification_for_categorization }}</textarea>
                                                 </div>
                                             </div>
                                         @else
@@ -1830,7 +1825,7 @@ wow = new WOW(
                                                 <div class="group-input">
                                                     <label for="Justification for  categorization">Justification for categorization</label>
                                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                                    <textarea class="summernote Justification_for_categorization" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
+                                                    <textarea class="tiny Justification_for_categorization" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
                                                 </div>
                                             </div>
                                         @endif 
@@ -2057,7 +2052,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Justification for  categorization">Justification for  categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea disabled class="summernote" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
+                                        <textarea disabled class="tiny" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
                                     </div>
                                     @error('Justification_for_categorization')
                                         <div class="text-danger">{{ $message }}</div>
@@ -2193,7 +2188,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea readonly class="summernote" name="QAInitialRemark"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
+                                        <textarea readonly class="tiny" name="QAInitialRemark"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -2442,14 +2437,14 @@ wow = new WOW(
                                 <div class="group-input">
                                     <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                    <textarea class="tiny" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Production feedback">Production Feedback  <span id="asteriskInvi22" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
+                                    <textarea class="tiny" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
                                 </div>
                             </div>
                             @else
@@ -2457,14 +2452,14 @@ wow = new WOW(
                                 <div class="group-input">
                                     <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskInvi12" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea disabled class="summernote" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                    <textarea disabled class="tiny" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Production feedback">Production Feedback  <span id="asteriskInvi22" style="display: none" class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea disabled class="summernote" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
+                                    <textarea disabled class="tiny" name="Production_feedback" id="summernote-18">{{ $data1->Production_feedback }}</textarea>
                                 </div>
                             </div>
                             @endif
@@ -2678,14 +2673,14 @@ wow = new WOW(
                             <div class="group-input">
                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
+                                <textarea class="tiny" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Feedback">Warehouse Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
+                                <textarea class="tiny" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
                             </div>
                         </div>
                         </div>
@@ -2694,14 +2689,14 @@ wow = new WOW(
                             <div class="group-input">
                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea disabled class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
+                                <textarea disabled class="tiny" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Feedback">Warehouse Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea disabled  class="summernote" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
+                                <textarea disabled  class="tiny" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
                             </div>
                         </div>
                         @endif
@@ -3465,13 +3460,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety) <span id="asteriskEH1" style="display: {{ $data1->Environment_Health_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Environment_Health_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Health_Safety_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Environment_Health_Safety_person) readonly @endif id="summernote-33">{{$data1->Health_Safety_assessment}}</textarea>
+                                        <textarea @if ($data1->Environment_Health_review == 'yes' && $data->stage == 4) required @endif class="tiny" name="Health_Safety_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Environment_Health_Safety_person) readonly @endif id="summernote-33">{{$data1->Health_Safety_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Feedback">Environment, Health & Safety  Feedback <span id="asteriskEH2" style="display: {{ $data1->Environment_Health_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Environment_Health_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Health_Safety_feedback" id="summernote-34" @if ($data->stage==3  || Auth::user()->id != $data1->Environment_Health_Safety_person) readonly @endif>{{$data1->Health_Safety_feedback}}</textarea>
+                                        <textarea @if ($data1->Environment_Health_review == 'yes' && $data->stage == 4) required @endif class="tiny" name="Health_Safety_feedback" id="summernote-34" @if ($data->stage==3  || Auth::user()->id != $data1->Environment_Health_Safety_person) readonly @endif>{{$data1->Health_Safety_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -3918,14 +3913,14 @@ wow = new WOW(
                             <div class="group-input">
                                 <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Quality_Control_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
+                                <textarea class="tiny" name="Quality_Control_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Quality Control Feedback">Quality Control Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="Quality_Control_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-22">{{ $data1->Quality_Control_feedback }}</textarea>
+                                <textarea class="tiny" name="Quality_Control_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-22">{{ $data1->Quality_Control_feedback }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -4004,14 +3999,14 @@ wow = new WOW(
                             <div class="group-input">
                                 <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="QualityAssurance_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
+                                <textarea class="tiny" name="QualityAssurance_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                             </div>
                         </div>   
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="summernote" name="QualityAssurance_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea>
+                                <textarea class="tiny" name="QualityAssurance_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -4092,14 +4087,14 @@ wow = new WOW(
                                 <div class="group-input">
                                     <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Engineering_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-25" >{{$data1->Engineering_assessment}}</textarea>
+                                    <textarea class="tiny" name="Engineering_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-25" >{{$data1->Engineering_assessment}}</textarea>
                                 </div>
                             </div>  
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Engineering Feedback">Engineering  Feedback</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="summernote" name="Engineering_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-26" >{{$data1->Engineering_feedback}}</textarea>
+                                    <textarea class="tiny" name="Engineering_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-26" >{{$data1->Engineering_feedback}}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -4182,13 +4177,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development Laboratory)</label>
-                                        <textarea class="summernote" name="Analytical_Development_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-27">{{$data1->Analytical_Development_assessment}}</textarea>
+                                        <textarea class="tiny" name="Analytical_Development_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-27">{{$data1->Analytical_Development_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development Laboratory Feedback</label>
-                                        <textarea class="summernote" name="Analytical_Development_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-28">{{$data1->Analytical_Development_feedback}}</textarea>
+                                        <textarea class="tiny" name="Analytical_Development_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-28">{{$data1->Analytical_Development_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4270,13 +4265,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
-                                        <textarea class="summernote" name="Kilo_Lab_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-29">{{$data1->Kilo_Lab_assessment}}</textarea>
+                                        <textarea class="tiny" name="Kilo_Lab_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-29">{{$data1->Kilo_Lab_assessment}}</textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
-                                        <textarea class="summernote" name="Kilo_Lab_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-30">{{$data1->Kilo_Lab_feedback}}</textarea>
+                                        <textarea class="tiny" name="Kilo_Lab_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-30">{{$data1->Kilo_Lab_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4359,13 +4354,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer / Design)</label>
-                                        <textarea class="summernote" name="Technology_transfer_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-31">{{$data1->Technology_transfer_assessment}}</textarea>
+                                        <textarea class="tiny" name="Technology_transfer_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-31">{{$data1->Technology_transfer_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design  Feedback</label>
-                                        <textarea class="summernote" name="Technology_transfer_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-32">{{$data1->Technology_transfer_feedback}}</textarea>
+                                        <textarea class="tiny" name="Technology_transfer_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-32">{{$data1->Technology_transfer_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4448,13 +4443,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health & Safety)</label>
-                                        <textarea class="summernote" name="Health_Safety_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-33">{{$data1->Health_Safety_assessment}}</textarea>
+                                        <textarea class="tiny" name="Health_Safety_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-33">{{$data1->Health_Safety_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Feedback">Environment, Health & Safety  Feedback</label>
-                                        <textarea class="summernote" name="Health_Safety_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-34">{{$data1->Health_Safety_feedback}}</textarea>
+                                        <textarea class="tiny" name="Health_Safety_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-34">{{$data1->Health_Safety_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -4537,13 +4532,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
-                                        <textarea class="summernote" name="Human_Resource_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-35">{{$data1->Human_Resource_assessment}}</textarea>
+                                        <textarea class="tiny" name="Human_Resource_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-35">{{$data1->Human_Resource_assessment}}</textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
-                                        <textarea class="summernote" name="Human_Resource_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-36">{{$data1->Human_Resource_feedback}}</textarea>
+                                        <textarea class="tiny" name="Human_Resource_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-36">{{$data1->Human_Resource_feedback}}</textarea>
                                     </div>
                                 </div>
                                 
@@ -4629,13 +4624,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology)</label>
-                                        <textarea class="summernote" name="Information_Technology_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-37">{{$data1->Information_Technology_assessment}}</textarea>
+                                        <textarea class="tiny" name="Information_Technology_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-37">{{$data1->Information_Technology_assessment}}</textarea>
                                     </div>
                                 </div>  
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback">Information Technology Feedback</label>
-                                        <textarea class="summernote" name="Information_Technology_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-38">{{$data1->Information_Technology_feedback}}</textarea>
+                                        <textarea class="tiny" name="Information_Technology_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-38">{{$data1->Information_Technology_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -4715,13 +4710,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By  Project management )</label>
-                                        <textarea class="summernote" name="Project_management_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-39">{{$data1->Project_management_assessment}}</textarea>
+                                        <textarea class="tiny" name="Project_management_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-39">{{$data1->Project_management_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Project management Feedback"> Project management  Feedback</label>
-                                        <textarea class="summernote" name="Project_management_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-40">{{$data1->Project_management_feedback}}</textarea>
+                                        <textarea class="tiny" name="Project_management_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-40">{{$data1->Project_management_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -4843,13 +4838,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By  Other's 1) <span id="" style="display: {{ $data1->Other1_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Other1_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-41">{{$data1->Other1_assessment}}</textarea>
+                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="tiny" name="Other1_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-41">{{$data1->Other1_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback1"> Other's 1 Feedback  <span id="" style="display: {{ $data1->Other1_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="summernote" name="Other1_feedback" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-42">{{$data1->Other1_feedback}}</textarea>
+                                        <textarea @if ($data1->Other1_review == 'yes' && $data->stage == 4) required @endif class="tiny" name="Other1_feedback" @if ($data->stage==3  || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-42">{{$data1->Other1_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -5025,13 +5020,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By  Other's 2) <span id="" style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other2_person) readonly @endif class="summernote" name="Other2_Assessment" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-43">{{$data1->Other2_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other2_person) readonly @endif class="tiny" name="Other2_Assessment" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-43">{{$data1->Other2_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback2"> Other's 2 Feedback <span id="" style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other2_person) readonly @endif class="summernote" name="Other2_feedback" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-44">{{$data1->Other2_feedback}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other2_person) readonly @endif class="tiny" name="Other2_feedback" @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-44">{{$data1->Other2_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5179,13 +5174,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By  Other's 3) <span id="" style="display: {{ $data1->Other3_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_person) readonly @endif class="summernote" name="Other3_Assessment" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_person) readonly @endif class="tiny" name="Other3_Assessment" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback3"> Other's 3 Feedback <span id="" style="display: {{ $data1->Other3_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_person) readonly @endif class="summernote" name="Other3_feedback" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other3_person) readonly @endif class="tiny" name="Other3_feedback" @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5330,13 +5325,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By  Other's 4) <span id="" style="display: {{ $data1->Other4_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_person) readonly @endif class="summernote" name="Other4_Assessment" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_person) readonly @endif class="tiny" name="Other4_Assessment" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback4"> Other's 4 Feedback <span id="" style="display: {{ $data1->Other4_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_person) readonly @endif class="summernote" name="Other4_feedback" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-48">{{$data1->Other4_feedback}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other4_person) readonly @endif class="tiny" name="Other4_feedback" @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-48">{{$data1->Other4_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5484,13 +5479,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By  Other's 5) <span id="" style="display: {{ $data1->Other5_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="summernote" name="Other5_Assessment"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="tiny" name="Other5_Assessment"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback <span id="" style="display: {{ $data1->Other5_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="summernote" name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-50">{{$data1->Other5_feedback}}</textarea>
+                                        <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="tiny" name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-50">{{$data1->Other5_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -5608,13 +5603,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By  Other's 1)</label>
-                                        <textarea disabled class="summernote" name="Other1_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-41">{{$data1->Other1_assessment}}</textarea>
+                                        <textarea disabled class="tiny" name="Other1_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-41">{{$data1->Other1_assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback1"> Other's 1 Feedback</label>
-                                        <textarea disabled class="summernote" name="Other1_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-42">{{$data1->Other1_feedback}}</textarea>
+                                        <textarea disabled class="tiny" name="Other1_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-42">{{$data1->Other1_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5738,7 +5733,7 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Feedback2"> Other's 2 Feedback</label>
-                                        <textarea disabled class="summernote" name="Other2_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-44">{{$data1->Other2_feedback}}</textarea>
+                                        <textarea disabled class="tiny" name="Other2_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-44">{{$data1->Other2_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5856,13 +5851,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By  Other's 3)</label>
-                                        <textarea disabled class="summernote" name="Other3_Assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
+                                        <textarea disabled class="tiny" name="Other3_Assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-45">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback3"> Other's 3 Feedback</label>
-                                        <textarea disabled class="summernote" name="Other3_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
+                                        <textarea disabled class="tiny" name="Other3_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-46">{{$data1->Other3_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5977,13 +5972,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By  Other's 4)</label>
-                                        <textarea disabled class="summernote" name="Other4_Assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
+                                        <textarea disabled class="tiny" name="Other4_Assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-47">{{$data1->Other4_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="feedback4"> Other's 4 Feedback</label>
-                                        <textarea disabled class="summernote" name="Other4_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-48">{{$data1->Other4_feedback}}</textarea>
+                                        <textarea disabled class="tiny" name="Other4_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-48">{{$data1->Other4_feedback}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -6101,13 +6096,13 @@ wow = new WOW(
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By  Other's 5)</label>
-                                        <textarea disabled class="summernote" name="Other5_Assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
+                                        <textarea disabled class="tiny" name="Other5_Assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-49">{{$data1->Other5_Assessment}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback</label>
-                                        <textarea disabled class="summernote" name="Other5_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-50">{{$data1->Other5_feedback}}</textarea>
+                                        <textarea disabled class="tiny" name="Other5_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-50">{{$data1->Other5_feedback}}</textarea>
                                     </div>
                                 </div>
                                
@@ -7105,7 +7100,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
+                                        <textarea class="tiny" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
                                     @error('Investigation_Summary')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7121,7 +7116,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
+                                        <textarea class="tiny" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
                                     @error('Impact_assessment')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7137,7 +7132,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Root_cause" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
+                                        <textarea class="tiny" name="Root_cause" {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
                                     @error('Root_cause')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7228,7 +7223,7 @@ wow = new WOW(
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="summernote" name="Post_Categorization"></textarea>
+                                        <textarea class="tiny" name="Post_Categorization"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
@@ -7252,14 +7247,14 @@ wow = new WOW(
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
+                                        <textarea class="tiny" name="Investigation_Of_Review"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 5 ? 'inline' : 'none' }}">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
+                                        <textarea class="tiny" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>
                                     @error('Post_Categorization')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7348,7 +7343,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea readonly class="summernote" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
+                                        <textarea readonly class="tiny" name="Investigation_Summary"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-8">{{ $data->Investigation_Summary }}</textarea>
                                     </div>
                                     @error('Investigation_Summary')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7364,7 +7359,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea readonly class="summernote" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
+                                        <textarea readonly class="tiny" name="Impact_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-9">{{ $data->Impact_assessment }}</textarea>
                                     </div>
                                     @error('Impact_assessment')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7380,7 +7375,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea readonly class="summernote" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
+                                        <textarea readonly class="tiny" name="Root_cause"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
                                     @error('Root_cause')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7430,13 +7425,13 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea readonly class="summernote" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
+                                        <textarea readonly class="tiny" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="summernote" name="Post_Categorization"></textarea>
+                                        <textarea class="tiny" name="Post_Categorization"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
@@ -7460,14 +7455,14 @@ wow = new WOW(
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="summernote" name="Investigation_Of_Review"></textarea>
+                                        <textarea class="tiny" name="Investigation_Of_Review"></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea readonly class="summernote" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
+                                        <textarea readonly class="tiny" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
                                     </div>
                                     @error('Post_Categorization')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7571,13 +7566,13 @@ wow = new WOW(
                                         <div class="group-input">
                                             <label for="QA Feedbacks">QA Feedbacks <span class="text-danger">*</span></label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                            <textarea class="summernote" name="QA_Feedbacks"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-14" required>{{ $data->QA_Feedbacks }}</textarea>
+                                            <textarea class="tiny" name="QA_Feedbacks"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-14" required>{{ $data->QA_Feedbacks }}</textarea>
                                         </div>
                                     @else
                                         <div class="group-input">
                                             <label for="QA Feedbacks">QA Feedbacks</label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                            <textarea readonly class="summernote" name="QA_Feedbacks"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-14">{{ $data->QA_Feedbacks }}</textarea>
+                                            <textarea readonly class="tiny" name="QA_Feedbacks"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-14">{{ $data->QA_Feedbacks }}</textarea>
                                         </div>
                                     @endif
                                     @error('QA_Feedbacks')
@@ -7653,7 +7648,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Closure Comments">Closure Comments  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea @if ($data->stage != 6) disabled @endif required class="summernote" name="Closure_Comments"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-15">{{ $data->Closure_Comments }}</textarea>
+                                        <textarea @if ($data->stage != 6) disabled @endif required class="tiny" name="Closure_Comments"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-15">{{ $data->Closure_Comments }}</textarea>
                                     </div>
                                     @error('Closure_Comments')
                                         <div class="text-danger">{{ $message }}</div>
@@ -7663,7 +7658,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Disposition of Batch">Disposition of Batch  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea @if ($data->stage != 6) readonly @endif required class="summernote" name="Disposition_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
+                                        <textarea @if ($data->stage != 6) readonly @endif required class="tiny" name="Disposition_Batch"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
                                     </div>
                                     @error('Disposition_Batch')
                                         <div class="text-danger">{{ $message }}</div>

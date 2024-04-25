@@ -63,6 +63,9 @@
     justify-content: center;
     gap: 5px;
 }
+    div.tox-statusbar__right-container > span > a{
+        display: none;
+    }
     </style>
 
 
