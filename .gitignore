@@ -2,3 +2,5 @@
 ./vendor
 ./public
 ./bootstrap
+/vendor/*
+
