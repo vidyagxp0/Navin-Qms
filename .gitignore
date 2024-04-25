@@ -4,3 +4,4 @@
 ./bootstrap
 /vendor/*
 
+.env
