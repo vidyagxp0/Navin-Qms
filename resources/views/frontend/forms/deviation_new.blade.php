@@ -449,12 +449,15 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm9')">Investigation</button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm11')">QRM</button>
-                <button class="cctablinks " onclick="openCity(event, 'CCForm10')">CAPA</button>
+                <button class="cctablinks " id="Investigation_button" style="display: none" onclick="openCity(event, 'CCForm9')">Investigation</button>
+                <button id="QRM_button" class="cctablinks" style="display: none" onclick="openCity(event, 'CCForm11')">QRM</button>
+
+                 <button id="CAPA_button" class="cctablinks" style="display: none" onclick="openCity(event, 'CCForm10')">CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension and Effectiveness Check</button>
+
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
 
@@ -1260,52 +1263,7 @@ $users = DB::table('users')
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                            {{-- <div class="group-input">
-                                        <label for="audit-agenda-grid">
-                                       Product Details 
-                                            <button type="button" name="audit-agenda-grid"
-                                                id="ProductDetails">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#product-details-field-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="ProductDetails_details"
-                                                style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%"> Product Name</th>
-                                                        
-                                                        <th style="width: 16%"> Batch No</th>
-                                                        <th style="width: 16%"> Remarks</th>
-                                                       
-                                                                                                         
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                    <td><input type="text" name="Product_Name[]"></td>
-                                                    <td><input type="text" name=" Batch_No[]"></td>
-                                                    <td><input type="text" name="Remarks[]"></td>
-                                                
-                                                  
-                                                    
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div> --}}
-       
-                                {{-- <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Product Name">HOD Remarks </label>
-                                        <textarea class="" name="HOD_Remarks[]" id="HOD_Remarks"></textarea>
-
-                                    </div>
-                                </div> --}}
+                            
                                
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -1349,52 +1307,138 @@ $users = DB::table('users')
                                 
 
                                 
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
-                                        <label for="Deviation category">Initial Deviation Category</label>
-                                        <select name="Deviation_category" id="Deviation_category">
-                                            <option value="0">-- Select -- </option>
-                                            <option value="minor">Minor </option>
-                                            <option value="major">Major </option>
-                                            <option value="critical">Critical </option>
-                                        </select>
 
-                                    </div>
-                                </div>
-                                {{-- <div class="col-lg-12 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label class="mt-4"  for="Audit Schedule End Date">Justification for Categorization</label>
-                                        <textarea class="" name="Justification_for_categorization" id="" cols="30" ></textarea>
+                    <script>
+                handleInvestigationRequiredChange();
 
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Justification for Categorization">Justification for Categorization</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="Justification_for_categorization" id="summernote-5">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Investigation required">Investigation  Required ?</label>
-                                        <select name="Investigation_required" id="Investigation_required">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                        </select>
-                                  
-                                    </div>
-                                </div>
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea class="" name="Investigation_Details" id="" cols="30" ></textarea>
-                                  
-                                    </div>
-                                </div> --}}
+
+            function handleInvestigationRequiredChange() {
+    var investigationSelect = document.getElementById("Investigation_required");
+    var investigationButton = document.getElementById("Investigation_button");
+
+    // Get the selected value of the Investigation Required dropdown
+    var investigationRequired = investigationSelect.value;
+
+    // Check if Investigation Required is "Yes"
+    if (investigationRequired === "yes") {
+        // Show the Investigation button
+        investigationButton.style.display = "display";
+    } else {
+        // Hide the Investigation button
+        investigationButton.style.display = "none";
+    }
+}
+
+          // Call the function initially to set the initial visibility of the button
+
+
+
+
+    // Function to handle the change event of the Initial Deviation Category dropdown
+    function handleDeviationCategoryChange() {
+        var selectElement = document.getElementById("Initial_Deviation_category");
+        var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+       
+        // var investigationSelect = document.getElementById("Investigation_required");
+
+        // var investigationButton = document.getElementById("Investigation_button");
+
+        // var selectedOptn = investigationSelect.options[investigationSelect.selectedIndex].value;
+
+
+        //   if(selectedOptn=== "yes"){
+
+        //     document.getElementById("Investigation_button").style.display = "block";
+
+        //     }
+        //     else{
+        //     document.getElementById("Investigation_button").style.display = "none";
+
+
+        //     }
+
+    // Get the selected values
+        // var investigationRequired = investigationSelect.value;
+        
+        // Check if the selected option is "Major" or "Critical"
+        if (selectedOption === "major" || selectedOption === "critical") {
+            // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
+            document.getElementById("Investigation_required").value = "yes";
+            document.getElementById("capa_required").value = "yes";
+            document.getElementById("qrm_required").value = "yes";
+
+            // Show the Investigation, CAPA, and QRM buttons
+            document.getElementById("Investigation_button").style.display = "block";
+            document.getElementById("CAPA_button").style.display = "block";
+            document.getElementById("QRM_button").style.display = "block";
+        } else{
+            // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
+            document.getElementById("Investigation_required").value = "select";
+            document.getElementById("capa_required").value = "select";
+            document.getElementById("qrm_required").value = "select";
+
+            // Hide the Investigation, CAPA, and QRM buttons
+            document.getElementById("Investigation_button").style.display = "none";
+            document.getElementById("CAPA_button").style.display = "none";
+            document.getElementById("QRM_button").style.display = "none";
+
+        
+
+        }
+
+    }
+         
+</script>
+
+
+        
+
+    <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+        <div class="group-input input-date">
+            <label for="Initial_Deviation_category">Initial Deviation Category</label>
+            <select name="Initial_Deviation_category" id="Initial_Deviation_category" onchange="handleDeviationCategoryChange()">
+                <option value="0">-- Select -- </option>
+                <option value="minor">Minor </option>
+                <option value="major">Major </option>
+                <option value="critical">Critical </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="group-input">
+            <label for="Investigation required">Investigation  Required ?</label>
+            <select name="Investigation_required" id="Investigation_required">
+                <option value="select">-- Select --</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="group-input">
+            <label for="capa_required"> CAPA Required ?</label>
+            <select name="capa_required" id="capa_required">
+                <option value="select">-- Select --</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="group-input">
+            <label for="qrm_required">QRM  Required ?</label>
+            <select name="qrm_required" id="qrm_required">
+                <option value="select">-- Select --</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+    </div>
+
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input" id="Investigations_details">
                                         <label for="Investigation Details">Investigation Details<span class="text-danger">*</span></label>
@@ -1403,77 +1447,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Customer notification">Customer Notification Required ?</label>
-                                        <select name="Customer_notification" id="Customer_notification">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                            <option value="na">NA</option>
-                                        </select>
-                                  
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-5">
-                                    <div class="group-input" id="customer_option">
-                                        @php
-                                            $customers = DB::table('customer-details')->get();
-                                        @endphp
-                                        <label for="customers">Customers<span class="text-danger">*</span></label>
-                                        <select name="customers" id="customers">
-                                            <option value="0"> -- Select --</option>
-                                            @foreach ($customers as $data)
-                                            <option value="{{ $data->id }}">{{ $data->customer_name }}</option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-1">
-                                    <div class="group-input">
-                                        <!-- <label for="Comments(If Any)">Customers</label> -->
-                                        <button style="margin-top: 21px; border: 1px solid gray; background: #6f81dd; color: #fff;" type="button" class="btn b" data-bs-toggle="modal" data-bs-target="#myModal">
-                                              Customer
-                                    </button>
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="col-12">
-                                    <div class="group-input"> 
-                                        <label for="related_records">Related Records</label>
-                                        <select multiple name="related_records[]" placeholder="Select Reference Records"
-                                            data-search="false" data-silent-initial-value-set="true" id="related_records">
-                                            @foreach ($pre as $prix)
-                                                <option value="{{ $prix->id }}">
-                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Change-Control/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> --}}
-                                
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="related_records">Related Records</label>
-
-                                        <select multiple name="de[]" placeholder="Select Reference Records"
-                                            data-search="false" data-silent-initial-value-set="true"
-                                            id="related_records">
-                                            @foreach ($pre as $prix)
-                                                <option value="{{ $prix->id }}">
-                                                    {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}/{{$prix->short_description}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Comments(If Any)">QA Initial Remarks</label>
-                                      <textarea class="" name="QAInitialRemark" id="" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                             
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
@@ -1509,12 +1483,87 @@ $users = DB::table('users')
                     </div>
                     <script>
 
+// This is a JQuery used for showing the Investigation 
+
+                            $(document).ready(function () {
+    $('#Initial_Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(function () {
+        // Get the selected values
+        var deviationCategory = $('#Initial_Deviation_category').val();
+        var investigationRequired = $('#Investigation_required').val();
+        var capaRequired = $('#capa_required').val();
+        var qrmRequired = $('#qrm_required').val();
+
+        
+        // Check if both conditions are met
+        if ( investigationRequired === 'yes') {
+            $('#Investigation_button').show(); // Show the investigation button
+        } else {
+            $('#Investigation_button').hide(); // Hide the investigation button
+        }
+        //CAPA condition
+         if ( capaRequired === 'yes') {
+            $('#CAPA_button').show(); // Show the investigation button
+        } else {
+            $('#CAPA_button').hide(); // Hide the investigation button
+        }
+        //QRMCon
+         if ( qrmRequired === 'yes') {
+            $('#QRM_button').show(); // Show the investigation button
+        } else {
+            $('#QRM_button').hide(); // Hide the investigation button
+        }
+    });
+});
+
+
+
+//                           $(document).ready(function () {
+//                             $('#Investigation_required').change(function () {
+//                                 var selectedValues = $(this).val();
+                                
+// Investigation_required
+//                                 if (selectedValues === 'major' || selectedValues === 'critical') {
+//                                     $('#Investigation_required').val('yes').prop('disabled', true);
+//                                     $('#capa_required').val('yes').prop('disabled', true);
+//                                     $('#qrm_required').val('yes').prop('disabled', true);
+
+//                                 } else {
+//                                     $('#Investigation_required').prop('disabled', false);
+//                                     $('#qrm_required').prop('disabled', false);
+//                                     $('#capa_required').prop('disabled', false);
+//                                 }
+                               
+//                             });
+//                         });
+                         
+
+
+                        $(document).ready(function () {
+                            $('#Initial_Deviation_category').change(function () {
+                                var selectedValues = $(this).val();
+
+                                if (selectedValues === 'major' || selectedValues === 'critical') {
+                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    $('#capa_required').val('yes').prop('disabled', true);
+                                    $('#qrm_required').val('yes').prop('disabled', true);
+
+                                } else {
+                                    $('#Investigation_required').prop('disabled', false);
+                                    $('#qrm_required').prop('disabled', false);
+                                    $('#capa_required').prop('disabled', false);
+                                }
+                               
+                            });
+                        });
+
                         $(document).ready(function () {
 
 
                             $('#Deviation_category').change(function () {
                                 if ($(this).val() === 'major') {
                                     $('#Investigation_required').val('yes').prop('disabled', true);
+
+
                                     $('#Investigations_details').show();
                                     $('textarea[name="Investigations_details"]').prop('required', true);
 
@@ -1526,6 +1575,8 @@ $users = DB::table('users')
                                     $('#customer_option').hide();
                                     $('textarea[name="customer_option"]').prop('required', false);
                                     $('#Investigation_required').prop('disabled', false);
+
+
                                     $('#Investigations_details').hide();
                                     $('textarea[name="Investigations_details"]').prop('required', false);
                                 }
@@ -3152,7 +3203,7 @@ $users = DB::table('users')
                             
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
-                                    <label for="Investigation Summary">Discription of Event</label>
+                                    <label for="Investigation Summary">Description of Event</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                     <textarea class="summernote" name="Discription_Event" id="summernote-8">
                                 </textarea>
@@ -3189,7 +3240,7 @@ $users = DB::table('users')
                             <div class="col-lg-12">
                                 <div class="group-input" id="documentsRowname" >
                                     <label for="audit-agenda-grid">
-                                        Investigation team and responsibilities
+                                        Investigation Team and Responsibilities
                                         <button type="button" name="audit-agenda-grid"
                                             id="investigation_Details">+</button>
                                         <span class="text-primary" data-bs-toggle="modal"
@@ -3246,6 +3297,9 @@ $users = DB::table('users')
                                 </select>
                             </div>
                         </div>
+
+
+
                         <div class="col-lg-12">
                             <div class="group-input" id="documentsRowname" >
                                 <label for="audit-agenda-grid">
@@ -3258,14 +3312,14 @@ $users = DB::table('users')
                                         (Launch Instruction)
                                     </span>
                                 </label>
-                                <div class="table-responsive">
+                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="Root_cause_Details_Details"
                                         style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th style="width: 4%">Row#</th>
-                                                <th style="width: 12%">	Root Cause Category</th>
-                                                <th style="width: 16%">Root Cause Sub-Category</th>
+                                                <th id="Root_Cause_Category" style="width: 12%">Root Cause Category</th>
+                                                <th style="width: 16%" id="Root_Cause_Sub_Category" >Root Cause Sub-Category</th>
                                                 <th style="width: 16%">If Others</th>
 
                                                 <th style="width: 16%">	Probability</th>
@@ -3280,19 +3334,72 @@ $users = DB::table('users')
                                 <td><input disabled type="text" name="serial[]" value="1"></td>
                                 <td>
                                    
-                                <select name="Root_Cause_Category[]" id="">
+                                <select name="Root_Cause_Category[]" id="Root_Cause_Category_Select">
                                     <option value="">-- Select --</option>
 
-                                    <option value="">name   </option>
-                                   
+                                    <option value="M-Machine(Equipment)">M-Machine(Equipment)</option>
+                                    <option value="">M-Maintenance</option>
+                                    <option value="">M-Man Power (physical work)</option>
+                                    <option value="">M-Management</option>
+                                    <option value="">M-Material (Raw,Consumables etc.)</option>
+                                    <option value="">M-Method (Process/Inspection)</option>
+                                    <option value="">M-Mother Nature (Environment)</option>
+                                    <option value="">P-Place/Plant</option>
+                                    <option value="">P-Policies</option>
+                                    <option value="">P-Price   </option>
+                                    <option value="">P-Procedures</option>
+                                    <option value="">P-Process   </option>
+                                    <option value="">P-Product</option>
+                                    <option value="">S-Suppliers</option>
+                                    <option value="">S-Surroundings</option>
+                                    <option value="">S-Systems</option>
 
-                                   
                                 </select>
                                 </td>
-                                <td> <select name="Root_Cause_Sub-Category[]" id="">
+                                <td> <select name="Root_Cause_Sub_Category[]" id="Root_Cause_Sub_Category_Select">
                                     <option value="">-- Select --</option>
 
-                                    <option value="">name</option>
+                                     <option value="Poor_Maintenance_or_Design">Infrequent Audits </option>  
+                                    <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
+                                    <option value="Other">Other</option>  
+                                    <option value="Poor_Maintenance_or_Design">Poor Maintenance or Design </option>
+                                    <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement </option> 
+                                    <option value="Scheduling_Problem">Scheduling Problem </option> 
+                                    <option value="system_deficiency">System Deficiency </option> 
+                                    <option value="">Technical Error </option> 
+                                    <option value="">Tolerable Failure </option>
+                                    <option value="">Calibration Issues </option>
+                                    
+                                    <option value="Infrequent_Audits">Infrequent Audits</option> 
+                                    <option value="No_Preventive_Maintenance">No Preventive Maintenance </option> 
+                                    <option value="Other">Other</option> 
+                                    <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option> 
+                                    <option value="">Scheduling Problem </option> 
+                                    <option value="">System Deficiency </option> 
+                                    <option value="">Technical Error </option> 
+                                    <option value="">Tolerable Failure </option> 
+
+
+                                    <option value="Failure_to_Follow_SOP">Failure to Follow SOP</option> 
+                                    <option value="Human_Machine_Interface">Human-Machine Interface</option> 
+                                    <option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication </option> 
+                                    <option value="Other">Other</option> 
+                                    <option value="">Personnel Error</option> 
+                                    <option value="">Personnel not Qualified</option> 
+                                    <option value="">Practice Needed</option> 
+                                    <option value="">Teamwork Needs Improvement</option> 
+                                    <option value="">Attention</option> 
+                                    <option value="">Understanding</option> 
+                                    <option value="">Procedural</option> 
+                                    <option value="">Behavioral</option> 
+                                    <option value="">Skill</option>
+                                    
+                                    <option value="">Inattention to task</option> 
+                                    <option value="">Lack of Process</option> 
+                                    <option value="">Methods</option> 
+                                    <option value="">No or poor management involvement</option> 
+                                    <option value="">Other</option> 
+                                    <option value="">Personnel not Qualified</option> 
                                    
 
                                    
@@ -3314,6 +3421,47 @@ $users = DB::table('users')
                                 <div class="text-danger">{{ $message  }}</div>
                             @enderror --}}
                       </div>
+
+                      <script>
+                        $(document).ready(function () {
+                            $('#Root_Cause_Category_Select').change(function () {
+                                console.log('change')
+                                var selectedCategory = $(this).val();
+                                var subCategorySelect = $('#Root_Cause_Sub_Category_Select');
+
+                                // Clear existing options
+                                subCategorySelect.empty();
+
+                                // Populate options based on selected category
+                                if (selectedCategory === 'M-Machine(Equipment)') {
+                                    subCategorySelect.append('<option value="Infrequent_Audits">Infrequent Audits</option>');
+                                    subCategorySelect.append('<option value="No_Preventive_Maintenance">No Preventive Maintenance</option>');
+                                    subCategorySelect.append('<option value="Other">Other</option>');
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+                                    subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+
+                                } else if (selectedCategory === 'M-Maintenance') {
+                                    subCategorySelect.append('<option value="Infrequent_Audits">Infrequent Audits</option>');
+                                    subCategorySelect.append('<option value="No_Preventive_Maintenance">No Preventive Maintenance</option>');
+                                    subCategorySelect.append('<option value="Other">Other</option>');
+                                    subCategorySelect.append('<option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option>');
+                                } else if (selectedCategory === 'M-Man Power (physical work)') {
+                                    subCategorySelect.append('<option value="Failure_to_Follow_SOP">Failure to Follow SOP</option>');
+                                    subCategorySelect.append('<option value="Human_Machine_Interface">Human-Machine Interface</option>');
+                                    subCategorySelect.append('<option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication</option>');
+                                    subCategorySelect.append('<option value="Other">Other</option>');
+                                }
+                            });
+                        });
+                    </script>
                       <div class="col-12">
                         <div class="group-input">
                             <label for="why-why-chart">
@@ -3432,6 +3580,7 @@ $users = DB::table('users')
                         </div>
                     </div>
                 </div>
+                
 
 {{-- -------------QRM----------------- --}}
 <div id="CCForm11" class="inner-block cctabcontent">
@@ -3712,7 +3861,7 @@ $users = DB::table('users')
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="Description_of_Discrepancy">Description of Discrepancy </label>
+                                        <label for="Description_of_Discrepancy">Description </label>
                                         <textarea class="summernote" name="Description_of_Discrepancy" id="summernote-8">
                                     </textarea>
                                     </div>
@@ -3761,16 +3910,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                 <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Target Completion Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_reported_date')"required />
-                                        </div>
-                                    </div>
-                                </div>
+                        
 
                                  <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -4022,7 +4162,7 @@ $users = DB::table('users')
                         </div>
                     </div>
 
-                    <!-- QA Final Review -->
+                    <!-- Initiator Update -->
                     <div id="CCForm4" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
@@ -4036,7 +4176,7 @@ $users = DB::table('users')
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="QA Feedbacks">QA Feedbacks</label>
+                                        <label for="QA Feedbacks">Initiator Feedbacks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="" name="QA_Feedbacks" id="summernote-14">
                                     </textarea>
@@ -4044,7 +4184,7 @@ $users = DB::table('users')
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="QA attachments">QA Attachments</label>
+                                        <label for="QA attachments">Initiator Additional Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
@@ -4108,7 +4248,7 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-<a href="/rcms/qms-dashboard">
+                        <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -4117,6 +4257,578 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Effectiveness Check-->
+                     
+                    <div id="CCForm12" class="inner-block cctabcontent">
+                        <div class="inner-block-content">
+                            <div class="row">
+                                 <div class="sub-head">
+                                            Deviation Extension
+                                            </div>    
+
+                                 <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Proposed_Due_date_deviation" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Proposed_Due_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_deviation')"required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justification_deviation" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                  
+                                    <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By </label>
+                                        <select name="Deviation_Extension_Completed_By" id="Deviation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Deviation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Deviation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                               
+
+                                <div class="sub-head">
+                                            CAPA Extension
+                                            </div>
+                                
+                                        <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Proposed_Due_date_CAPA" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Proposed_Due_date_CAPA" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')"required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justification_CAPA">Extension Justification (CAPA)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justification_CAPA" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+
+                                    {{-- row --}}
+                                    <div class="row">
+                                    <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" CAPA_Extension_Completed_By"> CAPA Extension Completed By </label>
+                                        <select name="CAPA_Extension_Completed_By" id="CAPA_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="CAPA_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="CAPA_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row_end --}}
+                            </div>
+                                 <div class="sub-head">
+                                            Quality Risk Management Extension
+                                            </div>
+                                            
+                                        <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Proposed_Due_Date_QRM">Proposed Due Date (Quality Risk Management)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Proposed_Due_Date_QRM" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Proposed_Due_Date_QRM" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')"required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justi_QRM">Extension Justification (Quality Risk Management)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    {{-- row --}}
+                                    <div class="row">
+
+
+                                    <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Quality_Risk_Management_Extension_Completed_By"> Quality Risk Management Extension Completed By </label>
+                                        <select name="Quality_Risk_Management_Extension_Completed_By" id="Quality_Risk_Management_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Quality_Risk_Management_Extension_Completed_ON">Quality Risk Management Extension Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Quality_Risk_Management_Extension_Completed_ON" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Quality_Risk_Management_Extension_Completed_ON" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row_end --}}
+                            </div>
+                                             <div class="sub-head">
+                                            Investigation Extension
+                                            </div>
+                                            
+                                        <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Proposed_Due_date_investigation">Proposed Due Date (Investigation)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Proposed_Due_date_investigation" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Proposed_Due_date_investigation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_investigation')"required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justification_investigation">Extension Justification (Investigation)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justification_investigation" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+
+                                    {{-- row --}}
+                                    <div class="row">
+                                    <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Extension_Completed_By"> Investigation Extension Completed By </label>
+                                        <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Extension_Completed_On">Investigation Extension Completed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row-end --}}
+                            </div>
+
+
+                                    <div class="sub-head">
+                                            Deviation Effectiveness Check
+                                            </div>
+
+                                             <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Effectiveness_Check_Plan_Deviation">Effectiveness Check Plan(Deviation)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    {{-- row --}}
+                                    <div class="row">   
+
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Deviation_Effectiveness_Check_Plan_Proposed_By">Deviation Effectiveness Check Plan Proposed By </label>
+                                        <select name="Deviation_Effectiveness_Check_Plan_Proposed_By" id="Deviation_Effectiveness_Check_Plan_Proposed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="deviation_EC_Plan_Proposed_On"> Deviation Effectiveness Check Plan Proposed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="deviation_EC_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="deviation_EC_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'deviation_EC_Plan_Proposed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row-end --}}
+                                </div>
+
+
+                                     <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="EC_Closure_comments_deviation">Effectiveness Check Closure Comments(Deviation)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="EC_Closure_comments_deviation" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+
+                                     <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Next_review_date_deviation">Next Review Date(Deviation)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Next_review_date_deviation" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Next_review_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Next_review_date_deviation')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row --}}
+                                    <div class="row">
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" deviaiton_EC_Closed_By">Deviation Effectiveness Check Closed By</label>
+                                        <select name="deviaiton_EC_Closed_By" id="deviaiton_EC_Closed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="deviation_Effectiveness_Check_Closed_On">Deviation Effectiveness Check Closed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="deviation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="deviation_Effectiveness_Check_Closed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'deviation_Effectiveness_Check_Closed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row-end --}}
+                            </div>
+                                             
+                                        <div class="sub-head">
+                                            CAPA Effectiveness Check
+                                            </div>
+                             
+                                             <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="EC_plan_Capa" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    {{-- row --}}
+                                    <div class="row">
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Extension_Completed_By">CAPA Effectiveness Check Plan Proposed By </label>
+                                        <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Extension_Completed_On">CAPA Effectiveness Check Plan Proposed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row-end --}}
+                            </div>
+
+
+                                     <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments(CAPA)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Extension_Completed_On">Next Review Date(CAPA)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row --}}
+                                <div class="row">
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Extension_Completed_By">CAPA Effectiveness Check Closed By</label>
+                                        <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Effectiveness_Check_Closed_On">CAPA Effectiveness Check Closed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row-end --}}
+                            </div>
+                                 <div class="sub-head">
+                                            Quality Risk Management Effectiveness Check
+                                            </div>
+                                            
+                                             <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    {{-- row --}}
+                                    <div class="row">
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Extension_Completed_By"> QRM Effectiveness Check Plan Proposed By </label>
+                                        <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Extension_Completed_On">QRM Effectiveness Check Plan Proposed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                            
+                            </div>
+                        {{-- row-end --}}
+                        </div>
+
+
+                                     <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments( Quality Risk Management)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Extension_Completed_On">Next Review Date(Quality Risk Management)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="row">
+
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Extension_Completed_By">QRM Effectiveness Check Closed By</label>
+                                        <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Effectiveness_Check_Closed_On">QRM Effectiveness Check Closed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- row div --}}
+                            </div>
+                                 <div class="sub-head">
+                                            Investigation Effectiveness Check
+                                            </div>
+                                
+                                             <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    {{-- row --}}
+                                    <div class="row">
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Extension_Completed_By">Investigation Effectiveness Check Plan Proposed By </label>
+                                        <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Effectiveness_Check_Plan_Proposed_On">Investigation Effectiveness Check Plan Proposed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Effectiveness_Check_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Effectiveness_Check_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Effectiveness_Check_Plan_Proposed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                        {{-- row div --}}
+                            </div>
+
+                                     <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="EC_Closure_Comments_investigation">Effectiveness Check Closure Comments(Investigation)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="EC_Closure_Comments_investigation" id="summernote-10">
+                                    </textarea>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Extension_Completed_On">Next Review Date (Investigation)</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                     <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for=" Investigation_Effectiveness_Check_Closed_By">Investigation Effectiveness Check Closed By</label>
+                                        <select name="Investigation_Effectiveness_Check_Closed_By" id="Investigation_Effectiveness_Check_Closed_By">
+                                            <option value="">-- Select --</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                  </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Investigation_Effectiveness_Check_Closed_On">Investigation Effectiveness Check Closed On</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="Investigation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date"  name="Investigation_Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')"required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>               
+                            
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                            <a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                
+
 
                     <!-- Activity Log content -->
                     <div id="CCForm6" class="inner-block cctabcontent">
@@ -4213,7 +4925,8 @@ $users = DB::table('users')
                                         <label for="QA Final Review Complete On"> QA Final Review Complete On :-</label>
                                         <div class="static"></div>
                                     </div>
-                                </div> <div class="col-lg-12">
+                                </div> 
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="QA Final Review Comments"> QA Final Review Comments :-</label>
                                         <div class="static"></div>
