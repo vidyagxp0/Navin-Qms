@@ -4651,12 +4651,12 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justification_deviation" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justification_deviation" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
                                   
-                                    <div class="col-lg-6">
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By </label>
                                         <select name="Deviation_Extension_Completed_By" id="Deviation_Extension_Completed_By">
@@ -4972,7 +4972,7 @@ $users = DB::table('users')
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
-                                    </div>
+                                       </div>
                                     </div>
 
                                     <div class="col-lg-6 new-date-data-field">
