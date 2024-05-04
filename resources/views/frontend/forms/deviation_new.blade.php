@@ -3321,13 +3321,11 @@ $users = DB::table('users')
                                     <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                             Exit </a> </button>
                                 </div>
-                                {{-- <div class="col-12">
-           
-                               </div> --}}
+                                
                              </div>
                          </div>
-                     </div>
-                </div>
+                  
+              
                   <!-- investigation -->
                   <div id="CCForm9" class="inner-block cctabcontent">
                     <div class="inner-block-content">
