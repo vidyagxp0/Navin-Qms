@@ -37,6 +37,7 @@ a {
 
 a:hover {
     color: #4274da;
+    background: #FFF;
     text-decoration: none;
 }
 
@@ -4481,11 +4482,12 @@ section#pdf-page .watermark {
 
 #change-control-fields .cctabcontent .button-block {
     /* display: flex; */
+    /* width: 0px; */
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
     position: fixed;
-    top: 70%;
+    top: 60%;
     right: 0;
     transform: translate(0, -50%);
     display: grid;

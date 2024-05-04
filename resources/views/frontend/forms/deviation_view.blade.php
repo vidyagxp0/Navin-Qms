@@ -735,6 +735,8 @@ wow = new WOW(
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension & Effectiveness Check</button>
+
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
 
@@ -1132,7 +1134,7 @@ wow = new WOW(
                                         <label for="Initiator Group">Deviation Reported On <span
                                             class="text-danger">*</span></label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $data->Deviation_reported_date }}" >
+                                        <input type="date" id="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $data->Deviation_reported_date }}" >
                                     </div>
                                     @error('Deviation_reported_date')
                                         <div class="text-danger">{{ $message }}</div>
@@ -6166,7 +6168,7 @@ wow = new WOW(
                                         Exit </a> </button>
                             </div>
                         </div>
-                                </div>
+                     </div>
                     </div>
 
 
@@ -7708,6 +7710,577 @@ wow = new WOW(
                             </div>
                         </div>
                     </div>
+ <!-- Effectiveness Check-->
+                     
+ <div id="CCForm12" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+             <div class="sub-head">
+                        Deviation Extension
+                        </div>    
+
+             <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Proposed_Due_date_deviation" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Proposed_Due_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Proposed_Due_date_deviation')"required />
+                    </div>
+                </div>
+            </div>
+
+             <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="tiny" name="Extension_Justification_deviation" id="summernote-10">
+                </textarea>
+                </div>
+            </div>
+              
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By </label>
+                    <select name="Deviation_Extension_Completed_By" id="Deviation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Deviation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Deviation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+           
+
+            <div class="sub-head">
+                        CAPA Extension
+                        </div>
+            
+                    <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Proposed_Due_date_CAPA" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Proposed_Due_date_CAPA" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')"required />
+                    </div>
+                </div>
+            </div>
+
+             <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justification_CAPA">Extension Justification (CAPA)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justification_CAPA" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+
+                {{-- row --}}
+                <div class="row">
+                <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" CAPA_Extension_Completed_By"> CAPA Extension Completed By </label>
+                    <select name="CAPA_Extension_Completed_By" id="CAPA_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="CAPA_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="CAPA_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row_end --}}
+        </div>
+             <div class="sub-head">
+                        Quality Risk Management Extension
+                        </div>
+                        
+                    <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Proposed_Due_Date_QRM">Proposed Due Date (Quality Risk Management)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Proposed_Due_Date_QRM" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Proposed_Due_Date_QRM" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')"required />
+                    </div>
+                </div>
+            </div>
+
+             <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justi_QRM">Extension Justification (Quality Risk Management)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                {{-- row --}}
+                <div class="row">
+
+
+                <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Quality_Risk_Management_Extension_Completed_By"> Quality Risk Management Extension Completed By </label>
+                    <select name="Quality_Risk_Management_Extension_Completed_By" id="Quality_Risk_Management_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Quality_Risk_Management_Extension_Completed_ON">Quality Risk Management Extension Completed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Quality_Risk_Management_Extension_Completed_ON" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Quality_Risk_Management_Extension_Completed_ON" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row_end --}}
+        </div>
+                         <div class="sub-head">
+                        Investigation Extension
+                        </div>
+                        
+                    <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Proposed_Due_date_investigation">Proposed Due Date (Investigation)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Proposed_Due_date_investigation" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Proposed_Due_date_investigation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Proposed_Due_date_investigation')"required />
+                    </div>
+                </div>
+            </div>
+
+             <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justification_investigation">Extension Justification (Investigation)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justification_investigation" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+
+                {{-- row --}}
+                <div class="row">
+                <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Extension_Completed_By"> Investigation Extension Completed By </label>
+                    <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Extension_Completed_On">Investigation Extension Completed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row-end --}}
+        </div>
+
+
+                <div class="sub-head">
+                        Deviation Effectiveness Check
+                        </div>
+
+                         <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Effectiveness_Check_Plan_Deviation">Effectiveness Check Plan(Deviation)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                {{-- row --}}
+                <div class="row">   
+
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Deviation_Effectiveness_Check_Plan_Proposed_By">Deviation Effectiveness Check Plan Proposed By </label>
+                    <select name="Deviation_Effectiveness_Check_Plan_Proposed_By" id="Deviation_Effectiveness_Check_Plan_Proposed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="deviation_EC_Plan_Proposed_On"> Deviation Effectiveness Check Plan Proposed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="deviation_EC_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="deviation_EC_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'deviation_EC_Plan_Proposed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row-end --}}
+            </div>
+
+
+                 <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="EC_Closure_comments_deviation">Effectiveness Check Closure Comments(Deviation)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="EC_Closure_comments_deviation" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+
+                 <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Next_review_date_deviation">Next Review Date(Deviation)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Next_review_date_deviation" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Next_review_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Next_review_date_deviation')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row --}}
+                <div class="row">
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" deviaiton_EC_Closed_By">Deviation Effectiveness Check Closed By</label>
+                    <select name="deviaiton_EC_Closed_By" id="deviaiton_EC_Closed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="deviation_Effectiveness_Check_Closed_On">Deviation Effectiveness Check Closed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="deviation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="deviation_Effectiveness_Check_Closed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'deviation_Effectiveness_Check_Closed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row-end --}}
+        </div>
+                         
+                    <div class="sub-head">
+                        CAPA Effectiveness Check
+                        </div>
+         
+                         <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="EC_plan_Capa" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                {{-- row --}}
+                <div class="row">
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Extension_Completed_By">CAPA Effectiveness Check Plan Proposed By </label>
+                    <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Extension_Completed_On">CAPA Effectiveness Check Plan Proposed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row-end --}}
+        </div>
+
+
+                 <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments(CAPA)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                </textarea>
+                   </div>
+                </div>
+
+                <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Extension_Completed_On">Next Review Date(CAPA)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row --}}
+            <div class="row">
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Extension_Completed_By">CAPA Effectiveness Check Closed By</label>
+                    <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Effectiveness_Check_Closed_On">CAPA Effectiveness Check Closed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row-end --}}
+        </div>
+             <div class="sub-head">
+                        Quality Risk Management Effectiveness Check
+                        </div>
+                        
+                         <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                {{-- row --}}
+                <div class="row">
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Extension_Completed_By"> QRM Effectiveness Check Plan Proposed By </label>
+                    <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Extension_Completed_On">QRM Effectiveness Check Plan Proposed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+        
+        </div>
+    {{-- row-end --}}
+    </div>
+
+
+                 <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments( Quality Risk Management)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Extension_Completed_On">Next Review Date(Quality Risk Management)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+
+                <div class="row">
+
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Extension_Completed_By">QRM Effectiveness Check Closed By</label>
+                    <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Effectiveness_Check_Closed_On">QRM Effectiveness Check Closed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                    </div>
+                </div>
+            </div>
+            {{-- row div --}}
+        </div>
+             <div class="sub-head">
+                        Investigation Effectiveness Check
+                        </div>
+            
+                         <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                {{-- row --}}
+                <div class="row">
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Extension_Completed_By">Investigation Effectiveness Check Plan Proposed By </label>
+                    <select name="Investigation_Extension_Completed_By" id="Investigation_Extension_Completed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Effectiveness_Check_Plan_Proposed_On">Investigation Effectiveness Check Plan Proposed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Effectiveness_Check_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Effectiveness_Check_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Effectiveness_Check_Plan_Proposed_On')"required />
+                    </div>
+                </div>
+            </div>
+    {{-- row div --}}
+        </div>
+
+                 <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="EC_Closure_Comments_investigation">Effectiveness Check Closure Comments(Investigation)</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                    <textarea class="summernote" name="EC_Closure_Comments_investigation" id="summernote-10">
+                </textarea>
+                </div>
+                </div>
+
+                <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Extension_Completed_On">Next Review Date (Investigation)</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-lg-6">
+                <div class="group-input">
+                    <label for=" Investigation_Effectiveness_Check_Closed_By">Investigation Effectiveness Check Closed By</label>
+                    <select name="Investigation_Effectiveness_Check_Closed_By" id="Investigation_Effectiveness_Check_Closed_By">
+                        <option value="">-- Select --</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+              </div>
+
+            <div class="col-lg-6 new-date-data-field">
+                <div class="group-input input-date">
+                    <label for="Investigation_Effectiveness_Check_Closed_On">Investigation Effectiveness Check Closed On</label>
+                    <div class="calenderauditee">
+                        <input type="text" id="Investigation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
+                        <input type="date"  name="Investigation_Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                            oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')"required />
+                    </div>
+                </div>
+            </div>
+        </div>               
+        
+        <div class="button-block">
+            <button type="submit" class="saveButton">Save</button>
+                        <a href="/rcms/qms-dashboard">
+                    <button type="button" class="backButton">Back</button>
+                </a>
+            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
 
                     <!-- Activity Log content -->
                     <div id="CCForm6" class="inner-block cctabcontent">

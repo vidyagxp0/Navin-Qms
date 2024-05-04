@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Deviation Single Report
+                   Deviation  Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -2002,13 +2002,182 @@
                 </div>
             </div> 
     
+   {{-- ------------------------------------------- --}}
+
    
+   <div class="block">
+    <div class="head">
+        <div class="block-head">
+            Investigation
+        </div>
+          <table>
+                    <tr>
+                        <th class="w-20">Description of Event
+                        </th>
+                        <td class="w-30">
+                            <div>
+                                {{-- @if($data->Investigation_Summary){{ $data->Investigation_Summary }}@else Not Applicable @endif --}}
+                            </div>
+                        </td>
+                        <th class="w-20">Objective</th>
+                        <td class="w-30">
+                            <div>
+                                {{-- @if($data->Impact_assessment){{ $data->Impact_assessment }}@else Not Applicable @endif --}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">Scope</th>
+                        <td class="w-80">
+                            <div>
+                                {{-- @if($data->Root_cause){{ $data->Root_cause }}@else Not Applicable @endif --}}
+                            </div>
+                        </td>
+                        <th class="w-20">Immediate Action</th>
+                        <td class="w-30">
+                            <div>
+                                {{-- @if($data->CAPA_Rquired){{ $data->CAPA_Rquired }}@else Not Applicable @endif --}}
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    {{-- <tr> --}}
+                
+                        
+                        {{-- <th class="w-20">CAPA Type?</th> --}}
+                        {{-- <td class="w-30">
+                            <div>
+                                @if($data->capa_type){{ $data->capa_type }}@else Not Applicable @endif
+                            </div>
+                        </td> --}}
+                    {{-- </tr> --}}
+                    <tr>
+                
+                        <th class="w-20">CAPA Description</th>
+                        <td class="w-30">
+                            <div>
+                                @if($data->CAPA_Description){{ $data->CAPA_Description }}@else Not Applicable @endif
+                            </div>
+                        </td>
+                        <th class="w-20">Post Categorization Of Deviationt</th>
+                        <td class="w-30">
+                            <div>
+                                @if($data->Post_Categorization){{ $data->Post_Categorization }}@else Not Applicable @endif
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                
+                        <th class="w-20"> Justification For Revised category
+                        </th>
+                        <td class="w-30">
+                            <div>
+                                @if($data->Investigation_Of_Review){{ $data->Investigation_Of_Review }}@else Not Applicable @endif
+                            </div>
+                        </td>
+                        
+                    </tr>
+     </table>
+</div>  
+<div class="border-table">
+    <div class="block-head">
+        Investigation Attachment
+    </div>
+    <table>
+
+        <tr class="table_bg">
+            <th class="w-20">S.N.</th>
+            <th class="w-60">Attachment</th>
+        </tr>
+            @if($data->Investigation_attachment)
+            @foreach(json_decode($data->Investigation_attachment) as $key => $file)
+                <tr>
+                    <td class="w-20">{{ $key + 1 }}</td>
+                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                </tr>
+            @endforeach
+            @else
+        <tr>
+            <td class="w-20">1</td>
+            <td class="w-20">Not Applicable</td>
+        </tr>
+        @endif
+
+    </table>
+</div>
+<div class="border-table">
+    <div class="block-head">
+        CAPA Attachment
+    </div>
+    <table>
+
+        <tr class="table_bg">
+            <th class="w-20">S.N.</th>
+            <th class="w-60">Attachment</th>
+        </tr>
+            @if($data->Capa_attachment)
+            @foreach(json_decode($data->Capa_attachment) as $key => $file)
+                <tr>
+                    <td class="w-20">{{ $key + 1 }}</td>
+                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                </tr>
+            @endforeach
+            @else
+        <tr>
+            <td class="w-20">1</td>
+            <td class="w-20">Not Applicable</td>
+        </tr>
+        @endif
+
+    </table>
+</div>
+    
+<div class="block">
+    <div class="block-head">
+        QA Final Review
+    </div>
+    <table>
+
+            <tr>
+            <th class="w-20">QA Feedbacks</th>
+            <td class="w-30">@if($data->QA_Feedbacks){{ $data->QA_Feedbacks }}@else Not Applicable @endif</td>
+            
+        </table>
+    </div>
+    <div class="border-table">
+        <div class="block-head">
+            QA Attachments
+        </div>
+        <table>
+
+            <tr class="table_bg">
+                <th class="w-20">S.N.</th>
+                <th class="w-60">Attachment</th>
+            </tr>
+                @if($data->QA_attachments)
+                @foreach(json_decode($data->QA_attachments) as $key => $file)
+                    <tr>
+                        <td class="w-20">{{ $key + 1 }}</td>
+                        <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
+                    </tr>
+                @endforeach
+                @else
+            <tr>
+                <td class="w-20">1</td>
+                <td class="w-20">Not Applicable</td>
+            </tr>
+            @endif
+
+        </table>
+    </div>
+</div>
+   {{-- ------------------------------------------------- --}}
             <div class="block">
                 <div class="head">
                     <div class="block-head">
                         Investigation & CAPA
                     </div>
-                    <table>
+                      <table>
 
                                 <tr>
                             
