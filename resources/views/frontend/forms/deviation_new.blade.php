@@ -552,11 +552,10 @@ $users = DB::table('users')
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension and Effectiveness Check</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension & Effectiveness Check</button>
 
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
-
             <form id="auditform" action="{{ route('deviationstore') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="form_name" id="formNameField" value="">
@@ -4699,7 +4698,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justification_CAPA">Extension Justification (CAPA)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justification_CAPA" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justification_CAPA" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -4750,7 +4749,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Extension Justification (Quality Risk Management)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -4802,7 +4801,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justification_investigation">Extension Justification (Investigation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justification_investigation" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justification_investigation" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -4844,7 +4843,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Effectiveness_Check_Plan_Deviation">Effectiveness Check Plan(Deviation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
+                                        <textarea class="tiny" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -4882,7 +4881,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="EC_Closure_comments_deviation">Effectiveness Check Closure Comments(Deviation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="EC_Closure_comments_deviation" id="summernote-10">
+                                        <textarea class="tiny" name="EC_Closure_comments_deviation" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -4933,7 +4932,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="EC_plan_Capa" id="summernote-10">
+                                        <textarea class="tiny" name="EC_plan_Capa" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -4970,7 +4969,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments(CAPA)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                        </div>
                                     </div>
@@ -5019,7 +5018,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -5057,7 +5056,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments( Quality Risk Management)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -5107,7 +5106,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>
@@ -5143,7 +5142,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="EC_Closure_Comments_investigation">Effectiveness Check Closure Comments(Investigation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="EC_Closure_Comments_investigation" id="summernote-10">
+                                        <textarea class="tiny" name="EC_Closure_Comments_investigation" id="summernote-10">
                                     </textarea>
                                     </div>
                                     </div>

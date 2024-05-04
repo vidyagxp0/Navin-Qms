@@ -6294,13 +6294,9 @@ wow = new WOW(
                                                 <th style="width: 12%">	Root Cause Category</th>
                                                 <th style="width: 16%">Root Cause Sub-Category</th>
                                                 <th style="width: 16%">If Others</th>
-
                                                 <th style="width: 16%">	Probability</th>
                                                 <th style="width: 16%">	Remarks</th>
-
-                                                <th style="width: 8%">Action</th>
-
-                                                                                                 
+                                                <th style="width: 8%">Action</th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -7399,7 +7395,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-6">
+                                {{--<div class="col-6">
                                     <div class="group-input">
                                         <label for="capa type">CAPA Type?</label>
                                       <select disabled name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
@@ -7421,7 +7417,7 @@ wow = new WOW(
                                         <label for="External Auditing Agency">CAPA Description</label>
                                         <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
                                     </div>
-                                </div> --}}
+                                </div>--}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
@@ -7513,7 +7509,6 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div> --}}
-                            
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -7665,7 +7660,6 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="closure attachment">Closure Attachments</label>
@@ -7781,7 +7775,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justification_CAPA">Extension Justification (CAPA)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justification_CAPA" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justification_CAPA" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -7839,8 +7833,6 @@ wow = new WOW(
 
                 {{-- row --}}
                 <div class="row">
-
-
                 <div class="col-lg-6">
                 <div class="group-input">
                     <label for=" Quality_Risk_Management_Extension_Completed_By"> Quality Risk Management Extension Completed By </label>
@@ -7879,7 +7871,6 @@ wow = new WOW(
                     </div>
                 </div>
             </div>
-
              <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="Extension_Justification_investigation">Extension Justification (Investigation)</label>
@@ -7888,8 +7879,6 @@ wow = new WOW(
                 </textarea>
                 </div>
                 </div>
-
-
                 {{-- row --}}
                 <div class="row">
                 <div class="col-lg-6">
@@ -7903,7 +7892,6 @@ wow = new WOW(
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Investigation_Extension_Completed_On">Investigation Extension Completed On</label>
@@ -7916,12 +7904,9 @@ wow = new WOW(
             </div>
             {{-- row-end --}}
         </div>
-
-
                 <div class="sub-head">
                         Deviation Effectiveness Check
                         </div>
-
                          <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="Effectiveness_Check_Plan_Deviation">Effectiveness Check Plan(Deviation)</label>
@@ -7933,7 +7918,6 @@ wow = new WOW(
 
                 {{-- row --}}
                 <div class="row">   
-
                  <div class="col-lg-6">
                 <div class="group-input">
                     <label for=" Deviation_Effectiveness_Check_Plan_Proposed_By">Deviation Effectiveness Check Plan Proposed By </label>
@@ -7945,7 +7929,6 @@ wow = new WOW(
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="deviation_EC_Plan_Proposed_On"> Deviation Effectiveness Check Plan Proposed On</label>
@@ -7958,8 +7941,6 @@ wow = new WOW(
             </div>
             {{-- row-end --}}
             </div>
-
-
                  <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="EC_Closure_comments_deviation">Effectiveness Check Closure Comments(Deviation)</label>
@@ -7968,8 +7949,6 @@ wow = new WOW(
                 </textarea>
                 </div>
                 </div>
-
-
                  <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Next_review_date_deviation">Next Review Date(Deviation)</label>
@@ -8033,7 +8012,6 @@ wow = new WOW(
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Investigation_Extension_Completed_On">CAPA Effectiveness Check Plan Proposed On</label>
@@ -8045,9 +8023,7 @@ wow = new WOW(
                 </div>
             </div>
             {{-- row-end --}}
-        </div>
-
-
+          </div>
                  <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments(CAPA)</label>
@@ -8056,7 +8032,6 @@ wow = new WOW(
                 </textarea>
                    </div>
                 </div>
-
                 <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Investigation_Extension_Completed_On">Next Review Date(CAPA)</label>
@@ -8080,7 +8055,6 @@ wow = new WOW(
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Effectiveness_Check_Closed_On">CAPA Effectiveness Check Closed On</label>
@@ -8095,17 +8069,15 @@ wow = new WOW(
         </div>
              <div class="sub-head">
                         Quality Risk Management Effectiveness Check
-                        </div>
-                        
-                         <div class="col-md-12 mb-3">
+                        </div>                        
+                 <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                     <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
+                     </div>
                 </div>
-                </div>
-
                 {{-- row --}}
                 <div class="row">
                  <div class="col-lg-6">
@@ -8119,7 +8091,6 @@ wow = new WOW(
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Investigation_Extension_Completed_On">QRM Effectiveness Check Plan Proposed On</label>
@@ -8129,11 +8100,9 @@ wow = new WOW(
                             oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
                     </div>
                 </div>
-        
         </div>
     {{-- row-end --}}
     </div>
-
 
                  <div class="col-md-12 mb-3">
                 <div class="group-input">
@@ -8141,7 +8110,7 @@ wow = new WOW(
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                     <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
-                </div>
+                    </div>
                 </div>
 
                 <div class="col-lg-6 new-date-data-field">
@@ -8207,7 +8176,6 @@ wow = new WOW(
                     </select>
                 </div>
             </div>
-
             <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Effectiveness_Check_Plan_Proposed_On">Investigation Effectiveness Check Plan Proposed On</label>
