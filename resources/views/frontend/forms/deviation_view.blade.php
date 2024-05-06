@@ -732,7 +732,7 @@ wow = new WOW(
                 <button class="cctablinks " onclick="openCity(event, 'CCForm9')">Investigation</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm11')">QRM</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm10')">CAPA</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
+                {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension & Effectiveness Check</button>
@@ -1776,17 +1776,238 @@ wow = new WOW(
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        handleInvestigationRequiredChange();
+        
+        
+                    function handleInvestigationRequiredChange() {
+            var investigationSelect = document.getElementById("Investigation_required");
+            var investigationButton = document.getElementById("Investigation_button");
+        
+            // Get the selected value of the Investigation Required dropdown
+            var investigationRequired = investigationSelect.value;
+        
+            // Check if Investigation Required is "Yes"
+            if (investigationRequired === "yes") {
+                // Show the Investigation button
+                investigationButton.style.display = "display";
+            } else {
+                // Hide the Investigation button
+                investigationButton.style.display = "none";
+            }
+        }
+        
+                  // Call the function initially to set the initial visibility of the button
+        
+        
+        
+        
+            // Function to handle the change event of the Initial Deviation Category dropdown
+            function handleDeviationCategoryChange() {
+                var selectElement = document.getElementById("Initial_Deviation_category");
+                var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+               
+                // var investigationSelect = document.getElementById("Investigation_required");
+        
+                // var investigationButton = document.getElementById("Investigation_button");
+        
+                // var selectedOptn = investigationSelect.options[investigationSelect.selectedIndex].value;
+        
+        
+                //   if(selectedOptn=== "yes"){
+        
+                //     document.getElementById("Investigation_button").style.display = "block";
+        
+                //     }
+                //     else{
+                //     document.getElementById("Investigation_button").style.display = "none";
+        
+        
+                //     }
+        
+            // Get the selected values
+                // var investigationRequired = investigationSelect.value;
+                
+                // Check if the selected option is "Major" or "Critical"
+                if (selectedOption === "major" || selectedOption === "critical") {
+                    // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
+                    document.getElementById("Investigation_required").value = "yes";
+                    document.getElementById("capa_required").value = "yes";
+                    document.getElementById("qrm_required").value = "yes";
+        
+                    // Show the Investigation, CAPA, and QRM buttons
+                    document.getElementById("Investigation_button").style.display = "block";
+                    document.getElementById("CAPA_button").style.display = "block";
+                    document.getElementById("QRM_button").style.display = "block";
+                } else{
+                    // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
+                    document.getElementById("Investigation_required").value = "select";
+                    document.getElementById("capa_required").value = "select";
+                    document.getElementById("qrm_required").value = "select";
+        
+                    // Hide the Investigation, CAPA, and QRM buttons
+                    document.getElementById("Investigation_button").style.display = "none";
+                    document.getElementById("CAPA_button").style.display = "none";
+                    document.getElementById("QRM_button").style.display = "none";
+        
+                
+        
+                }
+        
+            }
+                 
+        </script>
+
+<script>
+
+    // This is a JQuery used for showing the Investigation 
+    
+                                $(document).ready(function () {
+        $('#Initial_Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(function () {
+            // Get the selected values
+            var deviationCategory = $('#Initial_Deviation_category').val();
+            var investigationRequired = $('#Investigation_required').val();
+            var capaRequired = $('#capa_required').val();
+            var qrmRequired = $('#qrm_required').val();
+    
+            
+            // Check if both conditions are met
+            if ( investigationRequired === 'yes') {
+                $('#Investigation_button').show(); // Show the investigation button
+            } else {
+                $('#Investigation_button').hide(); // Hide the investigation button
+            }
+            //CAPA condition
+             if ( capaRequired === 'yes') {
+                $('#CAPA_button').show(); // Show the investigation button
+            } else {
+                $('#CAPA_button').hide(); // Hide the investigation button
+            }
+            //QRMCon
+             if ( qrmRequired === 'yes') {
+                $('#QRM_button').show(); // Show the investigation button
+            } else {
+                $('#QRM_button').hide(); // Hide the investigation button
+            }
+        });
+    });
+    
+    
+    
+    //                           $(document).ready(function () {
+    //                             $('#Investigation_required').change(function () {
+    //                                 var selectedValues = $(this).val();
+                                    
+    // Investigation_required
+    //                                 if (selectedValues === 'major' || selectedValues === 'critical') {
+    //                                     $('#Investigation_required').val('yes').prop('disabled', true);
+    //                                     $('#capa_required').val('yes').prop('disabled', true);
+    //                                     $('#qrm_required').val('yes').prop('disabled', true);
+    
+    //                                 } else {
+    //                                     $('#Investigation_required').prop('disabled', false);
+    //                                     $('#qrm_required').prop('disabled', false);
+    //                                     $('#capa_required').prop('disabled', false);
+    //                                 }
+                                   
+    //                             });
+    //                         });
+                             
+    
+    
+                            $(document).ready(function () {
+                                $('#Initial_Deviation_category').change(function () {
+                                    var selectedValues = $(this).val();
+    
+                                    if (selectedValues === 'major' || selectedValues === 'critical') {
+                                        $('#Investigation_required').val('yes').prop('disabled', true);
+                                        $('#capa_required').val('yes').prop('disabled', true);
+                                        $('#qrm_required').val('yes').prop('disabled', true);
+    
+                                    } else {
+                                        $('#Investigation_required').prop('disabled', false);
+                                        $('#qrm_required').prop('disabled', false);
+                                        $('#capa_required').prop('disabled', false);
+                                    }
+                                   
+                                });
+                            });
+    
+                            $(document).ready(function () {
+    
+    
+                                $('#Deviation_category').change(function () {
+                                    if ($(this).val() === 'major') {
+                                        $('#Investigation_required').val('yes').prop('disabled', true);
+    
+    
+                                        $('#Investigations_details').show();
+                                        $('textarea[name="Investigations_details"]').prop('required', true);
+    
+                                        $('#Customer_notification').val('yes').prop('disabled', true);
+                                        $('#customer_option').show();
+                                        $('textarea[name="customer_option"]').prop('required', true);
+                                    } else {
+                                        $('#Customer_notification').prop('disabled', false);
+                                        $('#customer_option').hide();
+                                        $('textarea[name="customer_option"]').prop('required', false);
+                                        $('#Investigation_required').prop('disabled', false);
+    
+    
+                                        $('#Investigations_details').hide();
+                                        $('textarea[name="Investigations_details"]').prop('required', false);
+                                    }
+                                    // if ($(this).val() === 'major') {
+                                    //     $('#Investigation_required').val('yes');
+                                    //     $('#Customer_notification').val('yes');
+                                    // }
+                                });
+                            });
+                            $(document).ready(function () {
+                                $('#Investigation_required').change(function () {
+                                    var selectedValue = $(this).val();
+                                    if (selectedValue === 'yes') {
+                                        $('#Investigations_details').show();
+                                        $('textarea[name="Investigations_details"]').prop('required', true);
+                                    } else {
+                                        $('#Investigations_details').hide();
+                                        $('textarea[name="Investigations_details"]').prop('required', false);
+                                    }
+                                });
+                        
+                                // Trigger change event on page load if already selected value is "Recurring"
+                                $('#Investigation_required').change();
+                            });
+                            $(document).ready(function () {
+                                $('#Customer_notification').change(function () {
+                                    var selectedValue = $(this).val();
+                                    if (selectedValue === 'yes') {
+                                        $('#customer_option').show();
+                                        $('textarea[name="customer_option"]').prop('required', true);
+                                    } else {
+                                        $('#customer_option').hide();
+                                        $('textarea[name="customer_option"]').prop('required', false);
+                                    }
+                                });
+                        
+                                // Trigger change event on page load if already selected value is "Recurring"
+                                $('#Customer_notification').change();
+                            });
+                        </script>
+             
                        <!-- QA Initial reVIEW -->
                        <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             @if($data->stage==3)
                             <div class="row">
+
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                              
                                             @if($data->stage == 3)
                                                 <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
-                                                <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" required>
+                                                <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" onchange="handleDeviationCategoryChange()" required>
                                                     <option value="0">-- Select --</option>
                                                     <option @if ($data->Deviation_category == 'minor') selected @endif
                                                     value="minor">Minor</option>
@@ -1797,7 +2018,7 @@ wow = new WOW(
                                                 </select>
                                             @else
                                                 <label for="Deviation category">Initial Deviation category</label>
-                                                <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" >
+                                                <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  onchange="handleDeviationCategoryChange()" value="{{ $data->Deviation_category }}" >
                                                     <option value="0">-- Select --</option>
                                                     <option @if ($data->Deviation_category == 'minor') selected @endif
                                                     value="minor">Minor</option>
@@ -1811,6 +2032,27 @@ wow = new WOW(
                                             @error('Deviation_category')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="capa_required"> CAPA Required ?</label>
+                                        <select name="capa_required" id="capa_required">
+                                            <option value="select">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="qrm_required">QRM  Required ?</label>
+                                        <select name="qrm_required" id="qrm_required">
+                                            <option value="select">-- Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -1838,7 +2080,7 @@ wow = new WOW(
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Required?  <span class="text-danger">*</span></label>
-                                        <select name="Investigation_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Investigation_required"    value="{{ $data->Investigation_required }}" >
+                                        <select name="Investigation_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Investigation_required"  value="{{ $data->Investigation_required }}" >
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value='yes'>Yes</option>
@@ -7084,16 +7326,11 @@ wow = new WOW(
                     </div>
                 </div>
                     <!-- investigation and capa -->
-                    <div id="CCForm3" class="inner-block cctabcontent">
+                    {{-- <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             @if($data->stage==5)
                             <div class="row">
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary</label>
-                                        <textarea id="Investigation_Summary" name="Investigation_Summary" value="{{ $data->Investigation_Summary }}"  cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7104,12 +7341,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Impect assessment">Impact Assessment</label>
-                                        <textarea id="Impect_assessment" name="Impect_assessment" value="{{ $data->Impect_assessment }}"  cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7120,12 +7352,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Root Cause">Root Cause</label>
-                                        <textarea id="Root_cause" name="Root_cause" value="{{ $data->Root_cause }}"  cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7153,23 +7380,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="capa type">CAPA Type? <span id="asteriskIcon32q1" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                                      <select class="capa_type" name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
-                                        <option value="0"> -- Select --</option>
-                                        <option @if ($data->capa_type == 'Corrective_Action') selected @endif
-                                            value="Corrective_Action">Corrective Action</option>
-                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif 
-                                           value="Preventive_Action"> Preventive Action</option>
-                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
-                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>   
-                                      </select>
-                                      @error('capa_type')
-                                          <div class="text-danger">{{ $message }}</div>
-                                      @enderror
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description  <span id="asteriskIcon32q13" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7186,7 +7397,6 @@ wow = new WOW(
                                             var selectField = document.getElementById('CAPA_Rquired');
                                             var inputsToToggle = [];
         
-                                            // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('capa_type');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
@@ -7203,7 +7413,6 @@ wow = new WOW(
                                                     input.required = isRequired;
                                                 });
         
-                                                // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon321 = document.getElementById('asteriskIcon32q1');
                                                 var asteriskIcon3211 = document.getElementById('asteriskIcon32q13');
                                                 asteriskIcon321.style.display = isRequired ? 'inline' : 'none';
@@ -7211,19 +7420,7 @@ wow = new WOW(
                                             });
                                         });
                                 </script>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
-                                    </div>
-                                </div> --}}
-                                
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="tiny" name="Post_Categorization"></textarea>
-                                    </div>
-                                </div> --}}
+                               
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7242,12 +7439,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="tiny" name="Investigation_Of_Review"></textarea>
-                                    </div>
-                                </div> --}}
+                              
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 5 ? 'inline' : 'none' }}">*</span></label>
@@ -7283,25 +7475,7 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="capa_Attachments">CAPA Attachment </label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            
-                                            
-                                            </div>
-                                       
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                               
                             
                                 <div class="col-12">
                                     <div class="group-input">
@@ -7331,12 +7505,7 @@ wow = new WOW(
                             </div>
                             @else
                             <div class="row">
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Investigation Summary">Investigation Summary</label>
-                                        <textarea id="Investigation_Summary" name="Investigation_Summary" value="{{ $data->Investigation_Summary }}"  cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
@@ -7347,12 +7516,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Impect assessment">Impact Assessment</label>
-                                        <textarea id="Impect_assessment" name="Impect_assessment" value="{{ $data->Impect_assessment }}"  cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
@@ -7363,12 +7527,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Root Cause">Root Cause</label>
-                                        <textarea id="Root_cause" name="Root_cause" value="{{ $data->Root_cause }}"  cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                               
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause </label>
@@ -7396,29 +7555,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                {{--<div class="col-6">
-                                    <div class="group-input">
-                                        <label for="capa type">CAPA Type?</label>
-                                      <select disabled name="capa_type"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}   id="capa_type" value="{{ $data->capa_type }}">
-                                        <option value="0"> -- Select --</option>
-                                        <option @if ($data->capa_type == 'Corrective_Action') selected @endif
-                                            value="Corrective_Action">Corrective Action</option>
-                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif 
-                                           value="Preventive_Action"> Preventive Action</option>
-                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
-                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>   
-                                      </select>
-                                      @error('capa_type')
-                                          <div class="text-danger">{{ $message }}</div>
-                                      @enderror
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
-                                    </div>
-                                </div>--}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
@@ -7426,12 +7563,7 @@ wow = new WOW(
                                         <textarea readonly class="tiny" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="tiny" name="Post_Categorization"></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
@@ -7450,12 +7582,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="tiny" name="Investigation_Of_Review"></textarea>
-                                    </div>
-                                </div> --}}
+                              
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
@@ -7491,25 +7618,7 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="capa_Attachments">CAPA Attachment </label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            
-                                            
-                                            </div>
-                                       
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'file_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -7544,15 +7653,15 @@ wow = new WOW(
                                       </div>
                                       Save
                                 </button>
-{{-- <a href="/rcms/qms-dashboard">
+                             <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a> --}}
+                                    </a>
                                 <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- QA Final Review -->
                     <div id="CCForm4" class="inner-block cctabcontent">
@@ -7640,7 +7749,35 @@ wow = new WOW(
                     <div id="CCForm5" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
+                                        <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
+                                        <select disabled name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
+                                        <option value=""> -- Select --</option>
+                                        <option @if ($data->Post_Categorization == 'major') selected @endif
+                                            value="major">Major</option>
+                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif 
+                                           value="minor">Minor</option>
+                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif 
+                                            value="critical">Critical</option>
+                                      </select>
+                                      {{-- @error('Post_Categorization')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror --}}
+                                    </div>
+                                </div>
                                 
+                                <div class="col-md-12">
+                                    <div class="group-input">
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea readonly class="tiny" name="Investigation_Of_Review"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-13">{{ $data->Investigation_Of_Review }}</textarea>
+                                    </div>
+                                    {{-- @error('Post_Categorization')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror --}}
+                                </div>
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Closure Comments">Closure Comments  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
@@ -7827,7 +7964,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Extension Justification (Quality Risk Management)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -7876,7 +8013,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justification_investigation">Extension Justification (Investigation)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justification_investigation" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justification_investigation" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -7912,7 +8049,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Effectiveness_Check_Plan_Deviation">Effectiveness Check Plan(Deviation)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
+                    <textarea class="tiny" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -7946,7 +8083,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="EC_Closure_comments_deviation">Effectiveness Check Closure Comments(Deviation)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="EC_Closure_comments_deviation" id="summernote-10">
+                    <textarea class="tiny" name="EC_Closure_comments_deviation" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -7995,7 +8132,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="EC_plan_Capa" id="summernote-10">
+                    <textarea class="tiny" name="EC_plan_Capa" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -8029,7 +8166,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments(CAPA)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
                    </div>
                 </div>
@@ -8075,7 +8212,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
                      </div>
                 </div>
@@ -8109,7 +8246,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Closure Comments( Quality Risk Management)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
                     </div>
                 </div>
@@ -8159,7 +8296,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="Extension_Justi_QRM" id="summernote-10">
+                    <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -8194,7 +8331,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="EC_Closure_Comments_investigation">Effectiveness Check Closure Comments(Investigation)</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="summernote" name="EC_Closure_Comments_investigation" id="summernote-10">
+                    <textarea class="tiny" name="EC_Closure_Comments_investigation" id="summernote-10">
                 </textarea>
                 </div>
                 </div>
@@ -8332,6 +8469,26 @@ wow = new WOW(
                                     <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
                                         <label for="CFT Review Comments">CFT Review Comments :-</label>
                                         <div class="">{{ $data->CFT_Review_Comments }}</div>
+                                    </div>
+                                </div>
+                                <div class="sub-head">Initiator Update</div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CFT Review Complete By">Initiator Update Complete By :-</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="CFT Review Complete On">Initiator Update Complete On :-</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="CFT Review Comments">Initiator Update Comments :-</label>
+                                        <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="sub-head"> QA Final Review Completed</div>

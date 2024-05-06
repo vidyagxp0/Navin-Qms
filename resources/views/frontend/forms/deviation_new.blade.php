@@ -549,7 +549,7 @@ $users = DB::table('users')
                 <button id="QRM_button" class="cctablinks" style="display: none" onclick="openCity(event, 'CCForm11')">QRM</button>
 
                  <button id="CAPA_button" class="cctablinks" style="display: none" onclick="openCity(event, 'CCForm10')">CAPA</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button>
+                {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension & Effectiveness Check</button>
@@ -1535,9 +1535,6 @@ $users = DB::table('users')
         </div>
     </div>
 
-
-                                    </div>
-                                </div> 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Justification for Categorization">Justification for Categorization</label>
@@ -3403,16 +3400,14 @@ $users = DB::table('users')
                                         </table>
                                     </div>
                                 </div>
-                                {{-- @error('Product_Batch')
-                                    <div class="text-danger">{{ $message  }}</div>
-                                @enderror --}}
+                               
                           </div>
 
                           <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="audit type">Investigation Approach </label>
                                 <select multiple name="audit_type[]" id="audit_type">
-                                    {{-- <option value="">Enter Your Selection Here</option> --}}
+                                    <option value="">Enter Your Selection Here</option>
                                     <option value="1">Why-Why Chart</option>
                                     <option value="2">Failure Mode and Efect Analysis</option>
                                     <option value="3">Fishbone or Ishikawa Diagram</option>
@@ -4346,15 +4341,10 @@ $users = DB::table('users')
 
 
                     <!-- investigation and capa -->
-                    <div id="CCForm3" class="inner-block cctabcontent">
+                    {{-- <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
-                                        <textarea class="" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                               
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
@@ -4363,12 +4353,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
-                                        <textarea class="" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
@@ -4377,12 +4362,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Root cause">Root Cause</label>
-                                        <textarea class="" name="Root_cause" id="Root_cause" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+                               
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause</label>
@@ -4414,12 +4394,7 @@ $users = DB::table('users')
                                       </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="External Auditing Agency">CAPA Description</label>
-                                        <textarea class="" name="CAPA_Description"></textarea>
-                                    </div>
-                                </div> --}}
+                               
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
@@ -4428,17 +4403,11 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
-                                        <textarea class="" name="Post_Categorization"></textarea>
-                                    </div>
-                                </div> --}}
+                                
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                        <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
-                                        {{-- <textarea class="" name="Post_Categorization" id="summernote-12"> --}}
                                             <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
                                                 <option value="major">Major</option>
@@ -4448,12 +4417,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="External Auditing Agency">Investigation Of Revised Categorization</label>
-                                        <textarea class="" name="Investigation_Of_Review"></textarea>
-                                    </div>
-                                </div> --}}
+                               
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
@@ -4462,25 +4426,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Investigatiom Attachment">Investigation Attachment </label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>
-                                            
-                                            
-                                            </div>
-                                       
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Investigation_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="Investigation_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Investigation_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                
 
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -4517,7 +4463,7 @@ $users = DB::table('users')
                             
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-<a href="/rcms/qms-dashboard">
+                              <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -4525,7 +4471,7 @@ $users = DB::table('users')
                                         Exit </a> </button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Initiator Update -->
                     <div id="CCForm4" class="inner-block cctabcontent">
@@ -4566,7 +4512,7 @@ $users = DB::table('users')
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
-<a href="/rcms/qms-dashboard">
+                              <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -4580,7 +4526,27 @@ $users = DB::table('users')
                     <div id="CCForm5" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
+                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
+                                            <select name="Post_Categorization" id="Post_Categorization">
+                                                <option value=""> -- Select --</option>
+                                                <option value="major">Major</option>
+                                                <option value="minor">Minor</option>
+                                                <option value="critical">Critical</option>
+                                              </select>
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Investigation_Of_Review" id="summernote-13">
+                                    </textarea>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label  class="mt-4" for="Remarks">Closure Comments</label>
