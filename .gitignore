@@ -1,5 +1,7 @@
+.env
+./vendor
+./public
+./bootstrap
+/vendor/*
 
 .env
-/vendor
-/public
-/bootstrap

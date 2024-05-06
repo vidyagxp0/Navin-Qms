@@ -810,7 +810,7 @@ $users = DB::table('users')
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time delayJustificationBlock">
                                         <label for="deviation_time">Delay Justification</label>
-                                        <textarea  id="Delay_Justification" name="Delay_Justification[]"></textarea>
+                                        <textarea  id="Delay_Justification" name="Delay_Justification"></textarea>
                                     </div>
                                     {{-- @error('Deviation_date')
                                         <div class="text-danger">{{  $message  }}</div>
@@ -832,7 +832,7 @@ $users = DB::table('users')
                                             $users = DB::table('users')->get();
                                         @endphp
                                         <label for="If Other">Deviation Observed By</label>
-                                        <input type="text" name="Facility[]" id="Facility" placeholder="Select Facility Name">
+                                        <input type="text" name="Facility" id="Facility" placeholder="Select Facility Name">
                                     
                                         {{-- <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
@@ -1179,9 +1179,6 @@ $users = DB::table('users')
                                                         <th style="width: 16%"> Stage</th>
                                                         <th style="width: 16%">Batch No</th>
                                                         <th style="width: 8%">Action</th>
-
-                                                       
-                                                                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
