@@ -142,7 +142,10 @@ class DeviationController extends Controller
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
-        $deviation->Facility = implode(',', $request->Facility);
+        if (is_array($request->Facility))
+        {
+            $deviation->Facility = implode(',', $request->Facility);
+        }
         // $deviation->Observed_by = $request->Observed_by;
         if (is_array($request->audit_type)) {
             $deviation->audit_type = implode(',', $request->audit_type);
@@ -980,7 +983,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-        if ($request->Facility[0] !== null){
+        if (is_array($request->Facility) && $request->Facility[0] !== null){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Observed by';
@@ -2021,8 +2024,6 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-
-
                 $Cft->Other3_attachment = json_encode($files);
             }
             if (!empty ($request->Other4_attachment)) {
@@ -2034,7 +2035,6 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-
 
                 $Cft->Other4_attachment = json_encode($files);
             }
