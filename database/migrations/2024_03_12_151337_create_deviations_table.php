@@ -51,7 +51,22 @@ return new class extends Migration
             $table->longText('Preliminary_Impact')->nullable();
             $table->longText('Product_Details_Required')->nullable();
             $table->longText('HOD_Remarks')->nullable();
+            // capa migration
+            $table->longText('department_capa')->nullable();
             $table->string('Deviation_category')->nullable();
+            $table->string('source_doc')->nullable();
+            $table->string('Description_of_Discrepancy')->nullable();
+            $table->string('capa_root_cause')->nullable();
+            $table->string('Immediate_Action_Take')->nullable();
+            $table->string('Corrective_Action_Details')->nullable();
+            $table->string('Preventive_Action_Details')->nullable();
+            $table->string('Interim_Control')->nullable();
+            $table->string('Corrective_Action_Taken')->nullable();
+            $table->string('Preventive_action_Taken')->nullable();
+            $table->string('CAPA_Closure_Comments')->nullable();
+            $table->string('CAPA_Closure_attachment')->nullable();
+            // end capa
+
             $table->longText('Justification_for_categorization')->nullable();
             $table->string('Investigation_required')->nullable();
             $table->longText('Investigation_Details')->nullable();
@@ -59,7 +74,7 @@ return new class extends Migration
             $table->string('customers')->nullable();
             $table->string('deviation_id')->nullable();
             $table->longText('QAInitialRemark')->nullable();
-           
+
             $table->longText('Investigation_Summary')->nullable();
             $table->longText('Impact_assessment')->nullable();
             $table->longText('Root_cause')->nullable();
@@ -94,7 +109,7 @@ return new class extends Migration
             $table->string('CFT_Review_Complete_By')->nullable();
             $table->string('CFT_Review_Complete_On')->nullable();
             $table->longText('CFT_Review_Comments')->nullable();
-             
+
             $table->string('qa_more_info_required_by')->nullable();
             $table->string('qa_more_info_required_on')->nullable();
             $table->string('Approved_By')->nullable();
