@@ -1405,135 +1405,135 @@ $users = DB::table('users')
 
 
 
-                    <script>
-                handleInvestigationRequiredChange();
+                                                <script>
+                                            handleInvestigationRequiredChange();
 
 
-            function handleInvestigationRequiredChange() {
-    var investigationSelect = document.getElementById("Investigation_required");
-    var investigationButton = document.getElementById("Investigation_button");
+                                        function handleInvestigationRequiredChange() {
+                                var investigationSelect = document.getElementById("Investigation_required");
+                                var investigationButton = document.getElementById("Investigation_button");
 
-    // Get the selected value of the Investigation Required dropdown
-    var investigationRequired = investigationSelect.value;
+                                // Get the selected value of the Investigation Required dropdown
+                                var investigationRequired = investigationSelect.value;
 
-    // Check if Investigation Required is "Yes"
-    if (investigationRequired === "yes") {
-        // Show the Investigation button
-        investigationButton.style.display = "display";
-    } else {
-        // Hide the Investigation button
-        investigationButton.style.display = "none";
-    }
-}
+                                // Check if Investigation Required is "Yes"
+                                if (investigationRequired === "yes") {
+                                    // Show the Investigation button
+                                    investigationButton.style.display = "display";
+                                } else {
+                                    // Hide the Investigation button
+                                    investigationButton.style.display = "none";
+                                }
+                            }
 
-          // Call the function initially to set the initial visibility of the button
-
-
-
-
-    // Function to handle the change event of the Initial Deviation Category dropdown
-    function handleDeviationCategoryChange() {
-        var selectElement = document.getElementById("Initial_Deviation_category");
-        var selectedOption = selectElement.options[selectElement.selectedIndex].value;
-
-        // var investigationSelect = document.getElementById("Investigation_required");
-
-        // var investigationButton = document.getElementById("Investigation_button");
-
-        // var selectedOptn = investigationSelect.options[investigationSelect.selectedIndex].value;
-
-
-        //   if(selectedOptn=== "yes"){
-
-        //     document.getElementById("Investigation_button").style.display = "block";
-
-        //     }
-        //     else{
-        //     document.getElementById("Investigation_button").style.display = "none";
-
-
-        //     }
-
-    // Get the selected values
-        // var investigationRequired = investigationSelect.value;
-
-        // Check if the selected option is "Major" or "Critical"
-        if (selectedOption === "major" || selectedOption === "critical") {
-            // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
-            document.getElementById("Investigation_required").value = "yes";
-            document.getElementById("capa_required").value = "yes";
-            document.getElementById("qrm_required").value = "yes";
-
-            // Show the Investigation, CAPA, and QRM buttons
-            document.getElementById("Investigation_button").style.display = "block";
-            document.getElementById("CAPA_button").style.display = "block";
-            document.getElementById("QRM_button").style.display = "block";
-        } else{
-            // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
-            document.getElementById("Investigation_required").value = "select";
-            document.getElementById("capa_required").value = "select";
-            document.getElementById("qrm_required").value = "select";
-
-            // Hide the Investigation, CAPA, and QRM buttons
-            document.getElementById("Investigation_button").style.display = "none";
-            document.getElementById("CAPA_button").style.display = "none";
-            document.getElementById("QRM_button").style.display = "none";
-
-
-
-        }
-
-    }
-
-</script>
+                                    // Call the function initially to set the initial visibility of the button
 
 
 
 
-    <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-        <div class="group-input input-date">
-            <label for="Initial_Deviation_category">Initial Deviation Category</label>
-            <select name="Initial_Deviation_category" id="Initial_Deviation_category" onchange="handleDeviationCategoryChange()">
-                <option value="0">-- Select -- </option>
-                <option value="minor">Minor </option>
-                <option value="major">Major </option>
-                <option value="critical">Critical </option>
-            </select>
-        </div>
-    </div>
+                                // Function to handle the change event of the Initial Deviation Category dropdown
+                                function handleDeviationCategoryChange() {
+                                    var selectElement = document.getElementById("Initial_Deviation_category");
+                                    var selectedOption = selectElement.options[selectElement.selectedIndex].value;
 
-    <div class="col-lg-6">
-        <div class="group-input">
-            <label for="Investigation required">Investigation  Required ?</label>
-            <select name="Investigation_required" id="Investigation_required">
-                <option value="select">-- Select --</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-    </div>
+                                    // var investigationSelect = document.getElementById("Investigation_required");
 
-    <div class="col-lg-6">
-        <div class="group-input">
-            <label for="capa_required"> CAPA Required ?</label>
-            <select name="capa_required" id="capa_required">
-                <option value="select">-- Select --</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-    </div>
+                                    // var investigationButton = document.getElementById("Investigation_button");
 
-    <div class="col-lg-6">
-        <div class="group-input">
-            <label for="qrm_required">QRM  Required ?</label>
-            <select name="qrm_required" id="qrm_required">
-                <option value="select">-- Select --</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-    </div>
+                                    // var selectedOptn = investigationSelect.options[investigationSelect.selectedIndex].value;
+
+
+                                    //   if(selectedOptn=== "yes"){
+
+                                    //     document.getElementById("Investigation_button").style.display = "block";
+
+                                    //     }
+                                    //     else{
+                                    //     document.getElementById("Investigation_button").style.display = "none";
+
+
+                                    //     }
+
+                                // Get the selected values
+                                    // var investigationRequired = investigationSelect.value;
+
+                                    // Check if the selected option is "Major" or "Critical"
+                                    if (selectedOption === "major" || selectedOption === "critical") {
+                                        // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
+                                        document.getElementById("Investigation_required").value = "yes";
+                                        document.getElementById("capa_required").value = "yes";
+                                        document.getElementById("qrm_required").value = "yes";
+
+                                        // Show the Investigation, CAPA, and QRM buttons
+                                        document.getElementById("Investigation_button").style.display = "block";
+                                        document.getElementById("CAPA_button").style.display = "block";
+                                        document.getElementById("QRM_button").style.display = "block";
+                                    } else{
+                                        // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
+                                        document.getElementById("Investigation_required").value = "select";
+                                        document.getElementById("capa_required").value = "select";
+                                        document.getElementById("qrm_required").value = "select";
+
+                                        // Hide the Investigation, CAPA, and QRM buttons
+                                        document.getElementById("Investigation_button").style.display = "none";
+                                        document.getElementById("CAPA_button").style.display = "none";
+                                        document.getElementById("QRM_button").style.display = "none";
+
+
+
+                                    }
+
+                                }
+
+                            </script>
+
+
+
+
+                                                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                                                    <div class="group-input input-date">
+                                                                        <label for="Initial_Deviation_category">Initial Deviation Category</label>
+                                                                        <select name="Initial_Deviation_category" id="Initial_Deviation_category" onchange="handleDeviationCategoryChange()">
+                                                                            <option value="0">-- Select -- </option>
+                                                                            <option value="minor">Minor </option>
+                                                                            <option value="major">Major </option>
+                                                                            <option value="critical">Critical </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="group-input">
+                                                                        <label for="Investigation required">Investigation  Required ?</label>
+                                                                        <select name="Investigation_required" id="Investigation_required">
+                                                                            <option value="select">-- Select --</option>
+                                                                            <option value="yes">Yes</option>
+                                                                            <option value="no">No</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="group-input">
+                                                                        <label for="capa_required"> CAPA Required ?</label>
+                                                                        <select name="capa_required" id="capa_required">
+                                                                            <option value="select">-- Select --</option>
+                                                                            <option value="yes">Yes</option>
+                                                                            <option value="no">No</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="group-input">
+                                                                        <label for="qrm_required">QRM  Required ?</label>
+                                                                        <select name="qrm_required" id="qrm_required">
+                                                                            <option value="select">-- Select --</option>
+                                                                            <option value="yes">Yes</option>
+                                                                            <option value="no">No</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -1810,7 +1810,7 @@ $users = DB::table('users')
                     </script> --}}
    <!-- CFT -->
                 <div id="CCForm7" class="inner-block cctabcontent">
-             <div class="inner-block-content">
+                    <div class="inner-block-content">
                     <div class="row">
                             <div class="sub-head">
                             Production
@@ -4411,7 +4411,7 @@ $users = DB::table('users')
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                        <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         {{-- <textarea class="" name="Post_Categorization" id="summernote-12"> --}}
-                                            <select name="Post_Categorization" id="Post_Categorization">
+                                            {{-- <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
                                                 <option value="major">Major</option>
                                                 <option value="minor">Minor</option>
@@ -4419,19 +4419,19 @@ $users = DB::table('users')
                                               </select>
                                     </textarea>
                                     </div>
-                                </div>
+                                </div> --}}
                                
-                                <div class="col-md-12 mb-3">
+                                {{-- <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>
                                     </div>
-                                </div>
+                                </div> --}}
                                 
 
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigatiom Attachment">Investigation Attachment</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
@@ -4462,9 +4462,9 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> --}}
 
-                            <div class="button-block">
+                            {{-- <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                               <a href="/rcms/qms-dashboard">
                                         <button type="button" class="backButton">Back</button>
@@ -4474,7 +4474,7 @@ $users = DB::table('users')
                                         Exit </a> </button>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>  --}}
 
                     <!-- Initiator Update -->
                     <div id="CCForm4" class="inner-block cctabcontent">
