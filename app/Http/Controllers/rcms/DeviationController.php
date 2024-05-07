@@ -73,7 +73,7 @@ class DeviationController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        
+
         $form_progress = null; // initialize form progress
 
         if ($request->form_name == 'general')
@@ -81,7 +81,7 @@ class DeviationController extends Controller
             $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
                 'short_description' => 'required'
-                
+
             ], [
                 'Initiator_Group.required' => 'Department field required!',
                 'short_description_required.required' => 'Nature of repeat field required!'
@@ -95,15 +95,15 @@ class DeviationController extends Controller
                 $form_progress = 'general';
             }
         }
-        
+
         // if ($request->form_name == 'hod')
         // {
         //     $this->validate($request, [
         //         'HOD_Remarks' => 'required'
-                
+
         //     ]);
         // }
-        
+
         // // QA INITAL FORM VALIDATION
         // if ($request->form_name == 'qa')
         // {
@@ -123,7 +123,7 @@ class DeviationController extends Controller
 
         $deviation = new Deviation();
         $deviation->form_type = "Deviation";
-        
+
         $deviation->record = ((RecordNumber::first()->value('counter')) + 1);
         $deviation->initiator_id = Auth::user()->id;
 
@@ -182,7 +182,7 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
-        // $deviation->due_date_extension = $request->due_date_extension; 
+        // $deviation->due_date_extension = $request->due_date_extension;
         $deviation->CAPA_Rquired = $request->CAPA_Rquired;
         $deviation->capa_type = $request->capa_type;
         $deviation->CAPA_Description = $request->CAPA_Description;
@@ -195,7 +195,7 @@ class DeviationController extends Controller
         $deviation->Document_Details_Required = $request->Document_Details_Required;
         //$deviation->production_byy = $request->CFT_Review_Complete_By;
 
-        
+
             // // Get the current date
             // $due_date = new Deviation();
 
@@ -227,7 +227,7 @@ class DeviationController extends Controller
             //         }
             //     }
             // }
-        
+
 
 
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
@@ -249,13 +249,13 @@ class DeviationController extends Controller
                                 } catch (\Exception $e) {
                                     //log error
                                 }
-                                
+
                             }
                         }
                     }
                 }
 
-                
+
                 if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
                     $list = Helpers::getCEOUserList();
                             foreach ($list as $u) {
@@ -275,7 +275,7 @@ class DeviationController extends Controller
                                             } catch (\Exception $e) {
                                                 //log error
                                             }
-                                        
+
                                     }
                                 }
                             }
@@ -299,12 +299,12 @@ class DeviationController extends Controller
                                                     } catch (\Exception $e) {
                                                         //log error
                                                     }
-                                                
+
                                             }
                                         }
                                     }
-                                }                
-      
+                                }
+
                                 if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
                                     $list = Helpers::getHeadoperationsUserList();
                                             foreach ($list as $u) {
@@ -324,7 +324,7 @@ class DeviationController extends Controller
                                                         } catch (\Exception $e) {
                                                             //log error
                                                         }
-                                                        
+
                                                     }
                                                 }
                                             }
@@ -348,7 +348,7 @@ class DeviationController extends Controller
                                                                     } catch (\Exception $e) {
                                                                         //log error
                                                                     }
-                                                                
+
                                                             }
                                                         }
                                                     }
@@ -372,11 +372,11 @@ class DeviationController extends Controller
                                                                             } catch (\Exception $e) {
                                                                                 //log error
                                                                             }
-                                                                        
+
                                                                     }
                                                                 }
                                                             }
-                                                        }                            
+                                                        }
 
         if (!empty ($request->Audit_file)) {
             $files = [];
@@ -473,13 +473,13 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
-       
+
         $record = RecordNumber::first();
         $record->counter = ((RecordNumber::first()->value('counter')) + 1);
-        $record->update(); 
+        $record->update();
 
 
-        
+
         $deviation->status = 'Opened';
         $deviation->stage = 1;
 
@@ -494,7 +494,7 @@ class DeviationController extends Controller
         if (!empty($request->IDnumber)) {
             $data3->IDnumber = serialize($request->IDnumber);
         }
-        
+
         if (!empty($request->Remarks)) {
             $data3->Remarks = serialize($request->Remarks);
         }
@@ -508,12 +508,12 @@ class DeviationController extends Controller
         if (!empty($request->ReferenceDocumentName)) {
             $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
         }
-        
+
         if (!empty($request->Document_Remarks)) {
             $data4->Document_Remarks = serialize($request->Document_Remarks);
         }
         $data4->save();
-        
+
 
 
         $Cft = new DeviationCft();
@@ -523,7 +523,7 @@ class DeviationController extends Controller
         $Cft->Production_assessment = $request->Production_assessment;
         $Cft->Production_feedback = $request->Production_feedback;
         $Cft->production_on = $request->production_on;
-        $Cft->production_by = $request->production_by; 
+        $Cft->production_by = $request->production_by;
 
         $Cft->Warehouse_review = $request->Warehouse_review;
         $Cft->Warehouse_notification = $request->Warehouse_notification;
@@ -950,7 +950,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-            
+
         if (!empty ($request->Initiator_Group)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
@@ -1432,7 +1432,7 @@ class DeviationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id 
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -1448,9 +1448,9 @@ class DeviationController extends Controller
                 'Investigation_required' => 'yes',
                 'Customer_notification' => 'yes'
             ]);
-        } 
-        
-        if ($request->form_name == 'general-open') 
+        }
+
+        if ($request->form_name == 'general-open')
         {
             $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
@@ -1572,7 +1572,7 @@ class DeviationController extends Controller
                 $form_progress = 'qa';
             }
         }
-        
+
         if ($request->form_name == 'capa')
         {
             $validator = Validator::make($request->all(), [
@@ -1602,7 +1602,7 @@ class DeviationController extends Controller
                 $form_progress = 'capa';
             }
         }
-        
+
         if ($request->form_name == 'qa-final')
         {
             $form_progress = 'capa';
@@ -1664,13 +1664,13 @@ class DeviationController extends Controller
         if ($request->related_records) {
             $deviation->Related_Records1 =  implode(',', $request->related_records);
         }
-        $deviation->Facility = $request->Facility;  
+        $deviation->Facility = $request->Facility;
 
 
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
-        
+
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Justification_for_categorization = !empty($request->Justification_for_categorization) ? $request->Justification_for_categorization : $deviation->Justification_for_categorization;
 
@@ -1680,17 +1680,17 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
-        
+
         if ($deviation->stage < 6) {
             $deviation->CAPA_Rquired = $request->CAPA_Rquired;
-        } 
+        }
 
         if ($deviation->stage < 6) {
             $deviation->capa_type = $request->capa_type;
         }
 
         $deviation->CAPA_Description = !empty($request->CAPA_Description) ? $request->CAPA_Description : $deviation->CAPA_Description;
-        $deviation->Post_Categorization = !empty($request->Post_Categorization) ? $request->Post_Categorization : $deviation->Post_Categorization; 
+        $deviation->Post_Categorization = !empty($request->Post_Categorization) ? $request->Post_Categorization : $deviation->Post_Categorization;
         $deviation->Investigation_Of_Review = $request->Investigation_Of_Review;
         $deviation->QA_Feedbacks = $request->has('QA_Feedbacks') ? $request->QA_Feedbacks : $deviation->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
@@ -1698,7 +1698,7 @@ class DeviationController extends Controller
         $deviation->Facility_Equipment = $request->Facility_Equipment;
         $deviation->Document_Details_Required = $request->Document_Details_Required;
 
-        if ($deviation->stage == 3) 
+        if ($deviation->stage == 3)
         {
             $deviation->Customer_notification = $request->Customer_notification;
             $deviation->Investigation_required = $request->Investigation_required;
@@ -1707,14 +1707,14 @@ class DeviationController extends Controller
         }
 
         if($deviation->stage == 3 || $deviation->stage == 4 ){
-    
+
 
             if (!$form_progress) {
                 $form_progress = 'cft';
             }
 
             $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
-            if($Cft && $deviation->stage == 4 ){ 
+            if($Cft && $deviation->stage == 4 ){
                 $Cft->Production_Review = $request->Production_Review == null ? $Cft->Production_Review : $request->Production_Review;
                 $Cft->Production_person = $request->Production_person == null ? $Cft->Production_person : $request->Production_Review;
                 $Cft->Warehouse_review = $request->Warehouse_review == null ? $Cft->Warehouse_review : $request->Warehouse_review;
@@ -1723,7 +1723,7 @@ class DeviationController extends Controller
                 $Cft->Quality_Control_Person = $request->Quality_Control_Person == null ? $Cft->Quality_Control_Person : $request->Quality_Control_Person;
                 $Cft->Quality_Assurance_Review = $request->Quality_Assurance_Review == null ? $Cft->Quality_Assurance_Review : $request->Quality_Assurance_Review;
                 $Cft->QualityAssurance_person = $request->QualityAssurance_person == null ? $Cft->QualityAssurance_person : $request->QualityAssurance_person;
-    
+
                 $Cft->Engineering_review = $request->Engineering_review == null ? $Cft->Engineering_review : $request->Engineering_review;
                 $Cft->Engineering_person = $request->Engineering_person == null ? $Cft->Engineering_person : $request->Engineering_person;
                 $Cft->Analytical_Development_review = $request->Analytical_Development_review == null ? $Cft->Analytical_Development_review : $request->Analytical_Development_review;
@@ -1810,7 +1810,7 @@ class DeviationController extends Controller
             $Cft->Analytical_Development_assessment = $request->Analytical_Development_assessment;
             $Cft->Analytical_Development_feedback = $request->Analytical_Development_feedback;
             $Cft->Kilo_Lab_assessment = $request->Kilo_Lab_assessment;
-            $Cft->Kilo_Lab_feedback = $request->Kilo_Lab_feedback;            
+            $Cft->Kilo_Lab_feedback = $request->Kilo_Lab_feedback;
             $Cft->Technology_transfer_assessment = $request->Technology_transfer_assessment;
             $Cft->Technology_transfer_feedback = $request->Technology_transfer_feedback;
             $Cft->Health_Safety_assessment = $request->Health_Safety_assessment;
@@ -1820,18 +1820,18 @@ class DeviationController extends Controller
             $Cft->Information_Technology_assessment = $request->Information_Technology_assessment;
             $Cft->Information_Technology_feedback = $request->Information_Technology_feedback;
             $Cft->Project_management_assessment = $request->Project_management_assessment;
-            $Cft->Project_management_feedback = $request->Project_management_feedback;      
+            $Cft->Project_management_feedback = $request->Project_management_feedback;
             $Cft->Other1_assessment = $request->Other1_assessment;
             $Cft->Other1_feedback = $request->Other1_feedback;
             $Cft->Other2_Assessment = $request->Other2_Assessment;
             $Cft->Other2_feedback = $request->Other2_feedback;
             $Cft->Other3_Assessment = $request->Other3_Assessment;
-            $Cft->Other3_feedback = $request->Other3_feedback;            
+            $Cft->Other3_feedback = $request->Other3_feedback;
             $Cft->Other4_Assessment = $request->Other4_Assessment;
             $Cft->Other4_feedback = $request->Other4_feedback;
             $Cft->Other5_Assessment = $request->Other5_Assessment;
             $Cft->Other5_feedback = $request->Other5_feedback;
-            
+
 
             if (!empty ($request->production_attachment)) {
                 $files = [];
@@ -2058,7 +2058,7 @@ class DeviationController extends Controller
                 $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
                 // Define the column names
                 $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person','Other1_person','Other2_person','Other3_person','Other4_person','Other5_person'];
-                
+
                 // Initialize an array to store the values
                 $valuesArray = [];
 
@@ -2089,14 +2089,14 @@ class DeviationController extends Controller
                                 );
                             } catch (\Exception $e) {
                                 //log error
-                            }                        
+                            }
                     }
                 }
-            
-        
+
+
             if (!empty ($request->Initial_attachment)) {
                 $files = [];
-                
+
                 if ($deviation->Initial_attachment) {
                     $files = is_array(json_decode($deviation->Initial_attachment)) ? $deviation->Initial_attachment : [];
                 }
@@ -2113,13 +2113,13 @@ class DeviationController extends Controller
                 $deviation->Initial_attachment = json_encode($files);
             }
         }
-        
-        
+
+
 
         if (!empty ($request->Audit_file)) {
-            
+
             $files = [];
-            
+
             if ($deviation->Audit_file) {
                 $files = is_array(json_decode($deviation->Audit_file)) ? $deviation->Audit_file : [];
             }
@@ -2152,9 +2152,9 @@ class DeviationController extends Controller
 
             $deviation->QA_attachment = json_encode($files);
         }
-            
+
         if (!empty ($request->Investigation_attachment)) {
-            
+
             $files = [];
 
             if ($deviation->Investigation_attachment) {
@@ -2174,7 +2174,7 @@ class DeviationController extends Controller
         }
 
         if (!empty ($request->Capa_attachment)) {
-            
+
             $files = [];
 
             if ($deviation->Capa_attachment) {
@@ -2206,7 +2206,7 @@ class DeviationController extends Controller
         }
 
         if (!empty ($request->QA_attachments)) {
-            
+
             $files = [];
 
             if ($deviation->QA_attachments) {
@@ -2226,13 +2226,13 @@ class DeviationController extends Controller
         }
 
         if (!empty ($request->closure_attachment)) {
-            
+
             $files = [];
-            
+
             if ($deviation->closure_attachment) {
                 $files = is_array(json_decode($deviation->closure_attachment)) ? $deviation->closure_attachment : [];
             }
-            
+
             if ($request->hasfile('closure_attachment')) {
                 foreach ($request->file('closure_attachment') as $file) {
                     $name = $request->name . 'closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
@@ -2259,7 +2259,7 @@ class DeviationController extends Controller
                 if (!empty($request->Remarks)) {
                     $data3->Remarks = serialize($request->Remarks);
                 }
-               
+
                 $data3->update();
                 // dd($request->Remarks);
 
@@ -2271,12 +2271,12 @@ class DeviationController extends Controller
             if (!empty($request->ReferenceDocumentName)) {
                 $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
             }
-            
+
             if (!empty($request->Document_Remarks)) {
                 $data4->Document_Remarks = serialize($request->Document_Remarks);
             }
             $data4->update();
-            
+
 
         if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {
             // return 'history';
@@ -2877,10 +2877,10 @@ class DeviationController extends Controller
             $updateCFT = DeviationCft::where('deviation_id', $id)->latest()->first();
             $lastDocument = Deviation::find($id);
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
-            
+
             if ($deviation->stage == 1) {
 
-                if ($deviation->form_progress !== 'general-open') 
+                if ($deviation->form_progress !== 'general-open')
                 {
                     Session::flash('swal', [
                         'type' => 'warning',
@@ -2960,19 +2960,19 @@ class DeviationController extends Controller
                 //     }
                 // }
 
-                
+
 
 
                 $deviation->update();
 
-                
+
                 return back();
             }
             if ($deviation->stage == 2) {
-                
+
                 // Check HOD remark value
                 if (!$deviation->HOD_Remarks) {
-                    
+
                     Session::flash('swal', [
                         'title' => 'Mandatory Fields Required!',
                         'message' => 'HOD Remarks is yet to be filled!',
@@ -3029,14 +3029,14 @@ class DeviationController extends Controller
                         }
                     }
                 }
-                
+
 
                 $deviation->update();
                 toastr()->success('Document Sent');
                 return back();
             }
             if ($deviation->stage == 3) {
-                if ($deviation->form_progress !== 'cft') 
+                if ($deviation->form_progress !== 'cft')
                 {
                     Session::flash('swal', [
                         'type' => 'warning',
@@ -3056,7 +3056,7 @@ class DeviationController extends Controller
                 $deviation->stage = "4";
                 $deviation->status = "CFT Review";
 
-                // Code for the CFT required 
+                // Code for the CFT required
                 $stage = new DeviationCftsResponse();
                 $stage->deviation_id = $id;
                 $stage->cft_user_id = Auth::user()->id;
@@ -3124,7 +3124,7 @@ class DeviationController extends Controller
                                             } catch (\Exception $e) {
                                                 //log error
                                             }
-                                        
+
                                     }
                                 }
                             }
@@ -3148,7 +3148,7 @@ class DeviationController extends Controller
                                                     } catch (\Exception $e) {
                                                         //log error
                                                     }
-                                                
+
                                             }
                                         }
                                     }
@@ -3172,7 +3172,7 @@ class DeviationController extends Controller
                                                             } catch (\Exception $e) {
                                                                 //log error
                                                             }
-                                                        
+
                                                     }
                                                 }
                                             }
@@ -3185,7 +3185,7 @@ class DeviationController extends Controller
             if ($deviation->stage == 4) {
 
                 // CFT review state update form_progress
-                if ($deviation->form_progress !== 'cft') 
+                if ($deviation->form_progress !== 'cft')
                 {
                     Session::flash('swal', [
                         'type' => 'warning',
@@ -3306,14 +3306,14 @@ class DeviationController extends Controller
                         $stage->cft_user_id = Auth::user()->id;
                         $stage->status = "In-progress";
                         // $stage->cft_stage = ;
-                        $stage->comment = $request->comment; 
+                        $stage->comment = $request->comment;
                         $stage->save();
                     }
                 }
 
                 $checkCFTCount = DeviationCftsResponse::withoutTrashed()->where(['status' => 'Completed', 'deviation_id' => $id])->count();
                 // dd(count(array_unique($valuesArray)), $checkCFTCount);
-                
+
 
                 if (!$IsCFTRequired || $checkCFTCount) {
 
@@ -3366,7 +3366,7 @@ class DeviationController extends Controller
 
             if ($deviation->stage == 5) {
 
-                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks)) 
+                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks))
                 {
                     Session::flash('swal', [
                         'type' => 'success',
@@ -3384,7 +3384,7 @@ class DeviationController extends Controller
                     return redirect()->back();
                 }
 
-                
+
                 $deviation->stage = "6";
                 $deviation->status = "QA Head/Manager Designee Approval";
                 $deviation->QA_Final_Review_Complete_By = Auth::user()->name;
@@ -3432,9 +3432,9 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 6) {
 
-                if ($deviation->form_progress !== 'qah')  
+                if ($deviation->form_progress !== 'qah')
                 {
-                    
+
                     Session::flash('swal', [
                         'title' => 'Mandatory Fields!',
                         'message' => 'QAH/Designee Approval Tab is yet to be filled!',
@@ -4448,7 +4448,7 @@ class DeviationController extends Controller
             $Capachild = Deviation::find($id);
             $Capachild->Capachild = $record_number;
             $Capachild->save();
-        
+
             return view('frontend.forms.capa', compact('parent_id', 'parent_record','parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'old_record', 'cft'));
         } elseif ($request->child_type == "Action_Item")
          {
@@ -4457,7 +4457,7 @@ class DeviationController extends Controller
             $actionchild->actionchild = $record_number;
             $parent_id = $id;
             $actionchild->save();
-        
+
             return view('frontend.forms.action-item', compact('old_record', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
         elseif ($request->child_type == "effectiveness_check")
@@ -4465,7 +4465,7 @@ class DeviationController extends Controller
             $parent_name = "CAPA";
             $effectivenesschild = Deviation::find($id);
             $effectivenesschild->effectivenesschild = $record_number;
-            
+
             $effectivenesschild->save();
         return view('frontend.forms.effectiveness-check', compact('old_record','parent_short_description','parent_record', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id',  'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
@@ -4475,7 +4475,7 @@ class DeviationController extends Controller
             $Changecontrolchild->Changecontrolchild = $record_number;
 
             $Changecontrolchild->save();
-            
+
             return view('frontend.change-control.new-change-control', compact('cft','pre','hod','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id',  'record_number', 'due_date', 'parent_id', 'parent_type'));
         }
         else {
@@ -4558,7 +4558,7 @@ class DeviationController extends Controller
         $data4 =  DeviationCft::where('deviation_id', $id)->first();
         $Capachild = $data->Capachild;
         $Rootchild = $data->Rootchild;
-       
+
         $Extensionchild = $data->Extensionchild;
         $data1 = Capa::where('record', $Capachild)->first();
         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
@@ -4568,7 +4568,7 @@ class DeviationController extends Controller
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
-           
+
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $time = Carbon::now();
             $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data', 'data1', 'data2', 'data3','data4','grid_data1','grid_data'))
@@ -4593,7 +4593,7 @@ class DeviationController extends Controller
         $data = Deviation::find($id);
         $data7 =  DeviationCft::where('deviation_id', $id)->first();
         $Capachild = $data->Capachild;
-        
+
         $Rootchild = $data->Rootchild;
         $Extensionchild = $data->Extensionchild;
          $actionchild=$data->actionchild;
@@ -4606,14 +4606,14 @@ class DeviationController extends Controller
         $data4 = ActionItem::where('record', $actionchild)->first();
         $data5 = EffectivenessCheck::where('record', $effectivenesschild)->first();
         $data6 = CC::where('record', $Changecontrolchild)->first();
-        
+
         // $data4 = CC::find($id);
 
         if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
-           
+
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $time = Carbon::now();
             $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3','data4','data5','data6','grid_data1','grid_data','data7'))
@@ -4674,4 +4674,5 @@ class DeviationController extends Controller
 
         return redirect()->back();
     }
+
 }
