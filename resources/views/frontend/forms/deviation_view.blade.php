@@ -582,7 +582,7 @@ $users = DB::table('users')
                             <div class="bg-danger">Closed-Cancelled</div>
                         </div>
                     @else
-                        <div class="progress-bars">
+                        <div class="progress-bars" style="font-size: 15px;">
                             @if ($data->stage >= 1)
                                 <div class="active">Opened</div>
                             @else
@@ -614,11 +614,21 @@ $users = DB::table('users')
                                 <div class="">QA Final Review</div>
                             @endif
                             @if ($data->stage >= 6)
-                                <div class="active">QA Head/Manager Designee</div>
+                                <div class="active">QA Head/Manager Designee Approval</div>
                             @else
-                                <div class="">QA Head Designee Approval</div>
+                                <div class="">QA Head/Manager Designee Approval</div>
                             @endif
                             @if ($data->stage >= 7)
+                                <div class="active">Pending Initiator Update</div>
+                            @else
+                                <div class="">Pending Initiator Update</div>
+                            @endif
+                            @if ($data->stage >= 8)
+                            <div class="active">QA Final Approval</div>
+                        @else
+                            <div class="">QA Final Approval</div>
+                        @endif
+                            @if ($data->stage >= 9)
                                 <div class="bg-danger">Closed - Done</div>
                             @else
                                 <div class="">Closed - Done</div>
