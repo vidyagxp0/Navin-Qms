@@ -513,6 +513,21 @@ class DeviationController extends Controller
             $data4->Document_Remarks = serialize($request->Document_Remarks);
         }
         $data4->save();
+
+        $data5 = new DeviationGrid();
+        $data5->deviation_grid_id = $deviation->id;
+        $data5->type = "Product ";
+        if (!empty($request->product_name)) {
+            $data5->product_name = serialize($request->product_name);
+        }
+        if (!empty($request->product_stage)) {
+            $data5->product_stage = serialize($request->product_stage);
+        }
+        
+        if (!empty($request->batch_no)) {
+            $data5->batch_no = serialize($request->batch_no);
+        }
+        $data5->save();
         
 
 
@@ -1411,11 +1426,12 @@ class DeviationController extends Controller
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
         $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
+        $grid_data2 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Product")->first();
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1','grid_data2'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -2276,6 +2292,20 @@ class DeviationController extends Controller
                 $data4->Document_Remarks = serialize($request->Document_Remarks);
             }
             $data4->update();
+
+
+            $data5=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Product")->first();
+            if (!empty($request->product_name)) {
+                $data5->product_name = serialize($request->product_name);
+            }
+            if (!empty($request->product_stage)) {
+                $data5->product_stage = serialize($request->product_stage);
+            }
+            
+            if (!empty($request->batch_no)) {
+                $data5->batch_no = serialize($request->batch_no);
+            }
+            $data5->update();
             
 
         if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {
