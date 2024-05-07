@@ -158,7 +158,6 @@ class DeviationController extends Controller
 
 
 
-
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
 
         // $deviation->Related_Records1 =  implode(',', $request->related_records);
@@ -1658,6 +1657,13 @@ class DeviationController extends Controller
         $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
         $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
 
+        $deviation->Conclusion = $request->Conclusion ? $request->Conclusion : $deviation->Conclusion;
+        // dd($deviation->Conclusion);
+        $deviation->Identified_Risk = $request->Identified_Risk ? $request->Identified_Risk : $deviation->Identified_Risk;
+        $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
+        $deviation->detection = $request->detection ? $request->detection : $deviation->detection;
+        $deviation->occurrence = $request->occurrence ? $request->occurrence : $deviation->occurrence;
+        $deviation->rpn = $request->rpn ? $request->rpn : $deviation->rpn;
 
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
@@ -1881,7 +1887,6 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-
 
                 $Cft->Quality_Assurance_attachment = json_encode($files);
             }
