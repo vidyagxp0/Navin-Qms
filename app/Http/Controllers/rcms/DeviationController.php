@@ -516,6 +516,21 @@ class DeviationController extends Controller
         }
         $data4->save();
 
+        $data5 = new DeviationGrid();
+        $data5->deviation_grid_id = $deviation->id;
+        $data5->type = "Product ";
+        if (!empty($request->product_name)) {
+            $data5->product_name = serialize($request->product_name);
+        }
+        if (!empty($request->product_stage)) {
+            $data5->product_stage = serialize($request->product_stage);
+        }
+        
+        if (!empty($request->batch_no)) {
+            $data5->batch_no = serialize($request->batch_no);
+        }
+        $data5->save();
+
 
 
         $Cft = new DeviationCft();
@@ -1412,14 +1427,15 @@ class DeviationController extends Controller
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
-        $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
+        $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();        
+        $grid_data2 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Product")->first();
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
         $deviationNewGrid = DeviationNewGridData::where('deviation_id', $id)->latest()->first();
 
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -2256,7 +2272,7 @@ if($deviation->stage == 111){
         $deviation->objective = $request->objective;
         $deviation->scope = $request->scope;
         $deviation->imidiate_action = $request->imidiate_action;
-        $deviation->investigation_approach = implode(',', $request->investigation_approach);
+        // $deviation->investigation_approach = implode(',', $request->investigation_approach);
         $deviation->attention_issues = $request->attention_issues;
         $deviation->attention_actions = $request->attention_actions;
         $deviation->attention_remarks = $request->attention_remarks;
@@ -2332,6 +2348,19 @@ if($deviation->stage == 111){
                 $data4->Document_Remarks = serialize($request->Document_Remarks);
             }
             $data4->update();
+
+            $data5=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Product")->first();
+            if (!empty($request->product_name)) {
+                $data5->product_name = serialize($request->product_name);
+            }
+            if (!empty($request->product_stage)) {
+                $data5->product_stage = serialize($request->product_stage);
+            }
+            
+            if (!empty($request->batch_no)) {
+                $data5->batch_no = serialize($request->batch_no);
+            }
+            $data5->update();
 
 
         if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {

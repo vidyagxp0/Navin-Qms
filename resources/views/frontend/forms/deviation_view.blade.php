@@ -263,42 +263,6 @@ $users = DB::table('users')
             });
         });
     </script>
-    {{-- <script>
-        $(document).ready(function() {
-            $('#ProductDetails').click(function(e) {
-                function generateTableRow(serialNumber) {
-                    var users = @json($users);
-
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Product_Name[]"></td>'+
-                        '<td><input type="text" name=" Batch_No[]"></td>'+
-                        '<td><input type="text" name="Remarks[]"></td>'+
-                        '</tr>';
-
-                    for (var i = 0; i < users.length; i++) {
-                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    }
-
-                    html += '</select></td>' +
-
-                        '</tr>';
-
-                    return html;
-                }
-
-                var tableBody = $('#ProductDetails_details tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
-                tableBody.append(newRow);
-            });
-        });
-
-        $(document).on('click', '.remove-file', function() {
-            $(this).closest('div').remove()
-        })
-    </script> --}}
     <script>
         $(document).ready(function() {
             $('#Product_Details').click(function(e) {
@@ -307,12 +271,13 @@ $users = DB::table('users')
 
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td><input type="text" name="Product[]"></td>'+
-                        '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                        '"></td>' +
+                        '<td><input type="text" name="product_name[]"></td>' +
+                        '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>' +
 
-                        '<td><input type="text" name="BatchNo[]"></td>'+
-                        '<td><button class="removeRowBtn">Remove</button></td>'+
+                        '<td><input type="text" name="batch_no[]"></td>' +
+                        '<td><button class="removeRowBtn">Remove</button></td>' +
 
 
 
@@ -335,7 +300,6 @@ $users = DB::table('users')
                 tableBody.append(newRow);
             });
         });
-
     </script>
     <script>
         $(document).ready(function() {
@@ -1517,7 +1481,7 @@ wow = new WOW(
                                         <div class="col-lg-12">
                                             <div class="group-input" id="documentsRow">
                                                 <label for="audit-agenda-grid">
-                                                Product/Batch Details
+                                                    Product/Batch Details
                                                     <button type="button" name="audit-agenda-grid"
                                                         id="Product_Details">+</button>
                                                     <span class="text-primary" data-bs-toggle="modal"
@@ -1536,45 +1500,115 @@ wow = new WOW(
                                                                 <th style="width: 16%"> Stage</th>
                                                                 <th style="width: 16%">Batch No</th>
                                                                 <th style="width: 8%">Action</th>
+
+
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td><input type="text" class="numberDetail" name="Product[]"></td>
-                                                <td>
-
-                                                <select name="Stage[]" id="">
-                                                    <option value="">-- Select --</option>
-
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
-
-                                                    <option value="">5</option>
-                                                    <option value="">6</option>
-                                                    <option value="">7</option>
-                                                    <option value="">8</option>
-                                                    <option value="">9</option>
-
-                                                    <option value="">Final</option>
-
-                                                </select>
-                                                </td>
-                                                <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
-                                                <td><input type="text" class="Removebtn" name="Action[]"></td>
-
-
+                                                            @if ($grid_data2->product_name)
+                                                                @foreach (unserialize($grid_data2->product_name) as $key => $temps)
+                                                                    <td><input disabled type="text"
+                                                                            name="serial[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                                            value="{{ $key + 1 }}"></td>
+                                                                    <td><input class="productName" type="text"
+                                                                            name="product_name[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                                            value="{{ isset(unserialize($grid_data2->product_name)[$key]) ? unserialize($grid_data2->product_name)[$key] : '' }}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <select class="productStage"
+                                                                            name="product_stage[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                                            id="product_stage">
+                                                                            @if (isset($grid_data2->product_stage))
+                                                                                @php
+                                                                                    $product_stage = unserialize(
+                                                                                        $grid_data2->product_stage,
+                                                                                    );
+                                                                                @endphp
+                                                                                <option value="">-- Select --
+                                                                                </option>
+                                                                                <option value="1"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '1' ? 'selected' : '1' }}>
+                                                                                    1</option>
+                                                                                <option value="2"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '2' ? 'selected' : '2' }}>
+                                                                                    2</option>
+                                                                                <option value="3"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '3' ? 'selected' : '3' }}>
+                                                                                    3</option>
+                                                                                <option value="4"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '4' ? 'selected' : '4' }}>
+                                                                                    4</option>
+                                                                                <option value="5"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '5' ? 'selected' : '5' }}>
+                                                                                    5</option>
+                                                                                <option value="6"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '6' ? 'selected' : '6' }}>
+                                                                                    6</option>
+                                                                                <option value="7"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '7' ? 'selected' : '7' }}>
+                                                                                    7</option>
+                                                                                <option value="8"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '8' ? 'selected' : '8' }}>
+                                                                                    8</option>
+                                                                                <option value="9"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '9' ? 'selected' : '9' }}>
+                                                                                    9</option>
+                                                                                <option value="Final"
+                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == 'Final' ? 'selected' : 'Final' }}>
+                                                                                    Final</option>
+                                                                            @endif
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><input class="productBatchNo" type="text"
+                                                                            name="batch_no[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                                            value="{{ isset(unserialize($grid_data2->batch_no)[$key]) ? unserialize($grid_data2->batch_no)[$key] : '' }}">
+                                                                    </td>
+                                                                    <td><input type="text" class="Removebtn"
+                                                                            name="Action[]" readonly></td>
+                                                                @endforeach
+                                                            @endif
                                                         </tbody>
-
                                                     </table>
                                                 </div>
                                             </div>
-                                            {{-- @error('Product_Batch')
-                                                <div class="text-danger">{{ $message  }}</div>
-                                            @enderror --}}
+                                            @error('product_name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                            @error('product_stage')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                            @error('batch_no')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                </div>
+
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                // note-codable
+
+                                                var inputsToToggle = [];
+
+                                                // Add elements with class 'productName' to inputsToToggle
+                                                var productNameInput = document.getElementsByClassName('productName');
+                                                for (var i = 0; i < productNameInput.length; i++) {
+                                                    inputsToToggle.push(productNameInput[i]);
+                                                }
+
+                                                // Add elements with class 'productStage' to inputsToToggle
+                                                var productStageInput = document.getElementsByClassName('productStage');
+                                                for (var j = 0; j < productStageInput.length; j++) {
+                                                    inputsToToggle.push(productStageInput[j]);
+                                                }
+
+                                                // Add elements with class 'productBatchNo' to inputsToToggle
+                                                var batchNoInput = document.getElementsByClassName('productBatchNo');
+                                                for (var k = 0; k < batchNoInput.length; k++) {
+                                                    inputsToToggle.push(batchNoInput[k]);
+                                                }
+                                            });
+                                        </script>
+                                    </div>
 
                                 {{-- <div class="col-6">
                                     <div class="group-input">
