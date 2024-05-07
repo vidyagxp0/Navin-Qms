@@ -3453,8 +3453,8 @@ $users = DB::table('users')
                                         </thead>
                                         <tbody>
                                 <td><input disabled type="text" name="serial[]" value="1"></td>
-                                <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>
-                                <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>
+                                {{-- <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td> --}}
+                                {{-- <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td> --}}
                                 <td>
                                    
                                 <select name="Root_Cause_Category[]" id="Root_Cause_Category_Select">

@@ -2044,6 +2044,7 @@ wow = new WOW(
                                             @enderror
                                     </div>
                                 </div>
+                                @endif
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="capa_required"> CAPA Required ?</label>
@@ -2065,6 +2066,8 @@ wow = new WOW(
                                         </select>
                                     </div>
                                 </div>
+
+                                @if ($data->stage == 3)
 
                                         @if($data->stage == 3)
                                             <div class="col-md-12">
