@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\rcms;
 
+
+use App\Models\DeviationNewGridData;
 use App\Models\DeviationCftsResponse;
 use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
@@ -1414,8 +1416,10 @@ class DeviationController extends Controller
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
+        $deviationNewGrid = DeviationNewGridData::where('deviation_id', $id)->latest()->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1'));
+
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1460,7 +1464,7 @@ class DeviationController extends Controller
                 'Deviation_date' => 'required',
                 'deviation_time' => 'required',
                 'Deviation_reported_date' => 'required',
-                'Facility' => [
+                'Delay_Justification' => [
                     function ($attribute, $value, $fail) use ($request) {
                         $deviation_date = Carbon::parse($request->Deviation_date);
                         $reported_date = Carbon::parse($request->Deviation_reported_date);
@@ -2959,6 +2963,54 @@ class DeviationController extends Controller
                 //         }
                 //     }
                 // }
+
+                //investiocation dynamic
+                $deviation->Discription_Event = $request->Discription_Event;
+                $deviation->objective = $request->objective;
+                $deviation->scope = $request->scope;
+                $deviation->imidiate_action = $request->imidiate_action;
+                $deviation->investigation_approach = implode(',', $request->investigation_approach);
+                $deviation->attention_issues = $request->attention_issues;
+                $deviation->attention_actions = $request->attention_actions;
+                $deviation->attention_remarks = $request->attention_remarks;
+                $deviation->understanding_issues = $request->understanding_issues;
+                $deviation->understanding_actions = $request->understanding_actions;
+                $deviation->understanding_remarks = $request->understanding_remarks;
+                $deviation->procedural_issues = $request->procedural_issues;
+                $deviation->procedural_actions = $request->procedural_actions;
+                $deviation->procedural_remarks = $request->procedural_remarks;
+                $deviation->behavioiral_issues = $request->behavioiral_issues;
+                $deviation->behavioiral_actions = $request->behavioiral_actions;
+                $deviation->behavioiral_remarks = $request->behavioiral_remarks;
+                $deviation->skill_issues = $request->skill_issues;
+                $deviation->skill_actions = $request->skill_actions;
+                $deviation->skill_remarks = $request->skill_remarks;
+                $deviation->what_will_be = $request->what_will_be;
+                $deviation->what_will_not_be = $request->what_will_not_be;
+                $deviation->what_rationable = $request->what_rationable;
+                $deviation->where_will_be = $request->where_will_be;
+                $deviation->where_will_not_be = $request->where_will_not_be;
+                $deviation->where_rationable = $request->where_rationable;
+                $deviation->when_will_not_be = $request->when_will_not_be;
+                $deviation->when_rationable = $request->when_rationable;
+                $deviation->coverage_will_be = $request->coverage_will_be;
+                $deviation->coverage_will_not_be = $request->coverage_will_not_be;
+                $deviation->coverage_rationable = $request->coverage_rationable;
+                $deviation->who_will_be = $request->who_will_be;
+                $deviation->who_will_not_be = $request->who_will_not_be;
+                $deviation->who_rationable = $request->who_rationable;
+
+                $newDataGridInvestication = new DeviationNewGridData();
+                $newDataGridInvestication->deviation_id = $id;
+                $newDataGridInvestication->identifier = 'investication';
+                $newDataGridInvestication->data = $request->investication;
+                $newDataGridInvestication->save();
+
+                $newDataGridRCA = new DeviationNewGridData();
+                $newDataGridRCA->deviation_id = $id;
+                $newDataGridRCA->identifier = 'rootCause';
+                $newDataGridRCA->data = $request->rootCause;
+                $newDataGridRCA->save();
 
 
 

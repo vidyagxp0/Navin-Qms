@@ -27,7 +27,7 @@ $users = DB::table('users')
         .sub-main-head {
         display: flex;
         justify-content: space-evenly;
-    } 
+    }
 
     .Activity-type {
         margin-bottom: 7px;
@@ -86,13 +86,13 @@ $users = DB::table('users')
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
      @if (Session::has('swal'))
      <script>
         swal ( "{{ Session::get('swal')['title'] }}" ,  "{{ Session::get('swal')['message'] }}" ,  "{{ Session::get('swal')['type'] }}" )
      </script>
      @endif
-    
+
     <script>
 
         function otherController(value, checkValue, blockID) {
@@ -199,7 +199,7 @@ $users = DB::table('users')
             $('#ObservationAdd').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -214,8 +214,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -228,13 +228,13 @@ $users = DB::table('users')
             });
         });
     </script>
-    
+
 <script>
         $(document).ready(function() {
             $('#ReferenceDocument').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -242,15 +242,15 @@ $users = DB::table('users')
                         '<td><input type="text" name="ReferenceDocumentName[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '<td><input type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}></td>'+
                         '<td><button class="removeRowBtn">Remove</button></td>'+
-                        
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -268,7 +268,7 @@ $users = DB::table('users')
             $('#ProductDetails').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -281,8 +281,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -304,51 +304,51 @@ $users = DB::table('users')
             $('#Product_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         '<td><input type="text" name="Product[]"></td>'+
                         '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
-        
+
                         '<td><input type="text" name="BatchNo[]"></td>'+
                         '<td><button class="removeRowBtn">Remove</button></td>'+
-    
-    
-                        
+
+
+
                         '</tr>';
-    
+
                     for (var i = 0; i < users.length; i++) {
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
-    
-                    html += '</select></td>' + 
-                  
+
+                    html += '</select></td>' +
+
                         '</tr>';
-    
+
                     return html;
                 }
-    
+
                 var tableBody = $('#Product_Details_Details tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
         });
-       
+
     </script>
-     <script>
+    <script>
         $(document).ready(function() {
             $('#investigation_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+           
-                        '<td><input type="text" class="numberDetail" name="Responsibility[]"></td>'+
-                        '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
+                        '<td><input disabled type="text" name="investication[' + serialNumber + '][serial]" value="' + serialNumber +'"></td>' +
+                        '<td> <select name="investication[' + serialNumber + '][investioncation_team]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+
+                        '<td><input type="text" class="numberDetail" name="investication[' + serialNumber + '][responsibility]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="investication[' + serialNumber + '][remarks]"></td>'+
                         '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
 
                         '</tr>';
@@ -357,8 +357,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -369,22 +369,22 @@ $users = DB::table('users')
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });  
-    </script> 
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#root_cause_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>'+
-                        '<td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>'+
-                        '<td><input type="text" class="Document_Remarks" name="ifother[]"></td>'+
-                        '<td><input type="text" class="Document_Remarks" name="Probability[]"></td>'+
-                        '<td><input type="text" class="Document_Remarks" name="remarks[]"></td>'+
+                        '<td><input disabled type="text" name="rootCause[' + serialNumber + '][serial]" value="' + serialNumber +'"></td>' +
+                        '<td> <select name="rootCause[' + serialNumber + '][root_cause_category]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>'+
+                        '<td><select name="rootCause[' + serialNumber + '][root_cause_sub_category]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="rootCause[' + serialNumber + '][ifother]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="rootCause[' + serialNumber + '][probability]"></td>'+
+                        '<td><input type="text" class="Document_Remarks" name="rootCause[' + serialNumber + '][remarks]"></td>'+
                         '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
 
                         '</tr>';
@@ -393,8 +393,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -405,14 +405,14 @@ $users = DB::table('users')
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });  
-    </script> 
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#risk_matrix_details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>'+
@@ -429,8 +429,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -441,13 +441,13 @@ $users = DB::table('users')
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });  
-    </script> 
+        });
+    </script>
     <script>
         $(document).on('click', '.removeRowBtn', function() {
             $(this).closest('tr').remove();
         })
-       
+
     </script>
     <div class="form-field-head">
 
@@ -468,7 +468,7 @@ $users = DB::table('users')
         <div class="container-fluid">
 
             <div class="inner-block state-block">
-                <div class="d-flex justify-content-between align-items-center"> 
+                <div class="d-flex justify-content-between align-items-center">
                     <div class="main-head">Record Workflow </div>
 
                     <div class="d-flex" style="gap:20px;">
@@ -543,7 +543,7 @@ $users = DB::table('users')
                                 <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                     CFT Review Complete
                                 </button>
-                            @endif 
+                            @endif
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Initiator
@@ -567,7 +567,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Approved
                             </button>
-                        @endif 
+                        @endif
                         <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
                             </a> </button>
 
@@ -635,15 +635,15 @@ $users = DB::table('users')
     console.log('Script working')
 
     $(document).ready(function() {
-        
-            
+
+
         function submitForm() {
 
             let auditForm = document.getElementById('auditForm');
 
 
             console.log('sumitting form')
-            
+
             document.querySelectorAll('.saveAuditFormBtn').forEach(function(button) {
                 button.disabled = true;
             })
@@ -659,7 +659,7 @@ $users = DB::table('users')
             document.getElementById('formNameField').value = 'general-open';
             submitForm();
         });
-        
+
         $('#ChangesaveButton02').click(function() {
             document.getElementById('formNameField').value = 'hod';
             submitForm();
@@ -669,17 +669,17 @@ $users = DB::table('users')
             document.getElementById('formNameField').value = 'qa';
             submitForm();
         });
-        
+
         $('#ChangesaveButton04').click(function() {
             document.getElementById('formNameField').value = 'capa';
             submitForm();
         });
-        
+
         $('#ChangesaveButton05').click(function() {
             document.getElementById('formNameField').value = 'qa-final';
             submitForm();
         });
-        
+
         $('#ChangesaveButton06').click(function() {
             document.getElementById('formNameField').value = 'qah';
             submitForm();
@@ -688,8 +688,8 @@ $users = DB::table('users')
         $('#signatureModalButton').click(function() {
 
         });
-        
-        
+
+
     });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -754,26 +754,26 @@ wow = new WOW(
                                     <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                                     <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                                 @endif
-                               
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         @if ($data->stage >= 3)
                                         <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
+                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                         @else
-                                        <input disabled type="text" name="record_number"> 
+                                        <input disabled type="text" name="record_number">
                                         @endif
                                     </div>
                                 </div>
-                    
+
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
-                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> 
+                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
+                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div>
                                     </div>
                                 </div> --}}
                                 <div class="col-lg-6">
@@ -849,7 +849,7 @@ wow = new WOW(
                                             value="{{ Helpers::getdateFormat($data->due_date) }}"
                                             name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}>
                                         {{-- <input type="text" value="{{ $data->due_date }}" name="due_date">
-                                        {{-- <div class="static"> {{ $due_date }}</div> 
+                                        {{-- <div class="static"> {{ $due_date }}</div>
 
                                     </div>
                                 </div> --}}
@@ -928,7 +928,7 @@ wow = new WOW(
 
                                     </div>
                                 </div> --}}
-                            
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
@@ -938,7 +938,7 @@ wow = new WOW(
                                     @error('short_description')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>  
+                                </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Short Description required">Repeat Deviation? <span
@@ -953,7 +953,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-lg-6" id="nature_of_repeat_block" 
+                                <div class="col-lg-6" id="nature_of_repeat_block"
                                 @if ( $data->short_description_required != 'Recurring')  style="display: none" @endif>
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature <span id="asteriskInviRecurring" style="display: {{ $data->short_description_required == 'Recurring' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -974,13 +974,13 @@ wow = new WOW(
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
 
-                                                                        
+
                                         selectField.addEventListener('change', function () {
                                             var isRequired = this.value === 'Recurring';
                                             // var natureOfRepeatBlock = document.getElementsById('nature_of_repeat_block');
 
                                             inputsToToggle.forEach(function (input) {
-                                                
+
                                                 if (!isRequired) {
                                                     document.getElementById('nature_of_repeat_block').style.display = 'none';
                                                 } else {
@@ -1031,17 +1031,17 @@ wow = new WOW(
 
 
                                 <div class="col-lg-6 new-time-data-field">
-                                    <div class="group-input input-time delayJustificationBlock">
+                                    <div class="group-input input-time @error('Delay_Justification') @else delayJustificationBlock @enderror">
                                         <label for="deviation_time">Delay Justification</label>
                                         <textarea  id="Delay_Justification" name="Delay_Justification"></textarea>
                                     </div>
-                                    {{-- @error('Deviation_date')
+                                    @error('Delay_Justification')
                                         <div class="text-danger">{{  $message  }}</div>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
 
-                                
-                             
+
+
                                 <script>
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
@@ -1062,7 +1062,7 @@ wow = new WOW(
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}" @if (in_array($user->id, explode(',', $data->Facility))) selected @endif>{{ $user->name }}</option>
-                                            @endforeach                                           
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div> --}}
@@ -1114,7 +1114,7 @@ wow = new WOW(
                                         <label for="others">Others</label>
                                         <input type="text" id="others" name="others">
                                     </div>
-                                </div> 
+                                </div>
                                <div>  --}}
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1128,7 +1128,7 @@ wow = new WOW(
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On <span
@@ -1140,8 +1140,8 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
-                             
+
+
                                 <script>
                                     $('.delayJustificationBlock').hide();
 
@@ -1168,11 +1168,11 @@ wow = new WOW(
                                     }
 
                                     $('input[name=Deviation_date]').on('change', function() {
-                                        calculateDateDifference();  
+                                        calculateDateDifference();
                                     })
 
                                     $('input[name=Deviation_reported_date]').on('change', function() {
-                                        calculateDateDifference();  
+                                        calculateDateDifference();
                                     })
                                 </script>
 
@@ -1203,8 +1203,8 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
-                                
+
+
                                 <div class="col-lg-6" id="others_block" @if (strpos($data->audit_type, 'Anyother(specify)')) style="display: none" @endif>
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInOther" style="display: {{ $data->audit_type == 'Anyother(specify)' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -1226,7 +1226,7 @@ wow = new WOW(
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
 
-                                                                        
+
                                         selectField.addEventListener('change', function () {
                                             // var isRequired = this.value === 'Anyother(specify)';
                                             var isRequired = this.value.includes('Anyother(specify)');
@@ -1253,7 +1253,7 @@ wow = new WOW(
                                             <option value="">-- Select --</option>
                                             <option @if ($data->Facility_Equipment == 'yes' || old('Facility_Equipment') == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Facility_Equipment == 'no' || old('Facility_Equipment') == 'no') selected @endif 
+                                            <option  @if ($data->Facility_Equipment == 'no' || old('Facility_Equipment') == 'no') selected @endif
                                             value="no">No</option>>
                                         </select>
                                         @error('Facility_Equipment')
@@ -1280,7 +1280,7 @@ wow = new WOW(
                                                         <th style="width: 5%">Row#</th>
                                                         <th style="width: 12%">Name</th>
                                                         <th style="width: 16%"> ID Number</th>
-                                                         <th style="width: 15%">Remarks</th>                                                  
+                                                         <th style="width: 15%">Remarks</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1326,9 +1326,9 @@ wow = new WOW(
                                                                              <option value="Instrument" {{ (isset($facility_name[$key]) && $facility_name[$key] == "Instrument") ? "selected" : "Instrument" }}>Instrument</option>
                                                                          @endif
 
-                                                                        
-                                                                        {{-- <option value="1" {{ (unserialize($grid_data->facility_name)[$key] == "1")?"selected":"1"}}>Facility</option>                               
-                                                                        <option value="2" {{ (unserialize($grid_data->facility_name)[$key] == "2")?"selected":"2"}}>Equipment</option>                               
+
+                                                                        {{-- <option value="1" {{ (unserialize($grid_data->facility_name)[$key] == "1")?"selected":"1"}}>Facility</option>
+                                                                        <option value="2" {{ (unserialize($grid_data->facility_name)[$key] == "2")?"selected":"2"}}>Equipment</option>
                                                                         <option value="3" {{ (unserialize($grid_data->facility_name)[$key] == "3")?"selected":"2"}}>Instrument</option>--}}
                                                                     </select>
                                                                 </td>
@@ -1341,18 +1341,18 @@ wow = new WOW(
                                                     @endif
                                                 </tbody>
                                             </table>
-                                        </div>  
+                                        </div>
                                         <div class="main-danger-block">
 
-                                  
+
                                             @error('facility_name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                             @error('IDnumber')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
-        
-                                        </div>                                      
+
+                                        </div>
                                     </div>
                                     <script>
 
@@ -1378,7 +1378,7 @@ wow = new WOW(
                                             inputsToToggle.push(remarksInputs[k]);
                                         }
 
-                                                                        
+
                                         selectField.addEventListener('change', function () {
                                             var isRequired = this.value === 'yes';
                                             console.log(this.value, isRequired, 'value');
@@ -1403,14 +1403,14 @@ wow = new WOW(
                                             <option value="">-- Select --</option>
                                             <option @if ($data->Document_Details_Required == 'yes' || old('Document_Details_Required') == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Document_Details_Required == 'no' || old('Document_Details_Required') == 'no') selected @endif 
+                                            <option  @if ($data->Document_Details_Required == 'no' || old('Document_Details_Required') == 'no') selected @endif
                                             value="no">No</option>>
                                         </select>
                                     </div>
                                     @error('Document_Details_Required')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div> 
+                                </div>
                                     <div class="group-input" id="documentsRow" @if ($data->Document_Details_Required == 'no') style="display: none" @endif>
                                         <label for="audit-agenda-grid">
                                          Document Details <span id="asteriskInvidoc" style="display: {{ $data->Document_Details_Required == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span>
@@ -1429,12 +1429,12 @@ wow = new WOW(
                                                     <tr>
                                                         <th style="width: 4%">Row#</th>
                                                         <th style="width: 12%">Document Number</th>
-                                                        
+
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
                                                         <th style="width: 8%"> Action</th>
 
-                                                                                                         
+
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -1447,7 +1447,7 @@ wow = new WOW(
                                                             <td><input class="Document_Remarks" type="text" name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}"></td>
                                             <td><input type="text" class="Removebtn" name="Action[]"></td>
 
-                                                        </tr>           
+                                                        </tr>
                                                     @endforeach
                                                @endif
                                              </tbody>
@@ -1486,7 +1486,7 @@ wow = new WOW(
                                                 inputsToToggle.push(remarksInputs[k]);
                                             }
 
-                                                                            
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
                                                 console.log(this.value, isRequired, 'value');
@@ -1532,31 +1532,31 @@ wow = new WOW(
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" class="numberDetail" name="Product[]"></td>
                                             <td>
-                                               
+
                                             <select name="Stage[]" id="">
                                                 <option value="">-- Select --</option>
-    
+
                                                 <option value="">1</option>
                                                 <option value="">2</option>
                                                 <option value="">3</option>
                                                 <option value="">4</option>
-    
+
                                                 <option value="">5</option>
                                                 <option value="">6</option>
                                                 <option value="">7</option>
                                                 <option value="">8</option>
                                                 <option value="">9</option>
-    
+
                                                 <option value="">Final</option>
-    
+
                                             </select>
                                             </td>
                                             <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
                                             <td><input type="text" class="Removebtn" name="Action[]"></td>
-    
-                           
+
+
                                                     </tbody>
-    
+
                                                 </table>
                                             </div>
                                         </div>
@@ -1565,7 +1565,7 @@ wow = new WOW(
                                         @enderror --}}
                               </div>
                       </div>
-                               
+
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
@@ -1606,7 +1606,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                               
+
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
@@ -1668,7 +1668,7 @@ wow = new WOW(
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                                 <textarea readonly class="tiny" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                             </div>
-                                        @endif 
+                                        @endif
                                         @error('HOD_Remarks')
                                             <div class="text-danger">{{  $message  }}</div>
                                         @enderror
@@ -1747,7 +1747,7 @@ wow = new WOW(
                                         </div>
                                     </div> --}}
                                 </div>
-                                
+
                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                     <script>
                                         $(document).ready(function() {
@@ -1761,7 +1761,7 @@ wow = new WOW(
 
                             </div>
                             <div class="button-block">
-                                
+
                                 <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="saveButton saveAuditFormBtn d-flex" style="align-items: center;" id="ChangesaveButton02">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -1783,14 +1783,14 @@ wow = new WOW(
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
-                                             
+
                                             @if($data->stage == 3)
                                                 <label for="Deviation category">Initial Deviation category <span class="text-danger">*</span></label>
                                                 <select id="Deviation_category" name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  value="{{ $data->Deviation_category }}" required>
                                                     <option value="0">-- Select --</option>
                                                     <option @if ($data->Deviation_category == 'minor') selected @endif
                                                     value="minor">Minor</option>
-                                                    <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                    <option  @if ($data->Deviation_category == 'major') selected @endif
                                                     value="major">Major</option>
                                                     <option @if ($data->Deviation_category == 'critical') selected @endif
                                                     value="critical">Critical</option>
@@ -1801,12 +1801,12 @@ wow = new WOW(
                                                     <option value="0">-- Select --</option>
                                                     <option @if ($data->Deviation_category == 'minor') selected @endif
                                                     value="minor">Minor</option>
-                                                    <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                    <option  @if ($data->Deviation_category == 'major') selected @endif
                                                     value="major">Major</option>
                                                     <option @if ($data->Deviation_category == 'critical') selected @endif
                                                     value="critical">Critical</option>
                                                 </select>
-                                            @endif 
+                                            @endif
 
                                             @error('Deviation_category')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -1830,11 +1830,11 @@ wow = new WOW(
                                                     <textarea class="tiny Justification_for_categorization" name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
                                                 </div>
                                             </div>
-                                        @endif 
+                                        @endif
                                         @error('Justification_for_categorization')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                
+
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Required?  <span class="text-danger">*</span></label>
@@ -1842,7 +1842,7 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value='yes'>Yes</option>
-                                            <option  @if ($data->Investigation_required == 'no') selected @endif 
+                                            <option  @if ($data->Investigation_required == 'no') selected @endif
                                             value='no'>No</option>
                                         </select>
                                         @error('Investigation_required')
@@ -1856,38 +1856,38 @@ wow = new WOW(
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                                 <textarea class="summernote Investigation_Details" name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
                                                 {{-- <span class="error-message" style="color: red; display: none;">Please fill out this field.</span> --}}
-                                            
+
                                         <script>
 
                                             document.addEventListener('DOMContentLoaded', function () {
                                                 var selectField = document.getElementById('Investigation_required');
                                                 var inputsToToggle = [];
-        
+
                                                 // Add elements with class 'facility-name' to inputsToToggle
                                                 var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
                                                 for (var i = 0; i < facilityNameInputs.length; i++) {
                                                     inputsToToggle.push(facilityNameInputs[i]);
                                                 }
-        
-                                                                                
+
+
                                                 selectField.addEventListener('change', function () {
                                                     var isRequired = this.value === 'yes';
-        
+
                                                     inputsToToggle.forEach(function (input) {
                                                         input.required = isRequired;
                                                         console.log(input.required, isRequired, 'input req');
                                                     });
-        
-                                                    document.getElementById('investigation_details_block').style.display = isRequired ? 'inline' : 'none'; 
+
+                                                    document.getElementById('investigation_details_block').style.display = isRequired ? 'inline' : 'none';
                                                     // Show or hide the asterisk icon based on the selected value
                                                     var asteriskIcon = document.getElementById('asteriskInviinvestication');
                                                     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                                 });
                                             });
-                                        </script>  
+                                        </script>
                                         @error('Investigation_Details')
                                             <div class="text-danger">{{ $message }}</div>
-                                        @enderror                                    
+                                        @enderror
                                     </div>
                                 </div>
                                 {{-- <div class="col-lg-6">
@@ -1898,9 +1898,9 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Customer_notification == 'no') selected @endif 
+                                            <option  @if ($data->Customer_notification == 'no') selected @endif
                                             value="no">No</option>
-                                            <option  @if ($data->Customer_notification == 'na') selected @endif 
+                                            <option  @if ($data->Customer_notification == 'na') selected @endif
                                                 value="na">Na</option>
                                         </select>
                                         @error('Customer_notification')
@@ -1926,35 +1926,35 @@ wow = new WOW(
                                             @error('customers')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
-                                    </div> 
+                                    </div>
                                     <script>
 
                                         document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Customer_notification');
                                             var inputsToToggle = [];
-    
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('customers');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-    
-                                                                            
+
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-    
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                     console.log(input.required, isRequired, 'input req');
                                                 });
-    
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterikCustomer_notification');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
-                                    </script>                                      
-    
+                                    </script>
+
                                 </div> --}}
                                 {{-- <div class="col-1">
                                     <div class="group-input">
@@ -1974,7 +1974,7 @@ wow = new WOW(
                                                     <option value="{{ $prix->id }}" {{ in_array($prix->id, explode(',', $data->Related_Records1)) ? 'selected' : '' }}>
                                                         {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}/{{$prix->short_description}}
                                                     </option>
-                                                @endforeach                                         
+                                                @endforeach
                                             </select>
                                         </div>
                                 </div> --}}
@@ -2015,7 +2015,7 @@ wow = new WOW(
                                     </div>
                                 </div>
                             </div>
-                            
+
                             @else
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
@@ -2026,7 +2026,7 @@ wow = new WOW(
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data->Deviation_category == 'minor') selected @endif
                                                 value="minor">Minor</option>
-                                                <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                <option  @if ($data->Deviation_category == 'major') selected @endif
                                                 value="major">Major</option>
                                                 <option @if ($data->Deviation_category == 'critical') selected @endif
                                                 value="critical">Critical</option>
@@ -2038,13 +2038,13 @@ wow = new WOW(
                                                     <option value="0">-- Select --</option>
                                                     <option @if ($data->Deviation_category == 'minor') selected @endif
                                                     value="minor">Minor</option>
-                                                    <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                                    <option  @if ($data->Deviation_category == 'major') selected @endif
                                                     value="major">Major</option>
                                                     <option @if ($data->Deviation_category == 'critical') selected @endif
                                                     value="critical">Critical</option>
                                                 </select>
                                             </div>
-                                        @endif 
+                                        @endif
                                         @error('Deviation_category')
                                             <div class="text-danger">{{  $message }}</div>
                                         @enderror
@@ -2060,7 +2060,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation  Required?</label>
@@ -2068,7 +2068,7 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value='yes'>Yes</option>
-                                            <option  @if ($data->Investigation_required == 'no') selected @endif 
+                                            <option  @if ($data->Investigation_required == 'no') selected @endif
                                             value='no'>No</option>
                                         </select>
                                         @error('Investigation_required')
@@ -2090,28 +2090,28 @@ wow = new WOW(
                                             document.addEventListener('DOMContentLoaded', function () {
                                                 var selectField = document.getElementById('Investigation_required');
                                                 var inputsToToggle = [];
-        
+
                                                 // Add elements with class 'facility-name' to inputsToToggle
                                                 // var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
                                                 // for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 //     inputsToToggle.push(facilityNameInputs[i]);
                                                 // }
-        
-                                                                                
+
+
                                                 selectField.addEventListener('change', function () {
                                                     var isRequired = this.value === 'yes';
-        
+
                                                     // inputsToToggle.forEach(function (input) {
                                                     //     input.required = isRequired;
                                                     //     console.log(input.required, isRequired, 'input req');
                                                     // });
-        
+
                                                     // Show or hide the asterisk icon based on the selected value
                                                     var asteriskIcon = document.getElementById('asteriskInviinvestication');
                                                     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                                 });
                                             });
-                                        </script>                                      
+                                        </script>
                                     </div>
                                 </div>
                                 {{-- <div class="col-lg-6">
@@ -2121,12 +2121,12 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Customer_notification == 'no') selected @endif 
+                                            <option  @if ($data->Customer_notification == 'no') selected @endif
                                             value="no">No</option>
-                                            <option  @if ($data->Customer_notification == 'na') selected @endif 
+                                            <option  @if ($data->Customer_notification == 'na') selected @endif
                                                 value="na">Na</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div> --}}
                                 {{-- <div class="col-5">
@@ -2141,7 +2141,7 @@ wow = new WOW(
                                                 @foreach ($customers as $data1)
                                                 <option  @if ($data->customers == $data1->id) selected @endif
                                                     value="{{ $data1->id }}">{{ $data1->customer_name }}</option>
-                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option> 
+                                                {{-- <option {{ $data->customers != null && $data->customers == $data->id ? 'selected' : '' }} value="{{ $data->id }}">{{ $data->customer_name }}</option>
                                             @endforeach
                                             </select>
                                     </div>
@@ -2150,19 +2150,19 @@ wow = new WOW(
                                         document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Customer_notification');
                                             var inputsToToggle = [];
-    
-    
-                                                                            
+
+
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-    
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterikCustomer_notification');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
-                                    </script>                                      
-    
+                                    </script>
+
                                 </div> --}}
                                 {{-- <div class="col-1">
                                     <div class="group-input">
@@ -2182,7 +2182,7 @@ wow = new WOW(
                                                     <option value="{{ $prix->id }}" {{ in_array($prix->id, explode(',', $data->Related_Records1)) ? 'selected' : '' }}>
                                                         {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}/{{$prix->short_description}}
                                                     </option>
-                                                @endforeach                                         
+                                                @endforeach
                                             </select>
                                         </div>
                                 </div> --}}
@@ -2220,7 +2220,7 @@ wow = new WOW(
                                 </div>
                             </div>
                             @endif
-                            
+
                             <div class="button-block">
                                 <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton03"  class="saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
@@ -2266,7 +2266,7 @@ wow = new WOW(
                         });
 
                     </script>
-                    
+
                     <!-- CFT -->
                     <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -2274,7 +2274,7 @@ wow = new WOW(
                             <div class="sub-head">
                             Production
                            </div>
-                           
+
                             @php
                                     $data1 = DB::table('deviationcfts')->where('deviation_id', $data->id)->first();
                             @endphp
@@ -2286,12 +2286,12 @@ wow = new WOW(
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Production_Review == 'yes') selected @endif
                                          value='yes'>Yes</option>
-                                        <option  @if ($data1->Production_Review == 'no') selected @endif 
+                                        <option  @if ($data1->Production_Review == 'no') selected @endif
                                         value='no'>No</option>
-                                        <option  @if ($data1->Production_Review == 'na') selected @endif 
+                                        <option  @if ($data1->Production_Review == 'na') selected @endif
                                             value='na'>NA</option>
                                     </select>
-                              
+
                                 </div>
                             </div>
                             @php
@@ -2310,7 +2310,7 @@ wow = new WOW(
                                         @endforeach
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Production assessment">Impact Assessment (By Production)  <span id="asteriskProduction1" style="display: {{ $data1->Production_Review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -2356,7 +2356,7 @@ wow = new WOW(
                                     {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
                                     <input readonly type="text" value="{{ $data1->Production_by }}" name="production_by"{{ $data->stage == 0 || $data->stage == 7 ? 'readonly' : '' }} id="production_by">
 
-                                
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -2385,7 +2385,7 @@ wow = new WOW(
                                     // for (var i = 0; i < facilityNameInputs.length; i++) {
                                     //     inputsToToggle.push(facilityNameInputs[i]);
                                     // }
-                
+
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
                                         console.log(this.value, isRequired, 'value');
@@ -2410,12 +2410,12 @@ wow = new WOW(
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Production_Review == 'yes') selected @endif
                                          value='yes'>Yes</option>
-                                        <option  @if ($data1->Production_Review == 'no') selected @endif 
+                                        <option  @if ($data1->Production_Review == 'no') selected @endif
                                         value='no'>No</option>
-                                        <option  @if ($data1->Production_Review == 'na') selected @endif 
+                                        <option  @if ($data1->Production_Review == 'na') selected @endif
                                             value='na'>NA</option>
                                     </select>
-                              
+
                                 </div>
                             </div>
                             @php
@@ -2433,7 +2433,7 @@ wow = new WOW(
                                         @endforeach
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                             @if ($data->stage==4)
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
@@ -2490,13 +2490,13 @@ wow = new WOW(
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3"> 
+                            <div class="col-md-6 mb-3">
                                 <div class="group-input">
                                     <label for="Production Review Completed By">Production Review Completed By</label>
                                     {{-- <input disabled type="text" name="production_by" id="production_by" placeholder="Production Review Completed By" value={{ $data1->Production_by }}> --}}
                                     <input readonly type="text" value="{{ $data1->Production_by }}" name="production_by" id="production_by">
 
-                                
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -2507,7 +2507,7 @@ wow = new WOW(
                                 </div>
                             </div>
                             @endif
-                            
+
                             {{-- Warehoure fields  --}}
                                 <div class="sub-head">
                                 Warehouse
@@ -2520,13 +2520,13 @@ wow = new WOW(
                                     <option value="0">-- Select --</option>
                                     <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                         value="yes">Yes</option>
-                                       <option  @if ($data1->Warehouse_review == 'no') selected @endif 
+                                       <option  @if ($data1->Warehouse_review == 'no') selected @endif
                                        value="no">No</option>
-                                       <option  @if ($data1->Warehouse_review == 'na') selected @endif 
+                                       <option  @if ($data1->Warehouse_review == 'na') selected @endif
                                            value="na">NA</option>
 
                                 </select>
-                          
+
                             </div>
                         </div>
                         @php
@@ -2544,7 +2544,7 @@ wow = new WOW(
                                         value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>
-                          
+
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -2604,7 +2604,7 @@ wow = new WOW(
                                     // for (var i = 0; i < facilityNameInputs.length; i++) {
                                     //     inputsToToggle.push(facilityNameInputs[i]);
                                     // }
-                
+
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
 
@@ -2618,13 +2618,13 @@ wow = new WOW(
                                     });
                                 });
                         </script>
-                        
+
                         <div class="col-md-6 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
                                 <input disabled type="text" value="{{ $data1->Warehouse_by }}" name="Warehouse_by" id="Warehouse_by">
                                 {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
-                            
+
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
@@ -2642,13 +2642,13 @@ wow = new WOW(
                                     <option value="0">-- Select --</option>
                                     <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                         value="yes">Yes</option>
-                                       <option  @if ($data1->Warehouse_review == 'no') selected @endif 
+                                       <option  @if ($data1->Warehouse_review == 'no') selected @endif
                                        value="no">No</option>
-                                       <option  @if ($data1->Warehouse_review == 'na') selected @endif 
+                                       <option  @if ($data1->Warehouse_review == 'na') selected @endif
                                            value="na">NA</option>
 
                                 </select>
-                          
+
                             </div>
                         </div>
                         @php
@@ -2666,10 +2666,10 @@ wow = new WOW(
                                         value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>
-                          
+
                             </div>
                         </div>
-                       
+
                         @if ($data->stage==4)
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
@@ -2726,13 +2726,13 @@ wow = new WOW(
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="col-md-6 mb-3">
                             <div class="group-input">
                                 <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
                                 <input disabled type="text" value="{{ $data1->Warehouse_by }}" name="Warehouse_by" id="Warehouse_by">
                                 {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
-                            
+
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -2743,7 +2743,7 @@ wow = new WOW(
                             </div>
                         </div>
                            @endif
-                           
+
                                 <div class="sub-head">
                                 Quality Control
                            </div>
@@ -2755,13 +2755,13 @@ wow = new WOW(
                                     <option value="">-- Select --</option>
                                     <option @if ($data1->Quality_review == 'yes') selected @endif
                                         value="yes">Yes</option>
-                                       <option  @if ($data1->Quality_review == 'no') selected @endif 
+                                       <option  @if ($data1->Quality_review == 'no') selected @endif
                                        value="no">No</option>
-                                       <option  @if ($data1->Quality_review == 'na') selected @endif 
+                                       <option  @if ($data1->Quality_review == 'na') selected @endif
                                            value="na">NA</option>
 
                                 </select>
-                          
+
                             </div>
                         </div>
                         @php
@@ -2780,7 +2780,7 @@ wow = new WOW(
                                     @endforeach
 
                                 </select>
-                          
+
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -2807,7 +2807,7 @@ wow = new WOW(
                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                         inputsToToggle.push(facilityNameInputs[i]);
                                     }
-                            
+
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
 
@@ -2870,9 +2870,9 @@ wow = new WOW(
                                     <option value="">-- Select --</option>
                                     <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif
                                         value="yes">Yes</option>
-                                       <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif 
+                                       <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif
                                        value="no">No</option>
-                                       <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif 
+                                       <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif
                                            value="na">NA</option>
                                 </select>
                             </div>
@@ -2900,12 +2900,12 @@ wow = new WOW(
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                 <textarea @if ($data1->Quality_Assurance_Review == 'yes' && $data->stage == 4) required @endif class="summernote QualityAssurance_assessment" name="QualityAssurance_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->QualityAssurance_person) readonly @endif id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                             </div>
-                        </div>   
+                        </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Quality Assurance Feedback">Quality Assurance Feedback <span id="asteriskQQA2" style="display: {{ $data1->Quality_Assurance_Review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea @if ($data1->Quality_Assurance_Review == 'yes' && $data->stage == 4) required @endif  class="summernote QualityAssurance_feedback" name="QualityAssurance_feedback" @if ($data->stage==3  || Auth::user()->id != $data1->QualityAssurance_person) readonly @endif id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea> 
+                                <textarea @if ($data1->Quality_Assurance_Review == 'yes' && $data->stage == 4) required @endif  class="summernote QualityAssurance_feedback" name="QualityAssurance_feedback" @if ($data->stage==3  || Auth::user()->id != $data1->QualityAssurance_person) readonly @endif id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea>
                             </div>
                         </div>
 
@@ -2919,7 +2919,7 @@ wow = new WOW(
                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                         inputsToToggle.push(facilityNameInputs[i]);
                                     }
-                
+
                                     selectField.addEventListener('change', function () {
                                         var isRequired = this.value === 'yes';
 
@@ -2981,12 +2981,12 @@ wow = new WOW(
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Engineering_review == 'yes') selected @endif
                                             value="yes">Yes</option>
-                                           <option  @if ($data1->Engineering_review == 'no') selected @endif 
+                                           <option  @if ($data1->Engineering_review == 'no') selected @endif
                                            value="no">No</option>
-                                           <option  @if ($data1->Engineering_review == 'na') selected @endif 
+                                           <option  @if ($data1->Engineering_review == 'na') selected @endif
                                                value="na">NA</option>
                                     </select>
-                              
+
                                 </div>
                             </div>
                             @php
@@ -3012,7 +3012,7 @@ wow = new WOW(
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                     <textarea @if ($data1->Engineering_review == 'yes' && $data->stage == 4) required @endif class="summernote Engineering_assessment" name="Engineering_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Engineering_person) readonly @endif id="summernote-25" >{{$data1->Engineering_assessment}}</textarea>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Engineering Feedback">Engineering  Feedback <span id="asteriskEP2" style="display: {{ $data1->Engineering_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -3024,20 +3024,20 @@ wow = new WOW(
                                 document.addEventListener('DOMContentLoaded', function () {
                                         var selectField = document.getElementById('Engineering_review');
                                         var inputsToToggle = [];
-    
+
                                         // Add elements with class 'facility-name' to inputsToToggle
                                         var facilityNameInputs = document.getElementsByClassName('Engineering_person');
                                         for (var i = 0; i < facilityNameInputs.length; i++) {
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
-                    
+
                                         selectField.addEventListener('change', function () {
                                             var isRequired = this.value === 'yes';
-    
+
                                             inputsToToggle.forEach(function (input) {
                                                 input.required = isRequired;
                                             });
-    
+
                                             // Show or hide the asterisk icon based on the selected value
                                             var asteriskIcon = document.getElementById('asteriskEP');
                                             asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3094,13 +3094,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Analytical_Development_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif 
+                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif 
+                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -3118,7 +3118,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -3137,20 +3137,20 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Analytical_Development_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Analytical_Development_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskAD');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3206,13 +3206,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Kilo_Lab_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif 
+                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif 
+                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -3230,7 +3230,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -3238,7 +3238,7 @@ wow = new WOW(
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab) <span id="asteriskPDL1" style="display: {{ $data1->Kilo_Lab_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <textarea @if ($data1->Kilo_Lab_review == 'yes' && $data->stage == 4) required @endif class="summernote Analytical_Development_assessment" name="Kilo_Lab_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Kilo_Lab_person) readonly @endif id="summernote-29">{{$data1->Kilo_Lab_assessment}}</textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback <span id="asteriskPDL2" style="display: {{ $data1->Kilo_Lab_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -3249,20 +3249,20 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Kilo_Lab_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Kilo_Lab_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskPDL');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3305,7 +3305,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo Lab Review Completed On</label>
                                         <input type="date" id="Kilo_Lab_attachment_on" name="Kilo_Lab_attachment_on" value="{{ $data1->Kilo_Lab_attachment_on }}" >
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -3318,13 +3318,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Technology_transfer_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif 
+                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif 
+                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -3343,7 +3343,7 @@ wow = new WOW(
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -3362,20 +3362,20 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Technology_transfer_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Technology_transfer_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskTT');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3413,7 +3413,7 @@ wow = new WOW(
                                         {{-- <input type="text" name="Technology_transfer_by" id="Technology_transfer_by" value="Technology_transfer_by" disabled> --}}
                                         <input disabled type="text" value="{{ $data1->Technology_transfer_by }}" name="Technology_transfer_by" id="Technology_transfer_by">
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -3432,13 +3432,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Environment_Health_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif 
+                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif 
+                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -3456,7 +3456,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -3475,20 +3475,20 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Environment_Health_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Environment_Health_Safety_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskEH');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3526,14 +3526,14 @@ wow = new WOW(
                                         {{-- <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by" value="Environment_Health_Safety_by" disabled>                                         --}}
                                         <input disabled type="text" value="{{ $data1->Environment_Health_Safety_by }}" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by">
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review Completed On</label>
                                         <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -3546,12 +3546,12 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Human_Resource_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif 
+                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif 
+                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -3569,7 +3569,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -3577,7 +3577,7 @@ wow = new WOW(
                                         <label for="productionfeedback">Impact Assessment (By Human Resource & Administration ) <span id="asteriskHR1" style="display: {{ $data1->Human_Resource_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <textarea @if ($data1->Human_Resource_review == 'yes' && $data->stage == 4) required @endif class="summernote Human_Resource_assessment" name="Human_Resource_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Human_Resource_person) readonly @endif id="summernote-35">{{$data1->Human_Resource_assessment}}</textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback <span id="asteriskHR2" style="display: {{ $data1->Human_Resource_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -3588,20 +3588,20 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Human_Resource_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Human_Resource_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskHR');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3639,7 +3639,7 @@ wow = new WOW(
                                         {{-- <input type="text" name="Human_Resource_by" id="Human_Resource_by" value="Human_Resource_by" disabled> --}}
                                         <input disabled type="text" value="{{ $data1->Human_Resource_by }}" name="Human_Resource_by" id="Human_Resource_by">
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -3659,14 +3659,14 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Information_Technology_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif 
+                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif 
+                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -3684,7 +3684,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -3692,7 +3692,7 @@ wow = new WOW(
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology) <span id="asteriskITP" style="display: {{ $data1->Information_Technology_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <textarea @if ($data1->Information_Technology_review == 'yes' && $data->stage == 4) required @endif class="summernote Information_Technology_assessment" name="Information_Technology_assessment" @if ($data->stage==3  || Auth::user()->id != $data1->Information_Technology_person) readonly @endif id="summernote-37">{{$data1->Information_Technology_assessment}}</textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback">Information Technology Feedback <span id="asteriskITP" style="display: {{ $data1->Information_Technology_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -3703,7 +3703,7 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Information_Technology_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Information_Technology_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -3711,11 +3711,11 @@ wow = new WOW(
                                             }
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskITP');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3771,9 +3771,9 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Project_management_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Project_management_review == 'no') selected @endif 
+                                               <option  @if ($data1->Project_management_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Project_management_review == 'na') selected @endif 
+                                               <option  @if ($data1->Project_management_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
                                     </div>
@@ -3811,20 +3811,20 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Project_management_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Project_management_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asteriskPMP');
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
@@ -3869,7 +3869,7 @@ wow = new WOW(
                                         <label for="Project management Review Completed On">Project management Review Completed On</label>
                                         <input type="date" name="Project_management_on" id="Project_management_on" value={{$data1->Project_management_on}} >
 
-                                    
+
                                     </div>
                                 </div>
 
@@ -3883,13 +3883,13 @@ wow = new WOW(
                                     <option value="">-- Select --</option>
                                     <option @if ($data1->Quality_review == 'yes') selected @endif
                                         value="yes">Yes</option>
-                                       <option  @if ($data1->Quality_review == 'no') selected @endif 
+                                       <option  @if ($data1->Quality_review == 'no') selected @endif
                                        value="no">No</option>
-                                       <option  @if ($data1->Quality_review == 'na') selected @endif 
+                                       <option  @if ($data1->Quality_review == 'na') selected @endif
                                            value="na">NA</option>
 
                                 </select>
-                          
+
                             </div>
                         </div>
                         @php
@@ -3908,7 +3908,7 @@ wow = new WOW(
                                     @endforeach
 
                                 </select>
-                          
+
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -3973,9 +3973,9 @@ wow = new WOW(
                                 <select disabled name="Quality_Assurance_Review" id="Quality_Assurance_Review">
                                     <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif
                                         value="yes">Yes</option>
-                                       <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif 
+                                       <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif
                                        value="no">No</option>
-                                       <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif 
+                                       <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif
                                            value="na">NA</option>
                                 </select>
                             </div>
@@ -4003,7 +4003,7 @@ wow = new WOW(
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                 <textarea class="tiny" name="QualityAssurance_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                             </div>
-                        </div>   
+                        </div>
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
                                 <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
@@ -4060,12 +4060,12 @@ wow = new WOW(
                                         <option value="">-- Select --</option>
                                         <option @if ($data1->Engineering_review == 'yes') selected @endif
                                             value="yes">Yes</option>
-                                           <option  @if ($data1->Engineering_review == 'no') selected @endif 
+                                           <option  @if ($data1->Engineering_review == 'no') selected @endif
                                            value="no">No</option>
-                                           <option  @if ($data1->Engineering_review == 'na') selected @endif 
+                                           <option  @if ($data1->Engineering_review == 'na') selected @endif
                                                value="na">NA</option>
                                     </select>
-                              
+
                                 </div>
                             </div>
                             @php
@@ -4091,7 +4091,7 @@ wow = new WOW(
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                     <textarea class="tiny" name="Engineering_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-25" >{{$data1->Engineering_assessment}}</textarea>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Engineering Feedback">Engineering  Feedback</label>
@@ -4149,13 +4149,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Analytical_Development_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif 
+                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif 
+                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -4173,7 +4173,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4237,13 +4237,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Kilo_Lab_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif 
+                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif 
+                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -4261,7 +4261,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4269,7 +4269,7 @@ wow = new WOW(
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development Laboratory / Kilo Lab)</label>
                                         <textarea class="tiny" name="Kilo_Lab_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-29">{{$data1->Kilo_Lab_assessment}}</textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
@@ -4312,7 +4312,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo Lab Review Completed On</label>
                                         <input disabled type="date" id="Kilo_Lab_attachment_on" name="Kilo_Lab_attachment_on" value="{{ $data1->Kilo_Lab_attachment_on }}" >
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4325,13 +4325,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Technology_transfer_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif 
+                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif 
+                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -4350,7 +4350,7 @@ wow = new WOW(
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4396,7 +4396,7 @@ wow = new WOW(
                                         {{-- <input type="text" name="Technology_transfer_by" id="Technology_transfer_by" value="Technology_transfer_by" disabled> --}}
                                         <input disabled type="text" value="{{ $data1->Technology_transfer_by }}" name="Technology_transfer_by" id="Technology_transfer_by">
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -4415,13 +4415,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Environment_Health_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif 
+                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif 
+                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -4439,7 +4439,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4485,14 +4485,14 @@ wow = new WOW(
                                         {{-- <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by" value="Environment_Health_Safety_by" disabled>                                         --}}
                                         <input disabled type="text" value="{{ $data1->Environment_Health_Safety_by }}" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by">
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review Completed On</label>
                                         <input disabled type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4505,12 +4505,12 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Human_Resource_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif 
+                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif 
+                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -4528,7 +4528,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4536,14 +4536,14 @@ wow = new WOW(
                                         <label for="productionfeedback">Impact Assessment (By Human Resource & Administration )</label>
                                         <textarea class="tiny" name="Human_Resource_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-35">{{$data1->Human_Resource_assessment}}</textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
                                         <textarea class="tiny" name="Human_Resource_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-36">{{$data1->Human_Resource_feedback}}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Human Resource & Administration Attachments</label>
@@ -4575,7 +4575,7 @@ wow = new WOW(
                                         {{-- <input type="text" name="Human_Resource_by" id="Human_Resource_by" value="Human_Resource_by" disabled> --}}
                                         <input disabled type="text" value="{{ $data1->Human_Resource_by }}" name="Human_Resource_by" id="Human_Resource_by">
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -4595,14 +4595,14 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Information_Technology_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif 
+                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif 
+                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -4620,7 +4620,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4628,14 +4628,14 @@ wow = new WOW(
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology)</label>
                                         <textarea class="tiny" name="Information_Technology_assessment"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-37">{{$data1->Information_Technology_assessment}}</textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback">Information Technology Feedback</label>
                                         <textarea class="tiny" name="Information_Technology_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-38">{{$data1->Information_Technology_feedback}}</textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Information Technology Attachments</label>
@@ -4685,9 +4685,9 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Project_management_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Project_management_review == 'no') selected @endif 
+                                               <option  @if ($data1->Project_management_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Project_management_review == 'na') selected @endif 
+                                               <option  @if ($data1->Project_management_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
                                     </div>
@@ -4721,7 +4721,7 @@ wow = new WOW(
                                         <textarea class="tiny" name="Project_management_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-40">{{$data1->Project_management_feedback}}</textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Project management Attachments</label>
@@ -4760,7 +4760,7 @@ wow = new WOW(
                                         <label for="Project management Review Completed On">Project management Review Completed On</label>
                                         <input disabled type="date" name="Project_management_on" id="Project_management_on" value={{$data1->Project_management_on}} >
 
-                                    
+
                                     </div>
                                 </div>
                            @endif
@@ -4775,13 +4775,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other1_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other1_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other1_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other1_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other1_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                  @php
@@ -4800,7 +4800,7 @@ wow = new WOW(
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -4810,31 +4810,31 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other1_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other1_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other1_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other1_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other1_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other1_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other1_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other1_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other1_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other1_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other1_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other1_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other1_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -4853,7 +4853,7 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Other1_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Other1_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -4863,14 +4863,14 @@ wow = new WOW(
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterisko1');
                                                 var asteriskIcon1 = document.getElementById('asteriskod1');
@@ -4908,14 +4908,14 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By1"> Other's 1 Review Completed By</label>
                                         <input disabled type="text" value="{{ $data1->Other1_by }}" name="Other1_by" id="Other1_by">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <input disabled type="date" name="Other1_on" id="Other1_on" value="{{ $data1->Other1_on }}">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4928,15 +4928,15 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other2_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other2_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other2_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other2_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other2_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
-                               
+
                                  @php
                                  $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
@@ -4952,7 +4952,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -4962,38 +4962,38 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other2_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other2_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other2_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other2_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other2_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other2_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other2_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other2_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other2_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other2_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other2_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other2_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other2_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other2_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other2_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other2_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other2_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other2_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other2_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
-                                        
+                                                        <option  @if ($data1->Other2_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
+
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Other2_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Other2_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -5003,14 +5003,14 @@ wow = new WOW(
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterisko2');
                                                 var asteriskIcon1 = document.getElementById('asteriskod2');
@@ -5060,7 +5060,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                         <input type="text" name="Other2_by" id="Other2_by" value="{{ $data1->Other2_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -5080,17 +5080,17 @@ wow = new WOW(
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data1->Other3_review == 'yes') selected @endif
                                                     value="yes">Yes</option>
-                                                   <option  @if ($data1->Other3_review == 'no') selected @endif 
+                                                   <option  @if ($data1->Other3_review == 'no') selected @endif
                                                    value="no">No</option>
-                                                   <option  @if ($data1->Other3_review == 'na') selected @endif 
+                                                   <option  @if ($data1->Other3_review == 'na') selected @endif
                                                        value="na">NA</option>
                                             </select>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
-                               
+
                                  @php
                                  $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
@@ -5107,7 +5107,7 @@ wow = new WOW(
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5117,37 +5117,37 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other3_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other3_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other3_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other3_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other3_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other3_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other3_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other3_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other3_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other3_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other3_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other3_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other3_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other3_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other3_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other3_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other3_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other3_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other3_Department_person == 'Project management') selected @endif 
+                                                        <option  @if ($data1->Other3_Department_person == 'Project management') selected @endif
                                                             value="Project management">Project management</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Other3_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Other3_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -5157,14 +5157,14 @@ wow = new WOW(
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterisko3');
                                                 var asteriskIcon1 = document.getElementById('asteriskod3');
@@ -5214,7 +5214,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                         <input type="text" name="Other3_by" id="Other3_by" value="{{ $data1->Other3_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -5233,16 +5233,16 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other4_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other4_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other4_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other4_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other4_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
-                                
+
                                  @php
                                  $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
@@ -5258,7 +5258,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5268,37 +5268,37 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other4_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other4_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other4_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other4_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other4_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other4_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other4_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other4_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other4_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other4_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other4_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other4_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other4_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other4_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other4_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other4_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other4_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other4_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other4_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other4_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Other4_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Other4_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -5308,14 +5308,14 @@ wow = new WOW(
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterisko4');
                                                 var asteriskIcon1 = document.getElementById('asteriskod4');
@@ -5365,14 +5365,14 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                         <input type="text" name="Other4_by" id="Other4_by" value="{{ $data1->Other4_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <input disabled type="date" name="Other4_on" id="Other4_on" value="{{ $data1->Other4_on }}">
-                                    
+
                                     </div>
                                 </div>
 
@@ -5388,13 +5388,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other5_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other5_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other5_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other5_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other5_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                  @php
@@ -5412,7 +5412,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5422,37 +5422,37 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other5_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other5_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other5_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other5_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other5_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other5_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other5_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other5_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other5_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other5_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other5_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other5_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other5_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other5_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other5_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other5_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other5_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other5_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other5_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other5_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('Other5_review');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('Other5_person');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -5462,14 +5462,14 @@ wow = new WOW(
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon = document.getElementById('asterisko5');
                                                 var asteriskIcon1 = document.getElementById('asteriskod5');
@@ -5490,7 +5490,7 @@ wow = new WOW(
                                         <textarea @if ($data->stage==3  || Auth::user()->id != $data1->Other5_person) readonly @endif class="tiny" name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-50">{{$data1->Other5_feedback}}</textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 5 Attachments</label>
@@ -5520,7 +5520,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                         <input type="text" name="Other5_by" id="Other5_by" value="{{ $data1->Other5_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -5540,13 +5540,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other1_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other1_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other1_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other1_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other1_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                  @php
@@ -5565,7 +5565,7 @@ wow = new WOW(
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5575,31 +5575,31 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other1_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other1_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other1_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other1_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other1_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other1_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other1_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other1_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other1_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other1_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other1_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other1_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other1_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -5643,14 +5643,14 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By1"> Other's 1 Review Completed By</label>
                                         <input disabled type="text" value="{{ $data1->Other1_by }}" name="Other1_by" id="Other1_by">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <input disabled type="date" name="Other1_on" id="Other1_on" value="{{ $data1->Other1_on }}">
-                                    
+
                                     </div>
                                 </div>
 
@@ -5664,15 +5664,15 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other2_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other2_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other2_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other2_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other2_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
-                               
+
                                  @php
                                  $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
@@ -5688,7 +5688,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5698,31 +5698,31 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other2_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other2_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other2_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other2_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other2_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other2_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other2_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other2_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other2_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other2_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other2_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other2_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other2_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other2_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other2_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other2_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other2_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other2_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other2_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
-                                        
+                                                        <option  @if ($data1->Other2_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
+
                                         </select>
-                                  
+
                                     </div>
                                 </div>
 
@@ -5767,7 +5767,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                         <input type="text" name="Other2_by" id="Other2_by" value="{{ $data1->Other2_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -5787,17 +5787,17 @@ wow = new WOW(
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data1->Other3_review == 'yes') selected @endif
                                                     value="yes">Yes</option>
-                                                   <option  @if ($data1->Other3_review == 'no') selected @endif 
+                                                   <option  @if ($data1->Other3_review == 'no') selected @endif
                                                    value="no">No</option>
-                                                   <option  @if ($data1->Other3_review == 'na') selected @endif 
+                                                   <option  @if ($data1->Other3_review == 'na') selected @endif
                                                        value="na">NA</option>
                                             </select>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
-                               
+
                                  @php
                                  $userRoles = DB::table('user_roles')->where(['q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
@@ -5814,7 +5814,7 @@ wow = new WOW(
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5824,30 +5824,30 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other3_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other3_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other3_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other3_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other3_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other3_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other3_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other3_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other3_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other3_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other3_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other3_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other3_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other3_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other3_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other3_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other3_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other3_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other3_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other3_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -5891,7 +5891,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                         <input type="text" name="Other3_by" id="Other3_by" value="{{ $data1->Other3_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -5910,16 +5910,16 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other4_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other4_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other4_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other4_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other4_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
-                                
+
                                  @php
                                  $userRoles = DB::table('user_roles')->where([ 'q_m_s_divisions_id' => $data->division_id])->get();
                                  $userRoleIds = $userRoles->pluck('user_id')->toArray();
@@ -5935,7 +5935,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -5945,30 +5945,30 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other4_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other4_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other4_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other4_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other4_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other4_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other4_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other4_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other4_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other4_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other4_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other4_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other4_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other4_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other4_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other4_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other4_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other4_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other4_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other4_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -6012,14 +6012,14 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                         <input type="text" name="Other4_by" id="Other4_by" value="{{ $data1->Other4_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <input disabled type="date" name="Other4_on" id="Other4_on" value="{{ $data1->Other4_on }}">
-                                    
+
                                     </div>
                                 </div>
 
@@ -6035,13 +6035,13 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other5_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other5_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other5_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other5_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other5_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                  @php
@@ -6059,7 +6059,7 @@ wow = new WOW(
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -6069,30 +6069,30 @@ wow = new WOW(
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other5_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data1->Other5_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data1->Other5_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data1->Other5_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data1->Other5_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data1->Other5_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data1->Other5_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data1->Other5_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data1->Other5_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data1->Other5_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data1->Other5_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data1->Other5_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data1->Other5_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data1->Other5_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data1->Other5_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data1->Other5_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data1->Other5_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data1->Other5_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data1->Other5_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data1->Other5_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -6107,7 +6107,7 @@ wow = new WOW(
                                         <textarea disabled class="tiny" name="Other5_feedback"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="summernote-50">{{$data1->Other5_feedback}}</textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 5 Attachments</label>
@@ -6137,7 +6137,7 @@ wow = new WOW(
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                         <input type="text" name="Other5_by" id="Other5_by" value="{{ $data1->Other5_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -6147,14 +6147,14 @@ wow = new WOW(
                                     </div>
                                 </div>
                            @endif
-                                
-                                
-                                
 
-                                
-                                
-                                
- 
+
+
+
+
+
+
+
                             </div>
                             <div class="button-block">
                                 <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
@@ -6173,48 +6173,108 @@ wow = new WOW(
 
 
                        <!-- investigation -->
-                  <div id="CCForm9" class="inner-block cctabcontent">
-                    <div class="inner-block-content">
-                        <div class="row">
-                            
-                            <div class="col-md-12 mb-3">
-                                <div class="group-input">
-                                    <label for="Investigation Summary">Description of Event</label>
-                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="Discription_Event" id="summernote-8"></textarea>
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-12 mb-3">
-                                <div class="group-input">
-                                    <label for="Impact Assessment">Objective</label>
-                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="objective" id="summernote-9"></textarea>
-                                </div>
-                            </div>
+                    <div id="CCForm9" class="inner-block cctabcontent">
+                        <div class="inner-block-content">
+                            <div class="row">
 
-                            <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Investigation Summary">Description of Event</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="Discription_Event" id="summernote-8">{{ $data->Discription_Event}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Impact Assessment">Objective</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="objective" id="summernote-9">{{ $data->objective}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Root Cause">Scope</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="scope" id="summernote-10">{{ $data->scope}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Root Cause">Immediate Action</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="tiny" name="imidiate_action" id="summernote-10">{{ $data->imidiate_action}}</textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="group-input" id="documentsRowna">
+                                        <label for="audit-agenda-grid">
+                                            Investigation team and Responsibilities
+                                            <button type="button" name="audit-agenda-grid"
+                                                id="investigation_Details">+</button>
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#document-details-field-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                (Launch Instruction)
+                                            </span>
+                                        </label>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="investigation_Details_Details"
+                                                style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 4%">Row#</th>
+                                                        <th style="width: 12%">Investigation Team</th>
+                                                        <th style="width: 16%">Responsibility</th>
+                                                        <th style="width: 16%">Remarks</th>
+                                                        <th style="width: 8%">Action</th>
+
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        <td><input disabled type="text" name="investication[0][serial]" value="1"></td>
+                                        <td> <select name="investication[0][investioncation_team]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>
+                                        <td><input type="text" class="numberDetail" name="investication[0][responsibility]"></td>
+                                        <td><input type="text" class="Document_Remarks" name="investication[0][remarks]"></td>
+                                        <td><input type="text" class="Action" name=""></td>
+
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                    {{-- @error('Product_Batch')
+                                        <div class="text-danger">{{ $message  }}</div>
+                                    @enderror --}}
+                                </div>
+
+                              <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Root Cause">Scope</label>
-                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="scope" id="summernote-10"></textarea>
+                                    <label for="audit type">Investigation Approach </label>
+                                    <select multiple name="investigation_approach[]" id="investigation_approach">
+                                        {{-- <option value="">Enter Your Selection Here</option> --}}
+                                        <option value="Why-Why Chart" {{ strpos($data->investigation_approach, 'Why-Why Chart') !== false ? 'selected' : '' }}>Why-Why Chart</option>
+                                        <option value="Failure Mode and Efect Analysis" {{ strpos($data->investigation_approach, 'Failure Mode and Efect Analysis') !== false ? 'selected' : '' }}>Failure Mode and Efect Analysis</option>
+                                        <option value="Fishbone or Ishikawa Diagram" {{ strpos($data->investigation_approach, 'Fishbone or Ishikawa Diagram') !== false ? 'selected' : '' }}>Fishbone or Ishikawa Diagram</option>
+                                        <option value="Is/Is Not Analysis" {{ strpos($data->investigation_approach, 'Is/Is Not Analysis') !== false ? 'selected' : '' }}>Is/Is Not Analysis</option>
+                                        <option value="Brainstorming" {{ strpos($data->investigation_approach, 'Brainstorming') !== false ? 'selected' : '' }}>Brainstorming</option>
+
+
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-3">
-                                <div class="group-input">
-                                    <label for="Root Cause">Immediate Action</label>
-                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                    <textarea class="tiny" name="imidiate_action" id="summernote-10"></textarea>
-                                </div>
-                            </div>
-                            
-                            
                             <div class="col-lg-12">
-                                <div class="group-input" id="documentsRowna">
+                                <div class="group-input" id="documentsRowname" >
                                     <label for="audit-agenda-grid">
-                                        Investigation team and Responsibilities
+                                      Root Cause
                                         <button type="button" name="audit-agenda-grid"
-                                            id="investigation_Details">+</button>
+                                            id="root_cause_Details">+</button>
                                         <span class="text-primary" data-bs-toggle="modal"
                                             data-bs-target="#document-details-field-instruction-modal"
                                             style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
@@ -6222,28 +6282,33 @@ wow = new WOW(
                                         </span>
                                     </label>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="investigation_Details_Details"
+                                        <table class="table table-bordered" id="Root_cause_Details_Details"
                                             style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 4%">Row#</th>
-                                                    <th style="width: 12%">Investigation Team</th>
-                                                    <th style="width: 16%">Responsibility</th>
-                                                    <th style="width: 16%">Remarks</th>
+                                                    <th style="width: 12%">	Root Cause Category</th>
+                                                    <th style="width: 16%">Root Cause Sub-Category</th>
+                                                    <th style="width: 16%">If Others</th>
+
+                                                    <th style="width: 16%">	Probability</th>
+                                                    <th style="width: 16%">	Remarks</th>
+
                                                     <th style="width: 8%">Action</th>
 
-                                                   
-                                                                                                     
+
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                    <td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>
-                                    <td><input type="text" class="numberDetail" name="Responsibility[]"></td>
-                                    <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
-                                    <td><input type="text" class="Action" name="Action[]"></td>
+                                    <td><input disabled type="text" name="rootCause[0][serial]" value="1"></td>
+                                    <td> <select name="rootCause[0][root_cause_category]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>
+                                    <td><select name="rootCause[0][root_cause_sub_category]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>
+                                    <td><input type="text" class="Document_Remarks" name="rootCause[0][ifother]"></td>
+                                    <td><input type="text" class="Document_Remarks" name="rootCause[0][probability]"></td>
+                                    <td><input type="text" class="Document_Remarks" name="rootCause[0][remarks]"></td>
+                                    <td><input type="text" class="Removebtn" name="Action[]"></td>
 
-                   
+
                                             </tbody>
 
                                         </table>
@@ -6254,419 +6319,354 @@ wow = new WOW(
                                 @enderror --}}
                           </div>
 
-                          <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="audit type">Investigation Approach </label>
-                                <select multiple name="audit_type[]" id="audit_type">
-                                    {{-- <option value="">Enter Your Selection Here</option> --}}
-                                    <option value="1" {{ strpos($data->audit_type, 'Facility') !== false ? 'selected' : '' }}>Why-Why Chart</option>
-                                    <option value="2">Failure Mode and Efect Analysis</option>
-                                    <option value="3">Fishbone or Ishikawa Diagram</option>
-                                    <option value="4">Is/Is Not Analysis</option>
-                                    <option value="4">Brainstorming</option>
 
-                                    
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input" id="documentsRowname" >
-                                <label for="audit-agenda-grid">
-                                  Root Cause
-                                    <button type="button" name="audit-agenda-grid"
-                                        id="root_cause_Details">+</button>
+                          <div class="col-12 sub-head"></div>
+                                    <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="fishbone">
+                                                Fishbone or Ishikawa Diagram
+                                                <button type="button" name="agenda"
+                                                    onclick="addFishBone('.top-field-group', '.bottom-field-group')">+</button>
+                                                <button type="button" name="agenda" class="fishbone-del-btn"
+                                                    onclick="deleteFishBone('.top-field-group', '.bottom-field-group')">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                                <span class="text-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#fishbone-instruction-modal"
+                                                    style="font-size: 0.8rem; font-weight: 400;">
+                                                    (Launch Instruction)
+                                                </span>
+                                            </label>
+                                            <div class="fishbone-ishikawa-diagram">
+                                                <div class="left-group">
+                                                    <div class="grid-field field-name">
+                                                        <div>Measurement</div>
+                                                        <div>Materials</div>
+                                                        <div>Methods</div>
+                                                    </div>
+                                                    <div class="top-field-group">
+                                                        <div class="grid-field fields top-field">
+                                                            <div><input type="text" name="measurement[]"></div>
+                                                            <div><input type="text" name="materials[]"></div>
+                                                            <div><input type="text" name="methods[]"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mid"></div>
+                                                    <div class="bottom-field-group">
+                                                        <div class="grid-field fields bottom-field">
+                                                            <div><input type="text" name="environment[]"></div>
+                                                            <div><input type="text" name="manpower[]"></div>
+                                                            <div><input type="text" name="machine[]"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid-field field-name">
+                                                        <div>Environment</div>
+                                                        <div>Manpower</div>
+                                                        <div>Machine</div>
+                                                    </div>
+                                                </div>
+                                                <div class="right-group">
+                                                    <div class="field-name">
+                                                        Problem Statement
+                                                    </div>
+                                                    <div class="field">
+                                                        <textarea name="problem_statement"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 sub-head"></div>
+                                    <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="why-why-chart">
+                                                Why-Why Chart
+                                                <span class="text-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#why_chart-instruction-modal"
+                                                    style="font-size: 0.8rem; font-weight: 400;">
+                                                    (Launch Instruction)
+                                                </span>
+                                            </label>
+                                            <div class="why-why-chart">
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                        <tr style="background: #f4bb22">
+                                                            <th style="width:150px;">Problem Statement :</th>
+                                                            <td>
+                                                                <textarea name="why_problem_statement"></textarea>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="why-row">
+                                                            <th style="width:150px; color: #393cd4;">
+                                                                Why 1 <span
+                                                                    onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
+                                                            </th>
+                                                            <td>
+                                                                <div class="why_1_block">
+                                                                    <textarea name="why_1[]"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="why-row">
+                                                            <th style="width:150px; color: #393cd4;">
+                                                                Why 2 <span
+                                                                    onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
+                                                            </th>
+                                                            <td>
+                                                                <div class="why_2_block">
+                                                                    <textarea name="why_2[]"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="why-row">
+                                                            <th style="width:150px; color: #393cd4;">
+                                                                Why 3 <span
+                                                                    onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
+                                                            </th>
+                                                            <td>
+                                                                <div class="why_3_block">
+                                                                    <textarea name="why_3[]"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="why-row">
+                                                            <th style="width:150px; color: #393cd4;">
+                                                                Why 4 <span
+                                                                    onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
+                                                            </th>
+                                                            <td>
+                                                                <div class="why_4_block">
+                                                                    <textarea name="why_4[]"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="why-row">
+                                                            <th style="width:150px; color: #393cd4;">
+                                                                Why 5 <span
+                                                                    onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
+                                                            </th>
+                                                            <td>
+                                                                <div class="why_5_block">
+                                                                    <textarea name="why_5[]"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="background: #0080006b;">
+                                                            <th style="width:150px;">Root Cause :</th>
+                                                            <td>
+                                                                <textarea name="root-cause"></textarea>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                          <div class="sub-head"></div>
+                          <div class="col-12">
+                            <div class="group-input">
+                                <label for="why-why-chart">
+                                   Category Of Human Error
                                     <span class="text-primary" data-bs-toggle="modal"
-                                        data-bs-target="#document-details-field-instruction-modal"
-                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        data-bs-target="#is_is_not-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="Root_cause_Details_Details"
-                                        style="width: 100%;">
+                                <div class="why-why-chart">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th style="width: 4%">Row#</th>
-                                                <th style="width: 12%">	Root Cause Category</th>
-                                                <th style="width: 16%">Root Cause Sub-Category</th>
-                                                <th style="width: 16%">If Others</th>
+                                                <th style="width:7%;">Row #</th>
+                                                <th style="width:15%;">Gap Category</th>
 
-                                                <th style="width: 16%">	Probability</th>
-                                                <th style="width: 16%">	Remarks</th>
-
-                                                <th style="width: 8%">Action</th>
-
-                                                                                                 
+                                                <th>Issues</th>
+                                                <th>Actions</th>
+                                                <th>Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                <td><input disabled type="text" name="serial[]" value="1"></td>
-                                <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>
-                                <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>
-                                <td><input type="text" class="Document_Remarks" name="ifother[]"></td>
-                                <td><input type="text" class="Document_Remarks" name="Probability[]"></td>
-                                <td><input type="text" class="Document_Remarks" name="remarks[]"></td>
-                                <td><input type="text" class="Removebtn" name="Action[]"></td>
-
-               
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    {{-- <input disabled type="text"  value=""> --}}
+                                                    1
+                                                </td>
+                                                <th style="background: ">Attention</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="attention_issues">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="attention_actions">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="attention_remarks">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                   2
+                                                </td>
+                                                <th >Understanding</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="understanding_issues">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="understanding_actions">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="understanding_remarks">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    3
+                                                </td>
+                                                <th >Procedural</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="procedural_issues">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="procedural_actions">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="procedural_remarks">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                               4
+                                                </td>
+                                                <th >Behavioral</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="behavioiral_issues">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="behavioiral_actions">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="behavioiral_remarks">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                   5
+                                                </td>
+                                                <th >Skill</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="skill_issues">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="skill_actions">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="skill_remarks">{{ $data->Discription_Event}}</textarea>
+                                                </td>
+                                            </tr>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
-                            {{-- @error('Product_Batch')
-                                <div class="text-danger">{{ $message  }}</div>
-                            @enderror --}}
-                      </div>
-
-
-                      <div class="col-12 sub-head"></div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="fishbone">
-                                            Fishbone or Ishikawa Diagram
-                                            <button type="button" name="agenda"
-                                                onclick="addFishBone('.top-field-group', '.bottom-field-group')">+</button>
-                                            <button type="button" name="agenda" class="fishbone-del-btn"
-                                                onclick="deleteFishBone('.top-field-group', '.bottom-field-group')">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#fishbone-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="fishbone-ishikawa-diagram">
-                                            <div class="left-group">
-                                                <div class="grid-field field-name">
-                                                    <div>Measurement</div>
-                                                    <div>Materials</div>
-                                                    <div>Methods</div>
-                                                </div>
-                                                <div class="top-field-group">
-                                                    <div class="grid-field fields top-field">
-                                                        <div><input type="text" name="measurement[]"></div>
-                                                        <div><input type="text" name="materials[]"></div>
-                                                        <div><input type="text" name="methods[]"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="mid"></div>
-                                                <div class="bottom-field-group">
-                                                    <div class="grid-field fields bottom-field">
-                                                        <div><input type="text" name="environment[]"></div>
-                                                        <div><input type="text" name="manpower[]"></div>
-                                                        <div><input type="text" name="machine[]"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="grid-field field-name">
-                                                    <div>Environment</div>
-                                                    <div>Manpower</div>
-                                                    <div>Machine</div>
-                                                </div>
-                                            </div>
-                                            <div class="right-group">
-                                                <div class="field-name">
-                                                    Problem Statement
-                                                </div>
-                                                <div class="field">
-                                                    <textarea name="problem_statement"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="sub-head"></div>
+                        <div class="col-12">
+                            <div class="group-input">
+                                <label for="why-why-chart">
+                                    Is/Is Not Analysis
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#is_is_not-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400;">
+                                        (Launch Instruction)
+                                    </span>
+                                </label>
+                                <div class="why-why-chart">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>&nbsp;</th>
+                                                <th>Will Be</th>
+                                                <th>Will Not Be</th>
+                                                <th>Rationale</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th style="background: rgb(222 220 220 / 58%)">What</th>
+                                                <td>
+                                                    <textarea name="what_will_be">{{ $data->what_will_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="what_will_not_be">{{ $data->what_will_not_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="what_rationable">{{ $data->what_rationable}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background: rgb(222 220 220 / 58%)">Where</th>
+                                                <td>
+                                                    <textarea name="where_will_be">{{ $data->where_will_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="where_will_not_be">{{ $data->where_will_not_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="where_rationable">{{ $data->where_rationable}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background: rgb(222 220 220 / 58%)">When</th>
+                                                <td>
+                                                    <textarea name="when_will_be">{{ $data->when_will_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="when_will_not_be">{{ $data->when_will_not_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="when_rationable">{{ $data->when_rationable}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background:rgb(222 220 220 / 58%)">Coverage</th>
+                                                <td>
+                                                    <textarea name="coverage_will_be">{{ $data->coverage_will_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="coverage_will_not_be">{{ $data->coverage_will_not_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="coverage_rationable">{{ $data->coverage_rationable}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background:rgb(222 220 220 / 58%)">Who</th>
+                                                <td>
+                                                    <textarea name="who_will_be">{{ $data->who_will_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be">{{ $data->who_will_not_be}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_rationable">{{ $data->who_rationable}}</textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
-                                            Why-Why Chart
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#why_chart-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <tbody>
-                                                    <tr style="background: #f4bb22">
-                                                        <th style="width:150px;">Problem Statement :</th>
-                                                        <td>
-                                                            <textarea name="why_problem_statement"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 1 <span
-                                                                onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_1_block">
-                                                                <textarea name="why_1[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 2 <span
-                                                                onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_2_block">
-                                                                <textarea name="why_2[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 3 <span
-                                                                onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_3_block">
-                                                                <textarea name="why_3[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 4 <span
-                                                                onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_4_block">
-                                                                <textarea name="why_4[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 5 <span
-                                                                onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_5_block">
-                                                                <textarea name="why_5[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="background: #0080006b;">
-                                                        <th style="width:150px;">Root Cause :</th>
-                                                        <td>
-                                                            <textarea name="root-cause"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                      <div class="sub-head"></div>
-                      <div class="col-12">
-                        <div class="group-input">
-                            <label for="why-why-chart">
-                               Category Of Human Error
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#is_is_not-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400;">
-                                    (Launch Instruction)
-                                </span>
-                            </label>
-                            <div class="why-why-chart">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:7%;">Row #</th>
-                                            <th style="width:15%;">Gap Category</th>
+                            </div>
+                        </div>
+                            </div>
 
-                                            <th>Issues</th>
-                                            <th>Actions</th>
-                                            <th>Remarks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                {{-- <input disabled type="text"  value=""> --}}
-                                                1
-                                            </td>
-                                            <th style="background: ">Attention</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="what_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="what_will_not_be"></textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="what_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                               2
-                                            </td>
-                                            <th >Understanding</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="where_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="where_will_not_be"></textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="where_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                3
-                                            </td>
-                                            <th >Procedural</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="when_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="when_will_not_be"></textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="when_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                           4
-                                            </td>
-                                            <th >Behavioral</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="coverage_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="coverage_will_not_be"></textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="coverage_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                               5
-                                            </td>
-                                            <th >Skill</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="who_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="who_will_not_be"></textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="who_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                       <a href="/rcms/qms-dashboard">
+                                        <button type="button" class="backButton">Back</button>
+                                    </a>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
                             </div>
                         </div>
                     </div>
-                    <div class="sub-head"></div>
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="why-why-chart">
-                                Is/Is Not Analysis
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#is_is_not-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400;">
-                                    (Launch Instruction)
-                                </span>
-                            </label>
-                            <div class="why-why-chart">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>&nbsp;</th>
-                                            <th>Will Be</th>
-                                            <th>Will Not Be</th>
-                                            <th>Rationale</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th style="background: rgb(222 220 220 / 58%)">What</th>
-                                            <td>
-                                                <textarea name="what_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="what_will_not_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="what_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background: rgb(222 220 220 / 58%)">Where</th>
-                                            <td>
-                                                <textarea name="where_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="where_will_not_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="where_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background: rgb(222 220 220 / 58%)">When</th>
-                                            <td>
-                                                <textarea name="when_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="when_will_not_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="when_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background:rgb(222 220 220 / 58%)">Coverage</th>
-                                            <td>
-                                                <textarea name="coverage_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="coverage_will_not_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="coverage_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background:rgb(222 220 220 / 58%)">Who</th>
-                                            <td>
-                                                <textarea name="who_will_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="who_will_not_be"></textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="who_rationable"></textarea>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                        </div>
-                        
-                        <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
-                                   <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
-                                </a>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                    Exit </a> </button>
-                        </div>
-                    </div>
-                </div>
 
 {{-- -------------QRM----------------- --}}
 <div id="CCForm11" class="inner-block cctabcontent">
@@ -6804,7 +6804,7 @@ wow = new WOW(
                                     <th>Action</th>
 
 
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -6820,7 +6820,7 @@ wow = new WOW(
                     </div>
                 </div>
             </div>
-    
+
         </div>
         <script>
             function calculateRiskAnalysis(selectElement) {
@@ -6872,7 +6872,7 @@ wow = new WOW(
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Name of the Department</b><span
-                                            class="text-danger">*</span></label> 
+                                            class="text-danger">*</span></label>
                                         <select name="department_capa" id="department_capa" >
                                             <option value="">-- Select --</option>
                                             <option value="CQA" @if (old('department_capa') == 'CQA') selected @endif>
@@ -6938,13 +6938,13 @@ wow = new WOW(
 
                                     </div>
                                 </div>
-                                
+
                                  <div class="col-lg-6" id="capa_others_block" style="display: none">
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
                                         <input type="text" id="others" name="capa_others" class="others">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <script>
                                     $('select[name=source_of_capa]').change(function() {
@@ -6957,7 +6957,7 @@ wow = new WOW(
                                         <label for="others">Source Document</label>
                                         <input type="text" id="source_doc" name="source_doc" class="source_doc">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -7016,7 +7016,7 @@ wow = new WOW(
                                         <div class="calenderauditee">
                                             <input type="text" id="Capa_reported_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="capa_completed_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Capa_reported_date')"required />
+                                                oninput="handleDateInput(this, 'Capa_reported_date')" />
                                         </div>
                                     </div>
                                 </div>
@@ -7072,9 +7072,9 @@ wow = new WOW(
                                             </div>
                                         </div>
                                     </div>
-                                </div>                            
+                                </div>
                             </div>
-                            
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
 <a href="/rcms/qms-dashboard">
@@ -7140,8 +7140,8 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
-                                
+
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="CAPA Rquired">CAPA Required ? <span class="text-danger"   style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" >*</span></label>
@@ -7149,7 +7149,7 @@ wow = new WOW(
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
                                             value="yes">Yes</option>
-                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif 
+                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif
                                            value="no">No</option>
                                       </select>
                                       @error('CAPA_Rquired')
@@ -7164,10 +7164,10 @@ wow = new WOW(
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->capa_type == 'Corrective_Action') selected @endif
                                             value="Corrective_Action">Corrective Action</option>
-                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif 
+                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif
                                            value="Preventive_Action"> Preventive Action</option>
-                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
-                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>   
+                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif
+                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>
                                       </select>
                                       @error('capa_type')
                                           <div class="text-danger">{{ $message }}</div>
@@ -7179,7 +7179,7 @@ wow = new WOW(
                                         <label for="CAPA Description">CAPA Description  <span id="asteriskIcon32q13" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="CAPA_Description summernote" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
-                                    
+
                                         @error('CAPA_Description')
                                           <div class="text-danger">{{ $message }}</div>
                                       @enderror
@@ -7189,7 +7189,7 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('CAPA_Rquired');
                                             var inputsToToggle = [];
-        
+
                                             // Add elements with class 'facility-name' to inputsToToggle
                                             var facilityNameInputs = document.getElementsByClassName('capa_type');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
@@ -7199,14 +7199,14 @@ wow = new WOW(
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                        
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
-        
+
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 // Show or hide the asterisk icon based on the selected value
                                                 var asteriskIcon321 = document.getElementById('asteriskIcon32q1');
                                                 var asteriskIcon3211 = document.getElementById('asteriskIcon32q13');
@@ -7221,7 +7221,7 @@ wow = new WOW(
                                         <textarea  name="CAPA_Description" value="CAPA_Description"></textarea>
                                     </div>
                                 </div> --}}
-                                
+
                                 {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="External Auditing Agency ">Post Categorization Of Deviation</label>
@@ -7236,9 +7236,9 @@ wow = new WOW(
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
                                             value="major">Major</option>
-                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif 
+                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif
                                            value="minor">Minor</option>
-                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif 
+                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif
                                             value="critical">Critical</option>
                                       </select>
                                       @error('Post_Categorization')
@@ -7280,7 +7280,7 @@ wow = new WOW(
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Investigation_attachment')"
                                                     multiple>
                                             </div>
@@ -7292,10 +7292,10 @@ wow = new WOW(
                                         <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
+
+
                                             </div>
-                                       
+
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
@@ -7306,7 +7306,7 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div> --}}
-                            
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -7325,7 +7325,7 @@ wow = new WOW(
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Capa_attachment')"
                                                     multiple>
                                             </div>
@@ -7383,8 +7383,8 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
-                                
+
+
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="CAPA Rquired">CAPA Required ?</label>
@@ -7392,7 +7392,7 @@ wow = new WOW(
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
                                             value="yes">Yes</option>
-                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif 
+                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif
                                            value="no">No</option>
                                       </select>
                                       @error('CAPA_Rquired')
@@ -7407,10 +7407,10 @@ wow = new WOW(
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->capa_type == 'Corrective_Action') selected @endif
                                             value="Corrective_Action">Corrective Action</option>
-                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif 
+                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif
                                            value="Preventive_Action"> Preventive Action</option>
-                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
-                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>   
+                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif
+                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>
                                       </select>
                                       @error('capa_type')
                                           <div class="text-danger">{{ $message }}</div>
@@ -7444,9 +7444,9 @@ wow = new WOW(
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
                                             value="major">Major</option>
-                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif 
+                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif
                                            value="minor">Minor</option>
-                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif 
+                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif
                                             value="critical">Critical</option>
                                       </select>
                                       @error('Post_Categorization')
@@ -7488,7 +7488,7 @@ wow = new WOW(
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Investigation_attachment')"
                                                     multiple>
                                             </div>
@@ -7500,10 +7500,10 @@ wow = new WOW(
                                         <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
+
+
                                             </div>
-                                       
+
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
@@ -7514,7 +7514,7 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div> --}}
-                            
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -7533,7 +7533,7 @@ wow = new WOW(
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Capa_attachment')"
                                                     multiple>
                                             </div>
@@ -7596,7 +7596,7 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div> --}}
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA attachments">QA Attachments</label>
@@ -7615,7 +7615,7 @@ wow = new WOW(
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="QA_attachments[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="QA_attachments[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'QA_attachments')"
                                                     multiple>
                                             </div>
@@ -7645,7 +7645,7 @@ wow = new WOW(
                     <div id="CCForm5" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Closure Comments">Closure Comments  <span class="text-danger">@if($data->stage == 6)*@else @endif</span></label>
@@ -7685,7 +7685,7 @@ wow = new WOW(
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 6 ? '' : 'disabled' }} type="file" id="myfile" name="closure_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} 
+                                                <input {{ $data->stage == 6 ? '' : 'disabled' }} type="file" id="myfile" name="closure_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'closure_attachment')"
                                                     multiple>
                                             </div>
@@ -7711,13 +7711,13 @@ wow = new WOW(
                         </div>
                     </div>
  <!-- Effectiveness Check-->
-                     
+
  <div id="CCForm12" class="inner-block cctabcontent">
     <div class="inner-block-content">
         <div class="row">
              <div class="sub-head">
                         Deviation Extension
-                        </div>    
+                        </div>
 
              <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
@@ -7725,7 +7725,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Proposed_Due_date_deviation" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Proposed_Due_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Proposed_Due_date_deviation')"required />
+                            oninput="handleDateInput(this, 'Proposed_Due_date_deviation')" />
                     </div>
                 </div>
             </div>
@@ -7738,7 +7738,7 @@ wow = new WOW(
                 </textarea>
                 </div>
             </div>
-              
+
             <div class="col-lg-6">
                 <div class="group-input">
                     <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By </label>
@@ -7757,23 +7757,23 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Deviation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Deviation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
-           
+
 
             <div class="sub-head">
                         CAPA Extension
                         </div>
-            
+
                     <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
                     <div class="calenderauditee">
                         <input type="text" id="Proposed_Due_date_CAPA" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Proposed_Due_date_CAPA" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')"required />
+                            oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')" />
                     </div>
                 </div>
             </div>
@@ -7808,7 +7808,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="CAPA_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="CAPA_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
@@ -7817,14 +7817,14 @@ wow = new WOW(
              <div class="sub-head">
                         Quality Risk Management Extension
                         </div>
-                        
+
                     <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Proposed_Due_Date_QRM">Proposed Due Date (Quality Risk Management)</label>
                     <div class="calenderauditee">
                         <input type="text" id="Proposed_Due_Date_QRM" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Proposed_Due_Date_QRM" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')"required />
+                            oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')" />
                     </div>
                 </div>
             </div>
@@ -7860,7 +7860,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Quality_Risk_Management_Extension_Completed_ON" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Quality_Risk_Management_Extension_Completed_ON" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')"required />
+                            oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')" />
                     </div>
                 </div>
             </div>
@@ -7869,14 +7869,14 @@ wow = new WOW(
                          <div class="sub-head">
                         Investigation Extension
                         </div>
-                        
+
                     <div class="col-lg-6 new-date-data-field">
                 <div class="group-input input-date">
                     <label for="Proposed_Due_date_investigation">Proposed Due Date (Investigation)</label>
                     <div class="calenderauditee">
                         <input type="text" id="Proposed_Due_date_investigation" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Proposed_Due_date_investigation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Proposed_Due_date_investigation')"required />
+                            oninput="handleDateInput(this, 'Proposed_Due_date_investigation')" />
                     </div>
                 </div>
             </div>
@@ -7911,7 +7911,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
@@ -7933,7 +7933,7 @@ wow = new WOW(
                 </div>
 
                 {{-- row --}}
-                <div class="row">   
+                <div class="row">
 
                  <div class="col-lg-6">
                 <div class="group-input">
@@ -7953,7 +7953,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="deviation_EC_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="deviation_EC_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'deviation_EC_Plan_Proposed_On')"required />
+                            oninput="handleDateInput(this, 'deviation_EC_Plan_Proposed_On')" />
                     </div>
                 </div>
             </div>
@@ -7977,7 +7977,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Next_review_date_deviation" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Next_review_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Next_review_date_deviation')"required />
+                            oninput="handleDateInput(this, 'Next_review_date_deviation')" />
                     </div>
                 </div>
             </div>
@@ -8001,17 +8001,17 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="deviation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="deviation_Effectiveness_Check_Closed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'deviation_Effectiveness_Check_Closed_On')"required />
+                            oninput="handleDateInput(this, 'deviation_Effectiveness_Check_Closed_On')" />
                     </div>
                 </div>
             </div>
             {{-- row-end --}}
         </div>
-                         
+
                     <div class="sub-head">
                         CAPA Effectiveness Check
                         </div>
-         
+
                          <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
@@ -8041,7 +8041,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
@@ -8064,7 +8064,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
@@ -8088,7 +8088,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                            oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')" />
                     </div>
                 </div>
             </div>
@@ -8097,7 +8097,7 @@ wow = new WOW(
              <div class="sub-head">
                         Quality Risk Management Effectiveness Check
                         </div>
-                        
+
                          <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
@@ -8127,10 +8127,10 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                     </div>
                 </div>
-        
+
         </div>
     {{-- row-end --}}
     </div>
@@ -8151,7 +8151,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
@@ -8176,7 +8176,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                            oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')" />
                     </div>
                 </div>
             </div>
@@ -8185,7 +8185,7 @@ wow = new WOW(
              <div class="sub-head">
                         Investigation Effectiveness Check
                         </div>
-            
+
                          <div class="col-md-12 mb-3">
                 <div class="group-input">
                     <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
@@ -8215,7 +8215,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Effectiveness_Check_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Effectiveness_Check_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Effectiveness_Check_Plan_Proposed_On')"required />
+                            oninput="handleDateInput(this, 'Effectiveness_Check_Plan_Proposed_On')" />
                     </div>
                 </div>
             </div>
@@ -8237,7 +8237,7 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                     </div>
                 </div>
             </div>
@@ -8260,12 +8260,12 @@ wow = new WOW(
                     <div class="calenderauditee">
                         <input type="text" id="Investigation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                         <input type="date"  name="Investigation_Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                            oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')"required />
+                            oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')" />
                     </div>
                 </div>
             </div>
-        </div>               
-        
+        </div>
+
         <div class="button-block">
             <button type="submit" class="saveButton">Save</button>
                         <a href="/rcms/qms-dashboard">
@@ -8302,10 +8302,10 @@ wow = new WOW(
                                 <div class="col-lg-6">
                                 <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px;">
                                     <label for="submit comment">Submit Comments :-</label>
-                                    <div class="">{{ $data->submit_comment }}</div> 
-                                </div>    
+                                    <div class="">{{ $data->submit_comment }}</div>
                                 </div>
-                                    
+                                </div>
+
                                 <div class="sub-head">HOD Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -8325,7 +8325,7 @@ wow = new WOW(
                                         <div class="">{{ $data->HOD_Review_Comments }}</div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="sub-head">QA Initial Review Completed</div>
                                 <div class="col-lg-6">
@@ -8404,11 +8404,11 @@ wow = new WOW(
                                         <div class="">{{ $data->Approved_Comments }}</div>
                                     </div>
                                 </div>
-                                
-                                
-                                
-                               
-                                
+
+
+
+
+
 
                             </div>
                             <div class="button-block">
@@ -8432,11 +8432,11 @@ wow = new WOW(
             </form>
             <div class="sticky-buttons">
                 <div
-                  
-      
+
+
                 >
             <a type="button" class="" data-toggle="modal" data-target="#myModal3">
-                
+
                   <svg width="18" height="24" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fill="#ffffff"
@@ -8446,10 +8446,10 @@ wow = new WOW(
               </a>
                 </div>
                 {{-- <div
-                  
+
                 >
                 <a type="button" class="" data-toggle="modal" data-target="#myModal4">
-      
+
                   <svg width="24" height="24" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fill="#ffffff"
@@ -8457,7 +8457,7 @@ wow = new WOW(
                     />
                   </svg>
               </a>
-      
+
                 </div> --}}
               </div>
         </div>
@@ -8466,12 +8466,12 @@ wow = new WOW(
 
 
 <div class="container">
-      
-     
+
+
     <!-- Modal -->
     <div class="modal right fade" id="myModal3" role="dialog">
       <div class="modal-dialog">
-      
+
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
@@ -8479,7 +8479,7 @@ wow = new WOW(
             <h4  class="modal-titles">Deviation Workflow</h4>
           </div>
           <div style="padding:3px;" class="modal-body">
-           
+
              <Div class="button-box">
               <div style="background: #85be859e;" class="mini_buttons">
                 Opened
@@ -8493,35 +8493,35 @@ wow = new WOW(
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-            
+
             </div>
             <div style="background: #0000ff1f;" class="mini_buttons">
                 QA Initial Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-            
+
             </div>
             <div style="background: #0000ff1f;" class="mini_buttons">
                 CFT Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-            
+
             </div>
             <div style="background: #0000ff1f;" class="mini_buttons">
                 QA Final Review
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-            
+
             </div>
             <div style="background: #0000ff1f;" class="mini_buttons">
                 QA Head Designee Approval
             </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-            
+
             </div>
             <div style="background: #ff000042;" class="mini_buttons">
                 Closed - Done
@@ -8532,18 +8532,18 @@ wow = new WOW(
             <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
           </div> --}}
         </div>
-        
+
       </div>
     </div>
   {{-- --------------------------------------------------------------   --}}
   </div>
   <div class="container">
-    
-   
-  
+
+
+
     <div class="modal right fade" id="myModal4" role="dialog">
       <div class="modal-dialog">
-      
+
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
@@ -8551,20 +8551,20 @@ wow = new WOW(
             <h4 class="modal-title">WorkFlow</h4>
           </div>
           <div class="modal-body">
-           
-             
-                  
-                  
-      
-            </div> 
+
+
+
+
+
+            </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
           </div>
         </div>
-        
+
       </div>
     </div>
-    
+
   </div>
   {{-- ==================================================================== --}}
 
@@ -8588,56 +8588,56 @@ wow = new WOW(
 
                 <div class="Activity-type">
                     <label style="font-weight: bold;" for="">Customer ID :</label>
-                    
+
                     <input type="text">
                 </div>
                 <div class="Activity-type ">
                     <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
-                    
+
                     <input type="text">
                 </div>
                 <div class="Activity-type ">
                     <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
-                
+
                     <input type="text">
                 </div>
                 <div class="Activity-type ">
                     <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
-                    
+
                     <input type="text">
                 </div>
             </div>
 
 
             <div class="right-box">
-                
+
                 <div class="Activity-type">
                     <label style="font-weight: bold; " for="">Customer Name :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
-                
+
                 <div class="Activity-type">
                     <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
                 <div class="Activity-type">
                     <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
                 <div class="Activity-type">
                     <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
             </div>
-            
+
             </div>
             </div>
             <div class="Activity-type">
@@ -8713,7 +8713,7 @@ wow = new WOW(
             <!-- Modal body -->
             <div class="modal-body">
                 <!-- Form for adding new customer -->
-                <form method="POST" id="customerForm"> 
+                <form method="POST" id="customerForm">
                     @csrf
 <style>
 .validationClass{
@@ -8740,7 +8740,7 @@ wow = new WOW(
                                 <!-- Customer Type -->
                                 <div class="Activity-type">
                                     <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type<span class="text-danger">*</span> :</label>
-                                    <input type="text" id="customer_type" name="customer_type"> 
+                                    <input type="text" id="customer_type" name="customer_type">
                                 </div>
                                 <span id="customer_type_error" class="text-danger validationClass"></span>
                                 <!-- Status -->
@@ -8756,7 +8756,7 @@ wow = new WOW(
                                 <!-- Customer Name -->
                                 <div class="Activity-type">
                                     <label style="font-weight: bold;" for="customer_name">Customer Name<span class="text-danger">*</span> :</label>
-                                    <input type="text" id="customer_name" name="customer_name"> 
+                                    <input type="text" id="customer_name" name="customer_name">
                                 </div>
                                 <span id="customer_name_error" class="text-danger validationClass"></span>
                                 <!-- Contact No -->
@@ -8794,7 +8794,7 @@ wow = new WOW(
                         </button>
                     </div>
                 </form>
-                
+
                 <script>
                     function submitForm() {
                         document.querySelectorAll('.validationClass').forEach(span => {
@@ -8874,7 +8874,7 @@ location.reload();
                             region: formData.get('region'),
                             remarks: formData.get('remarks')
                         };
-                        
+
                         // Append new row with form data to the table
                         var newRow = `
                             <tr>
@@ -8889,7 +8889,7 @@ location.reload();
                                 <td>${customerData.remarks}</td>
                             </tr>
                         `;
-                        
+
                         document.querySelector('.table tbody').innerHTML += newRow;
                                             } else {
                                                 console.error('Failed to create customer');
@@ -8969,7 +8969,7 @@ location.reload();
     $(document).ready(function(){
         $('#customerForm').submit(function(e){
             e.preventDefault(); // Prevent default form submission
-            
+
             // Create data object from form fields
             var formData = {
                 customer_id: $('#customer_id').val(),
@@ -8997,7 +8997,7 @@ location.reload();
 </script> --}}
 
 <!-- -----------------------------------------------------end---------------------- -->
-   
+
     <style>
         #step-form>div {
             display: none
@@ -9163,7 +9163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addRowButton = document.getElementById('new-button-icon');
     addRowButton.addEventListener('click', function() {
         const department = this.parentNode.innerText.trim(); // Get the department name
-            
+
         // Create a new row and insert it after the current row
         const newRow = document.createElement('tr');
         newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
@@ -9172,7 +9172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td><textarea name="Comments"></textarea></td>
                             <td><textarea name="sign&date"></textarea></td>
                             <td><textarea name="Remarks"></textarea></td>`;
-                
+
         // Insert the new row after the current row
         const currentRow = this.parentNode.parentNode;
         currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
@@ -9221,7 +9221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="child-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Child</h4>
@@ -9244,7 +9244,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         Extension
                                 </label>
                             @endif
-                            
+
                             @if ($data->stage == 5)
                                 <label for="major">
                                     <input type="radio" name="child_type" id="major"
@@ -9259,23 +9259,23 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </label>
                             @endif
                         </div>
-    
+
                     </div>
-    
+
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" data-bs-dismiss="modal">Close</button>
                         <button type="submit">Continue</button>
                     </div>
                 </form>
-    
+
             </div>
         </div>
     </div>
     {{-- <div class="modal fade" id="child-modal1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Child</h4>
@@ -9297,30 +9297,30 @@ document.addEventListener('DOMContentLoaded', function() {
                                     Extension
                             </label>
                         </div>
-    
+
                     </div>
-    
+
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" data-bs-dismiss="modal">Close</button>
                         <button type="submit">Continue</button>
                     </div>
                 </form>
-    
+
             </div>
         </div>
     </div> --}}
-    
+
     <div class="modal fade" id="more-info-required-modal">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('deviation_reject', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -9343,7 +9343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9359,17 +9359,17 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="cancel-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('deviationCancel', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -9392,7 +9392,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9407,17 +9407,17 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 
-    
+
     <div class="modal fade" id="deviationIsCFTRequired">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ url('deviationIsCFTRequired', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -9440,7 +9440,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9456,14 +9456,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="modal fade" id="sendToInitiator">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('check', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -9486,7 +9486,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9502,14 +9502,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="modal fade" id="hodsend">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('check2', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -9532,7 +9532,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9548,14 +9548,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="modal fade" id="qasend">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('check3', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -9578,7 +9578,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9597,7 +9597,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="signature-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
@@ -9625,7 +9625,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment">
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9647,7 +9647,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="cft-not-reqired">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
@@ -9675,7 +9675,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment">
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9692,7 +9692,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="modal1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
@@ -9720,7 +9720,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment">
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -9734,22 +9734,22 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    
+
     <style>
         #step-form>div {
             display: none
         }
-    
+
         #step-form>div:nth-child(1) {
             display: block;
         }
     </style>
-    
+
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record,'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record, #investigation_approach'
         });
-    
+
         function openCity(evt, cityName) {
             var i, cctabcontent, cctablinks;
             cctabcontent = document.getElementsByClassName("cctabcontent");
@@ -9763,9 +9763,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    
-    
-    
+
+
+
         function openCity(evt, cityName) {
             var i, cctabcontent, cctablinks;
             cctabcontent = document.getElementsByClassName("cctabcontent");
@@ -9778,56 +9778,56 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
-    
+
             // Find the index of the clicked tab button
             const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
-    
+
             // Update the currentStep to the index of the clicked tab
             currentStep = index;
         }
-    
+
         const saveButtons = document.querySelectorAll(".saveButton");
         const nextButtons = document.querySelectorAll(".nextButton");
         const form = document.getElementById("step-form");
         const stepButtons = document.querySelectorAll(".cctablinks");
         const steps = document.querySelectorAll(".cctabcontent");
         let currentStep = 0;
-    
+
         function nextStep() {
             // Check if there is a next step
             if (currentStep < steps.length - 1) {
                 // Hide current step
                 steps[currentStep].style.display = "none";
-    
+
                 // Show next step
                 steps[currentStep + 1].style.display = "block";
-    
+
                 // Add active class to next button
                 stepButtons[currentStep + 1].classList.add("active");
-    
+
                 // Remove active class from current button
                 stepButtons[currentStep].classList.remove("active");
-    
+
                 // Update current step
                 currentStep++;
             }
         }
-    
+
         function previousStep() {
             // Check if there is a previous step
             if (currentStep > 0) {
                 // Hide current step
                 steps[currentStep].style.display = "none";
-    
+
                 // Show previous step
                 steps[currentStep - 1].style.display = "block";
-    
+
                 // Add active class to previous button
                 stepButtons[currentStep - 1].classList.add("active");
-    
+
                 // Remove active class from current button
                 stepButtons[currentStep].classList.remove("active");
-    
+
                 // Update current step
                 currentStep--;
             }
@@ -9842,12 +9842,12 @@ document.addEventListener('DOMContentLoaded', function() {
          <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const removeButtons = document.querySelectorAll('.remove-file');
-    
+
                 removeButtons.forEach(button => {
                     button.addEventListener('click', function () {
                         const fileName = this.getAttribute('data-file-name');
                         const fileContainer = this.closest('.file-container');
-    
+
                         // Hide the file container
                         if (fileContainer) {
                             fileContainer.style.display = 'none';
@@ -9855,7 +9855,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             });
-        </script> 
+        </script>
         <script>
             var maxLength = 255;
             $('#docname').keyup(function() {

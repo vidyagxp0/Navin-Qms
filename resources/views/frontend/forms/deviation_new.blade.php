@@ -6,7 +6,7 @@ $users = DB::table('users')
     ->get();
 
     @endphp
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
@@ -22,7 +22,7 @@ $users = DB::table('users')
         .sub-main-head {
         display: flex;
         justify-content: space-evenly;
-    } 
+    }
 
     .Activity-type {
         margin-bottom: 7px;
@@ -213,9 +213,9 @@ $users = DB::table('users')
     <script>
         console.log('Script working')
         $(document).ready(function() {
-            
+
             let auditForm = document.getElementById('auditform');
-            
+
             function submitForm() {
                 document.querySelectorAll('.saveAuditFormBtn').forEach(function(button) {
                     button.disabled = true;
@@ -233,7 +233,7 @@ $users = DB::table('users')
                 submitForm();
             });
 
-            
+
         });
         // ==================================
 
@@ -248,7 +248,7 @@ $users = DB::table('users')
                     )
                     wow.init();
     </script>
-    
+
     <script>
         $(document).ready(function() {
             $('#internalaudit-table').click(function(e) {
@@ -300,7 +300,7 @@ $users = DB::table('users')
             $('#ObservationAdd').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -316,8 +316,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -335,7 +335,7 @@ $users = DB::table('users')
             $('#ReferenceDocument').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -344,15 +344,15 @@ $users = DB::table('users')
                         '<td><input type="text" name="Document_Remarks[]"></td>'+
                         '<td><button class="removeRowBtn">Remove</button></td>'+
 
-                        
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -375,26 +375,26 @@ $users = DB::table('users')
         $('#Product_Details').click(function(e) {
             function generateTableRow(serialNumber) {
                 var users = @json($users);
-                
+
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                     '<td><input type="text" name="Product[]"></td>'+
                     '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
-    
+
                     '<td><input type="text" name="BatchNo[]"></td>'+
                     '<td><button class="removeRowBtn">Remove</button></td>'+
 
 
-                    
+
                     '</tr>';
 
                 for (var i = 0; i < users.length; i++) {
                     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 }
 
-                html += '</select></td>' + 
-              
+                html += '</select></td>' +
+
                     '</tr>';
 
                 return html;
@@ -406,25 +406,25 @@ $users = DB::table('users')
             tableBody.append(newRow);
         });
     });
-   
+
 </script>
 <script>
     $(document).on('click', '.removeRowBtn', function() {
         $(this).closest('tr').remove();
     })
-    
+
 </script>
-    
+
      <script>
         $(document).ready(function() {
             $('#investigation_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                        '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+           
+                        '<td> <select name="Investigation_team[]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>'+
                         '<td><input type="text" class="numberDetail" name="Responsibility[]"></td>'+
                         '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>'+
                         '<td><button type="text" class="removeRowBtn" ">Remove</button></td>'+
@@ -435,8 +435,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -447,14 +447,14 @@ $users = DB::table('users')
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });  
-    </script> 
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#root_cause_Details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -471,8 +471,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -483,14 +483,14 @@ $users = DB::table('users')
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });  
-    </script> 
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#risk_matrix_details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>'+
@@ -507,8 +507,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -519,9 +519,9 @@ $users = DB::table('users')
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
             });
-        });  
-    </script> 
-   
+        });
+    </script>
+
     <div class="form-field-head">
 
         <div class="division-bar">
@@ -536,7 +536,7 @@ $users = DB::table('users')
                     DATA FIELDS
     ======================================= --}}
 
-    <div id="change-control-fields"> 
+    <div id="change-control-fields">
         <div class="container-fluid">
 
             <!-- Tab links -->
@@ -605,7 +605,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                               
+
                                    @php
                                         // Calculate the due date (30 days from the initiation date)
                                         $initiationDate = date('Y-m-d'); // Current date as initiation date
@@ -660,7 +660,7 @@ $users = DB::table('users')
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Department</b><span
-                                            class="text-danger">*</span></label> 
+                                            class="text-danger">*</span></label>
                                         <select name="Initiator_Group" id="initiator_group" required>
                                             <option value="">-- Select --</option>
                                             <option value="CQA" @if (old('Initiator_Group') == 'CQA') selected @endif>
@@ -711,7 +711,7 @@ $users = DB::table('users')
                                             value="" readonly>
                                     </div>
                                 </div> --}}
-                            
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
@@ -721,8 +721,8 @@ $users = DB::table('users')
                                     @error('short_description')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>  
-                                
+                                </div>
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="short_description_required">Repeat Deviation?</label>
@@ -738,12 +738,12 @@ $users = DB::table('users')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                               
+
                                 <div class="col-lg-6" id="nature_of_repeat_block" style="display: none">
 
                                     <div class="group-input" id="nature_of_repeat">
                                         <label for="nature_of_repeat">Repeat Nature </label>
-                                        <textarea name="nature_of_repeat" class="nature_of_repeat" required>{{ isset($data) ? $data->short_description_required : '' }}</textarea>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat" >{{ isset($data) ? $data->short_description_required : '' }}</textarea>
                                     </div>
                                 </div>
 
@@ -755,12 +755,12 @@ $users = DB::table('users')
 
                                         // Add elements with class 'facility-name' to inputsToToggle
                                         var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
-                                        
+
                                         for (var i = 0; i < facilityNameInputs.length; i++) {
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
 
-                                                                        
+
                                         selectField.addEventListener('change', function () {
                                             var isRequired = this.value === 'Recurring';
 
@@ -786,22 +786,22 @@ $users = DB::table('users')
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
-                                             <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" /> 
+                                             <input type="text" id="Deviation_date" readonly placeholder="DD-MMM-YYYY" />
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
                                             <input  type="date"  name="Deviation_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_date')"required />
+                                                oninput="handleDateInput(this, 'Deviation_date')" />
                                         </div>
                                     </div>
                                     @error('Deviation_date')
                                         <div class="text-danger">{{  $message  }}</div>
                                     @enderror
-                                </div> 
-                                
-                                
+                                </div>
+
+
                                 <div class="col-lg-6 new-time-data-field">
                                     <div class="group-input input-time">
                                         <label for="deviation_time">Deviation Observed On (Time)</label>
-                                        <input type="text" name="deviation_time" id="deviation_time"required>
+                                        <input type="text" name="deviation_time" id="deviation_time">
                                     </div>
                                     @error('Deviation_date')
                                         <div class="text-danger">{{  $message  }}</div>
@@ -817,7 +817,7 @@ $users = DB::table('users')
                                         <div class="text-danger">{{  $message  }}</div>
                                     @enderror --}}
                                 </div>
-                                
+
                                 <script>
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
@@ -834,12 +834,12 @@ $users = DB::table('users')
                                         @endphp
                                         <label for="If Other">Deviation Observed By</label>
                                         <input type="text" name="Facility" id="Facility" placeholder="Select Facility Name">
-                                    
+
                                         {{-- <select  multiple name="Facility[]" placeholder="Select Facility Name"
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                           
+                                            @endforeach
                                         </select> --}}
                                     </div>
                                 </div>
@@ -849,7 +849,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_reported_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_reported_date')"required />
+                                                oninput="handleDateInput(this, 'Deviation_reported_date')" />
                                         </div>
                                     </div>
                                 </div>
@@ -879,14 +879,14 @@ $users = DB::table('users')
                                     }
 
                                     $('input[name=Deviation_date]').on('change', function() {
-                                        calculateDateDifference();  
+                                        calculateDateDifference();
                                     })
 
                                     $('input[name=Deviation_reported_date]').on('change', function() {
-                                        calculateDateDifference();  
+                                        calculateDateDifference();
                                     })
                                 </script>
-                             
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To </label>
@@ -933,14 +933,14 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div> --}}
-                                
-                                
+
+
                                  <div class="col-lg-6" id="others_block" style="display: none;">
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
                                         <input type="text" id="others" name="others" class="others">
                                     </div>
-                                </div> 
+                                </div>
                                 <script>
 
                                     document.addEventListener('DOMContentLoaded', function () {
@@ -953,7 +953,7 @@ $users = DB::table('users')
                                             inputsToToggle.push(facilityNameInputs[i]);
                                         }
 
-                                                                        
+
                                         selectField.addEventListener('change', function () {
                                             // var isRequired = this.value === 'Anyother(specify)';
                                             var isRequired = this.value.includes('Anyother(specify)');
@@ -975,7 +975,7 @@ $users = DB::table('users')
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System Details Required?</label>
-                                        <select name="Facility_Equipment" id="Facility_Equipment"required>
+                                        <select name="Facility_Equipment" id="Facility_Equipment">
                                             <option value="">--Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -985,10 +985,10 @@ $users = DB::table('users')
                                     @error('Facility_Equipment')
                                         <div class="text-danger">{{  $message  }}</div>
                                     @enderror
-                                </div> 
+                                </div>
                                 <div class="group-input" id="facilityRow" style="display: none">
                                         <label for="audit-agenda-grid">
-                                        Facility/ Equipment/ Instrument/ System Details 
+                                        Facility/ Equipment/ Instrument/ System Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ObservationAdd">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -1046,7 +1046,7 @@ $users = DB::table('users')
                                                 inputsToToggle.push(remarksInputs[k]);
                                             }
 
-                                                                            
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
                                                 console.log(this.value, isRequired, 'value');
@@ -1073,13 +1073,13 @@ $users = DB::table('users')
 
                                         </select>
                                     </div>
-                                </div> 
+                                </div>
                                     <div class="group-input" id="documentsRow" style="display: none">
                                         <label for="audit-agenda-grid">
-                                         Document Details 
+                                         Document Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ReferenceDocument">+</button>
-                                                
+
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#document-details-field-instruction-modal"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
@@ -1095,10 +1095,10 @@ $users = DB::table('users')
                                                         <th style="width: 12%">Document Number</th>
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
-                                                        
+
                                                         <th style="width: 8%"> Action</th>
-                                                       
-                                                                                                         
+
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1108,7 +1108,7 @@ $users = DB::table('users')
                                         <td><input type="text" class="Document_Remarks" name="Document_Remarks[]"></td>
                                         <td><input type="text" class="" name="Action[]"></td>
 
-                       
+
                                                 </tbody>
 
                                             </table>
@@ -1140,7 +1140,7 @@ $users = DB::table('users')
                                                 inputsToToggle.push(remarksInputs[k]);
                                             }
 
-                                                                            
+
                                             selectField.addEventListener('change', function () {
                                                 var isRequired = this.value === 'yes';
                                                 console.log(this.value, isRequired, 'value');
@@ -1186,7 +1186,7 @@ $users = DB::table('users')
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
                                         <td><input type="text" class="numberDetail" name="Product[]"></td>
                                         <td>
-                                           
+
                                         <select name="Stage[]" id="">
                                             <option value="">-- Select --</option>
 
@@ -1208,7 +1208,7 @@ $users = DB::table('users')
                                         <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
                                         <td><input type="text" class="Removebtn" name="Action[]"></td>
 
-                       
+
                                                 </tbody>
 
                                             </table>
@@ -1226,9 +1226,9 @@ $users = DB::table('users')
                                         <option value="person1">person 1</option>
                                         <option value="person2">person 2</option>
                                       </select>
-                                        
-                                            
-                                    
+
+
+
                                     </div>
                                </div> -->
                       <!-- <div class="col-lg-6">
@@ -1239,9 +1239,9 @@ $users = DB::table('users')
                                         <option value="person1">person 1</option>
                                         <option value="person2">person 2</option>
                                       </select>
-                                        
-                                           
-                                    
+
+
+
                                     </div>
                                </div> -->
                       <!-- <div class="col-lg-6">
@@ -1252,8 +1252,8 @@ $users = DB::table('users')
                                         <option value="person1">person 1</option>
                                         <option value="person2">person 2</option>
                                       </select>
-                                        
-                                    
+
+
                                     </div>
                                </div> -->
                       <!-- <div class="col-6">
@@ -1264,11 +1264,11 @@ $users = DB::table('users')
                                             <option value="Plant 1"> 1</option>
                                             <option value="Plant 1"> 2</option>
                                             <option value="Plant 1"> 3</option>
-                                           
+
                                         </select>
                                     </div>
                                 </div> -->
-                                
+
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
@@ -1286,7 +1286,7 @@ $users = DB::table('users')
                                         <div class="text-danger">{{ $message  }}</div>
                                     @enderror
                                 </div>
-                               
+
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="ImmediateAction">Immediate Action (if any)</label>
@@ -1337,7 +1337,7 @@ $users = DB::table('users')
                                 </div>
                             </div>
                             <div class="button-block">
-                                
+
                                 <button style="  justify-content: center; width: 4rem; margin-left: auto;" type="submit" id="ChangesaveButton0011" onclick="submitForm()" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -1355,14 +1355,14 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                     <!-- ----------hod Review-------- -->
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                            
-                               
+
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
@@ -1385,8 +1385,8 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                
-                               
+
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save </button>
@@ -1402,9 +1402,9 @@ $users = DB::table('users')
                        <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
 
-                                
+
+
 
                     <script>
                 handleInvestigationRequiredChange();
@@ -1436,7 +1436,7 @@ $users = DB::table('users')
     function handleDeviationCategoryChange() {
         var selectElement = document.getElementById("Initial_Deviation_category");
         var selectedOption = selectElement.options[selectElement.selectedIndex].value;
-       
+
         // var investigationSelect = document.getElementById("Investigation_required");
 
         // var investigationButton = document.getElementById("Investigation_button");
@@ -1457,7 +1457,7 @@ $users = DB::table('users')
 
     // Get the selected values
         // var investigationRequired = investigationSelect.value;
-        
+
         // Check if the selected option is "Major" or "Critical"
         if (selectedOption === "major" || selectedOption === "critical") {
             // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
@@ -1480,16 +1480,16 @@ $users = DB::table('users')
             document.getElementById("CAPA_button").style.display = "none";
             document.getElementById("QRM_button").style.display = "none";
 
-        
+
 
         }
 
     }
-         
+
 </script>
 
 
-        
+
 
     <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
         <div class="group-input input-date">
@@ -1538,7 +1538,7 @@ $users = DB::table('users')
 
 
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Justification for Categorization">Justification for Categorization</label>
@@ -1547,7 +1547,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation  Required ?</label>
@@ -1556,14 +1556,14 @@ $users = DB::table('users')
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
                                         <textarea class="" name="Investigation_Details" id="" cols="30" ></textarea>
-                                  
+
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-3">
@@ -1574,7 +1574,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                             
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
@@ -1606,13 +1606,13 @@ $users = DB::table('users')
 
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
-                                
+
                             </div>
                         </div>
                     </div>
                     <script>
 
-// This is a JQuery used for showing the Investigation 
+// This is a JQuery used for showing the Investigation
 
                             $(document).ready(function () {
     $('#Initial_Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(function () {
@@ -1622,7 +1622,7 @@ $users = DB::table('users')
         var capaRequired = $('#capa_required').val();
         var qrmRequired = $('#qrm_required').val();
 
-        
+
         // Check if both conditions are met
         if ( investigationRequired === 'yes') {
             $('#Investigation_button').show(); // Show the investigation button
@@ -1649,7 +1649,7 @@ $users = DB::table('users')
 //                           $(document).ready(function () {
 //                             $('#Investigation_required').change(function () {
 //                                 var selectedValues = $(this).val();
-                                
+
 // Investigation_required
 //                                 if (selectedValues === 'major' || selectedValues === 'critical') {
 //                                     $('#Investigation_required').val('yes').prop('disabled', true);
@@ -1661,10 +1661,10 @@ $users = DB::table('users')
 //                                     $('#qrm_required').prop('disabled', false);
 //                                     $('#capa_required').prop('disabled', false);
 //                                 }
-                               
+
 //                             });
 //                         });
-                         
+
 
 
                         $(document).ready(function () {
@@ -1681,7 +1681,7 @@ $users = DB::table('users')
                                     $('#qrm_required').prop('disabled', false);
                                     $('#capa_required').prop('disabled', false);
                                 }
-                               
+
                             });
                         });
 
@@ -1726,7 +1726,7 @@ $users = DB::table('users')
                                     $('textarea[name="Investigations_details"]').prop('required', false);
                                 }
                             });
-                    
+
                             // Trigger change event on page load if already selected value is "Recurring"
                             $('#Investigation_required').change();
                         });
@@ -1741,7 +1741,7 @@ $users = DB::table('users')
                                     $('textarea[name="customer_option"]').prop('required', false);
                                 }
                             });
-                    
+
                             // Trigger change event on page load if already selected value is "Recurring"
                             $('#Customer_notification').change();
                         });
@@ -1760,7 +1760,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Event listener for Investigation_Details field
                             $('.Investigation_Details').blur(function () {
                                 // Check if the field is empty and required
@@ -1772,7 +1772,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Initial check when page loads
                             if ($('#Investigation_required').val() === 'yes') {
                                 $('.Investigation_Details').prop('required', true);
@@ -1793,7 +1793,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Event listener for Investigation_Details field
                             $('#customers').blur(function () {
                                 // Check if the field is empty and required
@@ -1805,7 +1805,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Initial check when page loads
                             if ($('#Customer_notification').val() === 'yes') {
                                 $('#customers').prop('required', true);
@@ -1829,7 +1829,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1866,7 +1866,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="production attachment"> Production Attachments</label>
@@ -1881,7 +1881,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                  <div class="col-md-6 mb-3"> 
+                                  <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
                                         <input disabled type="text" name="production_by" id="production_by" >
@@ -1910,7 +1910,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1964,10 +1964,10 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Warehousefeedback">Warehouse Review Completed By</label>
                                         <input disabled type="text"  name="Warehouse_by" id="Warehouse_by" >
-                                    
+
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
@@ -1991,7 +1991,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2009,7 +2009,7 @@ $users = DB::table('users')
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2018,7 +2018,7 @@ $users = DB::table('users')
                                         <textarea class="" name="Quality_Control_assessment" id="summernote-21">
                                     </textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Control Feedback">Quality Control Feedback</label>
@@ -2044,7 +2044,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Review Completed By</label>
                                         <input type="text" name="QualityAssurance__by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2070,7 +2070,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2088,7 +2088,7 @@ $users = DB::table('users')
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                       </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2098,7 +2098,7 @@ $users = DB::table('users')
                                         <textarea class="" name="QualityAssurance_assessment" id="summernote-23">
                                     </textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
@@ -2125,7 +2125,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review Completed By</label>
                                         <input type="text" name="QualityAssurance_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2150,7 +2150,7 @@ $users = DB::table('users')
                                             <option value="no">No</option>
                                             <option value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2168,7 +2168,7 @@ $users = DB::table('users')
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2205,7 +2205,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed By</label>
                                         <input type="text" name="Engineering_by" id="Engineering_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2231,7 +2231,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2283,14 +2283,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical Development Laboratory Review Completed By</label>
                                         <input type="text" name="Analytical_Development_by" id="Analytical_Development_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical Development Laboratory Review Completed On</label>
                                         <input type="date" name="Analytical_Development_on" disabled>
-                                    
+
                                     </div>
                                 </div> --}}
                                 <div class="col-lg-6 new-date-data-field">
@@ -2316,7 +2316,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2333,10 +2333,10 @@ $users = DB::table('users')
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
-                                           
+
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2345,7 +2345,7 @@ $users = DB::table('users')
                                         <textarea class="" name="Kilo_Lab_assessment" id="summernote-29">
                                     </textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
@@ -2372,7 +2372,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo Lab Review Completed By</label>
                                         <input type="text" name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2398,7 +2398,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2415,10 +2415,10 @@ $users = DB::table('users')
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
-                                           
+
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2453,7 +2453,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Design Review Completed By">Technology Transfer / Design Review Completed By</label>
                                         <input type="text" name="Technology_transfer_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2479,7 +2479,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2497,7 +2497,7 @@ $users = DB::table('users')
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2533,7 +2533,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety Review Completed By</label>
                                         <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by"  disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2559,7 +2559,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2576,10 +2576,10 @@ $users = DB::table('users')
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
-                                           
+
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2614,7 +2614,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration Review Completed By</label>
                                         <input type="text" name="Human_Resource_by" id="Human_Resource_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2640,7 +2640,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2657,7 +2657,7 @@ $users = DB::table('users')
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2692,7 +2692,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed By"> Information Technology Review Completed By</label>
                                         <input type="text" name="Information_Technology_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2718,7 +2718,7 @@ $users = DB::table('users')
                                             <option value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2735,10 +2735,10 @@ $users = DB::table('users')
                                             @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
-                                           
+
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2774,7 +2774,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Project management Review Completed By"> Project management Review Completed By</label>
                                         <input type="text" name="Project_management_by"id="Project_management_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
@@ -2798,9 +2798,9 @@ $users = DB::table('users')
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                                 <option value="na">NA</option>
-    
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     @php
@@ -2816,10 +2816,10 @@ $users = DB::table('users')
                                                 <option value="0">-- Select --</option>
                                                 @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                               
-    
+                                            @endforeach
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -2839,11 +2839,11 @@ $users = DB::table('users')
                                                 <option value="Human Resource & Administration">Human Resource & Administration</option>
                                                 <option value="Information Technology">Information Technology</option>
                                                 <option value="Project management">Project management</option>
-                                                
-    
-    
+
+
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -2878,7 +2878,7 @@ $users = DB::table('users')
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 1 Review Completed By</label>
                                             <input type="text" name="Other1_by" id="Other1_by" disabled>
-                                        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 new-date-data-field">
@@ -2900,9 +2900,9 @@ $users = DB::table('users')
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                                 <option value="na">NA</option>
-    
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     @php
@@ -2918,10 +2918,10 @@ $users = DB::table('users')
                                                 <option value="0">-- Select --</option>
                                                 @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                               
-    
+                                            @endforeach
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -2941,11 +2941,11 @@ $users = DB::table('users')
                                                 <option value="Human Resource & Administration">Human Resource & Administration</option>
                                                 <option value="Information Technology">Information Technology</option>
                                                 <option value="Project management">Project management</option>
-                                                
-    
-    
+
+
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -2980,7 +2980,7 @@ $users = DB::table('users')
                                         <div class="group-input">
                                             <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                             <input type="text" name="Other2_by" disabled>
-                                        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 new-date-data-field">
@@ -3004,9 +3004,9 @@ $users = DB::table('users')
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                                 <option value="na">NA</option>
-    
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     @php
@@ -3022,10 +3022,10 @@ $users = DB::table('users')
                                                 <option value="0">-- Select --</option>
                                                 @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                               
-    
+                                            @endforeach
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -3045,11 +3045,11 @@ $users = DB::table('users')
                                                 <option value="Human Resource & Administration">Human Resource & Administration</option>
                                                 <option value="Information Technology">Information Technology</option>
                                                 <option value="Project management">Project management</option>
-                                                
-    
-    
+
+
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -3084,7 +3084,7 @@ $users = DB::table('users')
                                         <div class="group-input">
                                             <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                             <input type="text" name="Other3_by" disabled>
-                                        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 new-date-data-field">
@@ -3097,7 +3097,7 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="sub-head">
                                     Other's 4 ( Additional Person Review From Departments If Required)
                                </div>
@@ -3109,9 +3109,9 @@ $users = DB::table('users')
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                                 <option value="na">NA</option>
-    
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     @php
@@ -3127,10 +3127,10 @@ $users = DB::table('users')
                                                 <option value="0">-- Select --</option>
                                                 @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                               
-    
+                                            @endforeach
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -3150,11 +3150,11 @@ $users = DB::table('users')
                                                 <option value="Human Resource & Administration">Human Resource & Administration</option>
                                                 <option value="Information Technology">Information Technology</option>
                                                 <option value="Project management">Project management</option>
-                                                
-    
-    
+
+
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -3189,7 +3189,7 @@ $users = DB::table('users')
                                         <div class="group-input">
                                             <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                             <input type="text" name="Other4_by" disabled>
-                                        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 new-date-data-field">
@@ -3202,8 +3202,8 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-    
-    
+
+
                                     <div class="sub-head">
                                     Other's 5 ( Additional Person Review From Departments If Required)
                                </div>
@@ -3215,9 +3215,9 @@ $users = DB::table('users')
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                                 <option value="na">NA</option>
-    
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     @php
@@ -3233,10 +3233,10 @@ $users = DB::table('users')
                                                 <option value="0">-- Select --</option>
                                                 @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                               
-    
+                                            @endforeach
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -3256,11 +3256,11 @@ $users = DB::table('users')
                                                 <option value="Human Resource & Administration">Human Resource & Administration</option>
                                                 <option value="Information Technology">Information Technology</option>
                                                 <option value="Project management">Project management</option>
-                                                
-    
-    
+
+
+
                                             </select>
-                                      
+
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
@@ -3295,7 +3295,7 @@ $users = DB::table('users')
                                         <div class="group-input">
                                             <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                             <input type="text" name="Other5_by" disabled>
-                                        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 new-date-data-field">
@@ -3318,16 +3318,16 @@ $users = DB::table('users')
                                     <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                             Exit </a> </button>
                                 </div>
-                                
+
                              </div>
                          </div>
-                  
-              
+
+
                   <!-- investigation -->
                   <div id="CCForm9" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            
+
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Investigation Summary">Description of Event</label>
@@ -3336,7 +3336,7 @@ $users = DB::table('users')
                                 </textarea>
                                 </div>
                             </div>
-                           
+
                             <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Impact Assessment">Objective</label>
@@ -3362,8 +3362,8 @@ $users = DB::table('users')
                                 </textarea>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="col-lg-12">
                                 <div class="group-input" id="documentsRowna">
                                     <label for="audit-agenda-grid">
@@ -3387,8 +3387,8 @@ $users = DB::table('users')
                                                     <th style="width: 16%">Remarks</th>
                                                     <th style="width: 8%">Action</th>
 
-                                                   
-                                                                                                     
+
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -3398,7 +3398,7 @@ $users = DB::table('users')
                                     <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
                                     <td><input type="text" class="Action" name="Action[]"></td>
 
-                   
+
                                             </tbody>
 
                                         </table>
@@ -3407,23 +3407,23 @@ $users = DB::table('users')
                                 {{-- @error('Product_Batch')
                                     <div class="text-danger">{{ $message  }}</div>
                                 @enderror --}}
-                          </div>
-
-                          <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="audit type">Investigation Approach </label>
-                                <select multiple name="audit_type[]" id="audit_type">
-                                    {{-- <option value="">Enter Your Selection Here</option> --}}
-                                    <option value="1">Why-Why Chart</option>
-                                    <option value="2">Failure Mode and Efect Analysis</option>
-                                    <option value="3">Fishbone or Ishikawa Diagram</option>
-                                    <option value="4">Is/Is Not Analysis</option>
-                                    <option value="4">Brainstorming</option>
-
-                                    
-                                </select>
                             </div>
-                        </div>
+
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="audit type">Investigation Approach </label>
+                                    <select multiple name="investigation_approach[]" id="investigation_approach">
+                                        {{-- <option value="">Enter Your Selection Here</option> --}}
+                                        <option value="Why-Why Chart">Why-Why Chart</option>
+                                        <option value="Failure Mode and Efect Analysis">Failure Mode and Efect Analysis</option>
+                                        <option value="Fishbone or Ishikawa Diagram">Fishbone or Ishikawa Diagram</option>
+                                        <option value="Is/Is Not Analysis">Is/Is Not Analysis</option>
+                                        <option value="Brainstorming">Brainstorming</option>
+
+
+                                    </select>
+                                </div>
+                            </div>
 
 
 
@@ -3454,7 +3454,7 @@ $users = DB::table('users')
 
                                                 <th style="width: 8%">Action</th>
 
-                                                                                                 
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -3462,7 +3462,7 @@ $users = DB::table('users')
                                 <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>
                                 <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>
                                 <td>
-                                   
+
                                 <select name="Root_Cause_Category[]" id="Root_Cause_Category_Select">
                                     <option value="">-- Select --</option>
 
@@ -3488,57 +3488,57 @@ $users = DB::table('users')
                                 <td> <select name="Root_Cause_Sub_Category[]" id="Root_Cause_Sub_Category_Select">
                                     <option value="">-- Select --</option>
 
-                                     <option value="Poor_Maintenance_or_Design">Infrequent Audits </option>  
+                                     <option value="Poor_Maintenance_or_Design">Infrequent Audits </option>
                                     <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
-                                    <option value="Other">Other</option>  
+                                    <option value="Other">Other</option>
                                     <option value="Poor_Maintenance_or_Design">Poor Maintenance or Design </option>
-                                    <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement </option> 
-                                    <option value="Scheduling_Problem">Scheduling Problem </option> 
-                                    <option value="system_deficiency">System Deficiency </option> 
-                                    <option value="">Technical Error </option> 
+                                    <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement </option>
+                                    <option value="Scheduling_Problem">Scheduling Problem </option>
+                                    <option value="system_deficiency">System Deficiency </option>
+                                    <option value="">Technical Error </option>
                                     <option value="">Tolerable Failure </option>
                                     <option value="">Calibration Issues </option>
-                                    
-                                    <option value="Infrequent_Audits">Infrequent Audits</option> 
-                                    <option value="No_Preventive_Maintenance">No Preventive Maintenance </option> 
-                                    <option value="Other">Other</option> 
-                                    <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option> 
-                                    <option value="">Scheduling Problem </option> 
-                                    <option value="">System Deficiency </option> 
-                                    <option value="">Technical Error </option> 
-                                    <option value="">Tolerable Failure </option> 
+
+                                    <option value="Infrequent_Audits">Infrequent Audits</option>
+                                    <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
+                                    <option value="Other">Other</option>
+                                    <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option>
+                                    <option value="">Scheduling Problem </option>
+                                    <option value="">System Deficiency </option>
+                                    <option value="">Technical Error </option>
+                                    <option value="">Tolerable Failure </option>
 
 
-                                    <option value="Failure_to_Follow_SOP">Failure to Follow SOP</option> 
-                                    <option value="Human_Machine_Interface">Human-Machine Interface</option> 
-                                    <option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication </option> 
-                                    <option value="Other">Other</option> 
-                                    <option value="">Personnel Error</option> 
-                                    <option value="">Personnel not Qualified</option> 
-                                    <option value="">Practice Needed</option> 
-                                    <option value="">Teamwork Needs Improvement</option> 
-                                    <option value="">Attention</option> 
-                                    <option value="">Understanding</option> 
-                                    <option value="">Procedural</option> 
-                                    <option value="">Behavioral</option> 
+                                    <option value="Failure_to_Follow_SOP">Failure to Follow SOP</option>
+                                    <option value="Human_Machine_Interface">Human-Machine Interface</option>
+                                    <option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication </option>
+                                    <option value="Other">Other</option>
+                                    <option value="">Personnel Error</option>
+                                    <option value="">Personnel not Qualified</option>
+                                    <option value="">Practice Needed</option>
+                                    <option value="">Teamwork Needs Improvement</option>
+                                    <option value="">Attention</option>
+                                    <option value="">Understanding</option>
+                                    <option value="">Procedural</option>
+                                    <option value="">Behavioral</option>
                                     <option value="">Skill</option>
-                                    
-                                    <option value="">Inattention to task</option> 
-                                    <option value="">Lack of Process</option> 
-                                    <option value="">Methods</option> 
-                                    <option value="">No or poor management involvement</option> 
-                                    <option value="">Other</option> 
-                                    <option value="">Personnel not Qualified</option> 
-                                   
 
-                                   
+                                    <option value="">Inattention to task</option>
+                                    <option value="">Lack of Process</option>
+                                    <option value="">Methods</option>
+                                    <option value="">No or poor management involvement</option>
+                                    <option value="">Other</option>
+                                    <option value="">Personnel not Qualified</option>
+
+
+
                                 </select></td>
                                 <td><input type="text" class="Document_Remarks" name="ifother[]"></td>
                                 <td><input type="text" class="Document_Remarks" name="Probability[]"></td>
                                 <td><input type="text" class="Document_Remarks" name="remarks[]"></td>
                                 <td><input type="text" class="Removebtn" name="Action[]"></td>
 
-               
+
                                         </tbody>
 
                                     </table>
@@ -3733,7 +3733,7 @@ $users = DB::table('users')
                             });
                         });
                     </script>
-                      <div class="col-12">
+                    <div class="col-12">
                         <div class="group-input">
                             <label for="why-why-chart">
                                Category Of Human Error
@@ -3763,13 +3763,13 @@ $users = DB::table('users')
                                             </td>
                                             <th style="background: ">Attention</th>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="what_will_be"></textarea>
+                                                <textarea name="attention_issues"></textarea>
                                             </td>
                                             <td>
-                                                <textarea name="what_will_not_be"></textarea>
+                                                <textarea name="attention_actions"></textarea>
                                             </td>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="what_rationable"></textarea>
+                                                <textarea name="attention_remarks"></textarea>
                                             </td>
                                         </tr>
                                         <tr>
@@ -3778,13 +3778,13 @@ $users = DB::table('users')
                                             </td>
                                             <th >Understanding</th>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="where_will_be"></textarea>
+                                                <textarea name="understanding_issues"></textarea>
                                             </td>
                                             <td>
-                                                <textarea name="where_will_not_be"></textarea>
+                                                <textarea name="understanding_actions"></textarea>
                                             </td>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="where_rationable"></textarea>
+                                                <textarea name="understanding_remarks"></textarea>
                                             </td>
                                         </tr>
                                         <tr>
@@ -3793,13 +3793,13 @@ $users = DB::table('users')
                                             </td>
                                             <th >Procedural</th>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="when_will_be"></textarea>
+                                                <textarea name="procedural_issues"></textarea>
                                             </td>
                                             <td>
-                                                <textarea name="when_will_not_be"></textarea>
+                                                <textarea name="procedural_actions"></textarea>
                                             </td>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="when_rationable"></textarea>
+                                                <textarea name="procedural_remarks"></textarea>
                                             </td>
                                         </tr>
                                         <tr>
@@ -3808,13 +3808,13 @@ $users = DB::table('users')
                                             </td>
                                             <th >Behavioral</th>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="coverage_will_be"></textarea>
+                                                <textarea name="behavioiral_issues"></textarea>
                                             </td>
                                             <td>
-                                                <textarea name="coverage_will_not_be"></textarea>
+                                                <textarea name="behavioiral_actions"></textarea>
                                             </td>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="coverage_rationable"></textarea>
+                                                <textarea name="behavioiral_remarks"></textarea>
                                             </td>
                                         </tr>
                                         <tr>
@@ -3823,13 +3823,13 @@ $users = DB::table('users')
                                             </td>
                                             <th >Skill</th>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="who_will_be"></textarea>
+                                                <textarea name="skill_issues"></textarea>
                                             </td>
                                             <td>
-                                                <textarea name="who_will_not_be"></textarea>
+                                                <textarea name="skill_actions"></textarea>
                                             </td>
                                             <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="who_rationable"></textarea>
+                                                <textarea name="skill_remarks"></textarea>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -3925,7 +3925,7 @@ $users = DB::table('users')
                         </div>
                     </div>
                         </div>
-                        
+
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                                    <a href="/rcms/qms-dashboard">
@@ -3937,7 +3937,7 @@ $users = DB::table('users')
                         </div>
                     </div>
                 </div>
-                
+
 
 {{-- -------------QRM----------------- --}}
 <div id="CCForm11" class="inner-block cctabcontent">
@@ -4075,7 +4075,7 @@ $users = DB::table('users')
                                     <th>Action</th>
 
 
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -4091,7 +4091,7 @@ $users = DB::table('users')
                     </div>
                 </div>
             </div>
-    
+
         </div>
         <script>
             function calculateRiskAnalysis(selectElement) {
@@ -4143,7 +4143,7 @@ $users = DB::table('users')
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Name of the Department</b><span
-                                            class="text-danger">*</span></label> 
+                                            class="text-danger">*</span></label>
                                         <select name="department_capa" id="department_capa" >
                                             <option value="">-- Select --</option>
                                             <option value="CQA" @if (old('department_capa') == 'CQA') selected @endif>
@@ -4210,20 +4210,20 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                                
+
                                  <div class="col-lg-6" id="others_block" >
                                     <div class="group-input">
                                         <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
                                         <input type="text" id="others" name="others" class="others">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="col-lg-6" id="others_block" >
                                     <div class="group-input">
                                         <label for="others">Source Document</label>
                                         <input type="text" id="source_doc" name="source_doc" class="source_doc">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -4276,7 +4276,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                        
+
 
                                  <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -4329,9 +4329,9 @@ $users = DB::table('users')
                                             </div>
                                         </div>
                                     </div>
-                                </div>                            
+                                </div>
                             </div>
-                            
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
 <a href="/rcms/qms-dashboard">
@@ -4392,8 +4392,8 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                
-                                
+
+
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="CAPA Rquired">CAPA Required ?</label>
@@ -4438,7 +4438,7 @@ $users = DB::table('users')
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
-                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div> 
+                                       <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
                                         {{-- <textarea class="" name="Post_Categorization" id="summernote-12"> --}}
                                             <select name="Post_Categorization" id="Post_Categorization">
                                                 <option value=""> -- Select --</option>
@@ -4468,10 +4468,10 @@ $users = DB::table('users')
                                         <label for="Investigatiom Attachment">Investigation Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
+
+
                                             </div>
-                                       
+
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="Investigation_attachment"></div>
                                             <div class="add-btn">
@@ -4513,9 +4513,9 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             </div>
-                            
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
 <a href="/rcms/qms-dashboard">
@@ -4532,8 +4532,8 @@ $users = DB::table('users')
                     <div id="CCForm4" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
-                                
+
+
                             {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
@@ -4563,7 +4563,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -4581,7 +4581,7 @@ $users = DB::table('users')
                     <div id="CCForm5" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label  class="mt-4" for="Remarks">Closure Comments</label>
@@ -4610,7 +4610,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -4623,15 +4623,15 @@ $users = DB::table('users')
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Effectiveness Check-->
-                     
+
                     <div id="CCForm12" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
                                  <div class="sub-head">
                                             Deviation Extension
-                                            </div>    
+                                            </div>
 
                                  <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
@@ -4639,7 +4639,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_deviation" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Proposed_Due_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_date_deviation')"required />
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_deviation')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4652,7 +4652,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                  
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By </label>
@@ -4671,23 +4671,23 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Deviation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
-                               
+
 
                                 <div class="sub-head">
                                             CAPA Extension
                                             </div>
-                                
+
                                         <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_CAPA" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Proposed_Due_date_CAPA" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')"required />
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4722,7 +4722,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="CAPA_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="CAPA_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4731,14 +4731,14 @@ $users = DB::table('users')
                                  <div class="sub-head">
                                             Quality Risk Management Extension
                                             </div>
-                                            
+
                                         <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Proposed_Due_Date_QRM">Proposed Due Date (Quality Risk Management)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_Date_QRM" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Proposed_Due_Date_QRM" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')"required />
+                                                oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4774,7 +4774,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Quality_Risk_Management_Extension_Completed_ON" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Quality_Risk_Management_Extension_Completed_ON" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')"required />
+                                                oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4783,14 +4783,14 @@ $users = DB::table('users')
                                              <div class="sub-head">
                                             Investigation Extension
                                             </div>
-                                            
+
                                         <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Proposed_Due_date_investigation">Proposed Due Date (Investigation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_investigation" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Proposed_Due_date_investigation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_date_investigation')"required />
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_investigation')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4825,7 +4825,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Extension_Completed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4847,7 +4847,7 @@ $users = DB::table('users')
                                     </div>
 
                                     {{-- row --}}
-                                    <div class="row">   
+                                    <div class="row">
 
                                      <div class="col-lg-6">
                                     <div class="group-input">
@@ -4867,7 +4867,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="deviation_EC_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="deviation_EC_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'deviation_EC_Plan_Proposed_On')"required />
+                                                oninput="handleDateInput(this, 'deviation_EC_Plan_Proposed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4891,7 +4891,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Next_review_date_deviation" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Next_review_date_deviation" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Next_review_date_deviation')"required />
+                                                oninput="handleDateInput(this, 'Next_review_date_deviation')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4915,17 +4915,17 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="deviation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="deviation_Effectiveness_Check_Closed_On" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'deviation_Effectiveness_Check_Closed_On')"required />
+                                                oninput="handleDateInput(this, 'deviation_Effectiveness_Check_Closed_On')" />
                                         </div>
                                     </div>
                                 </div>
                                 {{-- row-end --}}
                             </div>
-                                             
+
                                         <div class="sub-head">
                                             CAPA Effectiveness Check
                                             </div>
-                             
+
                                              <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
@@ -4955,7 +4955,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -4978,7 +4978,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -5002,7 +5002,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                                                oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -5011,7 +5011,7 @@ $users = DB::table('users')
                                  <div class="sub-head">
                                             Quality Risk Management Effectiveness Check
                                             </div>
-                                            
+
                                              <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Effectiveness Check Plan( Quality Risk Management)</label>
@@ -5041,10 +5041,10 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                                         </div>
                                     </div>
-                            
+
                             </div>
                         {{-- row-end --}}
                         </div>
@@ -5065,7 +5065,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -5090,7 +5090,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')"required />
+                                                oninput="handleDateInput(this, 'Effectiveness_Check_Closed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -5099,7 +5099,7 @@ $users = DB::table('users')
                                  <div class="sub-head">
                                             Investigation Effectiveness Check
                                             </div>
-                                
+
                                              <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
@@ -5129,7 +5129,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Effectiveness_Check_Plan_Proposed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Effectiveness_Check_Plan_Proposed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Effectiveness_Check_Plan_Proposed_On')"required />
+                                                oninput="handleDateInput(this, 'Effectiveness_Check_Plan_Proposed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -5151,7 +5151,7 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Extension_Completed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
                                         </div>
                                     </div>
                                 </div>
@@ -5174,12 +5174,12 @@ $users = DB::table('users')
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Effectiveness_Check_Closed_On" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date"  name="Investigation_Effectiveness_Check_Closed_On" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')"required />
+                                                oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')" />
                                         </div>
                                     </div>
                                 </div>
-                            </div>               
-                            
+                            </div>
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                             <a href="/rcms/qms-dashboard">
@@ -5193,7 +5193,7 @@ $users = DB::table('users')
                     </div>
                     </div>
 
-                
+
 
 
                     <!-- Activity Log content -->
@@ -5238,9 +5238,9 @@ $users = DB::table('users')
                                         <div class="static"></div>
                                     </div>
                                 </div>
-                                
 
-                                <div class="sub-head">QA Initial Review Completed</div> 
+
+                                <div class="sub-head">QA Initial Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="QA Initial Review Complete By">QA Initial Review Complete By :-</label>
@@ -5299,7 +5299,7 @@ $users = DB::table('users')
                                         <div class="static"></div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="sub-head"> QA Final Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -5312,7 +5312,7 @@ $users = DB::table('users')
                                         <label for="QA Final Review Complete On"> QA Final Review Complete On :-</label>
                                         <div class="static"></div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="QA Final Review Comments"> QA Final Review Comments :-</label>
@@ -5339,11 +5339,11 @@ $users = DB::table('users')
                                         <div class="static"></div>
                                     </div>
                                 </div>
-                                
-                                
-                                
-                               
-                                
+
+
+
+
+
 
                             </div>
                             <div class="button-block">
@@ -5362,11 +5362,11 @@ $users = DB::table('users')
             </form>
 <div class="sticky-buttons">
           <div
-            
+
 
           >
       <a type="button" class="" data-toggle="modal" data-target="#myModal">
-          
+
             <svg width="18" height="24" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
               <path
                 fill="#ffffff"
@@ -5376,7 +5376,7 @@ $users = DB::table('users')
         </a>
           </div>
           {{-- <div
-            
+
           >
           <a type="button" class="" data-toggle="modal" data-target="#myModal1">
 
@@ -5400,63 +5400,63 @@ $users = DB::table('users')
 
 
     <div class="container">
-      
-     
+
+
       <!-- Modal -->
       <div class="modal right fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-        
+
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Deviation Workflow</h4>
             </div>
             <div style="padding: 2px; " class="modal-body">
-             
+
                 <div style="padding:3px;" class="modal-body">
-           
+
                     <Div class="button-box">
                         <div style="background: #85be859e;" class="mini_buttons">
                             Opened
                           </div>
             <div class="down-logo">
                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-            
+
             </div>
                           <div style="background: #0000ff1f;" class="mini_buttons">
                             HOD Review
                         </div>
                         <div class="down-logo">
                             <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-                        
+
                         </div>
                         <div style="background: #0000ff1f;" class="mini_buttons">
                             QA Initial Review
                         </div>
                         <div class="down-logo">
                             <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-                        
+
                         </div>
                         <div style="background: #0000ff1f;" class="mini_buttons">
                             CFT Review
                         </div>
                         <div class="down-logo">
                             <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-                        
+
                         </div>
                         <div style="background: #0000ff1f;" class="mini_buttons">
                             QA Final Review
                         </div>
                         <div class="down-logo">
                             <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-                        
+
                         </div>
                         <div style="background: #0000ff1f;" class="mini_buttons">
                             QA Head Designee Approval
                         </div>
                         <div class="down-logo">
                             <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..." class="w-100 h-100">
-                        
+
                         </div>
                         <div style="background: #ff000042;" class="mini_buttons">
                             Closed - Done
@@ -5467,18 +5467,18 @@ $users = DB::table('users')
                    <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
                  </div> --}}
                </div>
-               
+
              </div>
       </div>
     {{-- --------------------------------------------------------------   --}}
     </div>
     <div class="container">
-      
-     
-    
+
+
+
       <div class="modal right fade" id="myModal1" role="dialog">
         <div class="modal-dialog">
-        
+
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
@@ -5486,26 +5486,26 @@ $users = DB::table('users')
               <h4 class="modal-title">WorkFlow</h4>
             </div>
             <div class="modal-body">
-             
-               
-                    
-          
-              </div> 
+
+
+
+
+              </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
             </div>
           </div>
-          
+
         </div>
       </div>
-      
+
     </div>
     {{-- ==================================================================== --}}
 
 {{-- =================================launch extension============ --}}
 <div class="modal fade" id="launch_extension">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5547,7 +5547,7 @@ $users = DB::table('users')
 {{-- ===================================================qrm================== --}}
 <div class="modal fade" id="qrm_extension">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5556,10 +5556,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -5578,18 +5578,18 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">Quality Risk Management Extension Completed By </label>
-                        <select class="extension_modal_signature" name="quality_risk_management_by" id=""> 
+                        <select class="extension_modal_signature" name="quality_risk_management_by" id="">
                             <option value="">-- Select --</option>
-                        </select>                   
+                        </select>
                      </div>
                     <div class="group-input">
                         <label for="password">Quality Risk Management Extension Completed On </label>
                         <input class="extension_modal_signature" type="date" name="quality_risk_management_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -5603,7 +5603,7 @@ $users = DB::table('users')
 {{-- ===============================invesigation=========== --}}
 <div class="modal fade" id="investigation_extension">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5612,10 +5612,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -5634,17 +5634,17 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">Investigation Extension Completed By </label>
-                        <select class="extension_modal_signature" name="investigation_by" id=""> 
+                        <select class="extension_modal_signature" name="investigation_by" id="">
                             <option value="">-- Select --</option>
                         </select>                    </div>
                     <div class="group-input">
                         <label for="password">Investigation Extension Completed On </label>
                         <input class="extension_modal_signature" type="date" name="investigation_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -5658,7 +5658,7 @@ $users = DB::table('users')
 {{-- ===============================CAPA=========== --}}
 <div class="modal fade" id="capa_extension">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5667,10 +5667,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                   
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -5689,17 +5689,17 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">CAPA Extension Completed By </label>
-                        <select class="extension_modal_signature" name="capa_by" id=""> 
+                        <select class="extension_modal_signature" name="capa_by" id="">
                             <option value="">-- Select --</option>
                         </select>                    </div>
                     <div class="group-input">
                         <label for="password">CAPA Extension Completed On </label>
                         <input class="extension_modal_signature" type="date" name="capa_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -5713,7 +5713,7 @@ $users = DB::table('users')
 {{-- ===============================deviation=========== --}}
 <div class="modal fade" id="deviation_extension">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5722,10 +5722,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -5744,7 +5744,7 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">Deviation Extension Completed By </label>
-                        <select class="extension_modal_signature" name="deviation_extension_by" id=""> 
+                        <select class="extension_modal_signature" name="deviation_extension_by" id="">
                             <option value="">-- Select --</option>
                         </select>
                     </div>
@@ -5752,10 +5752,10 @@ $users = DB::table('users')
                         <label for="password">Deviation Extension Completed On </label>
                         <input class="extension_modal_signature" type="date" name="deviation_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -5771,7 +5771,7 @@ $users = DB::table('users')
 {{-- =================================effectiveness extension============ --}}
 <div class="modal fade" id="effectivenss_extension">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5787,17 +5787,17 @@ $users = DB::table('users')
                         <li>
                             <div> <a href="" data-bs-toggle="modal" data-bs-target="#deviation_effectiveness"> Deviation Effectiveness Check</a></div>
                            </li>
-                      
+
                             <li>
                                 <div> <a href="" data-bs-toggle="modal" data-bs-target="#capa_effectiveness"> CAPA Effectivenss Check</a></div>
                                 </li>
-                                <li>        
+                                <li>
                   <div> <a href="" data-bs-toggle="modal" data-bs-target="#qrm_effectiveness"> QRM Effectiveness Check</a></div>
                   </li>
                   <li>
                   <div> <a href=""data-bs-toggle="modal" data-bs-target="#investigation_effectiveness"> Investigation Effectiveness Check</a></div>
                   </li>
-                 
+
                     </ul>
                    </div>
                 </div>
@@ -5814,7 +5814,7 @@ $users = DB::table('users')
 {{-- ===============================deviation effectiveness=========== --}}
 <div class="modal fade" id="deviation_effectiveness">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5823,10 +5823,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                   
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -5857,7 +5857,7 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">Deviation Effectiveness Check closed By </label>
-                        <select class="extension_modal_signature" name="deviation_feectiveness_closed_by" id=""> 
+                        <select class="extension_modal_signature" name="deviation_feectiveness_closed_by" id="">
                             <option value="">-- Select --</option>
                         </select>
                     </div>
@@ -5865,10 +5865,10 @@ $users = DB::table('users')
                         <label for="password">Deviation Effectiveness Check CLosed On</label>
                         <input class="extension_modal_signature" type="date" name="deviation_effectiveness_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -5882,7 +5882,7 @@ $users = DB::table('users')
 {{-- ===============================CAPA effectiveness=========== --}}
 <div class="modal fade" id="capa_effectiveness">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5891,10 +5891,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -5925,7 +5925,7 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">CAPA Effectiveness Check closed By </label>
-                        <select class="extension_modal_signature" name="capa_effectiveness_closed" id=""> 
+                        <select class="extension_modal_signature" name="capa_effectiveness_closed" id="">
                             <option value="">-- Select --</option>
                         </select>
                     </div>
@@ -5933,10 +5933,10 @@ $users = DB::table('users')
                         <label for="password">CAPA Effectiveness Check CLosed On</label>
                         <input class="extension_modal_signature" type="date" name="capa_effectiveness_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -5950,7 +5950,7 @@ $users = DB::table('users')
 {{-- ==============================QRM effectiveness=========== --}}
 <div class="modal fade" id="qrm_effectiveness">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -5959,12 +5959,12 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="mb-3 text-justify">
                         Please select a meaning and a outcome for this task and enter your username
-                        and password for this task. 
+                        and password for this task.
                     </div>
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
@@ -5996,7 +5996,7 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">QRM Effectiveness Check closed By </label>
-                        <select class="extension_modal_signature" name="qrm_effectivenss_check_by" id=""> 
+                        <select class="extension_modal_signature" name="qrm_effectivenss_check_by" id="">
                             <option value="">-- Select --</option>
                         </select>
                     </div>
@@ -6004,7 +6004,7 @@ $users = DB::table('users')
                         <label for="password">QRM Effectiveness Check CLosed On</label>
                         <input class="extension_modal_signature" type="date" name="qrm_effectiveness_on" >
                     </div>
-                   
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit">
@@ -6019,7 +6019,7 @@ $users = DB::table('users')
 {{-- ==============================investigation effectiveness=========== --}}
 <div class="modal fade" id="investigation_effectiveness">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"> 
+        <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
@@ -6028,10 +6028,10 @@ $users = DB::table('users')
             </div>
 
             <form >
-               
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
+
                     <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
@@ -6062,7 +6062,7 @@ $users = DB::table('users')
                     </div>
                     <div class="group-input">
                         <label for="password">Investigation Effectiveness Check closed By </label>
-                        <select class="extension_modal_signature" name="investigation_effectiveness_by" id=""> 
+                        <select class="extension_modal_signature" name="investigation_effectiveness_by" id="">
                             <option value="">-- Select --</option>
                         </select>
                     </div>
@@ -6070,10 +6070,10 @@ $users = DB::table('users')
                         <label for="password">Investigation Effectiveness Check CLosed On</label>
                         <input class="extension_modal_signature" type="date" name="investigation_effectiveness_on" >
                     </div>
-                   
+
                 </div>
 
-                
+
                 <div class="modal-footer">
                     <button type="submit">
                         Submit
@@ -6100,7 +6100,7 @@ $users = DB::table('users')
                 <!-- Modal body -->
                 <div class="modal-body">
                     <!-- Form for adding new customer -->
-                    <form method="POST" id="customerForm"> 
+                    <form method="POST" id="customerForm">
                         @csrf
 <style>
     .validationClass{
@@ -6128,7 +6128,7 @@ $users = DB::table('users')
                                     <!-- Customer Type -->
                                     <div class="Activity-type">
                                         <label style="font-weight: bold; margin-left: -20px;" for="customer_type">Customer Type<span class="text-danger">*</span> :</label>
-                                        <input type="text" id="customer_type" name="customer_type"> 
+                                        <input type="text" id="customer_type" name="customer_type">
                                     </div>
                                     <span id="customer_type_error" class="text-danger validationClass"></span>
                                     <!-- Status -->
@@ -6144,7 +6144,7 @@ $users = DB::table('users')
                                     <!-- Customer Name -->
                                     <div class="Activity-type">
                                         <label style="font-weight: bold;" for="customer_name">Customer Name<span class="text-danger">*</span> :</label>
-                                        <input type="text" id="customer_name" name="customer_name"> 
+                                        <input type="text" id="customer_name" name="customer_name">
                                     </div>
                                     <span id="customer_name_error" class="text-danger validationClass"></span>
                                     <!-- Contact No -->
@@ -6177,7 +6177,7 @@ $users = DB::table('users')
                             <button type="button" onclick="submitForm()" class="saveButton">Save</button>
                         </div>
                     </form>
-                    
+
                     <script>
                         function submitForm() {
                             document.querySelectorAll('.validationClass').forEach(span => {
@@ -6246,7 +6246,7 @@ $users = DB::table('users')
                 region: formData.get('region'),
                 remarks: formData.get('remarks')
             };
-            
+
             // Append new row with form data to the table
             var newRow = `
                 <tr>
@@ -6261,7 +6261,7 @@ $users = DB::table('users')
                     <td>${customerData.remarks}</td>
                 </tr>
             `;
-            
+
             document.querySelector('.table tbody').innerHTML += newRow;
                                 } else {
                                     console.error('Failed to create customer');
@@ -6413,7 +6413,7 @@ $users = DB::table('users')
             <!-- Modal body -->
             <div class="modal-body">
                 <!-- Form for adding new customer -->
-                 <form method="POST" id="customerForm"> 
+                 <form method="POST" id="customerForm">
                     @csrf
 
                     <div class="modal-sub-head">
@@ -6480,7 +6480,7 @@ $users = DB::table('users')
                 <script>
                     function submitForm() {
                         var formData = new FormData(document.getElementById('customerForm'));
-                
+
                         // Send POST request to server
                         fetch("{{ route('customers.store') }}", {
                             method: "POST",
@@ -6490,7 +6490,7 @@ $users = DB::table('users')
                             if (response.ok) {
                                 // Clear the form fields
                                 document.getElementById('customerForm').reset();
-                                
+
                                 // Hide the modal
                                 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
                                 myModal.hide();
@@ -6570,7 +6570,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
     // Handle the click event here
     document.getElementById("ChangesaveButton001").disabled = true;
     console.log("Save Changes button clicked");
- 
+
 });
 
             function handleClick001() {
@@ -6586,7 +6586,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
                     document.getElementById("ChangesaveButton001").disabled = false;
                     console.error('An error occurred:', error);
                 });
-            }  
+            }
 
         document.getElementById('myfile').addEventListener('change', function() {
             var fileListDiv = document.querySelector('.file-list');
@@ -6629,7 +6629,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
-        
+
 
         let referenceCount = 1;
 
@@ -6654,7 +6654,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
 
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#related_records ,#audit_type, #investigation_approach'
         });
 
         function openCity(evt, cityName) {
@@ -6740,6 +6740,15 @@ const saveButton = document.getElementById("ChangeSaveButton001");
             }
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const select = document.getElementById('investigation_approach');
+            select.addEventListener('change', function() {
+                const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
+                console.log(selectedOptions); // You can do whatever you need with the selected options here
+            });
+        });
+    </script>
          <script>
             function removeHtmlTags() {
                 var textarea = document.getElementById("summernote-1");
@@ -6754,7 +6763,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
                 textarea.value = cleanValue;
             }
         </script>
-    
+
     <script>
         function removeHtmlTags() {
             var textarea = document.getElementById("summernote-3");
@@ -6777,17 +6786,17 @@ const saveButton = document.getElementById("ChangeSaveButton001");
         }
     </script>
 
-    
+
 {{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const addRowButtons = document.querySelectorAll('.add-row');
         addRowButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const row = this.parentNode.parentNode; // Get the parent tr of the button
-                
+
                 const department = row.querySelector('td:first-child').innerText.trim(); // Get the department name
                 const department1 = row.querySelector('td:first-child').nextElementSibling.querySelector('textarea').getAttribute('name'); // Get the department name
-                
+
                 // Create a new row and insert it after the current row
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
@@ -6796,14 +6805,14 @@ const saveButton = document.getElementById("ChangeSaveButton001");
                                     <td><textarea name="${department1}_Comments"></textarea></td>
                                     <td><textarea name="${department1}_sign&date"></textarea></td>
                                     <td><textarea name="${department1}_Remarks"></textarea></td>`;
-                    
+
                 // Insert the new row after the current row
                 row.parentNode.insertBefore(newRow, row.nextSibling);
             });
         });
     });
     </script> --}}
-    
+
 
         {{-- // document.addEventListener('DOMContentLoaded', function() {
         //     document.getElementById('type_of_audit').addEventListener('change', function() {
@@ -6820,7 +6829,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
         //         }
         //     });
         // }); --}}
-    
+
     <script>
         document.getElementById('initiator_group').addEventListener('change', function() {
             var selectedValue = this.value;
@@ -6833,7 +6842,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
             document.getElementById('department_capa_code').value = selectedValue;
         });
     </script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const select = document.getElementById('audit_type');
@@ -6843,7 +6852,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
             });
         });
     </script>
-    
+
      <script>
         var maxLength = 255;
         $('#docname').keyup(function() {
@@ -6851,7 +6860,7 @@ const saveButton = document.getElementById("ChangeSaveButton001");
             $('#rchars').text(textlen);});
 
 
-            
+
     </script>
 <script>
     function addFishBone(top, bottom) {
