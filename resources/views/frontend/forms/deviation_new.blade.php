@@ -371,43 +371,42 @@ $users = DB::table('users')
     </script>
 
 <script>
-    $(document).ready(function() {
-        $('#Product_Details').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var users = @json($users);
+        $(document).ready(function() {
+            $('#Product_Details').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
 
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
-                    '<td><input type="text" name="Product[]"></td>'+
-                    '<td> <select name="Stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>'+
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                        '"></td>' +
+                        '<td><input type="text" name="product_name[]"></td>' +
+                        '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>' +
+                        '<td><input type="text" name="batch_no[]"></td>' +
+                        '<td><button class="removeRowBtn">Remove</button></td>' +
 
-                    '<td><input type="text" name="BatchNo[]"></td>'+
-                    '<td><button class="removeRowBtn">Remove</button></td>'+
 
 
+                        '</tr>';
 
-                    '</tr>';
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
 
-                for (var i = 0; i < users.length; i++) {
-                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    html += '</select></td>' +
+
+                        '</tr>';
+
+                    return html;
                 }
 
-                html += '</select></td>' +
-
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#Product_Details_Details tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
+                var tableBody = $('#Product_Details_Details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
         });
-    });
-
-</script>
+    </script>
 <script>
     $(document).on('click', '.removeRowBtn', function() {
         $(this).closest('tr').remove();
@@ -1158,9 +1157,9 @@ $users = DB::table('users')
                                         });
                                     </script>
                                 <div class="col-lg-12">
-                                    <div class="group-input" id="documentsRow">
+                                    <div class="group-input" id="productRow">
                                         <label for="audit-agenda-grid">
-                                         Product/Batch Details
+                                            Product/Batch Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="Product_Details">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -1179,44 +1178,92 @@ $users = DB::table('users')
                                                         <th style="width: 16%"> Stage</th>
                                                         <th style="width: 16%">Batch No</th>
                                                         <th style="width: 8%">Action</th>
+
+
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" class="numberDetail" name="Product[]"></td>
-                                        <td>
+                                                    <td><input disabled type="text" name="serial[]" value="1">
+                                                    </td>
+                                                    <td><input type="text" class="productName" name="product_name[]">
+                                                    </td>
+                                                    <td>
 
-                                        <select name="Stage[]" id="">
-                                            <option value="">-- Select --</option>
-
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-
-                                            <option value="">5</option>
-                                            <option value="">6</option>
-                                            <option value="">7</option>
-                                            <option value="">8</option>
-                                            <option value="">9</option>
-
-                                            <option value="">Final</option>
-
-                                        </select>
-                                        </td>
-                                        <td><input type="text" class="Document_Remarks" name="BatchNo[]"></td>
-                                        <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                                        <select name="product_stage[]" id="product_stage"
+                                                            class="productStage">
+                                                            <option value="">-- Select --</option>
+                                                            <option value="">1</option>
+                                                            <option value="">2</option>
+                                                            <option value="">3</option>
+                                                            <option value="">4</option>
+                                                            <option value="">5</option>
+                                                            <option value="">6</option>
+                                                            <option value="">7</option>
+                                                            <option value="">8</option>
+                                                            <option value="">9</option>
+                                                            <option value="">Final</option>
+                                                        </select>
+                                                    </td>
+                                                    <td><input type="text" class="productBatchNo" name="batch_no[]">
+                                                    </td>
+                                                    <td><input type="text" class="Removebtn" name="Action[]" readonly>
+                                                    </td>
 
 
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </div>
-                                    @error('Product_Batch')
-                                        <div class="text-danger">{{ $message  }}</div>
+                                    @error('product_name')
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                          </div>
+                                    @error('product_stage')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    @error('batch_no')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // var selectField = document.getElementById('Product_Details_Required');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'productName' to inputsToToggle
+                                        var productNameInputs = document.getElementsByClassName('productName');
+                                        for (var i = 0; i < productNameInputs.length; i++) {
+                                            inputsToToggle.push(productNameInputs[i]);
+                                        }
+
+                                        // Add elements with class 'productStage' to inputsToToggle
+                                        var productStageInputs = document.getElementsByClassName('productStage');
+                                        for (var j = 0; j < productStageInputs.length; j++) {
+                                            inputsToToggle.push(productStageInputs[j]);
+                                        }
+
+                                        // Add elements with class 'productBatchNo' to inputsToToggle
+                                        var productBatchNoInputs = document.getElementsByClassName('productBatchNo');
+                                        for (var k = 0; k < productBatchNoInputs.length; k++) {
+                                            inputsToToggle.push(productBatchNoInputs[k]);
+                                        }
+
+
+                                        // selectField.addEventListener('change', function() {
+                                        //     var isRequired = this.value === 'yes';
+                                        //     console.log(this.value, isRequired, 'value');
+
+                                        //     inputsToToggle.forEach(function(input) {
+                                        //         input.required = isRequired;
+                                        //         console.log(input.required, isRequired, 'input req');
+                                        //     });
+
+                                        //     document.getElementById('productRow').style.display = isRequired ? 'block' : 'none';
+                                        //     var asteriskIcon = document.getElementById('asteriskInvi');
+                                        //     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        // });
+                                    });
+                                </script>
                                <!-- <div class="col-lg-6">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">HOD / Designee<span class="text-danger d-none">*</span></label>
