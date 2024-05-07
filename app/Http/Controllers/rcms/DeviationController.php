@@ -2248,6 +2248,8 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
+if($deviation->stage == 111){
+
 
         //investiocation dynamic
         $deviation->Discription_Event = $request->Discription_Event;
@@ -2296,7 +2298,9 @@ class DeviationController extends Controller
         $newDataGridRCA->identifier = 'rootCause';
         $newDataGridRCA->data = $request->rootCause;
         $newDataGridRCA->save();
-        
+}
+
+
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
         $deviation->update();
         // grid
