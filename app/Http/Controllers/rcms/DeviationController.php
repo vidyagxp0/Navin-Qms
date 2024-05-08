@@ -1418,8 +1418,10 @@ class DeviationController extends Controller
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
         $deviationNewGrid = DeviationNewGridData::where('deviation_id', $id)->latest()->first();
 
+        $investigation_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->first();
+        $root_cause_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid', 'investigation_data', 'root_cause_data'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -2255,7 +2257,7 @@ class DeviationController extends Controller
         $deviation->objective = $request->objective;
         $deviation->scope = $request->scope;
         $deviation->imidiate_action = $request->imidiate_action;
-        $deviation->investigation_approach = implode(',', $request->investigation_approach);
+        $deviation->investigation_approach = is_array($request->investigation_approach) ? implode(',', $request->investigation_approach) : '';
         $deviation->attention_issues = $request->attention_issues;
         $deviation->attention_actions = $request->attention_actions;
         $deviation->attention_remarks = $request->attention_remarks;
@@ -2287,13 +2289,13 @@ class DeviationController extends Controller
         $deviation->who_will_not_be = $request->who_will_not_be;
         $deviation->who_rationable = $request->who_rationable;
 
-        $newDataGridInvestication = new DeviationNewGridData();
+        $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
         $newDataGridInvestication->deviation_id = $id;
         $newDataGridInvestication->identifier = 'investication';
         $newDataGridInvestication->data = $request->investication;
         $newDataGridInvestication->save();
 
-        $newDataGridRCA = new DeviationNewGridData();
+        $newDataGridRCA = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->firstOrCreate();
         $newDataGridRCA->deviation_id = $id;
         $newDataGridRCA->identifier = 'rootCause';
         $newDataGridRCA->data = $request->rootCause;

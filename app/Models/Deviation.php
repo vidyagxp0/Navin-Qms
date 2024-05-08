@@ -12,4 +12,9 @@ class Deviation extends Model
     protected $fillable = [
         'Closure_Comments'
     ];
+
+    public function new_data_grids()
+    {
+        return $this->hasMany(DeviationNewGridData::class, 'deviation_id');
+    }
 }
