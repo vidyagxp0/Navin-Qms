@@ -1666,6 +1666,7 @@ wow = new WOW(
                         <div class="inner-block-content">
                             <div class="row">
                                     <div class="col-md-12">
+                                        
                                         @if($data->stage == 2)
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks <span class="text-danger">*</span></label>
@@ -1873,7 +1874,7 @@ wow = new WOW(
 
     // This is a JQuery used for showing the Investigation 
     
-                                $(document).ready(function () {
+    $(document).ready(function () {
         $('#Initial_Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(function () {
             // Get the selected values
             var deviationCategory = $('#Initial_Deviation_category').val();
@@ -7105,245 +7106,298 @@ wow = new WOW(
         </div>
     </div>
 </div>
-
-
-                             <!-- capa -->
-                    <div id="CCForm10" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-                                {{-- <div class="col-12">
+<!-- capa update -->
+    <div id="CCForm10" class="inner-block cctabcontent">
+        <div class="inner-block-content">
+            <div class="row">
+                    <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="CAPA_Number"><b>CAPA No</b></label>
+                        <input disabled type="text" name="capa_number">
+                    </div>
+                </div>
+                <!-- <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
-                                        <textarea class="" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
-                                 <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="CAPA_Number"><b>CAPA No</b></label>
-                                        <input disabled type="text" name="capa_number">
-                                    </div>
-                                </div>
+                                        <label for="Department1"> Other's 1 Department <span id="asteriskod1" style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <select name="Other1_Department_person"
+                                         @if ($data->stage==4) disabled @endif id="Other1_Department_person" value="{{ $data1->Other1_Department_person }}">
+                                            <option value="0">-- Select --</option>
+                                            <option @if ($data1->Other1_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
 
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Initiator Group"><b>Name of the Department</b><span
-                                            class="text-danger">*</span></label>
-                                        <select name="department_capa" id="department_capa" >
-                                            <option value="">-- Select --</option>
-                                            <option value="CQA" @if (old('department_capa') == 'CQA') selected @endif>
-                                                Corporate Quality Assurance</option>
-                                            <option value="QAB" @if (old('department_capa') == 'QAB') selected @endif>Quality
-                                                Assurance Biopharma</option>
-                                            <option value="CQC" @if (old('department_capa') == 'CQC') selected @endif>Central
-                                                Quality Control</option>
-                                            <option value="MANU" @if (old('department_capa') == 'MANU') selected @endif>
-                                                Manufacturing</option>
-                                            <option value="PSG" @if (old('department_capa') == 'PSG') selected @endif>Plasma
-                                                Sourcing Group</option>
-                                            <option value="CS" @if (old('department_capa') == 'CS') selected @endif>Central
-                                                Stores</option>
-                                            <option value="ITG" @if (old('department_capa') == 'ITG') selected @endif>
-                                                Information Technology Group</option>
-                                            <option value="MM" @if (old('department_capa') == 'MM') selected @endif>
-                                                Molecular Medicine</option>
-                                            <option value="CL" @if (old('department_capa') == 'CL') selected @endif>Central
-                                                Laboratory</option>
-
-                                            <option value="TT" @if (old('department_capa') == 'TT') selected @endif>Tech
-                                                team</option>
-                                            <option value="QA" @if (old('department_capa') == 'QA') selected @endif>
-                                                Quality Assurance</option>
-                                            <option value="QM" @if (old('department_capa') == 'QM') selected @endif>
-                                                Quality Management</option>
-                                            <option value="IA" @if (old('department_capa') == 'IA') selected @endif>IT
-                                                Administration</option>
-                                            <option value="ACC" @if (old('department_capa') == 'ACC') selected @endif>
-                                                Accounting</option>
-                                            <option value="LOG" @if (old('department_capa') == 'LOG') selected @endif>
-                                                Logistics</option>
-                                            <option value="SM" @if (old('department_capa') == 'SM') selected @endif>
-                                                Senior Management</option>
-                                            <option value="BA" @if (old('department_capa') == 'BA') selected @endif>
-                                                Business Administration</option>
-                                        </select>
-                                        @error('department_capa')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
-                                        <label for="Deviation category">Source of CAPA</label>
-                                        <select name="source_of_capa" id="Deviation_category">
-                                            <option value="0">-- Select -- </option>
-                                            <option value="Deviation">Deviation </option>
-                                            <option value="OS/OT">OS/OT</option>
-                                            <option value="Audit_Obs">Audit Observation </option>
-
-                                            <option value="Complaint">Complaint</option>
-                                            <option value="Product_Recall">Product Recall</option>
-                                            <option value="Returned_Goods">Returned Goods</option>
-                                            <option value="APQR">APQR</option>
-                                            <option value="Management_Review_Action_Plan">Management Review Action Plan</option>
-                                            <option value="Investigation">Investigation</option>
-                                            <option value="Internal_Review">Internal Review</option>
-                                            <option value="Quality_Risk_Assessment">Quality Risk Assessment</option>
-                                            <option value="Others">Others</option>
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
+                <div class="col-lg-12">
+                    <div class="group-input">
+                        <label for="Initiator Group"><b>Name of the Department</b><span
+                            class="text-danger">*</span></label>
+                        <select name="department_capa" id="department_capa" 
+                        @if ($data->stage==4) disabled @endif id="department_capa" value="{{ $data->department_capa }}">
+                            <option value="0">-- Select --</option>
+                            <option @if ($data->department_capa == 'CQA') selected @endif
+                                                value="CQA">Corporate Quality Assurance</option>
+                            <option @if ($data->department_capa == 'QAB') selected @endif
+                                                value="QAB">Quality
+                                Assurance Biopharma</option>
+                            <option @if ($data->department_capa == 'CQC') selected @endif
+                                                value="QAB">Central Quality Control</option>
+                                <option @if ($data->department_capa == 'CQC') selected @endif
+                                                value="QAB">Central Quality Control</option>
+                                <option @if ($data->department_capa == 'MANU') selected @endif
+                                                value="MANU">Manufacturing</option>
+                                <option @if ($data->department_capa == 'PSG') selected @endif
+                                                value="PSG">Plasma
+                                Sourcing Group</option>
+                                <option @if ($data->department_capa == 'CS') selected @endif
+                                        value="CS">Central Stores</option>
+                                <option @if ($data->department_capa == 'ITG') selected @endif
+                                        value="ITG">Information Technology Group </option>
+                                <option @if ($data->department_capa == 'MM') selected @endif
+                                        value="MM">Molecular Medicine </option>
+                                <option @if ($data->department_capa == 'CL') selected @endif
+                                        value="CL">Central Laboratory </option>
+                                <option @if ($data->department_capa == 'QA') selected @endif
+                                        value="QA">Quality Assurance </option>
+                                <option @if ($data->department_capa == 'TT') selected @endif
+                                        value="TT">Tech team </option>
+                                <option @if ($data->department_capa == 'QM') selected @endif
+                                        value="QM">Quality Management </option>
+                                <option @if ($data->department_capa == 'IA') selected @endif
+                                        value="IA">IT Administration </option>
+                                <option @if ($data->department_capa == 'ACC') selected @endif
+                                        value="ACC">Accounting </option>
+                                <option @if ($data->department_capa == 'LOG') selected @endif
+                                        value="LOG">Logistics </option>
+                                <option @if ($data->department_capa == 'SM') selected @endif
+                                        value="SM">Senior Management </option>
+                                <option @if ($data->department_capa == 'BA') selected @endif
+                                        value="BA">Business Administration </option>
+                        </select>
+                        @error('department_capa')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                    <div class="group-input input-date">
+                        <label for="Deviation category">Source of CAPA</label>
+                        <select name="source_of_capa" id="Deviation_category"                        
+                         @if ($data->stage==4) disabled @endif id="Deviation_category" value="{{ $data->source_of_capa }}">
+                            <option value="0">-- Select -- </option>
+                            <option @if ($data->source_of_capa == 'Deviation') selected @endif
+                                                value="Deviation">Deviation</option>
+                            <option @if ($data->source_of_capa == 'OS/OT') selected @endif
+                                                value="OS/OT">OS/OT</option>
+                            <option @if ($data->source_of_capa == 'Audit_Obs') selected @endif
+                                                value="Audit_Obs">Audit Observation</option>
+                            <option @if ($data->source_of_capa == 'Complaint') selected @endif
+                                                value="Complaint">Complaint</option>
+                            <option @if ($data->source_of_capa == 'Product_Recall') selected @endif
+                                                value="Product_Recall">Product Recall</option>
+                            <option @if ($data->source_of_capa == 'Returned_Goods') selected @endif
+                                                value="Returned_Goods">Returned Goods</option>
+                            <option @if ($data->source_of_capa == 'APQR') selected @endif
+                                                value="APQR">APQR</option>
+                            <option @if ($data->source_of_capa == 'Management_Review_Action_Plan') selected @endif
+                                                value="Management_Review_Action_Plan">Management Review Action Plan</option>
+                            <option @if ($data->source_of_capa == 'Investigation') selected @endif
+                                                value="Investigation">Investigation</option>
+                            <option @if ($data->source_of_capa == 'Internal_Review') selected @endif
+                                                value="Internal_Review">Internal Review</option>
+                            <option @if ($data->source_of_capa == 'Quality_Risk_Assessment') selected @endif
+                                                value="Quality_Risk_Assessment">Quality Risk Assessment</option>
+                            <option value="Others">Others</option>
+                        </select>
 
-                                 <div class="col-lg-6" id="capa_others_block" style="display: none">
-                                    <div class="group-input">
-                                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
-                                        <input type="text" id="others" name="capa_others" class="others">
-                                    </div>
-                                </div>
+                    </div>
+                </div>
 
-                                <script>
-                                    $('select[name=source_of_capa]').change(function() {
-                                        $(this).val() == 'Others' ? $('#capa_others_block').fadeIn() : $('#capa_others_block').fadeOut()
-                                    })
-                                </script>
+                    <div class="col-lg-6" id="capa_others_block" style="display: none">
+                    <div class="group-input">
+                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
+                        <input type="text" id="others" name="capa_others" class="others">
+                    </div>
+                </div>
 
-                                <div class="col-lg-6" id="others_block" >
-                                    <div class="group-input">
-                                        <label for="others">Source Document</label>
-                                        <input type="text" id="source_doc" name="source_doc" class="source_doc">
-                                    </div>
-                                </div>
+                <script>
+                    $('select[name=source_of_capa]').change(function() {
+                        $(this).val() == 'Others' ? $('#capa_others_block').fadeIn() : $('#capa_others_block').fadeOut()
+                    })
+                </script>
+                
+                <div class="col-lg-6" id="others_block" >
+                    <div class="group-input">
+                        <label for="others">Source Document</label>
+                        <input type="text" id="source_doc" name="source_doc" value="{{ $data->source_doc }}" class="source_doc">
+                    </div>
+                </div>
 
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Description_of_Discrepancy">Description of Discrepancy </label>
-                                        <textarea class="tiny" name="Description_of_Discrepancy" id="summernote-8">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
-                                        <textarea class="" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Root_Cause">Root Cause</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="capa_root_cause" id="summernote-9">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Root cause">Root Cause</label>
-                                        <textarea class="" name="Root_cause" id="Root_cause" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Immediate_Action_Take" id="summernote-10">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                 <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Corrective_Action_Details">Corrective Action Details</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Corrective_Action_Details" id="summernote-10">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                 <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Preventive_Action_Details">Preventive Action Details</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Preventive_Action_Details" id="summernote-10">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                 <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Target Completion Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="Capa_reported_date" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date"  name="capa_completed_date" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Capa_reported_date')" />
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Description_of_Discrepancy">Description of Discrepancy </label>
+                        <textarea class="tiny" name="Description_of_Discrepancy" id="Description_of_Discrepancy" value="">{{$data->Description_of_Discrepancy}}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Root_Cause">Root Cause</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="capa_root_cause" id="capa_root_cause">{{ $data->capa_root_cause }}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Immediate_Action_Take" id="Immediate_Action_Take">{{ $data->Immediate_Action_Take }}</textarea>
+                    </div>
+                </div>
+                    <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Corrective_Action_Details">Corrective Action Details</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Corrective_Action_Details" id="Corrective_Action_Details" value="">{{ $data->Corrective_Action_Details }}</textarea>
+                    </div>
+                </div>
+                    <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Preventive_Action_Details">Preventive Action Details</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Preventive_Action_Details" id="Preventive_Action_Details" value="">{{ $data->Preventive_Action_Details }}</textarea>
+                    </div>
+                </div>
+                    <div class="col-lg-6 new-date-data-field">
+                    <div class="group-input input-date">
+                        <label for="Audit Schedule End Date">Target Completion Date</label>
+                        <div class="calenderauditee">
+                        <!-- <input  type="date" value="{{ $data->capa_completed_date ? $data->capa_completed_date : '' }}" name="capa_completed_date"id="capa_completed_date" 
+                        oninput="handleDateInput(this, 'Capa_reported_date')">
+                        <input type="hidden" value="{{ date('Y-m-d') }}" name="capa_completed_date">  -->
 
-                                 <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Interim_Control">Interim Control(If Any)</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Interim_Control" id="summernote-10">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                  <div class="sub-head">
-                                            CAPA Implementation
-                                            </div>
-                                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Corrective_Action_Taken">Corrective Action Taken</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Corrective_Action_Taken" id="summernote-10">
-                                    </textarea>
-                                    </div>
-
-                                </div> <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Preventive_action_Taken">Preventive Action Taken</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="tiny" name="Preventive_action_Taken" id="summernote-10">
-                                    </textarea>
-                                    </div>
-                                </div>
-                                <div class="sub-head">
-                                            CAPA Closure
-                                            </div>
-                                     <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="CAPA_Closure_Comments">CAPA Closure Comments</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="" name="CAPA_Closure_Comments" id="summernote-10">
-                                    </textarea>
-                                    </div>
-
-                                    <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="CAPA_Closure_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="CAPA_Closure_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
-                                        <button type="button" class="backButton">Back</button>
-                                    </a>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                            </div>
+                         <input readonly type="text" id="Capa_reported_date"  value="{{ date('d-M-Y') }}" name="capa_completed_date" style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))"/>
+                            <input type="date" value="{{ $data->capa_completed_date }}" name="capa_completed_date"
+                             max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" value=""
+                                oninput="handleDateInput(this, 'Capa_reported_date')" /> 
                         </div>
                     </div>
                 </div>
-                    <!-- investigation and capa -->
-                    {{-- <div id="CCForm3" class="inner-block cctabcontent">
+
+                    <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Interim_Control">Interim Control(If Any)</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Interim_Control" id="Interim_Control" value="">{{ $data->Interim_Control }}</textarea>
+                    </div>
+                </div>
+                    <div class="sub-head">
+                            CAPA Implementation
+                            </div>
+                                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Corrective_Action_Taken">Corrective Action Taken</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Corrective_Action_Taken" id="Corrective_Action_Taken" value="">{{ $data->Corrective_Action_Taken }}</textarea>
+                    </div>
+
+                </div> <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Preventive_action_Taken">Preventive Action Taken</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Preventive_action_Taken" id="Preventive_action_Taken" value="">{{ $data->Preventive_action_Taken }}</textarea>
+                    </div>
+                </div>
+                <div class="sub-head">
+                            CAPA Closure
+                            </div>
+                        <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="CAPA_Closure_Comments">CAPA Closure Comments</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="" name="CAPA_Closure_Comments" id="CAPA_Closure_Comments" value="">{{ $data->CAPA_Closure_Comments }}</textarea>
+                    </div>
+
+                    <div class="col-lg-12">
+                    @if($data->stage == 7)
+                    <div class="group-input">
+                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
+                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="CAPA_Closure_attachment">
+                            @if ($data->CAPA_Closure_attachment)
+                                        @foreach(json_decode($data->CAPA_Closure_attachment) as $file)
+                                            <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                @endforeach
+                            @endif
+                            </div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
+                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value="" 
+                                    {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <div class="group-input">
+                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
+                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="CAPA_Closure_attachment">
+                            @if ($data->CAPA_Closure_attachment)
+                                        @foreach(json_decode($data->CAPA_Closure_attachment) as $file)
+                                            <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                @endforeach
+                            @endif
+                            </div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
+                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value="" 
+                                    {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    
+                   
+                   
+                </div>
+            </div>
+
+            <div class="button-block">
+            <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
+                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                        Save
+                </button>
+                <a href="/rcms/qms-dashboard">
+                        <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
+                    </a>
+                
+                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                        Exit </a> </button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- investigation and capa -->
+    <!-- {{-- <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             @if($data->stage==5)
                             <div class="row">
@@ -7511,7 +7565,7 @@ wow = new WOW(
                                                 @endif
                                             </div>
                                             <div class="add-btn">
-                                                <div>Add</div>
+                                                <div>Add</adiv>
                                                 <input {{ $data->stage == 5 ? '' : 'disabled' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Capa_attachment')"
                                                     multiple>
@@ -7678,7 +7732,7 @@ wow = new WOW(
                                         Exit </a> </button>
                             </div>
                         </div>
-                    </div> --}}
+                    </div> --}} -->
 
                     <!-- QA Final Review -->
                     <div id="CCForm4" class="inner-block cctabcontent">

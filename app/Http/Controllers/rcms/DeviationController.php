@@ -1408,6 +1408,7 @@ class DeviationController extends Controller
     {
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         $data = Deviation::find($id);
+        
         $data1 = DeviationCft::where('deviation_id', $id)->latest()->first();
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
@@ -1576,13 +1577,46 @@ class DeviationController extends Controller
                 $form_progress = 'qa';
             }
         }
-
+        // ============ capa ======================
         if ($request->form_name == 'capa')
         {
+            if($request->source_doc!=""){
+                $deviation->capa_number = $request->capa_number ? $request->capa_number : $deviation->capa_number;
+                $deviation->department_capa = $request->department_capa ? $request->department_capa : $deviation->department_capa;
+                $deviation->source_of_capa = $request->source_of_capa ? $request->source_of_capa : $deviation->source_of_capa;
+                $deviation->capa_others = $request->capa_others ? $request->capa_others : $deviation->capa_others;
+                $deviation->source_doc = $request->source_doc ? $request->source_doc : $deviation->source_doc;
+                $deviation->Description_of_Discrepancy = $request->Description_of_Discrepancy ? $request->Description_of_Discrepancy : $deviation->Description_of_Discrepancy;
+                $deviation->capa_root_cause = $request->capa_root_cause ? $request->capa_root_cause : $deviation->capa_root_cause;
+                $deviation->Immediate_Action_Take = $request->Immediate_Action_Take ? $request->Immediate_Action_Take : $deviation->Immediate_Action_Take;
+                $deviation->Corrective_Action_Details = $request->Corrective_Action_Details ? $request->Corrective_Action_Details : $deviation->Corrective_Action_Details;
+                $deviation->Preventive_Action_Details = $request->Preventive_Action_Details ? $request->Preventive_Action_Details : $deviation->Preventive_Action_Details;
+                $deviation->capa_completed_date = $request->capa_completed_date ? $request->capa_completed_date : $deviation->capa_completed_date;
+                $deviation->Interim_Control = $request->Interim_Control ? $request->Interim_Control : $deviation->Interim_Control;
+                $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
+                $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
+                $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
+                
+                 if (!empty ($request->CAPA_Closure_attachment)) {
+                    $files = [];
+                    if ($request->hasfile('CAPA_Closure_attachment')) {
+
+                        foreach ($request->file('CAPA_Closure_attachment') as $file) {
+                            $name = 'capa_closure_attachment-' . time() . '.' . $file->getClientOriginalExtension();
+                            $file->move('upload/', $name);
+                            $files[] = $name;
+                        }
+                    }
+                    $deviation->CAPA_Closure_attachment = json_encode($files);
+                    
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+                }
+
             $validator = Validator::make($request->all(), [
-                'Investigation_Summary' => 'required',
-                'Impact_assessment' => 'required',
-                'Root_cause' => 'required',
+                'capa_root_cause' => 'required',
                 'CAPA_Rquired' => 'required|in:yes,no|not_in:0',
                 'Post_Categorization' => 'required',
                 'capa_type' => [
@@ -1605,6 +1639,7 @@ class DeviationController extends Controller
             } else {
                 $form_progress = 'capa';
             }
+            
         }
 
         if ($request->form_name == 'qa-final')
@@ -1644,25 +1679,7 @@ class DeviationController extends Controller
         $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
         $deviation->Product_Batch = $request->Product_Batch;
-
-
-        $deviation->capa_number = $request->capa_number ? $request->capa_number : $deviation->capa_number;
-        $deviation->department_capa = $request->department_capa ? $request->department_capa : $deviation->department_capa;
-        $deviation->source_of_capa = $request->source_of_capa ? $request->source_of_capa : $deviation->source_of_capa;
-        $deviation->capa_others = $request->capa_others ? $request->capa_others : $deviation->capa_others;
-        $deviation->source_doc = $request->source_doc ? $request->source_doc : $deviation->source_doc;
-        $deviation->Description_of_Discrepancy = $request->Description_of_Discrepancy ? $request->Description_of_Discrepancy : $deviation->Description_of_Discrepancy;
-        $deviation->capa_root_cause = $request->capa_root_cause ? $request->capa_root_cause : $deviation->capa_root_cause;
-        $deviation->Immediate_Action_Take = $request->Immediate_Action_Take ? $request->Immediate_Action_Take : $deviation->Immediate_Action_Take;
-        $deviation->Corrective_Action_Details = $request->Corrective_Action_Details ? $request->Corrective_Action_Details : $deviation->Corrective_Action_Details;
-        $deviation->Preventive_Action_Details = $request->Preventive_Action_Details ? $request->Preventive_Action_Details : $deviation->Preventive_Action_Details;
-        $deviation->capa_completed_date = $request->capa_completed_date ? $request->capa_completed_date : $deviation->capa_completed_date;
-        $deviation->Interim_Control = $request->Interim_Control ? $request->Interim_Control : $deviation->Interim_Control;
-        $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
-        $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
-        $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
-
-
+        
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
         if ($request->related_records) {
@@ -2197,17 +2214,19 @@ class DeviationController extends Controller
             $deviation->Capa_attachment = json_encode($files);
         }
 
-        if (!empty ($request->CAPA_Closure_attachment)) {
-            $files = [];
-            if ($request->hasfile('CAPA_Closure_attachment')) {
-                foreach ($request->file('CAPA_Closure_attachment') as $file) {
-                    $name = $request->name . 'capa_closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                    $file->move('upload/', $name);
-                    $files[] = $name;
-                }
-            }
-            $deviation->Capa_attachment = json_encode($files);
-        }
+        // if (!empty ($request->CAPA_Closure_attachment)) {
+        //     $files = [];
+        //     if ($request->hasfile('CAPA_Closure_attachment')) {
+        //         dd($request->hasfile('CAPA_Closure_attachment'));
+
+        //         foreach ($request->file('CAPA_Closure_attachment') as $file) {
+        //             $name = $request->name . 'capa_closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+        //             $file->move('upload/', $name);
+        //             $files[] = $name;
+        //         }
+        //     }
+        //     $deviation->Capa_attachment = json_encode($files);
+        // }
 
         if (!empty ($request->QA_attachments)) {
 
