@@ -25,6 +25,7 @@ use Carbon\Carbon;
 use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
+use App\Models\DeviationGrid_Qrm;
 use Helpers;
 use Illuminate\Pagination\Paginator;
 use PDF;
@@ -1433,6 +1434,7 @@ class DeviationController extends Controller
         $pre = Deviation::all();
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
         $deviationNewGrid = DeviationNewGridData::where('deviation_id', $id)->latest()->first();
+        $deviationQrmGrid = DeviationGrid_Qrm::where('deviation_id', $id)->first();
 
 
         return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2'));
@@ -1700,6 +1702,14 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
+
+        $deviation->Conclusion = $request->Conclusion;
+        // dd($request->Conclusion);
+        $deviation->Identified_Risk = $request->Identified_Risk;
+        $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
+        $deviation->Occurrence = $request->Occurrence ? $request->Occurrence : $deviation->Occurrence;
+        $deviation->detection = $request->detection ? $request->detection: $deviation->detection;
+        
 
         if ($deviation->stage < 6) {
             $deviation->CAPA_Rquired = $request->CAPA_Rquired;
@@ -2265,7 +2275,6 @@ class DeviationController extends Controller
             $deviation->closure_attachment = json_encode($files);
         }
 if($deviation->stage == 111){
-
 
         //investiocation dynamic
         $deviation->Discription_Event = $request->Discription_Event;

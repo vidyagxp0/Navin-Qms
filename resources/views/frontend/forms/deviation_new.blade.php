@@ -4064,7 +4064,7 @@ $users = DB::table('users')
             <div class="col-lg-6">
                 <div class="group-input">
                     <label for="Occurrence">Occurrence</label>
-                    <select name="occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
+                    <select name="Occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
                         <option value="">Enter Your Selection Here</option>
                         <option value="5">Extremely Unlikely</option>
                         <option value="4">Rare</option>

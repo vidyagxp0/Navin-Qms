@@ -6437,13 +6437,6 @@ wow = new WOW(
                                 </div>
                            @endif
 
-
-
-
-
-
-
-
                             </div>
                             <div class="button-block">
                                 <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
@@ -7009,7 +7002,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Investigation Summary">Conclusion</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="tiny" name="Conclusion" id="summernote-8">
+                    <textarea class="tiny" name="Conclusion" id="summernote-8" value="$data->Conclusion"> {{$data->Conclusion}}
                 </textarea>
                 </div>
             </div>
@@ -7018,7 +7011,7 @@ wow = new WOW(
                 <div class="group-input">
                     <label for="Investigation Summary">Identified Risk</label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                    <textarea class="tiny" name="Identified_Risk" id="summernote-8">
+                    <textarea class="tiny" name="Identified_Risk" id="summernote-8" value="$data->Identified_Risk"> {{ $data->Identified_Risk}}
                 </textarea>
                 </div>
             </div>
@@ -7028,24 +7021,24 @@ wow = new WOW(
                     <label for="Severity Rate">Severity Rate</label>
                     <select name="severity_rate" id="analysisR"
                         onchange='calculateRiskAnalysis(this)'>
-                        <option value="">Enter Your Selection Here</option>
-                        <option value="1">Negligible</option>
-                        <option value="2">Moderate</option>
-                        <option value="3">Major</option>
-                        <option value="4">Fatal</option>
+                        <option   value="">Enter Your Selection Here</option>
+                        <option   value="negligible" @if ($data->severity_rate == 'negligible') selected @endif>Negligible</option>
+                        <option   value="moderate"  @if ($data->severity_rate == 'moderate') selected @endif>Moderate</option>
+                        <option   value="major" @if ($data->severity_rate == 'major') selected @endif>Major</option>
+                        <option   value="fatal"  @if ($data->severity_rate == 'fatal') selected @endif>Fatal</option>
                     </select>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="group-input">
                     <label for="Occurrence">Occurrence</label>
-                    <select name="occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
+                    <select name="Occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
                         <option value="">Enter Your Selection Here</option>
-                        <option value="5">Extremely Unlikely</option>
-                        <option value="4">Rare</option>
-                        <option value="3">Unlikely</option>
-                        <option value="2">Likely</option>
-                        <option value="1">Very Likely</option>
+                        <option value="extremely_unilikely" @if ($data->Occurrence == 'extremely_unilikely') selected @endif>Extremely Unlikely</option>
+                        <option value="rare" @if ($data->Occurrence == 'rare') selected @endif>Rare</option>
+                        <option value="unlikely" @if ($data->Occurrence == 'unlikely') selected @endif>Unlikely</option>
+                        <option value="likely" @if ($data->Occurrence == 'likely') selected @endif>Likely</option>
+                        <option value="very_likely" @if ($data->Occurrence == 'very_likely') selected @endif>Very Likely</option>
                     </select>
                 </div>
             </div>
@@ -7054,11 +7047,11 @@ wow = new WOW(
                     <label for="Detection">Detection</label>
                     <select name="detection" id="analysisN" onchange='calculateRiskAnalysis(this)'>
                         <option value="">Enter Your Selection Here</option>
-                        <option value="5">Impossible</option>
-                        <option value="4">Rare</option>
-                        <option value="3">Unlikely</option>
-                        <option value="2">Likely</option>
-                        <option value="1">Very Likely</option>
+                        <option value="impossible" @if ($data->detection == 'impossible') selected @endif>Impossible</option>
+                        <option value="rare" @if ($data->detection== 'rare') selected @endif>Rare</option>
+                        <option value="unlikely" @if ($data->detection == 'unlikely') selected @endif>Unlikely</option>
+                        <option value="likely"  @if ($data->detection == 'likely') selected @endif>Likely</option>
+                        <option value="very_likely" @if ($data->detection == 'very_likely') selected @endif>Very Likely</option>
                     </select>
                 </div>
             </div>
