@@ -2051,7 +2051,7 @@
                             </div>
                         </td> --}}
                     {{-- </tr> --}}
-                    <tr>
+                    {{-- <tr>
                 
                         <th class="w-20">CAPA Description</th>
                         <td class="w-30">
@@ -2065,8 +2065,8 @@
                                 @if($data->Post_Categorization){{ $data->Post_Categorization }}@else Not Applicable @endif
                             </div>
                         </td>
-                    </tr>
-                    <tr>
+                    </tr> --}}
+                    {{-- <tr>
                 
                         <th class="w-20"> Justification For Revised category
                         </th>
@@ -2076,36 +2076,69 @@
                             </div>
                         </td>
                         
-                    </tr>
+                    </tr> --}}
      </table>
 </div>  
 <div class="border-table">
     <div class="block-head">
-        Investigation Attachment
+       Investigation Team and Responsibilities
     </div>
     <table>
 
         <tr class="table_bg">
             <th class="w-20">S.N.</th>
-            <th class="w-60">Attachment</th>
+            <th class="w-60">Investigation Team</th>
+            <th class="w-60">Responsibility</th>
+
+            <th class="w-60">Remarks</th>
+       
+
+
         </tr>
-            @if($data->Investigation_attachment)
-            @foreach(json_decode($data->Investigation_attachment) as $key => $file)
-                <tr>
-                    <td class="w-20">{{ $key + 1 }}</td>
-                    <td class="w-20"><a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b></a> </td>
-                </tr>
-            @endforeach
-            @else
-        <tr>
+            
+              <tr>
             <td class="w-20">1</td>
-            <td class="w-20">Not Applicable</td>
+            <td class="w-20"></td>
+            <td class="w-20"></td>
+    
+            <td class="w-20"></td>
         </tr>
-        @endif
+        
 
     </table>
 </div>
+
 <div class="border-table">
+    <div class="block-head">
+        Root Cause
+    </div>
+    <table>
+
+        <tr class="table_bg">
+            <th class="w-20">S.N.</th>
+            <th class="w-60">Root Cause Category </th>
+            <th class="w-60">Root Cause Sub-Category</th>
+
+            <th class="w-60">If Others</th>
+            <th class="w-60">Probability</th>
+            <th class="w-60">Remarks</th>
+          
+
+        </tr>
+    <tr>
+            
+              
+            <td class="w-20">1</td>
+            <td class="w-20"></td>
+            <td class="w-20"></td>
+            <td class="w-20"></td>
+            <td class="w-20"></td>
+            
+        </tr>
+       
+    </table>
+</div>
+{{-- <div class="border-table">
     <div class="block-head">
         CAPA Attachment
     </div>
@@ -2130,9 +2163,9 @@
         @endif
 
     </table>
-</div>
+</div> --}}
     
-<div class="block">
+{{-- <div class="block">
     <div class="block-head">
         QA Final Review
     </div>
@@ -2143,8 +2176,8 @@
             <td class="w-30">@if($data->QA_Feedbacks){{ $data->QA_Feedbacks }}@else Not Applicable @endif</td>
             
         </table>
-    </div>
-    <div class="border-table">
+    </div> --}}
+    {{-- <div class="border-table">
         <div class="block-head">
             QA Attachments
         </div>
@@ -2169,7 +2202,7 @@
             @endif
 
         </table>
-    </div>
+    </div> --}}
 </div>
    {{-- ------------------------------------------------- --}}
             <div class="block">
