@@ -131,6 +131,7 @@ class DeviationController extends Controller
 
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
 
+        
         # -------------new-----------
         //  $deviation->record_number = $request->record_number;
         $deviation->division_id = $request->division_id;
@@ -173,6 +174,8 @@ class DeviationController extends Controller
         if($request->Deviation_category=='')
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
         $deviation->Investigation_required = $request->Investigation_required;
+        $deviation->capa_required = $request->capa_required;
+        $deviation->qrm_required = $request->qrm_required;
 
 
         $deviation->Investigation_Details = $request->Investigation_Details;
@@ -1464,10 +1467,15 @@ class DeviationController extends Controller
 
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
         {
-            $request->merge([
-                'Investigation_required' => 'yes',
-                'Customer_notification' => 'yes'
-            ]);
+            $deviation->Investigation_required = "yes";
+            $deviation->capa_required = "yes";
+            $deviation->qrm_required = "yes";
+            // $request->merge([
+            //     'Investigation_required' => 'yes',
+            //     'capa_required' => 'yes',
+            //     'qrm_required' => 'yes',
+            //     'Customer_notification' => 'yes'
+            // ]);
         }
 
         if ($request->form_name == 'general-open')
@@ -1579,7 +1587,9 @@ class DeviationController extends Controller
             $validator = Validator::make($request->all(), [
                 'Deviation_category' => 'required|not_in:0',
                 'Justification_for_categorization' => 'required',
-                'Investigation_required' => 'required|in:yes,no|not_in:0',
+                // 'Investigation_required' => 'required|in:yes,no|not_in:0',
+                // 'capa_required' => 'required|in:yes,no|not_in:0',
+                // 'qrm_required' => 'required|in:yes,no|not_in:0',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
                 'QAInitialRemark' => 'required'
             ]);
@@ -1643,6 +1653,7 @@ class DeviationController extends Controller
                 $form_progress = 'qah';
             }
         }
+
         $deviation->assign_to = $request->assign_to;
         $deviation->Initiator_Group = $request->Initiator_Group;
 
@@ -1721,9 +1732,12 @@ class DeviationController extends Controller
         if ($deviation->stage == 3)
         {
             $deviation->Customer_notification = $request->Customer_notification;
-            $deviation->Investigation_required = $request->Investigation_required;
+            // $deviation->Investigation_required = $request->Investigation_required;
+            // $deviation->capa_required = $request->capa_required;
+            // $deviation->qrm_required = $request->qrm_required;
             $deviation->Deviation_category = $request->Deviation_category;
-            $deviation->customers = $request->customers;
+            $deviation->QAInitialRemark = $request->QAInitialRemark;
+            // $deviation->customers = $request->customers;
         }
 
         if($deviation->stage == 3 || $deviation->stage == 4 ){
@@ -3564,7 +3578,7 @@ if($deviation->stage == 111){
                 // return "PAUSE";
 
                 $deviation->stage = "7";
-                $deviation->status = "Closed - Done";
+                $deviation->status = "Pending Initiator Update";
                 $deviation->Approved_By = Auth::user()->name;
                 $deviation->Approved_On = Carbon::now()->format('d-M-Y');
                 $deviation->Approved_Comments = $request->comment;
@@ -3580,7 +3594,98 @@ if($deviation->stage == 111){
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
-                $history->change_to =   "Closed - Done";
+                $history->change_to =   "Pending Initiator Update";
+                $history->change_from = $lastDocument->status;
+                $history->stage = 'Completed';
+                $history->save();
+                $list = Helpers::getQAUserList();
+                foreach ($list as $u) {
+                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Exception $e) {
+                                //log error
+                            }
+                        }
+                    }
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+            } 
+            if ($deviation->stage == 7) {
+
+                if ($deviation->form_progress !== 'qah')
+                {
+
+                    Session::flash('swal', [
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'QAH/Designee Approval Tab is yet to be filled!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Deviation sent to Closed/Done state'
+                    ]);
+                }
+
+                $extension = Extension::where('parent_id', $deviation->id)->first();
+
+                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
+
+                if ($extension && $extension->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'Extension record pending!',
+                        'message' => 'There is an Extension record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                if ($rca && $rca->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'RCA record pending!',
+                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                // return "PAUSE";
+
+                $deviation->stage = "8";
+                $deviation->status = "QA Final Approval";
+                $deviation->Approved_By = Auth::user()->name;
+                $deviation->Approved_On = Carbon::now()->format('d-M-Y');
+                $deviation->Approved_Comments = $request->comment;
+
+                $history = new DeviationAuditTrail();
+                $history->deviation_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->action ='Initiator Updated Complete';
+                $history->current = $deviation->Approved_By;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "QA Final Approval";
                 $history->change_from = $lastDocument->status;
                 $history->stage = 'Completed';
                 $history->save();
