@@ -1789,15 +1789,15 @@ wow = new WOW(
 
                     <script>
                         handleInvestigationRequiredChange();
-        
-        
+
+
                     function handleInvestigationRequiredChange() {
             var investigationSelect = document.getElementById("Investigation_required");
             var investigationButton = document.getElementById("Investigation_button");
-        
+
             // Get the selected value of the Investigation Required dropdown
             var investigationRequired = investigationSelect.value;
-        
+
             // Check if Investigation Required is "Yes"
             if (investigationRequired === "yes") {
                 // Show the Investigation button
@@ -1807,45 +1807,45 @@ wow = new WOW(
                 investigationButton.style.display = "none";
             }
         }
-        
+
                   // Call the function initially to set the initial visibility of the button
-        
-        
-        
-        
+
+
+
+
             // Function to handle the change event of the Initial Deviation Category dropdown
             function handleDeviationCategoryChange() {
                 var selectElement = document.getElementById("Initial_Deviation_category");
                 var selectedOption = selectElement.options[selectElement.selectedIndex].value;
-               
+
                 // var investigationSelect = document.getElementById("Investigation_required");
-        
+
                 // var investigationButton = document.getElementById("Investigation_button");
-        
+
                 // var selectedOptn = investigationSelect.options[investigationSelect.selectedIndex].value;
-        
-        
+
+
                 //   if(selectedOptn=== "yes"){
-        
+
                 //     document.getElementById("Investigation_button").style.display = "block";
-        
+
                 //     }
                 //     else{
                 //     document.getElementById("Investigation_button").style.display = "none";
-        
-        
+
+
                 //     }
-        
+
             // Get the selected values
                 // var investigationRequired = investigationSelect.value;
-                
+
                 // Check if the selected option is "Major" or "Critical"
                 if (selectedOption === "major" || selectedOption === "critical") {
                     // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
                     document.getElementById("Investigation_required").value = "yes";
                     document.getElementById("capa_required").value = "yes";
                     document.getElementById("qrm_required").value = "yes";
-        
+
                     // Show the Investigation, CAPA, and QRM buttons
                     document.getElementById("Investigation_button").style.display = "block";
                     document.getElementById("CAPA_button").style.display = "block";
@@ -1855,24 +1855,24 @@ wow = new WOW(
                     document.getElementById("Investigation_required").value = "select";
                     document.getElementById("capa_required").value = "select";
                     document.getElementById("qrm_required").value = "select";
-        
+
                     // Hide the Investigation, CAPA, and QRM buttons
                     document.getElementById("Investigation_button").style.display = "none";
                     document.getElementById("CAPA_button").style.display = "none";
                     document.getElementById("QRM_button").style.display = "none";
-        
-                
-        
+
+
+
                 }
-        
+
             }
-                 
+
         </script>
 
 <script>
 
-    // This is a JQuery used for showing the Investigation 
-    
+    // This is a JQuery used for showing the Investigation
+
                                 $(document).ready(function () {
         $('#Initial_Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(function () {
             // Get the selected values
@@ -1880,8 +1880,8 @@ wow = new WOW(
             var investigationRequired = $('#Investigation_required').val();
             var capaRequired = $('#capa_required').val();
             var qrmRequired = $('#qrm_required').val();
-    
-            
+
+
             // Check if both conditions are met
             if ( investigationRequired === 'yes') {
                 $('#Investigation_button').show(); // Show the investigation button
@@ -1902,59 +1902,59 @@ wow = new WOW(
             }
         });
     });
-    
-    
-    
+
+
+
     //                           $(document).ready(function () {
     //                             $('#Investigation_required').change(function () {
     //                                 var selectedValues = $(this).val();
-                                    
+
     // Investigation_required
     //                                 if (selectedValues === 'major' || selectedValues === 'critical') {
     //                                     $('#Investigation_required').val('yes').prop('disabled', true);
     //                                     $('#capa_required').val('yes').prop('disabled', true);
     //                                     $('#qrm_required').val('yes').prop('disabled', true);
-    
+
     //                                 } else {
     //                                     $('#Investigation_required').prop('disabled', false);
     //                                     $('#qrm_required').prop('disabled', false);
     //                                     $('#capa_required').prop('disabled', false);
     //                                 }
-                                   
+
     //                             });
     //                         });
-                             
-    
-    
+
+
+
                             $(document).ready(function () {
                                 $('#Initial_Deviation_category').change(function () {
                                     var selectedValues = $(this).val();
-    
+
                                     if (selectedValues === 'major' || selectedValues === 'critical') {
                                         $('#Investigation_required').val('yes').prop('disabled', true);
                                         $('#capa_required').val('yes').prop('disabled', true);
                                         $('#qrm_required').val('yes').prop('disabled', true);
-    
+
                                     } else {
                                         $('#Investigation_required').prop('disabled', false);
                                         $('#qrm_required').prop('disabled', false);
                                         $('#capa_required').prop('disabled', false);
                                     }
-                                   
+
                                 });
                             });
-    
+
                             $(document).ready(function () {
-    
-    
+
+
                                 $('#Deviation_category').change(function () {
                                     if ($(this).val() === 'major') {
                                         $('#Investigation_required').val('yes').prop('disabled', true);
-    
-    
+
+
                                         $('#Investigations_details').show();
                                         $('textarea[name="Investigations_details"]').prop('required', true);
-    
+
                                         $('#Customer_notification').val('yes').prop('disabled', true);
                                         $('#customer_option').show();
                                         $('textarea[name="customer_option"]').prop('required', true);
@@ -1963,8 +1963,8 @@ wow = new WOW(
                                         $('#customer_option').hide();
                                         $('textarea[name="customer_option"]').prop('required', false);
                                         $('#Investigation_required').prop('disabled', false);
-    
-    
+
+
                                         $('#Investigations_details').hide();
                                         $('textarea[name="Investigations_details"]').prop('required', false);
                                     }
@@ -1985,7 +1985,7 @@ wow = new WOW(
                                         $('textarea[name="Investigations_details"]').prop('required', false);
                                     }
                                 });
-                        
+
                                 // Trigger change event on page load if already selected value is "Recurring"
                                 $('#Investigation_required').change();
                             });
@@ -2000,12 +2000,12 @@ wow = new WOW(
                                         $('textarea[name="customer_option"]').prop('required', false);
                                     }
                                 });
-                        
+
                                 // Trigger change event on page load if already selected value is "Recurring"
                                 $('#Customer_notification').change();
                             });
                         </script>
-             
+
                        <!-- QA Initial reVIEW -->
                        <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -2055,7 +2055,7 @@ wow = new WOW(
                                         </select>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="qrm_required">QRM  Required ?</label>
@@ -6748,13 +6748,13 @@ wow = new WOW(
                                                 </td>
                                                 <th style="background: ">Attention</th>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="attention_issues">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="attention_issues">{{ $data->attention_issues}}</textarea>
                                                 </td>
                                                 <td>
-                                                    <textarea name="attention_actions">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="attention_actions">{{ $data->attention_actions}}</textarea>
                                                 </td>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="attention_remarks">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="attention_remarks">{{ $data->attention_remarks}}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -6763,13 +6763,13 @@ wow = new WOW(
                                                 </td>
                                                 <th >Understanding</th>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="understanding_issues">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="understanding_issues">{{ $data->understanding_issues}}</textarea>
                                                 </td>
                                                 <td>
-                                                    <textarea name="understanding_actions">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="understanding_actions">{{ $data->understanding_actions}}</textarea>
                                                 </td>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="understanding_remarks">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="understanding_remarks">{{ $data->understanding_remarks}}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -6778,13 +6778,13 @@ wow = new WOW(
                                                 </td>
                                                 <th >Procedural</th>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="procedural_issues">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="procedural_issues">{{ $data->procedural_issues}}</textarea>
                                                 </td>
                                                 <td>
-                                                    <textarea name="procedural_actions">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="procedural_actions">{{ $data->procedural_actions}}</textarea>
                                                 </td>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="procedural_remarks">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="procedural_remarks">{{ $data->procedural_remarks}}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -6793,13 +6793,13 @@ wow = new WOW(
                                                 </td>
                                                 <th >Behavioral</th>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="behavioiral_issues">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="behavioiral_issues">{{ $data->behavioiral_issues}}</textarea>
                                                 </td>
                                                 <td>
-                                                    <textarea name="behavioiral_actions">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="behavioiral_actions">{{ $data->behavioiral_actions}}</textarea>
                                                 </td>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="behavioiral_remarks">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="behavioiral_remarks">{{ $data->behavioiral_remarks}}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -6808,13 +6808,13 @@ wow = new WOW(
                                                 </td>
                                                 <th >Skill</th>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="skill_issues">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="skill_issues">{{ $data->skill_issues}}</textarea>
                                                 </td>
                                                 <td>
-                                                    <textarea name="skill_actions">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="skill_actions">{{ $data->skill_actions}}</textarea>
                                                 </td>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <textarea name="skill_remarks">{{ $data->Discription_Event}}</textarea>
+                                                    <textarea name="skill_remarks">{{ $data->skill_remarks}}</textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -7347,7 +7347,7 @@ wow = new WOW(
                         <div class="inner-block-content">
                             @if($data->stage==5)
                             <div class="row">
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7358,7 +7358,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7369,7 +7369,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7397,7 +7397,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description  <span id="asteriskIcon32q13" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7413,7 +7413,7 @@ wow = new WOW(
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('CAPA_Rquired');
                                             var inputsToToggle = [];
-        
+
                                             var facilityNameInputs = document.getElementsByClassName('capa_type');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
@@ -7429,7 +7429,7 @@ wow = new WOW(
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 var asteriskIcon321 = document.getElementById('asteriskIcon32q1');
                                                 var asteriskIcon3211 = document.getElementById('asteriskIcon32q13');
                                                 asteriskIcon321.style.display = isRequired ? 'inline' : 'none';
@@ -7437,7 +7437,7 @@ wow = new WOW(
                                             });
                                         });
                                 </script>
-                               
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -7456,7 +7456,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 5 ? 'inline' : 'none' }}">*</span></label>
@@ -7492,8 +7492,8 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div>
-                               
-                            
+
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -7522,7 +7522,7 @@ wow = new WOW(
                             </div>
                             @else
                             <div class="row">
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
@@ -7533,7 +7533,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
@@ -7544,7 +7544,7 @@ wow = new WOW(
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                               
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause </label>
@@ -7572,7 +7572,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
@@ -7580,7 +7580,7 @@ wow = new WOW(
                                         <textarea readonly class="tiny" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
@@ -7599,7 +7599,7 @@ wow = new WOW(
                                       @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
@@ -7635,7 +7635,7 @@ wow = new WOW(
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -7774,9 +7774,9 @@ wow = new WOW(
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
                                             value="major">Major</option>
-                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif 
+                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif
                                            value="minor">Minor</option>
-                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif 
+                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif
                                             value="critical">Critical</option>
                                       </select>
                                       {{-- @error('Post_Categorization')
@@ -7784,7 +7784,7 @@ wow = new WOW(
                                       @enderror --}}
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
@@ -8072,7 +8072,7 @@ wow = new WOW(
                 </div>
 
                 {{-- row --}}
-                <div class="row">   
+                <div class="row">
                  <div class="col-lg-6">
                 <div class="group-input">
                     <label for=" Deviation_Effectiveness_Check_Plan_Proposed_By">Deviation Effectiveness Check Plan Proposed By </label>
@@ -8224,7 +8224,7 @@ wow = new WOW(
         </div>
              <div class="sub-head">
                         Quality Risk Management Effectiveness Check
-                        </div>                        
+                        </div>
                  <div class="col-md-12 mb-3">
                         </div>
 

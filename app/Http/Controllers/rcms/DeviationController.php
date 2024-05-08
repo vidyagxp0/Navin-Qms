@@ -1441,6 +1441,7 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->investication);
         $form_progress = null;
 
         $lastDeviation = deviation::find($id);
@@ -2248,7 +2249,7 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
-
+        if ($deviation->stage = 1) {
         //investiocation dynamic
         $deviation->Discription_Event = $request->Discription_Event;
         $deviation->objective = $request->objective;
@@ -2276,6 +2277,7 @@ class DeviationController extends Controller
         $deviation->where_will_be = $request->where_will_be;
         $deviation->where_will_not_be = $request->where_will_not_be;
         $deviation->where_rationable = $request->where_rationable;
+        $deviation->when_will_be = $request->when_will_be;
         $deviation->when_will_not_be = $request->when_will_not_be;
         $deviation->when_rationable = $request->when_rationable;
         $deviation->coverage_will_be = $request->coverage_will_be;
@@ -2296,7 +2298,7 @@ class DeviationController extends Controller
         $newDataGridRCA->identifier = 'rootCause';
         $newDataGridRCA->data = $request->rootCause;
         $newDataGridRCA->save();
-        
+        }
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
         $deviation->update();
         // grid
@@ -3012,7 +3014,7 @@ class DeviationController extends Controller
                 //     }
                 // }
 
-                
+
 
 
 
