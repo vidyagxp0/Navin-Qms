@@ -1437,8 +1437,10 @@ class DeviationController extends Controller
         $divisionName = DB::table('q_m_s_divisions')->where('id', $data->division_id)->value('name');
         $deviationNewGrid = DeviationNewGridData::where('deviation_id', $id)->latest()->first();
 
+        $investigation_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->first();
+        $root_cause_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2'));
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1470,12 +1472,13 @@ class DeviationController extends Controller
             $deviation->Investigation_required = "yes";
             $deviation->capa_required = "yes";
             $deviation->qrm_required = "yes";
-            // $request->merge([
-            //     'Investigation_required' => 'yes',
-            //     'capa_required' => 'yes',
-            //     'qrm_required' => 'yes',
-            //     'Customer_notification' => 'yes'
-            // ]);
+        }
+
+        if ($request->Deviation_category == 'minor')
+        {
+            $deviation->Investigation_required = $request->Investigation_required;
+            $deviation->capa_required = $request->capa_required;
+            $deviation->qrm_required = $request->qrm_required;
         }
 
         if ($request->form_name == 'general-open')
@@ -1605,32 +1608,75 @@ class DeviationController extends Controller
 
         if ($request->form_name == 'capa')
         {
-            $validator = Validator::make($request->all(), [
-                'Investigation_Summary' => 'required',
-                'Impact_assessment' => 'required',
-                'Root_cause' => 'required',
-                'CAPA_Rquired' => 'required|in:yes,no|not_in:0',
-                'Post_Categorization' => 'required',
-                'capa_type' => [
-                    'required_if:CAPA_Rquired,yes',
-                    function ($attribute, $value, $fail) use ($request) {
-                        if ($value === '0' && $request->CAPA_Rquired == 'yes') {
-                            $fail('The capa type field is required when CAPA required is set to yes.');
+
+            // ============ capa ======================
+        if ($request->form_name == 'capa')
+        {
+            if($request->source_doc!=""){
+                $deviation->capa_number = $request->capa_number ? $request->capa_number : $deviation->capa_number;
+                $deviation->department_capa = $request->department_capa ? $request->department_capa : $deviation->department_capa;
+                $deviation->source_of_capa = $request->source_of_capa ? $request->source_of_capa : $deviation->source_of_capa;
+                $deviation->capa_others = $request->capa_others ? $request->capa_others : $deviation->capa_others;
+                $deviation->source_doc = $request->source_doc ? $request->source_doc : $deviation->source_doc;
+                $deviation->Description_of_Discrepancy = $request->Description_of_Discrepancy ? $request->Description_of_Discrepancy : $deviation->Description_of_Discrepancy;
+                $deviation->capa_root_cause = $request->capa_root_cause ? $request->capa_root_cause : $deviation->capa_root_cause;
+                $deviation->Immediate_Action_Take = $request->Immediate_Action_Take ? $request->Immediate_Action_Take : $deviation->Immediate_Action_Take;
+                $deviation->Corrective_Action_Details = $request->Corrective_Action_Details ? $request->Corrective_Action_Details : $deviation->Corrective_Action_Details;
+                $deviation->Preventive_Action_Details = $request->Preventive_Action_Details ? $request->Preventive_Action_Details : $deviation->Preventive_Action_Details;
+                $deviation->capa_completed_date = $request->capa_completed_date ? $request->capa_completed_date : $deviation->capa_completed_date;
+                $deviation->Interim_Control = $request->Interim_Control ? $request->Interim_Control : $deviation->Interim_Control;
+                $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
+                $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
+                $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
+                
+                 if (!empty ($request->CAPA_Closure_attachment)) {
+                    $files = [];
+                    if ($request->hasfile('CAPA_Closure_attachment')) {
+
+                        foreach ($request->file('CAPA_Closure_attachment') as $file) {
+                            $name = 'capa_closure_attachment-' . time() . '.' . $file->getClientOriginalExtension();
+                            $file->move('upload/', $name);
+                            $files[] = $name;
                         }
                     }
-                ],
-                'CAPA_Description' => 'required_if:CAPA_Rquired,yes',
-            ],  [
-                'CAPA_Rquired.required' => 'Capa required field cannot be empty!',
-            ]);
+                    $deviation->CAPA_Closure_attachment = json_encode($files);
+                    
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+                }
 
-            if ($validator->fails()) {
-                return back()
-                    ->withErrors($validator)
-                    ->withInput();
-            } else {
-                $form_progress = 'capa';
+
+                $validator = Validator::make($request->all(), [
+                    'capa_root_cause' => 'required',
+                    'CAPA_Rquired' => 'required|in:yes,no|not_in:0',
+                    'Post_Categorization' => 'required',
+                    'capa_type' => [
+                        'required_if:CAPA_Rquired,yes',
+                        function ($attribute, $value, $fail) use ($request) {
+                            if ($value === '0' && $request->CAPA_Rquired == 'yes') {
+                                $fail('The capa type field is required when CAPA required is set to yes.');
+                            }
+                        }
+                    ],
+                    'CAPA_Description' => 'required_if:CAPA_Rquired,yes',
+                ],  [
+                    'CAPA_Rquired.required' => 'Capa required field cannot be empty!',
+                ]);
+    
+                if ($validator->fails()) {
+                    return back()
+                        ->withErrors($validator)
+                        ->withInput();
+                } else {
+                    $form_progress = 'capa';
+                }
+                
             }
+
+
+
         }
 
         if ($request->form_name == 'qa-final')
@@ -1672,25 +1718,6 @@ class DeviationController extends Controller
         $deviation->others = $request->others;
         $deviation->Product_Batch = $request->Product_Batch;
 
-
-        $deviation->capa_number = $request->capa_number ? $request->capa_number : $deviation->capa_number;
-        $deviation->department_capa = $request->department_capa ? $request->department_capa : $deviation->department_capa;
-        $deviation->source_of_capa = $request->source_of_capa ? $request->source_of_capa : $deviation->source_of_capa;
-        $deviation->capa_others = $request->capa_others ? $request->capa_others : $deviation->capa_others;
-        $deviation->source_doc = $request->source_doc ? $request->source_doc : $deviation->source_doc;
-        $deviation->Description_of_Discrepancy = $request->Description_of_Discrepancy ? $request->Description_of_Discrepancy : $deviation->Description_of_Discrepancy;
-        $deviation->capa_root_cause = $request->capa_root_cause ? $request->capa_root_cause : $deviation->capa_root_cause;
-        $deviation->Immediate_Action_Take = $request->Immediate_Action_Take ? $request->Immediate_Action_Take : $deviation->Immediate_Action_Take;
-        $deviation->Corrective_Action_Details = $request->Corrective_Action_Details ? $request->Corrective_Action_Details : $deviation->Corrective_Action_Details;
-        $deviation->Preventive_Action_Details = $request->Preventive_Action_Details ? $request->Preventive_Action_Details : $deviation->Preventive_Action_Details;
-        $deviation->capa_completed_date = $request->capa_completed_date ? $request->capa_completed_date : $deviation->capa_completed_date;
-        $deviation->Interim_Control = $request->Interim_Control ? $request->Interim_Control : $deviation->Interim_Control;
-        $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
-        $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
-        $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
-
-
-
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
         if ($request->related_records) {
             $deviation->Related_Records1 =  implode(',', $request->related_records);
@@ -1711,6 +1738,13 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
+
+        $deviation->Conclusion = $request->Conclusion;
+        // dd($request->Conclusion);
+        $deviation->Identified_Risk = $request->Identified_Risk;
+        $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
+        $deviation->Occurrence = $request->Occurrence ? $request->Occurrence : $deviation->Occurrence;
+        $deviation->detection = $request->detection ? $request->detection: $deviation->detection;
 
         if ($deviation->stage < 6) {
             $deviation->CAPA_Rquired = $request->CAPA_Rquired;
@@ -2226,19 +2260,6 @@ class DeviationController extends Controller
 
             $deviation->Capa_attachment = json_encode($files);
         }
-
-        if (!empty ($request->CAPA_Closure_attachment)) {
-            $files = [];
-            if ($request->hasfile('CAPA_Closure_attachment')) {
-                foreach ($request->file('CAPA_Closure_attachment') as $file) {
-                    $name = $request->name . 'capa_closure_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                    $file->move('upload/', $name);
-                    $files[] = $name;
-                }
-            }
-            $deviation->Capa_attachment = json_encode($files);
-        }
-
         if (!empty ($request->QA_attachments)) {
 
             $files = [];
@@ -2278,7 +2299,7 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
-if($deviation->stage == 111){
+    if($deviation->stage > 0){
 
 
         //investiocation dynamic
@@ -2286,7 +2307,7 @@ if($deviation->stage == 111){
         $deviation->objective = $request->objective;
         $deviation->scope = $request->scope;
         $deviation->imidiate_action = $request->imidiate_action;
-        // $deviation->investigation_approach = implode(',', $request->investigation_approach);
+        $deviation->investigation_approach = is_array($request->investigation_approach) ? implode(',', $request->investigation_approach) : '';
         $deviation->attention_issues = $request->attention_issues;
         $deviation->attention_actions = $request->attention_actions;
         $deviation->attention_remarks = $request->attention_remarks;
@@ -3472,7 +3493,7 @@ if($deviation->stage == 111){
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Sent for QA Final review state'
+                        'message' => 'Sent for QA Head/Manager Designee Approval'
                     ]);
 
                 } else {
@@ -3547,7 +3568,7 @@ if($deviation->stage == 111){
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Deviation sent to Closed/Done state'
+                        'message' => 'Deviation sent to Intiator Update'
                     ]);
                 }
 
@@ -3638,7 +3659,7 @@ if($deviation->stage == 111){
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Deviation sent to Closed/Done state'
+                        'message' => 'Deviation sent to QA Final Approval.'
                     ]);
                 }
 
@@ -3713,10 +3734,105 @@ if($deviation->stage == 111){
                 toastr()->success('Document Sent');
                 return back();
             }
+
+
+            if ($deviation->stage == 8) {
+
+                if ($deviation->form_progress !== 'qah')
+                {
+
+                    Session::flash('swal', [
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'QAH/Designee Approval Tab is yet to be filled!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Deviation sent to Closed/Done state'
+                    ]);
+                }
+
+                $extension = Extension::where('parent_id', $deviation->id)->first();
+
+                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
+
+                if ($extension && $extension->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'Extension record pending!',
+                        'message' => 'There is an Extension record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                if ($rca && $rca->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'RCA record pending!',
+                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                // return "PAUSE";
+
+                $deviation->stage = "9";
+                $deviation->status = "Closed-Done";
+                $deviation->Approved_By = Auth::user()->name;
+                $deviation->Approved_On = Carbon::now()->format('d-M-Y');
+                $deviation->Approved_Comments = $request->comment;
+
+                $history = new DeviationAuditTrail();
+                $history->deviation_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->action ='Closed-Done';
+                $history->current = $deviation->Approved_By;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "Closed-Done";
+                $history->change_from = $lastDocument->status;
+                $history->stage = 'Completed';
+                $history->save();
+                $list = Helpers::getQAUserList();
+                foreach ($list as $u) {
+                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Exception $e) {
+                                //log error
+                            }
+                        }
+                    }
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
         } else {
             toastr()->error('E-signature Not match');
             return back();
         }
+
+
     }
     public function cftnotreqired(Request $request, $id)
     {
@@ -4166,6 +4282,76 @@ if($deviation->stage == 111){
             return back();
         }
     }
+
+
+    public function pending_initiator_update(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+            // $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
+            $list = Helpers::getInitiatorUserList();
+           // Soft delete all records
+        //    $cftResponse->each(function ($response) {
+        //     $response->delete();
+        // });
+
+
+        $deviation->stage = "7";
+        $deviation->status = "Pending Initiator Update";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Send to Pending Initiator Update';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to Pending Initiator Update";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
+
+                    try {
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Activity Performed By " . Auth::user()->name);
+                            }
+                        );
+                    } catch (\Exception $e) {
+                        //log error
+                    }
+                }
+            }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
 
     public function check(Request $request, $id)
     {

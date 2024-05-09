@@ -164,6 +164,7 @@ Route::group(['prefix' => 'rcms'], function () {
             // Route::post('deviation/cftnotrequired/{id}', [DeviationController::class, 'deviationIsCFTRequired'])->name('deviationIsCFTRequired');
             Route::post('deviation/reject/{id}', [DeviationController::class, 'deviation_reject'])->name('deviation_reject');
             Route::post('deviation/check/{id}', [DeviationController::class, 'check'])->name('check');
+            Route::post('deviation/pending_initiator_update/{id}', [DeviationController::class, 'pending_initiator_update'])->name('pending_initiator_update');
             Route::post('deviation/check2/{id}', [DeviationController::class, 'check2'])->name('check2');
             Route::post('deviation/check3/{id}', [DeviationController::class, 'check3'])->name('check3');
             Route::post('deviation/cftnotreqired/{id}', [DeviationController::class, 'cftnotreqired'])->name('cftnotreqired');

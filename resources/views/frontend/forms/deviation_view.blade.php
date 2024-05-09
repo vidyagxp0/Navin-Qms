@@ -595,7 +595,7 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Initiator Updated Complete
                             </button>
-                        @elseif($data->stage == 7 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                        @elseif($data->stage == 8 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
@@ -605,8 +605,11 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
                                 Send to QA Initial Review
                             </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
+                            Send to Pending Initiator Update
+                            </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                Initiator Updated Complete
+                            QA Final Review Complete
                             </button>
                         @endif
                         <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
@@ -750,6 +753,20 @@
 
                     var submitButton = signatureForm.querySelector('.signatureModalButton');
                     var spinner = signatureForm.querySelector('.signatureModalSpinner');
+
+                    submitButton.disabled = true;
+
+                    spinner.style.display = 'inline-block';
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var signatureForm = document.getElementById('pendingInitiatorForm');
+
+                signatureForm.addEventListener('submit', function(e) {
+
+                    var submitButton = signatureForm.querySelector('.pendingInitiatorModalButton');
+                    var spinner = signatureForm.querySelector('.pendingInitiatorModalSpinner');
 
                     submitButton.disabled = true;
 
@@ -7806,127 +7823,502 @@
                                 </span>
                             </label>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="investigation_Details_Details"
-                                    style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 12%">Investigation Team</th>
-                                            <th style="width: 16%">Responsibility</th>
-                                            <th style="width: 16%">Remarks</th>
-                                            <th style="width: 8%">Action</th>
+                                            <table class="table table-bordered" id="investigation_Details_Details"
+                                                style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 4%">Row#</th>
+                                                        <th style="width: 12%">Investigation Team</th>
+                                                        <th style="width: 16%">Responsibility</th>
+                                                        <th style="width: 16%">Remarks</th>
+                                                        <th style="width: 8%">Action</th>
 
 
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td><input disabled type="text" name="investication[0][serial]"
-                                                value="1"></td>
-                                        <td> <select name="investication[0][investioncation_team]" id="">
-                                                <option value="">-- Select --</option>
-                                                <option value="">name</option>
-                                            </select> </td>
-                                        <td><input type="text" class="numberDetail"
-                                                name="investication[0][responsibility]"></td>
-                                        <td><input type="text" class="Document_Remarks"
-                                                name="investication[0][remarks]"></td>
-                                        <td><input type="text" class="Action" name=""></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @if ($investigation_data && is_array($investigation_data->data))
+                                                    <!-- {{-- {{ count($investigation_data->data) }} --}} -->
+                                                    @foreach ($investigation_data->data as $investigation_data)
+                                                    <tr>
+                                                        <td>
+                                                            <input disabled type="text" name="investication[{{ $loop->index }}][serial]" value="1">
+                                                        </td>
+                                                        <td>
+                                                            <select name="investication[{{ $loop->index }}][investioncation_team]" id="">
+                                                                <option value="">-- Select --</option>
+                                                                <option value="name" {{ $investigation_data['investioncation_team'] == 'name' ? 'selected' : '' }}>name</option> </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numberDetail" name="investication[{{ $loop->index }}][responsibility]" value="{{ $investigation_data['responsibility'] }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="Document_Remarks" name="investication[{{ $loop->index }}][remarks]" value="{{ $investigation_data['remarks'] }}">
+                                                        </td>
+                                                        <td><input type="text" class="Action" name=""></td>
+                                                    </tr>
+                                                    @endforeach
+                                                @else
+                                                    <td><input disabled type="text" name="investication[0][serial]" value="1"></td>
+                                                    <td> <select name="investication[0][investioncation_team]" id=""> <option value="">-- Select --</option><option value="">name</option> </select> </td>
+                                                    <td><input type="text" class="numberDetail" name="investication[0][responsibility]"></td>
+                                                    <td><input type="text" class="Document_Remarks" name="investication[0][remarks]"></td>
+                                                    <td><input type="text" class="Action" name=""></td>
+                                                @endif
 
 
-                                    </tbody>
 
-                                </table>
-                            </div>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
                         </div>
-                        {{-- @error('Product_Batch')
+                        <!-- @error('Product_Batch')
                                         <div class="text-danger">{{ $message  }}</div>
-                                    @enderror --}}
+                                    @enderror -->
                     </div>
 
                     <div class="col-lg-12">
-                        <div class="group-input">
-                            <label for="audit type">Investigation Approach </label>
-                            <select multiple name="investigation_approach[]" id="investigation_approach">
-                                {{-- <option value="">Enter Your Selection Here</option> --}}
-                                <option value="Why-Why Chart"
-                                    {{ strpos($data->investigation_approach, 'Why-Why Chart') !== false ? 'selected' : '' }}>
-                                    Why-Why Chart</option>
-                                <option value="Failure Mode and Efect Analysis"
-                                    {{ strpos($data->investigation_approach, 'Failure Mode and Efect Analysis') !== false ? 'selected' : '' }}>
-                                    Failure Mode and Efect Analysis</option>
-                                <option value="Fishbone or Ishikawa Diagram"
-                                    {{ strpos($data->investigation_approach, 'Fishbone or Ishikawa Diagram') !== false ? 'selected' : '' }}>
-                                    Fishbone or Ishikawa Diagram</option>
-                                <option value="Is/Is Not Analysis"
-                                    {{ strpos($data->investigation_approach, 'Is/Is Not Analysis') !== false ? 'selected' : '' }}>
-                                    Is/Is Not Analysis</option>
-                                <option value="Brainstorming"
-                                    {{ strpos($data->investigation_approach, 'Brainstorming') !== false ? 'selected' : '' }}>
-                                    Brainstorming</option>
+                                <div class="group-input">
+                                    <label for="audit type">Investigation Approach </label>
+                                    <select multiple name="investigation_approach[]" id="investigation_approach">
+                                        {{-- <option value="">Enter Your Selection Here</option> --}}
+                                        <option value="Why-Why Chart" {{ strpos($data->investigation_approach, 'Why-Why Chart') !== false ? 'selected' : '' }}>Why-Why Chart</option>
+                                        <option value="Failure Mode and Efect Analysis" {{ strpos($data->investigation_approach, 'Failure Mode and Efect Analysis') !== false ? 'selected' : '' }}>Failure Mode and Efect Analysis</option>
+                                        <option value="Fishbone or Ishikawa Diagram" {{ strpos($data->investigation_approach, 'Fishbone or Ishikawa Diagram') !== false ? 'selected' : '' }}>Fishbone or Ishikawa Diagram</option>
+                                        <option value="Is/Is Not Analysis" {{ strpos($data->investigation_approach, 'Is/Is Not Analysis') !== false ? 'selected' : '' }}>Is/Is Not Analysis</option>
+                                        <option value="Brainstorming" {{ strpos($data->investigation_approach, 'Brainstorming') !== false ? 'selected' : '' }}>Brainstorming</option>
 
 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="group-input" id="documentsRowname">
-                            <label for="audit-agenda-grid">
-                                Root Cause
-                                <button type="button" name="audit-agenda-grid" id="root_cause_Details">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Launch Instruction)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="Root_cause_Details_Details"
-                                    style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 12%"> Root Cause Category</th>
-                                            <th style="width: 16%">Root Cause Sub-Category</th>
-                                            <th style="width: 16%">If Others</th>
-
-                                            <th style="width: 16%"> Probability</th>
-                                            <th style="width: 16%"> Remarks</th>
-
-                                            <th style="width: 8%">Action</th>
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td><input disabled type="text" name="rootCause[0][serial]" value="1">
-                                        </td>
-                                        <td> <select name="rootCause[0][root_cause_category]" id="">
-                                                <option value="">-- Select --</option>
-                                                <option value="">name </option>
-                                            </select></td>
-                                        <td><select name="rootCause[0][root_cause_sub_category]" id="">
-                                                <option value="">-- Select --</option>
-                                                <option value="">name</option>
-                                            </select></td>
-                                        <td><input type="text" class="Document_Remarks"
-                                                name="rootCause[0][ifother]"></td>
-                                        <td><input type="text" class="Document_Remarks"
-                                                name="rootCause[0][probability]"></td>
-                                        <td><input type="text" class="Document_Remarks"
-                                                name="rootCause[0][remarks]"></td>
-                                        <td><input type="text" class="Removebtn" name="Action[]"></td>
-
-
-                                    </tbody>
-
-                                </table>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        {{-- @error('Product_Batch')
+                    <script>
+                                $(document).ready(function () {
+                                    $('#Root_Cause_Category_Select').change(function () {
+                                        console.log('change')
+                                        var selectedCategory = $(this).val();
+                                        var subCategorySelect = $('#Root_Cause_Sub_Category_Select');
+
+                                        // Clear existing options
+                                        subCategorySelect.empty();
+
+                                        // Populate options based on selected category
+                                        if (selectedCategory === 'M-Machine(Equipment)') {
+                                            subCategorySelect.append('<option value="Infrequent_Audits">Infrequent Audits</option>');
+                                            subCategorySelect.append('<option value="No_Preventive_Maintenance">No Preventive Maintenance</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>');
+                                            subCategorySelect.append('<option value="Maintenance Needs Improvement">Maintenance Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Scheduling Problem">Scheduling Problem</option>');
+                                            subCategorySelect.append('<option value="System Deficiency">System Deficiency</option>');
+                                            subCategorySelect.append('<option value="Technical Error">Technical Error</option>');
+                                            subCategorySelect.append('<option value="Tolerable Failure">Tolerable Failure</option>');
+                                            subCategorySelect.append('<option value="Calibration Issues">Calibration Issues</option>');
+
+
+
+                                        } else if (selectedCategory === 'M-Maintenance') {
+                                            subCategorySelect.append('<option value="Infrequent_Audits">Infrequent Audits</option>');
+                                            subCategorySelect.append('<option value="No_Preventive_Maintenance">No Preventive Maintenance</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Scheduling Problem">Scheduling Problem</option>');
+                                            subCategorySelect.append('<option value="System Deficiency">System Deficiency</option>');
+                                            subCategorySelect.append('<option value="Technical Error">Technical Error</option>');
+                                            subCategorySelect.append('<option value="Tolerable Failure">Tolerable Failure</option>');
+
+
+
+                                        } else if (selectedCategory === 'M-Man Power (physical work)') {
+                                            subCategorySelect.append('<option value="Failure_to_Follow_SOP">Failure to Follow SOP</option>');
+                                            subCategorySelect.append('<option value="Human_Machine_Interface">Human-Machine Interface</option>');
+                                            subCategorySelect.append('<option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Personnel Error">Personnel Error</option>');
+                                            subCategorySelect.append('<option value="Personnel not Qualified">Personnel not Qualified</option>');
+                                            subCategorySelect.append('<option value="Practice Needed">Practice Needed</option>');
+                                            subCategorySelect.append('<option value="Teamwork Needs Improvement">Teamwork Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Attention">Attention</option>');
+                                            subCategorySelect.append('<option value="Understanding">Understanding</option>');
+                                            subCategorySelect.append('<option value="Procedural ">Procedural </option>');
+                                            subCategorySelect.append('<option value="Behavioral">Behavioral</option>');
+                                            subCategorySelect.append('<option value="Skill">Skill</option>');
+
+                                        }
+                                        else if(selectedCategory === 'M-Management'){
+                                            subCategorySelect.append('<option value="Inattention to task">Inattention to task</option>');
+                                            subCategorySelect.append('<option value="Lack of Process">Lack of Process</option>');
+                                            subCategorySelect.append('<option value="Methods">Methods</option>');
+                                            subCategorySelect.append('<option value="No or poor management involvement">No or poor management involvement</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Personnel not Qualified">Personnel not Qualified</option>');
+                                            subCategorySelect.append('<option value="Poor employee involvement">Poor employee involvement</option>');
+                                            subCategorySelect.append('<option value="Poor recognition of hazard">Poor recognition of hazard</option>');
+                                            subCategorySelect.append('<option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option>');
+                                            subCategorySelect.append('<option value="Stress demands">Stress demands</option>');
+                                            subCategorySelect.append('<option value="Task hazards not guarded properly">Task hazards not guarded properly</option>');
+                                            subCategorySelect.append('<option value="Training or education lacking">Training or education lacking</option>');
+                                         }
+                                         else if(selectedCategory === 'M-Material (Raw,Consumables etc.)'){
+                                            subCategorySelect.append('<option value="Defective equipment or tool">Defective equipment or tool</option>');
+                                            subCategorySelect.append('<option value="Defective raw material">Defective raw material</option>');
+                                            subCategorySelect.append('<option value="Incorrect tool selection">Incorrect tool selection</option>');
+                                            subCategorySelect.append('<option value="Lack of raw material">Lack of raw material</option>');
+                                            subCategorySelect.append('<option value="Machine / Equipment">Machine / Equipment</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Poor equipment or tool placement">Poor equipment or tool placement</option>');
+                                            subCategorySelect.append('<option value="Poor maintenance or design">Poor maintenance or design</option>');
+                                            subCategorySelect.append('<option value="Wrong type for job">Wrong type for job</option>');
+
+                                        }
+                                        else if(selectedCategory === 'M-Method (Process/Inspection)'){
+                                            subCategorySelect.append('<option value="Instruction Needs Improvement">Instruction Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Learning Objective Needs Improvement">Learning Objective Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Poor employee involvement">Poor employee involvement</option>');
+                                            subCategorySelect.append('<option value="Poor recognition of hazard">Poor recognition of hazard</option>');
+                                            subCategorySelect.append('<option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option>');
+                                            subCategorySelect.append('<option value="Scheduling Problem">Scheduling Problem</option>');
+                                            subCategorySelect.append('<option value="Training or education lacking">Training or education lacking</option>');
+                                            subCategorySelect.append('<option value="Wrong Sequence">Wrong Sequence</option>');
+                                         }
+
+                                        else if(selectedCategory === 'M-Mother Nature (Environment)'){
+                                            subCategorySelect.append('<option value="Forces of nature">Forces of nature</option>');
+                                            subCategorySelect.append('<option value="Job design or layout of work">Job design or layout of work</option>');
+                                            subCategorySelect.append('<option value="Orderly workplace">Orderly workplace</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Physical demands of the task">Physical demands of the task</option>');
+                                            subCategorySelect.append('<option value="Surfaces poorly maintained">Surfaces poorly maintained</option>');
+                                         }
+                                        else if(selectedCategory === 'P-Place/Plant'){
+                                            subCategorySelect.append('<option value="Forces of nature">Forces of nature</option>');
+                                            subCategorySelect.append('<option value="Job design or layout of work">Job design or layout of work</option>');
+                                            subCategorySelect.append('<option value="Orderly workplace">Orderly workplace</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Physical demands of the task">Physical demands of the task</option>');
+                                            subCategorySelect.append('<option value="Surfaces poorly maintained">Surfaces poorly maintained</option>');
+
+                                        }
+                                        else if(selectedCategory === 'P-Policies'){
+                                            subCategorySelect.append('<option value="Instruction Needs Improvement">Instruction Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Learning Objective Needs Improvement">Learning Objective Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="No Standard / Policy">No Standard / Policy</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Wrong Revision Used">Wrong Revision Used</option>');
+
+
+                                        }
+                                        else if(selectedCategory === 'P-Price'){
+                                            subCategorySelect.append('<option value="No Budget">No Budget</option>');
+                                            subCategorySelect.append('<option value="No Preparation">No Preparation</option>');
+                                            subCategorySelect.append('<option value="No Standard / Policy">No Standard / Policy</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Wrong Estimation">Wrong Estimation</option>');
+
+
+                                        }
+                                        else if(selectedCategory === 'P-Procedures'){
+                                            subCategorySelect.append('<option value="Learning Objective Needs Improvement">Learning Objective Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Management system">Management system</option>');
+                                            subCategorySelect.append('<option value="No or poor procedures">No or poor procedures</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Poor communication">Poor communication</option>');
+                                            subCategorySelect.append('<option value="Poor employee involvement">Poor employee involvement</option>');
+                                            subCategorySelect.append('<option value="Practices are not the same as written procedures">Practices are not the same as written procedures</option>');
+                                            subCategorySelect.append('<option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option>');
+                                            subCategorySelect.append('<option value="Procedure Difficult to Use">Procedure Difficult to Use</option>');
+                                            subCategorySelect.append('<option value="Training or education lacking">Training or education lacking</option>');
+                                            subCategorySelect.append('<option value="Wrong Revision Used">Wrong Revision Used</option>');
+
+                                        }
+
+                                        else if(selectedCategory === 'P-Process'){
+                                            subCategorySelect.append('<option value="Instruction Needs Improvement">Instruction Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Learning Objective Needs Improvement">Learning Objective Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Poor employee involvement">Poor employee involvement</option>');
+                                            subCategorySelect.append('<option value="Poor recognition of hazard">Poor recognition of hazard</option>');
+                                            subCategorySelect.append('<option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option>');
+                                            subCategorySelect.append('<option value="Scheduling Problem">Scheduling Problem</option>');
+                                            subCategorySelect.append('<option value="Training or education lacking">Training or education lacking</option>');
+                                            subCategorySelect.append('<option value="Wrong Sequence">Wrong Sequence</option>');
+
+
+                                        }
+
+                                        else if(selectedCategory === 'P-Product'){
+                                            subCategorySelect.append('<option value="Defective equipment or tool">Defective equipment or tool</option>');
+                                            subCategorySelect.append('<option value="Defective raw material">Defective raw material</option>');
+                                            subCategorySelect.append('<option value="Incorrect tool selection">Incorrect tool selection</option>');
+                                            subCategorySelect.append('<option value="Lack of raw material">Lack of raw material</option>');
+                                            subCategorySelect.append('<option value="Machine / Equipment">Machine / Equipment</option>');
+                                            subCategorySelect.append('<option value="Poor equipment or tool placement">Poor equipment or tool placement</option>');
+                                            subCategorySelect.append('<option value="Poor maintenance or design">Poor maintenance or design</option>');
+                                            subCategorySelect.append('<option value="Wrong type for job">Wrong type for job</option>');
+
+
+                                        }
+
+                                        else if(selectedCategory === 'S-Suppliers'){
+                                            subCategorySelect.append('<option value="Infrequent Audits">Infrequent Audits</option>');
+                                            subCategorySelect.append('<option value="Misunderstood Verbal Communication">Misunderstood Verbal Communication</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Personnel not Qualified">Personnel not Qualified</option>');
+                                            subCategorySelect.append('<option value="Shift Change Communication">Shift Change Communication</option>');
+                                            subCategorySelect.append('<option value="Task Not Analyzed">Task Not Analyzed</option>');
+                                           }
+
+                                        else if(selectedCategory === 'S-Surroundings'){
+                                            subCategorySelect.append('<option value="Forces of nature">Forces of nature</option>');
+                                            subCategorySelect.append('<option value="Job design or layout of work">Job design or layout of work</option>');
+                                            subCategorySelect.append('<option value="Orderly workplace">Orderly workplace</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Physical demands of the task">Physical demands of the task</option>');
+                                            subCategorySelect.append('<option value="Surfaces poorly maintained">Surfaces poorly maintained</option>');
+
+
+                                        }
+
+                                        else if(selectedCategory === 'S-Systems'){
+                                            subCategorySelect.append('<option value="Infrequent Audits">Infrequent Audits</option>');
+                                            subCategorySelect.append('<option value="No Preventive Maintenance">No Preventive Maintenance</option>');
+                                            subCategorySelect.append('<option value="Other">Other</option>');
+                                            subCategorySelect.append('<option value="Poor maintenance or design">Poor maintenance or design</option>');
+                                            subCategorySelect.append('<option value="Maintenance Needs Improvement">Maintenance Needs Improvement</option>');
+                                            subCategorySelect.append('<option value="Scheduling Problem">Scheduling Problem</option>');
+                                            subCategorySelect.append('<option value="System Deficiency">System Deficiency</option>');
+                                            subCategorySelect.append('<option value="Technical Error">Technical Error</option>');
+                                            subCategorySelect.append('<option value="Tolerable Failure">Tolerable Failure</option>');
+
+                                        }
+                                    });
+                                });
+                            </script>
+
+
+                    <div class="col-lg-12">
+                                <div class="group-input" id="documentsRowname" >
+                                    <label for="audit-agenda-grid">
+                                      Root Cause
+                                        <button type="button" name="audit-agenda-grid"
+                                            id="root_cause_Details">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#document-details-field-instruction-modal"
+                                            style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="Root_cause_Details_Details"
+                                            style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 4%">Row#</th>
+                                                    <th style="width: 12%">	Root Cause Category</th>
+                                                    <th style="width: 16%">Root Cause Sub-Category</th>
+                                                    <th style="width: 16%">If Others</th>
+
+                                                    <th style="width: 16%">	Probability</th>
+                                                    <th style="width: 16%">	Remarks</th>
+
+                                                    <th style="width: 8%">Action</th>
+
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @if ($root_cause_data && is_array($root_cause_data->data))
+                                                    
+                                                    <!-- {{ count($root_cause_data->data) }} -->
+                                                    @foreach ($root_cause_data->data as $root_cause_dat)
+                                                    <tr>
+                                                        <td>
+                                                            <input disabled type="text" name="rootCause[{{ $loop->index }}][serial]" value="1">
+                                                        </td>
+                                                        <td>
+                                                            <select name="rootCause[{{ $loop->index }}][Root_Cause_Category]" id="Root_Cause_Category_Select">
+                                                                <option value="">-- Select --</option>
+
+                                                                <option value="M-Machine(Equipment)" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'M-Machine(Equipment)' ? 'selected' : '' }}>M-Machine(Equipment)</option>
+                                                                <option value="M-Maintenance" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'M-Maintenance' ? 'selected' : '' }}>M-Maintenance</option>
+                                                                <option value="M-Man Power (physical work)" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'M-Man Power (physical work)' ? 'selected' : '' }}>M-Man Power (physical work)</option>
+                                                                <option value="M-Management" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == '"M-Management' ? 'selected' : '' }}>M-Management</option>
+                                                                <option value="M-Material (Raw,Consumables etc.)" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'M-Material (Raw,Consumables etc.)' ? 'selected' : '' }}>M-Material (Raw,Consumables etc.)</option>
+                                                                <option value="M-Method (Process/Inspection)" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'M-Method (Process/Inspection)' ? 'selected' : '' }}>M-Method (Process/Inspection)</option>
+                                                                <option value="M-Mother Nature (Environment)" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'M-Mother Nature (Environment)' ? 'selected' : '' }}>M-Mother Nature (Environment)</option>
+                                                                <option value="P-Place/Plant" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'P-Place/Plant' ? 'selected' : '' }}>P-Place/Plant</option>
+                                                                <option value="P-Policies" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'P-Policies' ? 'selected' : '' }}>P-Policies</option>
+                                                                <option value="P-Price" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'P-Price' ? 'selected' : '' }}>P-Price </option>
+                                                                <option value="P-Procedures" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'P-Procedures' ? 'selected' : '' }}>P-Procedures</option>
+                                                                <option value="P-Process" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'P-Process' ? 'selected' : '' }}>P-Process </option>
+                                                                <option value="P-Product" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'P-Product' ? 'selected' : '' }}>P-Product</option>
+                                                                <option value="S-Suppliers" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'S-Suppliers' ? 'selected' : '' }}>S-Suppliers</option>
+                                                                <option value="S-Surroundings" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'S-Surroundings' ? 'selected' : '' }}>S-Surroundings</option>
+                                                                <option value="S-Systems" {{ array_key_exists('Root_Cause_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Category'] == 'S-Systems' ? 'selected' : '' }}>S-Systems</option>
+
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select name="rootCause[{{ $loop->index }}][Root_Cause_Sub_Category]" id="Root_Cause_Sub_Category_Select">
+                                                                <option value="">-- Select --</option>
+
+                                                                <option value="infrequent_audits" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'infrequent_audits' ? 'selected' : '' }}>Infrequent Audits </option>
+                                                                <option value="No_Preventive_Maintenance {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) &&  $root_cause_dat['Root_Cause_Sub_Category'] == 'No_Preventive_Maintenance' ? 'selected' : '' }}">No Preventive Maintenance </option>
+                                                                <option value="Other" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Other' ? 'selected' : '' }}>Other</option>
+                                                                <option value="Poor_Maintenance_or_Design" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Poor_Maintenance_or_Design' ? 'selected' : '' }}>Poor Maintenance or Design </option>
+                                                                <option value="Maintenance_Needs_Improvement" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Maintenance_Needs_Improvement' ? 'selected' : '' }}>Maintenance Needs Improvement </option>
+                                                                <option value="Scheduling_Problem" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Scheduling_Problem' ? 'selected' : '' }}>Scheduling Problem </option>
+                                                                <option value="system_deficiency" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'system_deficiency' ? 'selected' : '' }}>System Deficiency </option>
+                                                                <option value="technical_error" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'technical_error' ? 'selected' : '' }}>Technical Error </option>
+                                                                <option value="tolerable_failure" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'tolerable_failure' ? 'selected' : '' }}>Tolerable Failure </option>
+                                                                <option value="calibration_issues" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'calibration_issues' ? 'selected' : '' }}>Calibration Issues </option>
+
+                                                                <option value="Infrequent_Audits" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'infrequent_audits' ? 'selected' : '' }}>Infrequent Audits</option>
+                                                                <option value="No_Preventive_Maintenance" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'No_Preventive_Maintenance' ? 'selected' : '' }}>No Preventive Maintenance </option>
+                                                                <option value="Other" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Other' ? 'selected' : '' }}>Other</option>
+                                                                <option value="Maintenance_Needs_Improvement" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Maintenance_Needs_Improvement' ? 'selected' : '' }}>Maintenance Needs Improvement</option>
+                                                                <option value="Scheduling_Problem " {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Scheduling_Problem' ? 'selected' : '' }}>Scheduling Problem </option>
+                                                                <option value="System_Deficiency" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'System_Deficiency' ? 'selected' : '' }}>System Deficiency </option>
+                                                                <option value="Technical_Error " {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Technical_Error' ? 'selected' : '' }}>Technical Error </option>
+                                                                <option value="Tolerable_Failure" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Tolerable_Failure' ? 'selected' : '' }}>Tolerable Failure </option>
+
+
+                                                                <option value="Failure_to_Follow_SOP" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Failure_to_Follow_SOP' ? 'selected' : '' }}>Failure to Follow SOP</option>
+                                                                <option value="Human_Machine_Interface" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Human_Machine_Interface' ? 'selected' : '' }}>Human-Machine Interface</option>
+                                                                <option value="Misunderstood_Verbal_Communication" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Misunderstood_Verbal_Communication' ? 'selected' : '' }}>Misunderstood Verbal Communication </option>
+                                                                <option value="Other" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) &&$root_cause_dat['Root_Cause_Sub_Category'] == 'Other' ? 'selected' : '' }}>Other</option>
+                                                                <option value="Personnel Error" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Personnel Error' ? 'selected' : '' }}>Personnel Error</option>
+                                                                <option value="Personnel not Qualified" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Personnel not Qualified' ? 'selected' : '' }}>Personnel not Qualified</option>
+                                                                <option value="Practice Needed" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Practice Needed' ? 'selected' : '' }}>Practice Needed</option>
+                                                                <option value="Teamwork Needs Improvement" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Teamwork Needs Improvement' ? 'selected' : '' }}>Teamwork Needs Improvement</option>
+                                                                <option value="Attention" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Attention' ? 'selected' : '' }}>Attention</option>
+                                                                <option value="Understanding" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Understanding' ? 'selected' : '' }}>Understanding</option>
+                                                                <option value="Procedural" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Procedural' ? 'selected' : '' }}>Procedural</option>
+                                                                <option value="Behavioral" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Behavioral' ? 'selected' : '' }}>Behavioral</option>
+                                                                <option value="Skill" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Skill' ? 'selected' : '' }}>Skill</option>
+
+                                                                <option value="Inattention to task" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Inattention to task' ? 'selected' : '' }}>Inattention to task</option>
+                                                                <option value="Lack of Process" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Lack of Process' ? 'selected' : '' }}>Lack of Process</option>
+                                                                <option value="Methods" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Methods' ? 'selected' : '' }}>Methods</option>
+                                                                <option value="No or Poor Management Involvement" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'No or Poor Management Involvement' ? 'selected' : '' }}>No or Poor Management Involvement</option>
+                                                                <option value="Other" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Other' ? 'selected' : '' }}>Other</option>
+                                                                <option value="Personnel not Qualified"  {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Personnel not Qualified' ? 'selected' : '' }}>Personnel not Qualified</option>
+                                                                <option value="Poor employee involvement" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Poor employee involvement' ? 'selected' : '' }}>Poor employee involvement</option>
+                                                                <option value="Poor recognition of hazard" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Poor recognition of hazard' ? 'selected' : '' }}>Poor recognition of hazard</option>
+                                                                <option value="Previously identified hazards were not eliminated" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Previously identified hazards were not eliminated' ? 'selected' : '' }}>Previously identified hazards were not eliminated</option>
+                                                                <option value="Stress demands" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Stress demands' ? 'selected' : '' }}>Stress demands</option>
+                                                                <option value="Task hazards not guarded properly" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Task hazards not guarded properly' ? 'selected' : '' }}>Task hazards not guarded properly</option>
+                                                                <option value="Personnel not Qualified" {{ array_key_exists('Root_Cause_Sub_Category', $root_cause_dat) && $root_cause_dat['Root_Cause_Sub_Category'] == 'Personnel not Qualified' ? 'selected' : '' }}>Personnel not Qualified</option>
+
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="Document_Remarks" name="rootCause[{{ $loop->index }}][ifother]" value="{{ array_key_exists('ifother', $root_cause_dat) ? $root_cause_dat['ifother']  : ''}}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="Document_Remarks" name="rootCause[{{ $loop->index }}][probability]" value="{{ array_key_exists('probability', $root_cause_dat) ? $root_cause_dat['probability'] : '' }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="Document_Remarks" name="rootCause[{{ $loop->index }}][remarks]" value="{{ array_key_exists('remarks', $root_cause_dat) ? $root_cause_dat['remarks'] : '' }}">
+                                                        </td>
+                                                        <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                                    </tr>
+                                                    @endforeach
+                                                @else
+                                                    <td><input disabled type="text" name="rootCause[0][serial]" value="1"></td>
+                                                    <td><select name="rootCause[0][Root_Cause_Category]" id="Root_Cause_Category_Select">
+                                                        <option value="">-- Select --</option>
+
+                                                        <option value="M-Machine(Equipment)">M-Machine(Equipment)</option>
+                                                        <option value="M-Maintenance">M-Maintenance</option>
+                                                        <option value="M-Man Power (physical work)">M-Man Power (physical work)</option>
+                                                        <option value="M-Management">M-Management</option>
+                                                        <option value="M-Material (Raw,Consumables etc.)">M-Material (Raw,Consumables etc.)</option>
+                                                        <option value="M-Method (Process/Inspection)">M-Method (Process/Inspection)</option>
+                                                        <option value="M-Mother Nature (Environment)">M-Mother Nature (Environment)</option>
+                                                        <option value="P-Place/Plant">P-Place/Plant</option>
+                                                        <option value="P-Policies">P-Policies</option>
+                                                        <option value="P-Price">P-Price </option>
+                                                        <option value="P-Procedures">P-Procedures</option>
+                                                        <option value="P-Process">P-Process </option>
+                                                        <option value="P-Product">P-Product</option>
+                                                        <option value="S-Suppliers">S-Suppliers</option>
+                                                        <option value="S-Surroundings">S-Surroundings</option>
+                                                        <option value="S-Systems">S-Systems</option>
+
+                                                    </select></td>
+                                                    <td><select name="rootCause[0][Root_Cause_Sub_Category]" id="Root_Cause_Sub_Category_Select">
+                                                        <option value="">-- Select --</option>
+
+                                                        <option value="infrequent_audits">Infrequent Audits </option>
+                                                        <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
+                                                        <option value="Other">Other</option>
+                                                        <option value="Poor_Maintenance_or_Design">Poor Maintenance or Design </option>
+                                                        <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement </option>
+                                                        <option value="Scheduling_Problem">Scheduling Problem </option>
+                                                        <option value="system_deficiency">System Deficiency </option>
+                                                        <option value="technical_error">Technical Error </option>
+                                                        <option value="tolerable_failure">Tolerable Failure </option>
+                                                        <option value="calibration_issues">Calibration Issues </option>
+
+                                                        <option value="Infrequent_Audits">Infrequent Audits</option>
+                                                        <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
+                                                        <option value="Other">Other</option>
+                                                        <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option>
+                                                        <option value="Scheduling_Problem ">Scheduling Problem </option>
+                                                        <option value="System_Deficiency">System Deficiency </option>
+                                                        <option value="Technical_Error ">Technical Error </option>
+                                                        <option value="Tolerable_Failure">Tolerable Failure </option>
+
+
+                                                        <option value="Failure_to_Follow_SOP">Failure to Follow SOP</option>
+                                                        <option value="Human_Machine_Interface">Human-Machine Interface</option>
+                                                        <option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication </option>
+                                                        <option value="Other">Other</option>
+                                                        <option value="Personnel Error">Personnel Error</option>
+                                                        <option value="Personnel not Qualified">Personnel not Qualified</option>
+                                                        <option value="Practice Needed">Practice Needed</option>
+                                                        <option value="Teamwork Needs Improvement">Teamwork Needs Improvement</option>
+                                                        <option value="Attention">Attention</option>
+                                                        <option value="Understanding">Understanding</option>
+                                                        <option value="Procedural">Procedural</option>
+                                                        <option value="Behavioral">Behavioral</option>
+                                                        <option value="Skill">Skill</option>
+
+                                                        <option value="Inattention to task">Inattention to task</option>
+                                                        <option value="Lack of Process">Lack of Process</option>
+                                                        <option value="Methods">Methods</option>
+                                                        <option value="No or Poor Management Involvement">No or Poor Management Involvement</option>
+                                                        <option value="Other">Other</option>
+                                                        <option value="Personnel not Qualified">Personnel not Qualified</option>
+                                                        <option value="Poor employee involvement">Poor employee involvement</option>
+                                                        <option value="Poor recognition of hazard">Poor recognition of hazard</option>
+                                                        <option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option>
+                                                        <option value="Stress demands">Stress demands</option>
+                                                        <option value="Task hazards not guarded properly">Task hazards not guarded properly</option>
+                                                        <option value="Personnel not Qualified">Personnel not Qualified</option>
+
+                                                    </select></td>
+                                                    <td><input type="text" class="Document_Remarks" name="rootCause[0][ifother]"></td>
+                                                    <td><input type="text" class="Document_Remarks" name="rootCause[0][probability]"></td>
+                                                    <td><input type="text" class="Document_Remarks" name="rootCause[0][remarks]"></td>
+                                                    <td><input type="text" class="Removebtn" name="Action[]"></td>
+
+                                                @endif
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- {{-- @error('Product_Batch')
                                     <div class="text-danger">{{ $message  }}</div>
-                                @enderror --}}
-                    </div>
+                                @enderror --}} -->
+                            </div>
 
 
                     <div class="col-12 sub-head"></div>
@@ -8077,98 +8469,100 @@
                                     (Launch Instruction)
                                 </span>
                             </label>
+                            
                             <div class="why-why-chart">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:7%;">Row #</th>
-                                            <th style="width:15%;">Gap Category</th>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:7%;">Row #</th>
+                                                <th style="width:15%;">Gap Category</th>
 
-                                            <th>Issues</th>
-                                            <th>Actions</th>
-                                            <th>Remarks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                {{-- <input disabled type="text"  value=""> --}}
-                                                1
-                                            </td>
-                                            <th style="background: ">Attention</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="attention_issues">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="attention_actions">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="attention_remarks">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                2
-                                            </td>
-                                            <th>Understanding</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="understanding_issues">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="understanding_actions">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="understanding_remarks">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                3
-                                            </td>
-                                            <th>Procedural</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="procedural_issues">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="procedural_actions">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="procedural_remarks">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                4
-                                            </td>
-                                            <th>Behavioral</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="behavioiral_issues">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="behavioiral_actions">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="behavioiral_remarks">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                5
-                                            </td>
-                                            <th>Skill</th>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="skill_issues">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td>
-                                                <textarea name="skill_actions">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                            <td style="background: rgb(222 220 220 / 58%)">
-                                                <textarea name="skill_remarks">{{ $data->Discription_Event }}</textarea>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                                <th>Issues</th>
+                                                <th>Actions</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <!-- {{-- <input disabled type="text"  value=""> --}} -->
+                                                    1
+                                                </td>
+                                                <th style="background: ">Attention</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="attention_issues">{{ $data->attention_issues}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="attention_actions">{{ $data->attention_actions}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="attention_remarks">{{ $data->attention_remarks}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                   2
+                                                </td>
+                                                <th >Understanding</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="understanding_issues">{{ $data->understanding_issues}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="understanding_actions">{{ $data->understanding_actions}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="understanding_remarks">{{ $data->understanding_remarks}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    3
+                                                </td>
+                                                <th >Procedural</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="procedural_issues">{{ $data->procedural_issues}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="procedural_actions">{{ $data->procedural_actions}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="procedural_remarks">{{ $data->procedural_remarks}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                               4
+                                                </td>
+                                                <th >Behavioral</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="behavioiral_issues">{{ $data->behavioiral_issues}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="behavioiral_actions">{{ $data->behavioiral_actions}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="behavioiral_remarks">{{ $data->behavioiral_remarks}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                   5
+                                                </td>
+                                                <th >Skill</th>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="skill_issues">{{ $data->skill_issues}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="skill_actions">{{ $data->skill_actions}}</textarea>
+                                                </td>
+                                                <td style="background: rgb(222 220 220 / 58%)">
+                                                    <textarea name="skill_remarks">{{ $data->skill_remarks}}</textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                         </div>
                     </div>
                     <div class="sub-head"></div>
@@ -8272,7 +8666,7 @@
             </div>
         </div>
 
-        {{-- -------------QRM----------------- --}}
+        <!-- {{-- -------------QRM----------------- --}} -->
         <div id="CCForm11" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
@@ -8325,7 +8719,7 @@
                             <label for="Investigation Summary">Conclusion</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea class="tiny" name="Conclusion" id="summernote-8">
+                            <textarea class="tiny" name="Conclusion" id="summernote-8" value="{{$data->Conclusion}}">{{$data->Conclusion}}
                 </textarea>
                         </div>
                     </div>
@@ -8335,7 +8729,7 @@
                             <label for="Investigation Summary">Identified Risk</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea class="tiny" name="Identified_Risk" id="summernote-8">
+                            <textarea class="tiny" name="Identified_Risk" value="{{$data->Identified_Risk}}" id="summernote-8">{{$data->Identified_Risk}}
                 </textarea>
                         </div>
                     </div>
@@ -8345,23 +8739,23 @@
                             <label for="Severity Rate">Severity Rate</label>
                             <select name="severity_rate" id="analysisR" onchange='calculateRiskAnalysis(this)'>
                                 <option value="">Enter Your Selection Here</option>
-                                <option value="1">Negligible</option>
-                                <option value="2">Moderate</option>
-                                <option value="3">Major</option>
-                                <option value="4">Fatal</option>
+                                <option value="negligible" @if ($data->severity_rate == 'negligible') selected @endif>Negligible</option>
+                                <option value="moderate"  @if ($data->severity_rate == 'moderate') selected @endif>Moderate</option>
+                                <option value="major" @if ($data->severity_rate == 'major') selected @endif>Major</option>
+                                <option value="fatal"  @if ($data->severity_rate == 'fatal') selected @endif>Fatal</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Occurrence">Occurrence</label>
-                            <select name="occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
+                            <select name="Occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
                                 <option value="">Enter Your Selection Here</option>
-                                <option value="5">Extremely Unlikely</option>
-                                <option value="4">Rare</option>
-                                <option value="3">Unlikely</option>
-                                <option value="2">Likely</option>
-                                <option value="1">Very Likely</option>
+                                <option value="extremely_unilikely" @if ($data->Occurrence == 'extremely_unilikely') selected @endif>Extremely Unlikely</option>
+                                <option value="rare" @if ($data->Occurrence == 'rare') selected @endif>Rare</option>
+                                <option value="unlikely" @if ($data->Occurrence == 'unlikely') selected @endif>Unlikely</option>
+                                <option value="likely" @if ($data->Occurrence == 'likely') selected @endif>Likely</option>
+                                <option value="very_likely" @if ($data->Occurrence == 'very_likely') selected @endif>Very Likely</option>
                             </select>
                         </div>
                     </div>
@@ -8370,11 +8764,11 @@
                             <label for="Detection">Detection</label>
                             <select name="detection" id="analysisN" onchange='calculateRiskAnalysis(this)'>
                                 <option value="">Enter Your Selection Here</option>
-                                <option value="5">Impossible</option>
-                                <option value="4">Rare</option>
-                                <option value="3">Unlikely</option>
-                                <option value="2">Likely</option>
-                                <option value="1">Very Likely</option>
+                                <option value="impossible" @if ($data->detection == 'impossible') selected @endif>Impossible</option>
+                                <option value="rare" @if ($data->detection== 'rare') selected @endif>Rare</option>
+                                <option value="unlikely" @if ($data->detection == 'unlikely') selected @endif>Unlikely</option>
+                                <option value="likely"  @if ($data->detection == 'likely') selected @endif>Likely</option>
+                                <option value="very_likely" @if ($data->detection == 'very_likely') selected @endif>Very Likely</option>
                             </select>
                         </div>
                     </div>
@@ -8460,253 +8854,296 @@
         </div>
 
 
-        <!-- capa -->
-        <div id="CCForm10" class="inner-block cctabcontent">
-            <div class="inner-block-content">
-                <div class="row">
-                    {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Investigation Summary">Investigation Summary</label>
-                                        <textarea class="" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
+        <!-- capa update -->
+    <div id="CCForm10" class="inner-block cctabcontent">
+        <div class="inner-block-content">
+            <div class="row">
                     <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="CAPA_Number"><b>CAPA No</b></label>
-                            <input disabled type="text" name="capa_number">
+                    <div class="group-input">
+                        <label for="CAPA_Number"><b>CAPA No</b></label>
+                        <input disabled type="text" name="capa_number">
+                    </div>
+                </div>
+                <!-- <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="Department1"> Other's 1 Department <span id="asteriskod1" style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                                        <select name="Other1_Department_person"
+                                         @if ($data->stage==4) disabled @endif id="Other1_Department_person" value="{{ $data1->Other1_Department_person }}">
+                                            <option value="0">-- Select --</option>
+                                            <option @if ($data1->Other1_Department_person == 'Production') selected @endif
+                                                value="Production">Production</option>
+                                            <option  @if ($data1->Other1_Department_person == 'Warehouse') selected @endif
+                                               value="Warehouse"> Warehouse</option>
+                                            <option  @if ($data1->Other1_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
+
+                                        </select>
+
+                                    </div>
+                                </div> -->
+                <div class="col-lg-12">
+                    <div class="group-input">
+                        <label for="Initiator Group"><b>Name of the Department</b><span
+                            class="text-danger">*</span></label>
+                        <select name="department_capa" id="department_capa" 
+                        @if ($data->stage==4) disabled @endif id="department_capa" value="{{ $data->department_capa }}">
+                            <option value="0">-- Select --</option>
+                            <option @if ($data->department_capa == 'CQA') selected @endif
+                                                value="CQA">Corporate Quality Assurance</option>
+                            <option @if ($data->department_capa == 'QAB') selected @endif
+                                                value="QAB">Quality
+                                Assurance Biopharma</option>
+                            <option @if ($data->department_capa == 'CQC') selected @endif
+                                                value="QAB">Central Quality Control</option>
+                                <option @if ($data->department_capa == 'CQC') selected @endif
+                                                value="QAB">Central Quality Control</option>
+                                <option @if ($data->department_capa == 'MANU') selected @endif
+                                                value="MANU">Manufacturing</option>
+                                <option @if ($data->department_capa == 'PSG') selected @endif
+                                                value="PSG">Plasma
+                                Sourcing Group</option>
+                                <option @if ($data->department_capa == 'CS') selected @endif
+                                        value="CS">Central Stores</option>
+                                <option @if ($data->department_capa == 'ITG') selected @endif
+                                        value="ITG">Information Technology Group </option>
+                                <option @if ($data->department_capa == 'MM') selected @endif
+                                        value="MM">Molecular Medicine </option>
+                                <option @if ($data->department_capa == 'CL') selected @endif
+                                        value="CL">Central Laboratory </option>
+                                <option @if ($data->department_capa == 'QA') selected @endif
+                                        value="QA">Quality Assurance </option>
+                                <option @if ($data->department_capa == 'TT') selected @endif
+                                        value="TT">Tech team </option>
+                                <option @if ($data->department_capa == 'QM') selected @endif
+                                        value="QM">Quality Management </option>
+                                <option @if ($data->department_capa == 'IA') selected @endif
+                                        value="IA">IT Administration </option>
+                                <option @if ($data->department_capa == 'ACC') selected @endif
+                                        value="ACC">Accounting </option>
+                                <option @if ($data->department_capa == 'LOG') selected @endif
+                                        value="LOG">Logistics </option>
+                                <option @if ($data->department_capa == 'SM') selected @endif
+                                        value="SM">Senior Management </option>
+                                <option @if ($data->department_capa == 'BA') selected @endif
+                                        value="BA">Business Administration </option>
+                        </select>
+                        @error('department_capa')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                    <div class="group-input input-date">
+                        <label for="Deviation category">Source of CAPA</label>
+                        <select name="source_of_capa" id="Deviation_category"                        
+                         @if ($data->stage==4) disabled @endif id="Deviation_category" value="{{ $data->source_of_capa }}">
+                            <option value="0">-- Select -- </option>
+                            <option @if ($data->source_of_capa == 'Deviation') selected @endif
+                                                value="Deviation">Deviation</option>
+                            <option @if ($data->source_of_capa == 'OS/OT') selected @endif
+                                                value="OS/OT">OS/OT</option>
+                            <option @if ($data->source_of_capa == 'Audit_Obs') selected @endif
+                                                value="Audit_Obs">Audit Observation</option>
+                            <option @if ($data->source_of_capa == 'Complaint') selected @endif
+                                                value="Complaint">Complaint</option>
+                            <option @if ($data->source_of_capa == 'Product_Recall') selected @endif
+                                                value="Product_Recall">Product Recall</option>
+                            <option @if ($data->source_of_capa == 'Returned_Goods') selected @endif
+                                                value="Returned_Goods">Returned Goods</option>
+                            <option @if ($data->source_of_capa == 'APQR') selected @endif
+                                                value="APQR">APQR</option>
+                            <option @if ($data->source_of_capa == 'Management_Review_Action_Plan') selected @endif
+                                                value="Management_Review_Action_Plan">Management Review Action Plan</option>
+                            <option @if ($data->source_of_capa == 'Investigation') selected @endif
+                                                value="Investigation">Investigation</option>
+                            <option @if ($data->source_of_capa == 'Internal_Review') selected @endif
+                                                value="Internal_Review">Internal Review</option>
+                            <option @if ($data->source_of_capa == 'Quality_Risk_Assessment') selected @endif
+                                                value="Quality_Risk_Assessment">Quality Risk Assessment</option>
+                            <option value="Others">Others</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                    <div class="col-lg-6" id="capa_others_block" style="display: none">
+                    <div class="group-input">
+                        <label for="others">Others <span id="asteriskInviothers" style="display: none" class="text-danger">*</span></label>
+                        <input type="text" id="others" name="capa_others" class="others">
+                    </div>
+                </div>
+
+                <script>
+                    $('select[name=source_of_capa]').change(function() {
+                        $(this).val() == 'Others' ? $('#capa_others_block').fadeIn() : $('#capa_others_block').fadeOut()
+                    })
+                </script>
+                
+                <div class="col-lg-6" id="others_block" >
+                    <div class="group-input">
+                        <label for="others">Source Document</label>
+                        <input type="text" id="source_doc" name="source_doc" value="{{ $data->source_doc }}" class="source_doc">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Description_of_Discrepancy">Description of Discrepancy </label>
+                        <textarea class="tiny" name="Description_of_Discrepancy" id="Description_of_Discrepancy" value="">{{$data->Description_of_Discrepancy}}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Root_Cause">Root Cause</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="capa_root_cause" id="capa_root_cause">{{ $data->capa_root_cause }}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Immediate_Action_Take" id="Immediate_Action_Take">{{ $data->Immediate_Action_Take }}</textarea>
+                    </div>
+                </div>
+                    <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Corrective_Action_Details">Corrective Action Details</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Corrective_Action_Details" id="Corrective_Action_Details" value="">{{ $data->Corrective_Action_Details }}</textarea>
+                    </div>
+                </div>
+                    <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Preventive_Action_Details">Preventive Action Details</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Preventive_Action_Details" id="Preventive_Action_Details" value="">{{ $data->Preventive_Action_Details }}</textarea>
+                    </div>
+                </div>
+                    <div class="col-lg-6 new-date-data-field">
+                    <div class="group-input input-date">
+                        <label for="Audit Schedule End Date">Target Completion Date</label>
+                        <div class="calenderauditee">
+                        <!-- <input  type="date" value="{{ $data->capa_completed_date ? $data->capa_completed_date : '' }}" name="capa_completed_date"id="capa_completed_date" 
+                        oninput="handleDateInput(this, 'Capa_reported_date')">
+                        <input type="hidden" value="{{ date('Y-m-d') }}" name="capa_completed_date">  -->
+
+                         <input readonly type="text" id="Capa_reported_date"  value="{{ date('d-M-Y') }}" name="capa_completed_date" style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))"/>
+                            <input type="date" value="{{ $data->capa_completed_date }}" name="capa_completed_date"
+                             max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" value=""
+                                oninput="handleDateInput(this, 'Capa_reported_date')" /> 
                         </div>
+                    </div>
+                </div>
+
+                    <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Interim_Control">Interim Control(If Any)</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Interim_Control" id="Interim_Control" value="">{{ $data->Interim_Control }}</textarea>
+                    </div>
+                </div>
+                    <div class="sub-head">
+                            CAPA Implementation
+                            </div>
+                                <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Corrective_Action_Taken">Corrective Action Taken</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Corrective_Action_Taken" id="Corrective_Action_Taken" value="">{{ $data->Corrective_Action_Taken }}</textarea>
+                    </div>
+
+                </div> <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="Preventive_action_Taken">Preventive Action Taken</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="tiny" name="Preventive_action_Taken" id="Preventive_action_Taken" value="">{{ $data->Preventive_action_Taken }}</textarea>
+                    </div>
+                </div>
+                <div class="sub-head">
+                            CAPA Closure
+                            </div>
+                        <div class="col-md-12 mb-3">
+                    <div class="group-input">
+                        <label for="CAPA_Closure_Comments">CAPA Closure Comments</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                        <textarea class="" name="CAPA_Closure_Comments" id="CAPA_Closure_Comments" value="">{{ $data->CAPA_Closure_Comments }}</textarea>
                     </div>
 
                     <div class="col-lg-12">
-                        <div class="group-input">
-                            <label for="Initiator Group"><b>Name of the Department</b><span
-                                    class="text-danger">*</span></label>
-                            <select name="department_capa" id="department_capa">
-                                <option value="">-- Select --</option>
-                                <option value="CQA" @if (old('department_capa') == 'CQA') selected @endif>
-                                    Corporate Quality Assurance</option>
-                                <option value="QAB" @if (old('department_capa') == 'QAB') selected @endif>Quality
-                                    Assurance Biopharma</option>
-                                <option value="CQC" @if (old('department_capa') == 'CQC') selected @endif>Central
-                                    Quality Control</option>
-                                <option value="MANU" @if (old('department_capa') == 'MANU') selected @endif>
-                                    Manufacturing</option>
-                                <option value="PSG" @if (old('department_capa') == 'PSG') selected @endif>Plasma
-                                    Sourcing Group</option>
-                                <option value="CS" @if (old('department_capa') == 'CS') selected @endif>Central
-                                    Stores</option>
-                                <option value="ITG" @if (old('department_capa') == 'ITG') selected @endif>
-                                    Information Technology Group</option>
-                                <option value="MM" @if (old('department_capa') == 'MM') selected @endif>
-                                    Molecular Medicine</option>
-                                <option value="CL" @if (old('department_capa') == 'CL') selected @endif>Central
-                                    Laboratory</option>
-
-                                <option value="TT" @if (old('department_capa') == 'TT') selected @endif>Tech
-                                    team</option>
-                                <option value="QA" @if (old('department_capa') == 'QA') selected @endif>
-                                    Quality Assurance</option>
-                                <option value="QM" @if (old('department_capa') == 'QM') selected @endif>
-                                    Quality Management</option>
-                                <option value="IA" @if (old('department_capa') == 'IA') selected @endif>IT
-                                    Administration</option>
-                                <option value="ACC" @if (old('department_capa') == 'ACC') selected @endif>
-                                    Accounting</option>
-                                <option value="LOG" @if (old('department_capa') == 'LOG') selected @endif>
-                                    Logistics</option>
-                                <option value="SM" @if (old('department_capa') == 'SM') selected @endif>
-                                    Senior Management</option>
-                                <option value="BA" @if (old('department_capa') == 'BA') selected @endif>
-                                    Business Administration</option>
-                            </select>
-                            @error('department_capa')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                        <div class="group-input input-date">
-                            <label for="Deviation category">Source of CAPA</label>
-                            <select name="source_of_capa" id="Deviation_category">
-                                <option value="0">-- Select -- </option>
-                                <option value="Deviation">Deviation </option>
-                                <option value="OS/OT">OS/OT</option>
-                                <option value="Audit_Obs">Audit Observation </option>
-
-                                <option value="Complaint">Complaint</option>
-                                <option value="Product_Recall">Product Recall</option>
-                                <option value="Returned_Goods">Returned Goods</option>
-                                <option value="APQR">APQR</option>
-                                <option value="Management_Review_Action_Plan">Management Review Action Plan</option>
-                                <option value="Investigation">Investigation</option>
-                                <option value="Internal_Review">Internal Review</option>
-                                <option value="Quality_Risk_Assessment">Quality Risk Assessment</option>
-                                <option value="Others">Others</option>
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6" id="capa_others_block" style="display: none">
-                        <div class="group-input">
-                            <label for="others">Others <span id="asteriskInviothers" style="display: none"
-                                    class="text-danger">*</span></label>
-                            <input type="text" id="others" name="capa_others" class="others">
-                        </div>
-                    </div>
-
-                    <script>
-                        $('select[name=source_of_capa]').change(function() {
-                            $(this).val() == 'Others' ? $('#capa_others_block').fadeIn() : $('#capa_others_block').fadeOut()
-                        })
-                    </script>
-
-                    <div class="col-lg-6" id="others_block">
-                        <div class="group-input">
-                            <label for="others">Source Document</label>
-                            <input type="text" id="source_doc" name="source_doc" class="source_doc">
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Description_of_Discrepancy">Description of Discrepancy </label>
-                            <textarea class="tiny" name="Description_of_Discrepancy" id="summernote-8">
-                                    </textarea>
-                        </div>
-                    </div>
-                    {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Impact assessment">Impact Assessment</label>
-                                        <textarea class="" name="Impact_assessment" id="Impact_assessment" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Root_Cause">Root Cause</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="capa_root_cause" id="summernote-9">
-                                    </textarea>
-                        </div>
-                    </div>
-                    {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label class="mt-4"  for="Root cause">Root Cause</label>
-                                        <textarea class="" name="Root_cause" id="Root_cause" cols="30" ></textarea>
-                                    </div>
-                                </div> --}}
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Immediate_Action_Take" id="summernote-10">
-                                    </textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Corrective_Action_Details">Corrective Action Details</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Corrective_Action_Details" id="summernote-10">
-                                    </textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Preventive_Action_Details">Preventive Action Details</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Preventive_Action_Details" id="summernote-10">
-                                    </textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Audit Schedule End Date">Target Completion Date</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="Capa_reported_date" readonly placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="capa_completed_date"
-                                    max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                    oninput="handleDateInput(this, 'Capa_reported_date')" />
+                    @if($data->stage == 7)
+                    <div class="group-input">
+                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
+                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="CAPA_Closure_attachment">
+                            @if ($data->CAPA_Closure_attachment)
+                                        @foreach(json_decode($data->CAPA_Closure_attachment) as $file)
+                                            <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                @endforeach
+                            @endif
+                            </div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
+                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value="" 
+                                    {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Interim_Control">Interim Control(If Any)</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Interim_Control" id="summernote-10">
-                                    </textarea>
-                        </div>
-                    </div>
-                    <div class="sub-head">
-                        CAPA Implementation
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Corrective_Action_Taken">Corrective Action Taken</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Corrective_Action_Taken" id="summernote-10">
-                                    </textarea>
-                        </div>
-
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Preventive_action_Taken">Preventive Action Taken</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Preventive_action_Taken" id="summernote-10">
-                                    </textarea>
-                        </div>
-                    </div>
-                    <div class="sub-head">
-                        CAPA Closure
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="CAPA_Closure_Comments">CAPA Closure Comments</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="" name="CAPA_Closure_Comments" id="summernote-10">
-                                    </textarea>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
-                                <div><small class="text-primary">Please Attach all relevant or supporting
-                                        documents</small></div>
-                                <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="CAPA_Closure_attachment"></div>
-                                    <div class="add-btn">
-                                        <div>Add</div>
-                                        <input type="file" id="myfile" name="CAPA_Closure_attachment[]"
-                                            oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" multiple>
-                                    </div>
-                                </div>
+                    @else
+                    <div class="group-input">
+                        <label for="CAPA_Closure_attachment Attachment">CAPA Closure Attachment</label>
+                        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="CAPA_Closure_attachment">
+                            @if ($data->CAPA_Closure_attachment)
+                                        @foreach(json_decode($data->CAPA_Closure_attachment) as $file)
+                                            <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                @endforeach
+                            @endif
+                            </div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
+                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value="" 
+                                    {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
                             </div>
                         </div>
                     </div>
-
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <a href="/rcms/qms-dashboard">
-                            <button type="button" class="backButton">Back</button>
-                        </a>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    @endif
+                    
+                   
+                   
                 </div>
             </div>
+
+            <div class="button-block">
+            <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
+                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                        Save
+                </button>
+                <a href="/rcms/qms-dashboard">
+                        <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
+                    </a>
+                
+                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                        Exit </a> </button>
+            </div>
         </div>
+    </div>
+    </div>
         <!-- investigation and capa -->
         {{-- <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -11245,19 +11682,16 @@
     </div>
 
 
-    <div class="modal fade" id="signature-modal">
+    <div class="modal fade" id="pending-initiator-update">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
-                <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST"
-                    id="signatureModalForm">
+                <form action="{{ route('pending_initiator_update', $data->id) }}" method="POST"
+                    id="pendingInitiatorForm">
                     @csrf
-                    <!-- Modal body -->
                     <div class="modal-body">
                         <div class="mb-3 text-justify">
                             Please select a meaning and a outcome for this task and enter your username
@@ -11277,12 +11711,50 @@
                             <input type="comment" name="comment">
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="pendingInitiatorModalButton">
+                            <div class="spinner-border spinner-border-sm pendingInitiatorModalSpinner" style="display: none"
+                                role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            Submit
+                        </button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Modal footer -->
-                    <!-- <div class="modal-footer">
-                            <button type="submit" data-bs-dismiss="modal">Submit</button>
-                            <button>Close</button>
-                        </div> -->
+    <div class="modal fade" id="signature-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('deviation_send_stage', $data->id) }}" method="POST"
+                    id="signatureModalForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" class="signatureModalButton">
                             <div class="spinner-border spinner-border-sm signatureModalSpinner" style="display: none"
