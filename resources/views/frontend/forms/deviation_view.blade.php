@@ -2,7 +2,6 @@
 @section('container')
     @php
         $users = DB::table('users')->select('id', 'name')->get();
-
     @endphp
     <style>
         textarea.note-codable {
@@ -2118,9 +2117,9 @@
                                         </div>
                                         Save
                                     </button>
-                                    {{-- <a href="/rcms/qms-dashboard">
+                                    <!-- {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
-                                    </a> --}}
+                                    </a> --}} -->
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
@@ -11192,8 +11191,8 @@
     </form>
 </div> --}}
 
-{{-- =============================================================================================================== --}}
-  {{-- =================================launch extension============ --}}
+<!-- {{-- =============================================================================================================== --}}
+  {{-- =================================launch extension============ --}} -->
   <div class="modal fade" id="launch_extension">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11212,8 +11211,15 @@
                     <div class="main_head_modal">
                         <ul>
                             <li>
-                                <div> <a href="" data-bs-toggle="modal"
-                                        data-bs-target="#qrm_extension"> QRM</a></div>
+                                <div> 
+                                    <!-- @if($qrmExtension->counter == 3)
+                                    <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#qrm_extension"> Level Passed</a>
+                                    @else  -->
+                                    <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#qrm_extension"> QRM</a>
+                                    <!-- @endif -->
+                                    </div>
                             </li>
                             <li>
                                 <div> <a href=""data-bs-toggle="modal"
@@ -11241,7 +11247,7 @@
     </div>
 </div>
 
-{{-- ===================================================qrm================== --}}
+<!-- {{-- ===================================================qrm================== --}} -->
 <div class="modal fade" id="qrm_extension">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11252,42 +11258,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form>
-
-                <!-- Modal body -->
+            <form action="{{ route('launch-extension-qrm', $data->id) }}" method="post">
+                @csrf
                 <div class="modal-body">
-
-                    <div class="group-input">
+                    <!-- <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
                     </div>
                     <div class="group-input">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="password" name="password" required>
-                    </div>
+                    </div> -->
                     <div class="group-input">
                         <label for="password">Proposed Due Date(QRM)</label>
-                        <input class="extension_modal_signature" type="date" name="proposed_due_date">
+                        <input class="extension_modal_signature" type="date" name="qrm_proposed_due_date" id="qrm_proposed_due_date">
                     </div>
                     <div class="group-input">
                         <label for="password">Extension Justification (QRM)<span
                                 class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text"
-                            name="extension_justification">
+                            name="qrm_extension_justification" id="qrm_extension_justification">
                     </div>
                     <div class="group-input">
                         <label for="password">Quality Risk Management Extension Completed By </label>
-                        <select class="extension_modal_signature" name="quality_risk_management_by"
-                            id="">
+                        <select class="extension_modal_signature" name="qrm_extension_completed_by"
+                            id="qrm_extension_completed_by">
                             <option value="">-- Select --</option>
+                            @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
                         </select>
                     </div>
                     <div class="group-input">
                         <label for="password">Quality Risk Management Extension Completed On </label>
                         <input class="extension_modal_signature" type="date"
-                            name="quality_risk_management_on">
+                            name="qrm_completed_on" id="qrm_completed_on">
                     </div>
-
+                    <input name="deviation_id" id="deviation_id" value="{{$data->id}}" hidden >
+                    <input name="extension_identifier" id="extension_identifier" value="QRM" hidden >
                 </div>
 
 
@@ -11301,7 +11309,8 @@
         </div>
     </div>
 </div>
-{{-- ===============================invesigation=========== --}}
+<!-- {{-- ===============================invesigation=========== --}} -->
+
 <div class="modal fade" id="investigation_extension">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11312,41 +11321,45 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form>
-
+            <form action="{{ route('launch-extension-investigation', $data->id) }}" method="post">
+                @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
 
-                    <div class="group-input">
+                    <!-- <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
                     </div>
                     <div class="group-input">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="password" name="password" required>
-                    </div>
+                    </div> -->
                     <div class="group-input">
                         <label for="password">Proposed Due Date(Investigation)</label>
                         <input class="extension_modal_signature" type="date"
-                            name="proposed_due_investigation">
+                            name="investigation_proposed_due_date" id="investigation_proposed_due_date">
                     </div>
                     <div class="group-input">
                         <label for="password">Extension Justification (Investigation)<span
                                 class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text"
-                            name="investigation_justification">
+                            name="investigation_extension_justification" id="investigation_extension_justification">
                     </div>
                     <div class="group-input">
                         <label for="password">Investigation Extension Completed By </label>
-                        <select class="extension_modal_signature" name="investigation_by" id="">
+                        <select class="extension_modal_signature" name="investigation_extension_completed_by" id="investigation_extension_completed_by">
                             <option value="">-- Select --</option>
+                            @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
                         </select>
                     </div>
                     <div class="group-input">
                         <label for="password">Investigation Extension Completed On </label>
-                        <input class="extension_modal_signature" type="date" name="investigation_on">
+                        <input class="extension_modal_signature" type="date" name="investigation_completed_on" id="investigation_completed_on">
                     </div>
-
+                    <input name="deviation_id" id="deviation_id" value="{{$data->id}}" hidden >
+                    <input name="extension_identifier" id="extension_identifier" value="Investigation" hidden >
                 </div>
 
 
@@ -11360,7 +11373,7 @@
         </div>
     </div>
 </div>
-{{-- ===============================CAPA=========== --}}
+<!-- {{-- ===============================CAPA=========== --}} -->
 <div class="modal fade" id="capa_extension">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11371,37 +11384,43 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form>
+            <form action="{{ route('launch-extension-capa', $data->id) }}" method="post">
+                @csrf
 
                 <!-- Modal body -->
                 <div class="modal-body">
 
-                    <div class="group-input">
+                    <!-- <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
                     </div>
                     <div class="group-input">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="password" name="password" required>
-                    </div>
+                    </div> -->
                     <div class="group-input">
                         <label for="password">Proposed Due Date (CAPA)</label>
-                        <input class="extension_modal_signature" type="date" name="proposed_due_capa">
+                        <input class="extension_modal_signature" type="date" name="capa_proposed_due_date" id="capa_proposed_due_date">
                     </div>
                     <div class="group-input">
                         <label for="password">Extension Justification (CAPA)<span
                                 class="text-danger">*</span></label>
-                        <input class="extension_modal_signature" type="text" name="capa_justification">
+                        <input class="extension_modal_signature" type="text" name="capa_extension_justification" id="capa_extension_justification">
                     </div>
                     <div class="group-input">
                         <label for="password">CAPA Extension Completed By </label>
-                        <select class="extension_modal_signature" name="capa_by" id="">
+                        <select class="extension_modal_signature" name="capa_extension_completed_by" id="capa_extension_completed_by">
                             <option value="">-- Select --</option>
+                            @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
                         </select>
                     </div>
+                    <input name="deviation_id" id="deviation_id" value="{{$data->id}}" hidden >
+                    <input name="extension_identifier" id="extension_identifier" value="Capa" hidden >
                     <div class="group-input">
                         <label for="password">CAPA Extension Completed On </label>
-                        <input class="extension_modal_signature" type="date" name="capa_on">
+                        <input class="extension_modal_signature" type="date" name="capa_completed_on" id="capa_completed_on">
                     </div>
 
                 </div>
@@ -11417,7 +11436,7 @@
         </div>
     </div>
 </div>
-{{-- ===============================deviation=========== --}}
+<!-- {{-- ===============================deviation=========== --}} -->
 <div class="modal fade" id="deviation_extension">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11428,43 +11447,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form>
-
+            <form action="{{ route('launch-extension-deviation', $data->id) }}" method="post">
+                @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
-
-                    <div class="group-input">
+                    <!-- <div class="group-input">
                         <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text" name="username" required>
                     </div>
                     <div class="group-input">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="password" name="password" required>
-                    </div>
+                    </div> -->
                     <div class="group-input">
                         <label for="password">Proposed Due Date (Deviation)</label>
-                        <input class="extension_modal_signature" type="date" name="deviation_due_capa">
+                        <input class="extension_modal_signature" type="date" name="dev_proposed_due_date" id="dev_proposed_due_date">
                     </div>
                     <div class="group-input">
                         <label for="password">Extension Justification (Deviation)<span
                                 class="text-danger">*</span></label>
                         <input class="extension_modal_signature" type="text"
-                            name="deviation_justification">
+                            name="dev_extension_justification" id="dev_extension_justification">
                     </div>
                     <div class="group-input">
                         <label for="password">Deviation Extension Completed By </label>
-                        <select class="extension_modal_signature" name="deviation_extension_by"
-                            id="">
-                            <option value="">-- Select --</option>
+                        <select class="extension_modal_signature" name="dev_extension_completed_by" id="dev_extension_completed_by">
+                        <option value="">-- Select --</option>
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
                         </select>
                     </div>
                     <div class="group-input">
                         <label for="password">Deviation Extension Completed On </label>
-                        <input class="extension_modal_signature" type="date" name="deviation_on">
+                        <input class="extension_modal_signature" type="date" name="dev_completed_on" id="dev_completed_on">
                     </div>
-
+                    <input name="deviation_id" id="deviation_id" value="{{$data->id}}" hidden  >
+                    <input name="extension_identifier" id="extension_identifier" value="Deviation"  hidden >
                 </div>
-
 
                 <div class="modal-footer">
                     <button type="submit">

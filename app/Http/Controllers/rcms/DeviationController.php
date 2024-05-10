@@ -7,7 +7,7 @@ use App\Models\DeviationNewGridData;
 use App\Models\DeviationCftsResponse;
 use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
-use App\Models\EffectivenessCheck;
+use App\Models\{EffectivenessCheck,LaunchExtension};
 use App\Models\CC;
 use App\Models\ActionItem;
 use App\Models\Deviation;
@@ -1426,6 +1426,7 @@ class DeviationController extends Controller
     {
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         $data = Deviation::find($id);
+        // $userData = User::all();
         $data1 = DeviationCft::where('deviation_id', $id)->latest()->first();
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
@@ -1440,7 +1441,12 @@ class DeviationController extends Controller
         $investigation_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->first();
         $root_cause_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
+        $capaExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Capa"])->first();
+        $qrmExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "QRM"])->first();
+        $investigationExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Investigation"])->first();
+        $deviationExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Deviation"])->first();
+
+        return view('frontend.forms.deviation_view', compact('data','capaExtension','qrmExtension','investigationExtension','deviationExtension', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1740,9 +1746,9 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
+        
 
         $deviation->Conclusion = $request->Conclusion;
-        // dd($request->Conclusion);
         $deviation->Identified_Risk = $request->Identified_Risk;
         $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
         $deviation->Occurrence = $request->Occurrence ? $request->Occurrence : $deviation->Occurrence;
@@ -2989,6 +2995,122 @@ class DeviationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function launchExtensionDeviation(Request $request, $id){
+        $deviation = Deviation::find($id);
+        $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "Deviation"])->first();
+        if($getCounter && $getCounter->counter == null){
+            $counter = 1;
+        } else {
+            $counter = $getCounter ? $getCounter->counter + 1 : 1;
+        }
+        if($deviation->id != null){
+            $data = LaunchExtension::where([
+                'deviation_id' => $deviation->id,
+                'extension_identifier' => "Deviation"
+            ])->firstOrCreate();
+
+            $data->deviation_id = $request->deviation_id;
+            $data->extension_identifier = $request->extension_identifier;
+            $data->counter = $counter;
+            $data->dev_proposed_due_date = $request->dev_proposed_due_date;
+            $data->dev_extension_justification = $request->dev_extension_justification;
+            $data->dev_extension_completed_by = $request->dev_extension_completed_by;
+            $data->dev_completed_on = $request->dev_completed_on;
+            $data->save();
+
+            toastr()->success('Record is Update Successfully');
+            return back();
+        }
+    }
+
+    public function launchExtensionCapa(Request $request, $id){
+        $deviation = Deviation::find($id);
+        $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "Capa"])->first();
+        if($getCounter && $getCounter->counter == null){
+            $counter = 1;
+        } else {
+            $counter = $getCounter ? $getCounter->counter + 1 : 1;
+        }
+        if($deviation->id != null){
+
+            $data = LaunchExtension::where([
+                'deviation_id' => $deviation->id,
+                'extension_identifier' => "Capa"
+            ])->firstOrCreate();
+
+            $data->deviation_id = $request->deviation_id;
+            $data->extension_identifier = $request->extension_identifier;
+            $data->counter = $counter;
+            $data->capa_proposed_due_date = $request->capa_proposed_due_date;
+            $data->capa_extension_justification = $request->capa_extension_justification;
+            $data->capa_extension_completed_by = $request->capa_extension_completed_by;
+            $data->capa_completed_on = $request->capa_completed_on;
+            $data->save();
+
+            toastr()->success('Record is Update Successfully');
+            return back();
+        }
+    }
+
+
+    public function launchExtensionQrm(Request $request, $id){
+        $deviation = Deviation::find($id);
+        $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "QRM"])->first();
+        if($getCounter && $getCounter->counter == null){
+            $counter = 1;
+        } else {
+            $counter = $getCounter ? $getCounter->counter + 1 : 1;
+        }
+        if($deviation->id != null){
+
+            $data = LaunchExtension::where([
+                'deviation_id' => $deviation->id,
+                'extension_identifier' => "QRM"
+            ])->firstOrCreate();
+
+            $data->deviation_id = $request->deviation_id;
+            $data->extension_identifier = $request->extension_identifier;
+            $data->counter = $counter;
+            $data->qrm_proposed_due_date = $request->qrm_proposed_due_date;
+            $data->qrm_extension_justification = $request->qrm_extension_justification;
+            $data->qrm_extension_completed_by = $request->qrm_extension_completed_by;
+            $data->qrm_completed_on = $request->qrm_completed_on;
+            $data->save();
+
+            toastr()->success('Record is Update Successfully');
+            return back();
+        }
+    }
+
+    public function launchExtensionInvestigation(Request $request, $id){
+        $deviation = Deviation::find($id);
+        $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "Investigation"])->first();
+        if($getCounter && $getCounter->counter == null){
+            $counter = 1;
+        } else {
+            $counter = $getCounter ? $getCounter->counter + 1 : 1;
+        }
+        if($deviation->id != null){
+
+            $data = LaunchExtension::where([
+                'deviation_id' => $deviation->id,
+                'extension_identifier' => "Investigation"
+            ])->firstOrCreate();
+
+            $data->deviation_id = $request->deviation_id;
+            $data->extension_identifier = $request->extension_identifier;
+            $data->counter = $counter;
+            $data->investigation_proposed_due_date = $request->investigation_proposed_due_date;
+            $data->investigation_extension_justification = $request->investigation_extension_justification;
+            $data->investigation_extension_completed_by = $request->investigation_extension_completed_by;
+            $data->investigation_completed_on = $request->investigation_completed_on;
+            $data->save();
+
+            toastr()->success('Record is Update Successfully');
+            return back();
+        }
     }
 
     public function deviation_send_stage(Request $request, $id)
