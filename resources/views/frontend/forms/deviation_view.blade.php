@@ -10553,7 +10553,6 @@
                         <h4 class="modal-titles">Deviation Workflow</h4>
                     </div>
                     <div style="padding:3px;" class="modal-body">
-
                         <Div class="button-box">
                             <div style="background: #85be859e;" class="mini_buttons">
                                 Opened
@@ -10596,21 +10595,36 @@
 
                             </div>
                             <div style="background: #0000ff1f;" class="mini_buttons">
-                                QA Head Designee Approval
+                                QA Head/Manager Designee Approval
                             </div>
                             <div class="down-logo">
                                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
                                     class="w-100 h-100">
-
                             </div>
+
+                            <div style="background: #0000ff1f;" class="mini_buttons">
+                                Pending Initiator Update
+                            </div>
+                            <div class="down-logo">
+                                <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
+                                    class="w-100 h-100">
+                            </div>
+
+                            <div style="background: #0000ff1f;" class="mini_buttons">
+                                QA Final Approval
+                            </div>
+                            <div class="down-logo">
+                                <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
+                                    class="w-100 h-100">
+                            </div>                              
                             <div style="background: #ff000042;" class="mini_buttons">
                                 Closed - Done
                             </div>
                         </Div>
                     </div>
-                    {{-- <div class="modal-footer">
+                    <!-- {{-- <div class="modal-footer">
             <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
-          </div> --}}
+          </div> --}} -->
                 </div>
 
             </div>
@@ -12069,6 +12083,12 @@
             let textarea = document.createElement('textarea')
             textarea.setAttribute('name', name);
             container.append(textarea)
+
+            $(textarea).after('<button class="remove-row col-md-2">Remove</button>');
+                $(textarea).next('.remove-row').on('click', function() {
+                    $(this).prev('textarea').remove();
+                    $(this).remove();
+            });
         }
     </script>
 @endsection

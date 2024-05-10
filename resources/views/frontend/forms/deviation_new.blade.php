@@ -1199,14 +1199,28 @@
                                         });
                                     });
                                 </script>
+
                                 <div class="col-lg-12">
-                                    <div class="group-input" id="productRow">
+                                    <div class="group-input">
+                                        <label for="Product Details Required">Product/Batch Details Required?</label>
+                                        <select name=" Product_Details_Required" id="Product_Details_Required">
+                                            <option value="">--Select --</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="group-input" id="productRow" style="display: none">
                                         <label for="audit-agenda-grid">
                                             Product/Batch Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="Product_Details">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#document-details-field-instruction-modal"
+                                                data-bs-target="#product-batch-grid"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -1270,7 +1284,7 @@
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
-                                        // var selectField = document.getElementById('Product_Details_Required');
+                                        var selectField = document.getElementById('Product_Details_Required');
                                         var inputsToToggle = [];
 
                                         // Add elements with class 'productName' to inputsToToggle
@@ -1292,19 +1306,19 @@
                                         }
 
 
-                                        // selectField.addEventListener('change', function() {
-                                        //     var isRequired = this.value === 'yes';
-                                        //     console.log(this.value, isRequired, 'value');
+                                        selectField.addEventListener('change', function() {
+                                            var isRequired = this.value === 'yes';
+                                            console.log(this.value, isRequired, 'value');
 
-                                        //     inputsToToggle.forEach(function(input) {
-                                        //         input.required = isRequired;
-                                        //         console.log(input.required, isRequired, 'input req');
-                                        //     });
+                                            inputsToToggle.forEach(function(input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
 
-                                        //     document.getElementById('productRow').style.display = isRequired ? 'block' : 'none';
-                                        //     var asteriskIcon = document.getElementById('asteriskInvi');
-                                        //     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
-                                        // });
+                                            document.getElementById('productRow').style.display = isRequired ? 'block' : 'none';
+                                            var asteriskIcon = document.getElementById('asteriskInvi');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
                                     });
                                 </script>
                                 <!-- <div class="col-lg-6">
@@ -1651,24 +1665,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Investigation required">Investigation Required ?</label>
-                                        <select name="Investigation_required" id="Investigation_required">
-                                            <option value="0">-- Select --</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                {{-- <div class="col-lg-6">
+                                <!-- {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
                                         <textarea class="" name="Investigation_Details" id="" cols="30" ></textarea>
 
                                     </div>
-                                </div> --}}
+                                </div> --}} -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input" id="Investigations_details">
                                         <label for="Investigation Details">Investigation Details<span
@@ -4241,7 +4244,7 @@
                                                                 onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
                                                         </th>
                                                         <td>
-                                                            <div class="why_1_block">
+                                                            <div class="col-md-10 why_1_block">
                                                                 <textarea name="why_1[]"></textarea>
                                                             </div>
                                                         </td>
@@ -4583,7 +4586,8 @@
                                             Failure Mode and Effect Analysis
                                             <button type="button" name="agenda"
                                                 onclick="addRiskAssessment('risk-assessment-risk-management')">+</button>
-                                            <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                                            <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#failure_mode_and_effect_analysis" style="font-size: 0.8rem; font-weight: 400;">
                                                 (Launch Instruction)
                                             </span>
                                         </label>
@@ -4695,7 +4699,8 @@
                                         <label for="agenda">
                                             Risk Matrix
                                             <button type="button" name="agenda" id="risk_matrix_details">+</button>
-                                            <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                                            <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;" data-bs-toggle="modal"
+                                            data-bs-target="#risk_matrix">
                                                 (Launch Instruction)
                                             </span>
                                         </label>
@@ -6209,21 +6214,36 @@
 
                                 </div>
                                 <div style="background: #0000ff1f;" class="mini_buttons">
-                                    QA Head Designee Approval
+                                    QA Head/Manager Designee Approval
                                 </div>
                                 <div class="down-logo">
                                     <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
                                         class="w-100 h-100">
-
                                 </div>
+
+                                <div style="background: #0000ff1f;" class="mini_buttons">
+                                    Pending Initiator Update
+                                </div>
+                                <div class="down-logo">
+                                    <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
+                                        class="w-100 h-100">
+                                </div>
+
+                                <div style="background: #0000ff1f;" class="mini_buttons">
+                                    QA Final Approval
+                                </div>
+                                <div class="down-logo">
+                                    <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
+                                        class="w-100 h-100">
+                                </div>                              
                                 <div style="background: #ff000042;" class="mini_buttons">
                                     Closed - Done
                                 </div>
                             </Div>
                         </div>
-                        {{-- <div class="modal-footer">
+                        <!-- {{-- <div class="modal-footer">
                    <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
-                 </div> --}}
+                 </div> --}} -->
                     </div>
 
                 </div>
@@ -7758,6 +7778,13 @@
                 let textarea = document.createElement('textarea')
                 textarea.setAttribute('name', name);
                 container.append(textarea)
+                
+
+                $(textarea).after('<button class="remove-row">Remove</button>');
+                $(textarea).next('.remove-row').on('click', function() {
+                    $(this).prev('textarea').remove();
+                    $(this).remove();
+                });
             }
         </script>
 
