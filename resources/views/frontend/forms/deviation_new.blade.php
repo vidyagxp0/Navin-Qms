@@ -1458,15 +1458,7 @@
                                     id="ChangeNextButton" class="nextButton">Next</button>
                                 <button style=" justify-content: center; width: 4rem; margin-left: auto;"type="button"> <a
                                         href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
-                                <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
-                                    class="button  launch_extension" data-bs-toggle="modal"
-                                    data-bs-target="#launch_extension">
-                                    Launch Extension
-                                </a>
-                                <a type="button" class="button  launch_extension" data-bs-toggle="modal"
-                                    data-bs-target="#effectivenss_extension">
-                                    Launch Effectiveness Check
-                                </a>
+                               
                             </div>
                         </div>
                     </div>
@@ -1506,13 +1498,22 @@
 
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save </button>
-                                <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
+                                <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save </button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="backButton">Back</button>
                                 </a>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -1709,15 +1710,23 @@
                                 </div>
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
+                                <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button"  class="backButton">Back</button>
                                 </a>
 
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"  class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -2247,11 +2256,11 @@
                                 
                                         $('[name="Quality_Assurance"]').change(function() {
                                             if ($(this).val() === 'yes') {
-                                                $('.warehouse').show();
-                                                $('.warehouse span').show();
+                                                $('.quality_assurance').show();
+                                                $('.quality_assurance span').show();
                                             } else {
-                                                $('.warehouse').hide();
-                                                $('.warehouse span').hide();
+                                                $('.quality_assurance').hide();
+                                                $('.quality_assurance span').hide();
                                             }
                                         });
                                     });
@@ -3137,11 +3146,11 @@
                                 
                                         $('[name="Project_management_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
-                                                $('.warehouse').show();
-                                                $('.warehouse span').show();
+                                                $('.project_management').show();
+                                                $('.project_management span').show();
                                             } else {
-                                                $('.warehouse').hide();
-                                                $('.warehouse span').hide();
+                                                $('.project_management').hide();
+                                                $('.project_management span').hide();
                                             }
                                         });
                                     });
@@ -3888,14 +3897,23 @@
                                 </div>
                             </div>
                             <div class="button-block">
-                                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
+                                <button type="submit" id="ChangesaveButton" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button"  class="backButton">Back</button>
                                 </a>
-                                <button type="button" id="ChangeNextButton" class="nextButton"
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" id="ChangeNextButton" class="nextButton"
                                     onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
 
                         </div>
@@ -4563,13 +4581,22 @@
                             </div>
 
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
+                                <button type="submit" class="saveButton" style=" justify-content: center; width: 4rem; margin-left: auto;">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button" class="backButton" >Back</button>
                                 </a>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" class="nextButton" style=" justify-content: center; width: 4rem; margin-left: auto;" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -4630,7 +4657,7 @@
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
                                         <textarea class="tiny" name="Conclusion" id="summernote-8">
-                </textarea>
+                                         </textarea>
                                     </div>
                                 </div>
 
@@ -4640,7 +4667,7 @@
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
                                         <textarea class="tiny" name="Identified_Risk" id="summernote-8">
-                </textarea>
+                                        </textarea>
                                     </div>
                                 </div>
 
@@ -4717,8 +4744,6 @@
                                                         <th>Remarks</th>
                                                         <th>Action</th>
 
-
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -4760,13 +4785,22 @@
                                 }
                             </script>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
+                                <button type="submit" class="saveButton" style=" justify-content: center; width: 4rem; margin-left: auto;">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="backButton">Back</button>
                                 </a>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button"  style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -5011,6 +5045,15 @@
                                     <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
+                                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                                 </div>
                             </div>
                         </div>
@@ -5190,13 +5233,22 @@
 
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
-                                    <button type="button" class="backButton">Back</button>
+                                <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button"  class="backButton">Back</button>
                                 </a>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -5261,13 +5313,22 @@
 
                             </div>
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <a href="/rcms/qms-dashboard">
+                                <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                                     <button type="button" class="backButton">Back</button>
                                 </a>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#launch_extension">
+                                        Launch Extension
+                                    </a>
+                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        data-bs-target="#effectivenss_extension">
+                                        Launch Effectiveness Check
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -5939,14 +6000,23 @@
                                 </div>
 
                                 <div class="button-block">
-                                    <button type="submit" class="saveButton">Save</button>
-                                    <a href="/rcms/qms-dashboard">
-                                        <button type="button" class="backButton">Back</button>
+                                    <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                    <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                        <button type="button"  class="backButton">Back</button>
                                     </a>
-                                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
+                                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                                 </div>
                             </div>
                         </div>

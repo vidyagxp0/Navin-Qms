@@ -42,7 +42,30 @@
             font-size: 1.2rem;
 
         } */
+        .launch_extension {
+            background: #4274da;
+            color: white;
+            border: 0;
+            padding: 4px 15px;
+            border: 1px solid #4274da;
+            transition: all 0.3s linear;
+        }
+        .main_head_modal li {
+            margin-bottom: 10px;
+        }
 
+        .extension_modal_signature {
+            display: block;
+            width: 100%;
+            border: 1px solid #837f7f;
+            border-radius: 5px;
+        }
+
+        .main_head_modal {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
         .create-entity {
             background: #323c50;
             padding: 10px 15px;
@@ -1683,9 +1706,31 @@
                                             });
                                         });
                                     </script>
+
+                                        <div class="col-lg-12">
+                                            <div class="group-input">
+                                                <label for="Document Details Required">Product/Batch Required? <span
+                                                        class="text-danger">*</span></label>
+                                                <select
+                                                    name="Product_Details_Required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                    id="Product_Details_Required"
+                                                    value="{{ $data->Product_Details_Required }}">
+                                                    <option value="">-- Select --</option>
+                                                    <option @if ($data->Product_Details_Required == 'yes' || old('Product_Details_Required') == 'yes') selected @endif value="yes">
+                                                        Yes</option>
+                                                    <option @if ($data->Product_Details_Required == 'no' || old('Product_Details_Required') == 'no') selected @endif value="no">
+                                                        No</option>>
+                                                </select>
+                                            </div>
+                                            @error('Product_Details_Required')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+
                                     <div class="col-lg-12">
                                         <div class="col-lg-12">
-                                            <div class="group-input" id="documentsRow">
+                                            <div class="group-input" id="productRow">
                                                 <label for="audit-agenda-grid">
                                                     Product/Batch Details
                                                     <button type="button" name="audit-agenda-grid"
@@ -1792,7 +1837,7 @@
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
                                                 // note-codable
-
+                                                var selectField = document.getElementById('Product_Details_Required');
                                                 var inputsToToggle = [];
 
                                                 // Add elements with class 'productName' to inputsToToggle
@@ -1812,6 +1857,21 @@
                                                 for (var k = 0; k < batchNoInput.length; k++) {
                                                     inputsToToggle.push(batchNoInput[k]);
                                                 }
+
+                                                selectField.addEventListener('change', function() {
+                                                var isRequired = this.value === 'yes';
+                                                console.log(this.value, isRequired, 'value');
+
+                                                inputsToToggle.forEach(function(input) {
+                                                    input.required = isRequired;
+                                                    console.log(input.required, isRequired, 'input req');
+                                                });
+
+                                                // Show or hide the asterisk icon based on the selected value
+                                                document.getElementById('productRow').style.display = isRequired ? 'block' : 'none';
+                                                var asteriskIcon = document.getElementById('asteriskInvidoc');
+                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                            });
                                             });
                                         </script>
                                     </div>
@@ -1899,7 +1959,7 @@
                                     </div>
                                 </div>
                                 <div class="button-block">
-                                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                    <button  type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         id="ChangesaveButton01" class="saveButton saveAuditFormBtn d-flex"
                                         style="align-items: center;">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -1908,11 +1968,12 @@
                                         </div>
                                         Save
                                     </button>
-                                    <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                    <button  type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         id="ChangeNextButton" class="nextButton">Next</button>
-                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
+                                            
                                 </div>
                             </div>
                         </div>
@@ -2048,7 +2109,7 @@
                                 </div>
                                 <div class="button-block">
 
-                                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
                                         id="ChangesaveButton02">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -2060,10 +2121,19 @@
                                     {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                                    <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
-                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white"> Exit </a> </button>
+                                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                                 </div>
                             </div>
                         </div>
@@ -2852,7 +2922,7 @@
                             @endif
 
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                     id="ChangesaveButton03" class="saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                                         role="status">
@@ -2863,10 +2933,19 @@
                                 {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                                <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                     class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                             </div>
                         </div>
                     </div>
@@ -2913,7 +2992,21 @@
                                 <div class="sub-head">
                                     Production
                                 </div>
-
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.p_erson').hide();
+                                
+                                        $('[name="Production_Review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.p_erson').show();
+                                                $('.p_erson span').show();
+                                            } else {
+                                                $('.p_erson').hide();
+                                                $('.p_erson span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 @php
                                     $data1 = DB::table('deviationcfts')
                                         ->where('deviation_id', $data->id)
@@ -2948,7 +3041,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 p_erson">
                                         <div class="group-input">
                                             <label for="Production notification">Production Person <span
                                                     id="asteriskProduction"
@@ -2967,7 +3060,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3 p_erson">
                                         <div class="group-input">
                                             <label for="Production assessment">Impact Assessment (By Production) <span
                                                     id="asteriskProduction1"
@@ -2979,7 +3072,7 @@
                                                 @if ($data->stage == 3 || Auth::user()->id != $data1->Production_person) readonly @endif name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3 p_erson">
                                         <div class="group-input">
                                             <label for="Production feedback">Production Feedback <span
                                                     id="asteriskProduction2"
@@ -2991,7 +3084,7 @@
                                                 name="Production_feedback" id="summernote-18" @if ($data1->Production_Review == 'yes' && $data->stage == 4) required @endif>{{ $data1->Production_feedback }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 p_erson">
                                         <div class="group-input">
                                             <label for="production attachment">Production Attachments</label>
                                             <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3024,7 +3117,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6 mb-3 p_erson">
                                         <div class="group-input">
                                             <label for="Production Review Completed By">Production Review Completed
                                                 By</label>
@@ -3036,8 +3129,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
+                                    <div class="col-lg-6 p_erson">
+                                        <div class="group-input ">
                                             <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
                                             <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -3107,7 +3200,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 p_erson">
                                         <div class="group-input">
                                             <label for="Production notification">Production Person <span
                                                     id="asteriskInvi11" style="display: none"
@@ -3123,7 +3216,7 @@
                                         </div>
                                     </div>
                                     @if ($data->stage == 4)
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-12 mb-3 p_erson">
                                             <div class="group-input">
                                                 <label for="Production assessment">Impact Assessment (By Production) <span
                                                         id="asteriskInvi12" style="display: none"
@@ -3133,7 +3226,7 @@
                                                 <textarea class="tiny" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-12 mb-3 p_erson">
                                             <div class="group-input">
                                                 <label for="Production feedback">Production Feedback <span
                                                         id="asteriskInvi22" style="display: none"
@@ -3144,7 +3237,7 @@
                                             </div>
                                         </div>
                                     @else
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-12 mb-3 p_erson">
                                             <div class="group-input">
                                                 <label for="Production assessment">Impact Assessment (By Production) <span
                                                         id="asteriskInvi12" style="display: none"
@@ -3154,7 +3247,7 @@
                                                 <textarea disabled class="tiny" name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-12 mb-3 p_erson">
                                             <div class="group-input">
                                                 <label for="Production feedback">Production Feedback <span
                                                         id="asteriskInvi22" style="display: none"
@@ -3165,7 +3258,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="col-12">
+                                    <div class="col-12 p_erson">
                                         <div class="group-input">
                                             <label for="production attachment">Production Attachments</label>
                                             <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3199,7 +3292,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6 mb-3 p_erson">
                                         <div class="group-input">
                                             <label for="Production Review Completed By">Production Review Completed
                                                 By</label>
@@ -3210,7 +3303,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 p_erson">
                                         <div class="group-input">
                                             <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
@@ -3225,6 +3318,21 @@
                                 <div class="sub-head">
                                     Warehouse
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.warehouse').hide();
+                                
+                                        $('[name="Warehouse_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.warehouse').show();
+                                                $('.warehouse span').show();
+                                            } else {
+                                                $('.warehouse').hide();
+                                                $('.warehouse span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 @if ($data->stage == 3 || $data->stage == 4)
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -3255,7 +3363,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Person">Warehouse Person <span id="asteriskware"
                                                     style="display: {{ $data1->Warehouse_review == 'yes' ? 'inline' : 'none' }}"
@@ -3274,7 +3382,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3 warehouse">
                                         <div class="group-input">
                                             <label for="Impact Assessment1">Impact Assessment (By Warehouse) <span
                                                     id="asteriskware2"
@@ -3286,7 +3394,7 @@
                                                 name="Warehouse_assessment" id="summernote-19" @if ($data->stage == 3 || Auth::user()->id != $data1->Warehouse_notification) readonly @endif>{{ $data1->Warehouse_assessment }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Feedback">Warehouse Feedback <span id="asteriskware3"
                                                     style="display: {{ $data1->Warehouse_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -3297,7 +3405,7 @@
                                                 name="Warehouse_feedback" id="summernote-20" @if ($data->stage == 3 || Auth::user()->id != $data1->Warehouse_notification) readonly @endif>{{ $data1->Warehouse_feedback }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse attachment">Warehouse Attachments</label>
                                             <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3362,7 +3470,7 @@
                                         });
                                     </script>
 
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6 mb-3 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed By">Warehouse Review Completed
                                                 By</label>
@@ -3371,8 +3479,8 @@
                                             {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
 
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
+                                    </div> 
+                                    <div class="col-lg-6 mb-3 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed On">Warehouse Review Completed
                                                 On</label>
@@ -3382,7 +3490,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Review Required">Warehouse Review Required ?</label>
                                             <select disabled name="Warehouse_review" id="Warehouse_review">
@@ -3408,7 +3516,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Person">Warehouse Person </label>
                                             <select disabled name="Warehouse_notification" id="Warehouse_notification"
@@ -3425,7 +3533,7 @@
                                     </div>
 
                                     @if ($data->stage == 4)
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-12 mb-3 warehouse">
                                             <div class="group-input">
                                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if
@@ -3433,7 +3541,7 @@
                                                 <textarea class="tiny" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-12 mb-3 warehouse">
                                             <div class="group-input">
                                                 <label for="Warehouse Feedback">Warehouse Feedback</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if
@@ -3443,7 +3551,7 @@
                                         </div>
                             </div>
                         @else
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-3 warehouse">
                                 <div class="group-input">
                                     <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not
@@ -3451,7 +3559,7 @@
                                     <textarea disabled class="tiny" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-3 warehouse">
                                 <div class="group-input">
                                     <label for="Warehouse Feedback">Warehouse Feedback</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not
@@ -3460,7 +3568,7 @@
                                 </div>
                             </div>
                             @endif
-                            <div class="col-12">
+                            <div class="col-12 warehouse">
                                 <div class="group-input">
                                     <label for="Warehouse attachment">Warehouse Attachments</label>
                                     <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3492,7 +3600,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3 warehouse">
                                 <div class="group-input">
                                     <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
                                     <input disabled type="text" value="{{ $data1->Warehouse_by }}"
@@ -3501,7 +3609,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 warehouse">
                                 <div class="group-input">
                                     <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                     <!-- <div><small class="text-primary">Please select related information</small></div> -->
@@ -3514,6 +3622,21 @@
                             <div class="sub-head">
                                 Quality Control
                             </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('.quality_control').hide();
+                            
+                                    $('[name="Quality_review"]').change(function() {
+                                        if ($(this).val() === 'yes') {
+                                            $('.quality_control').show();
+                                            $('.quality_control span').show();
+                                        } else {
+                                            $('.quality_control').hide();
+                                            $('.quality_control span').hide();
+                                        }
+                                    });
+                                });
+                            </script>
                             @if ($data->stage == 3 || $data->stage == 4)
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -3540,7 +3663,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Person">Quality Control Person <span id="asteriskQC"
                                                 style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}"
@@ -3559,7 +3682,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Impact Assessment2">Impact Assessment (By Quality Control) <span
                                                 id="asteriskQC1"
@@ -3571,7 +3694,7 @@
                                             name="Quality_Control_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Quality_Control_Person) readonly @endif id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Feedback">Quality Control Feedback <span
                                                 id="asteriskQC2"
@@ -3607,7 +3730,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Attachments">Quality Control Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3640,7 +3763,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed By">Quality Control Review Completed
                                             By</label>
@@ -3649,7 +3772,7 @@
                                             name="Quality_Control_by" id="Quality_Control_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
@@ -3661,6 +3784,21 @@
                                 <div class="sub-head">
                                     Quality Assurance
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.quality_assurance').hide();
+                                
+                                        $('[name="Quality_Assurance"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.quality_assurance').show();
+                                                $('.quality_assurance span').show();
+                                            } else {
+                                                $('.quality_assurance').hide();
+                                                $('.quality_assurance span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Required">Quality Assurance Review Required ?
@@ -3685,7 +3823,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Person">Quality Assurance Person <span
                                                 id="asteriskQQA"
@@ -3703,7 +3841,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Impact Assessment3">Impact Assessment (By Quality Assurance) <span
                                                 id="asteriskQQA1"
@@ -3715,7 +3853,7 @@
                                             name="QualityAssurance_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->QualityAssurance_person) readonly @endif id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback <span
                                                 id="asteriskQQA2"
@@ -3752,7 +3890,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Attachments">Quality Assurance Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3787,7 +3925,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review
                                             Completed By</label>
@@ -3795,7 +3933,7 @@
                                             value="{{ $data1->QualityAssurance_by }}" disabled>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
@@ -3807,7 +3945,22 @@
                                 <div class="sub-head">
                                     Engineering
                                 </div>
-                                <div class="col-lg-6">
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.engineering').hide();
+                                
+                                        $('[name="Engineering_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.engineering').show();
+                                                $('.engineering span').show();
+                                            } else {
+                                                $('.engineering').hide();
+                                                $('.engineering span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ? <span
                                                 class="text-danger">*</span></label>
@@ -3832,7 +3985,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 engineering">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Person <span id="asteriskEP"
                                                 style="display: {{ $data1->Engineering_review == 'yes' ? 'inline' : 'none' }}"
@@ -3847,7 +4000,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Impact Assessment4">Impact Assessment (By Engineering) <span
                                                 id="asteriskEP1"
@@ -3859,7 +4012,7 @@
                                             name="Engineering_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Engineering_person) readonly @endif id="summernote-25">{{ $data1->Engineering_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Feedback">Engineering Feedback <span id="asteriskEP2"
                                                 style="display: {{ $data1->Engineering_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -3894,7 +4047,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 engineering">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Engineering Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3926,7 +4079,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed
                                             By</label>
@@ -3936,7 +4089,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
@@ -3948,6 +4101,21 @@
                                 <div class="sub-head">
                                     Analytical Development Laboratory
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.analytical_development').hide();
+                                
+                                        $('[name="Analytical_Development_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.analytical_development').show();
+                                                $('.analytical_development span').show();
+                                            } else {
+                                                $('.analytical_development').hide();
+                                                $('.analytical_development span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Required">Analytical
@@ -3975,7 +4143,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Person"> Analytical Development
                                             Laboratory Person <span id="asteriskAD"
@@ -3994,7 +4162,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development
                                             Laboratory) <span id="asteriskAD1"
@@ -4005,7 +4173,7 @@
                                             id="summernote-27">{{ $data1->Analytical_Development_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development
                                             Laboratory Feedback <span id="asteriskAD2"
@@ -4039,7 +4207,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 analytical_development">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Analytical Development Laboratory
                                             Attachments</label>
@@ -4075,7 +4243,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical
                                             Development Laboratory Review Completed By</label>
@@ -4084,7 +4252,7 @@
                                             name="Analytical_Development_by" id="Analytical_Development_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
@@ -4097,6 +4265,21 @@
                                 <div class="sub-head">
                                     Process Development Laboratory / Kilo Lab
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.kilo_lab').hide();
+                                
+                                        $('[name="Kilo_Lab_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.kilo_lab').show();
+                                                $('.kilo_lab span').show();
+                                            } else {
+                                                $('.kilo_lab').hide();
+                                                $('.kilo_lab span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
@@ -4123,7 +4306,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 kilo_lab">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Person <span id="asteriskPDL"
@@ -4140,7 +4323,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development
                                             Laboratory / Kilo Lab) <span id="asteriskPDL1"
@@ -4150,7 +4333,7 @@
                                             name="Kilo_Lab_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Kilo_Lab_person) readonly @endif id="summernote-29">{{ $data1->Kilo_Lab_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab Feedback
                                             <span id="asteriskPDL2"
@@ -4184,7 +4367,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 kilo_lab">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Process Development Laboratory / Kilo Lab
                                             Attachments</label>
@@ -4217,7 +4400,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo
                                             Lab Review Completed By</label>
@@ -4226,7 +4409,7 @@
                                             name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
@@ -4239,6 +4422,21 @@
                                 <div class="sub-head">
                                     Technology Transfer / Design
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.technology_transfer').hide();
+                                
+                                        $('[name="Technology_transfer_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.technology_transfer').show();
+                                                $('.technology_transfer span').show();
+                                            } else {
+                                                $('.technology_transfer').hide();
+                                                $('.technology_transfer span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Design Review Required">Technology Transfer / Design Review Required ?
@@ -4265,7 +4463,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Person"> Technology Transfer / Design Person <span
                                                 id="asteriskTT"
@@ -4285,7 +4483,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer /
                                             Design) <span id="asteriskTT1"
@@ -4295,7 +4493,7 @@
                                             name="Technology_transfer_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Technology_transfer_person) readonly @endif id="summernote-31">{{ $data1->Technology_transfer_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design Feedback <span
                                                 id="asteriskTT2"
@@ -4329,7 +4527,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 technology_transfer">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -4364,7 +4562,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             By</label>
@@ -4375,7 +4573,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             On</label>
@@ -4387,6 +4585,21 @@
                                 <div class="sub-head">
                                     Environment, Health & Safety
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.environmental_health').hide();
+                                
+                                        $('[name="Environment_Health_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.environmental_health').show();
+                                                $('.environmental_health span').show();
+                                            } else {
+                                                $('.environmental_health').hide();
+                                                $('.environmental_health span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Safety Review Required">Environment, Health & Safety Review Required ?
@@ -4413,7 +4626,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Person"> Environment, Health & Safety Person <span
                                                 id="asteriskEH"
@@ -4433,7 +4646,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health &
                                             Safety) <span id="asteriskEH1"
@@ -4443,7 +4656,7 @@
                                             @if ($data->stage == 3 || Auth::user()->id != $data1->Environment_Health_Safety_person) readonly @endif id="summernote-33">{{ $data1->Health_Safety_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Feedback">Environment, Health & Safety Feedback <span
                                                 id="asteriskEH2"
@@ -4477,7 +4690,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 environmental_health">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Environment, Health & Safety Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -4512,7 +4725,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Review Completed By">Environment, Health & Safety Review
                                             Completed By</label>
@@ -4524,7 +4737,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
@@ -4537,6 +4750,21 @@
                                 <div class="sub-head">
                                     Human Resource & Administration
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.human_resources').hide();
+                                
+                                        $('[name="Human_Resource_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.human_resources').show();
+                                                $('.human_resources span').show();
+                                            } else {
+                                                $('.human_resources').hide();
+                                                $('.human_resources span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required
@@ -4562,7 +4790,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 human_resources">
                                     <div class="group-input">
                                         <label for="Customer notification"> Human Resource & Administration Person <span
                                                 id="asteriskHR"
@@ -4580,7 +4808,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource &
                                             Administration ) <span id="asteriskHR1"
@@ -4590,7 +4818,7 @@
                                             name="Human_Resource_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Human_Resource_person) readonly @endif id="summernote-35">{{ $data1->Human_Resource_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration Feedback <span
                                                 id="asteriskHR2"
@@ -4624,7 +4852,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 human_resources">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Human Resource & Administration Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -4657,7 +4885,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration
                                             Review Completed By</label>
@@ -4668,7 +4896,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration
                                             Review Completed On</label>
@@ -4681,7 +4909,22 @@
                                 <div class="sub-head">
                                     Information Technology
                                 </div>
-                                <div class="col-lg-6">
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.information_technology').hide();
+                                
+                                        $('[name="Information_Technology_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.information_technology').show();
+                                                $('.information_technology span').show();
+                                            } else {
+                                                $('.information_technology').hide();
+                                                $('.information_technology span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Information Technology Review Required"> Information Technology Review
                                             Required ? <span class="text-danger">*</span></label>
@@ -4708,7 +4951,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Person"> Information Technology Person <span
                                                 id="asteriskITP"
@@ -4727,7 +4970,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology)
                                             <span id="asteriskITP"
@@ -4738,7 +4981,7 @@
                                             id="summernote-37">{{ $data1->Information_Technology_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback">Information Technology Feedback <span
                                                 id="asteriskITP"
@@ -4771,7 +5014,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 information_technology">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Information Technology Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -4806,7 +5049,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed By"> Information Technology
                                             Review Completed By</label>
@@ -4816,7 +5059,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed On">Information Technology
                                             Review Completed On</label>
@@ -4828,6 +5071,21 @@
                                 <div class="sub-head">
                                     Project Management
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.project_management').hide();
+                                
+                                        $('[name="Project_management_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.project_management').show();
+                                                $('.project_management span').show();
+                                            } else {
+                                                $('.project_management').hide();
+                                                $('.project_management span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
@@ -4852,7 +5110,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 project_management">
                                     <div class="group-input">
                                         <label for="Project management Person"> Project management Person <span
                                                 id="asteriskPMP"
@@ -4870,7 +5128,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By Project management ) <span
                                                 id="asteriskPMP"
@@ -4880,7 +5138,7 @@
                                             name="Project_management_assessment" id="summernote-39" @if ($data->stage == 3 || Auth::user()->id != $data1->Project_management_person) readonly @endif>{{ $data1->Project_management_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Project management Feedback"> Project management Feedback <span
                                                 id="asteriskPMP"
@@ -4914,7 +5172,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 project_management">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Project management Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -4949,7 +5207,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Project management Review Completed By"> Project management Review
                                             Completed By</label>
@@ -4959,7 +5217,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Project management Review Completed On">Project management Review
                                             Completed On</label>
@@ -6105,6 +6363,21 @@
                                 <div class="sub-head">
                                     Other's 1 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.other1_reviews').hide();
+                                
+                                        $('[name="Other1_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.other1_reviews').show();
+                                                $('.other1_reviews span').show();
+                                            } else {
+                                                $('.other1_reviews').hide();
+                                                $('.other1_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Review Required1"> Other's 1 Review Required? </label>
@@ -6129,7 +6402,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Person1"> Other's 1 Person <span id="asterisko1"
                                                 style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}"
@@ -6146,7 +6419,8 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 other1_reviews ">
+                                   
                                     <div class="group-input">
                                         <label for="Department1"> Other's 1 Department <span id="asteriskod1"
                                                 style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}"
@@ -6188,7 +6462,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By Other's 1) <span
                                                 id=""
@@ -6198,7 +6472,7 @@
                                             @if ($data->stage == 3 || Auth::user()->id != $data1->Other1_person) readonly @endif id="summernote-41">{{ $data1->Other1_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Feedback1"> Other's 1 Feedback <span id=""
                                                 style="display: {{ $data1->Other1_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -6237,7 +6511,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-12">
+                                <div class="col-12 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 1 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6269,7 +6543,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Review Completed By1"> Other's 1 Review Completed By</label>
                                         <input disabled type="text" value="{{ $data1->Other1_by }}"
@@ -6277,7 +6551,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <input disabled type="date" name="Other1_on" id="Other1_on"
@@ -6288,6 +6562,21 @@
                                 <div class="sub-head">
                                     Other's 2 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other2_reviews').hide();
+                                
+                                        $('[name="Other2_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other2_reviews').show();
+                                                $('.Other2_reviews span').show();
+                                            } else {
+                                                $('.Other2_reviews').hide();
+                                                $('.Other2_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review2"> Other's 2 Review Required ?</label>
@@ -6312,7 +6601,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Person2"> Other's 2 Person <span id="asterisko2"
                                                 style="display: {{ $data1->Other2_review == 'yes' ? 'inline' : 'none' }}"
@@ -6328,7 +6617,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Department2"> Other's 2 Department <span id="asteriskod2"
                                                 style="display: {{ $data1->Other2_review == 'yes' ? 'inline' : 'none' }}"
@@ -6399,7 +6688,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By Other's 2) <span
                                                 id=""
@@ -6409,7 +6698,7 @@
                                             @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-43">{{ $data1->Other2_Assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Feedback2"> Other's 2 Feedback <span id=""
                                                 style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -6418,7 +6707,7 @@
                                             @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-44">{{ $data1->Other2_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 2 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6450,7 +6739,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                         <input type="text" name="Other2_by" id="Other2_by"
@@ -6458,7 +6747,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
                                         <input disabled type="date" name="Other2_on" id="Other2_on"
@@ -6469,6 +6758,21 @@
                                 <div class="sub-head">
                                     Other's 3 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other3_reviews').hide();
+                                
+                                        $('[name="Other3_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other3_reviews').show();
+                                                $('.Other3_reviews span').show();
+                                            } else {
+                                                $('.Other3_reviews').hide();
+                                                $('.Other3_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review3"> Other's 3 Review Required ?</label>
@@ -6495,7 +6799,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Person3">Other's 3 Person <span id="asterisko3"
                                                 style="display: {{ $data1->Other3_review == 'yes' ? 'inline' : 'none' }}"
@@ -6512,7 +6816,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Department3">Other's 3 Department <span id="asteriskod3"
                                                 style="display: {{ $data1->Other3_review == 'yes' ? 'inline' : 'none' }}"
@@ -6582,7 +6886,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By Other's 3) <span
                                                 id=""
@@ -6592,7 +6896,7 @@
                                             @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-45">{{ $data1->Other3_Assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="feedback3"> Other's 3 Feedback <span id=""
                                                 style="display: {{ $data1->Other3_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -6601,7 +6905,7 @@
                                             @if ($data1->Other3_review == 'yes' && $data->stage == 4) required @endif id="summernote-46">{{ $data1->Other3_Assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 3 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6633,7 +6937,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                         <input type="text" name="Other3_by" id="Other3_by"
@@ -6641,7 +6945,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback">Other's 3 Review Completed On</label>
                                         <input disabled type="date" name="Other3_on" id="Other3_on"
@@ -6651,6 +6955,21 @@
                                 <div class="sub-head">
                                     Other's 4 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other4_reviews').hide();
+                                
+                                        $('[name="Other4_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other4_reviews').show();
+                                                $('.Other4_reviews span').show();
+                                            } else {
+                                                $('.Other4_reviews').hide();
+                                                $('.Other4_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review4">Other's 4 Review Required ?</label>
@@ -6676,7 +6995,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Person4"> Other's 4 Person <span id="asterisko4"
                                                 style="display: {{ $data1->Other4_review == 'yes' ? 'inline' : 'none' }}"
@@ -6692,7 +7011,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Department4"> Other's 4 Department <span id="asteriskod4"
                                                 style="display: {{ $data1->Other4_review == 'yes' ? 'inline' : 'none' }}"
@@ -6762,7 +7081,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By Other's 4) <span
                                                 id=""
@@ -6772,7 +7091,7 @@
                                             @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-47">{{ $data1->Other4_Assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="feedback4"> Other's 4 Feedback <span id=""
                                                 style="display: {{ $data1->Other4_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -6781,7 +7100,7 @@
                                             @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-48">{{ $data1->Other4_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 4 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6813,7 +7132,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                         <input type="text" name="Other4_by" id="Other4_by"
@@ -6821,7 +7140,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <input disabled type="date" name="Other4_on" id="Other4_on"
@@ -6835,6 +7154,21 @@
                                 <div class="sub-head">
                                     Other's 5 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other5_reviews').hide();
+                                
+                                        $('[name="Other5_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other5_reviews').show();
+                                                $('.Other5_reviews span').show();
+                                            } else {
+                                                $('.Other5_reviews').hide();
+                                                $('.Other5_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review5">Other's 5 Review Required ?</label>
@@ -6859,7 +7193,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Person5">Other's 5 Person <span id="asterisko5"
                                                 style="display: {{ $data1->Other5_review == 'yes' ? 'inline' : 'none' }}"
@@ -6875,7 +7209,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Department5"> Other's 5 Department <span id="asteriskod5"
                                                 style="display: {{ $data1->Other5_review == 'yes' ? 'inline' : 'none' }}"
@@ -6945,7 +7279,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By Other's 5) <span
                                                 id=""
@@ -6955,7 +7289,7 @@
                                             name="Other5_Assessment"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-49">{{ $data1->Other5_Assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback <span id=""
                                                 style="display: {{ $data1->Other5_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
@@ -6965,7 +7299,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-12 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 5 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6997,7 +7331,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                         <input type="text" name="Other5_by" id="Other5_by"
@@ -7005,7 +7339,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
                                         <input disabled type="date" name="Other5_on" id="Other5_on"
@@ -7751,7 +8085,7 @@
 
                         </div>
                         <div class="button-block">
-                            <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                 id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex"
                                 style="align-items: center;">
                                 <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
@@ -7760,10 +8094,19 @@
                                 </div>
                                 Save
                             </button>
-                            <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                 id="ChangeNextButton" class="nextButton">Next</button>
-                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                     Exit </a> </button>
+                                    <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                         </div>
                     </div>
             </div>
@@ -8655,13 +8998,23 @@
                 </div>
 
                 <div class="button-block">
-                    <button type="submit" class="saveButton">Save</button>
-                    <a href="/rcms/qms-dashboard">
-                        <button type="button" class="backButton">Back</button>
-                    </a>
-                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
+                    {{-- <a href="/rcms/qms-dashboard">
+                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="backButton">Back</button>
+                    </a> --}}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
+
+                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                 </div>
             </div>
         </div>
@@ -8844,13 +9197,23 @@
                     }
                 </script>
                 <div class="button-block">
-                    <button type="submit" class="saveButton">Save</button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
                     <a href="/rcms/qms-dashboard">
                         <button type="button" class="backButton">Back</button>
                     </a>
-                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
+
+                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                 </div>
             </div>
         </div>
@@ -9129,7 +9492,7 @@
             </div>
 
             <div class="button-block">
-            <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
+            <button  style=" justify-content: center; width: 4rem; margin-left: auto;"type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                         <span class="sr-only">Loading...</span>
                         </div>
@@ -9139,9 +9502,19 @@
                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                     </a>
 
-                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
+                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                         Exit </a> </button>
+
+                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
             </div>
         </div>
     </div>
@@ -9561,7 +9934,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                         id="ChangesaveButton05" class="saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -9572,10 +9945,19 @@
                     {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                    <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                         class="nextButton" onclick="nextStep()">Next</button>
-                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
+                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                 </div>
             </div>
         </div>
@@ -9689,7 +10071,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                         id="ChangesaveButton06" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -9700,10 +10082,19 @@
                     {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                    <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                         class="nextButton" onclick="nextStep()">Next</button>
-                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
+                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                 </div>
             </div>
         </div>
@@ -10323,13 +10714,22 @@
                     </div>
 
                     <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <a href="/rcms/qms-dashboard">
+                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
+                        <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                             <button type="button" class="backButton">Back</button>
                         </a>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
+                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                 Exit </a> </button>
+                                <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#launch_extension">
+                                            Launch Extension
+                                        </a>
+                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                            data-bs-target="#effectivenss_extension">
+                                            Launch Effectiveness Check
+                                        </a>
                     </div>
                 </div>
             </div>
@@ -10792,6 +11192,640 @@
     </form>
 </div> --}}
 
+{{-- =============================================================================================================== --}}
+  {{-- =================================launch extension============ --}}
+  <div class="modal fade" id="launch_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="launch_extension_header">
+                    <h4 class="modal-title text-center">Launch Extension</h4>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form method="POST">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="main_head_modal">
+                        <ul>
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#qrm_extension"> QRM</a></div>
+                            </li>
+                            <li>
+                                <div> <a href=""data-bs-toggle="modal"
+                                        data-bs-target="#investigation_extension"> Investigation</a></div>
+                            </li>
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#capa_extension"> CAPA</a></div>
+                            </li>
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#deviation_extension"> Deviation</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{-- <button type="submit">
+                Submit
+            </button> --}}
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- ===================================================qrm================== --}}
+<div class="modal fade" id="qrm_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">QRM-Extension</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date(QRM)</label>
+                        <input class="extension_modal_signature" type="date" name="proposed_due_date">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (QRM)<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text"
+                            name="extension_justification">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Quality Risk Management Extension Completed By </label>
+                        <select class="extension_modal_signature" name="quality_risk_management_by"
+                            id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Quality Risk Management Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date"
+                            name="quality_risk_management_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================invesigation=========== --}}
+<div class="modal fade" id="investigation_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Investigation-Extension</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date(Investigation)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="proposed_due_investigation">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (Investigation)<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text"
+                            name="investigation_justification">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Extension Completed By </label>
+                        <select class="extension_modal_signature" name="investigation_by" id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="investigation_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================CAPA=========== --}}
+<div class="modal fade" id="capa_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">CAPA-Extension</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date (CAPA)</label>
+                        <input class="extension_modal_signature" type="date" name="proposed_due_capa">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (CAPA)<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="capa_justification">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Extension Completed By </label>
+                        <select class="extension_modal_signature" name="capa_by" id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="capa_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================deviation=========== --}}
+<div class="modal fade" id="deviation_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deviation-Extension</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Proposed Due Date (Deviation)</label>
+                        <input class="extension_modal_signature" type="date" name="deviation_due_capa">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Extension Justification (Deviation)<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text"
+                            name="deviation_justification">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Extension Completed By </label>
+                        <select class="extension_modal_signature" name="deviation_extension_by"
+                            id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Extension Completed On </label>
+                        <input class="extension_modal_signature" type="date" name="deviation_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{-- =================================effectiveness extension============ --}}
+<div class="modal fade" id="effectivenss_extension">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="launch_extension_header">
+                    <h4 class="modal-title text-center">Launch Effectiveness Check</h4>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form method="POST">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="main_head_modal">
+                        <ul>
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#deviation_effectiveness"> Deviation Effectiveness
+                                        Check</a></div>
+                            </li>
+
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#capa_effectiveness"> CAPA Effectivenss Check</a></div>
+                            </li>
+                            <li>
+                                <div> <a href="" data-bs-toggle="modal"
+                                        data-bs-target="#qrm_effectiveness"> QRM Effectiveness Check</a></div>
+                            </li>
+                            <li>
+                                <div> <a href=""data-bs-toggle="modal"
+                                        data-bs-target="#investigation_effectiveness"> Investigation Effectiveness
+                                        Check</a></div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{-- <button type="submit">
+                Submit
+            </button> --}}
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================deviation effectiveness=========== --}}
+<div class="modal fade" id="deviation_effectiveness">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deviation-Effectiveness</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="deviation">Effectiveness Check Plan(Deviation)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="effectiveness_deviation">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Effectiveness Check Plan Proposed By<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text"
+                            name="effectiveness_deviation_proposed_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Effectiveness Check Plan Proposed On </label>
+                        <input class="extension_modal_signature" type="text"
+                            name="deviation_effectiveness_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Colsure Comments(Deviation)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="deviation_effectiveness_on">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Next Review Date(Deviation)</label>
+                        <input class="extension_modal_signature" type="date" name="next_review_deviation">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Effectiveness Check closed By </label>
+                        <select class="extension_modal_signature" name="deviation_feectiveness_closed_by"
+                            id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Deviation Effectiveness Check CLosed On</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="deviation_effectiveness_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ===============================CAPA effectiveness=========== --}}
+<div class="modal fade" id="capa_effectiveness">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">CAPA-Effectiveness</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Plan(CAPA)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="effectiveness_check_capa">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Effectiveness Check Plan Proposed By<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text"
+                            name="_eefectiveness_capa_proposed_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Effectiveness Check Plan Proposed On </label>
+                        <input class="extension_modal_signature" type="text"
+                            name="deviation_effectiveness_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Colsure Comments(CAPA)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="deviation_effectiveness_on">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Next Review Date(CAPA)</label>
+                        <input class="extension_modal_signature" type="date" name="next_review_capa">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Effectiveness Check closed By </label>
+                        <select class="extension_modal_signature" name="capa_effectiveness_closed"
+                            id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">CAPA Effectiveness Check CLosed On</label>
+                        <input class="extension_modal_signature" type="date" name="capa_effectiveness_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ==============================QRM effectiveness=========== --}}
+<div class="modal fade" id="qrm_effectiveness">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">QRM-Effectiveness</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Plan(QRM)</label>
+                        <input class="extension_modal_signature" type="date" name="deviation_due_capa">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">QRM Effectiveness Check Plan Proposed By<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="qrm_proposed_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">QRM Effectiveness Check Plan Proposed On </label>
+                        <input class="extension_modal_signature" type="text" name="qrm_effectiveness_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Colsure Comments(QRM)</label>
+                        <input class="extension_modal_signature" type="date" name="qrm_effectiveness_on">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Next Review Date(QRM)</label>
+                        <input class="extension_modal_signature" type="date" name="next_review_qrm">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">QRM Effectiveness Check closed By </label>
+                        <select class="extension_modal_signature" name="qrm_effectivenss_check_by"
+                            id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">QRM Effectiveness Check CLosed On</label>
+                        <input class="extension_modal_signature" type="date" name="qrm_effectiveness_on">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ==============================investigation effectiveness=========== --}}
+<div class="modal fade" id="investigation_effectiveness">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Investigation-Effectiveness</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Plan(Investigation)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="investigation_effectivenss_check">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Effectiveness Check Plan Proposed By<span
+                                class="text-danger">*</span></label>
+                        <input class="extension_modal_signature" type="text"
+                            name="investigation_effectivenss_by">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Effectiveness Check Plan Proposed On </label>
+                        <input class="extension_modal_signature" type="text"
+                            name="investigation_effectiveness_on">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Effectiveness Check Colsure Comments(Investigation)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="investigation_effectiveness_on">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Next Review Date(Investigation)</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="investigation_effectiveness_on">
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Effectiveness Check closed By </label>
+                        <select class="extension_modal_signature" name="investigation_effectiveness_by"
+                            id="">
+                            <option value="">-- Select --</option>
+                        </select>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Investigation Effectiveness Check CLosed On</label>
+                        <input class="extension_modal_signature" type="date"
+                            name="investigation_effectiveness_on">
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- ==================================================================== --}}
 
 
     {{-- -----------------new modal------------------- ? --}}

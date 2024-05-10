@@ -1526,6 +1526,7 @@ class DeviationController extends Controller
                     },
                 ],
                 'Document_Details_Required' => 'required|in:yes,no',
+                'Product_Details_Required' => 'required|in:yes,no',
                 'Number' => [
                     function ($attribute, $value, $fail) use ($request) {
                         if ($request->input('Document_Details_Required') === 'yes' && (count($value) === 1 && reset($value) === null)) {
@@ -1728,6 +1729,7 @@ class DeviationController extends Controller
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
+        
 
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Justification_for_categorization = !empty($request->Justification_for_categorization) ? $request->Justification_for_categorization : $deviation->Justification_for_categorization;
