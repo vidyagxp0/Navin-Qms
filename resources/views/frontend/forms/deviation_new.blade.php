@@ -1927,6 +1927,21 @@
                                 <div class="sub-head">
                                     Production
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.p_erson').hide();
+                                
+                                        $('[name="Production_Review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.p_erson').show();
+                                                $('.p_erson span').show();
+                                            } else {
+                                                $('.p_erson').hide();
+                                                $('.p_erson span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Production Review">Production Review Required ?</label>
@@ -1951,7 +1966,7 @@
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 p_erson">
                                     <div class="group-input">
                                         <label for="Production person">Production Person</label>
                                         <select name="Production_person" id="Production_person">
@@ -1962,7 +1977,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 p_erson" >
                                     <div class="group-input">
                                         <label for="Production assessment">Impact Assessment (By Production)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1971,7 +1986,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 p_erson">
                                     <div class="group-input">
                                         <label for="Production feedback">Production Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1981,7 +1996,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 p_erson">
                                     <div class="group-input">
                                         <label for="production attachment"> Production Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -1996,13 +2011,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 p_erson">
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
                                         <input disabled type="text" name="production_by" id="production_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field p_erson">
                                     <div class="group-input input-date">
                                         <label for="Production Review Completed On">Production Review Completed On</label>
                                         <div class="calenderauditee">
@@ -2014,10 +2029,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.warehouse').hide();
+                                
+                                        $('[name="Warehouse_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.warehouse').show();
+                                                $('.warehouse span').show();
+                                            } else {
+                                                $('.warehouse').hide();
+                                                $('.warehouse span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Warehouse
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Warehouse Review Required">Warehouse Review Required ?</label>
                                         <select name="Warehouse_review" id="Warehouse_review">
@@ -2040,7 +2070,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 warehouse">
                                     <div class="group-input">
                                         <label for="Customer notification">Warehouse Person</label>
                                         <select name="Warehouse_notification" id="Warehouse_person">
@@ -2051,7 +2081,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 warehouse">
                                     <div class="group-input">
                                         <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -2060,7 +2090,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 warehouse">
                                     <div class="group-input">
                                         <label for="productionfeedback">Warehouse Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -2069,7 +2099,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 warehouse">
                                     <div class="group-input">
                                         <label for="Warehouse attachment"> Warehouse Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2084,7 +2114,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 warehouse">
                                     <div class="group-input">
                                         <label for="Warehousefeedback">Warehouse Review Completed By</label>
                                         <input disabled type="text" name="Warehouse_by" id="Warehouse_by">
@@ -2092,7 +2122,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field warehouse">
                                     <div class="group-input input-date">
                                         <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                         <div class="calenderauditee">
@@ -2103,10 +2133,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.quality_control').hide();
+                                
+                                        $('[name="Quality_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.quality_control').show();
+                                                $('.quality_control span').show();
+                                            } else {
+                                                $('.quality_control').hide();
+                                                $('.quality_control span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Quality Control
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Review Required">Quality Control Review Required
                                             ?</label>
@@ -2142,21 +2187,21 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
                                         <textarea class="" name="Quality_Control_assessment" id="summernote-21">
                                     </textarea>
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3">
+                                </div> 
+                                <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Feedback">Quality Control Feedback</label>
                                         <textarea class="" name="Quality_Control_feedback" id="summernote-22">
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Attachments">Quality Control Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2172,14 +2217,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="productionfeedback">Quality Control Review Completed By</label>
                                         <input type="text" name="QualityAssurance__by" disabled>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field quality_control">
                                     <div class="group-input input-date">
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
@@ -2192,6 +2237,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.quality_assurance').hide();
+                                
+                                        $('[name="Quality_Assurance"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.warehouse').show();
+                                                $('.warehouse span').show();
+                                            } else {
+                                                $('.warehouse').hide();
+                                                $('.warehouse span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Quality Assurance
                                 </div>
@@ -2218,7 +2279,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Person">Quality Assurance Person</label>
                                         <select name="QualityAssurance_person" id="QualityAssurance_person">
@@ -2230,7 +2291,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -2239,7 +2300,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -2248,7 +2309,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Attachments">Quality Assurance Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2265,7 +2326,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review
                                             Completed By</label>
@@ -2273,7 +2334,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field quality_assurance">
                                     <div class="group-input input-date">
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
@@ -2286,6 +2347,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.engineering').hide();
+                                
+                                        $('[name="Engineering_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.engineering').show();
+                                                $('.engineering span').show();
+                                            } else {
+                                                $('.engineering').hide();
+                                                $('.engineering span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Engineering
                                 </div>
@@ -2311,7 +2388,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Person">Engineering Person</label>
                                         <select name="Engineering_person" id="Engineering_person">
@@ -2323,7 +2400,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -2332,7 +2409,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="productionfeedback">Engineering Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -2341,7 +2418,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 engineering">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Engineering Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2356,7 +2433,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed
                                             By</label>
@@ -2364,7 +2441,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field engineering">
                                     <div class="group-input input-date">
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
@@ -2377,6 +2454,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.analytical_development').hide();
+                                
+                                        $('[name="Analytical_Development_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.analytical_development').show();
+                                                $('.analytical_development span').show();
+                                            } else {
+                                                $('.analytical_development').hide();
+                                                $('.analytical_development span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Analytical Development Laboratory
                                 </div>
@@ -2404,7 +2496,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Person">Analytical Development
                                             Laboratory Person</label>
@@ -2416,7 +2508,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development
                                             Laboratory)</label>
@@ -2424,7 +2516,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development
                                             Laboratory Feedback</label>
@@ -2432,7 +2524,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 analytical_development">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Analytical Development Laboratory
                                             Attachments</label>
@@ -2451,7 +2543,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical
                                             Development Laboratory Review Completed By</label>
@@ -2467,7 +2559,7 @@
 
                                     </div>
                                 </div> --}}
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field analytical_development">
                                     <div class="group-input input-date">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
@@ -2480,6 +2572,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.kilo_lab').hide();
+                                
+                                        $('[name="Kilo_Lab_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.kilo_lab').show();
+                                                $('.kilo_lab span').show();
+                                            } else {
+                                                $('.kilo_lab').hide();
+                                                $('.kilo_lab span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Process Development Laboratory / Kilo Lab
                                 </div>
@@ -2507,7 +2614,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 kilo_lab">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Person</label>
@@ -2522,7 +2629,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development
                                             Laboratory / Kilo Lab)</label>
@@ -2530,7 +2637,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab
                                             Feedback</label>
@@ -2538,7 +2645,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 kilo_lab">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Process Development Laboratory / Kilo Lab
                                             Attachments</label>
@@ -2555,7 +2662,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo
                                             Lab Review Completed By</label>
@@ -2564,7 +2671,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field kilo_lab">
                                     <div class="group-input input-date">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
@@ -2577,6 +2684,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.technology_transfer').hide();
+                                
+                                        $('[name="Technology_transfer_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.technology_transfer').show();
+                                                $('.technology_transfer span').show();
+                                            } else {
+                                                $('.technology_transfer').hide();
+                                                $('.technology_transfer span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Technology Transfer / Design
                                 </div>
@@ -2604,7 +2726,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Person"> Technology Transfer / Design Person</label>
                                         <select name="Technology_transfer_person" id="Technology_transfer_person">
@@ -2618,7 +2740,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer /
                                             Design)</label>
@@ -2626,14 +2748,14 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design Feedback</label>
                                         <textarea class="" name="Technology_transfer_feedback" id="summernote-32">
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 technology_transfer">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2650,7 +2772,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Review Completed By">Technology Transfer / Design Review
                                             Completed By</label>
@@ -2658,7 +2780,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field technology_transfer">
                                     <div class="group-input input-date">
                                         <label for="Design Review Completed On">Technology Transfer / Design Review
                                             Completed On</label>
@@ -2671,6 +2793,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.environmental_health').hide();
+                                
+                                        $('[name="Environment_Health_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.environmental_health').show();
+                                                $('.environmental_health span').show();
+                                            } else {
+                                                $('.environmental_health').hide();
+                                                $('.environmental_health span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Environment, Health & Safety
                                 </div>
@@ -2698,7 +2835,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Person"> Environment, Health & Safety Person</label>
                                         <select name="Environment_Health_Safety_person"
@@ -2711,7 +2848,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health &
                                             Safety)</label>
@@ -2719,14 +2856,14 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety Feedback</label>
                                         <textarea class="" name="Health_Safety_feedback" id="summernote-34">
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 environmental_health">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Environment, Health & Safety Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2745,7 +2882,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="productionfeedback">Environment, Health & Safety Review Completed
                                             By</label>
@@ -2754,7 +2891,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field environmental_health">
                                     <div class="group-input input-date">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
@@ -2767,6 +2904,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.human_resources').hide();
+                                
+                                        $('[name="Human_Resource_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.human_resources').show();
+                                                $('.human_resources span').show();
+                                            } else {
+                                                $('.human_resources').hide();
+                                                $('.human_resources span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Human Resource & Administration
                                 </div>
@@ -2794,7 +2947,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 human_resources" >
                                     <div class="group-input">
                                         <label for="Administration Person"> Human Resource & Administration Person</label>
                                         <select name="Human_Resource_person" id="Human_Resource_person">
@@ -2808,7 +2961,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="Impact Assessment9">Impact Assessment (By Human Resource &
                                             Administration )</label>
@@ -2816,14 +2969,14 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration Feedback</label>
                                         <textarea class="" name="Human_Resource_feedback" id="summernote-36">
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 human_resources">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Human Resource & Administration
                                             Attachments</label>
@@ -2841,7 +2994,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration
                                             Review Completed By</label>
@@ -2850,7 +3003,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field human_resources">
                                     <div class="group-input input-date">
                                         <label for="Administration Review Completed On">Human Resource & Administration
                                             Review Completed On</label>
@@ -2863,6 +3016,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.information_technology').hide();
+                                
+                                        $('[name="Information_Technology_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.information_technology').show();
+                                                $('.information_technology span').show();
+                                            } else {
+                                                $('.information_technology').hide();
+                                                $('.information_technology span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Information Technology
                                 </div>
@@ -2891,7 +3059,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Person"> Information Technology Person</label>
                                         <select name=" Information_Technology_person"
@@ -2904,7 +3072,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information
                                             Technology)</label>
@@ -2912,7 +3080,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback"> Information Technology
                                             Feedback</label>
@@ -2920,7 +3088,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 information_technology">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Information Technology Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -2938,7 +3106,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed By"> Information Technology
                                             Review Completed By</label>
@@ -2946,7 +3114,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field information_technology">
                                     <div class="group-input input-date">
                                         <label for="Information Technology Review Completed On">Information Technology
                                             Review Completed On</label>
@@ -2959,10 +3127,26 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.project_management').hide();
+                                
+                                        $('[name="Project_management_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.warehouse').show();
+                                                $('.warehouse span').show();
+                                            } else {
+                                                $('.warehouse').hide();
+                                                $('.warehouse span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Project Management
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 project_management">
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
                                             Required ?</label>
@@ -2986,7 +3170,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 project_management">
                                     <div class="group-input">
                                         <label for="Project management Person"> Project management Person</label>
                                         <select name="Project_management_person" id="Project_management_person">
@@ -3000,7 +3184,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By Project management
                                             )</label>
@@ -3008,14 +3192,14 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Project management Feedback"> Project management Feedback</label>
                                         <textarea class="" name="Project_management_feedback" id="summernote-40">
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 project_management">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Project management Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3033,7 +3217,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 project_management">
                                     <div class="group-input">
                                         <label for="Project management Review Completed By"> Project management Review
                                             Completed By</label>
@@ -3042,7 +3226,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field project_management">
                                     <div class="group-input input-date">
                                         <label for="Project management Review Completed On">Information Technology Review
                                             Completed On</label>
@@ -3055,6 +3239,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.other1_reviews').hide();
+                                
+                                        $('[name="Other1_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.other1_reviews').show();
+                                                $('.other1_reviews span').show();
+                                            } else {
+                                                $('.other1_reviews').hide();
+                                                $('.other1_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Other's 1 ( Additional Person Review From Departments If Required)
                                 </div>
@@ -3081,7 +3280,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 other1_reviews">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 1 Person</label>
                                         <select name="Other1_person" id="Other1_person">
@@ -3094,7 +3293,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 other1_reviews">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 1 Department</label>
                                         <select name="Other1_Department_person" id="Other1_Department_person">
@@ -3122,21 +3321,21 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 other1_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Other's 1)</label>
                                         <textarea class="" name="Other1_assessment" id="summernote-41">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 other1_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 1 Feedback</label>
                                         <textarea class="" name="Other1_feedback" id="summernote-42">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 other1_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Other's 1 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3151,14 +3350,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 other1_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 1 Review Completed By</label>
                                         <input type="text" name="Other1_by" id="Other1_by" disabled>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field other1_reviews">
                                     <div class="group-input input-date">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <div class="calenderauditee">
@@ -3167,10 +3366,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other2_reviews').hide();
+                                
+                                        $('[name="Other2_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other2_reviews').show();
+                                                $('.Other2_reviews span').show();
+                                            } else {
+                                                $('.Other2_reviews').hide();
+                                                $('.Other2_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Other's 2 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 2 Review Required ?</label>
                                         <select name="Other2_review" id="Other2_review">
@@ -3193,7 +3407,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 2 Person</label>
                                         <select name="Other2_person" id="Other2_person">
@@ -3206,7 +3420,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 2 Department</label>
                                         <select name="Other2_Department_person" id="Other2_Department_person">
@@ -3234,21 +3448,21 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By Other's 2)</label>
                                         <textarea class="" name="Other2_Assessment" id="summernote-43">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Feedback2"> Other's 2 Feedback</label>
                                         <textarea class="" name="Other2_feedback" id="summernote-44">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Other's 2 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3263,14 +3477,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                         <input type="text" name="Other2_by" disabled>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field Other2_reviews">
                                     <div class="group-input input-date">
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
                                         <div class="calenderauditee">
@@ -3281,6 +3495,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other3_reviews').hide();
+                                
+                                        $('[name="Other3_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other3_reviews').show();
+                                                $('.Other3_reviews span').show();
+                                            } else {
+                                                $('.Other3_reviews').hide();
+                                                $('.Other3_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Other's 3 ( Additional Person Review From Departments If Required)
                                 </div>
@@ -3307,7 +3536,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 3 Person</label>
                                         <select name="Other3_person" id="Other3_person">
@@ -3320,7 +3549,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other3_reviews ">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 3 Department</label>
                                         <select name="Other3_Department_person" id="Other3_Department_person">
@@ -3348,21 +3577,21 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Other's 3)</label>
                                         <textarea class="" name="Other3_Assessment" id="summernote-45">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Feedback</label>
                                         <textarea class="" name="Other3_feedback" id="summernote-46">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Other's 3 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3376,15 +3605,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
+                                </div> 
+                                <div class="col-md-6 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                         <input type="text" name="Other3_by" disabled>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field Other3_reviews">
                                     <div class="group-input input-date">
                                         <label for="Review Completed On3">Other's 3 Review Completed On</label>
                                         <div class="calenderauditee">
@@ -3395,7 +3624,21 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other4_reviews').hide();
+                                
+                                        $('[name="Other4_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other4_reviews').show();
+                                                $('.Other4_reviews span').show();
+                                            } else {
+                                                $('.Other4_reviews').hide();
+                                                $('.Other4_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Other's 4 ( Additional Person Review From Departments If Required)
                                 </div>
@@ -3421,8 +3664,8 @@
                                         ->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp
-                                <div class="col-lg-6">
+                                @endphp 
+                                <div class="col-lg-6 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Person4"> Other's 4 Person</label>
                                         <select name="Other4_person" id="Other4_person">
@@ -3435,7 +3678,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Department4"> Other's 4 Department</label>
                                         <select name="Other4_Department_person" id="Other4_Department_person">
@@ -3463,21 +3706,21 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By Other's 4)</label>
                                         <textarea class="" name="Other4_Assessment" id="summernote-47">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="feedback4"> Other's 4 Feedback</label>
                                         <textarea class="" name="Other4_feedback" id="summernote-48">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Other's 4 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3492,14 +3735,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                         <input type="text" name="Other4_by" disabled>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field Other4_reviews">
                                     <div class="group-input input-date">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <div class="calenderauditee">
@@ -3511,7 +3754,21 @@
                                     </div>
                                 </div>
 
-
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.Other5_reviews').hide();
+                                
+                                        $('[name="Other5_review"]').change(function() {
+                                            if ($(this).val() === 'yes') {
+                                                $('.Other5_reviews').show();
+                                                $('.Other5_reviews span').show();
+                                            } else {
+                                                $('.Other5_reviews').hide();
+                                                $('.Other5_reviews span').hide();
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="sub-head">
                                     Other's 5 ( Additional Person Review From Departments If Required)
                                 </div>
@@ -3538,7 +3795,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Person5">Other's 5 Person</label>
                                         <select name="Other5_person" id="Other5_person">
@@ -3551,7 +3808,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Department5"> Other's 5 Department</label>
                                         <select name="Other5_Department_person" id="Other5_Department_person">
@@ -3579,21 +3836,21 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Other's 5)</label>
                                         <textarea class="" name="Other5_Assessment" id="summernote-49">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 5 Feedback</label>
                                         <textarea class="" name="Other5_feedback" id="summernote-50">
                                         </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Other's 5 Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -3608,14 +3865,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                         <input type="text" name="Other5_by" disabled>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-lg-6 new-date-data-field Other5_reviews">
                                     <div class="group-input input-date">
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
                                         <div class="calenderauditee">
