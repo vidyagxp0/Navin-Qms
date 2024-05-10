@@ -1973,7 +1973,7 @@
                                     <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
-                                            
+
                                 </div>
                             </div>
                         </div>
@@ -2995,7 +2995,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.p_erson').hide();
-                                
+
                                         $('[name="Production_Review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.p_erson').show();
@@ -3321,7 +3321,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.warehouse').hide();
-                                
+
                                         $('[name="Warehouse_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.warehouse').show();
@@ -3479,7 +3479,7 @@
                                             {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
 
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="col-lg-6 mb-3 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed On">Warehouse Review Completed
@@ -3625,7 +3625,7 @@
                             <script>
                                 $(document).ready(function() {
                                     $('.quality_control').hide();
-                            
+
                                     $('[name="Quality_review"]').change(function() {
                                         if ($(this).val() === 'yes') {
                                             $('.quality_control').show();
@@ -3787,7 +3787,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.quality_assurance').hide();
-                                
+
                                         $('[name="Quality_Assurance"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.quality_assurance').show();
@@ -3948,7 +3948,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.engineering').hide();
-                                
+
                                         $('[name="Engineering_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.engineering').show();
@@ -4104,7 +4104,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.analytical_development').hide();
-                                
+
                                         $('[name="Analytical_Development_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.analytical_development').show();
@@ -4268,7 +4268,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.kilo_lab').hide();
-                                
+
                                         $('[name="Kilo_Lab_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.kilo_lab').show();
@@ -4425,7 +4425,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.technology_transfer').hide();
-                                
+
                                         $('[name="Technology_transfer_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.technology_transfer').show();
@@ -4588,7 +4588,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.environmental_health').hide();
-                                
+
                                         $('[name="Environment_Health_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.environmental_health').show();
@@ -4753,7 +4753,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.human_resources').hide();
-                                
+
                                         $('[name="Human_Resource_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.human_resources').show();
@@ -4912,7 +4912,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.information_technology').hide();
-                                
+
                                         $('[name="Information_Technology_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.information_technology').show();
@@ -5074,7 +5074,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.project_management').hide();
-                                
+
                                         $('[name="Project_management_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.project_management').show();
@@ -6366,7 +6366,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.other1_reviews').hide();
-                                
+
                                         $('[name="Other1_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.other1_reviews').show();
@@ -6420,7 +6420,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12 other1_reviews ">
-                                   
+
                                     <div class="group-input">
                                         <label for="Department1"> Other's 1 Department <span id="asteriskod1"
                                                 style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}"
@@ -6565,7 +6565,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other2_reviews').hide();
-                                
+
                                         $('[name="Other2_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other2_reviews').show();
@@ -6761,7 +6761,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other3_reviews').hide();
-                                
+
                                         $('[name="Other3_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other3_reviews').show();
@@ -6958,7 +6958,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other4_reviews').hide();
-                                
+
                                         $('[name="Other4_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other4_reviews').show();
@@ -7157,7 +7157,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other5_reviews').hide();
-                                
+
                                         $('[name="Other5_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other5_reviews').show();
@@ -8682,41 +8682,91 @@
                                 </span>
                             </label>
                             <div class="fishbone-ishikawa-diagram">
-                                <div class="left-group">
-                                    <div class="grid-field field-name">
-                                        <div>Measurement</div>
-                                        <div>Materials</div>
-                                        <div>Methods</div>
-                                    </div>
-                                    <div class="top-field-group">
-                                        <div class="grid-field fields top-field">
-                                            <div><input type="text" name="measurement[]"></div>
-                                            <div><input type="text" name="materials[]"></div>
-                                            <div><input type="text" name="methods[]"></div>
+                                @if($fishbone_data && is_array($fishbone_data->data))
+                                    <div class="left-group">
+                                        <div class="grid-field field-name">
+                                            <div>Measurement</div>
+                                            <div>Materials</div>
+                                            <div>Methods</div>
+                                        </div>
+                                        <div class="top-field-group">
+                                            <div class="grid-field fields top-field">
+                                                @foreach ($fishbone_data->data['measurement'] as $measurement)
+                                                    <div><input type="text" name="fishbone[measurement][{{ $loop->index }}]" value="{{ $measurement }}"></div>
+                                                @endforeach
+                                                @foreach ($fishbone_data->data['materials'] as $materials)
+                                                    <div><input type="text" name="fishbone[materials][{{ $loop->index }}]" value="{{ $materials }}"></div>
+                                                @endforeach
+                                                @foreach ($fishbone_data->data['methods'] as $methods)
+                                                    <div><input type="text" name="fishbone[methods][{{ $loop->index }}]" value="{{ $methods }}"></div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="mid"></div>
+                                        <div class="bottom-field-group">
+                                            <div class="grid-field fields bottom-field">
+                                                @foreach ($fishbone_data->data['environment'] as $environment)
+                                                    <div><input type="text" name="fishbone[environment][{{ $loop->index }}]" value="{{ $environment }}"></div>
+                                                @endforeach
+                                                @foreach ($fishbone_data->data['manpower'] as $manpower)
+                                                    <div><input type="text" name="fishbone[manpower][{{ $loop->index }}]" value="{{ $manpower }}"></div>
+                                                @endforeach
+                                                @foreach ($fishbone_data->data['machine'] as $machine)
+                                                    <div><input type="text" name="fishbone[machine][{{ $loop->index }}]" value="{{ $machine }}"></div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="grid-field field-name">
+                                            <div>Environment</div>
+                                            <div>Manpower</div>
+                                            <div>Machine</div>
                                         </div>
                                     </div>
-                                    <div class="mid"></div>
-                                    <div class="bottom-field-group">
-                                        <div class="grid-field fields bottom-field">
-                                            <div><input type="text" name="environment[]"></div>
-                                            <div><input type="text" name="manpower[]"></div>
-                                            <div><input type="text" name="machine[]"></div>
+                                    <div class="right-group">
+                                        <div class="field-name">
+                                            Problem Statement
+                                        </div>
+                                        <div class="field">
+                                            <textarea name="fishbone[fishbone_problem_statement]">{{ $fishbone_data->data['fishbone_problem_statement'] }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="grid-field field-name">
-                                        <div>Environment</div>
-                                        <div>Manpower</div>
-                                        <div>Machine</div>
+                                @else
+                                    <div class="left-group">
+                                        <div class="grid-field field-name">
+                                            <div>Measurement</div>
+                                            <div>Materials</div>
+                                            <div>Methods</div>
+                                        </div>
+                                        <div class="top-field-group">
+                                            <div class="grid-field fields top-field">
+                                                <div><input type="text" name="fishbone[measurement][0]"></div>
+                                                <div><input type="text" name="fishbone[materials][0]"></div>
+                                                <div><input type="text" name="fishbone[methods][0]"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mid"></div>
+                                        <div class="bottom-field-group">
+                                            <div class="grid-field fields bottom-field">
+                                                <div><input type="text" name="fishbone[environment][0]"></div>
+                                                <div><input type="text" name="fishbone[manpower][0]"></div>
+                                                <div><input type="text" name="fishbone[machine][0]"></div>
+                                            </div>
+                                        </div>
+                                        <div class="grid-field field-name">
+                                            <div>Environment</div>
+                                            <div>Manpower</div>
+                                            <div>Machine</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="right-group">
-                                    <div class="field-name">
-                                        Problem Statement
+                                    <div class="right-group">
+                                        <div class="field-name">
+                                            Problem Statement
+                                        </div>
+                                        <div class="field">
+                                            <textarea name="fishbone[fishbone_problem_statement]"></textarea>
+                                        </div>
                                     </div>
-                                    <div class="field">
-                                        <textarea name="problem_statement"></textarea>
-                                    </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -8734,68 +8784,144 @@
                             <div class="why-why-chart">
                                 <table class="table table-bordered">
                                     <tbody>
-                                        <tr style="background: #f4bb22">
-                                            <th style="width:150px;">Problem Statement :</th>
-                                            <td>
-                                                <textarea name="why_problem_statement"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class="why-row">
-                                            <th style="width:150px; color: #393cd4;">
-                                                Why 1 <span onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
-                                            </th>
-                                            <td>
-                                                <div class="why_1_block">
-                                                    <textarea name="why_1[]"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="why-row">
-                                            <th style="width:150px; color: #393cd4;">
-                                                Why 2 <span onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
-                                            </th>
-                                            <td>
-                                                <div class="why_2_block">
-                                                    <textarea name="why_2[]"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="why-row">
-                                            <th style="width:150px; color: #393cd4;">
-                                                Why 3 <span onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
-                                            </th>
-                                            <td>
-                                                <div class="why_3_block">
-                                                    <textarea name="why_3[]"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="why-row">
-                                            <th style="width:150px; color: #393cd4;">
-                                                Why 4 <span onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
-                                            </th>
-                                            <td>
-                                                <div class="why_4_block">
-                                                    <textarea name="why_4[]"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="why-row">
-                                            <th style="width:150px; color: #393cd4;">
-                                                Why 5 <span onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
-                                            </th>
-                                            <td>
-                                                <div class="why_5_block">
-                                                    <textarea name="why_5[]"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr style="background: #0080006b;">
-                                            <th style="width:150px;">Root Cause :</th>
-                                            <td>
-                                                <textarea name="root-cause"></textarea>
-                                            </td>
-                                        </tr>
+                                        @if($why_data && is_array($why_data->data))
+                                            <tr style="background: #f4bb22">
+                                                <th style="width:150px;">Problem Statement :</th>
+                                                <td>
+                                                    {{-- <textarea name="why[{{ $loop->index }}][problem_statement]" value="{{arra_key_exists('problem_statement', $why_data) ? $why_data['problem_statement'] : ''}}"></textarea> --}}
+                                                    <textarea name="why[problem_statement]">{{ $why_data->data['problem_statement'] }}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 1 <span onclick="addWhyField('why_1_block', 'why_1[0]')">+</span>
+                                                </th>
+                                                <td>
+                                                    @foreach ($why_data->data['why_1'] as $why_one)
+                                                    <div class="why_1_block">
+                                                        <textarea name="why[why_1][{{ $loop->index }}]">{{ $why_one }}</textarea>
+                                                    </div>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 2 <span onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    @foreach ($why_data->data['why_2'] as $why_two)
+                                                        <div class="why_2_block">
+                                                            <textarea name="why[why_2][{{ $loop->index }}]">{{ $why_two }}</textarea>
+                                                        </div>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 3 <span onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    @foreach ($why_data->data['why_3'] as $why_three)
+                                                        <div class="why_3_block">
+                                                            <textarea name="why[why_3][{{ $loop->index }}]">{{ $why_three }}</textarea>
+                                                        </div>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 4 <span onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    @foreach ($why_data->data['why_4'] as $why_four)
+                                                        <div class="why_4_block">
+                                                            <textarea name="why[why_4][{{ $loop->index }}]">{{ $why_four }}</textarea>
+                                                        </div>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 5 <span onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    @foreach ($why_data->data['why_5'] as $why_five)
+                                                        <div class="why_5_block">
+                                                            <textarea name="why[why_5][{{ $loop->index }}]">{{ $why_five }}</textarea>
+                                                        </div>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr style="background: #0080006b;">
+                                                <th style="width:150px;">Root Cause :</th>
+                                                <td>
+                                                    <textarea name="why[root-cause]">{{ $why_data->data['root-cause'] }}</textarea>
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr style="background: #f4bb22">
+                                                <th style="width:150px;">Problem Statement :</th>
+                                                <td>
+                                                    <textarea name="why[problem_statement]"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 1 <span onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    <div class="why_1_block">
+                                                        <textarea name="why[why_1][0]"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 2 <span onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    <div class="why_2_block">
+                                                        <textarea name="why[why_2][0]"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 3 <span onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    <div class="why_3_block">
+                                                        <textarea name="why[why_3][0]"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 4 <span onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    <div class="why_4_block">
+                                                        <textarea name="why[why_4][0]"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="why-row">
+                                                <th style="width:150px; color: #393cd4;">
+                                                    Why 5 <span onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
+                                                </th>
+                                                <td>
+                                                    <div class="why_5_block">
+                                                        <textarea name="why[why_5][0]"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr style="background: #0080006b;">
+                                                <th style="width:150px;">Root Cause :</th>
+                                                <td>
+                                                    <textarea name="why[root-cause]"></textarea>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -11018,7 +11144,7 @@
                             <div class="down-logo">
                                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
                                     class="w-100 h-100">
-                            </div>                              
+                            </div>
                             <div style="background: #ff000042;" class="mini_buttons">
                                 Closed - Done
                             </div>

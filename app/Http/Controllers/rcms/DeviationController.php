@@ -1439,8 +1439,11 @@ class DeviationController extends Controller
 
         $investigation_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->first();
         $root_cause_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->first();
+        $why_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'why'])->first();
+        $fishbone_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'fishbone'])->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
+
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data', 'why_data', 'fishbone_data'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1463,6 +1466,8 @@ class DeviationController extends Controller
     public function update(Request $request, $id)
     {
         $form_progress = null;
+
+        // return $request->all();
 
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
@@ -1729,7 +1734,7 @@ class DeviationController extends Controller
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
-        
+
 
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Justification_for_categorization = !empty($request->Justification_for_categorization) ? $request->Justification_for_categorization : $deviation->Justification_for_categorization;
@@ -2351,6 +2356,18 @@ class DeviationController extends Controller
         $newDataGridRCA->identifier = 'rootCause';
         $newDataGridRCA->data = $request->rootCause;
         $newDataGridRCA->save();
+
+        $newDataGridWhy = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'why'])->firstOrCreate();
+        $newDataGridWhy->deviation_id = $id;
+        $newDataGridWhy->identifier = 'why';
+        $newDataGridWhy->data = $request->why;
+        $newDataGridWhy->save();
+
+        $newDataGridFishbone = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'fishbone'])->firstOrCreate();
+        $newDataGridFishbone->deviation_id = $id;
+        $newDataGridFishbone->identifier = 'fishbone';
+        $newDataGridFishbone->data = $request->fishbone;
+        $newDataGridFishbone->save();
 }
 
 
