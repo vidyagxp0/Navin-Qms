@@ -370,9 +370,9 @@
                         '<td><input disabled type="text" name="rootCause[' + serialNumber +
                         '][serial]" value="' + serialNumber + '"></td>' +
                         '<td> <select name="rootCause[' + serialNumber +
-                        '][root_cause_category]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td>' +
+                            '][root_cause_category]" id=""> <option value="">-- Select --</option> <option value="M-Machine(Equipment)">M-Machine(Equipment)</option><option value="M-Maintenance">M-Maintenance</option><option value="M-Man Power (physical work)">M-Man Power (physical work)</option><option value="M-Management">M-Management</option><option value="M-Material (Raw,Consumables etc.)">M-Material (Raw,Consumables etc.)</option><option value="M-Method (Process/Inspection)">M-Method (Process/Inspection)</option><option value="M-Mother Nature (Environment)">M-Mother Nature (Environment)</option><option value="P-Place/Plant">P-Place/Plant</option><option value="P-Policies">P-Policies</option><option value="P-Price">P-Price </option><option value="P-Procedures">P-Procedures</option><option value="P-Process">P-Process </option><option value="P-Product">P-Product</option><option value="S-Suppliers">S-Suppliers</option><option value="S-Surroundings">S-Surroundings</option><option value="S-Systems">S-Systems</option>  </select></td>' +
                         '<td><select name="rootCause[' + serialNumber +
-                        '][root_cause_sub_category]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td>' +
+                        '][root_cause_sub_category]" id=""><option value="">-- Select --</option> <option value="infrequent_audits">Infrequent Audits </option><option value="No_Preventive_Maintenance">No Preventive Maintenance </option><option value="Other">Other</option><option value="Poor_Maintenance_or_Design">Poor Maintenance or Design </option><option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement </option><option value="Scheduling_Problem">Scheduling Problem </option><option value="system_deficiency">System Deficiency </option><option value="technical_error">Technical Error </option><option value="tolerable_failure">Tolerable Failure </option><option value="calibration_issues">Calibration Issues </option><option value="Infrequent_Audits">Infrequent Audits</option><option value="No_Preventive_Maintenance">No Preventive Maintenance </option><option value="Other">Other</option><option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option><option value="Scheduling_Problem ">Scheduling Problem </option><option value="System_Deficiency">System Deficiency </option><option value="Technical_Error ">Technical Error </option><option value="Tolerable_Failure">Tolerable Failure </option><option value="Failure_to_Follow_SOP">Failure to Follow SOP</option><option value="Human_Machine_Interface">Human-Machine Interface</option><option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication </option><option value="Other">Other</option><option value="Personnel Error">Personnel Error</option><option value="Personnel not Qualified">Personnel not Qualified</option><option value="Practice Needed">Practice Needed</option><option value="Teamwork Needs Improvement">Teamwork Needs Improvement</option><option value="Attention">Attention</option><option value="Understanding">Understanding</option><option value="Procedural">Procedural</option><option value="Behavioral">Behavioral</option><option value="Skill">Skill</option><option value="Inattention to task">Inattention to task</option><option value="Lack of Process">Lack of Process</option><option value="Methods">Methods</option><option value="No or Poor Management Involvement">No or Poor Management Involvement</option><option value="Other">Other</option><option value="Personnel not Qualified">Personnel not Qualified</option><option value="Poor employee involvement">Poor employee involvement</option><option value="Poor recognition of hazard">Poor recognition of hazard</option><option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option><option value="Stress demands">Stress demands</option><option value="Task hazards not guarded properly">Task hazards not guarded properly</option><option value="Personnel not Qualified">Personnel not Qualified</option>  </select></td>' +
                         '<td><input type="text" class="Document_Remarks" name="rootCause[' + serialNumber +
                         '][ifother]"></td>' +
                         '<td><input type="text" class="Document_Remarks" name="rootCause[' + serialNumber +
@@ -2150,7 +2150,7 @@
                         </script>
 
                         <script>
-                            // This is a JQuery used for showing the Investigation 
+                            // This is a JQuery used for showing the Investigation
 
                             $(document).ready(function() {
                                 $('#Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(
@@ -8133,7 +8133,7 @@
 
                                             <tbody>
                                                 @if ($root_cause_data && is_array($root_cause_data->data))
-                                                    
+
                                                     <!-- {{ count($root_cause_data->data) }} -->
                                                     @foreach ($root_cause_data->data as $root_cause_dat)
                                                     <tr>
@@ -8469,7 +8469,7 @@
                                     (Launch Instruction)
                                 </span>
                             </label>
-                            
+
                             <div class="why-why-chart">
                                     <table class="table table-bordered">
                                         <thead>
@@ -8885,7 +8885,7 @@
                     <div class="group-input">
                         <label for="Initiator Group"><b>Name of the Department</b><span
                             class="text-danger">*</span></label>
-                        <select name="department_capa" id="department_capa" 
+                        <select name="department_capa" id="department_capa"
                         @if ($data->stage==4) disabled @endif id="department_capa" value="{{ $data->department_capa }}">
                             <option value="0">-- Select --</option>
                             <option @if ($data->department_capa == 'CQA') selected @endif
@@ -8935,7 +8935,7 @@
                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                     <div class="group-input input-date">
                         <label for="Deviation category">Source of CAPA</label>
-                        <select name="source_of_capa" id="Deviation_category"                        
+                        <select name="source_of_capa" id="Deviation_category"
                          @if ($data->stage==4) disabled @endif id="Deviation_category" value="{{ $data->source_of_capa }}">
                             <option value="0">-- Select -- </option>
                             <option @if ($data->source_of_capa == 'Deviation') selected @endif
@@ -8978,7 +8978,7 @@
                         $(this).val() == 'Others' ? $('#capa_others_block').fadeIn() : $('#capa_others_block').fadeOut()
                     })
                 </script>
-                
+
                 <div class="col-lg-6" id="others_block" >
                     <div class="group-input">
                         <label for="others">Source Document</label>
@@ -9024,14 +9024,14 @@
                     <div class="group-input input-date">
                         <label for="Audit Schedule End Date">Target Completion Date</label>
                         <div class="calenderauditee">
-                        <!-- <input  type="date" value="{{ $data->capa_completed_date ? $data->capa_completed_date : '' }}" name="capa_completed_date"id="capa_completed_date" 
+                        <!-- <input  type="date" value="{{ $data->capa_completed_date ? $data->capa_completed_date : '' }}" name="capa_completed_date"id="capa_completed_date"
                         oninput="handleDateInput(this, 'Capa_reported_date')">
                         <input type="hidden" value="{{ date('Y-m-d') }}" name="capa_completed_date">  -->
 
                          <input readonly type="text" id="Capa_reported_date"  value="{{ date('d-M-Y') }}" name="capa_completed_date" style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))"/>
                             <input type="date" value="{{ $data->capa_completed_date }}" name="capa_completed_date"
                              max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" value=""
-                                oninput="handleDateInput(this, 'Capa_reported_date')" /> 
+                                oninput="handleDateInput(this, 'Capa_reported_date')" />
                         </div>
                     </div>
                 </div>
@@ -9090,7 +9090,7 @@
                             <div class="add-btn">
                                 <div>Add</div>
                                 <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
-                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value="" 
+                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value=""
                                     {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
                             </div>
                         </div>
@@ -9114,15 +9114,15 @@
                             <div class="add-btn">
                                 <div>Add</div>
                                 <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
-                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value="" 
+                                    oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value=""
                                     {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
                             </div>
                         </div>
                     </div>
                     @endif
-                    
-                   
-                   
+
+
+
                 </div>
             </div>
 
@@ -9136,7 +9136,7 @@
                 <a href="/rcms/qms-dashboard">
                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                     </a>
-                
+
                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                 <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                         Exit </a> </button>
@@ -9149,7 +9149,7 @@
                         <div class="inner-block-content">
                             @if ($data->stage == 5)
                             <div class="row">
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -9160,7 +9160,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -9171,7 +9171,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause  <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -9199,7 +9199,7 @@
                                       @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description  <span id="asteriskIcon32q13" style="display: {{ $data->CAPA_Rquired == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -9215,7 +9215,7 @@
                                     document.addEventListener('DOMContentLoaded', function () {
                                             var selectField = document.getElementById('CAPA_Rquired');
                                             var inputsToToggle = [];
-        
+
                                             var facilityNameInputs = document.getElementsByClassName('capa_type');
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
@@ -9231,7 +9231,7 @@
                                                 inputsToToggle.forEach(function (input) {
                                                     input.required = isRequired;
                                                 });
-        
+
                                                 var asteriskIcon321 = document.getElementById('asteriskIcon32q1');
                                                 var asteriskIcon3211 = document.getElementById('asteriskIcon32q13');
                                                 asteriskIcon321.style.display = isRequired ? 'inline' : 'none';
@@ -9239,7 +9239,7 @@
                                             });
                                         });
                                 </script>
-                               
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -9258,7 +9258,7 @@
                                       @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category <span class="text-danger" style="display:{{ $data->stage == 5 ? 'inline' : 'none' }}">*</span></label>
@@ -9294,8 +9294,8 @@
                                         </div>
                                     </div>
                                 </div>
-                               
-                            
+
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -9324,7 +9324,7 @@
                             </div>
                             @else
                             <div class="row">
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
@@ -9335,7 +9335,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
@@ -9346,7 +9346,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                               
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause </label>
@@ -9374,7 +9374,7 @@
                                       @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
@@ -9382,7 +9382,7 @@
                                         <textarea readonly class="tiny" name="CAPA_Description"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="summernote-11">{{ $data->CAPA_Description }}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
@@ -9401,7 +9401,7 @@
                                       @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Of Revised Categorization">Justification for Revised Category </label>
@@ -9437,7 +9437,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>

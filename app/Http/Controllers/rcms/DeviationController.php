@@ -131,7 +131,7 @@ class DeviationController extends Controller
 
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
 
-        
+
         # -------------new-----------
         //  $deviation->record_number = $request->record_number;
         $deviation->division_id = $request->division_id;
@@ -528,7 +528,7 @@ class DeviationController extends Controller
         if (!empty($request->product_stage)) {
             $data5->product_stage = serialize($request->product_stage);
         }
-        
+
         if (!empty($request->batch_no)) {
             $data5->batch_no = serialize($request->batch_no);
         }
@@ -1430,7 +1430,7 @@ class DeviationController extends Controller
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
-        $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();        
+        $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
         $grid_data2 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Product")->first();
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         $pre = Deviation::all();
@@ -1628,7 +1628,7 @@ class DeviationController extends Controller
                 $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
                 $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
                 $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
-                
+
                  if (!empty ($request->CAPA_Closure_attachment)) {
                     $files = [];
                     if ($request->hasfile('CAPA_Closure_attachment')) {
@@ -1640,7 +1640,7 @@ class DeviationController extends Controller
                         }
                     }
                     $deviation->CAPA_Closure_attachment = json_encode($files);
-                    
+
                 }
                 $deviation->update();
                 toastr()->success('Document Sent');
@@ -1664,7 +1664,7 @@ class DeviationController extends Controller
                 ],  [
                     'CAPA_Rquired.required' => 'Capa required field cannot be empty!',
                 ]);
-    
+
                 if ($validator->fails()) {
                     return back()
                         ->withErrors($validator)
@@ -1672,7 +1672,7 @@ class DeviationController extends Controller
                 } else {
                     $form_progress = 'capa';
                 }
-                
+
             }
 
 
@@ -2338,13 +2338,13 @@ class DeviationController extends Controller
         $deviation->who_will_not_be = $request->who_will_not_be;
         $deviation->who_rationable = $request->who_rationable;
 
-        $newDataGridInvestication = new DeviationNewGridData();
+        $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
         $newDataGridInvestication->deviation_id = $id;
         $newDataGridInvestication->identifier = 'investication';
         $newDataGridInvestication->data = $request->investication;
         $newDataGridInvestication->save();
 
-        $newDataGridRCA = new DeviationNewGridData();
+        $newDataGridRCA = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->firstOrCreate();
         $newDataGridRCA->deviation_id = $id;
         $newDataGridRCA->identifier = 'rootCause';
         $newDataGridRCA->data = $request->rootCause;
@@ -2391,7 +2391,7 @@ class DeviationController extends Controller
             if (!empty($request->product_stage)) {
                 $data5->product_stage = serialize($request->product_stage);
             }
-            
+
             if (!empty($request->batch_no)) {
                 $data5->batch_no = serialize($request->batch_no);
             }
@@ -3080,7 +3080,7 @@ class DeviationController extends Controller
                 //     }
                 // }
 
-                
+
 
 
 
@@ -3642,7 +3642,7 @@ class DeviationController extends Controller
                 $deviation->update();
                 toastr()->success('Document Sent');
                 return back();
-            } 
+            }
             if ($deviation->stage == 7) {
 
                 if ($deviation->form_progress !== 'qah')
