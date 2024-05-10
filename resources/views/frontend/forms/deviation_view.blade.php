@@ -8794,7 +8794,7 @@
                                             </tr>
                                             <tr class="why-row">
                                                 <th style="width:150px; color: #393cd4;">
-                                                    Why 1 <span onclick="addWhyField('why_1_block', 'why_1[0]')">+</span>
+                                                    Why 1 <span onclick="addWhyField('why_1_block', 'why[why_1][]')">+</span>
                                                 </th>
                                                 <td>
                                                     @foreach ($why_data->data['why_1'] as $why_one)
@@ -8806,7 +8806,7 @@
                                             </tr>
                                             <tr class="why-row">
                                                 <th style="width:150px; color: #393cd4;">
-                                                    Why 2 <span onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
+                                                    Why 2 <span onclick="addWhyField('why_2_block', 'why[why_2][]')">+</span>
                                                 </th>
                                                 <td>
                                                     @foreach ($why_data->data['why_2'] as $why_two)
@@ -8818,7 +8818,7 @@
                                             </tr>
                                             <tr class="why-row">
                                                 <th style="width:150px; color: #393cd4;">
-                                                    Why 3 <span onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
+                                                    Why 3 <span onclick="addWhyField('why_3_block', 'why[why_3][]')">+</span>
                                                 </th>
                                                 <td>
                                                     @foreach ($why_data->data['why_3'] as $why_three)
@@ -8830,7 +8830,7 @@
                                             </tr>
                                             <tr class="why-row">
                                                 <th style="width:150px; color: #393cd4;">
-                                                    Why 4 <span onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
+                                                    Why 4 <span onclick="addWhyField('why_4_block', 'why[why_4][]')">+</span>
                                                 </th>
                                                 <td>
                                                     @foreach ($why_data->data['why_4'] as $why_four)
@@ -8842,7 +8842,7 @@
                                             </tr>
                                             <tr class="why-row">
                                                 <th style="width:150px; color: #393cd4;">
-                                                    Why 5 <span onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
+                                                    Why 5 <span onclick="addWhyField('why_5_block', 'why[why_5][]')">+</span>
                                                 </th>
                                                 <td>
                                                     @foreach ($why_data->data['why_5'] as $why_five)
@@ -13167,6 +13167,7 @@
 
 
     <script>
+        var i = 0; i++;
         function addFishBone(top, bottom) {
             let mainBlock = document.querySelector('.fishbone-ishikawa-diagram');
             let topBlock = mainBlock.querySelector(top)
@@ -13178,21 +13179,21 @@
             let measurement = document.createElement('div')
             let measurementInput = document.createElement('input')
             measurementInput.setAttribute('type', 'text')
-            measurementInput.setAttribute('name', 'measurement[]')
+            measurementInput.setAttribute('name', 'fishbone[measurement]['+i+']')
             measurement.append(measurementInput)
             topField.append(measurement)
 
             let materials = document.createElement('div')
             let materialsInput = document.createElement('input')
             materialsInput.setAttribute('type', 'text')
-            materialsInput.setAttribute('name', 'materials[]')
+            materialsInput.setAttribute('name', 'fishbone[materials]['+i+']')
             materials.append(materialsInput)
             topField.append(materials)
 
             let methods = document.createElement('div')
             let methodsInput = document.createElement('input')
             methodsInput.setAttribute('type', 'text')
-            methodsInput.setAttribute('name', 'methods[]')
+            methodsInput.setAttribute('name', 'fishbone[methods]['+i+']')
             methods.append(methodsInput)
             topField.append(methods)
 
@@ -13204,21 +13205,21 @@
             let environment = document.createElement('div')
             let environmentInput = document.createElement('input')
             environmentInput.setAttribute('type', 'text')
-            environmentInput.setAttribute('name', 'environment[]')
+            environmentInput.setAttribute('name', 'fishbone[environment]['+i+']')
             environment.append(environmentInput)
             bottomField.append(environment)
 
             let manpower = document.createElement('div')
             let manpowerInput = document.createElement('input')
             manpowerInput.setAttribute('type', 'text')
-            manpowerInput.setAttribute('name', 'manpower[]')
+            manpowerInput.setAttribute('name', 'fishbone[manpower]['+i+']')
             manpower.append(manpowerInput)
             bottomField.append(manpower)
 
             let machine = document.createElement('div')
             let machineInput = document.createElement('input')
             machineInput.setAttribute('type', 'text')
-            machineInput.setAttribute('name', 'machine[]')
+            machineInput.setAttribute('name', 'fishbone[machine]['+i+']')
             machine.append(machineInput)
             bottomField.append(machine)
 
