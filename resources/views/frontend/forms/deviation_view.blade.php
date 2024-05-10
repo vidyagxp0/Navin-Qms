@@ -1691,7 +1691,7 @@
                                                     <button type="button" name="audit-agenda-grid"
                                                         id="Product_Details">+</button>
                                                     <span class="text-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#document-details-field-instruction-modal"
+                                                        data-bs-target="#product-batch-grid"
                                                         style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                         (Launch Instruction)
                                                     </span>
@@ -7817,7 +7817,7 @@
                                 Investigation team and Responsibilities
                                 <button type="button" name="audit-agenda-grid" id="investigation_Details">+</button>
                                 <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
+                                    data-bs-target="#investigationn-team-responsibilities"
                                     style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (Launch Instruction)
                                 </span>
@@ -8107,7 +8107,7 @@
                                         <button type="button" name="audit-agenda-grid"
                                             id="root_cause_Details">+</button>
                                         <span class="text-primary" data-bs-toggle="modal"
-                                            data-bs-target="#document-details-field-instruction-modal"
+                                            data-bs-target="#root-cause"
                                             style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                             (Launch Instruction)
                                         </span>
@@ -8677,7 +8677,8 @@
                                 Failure Mode and Effect Analysis
                                 <button type="button" name="agenda"
                                     onclick="addRiskAssessment('risk-assessment-risk-management')">+</button>
-                                <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                                <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#failure_mode_and_effect_analysis" style="font-size: 0.8rem; font-weight: 400;">
                                     (Launch Instruction)
                                 </span>
                             </label>
@@ -8785,7 +8786,8 @@
                             <label for="agenda">
                                 Risk Matrix
                                 <button type="button" name="agenda" id="risk_matrix_details">+</button>
-                                <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;">
+                                <span class="text-primary" style="font-size: 0.8rem; font-weight: 400;" data-bs-toggle="modal"
+                                            data-bs-target="#risk_matrix">
                                     (Launch Instruction)
                                 </span>
                             </label>

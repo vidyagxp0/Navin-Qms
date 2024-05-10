@@ -3954,7 +3954,7 @@
                                             <button type="button" name="audit-agenda-grid"
                                                 id="investigation_Details">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#document-details-field-instruction-modal"
+                                                data-bs-target="#investigationn-team-responsibilities"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>
@@ -4025,7 +4025,7 @@
                                             <button type="button" name="audit-agenda-grid"
                                                 id="root_cause_Details">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#document-details-field-instruction-modal"
+                                                data-bs-target="#root-cause"
                                                 style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                                 (Launch Instruction)
                                             </span>

@@ -1013,13 +1013,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
     <div class="modal fade" id="document-details-field-instruction-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -1042,12 +1035,7 @@
                     <div class="mb-2">
                         <strong>Remarks :&nbsp;</strong>
                         Mention additional comments if any.
-                    </div>
-                    
-                    
-                    
-                    
-
+                    </div>    
                 </div>
 
             </div>
