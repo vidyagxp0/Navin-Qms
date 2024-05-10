@@ -767,6 +767,259 @@
         </div>
     </div>
     <!-- -------------------------------- -->
+
+
+
+
+
+
+
+
+
+    <!-- QRM INSTRUCTION MODALS START -->
+
+
+    <div class="modal fade" id="failure_mode_and_effect_analysis">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Failure Modal and Effect Analysis Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-2">
+                        <strong>Risk Factor :&nbsp;</strong>
+                        Identify the general category or type of risk being assessed (e.g., safety, compliance, operational).
+                    </div>
+                    <div class="mb-2">
+                        <strong>Risk Element :</strong>
+                        Specify the specific aspect or component of the process, system, or product that is susceptible to failure or error.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Probable cause of risk element :&nbsp;</strong>
+                        Describe the potential reasons or sources that could lead to the identified risk element occurring.
+                    </div>
+
+
+                    <div class="mb-2">
+                        <strong>Existing Risk Controls :&nbsp;</strong>
+                        List any current measures, procedures, or controls in place to mitigate or manage the identified risk element.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Initial Severity- H(3)/M(2)/L(1) :</strong>
+                        Rate the potential severity of the consequence if the risk element were to occur, using a scale of High (3), Medium (2), or Low (1).
+                    </div>
+                    <div class="mb-2">
+                        <strong>Initial Probability- H(3)/M(2)/L(1) :&nbsp;</strong>
+                        Rate the likelihood or probability of the risk element occurring, using a scale of High (3), Medium (2), or Low (1).
+                    </div>
+                    <div class="mb-2">
+                        <strong>Initial Detectability- H(1)/M(2)/L(3) :&nbsp;</strong>
+                        Rate the ease or likelihood of detecting the risk before it leads to a consequence, using a scale of High (1), Medium (2), or Low (3).
+                    </div>
+                    <div class="mb-2">
+                        <strong>Initial RPN (Risk Priority Number) :</strong>
+                        Calculate the initial Risk Priority Number by multiplying Severity, Probability, and Detectability scores (RPN = Severity × Probability × Detectability).
+                    </div>
+                    <div class="mb-2">
+                        <strong>Risk Acceptance (Y/N): :&nbsp;</strong>
+                        Indicate whether the initial risk level is acceptable (Y) or not (N) based on predefined acceptance criteria.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Proposed Additional Risk control measure (Mandatory for Risk elements having RPN>4): :&nbsp;</strong>
+                        Specify any additional measures or controls proposed to further mitigate the risk, particularly for elements with an initial RPN greater than 4.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Residual Severity- H(3)/M(2)/L(1) :</strong>
+                        Re-assess the potential severity of the consequence after implementing any additional risk controls, using the same High (3), Medium (2), or Low (1) scale.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Residual Probability- H(3)/M(2)/L(1) :&nbsp;</strong>
+                        Re-assess the likelihood or probability of the risk element occurring after implementing additional controls, using the same High (3), Medium (2), or Low (1) scale.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Residual Detectability- H(1)/M(2)/L(3) :&nbsp;</strong>
+                        Re-assess the ease or likelihood of detecting the risk after implementing additional controls, using the same High (1), Medium (2), or Low (3) scale.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Residual RPN (Risk Priority Number): :</strong>
+                        Calculate the new Risk Priority Number after implementing additional controls, using the same formula as for the initial RPN.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Risk Acceptance (Y/N): :&nbsp;</strong>
+                        Re-assess whether the residual risk level is acceptable (Y) or not (N) based on predefined acceptance criteria.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Mitigation proposal (Mention either CAPA reference number, IQ, OQ or PQ): :&nbsp;</strong>
+                        Provide details of the specific actions or measures proposed to mitigate or manage the risk, such as referencing Corrective and Preventive Actions (CAPA) or validation documentation (Installation Qualification (IQ), Operational Qualification (OQ), Performance Qualification (PQ)).
+                    </div>                  
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="risk_matrix">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Risk Matrix Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <strong>Risk Assessment :&nbsp;</strong>
+                        Evaluate and document the identified risks according to their severity, likelihood, or any other relevant criteria. <br>
+                        Use a risk assessment methodology to assign a risk rating or score to each identified risk. <br>
+                        Consider both the impact (severity) and the likelihood of occurrence when assessing risks.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Review Schedule :</strong>
+                        Determine the frequency and timing of reviews for each identified risk. <br>
+                        Establish a schedule for periodic reassessment of risks to ensure that risk management measures remain effective and up to date. <br>
+                        Define intervals or triggers for review, such as quarterly, annually, or in response to significant changes in the risk landscape.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Actual Reviewed On :&nbsp;</strong>
+                        Record the date when the risk assessment was actually reviewed, compared to the scheduled review date. <br>
+                        Document the specific date on which the risk assessment was conducted or updated to reflect any changes in risk status or management measures.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Recorded By Sign and Date :&nbsp;</strong>
+                        Identify the individual responsible for recording the risk assessment, typically the person overseeing risk management activities or a designated risk manager. <br>
+                        Obtain the signature and date of the person who conducted or documented the risk assessment to provide accountability and traceability.
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QRM INSTRUCTION MODAL ENDS -->
+
+    <!-- INVESTIGATION INSTRUCTION MODAL STARTS -->
+
+    <div class="modal fade" id="investigationn-team-responsibilities">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <strong>Investigation Team :&nbsp;</strong>
+                        List the names or titles of individuals who are part of the investigation team. <br>
+                        Include all members involved in the investigation process, such as quality assurance personnel, subject matter experts, and relevant stakeholders. <br>
+                        Ensure that each member of the team is clearly identified to facilitate communication and collaboration throughout the investigation.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Responsibility :</strong>
+                        Specify the responsibilities or roles assigned to each member of the investigation team. <br>
+                        Define the tasks, actions, or areas of focus that each team member is responsible for during the deviation investigation. <br>
+                        Ensure clarity and accountability by clearly outlining the duties of each team member. 
+                    </div>
+                    <div class="mb-2">
+                        <strong>Remarks :&nbsp;</strong>
+                        Mention additional comments if any.
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="root-cause">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <strong>Root Cause Category :&nbsp;</strong>
+                        Identify the general category or type of root cause contributing to the deviation or issue. <br>
+                        Classify the root cause into broad categories such as equipment failure, human error, process deviation, environmental factors, etc.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Root Cause Sub-Category :</strong>
+                        Further specify or classify the root cause into more detailed sub-categories within the broader category. <br>
+                        Provide additional granularity to help pinpoint the specific factors contributing to the deviation.
+                    </div>
+                    <div class="mb-2">
+                        <strong>If Others :&nbsp;</strong>
+                        Use this field if the root cause does not fit into any predefined category or sub-category. <br>
+                        Provide a brief description or explanation of the "other" root cause if applicable.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Probability :</strong>
+                        Assess the likelihood or probability of the identified root cause leading to the deviation or issue. <br>
+                        Use a qualitative or quantitative scale to rate the probability, such as high, medium, low, or a numerical scale (e.g., 1-5).
+                    </div>
+                    <div class="mb-2">
+                        <strong>Remarks :&nbsp;</strong>
+                        Mention additional comments if any.
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- INVESTIGATION INSTRUCTION MODAL ENDS -->
+
+    <div class="modal fade" id="product-batch-grid">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 style="margin-left: 60px;" class="modal-title">Explanation of Data Fields</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <strong>Product :&nbsp;</strong>
+                        Specify the name or code of the product associated with the batch. <br>
+                        Provide clear identification of the product to ensure accurate tracking and management.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Stage:</strong>
+                        Indicate the stage or phase of production or processing to which the batch belongs.<br>
+                        Differentiate between stages such as raw materials, in-process, finished product, or any other relevant stages in the manufacturing or production process.  
+                    </div>
+                    <div class="mb-2">
+                        <strong>Batch No. :</strong>
+                        Assign a unique batch number to each batch of the product.<br>
+                        Use a consistent numbering system or format for batch numbers to facilitate traceability and recall procedures.<br>
+                        Ensure that each batch number is unique and not repeated within the same product line or stage.
+                    </div>
+                    <div class="mb-2">
+                        <strong>Remarks :&nbsp;</strong>
+                        Mention additional comments if any.
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
     <div class="modal fade" id="document-details-field-instruction-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
