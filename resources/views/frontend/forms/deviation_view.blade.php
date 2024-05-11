@@ -11212,34 +11212,47 @@
                         <ul>
                             <li>
                                 <div> 
-                                    <!-- @if($qrmExtension->counter == 3)
-                                    <a href="" data-bs-toggle="modal"
-                                        data-bs-target="#qrm_extension"> Level Passed</a>
-                                    @else  -->
-                                    <a href="" data-bs-toggle="modal"
-                                        data-bs-target="#qrm_extension"> QRM</a>
-                                    <!-- @endif -->
-                                    </div>
+                                    @if($qrmExtension && $qrmExtension->counter == 3)
+                                        <a>-------</a>
+                                    @else
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#qrm_extension"> QRM</a>
+                                    @endif                                    
+                                </div>
                             </li>
                             <li>
-                                <div> <a href=""data-bs-toggle="modal"
-                                        data-bs-target="#investigation_extension"> Investigation</a></div>
+                                <div>
+                                    @if($investigationExtension && $investigationExtension->counter == 3)
+                                        <a>-------</a>
+                                    @else
+                                        <a href=""data-bs-toggle="modal" data-bs-target="#investigation_extension"> Investigation</a>
+                                    @endif
+                                </div>
                             </li>
                             <li>
-                                <div> <a href="" data-bs-toggle="modal"
-                                        data-bs-target="#capa_extension"> CAPA</a></div>
+                                <div>
+                                    @if($capaExtension && $capaExtension->counter == 3)
+                                        <a>-------</a>
+                                    @else
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#capa_extension"> CAPA</a>
+                                    @endif
+                                </div>
                             </li>
                             <li>
-                                <div> <a href="" data-bs-toggle="modal"
-                                        data-bs-target="#deviation_extension"> Deviation</a></div>
+                                <div>
+                                    @if($deviationExtension && $deviationExtension->counter == 3)
+                                        <a>-------</a>
+                                    @else
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#deviation_extension"> Deviation</a>
+                                    @endif
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {{-- <button type="submit">
+                    <!-- {{-- <button type="submit">
                 Submit
-            </button> --}}
+            </button> --}} -->
                     <button type="button" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
