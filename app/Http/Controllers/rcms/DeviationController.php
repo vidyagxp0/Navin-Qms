@@ -25,6 +25,7 @@ use Carbon\Carbon;
 use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
+use App\Models\DeviationGridQrms;
 use Helpers;
 use Illuminate\Pagination\Paginator;
 use PDF;
@@ -1440,7 +1441,11 @@ class DeviationController extends Controller
         $investigation_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->first();
         $root_cause_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
+        $grid_data_qrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'failure_mode_qrms'])->first();
+        // dd($grid_data_qrms);
+        $grid_data_matrix_qrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'matrix_qrms'])->first();
+
+        return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data','grid_data_qrms','grid_data_matrix_qrms'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1462,6 +1467,7 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $form_progress = null;
 
         $lastDeviation = deviation::find($id);
@@ -1745,6 +1751,18 @@ class DeviationController extends Controller
         $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
         $deviation->Occurrence = $request->Occurrence ? $request->Occurrence : $deviation->Occurrence;
         $deviation->detection = $request->detection ? $request->detection: $deviation->detection;
+
+        $newDataGridqrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'failure_mode_qrms'])->firstOrCreate();
+        $newDataGridqrms->deviation_id = $id;
+        $newDataGridqrms->identifier = 'failure_mode_qrms';
+        $newDataGridqrms->data = $request->failure_mode_qrms;
+        $newDataGridqrms->save();
+
+        $matrixDataGridqrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'matrix_qrms'])->firstOrCreate();
+        $matrixDataGridqrms->deviation_id = $id;
+        $matrixDataGridqrms->identifier = 'matrix_qrms';
+        $matrixDataGridqrms->data = $request->matrix_qrms;
+        $matrixDataGridqrms->save();
 
         if ($deviation->stage < 6) {
             $deviation->CAPA_Rquired = $request->CAPA_Rquired;

@@ -17,4 +17,9 @@ class Deviation extends Model
     {
         return $this->hasMany(DeviationNewGridData::class, 'deviation_id');
     }
+
+    public function qrms_data_grids()
+    {
+        return $this->hasMany(DeviationGridQrms::class, 'deviation_id');
+    }
 }
