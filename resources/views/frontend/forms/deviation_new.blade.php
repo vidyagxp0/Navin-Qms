@@ -5581,7 +5581,7 @@
                                 </div>
 
 
-                                <div class="sub-head">
+                                 {{--  <div class="sub-head">
                                     Deviation Effectiveness Check
                                 </div>
 
@@ -5596,7 +5596,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                               
                                 <div class="row">
 
                                     <div class="col-lg-6">
@@ -5627,7 +5627,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                 
                                 </div>
 
 
@@ -5655,7 +5655,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- row --}}
+                               
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5684,7 +5684,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
 
                                 <div class="sub-head">
@@ -5701,7 +5701,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                               
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5731,7 +5731,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
 
 
@@ -5758,7 +5758,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- row --}}
+                               
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5788,7 +5788,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                         
                                 </div>
                                 <div class="sub-head">
                                     Quality Risk Management Effectiveness Check
@@ -5805,7 +5805,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                             
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5836,7 +5836,7 @@
                                         </div>
 
                                     </div>
-                                    {{-- row-end --}}
+                                   
                                 </div>
 
 
@@ -5865,7 +5865,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                              <div class="row">
 
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5895,7 +5895,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row div --}}
+                                   
                                 </div>
                                 <div class="sub-head">
                                     Investigation Effectiveness Check
@@ -5911,7 +5911,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                             
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5941,8 +5941,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row div --}}
-                                </div>
+                                    
+                                </div> 
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -5997,7 +5997,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--}}
 
                                 <div class="button-block">
                                     <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
