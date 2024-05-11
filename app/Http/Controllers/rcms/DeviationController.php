@@ -1442,7 +1442,6 @@ class DeviationController extends Controller
         $why_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'why'])->first();
         $fishbone_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'fishbone'])->first();
 
-
         return view('frontend.forms.deviation_view', compact('data', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data', 'why_data', 'fishbone_data'));
     }
     /**
