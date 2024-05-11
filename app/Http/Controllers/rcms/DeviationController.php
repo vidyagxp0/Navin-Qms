@@ -7,7 +7,7 @@ use App\Models\DeviationNewGridData;
 use App\Models\DeviationCftsResponse;
 use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
-use App\Models\{EffectivenessCheck,LaunchExtension};
+use App\Models\{EffectivenessCheck,LaunchExtension,DeviationGridQrms};
 use App\Models\CC;
 use App\Models\ActionItem;
 use App\Models\Deviation;
@@ -1426,7 +1426,7 @@ class DeviationController extends Controller
     {
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         $data = Deviation::find($id);
-        // $userData = User::all();
+        $userData = User::all();
         $data1 = DeviationCft::where('deviation_id', $id)->latest()->first();
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
@@ -1441,12 +1441,15 @@ class DeviationController extends Controller
         $investigation_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->first();
         $root_cause_data = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->first();
 
+        $grid_data_qrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'failure_mode_qrms'])->first();
+        $grid_data_matrix_qrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'matrix_qrms'])->first();
+
         $capaExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Capa"])->first();
         $qrmExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "QRM"])->first();
         $investigationExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Investigation"])->first();
         $deviationExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Deviation"])->first();
 
-        return view('frontend.forms.deviation_view', compact('data','capaExtension','qrmExtension','investigationExtension','deviationExtension', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
+        return view('frontend.forms.deviation_view', compact('data','userData', 'grid_data_qrms','grid_data_matrix_qrms', 'capaExtension','qrmExtension','investigationExtension','deviationExtension', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1753,6 +1756,19 @@ class DeviationController extends Controller
         $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
         $deviation->Occurrence = $request->Occurrence ? $request->Occurrence : $deviation->Occurrence;
         $deviation->detection = $request->detection ? $request->detection: $deviation->detection;
+
+        $newDataGridqrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' =>
+        'failure_mode_qrms'])->firstOrCreate();
+        $newDataGridqrms->deviation_id = $id;
+        $newDataGridqrms->identifier = 'failure_mode_qrms';
+        $newDataGridqrms->data = $request->failure_mode_qrms;
+        $newDataGridqrms->save();
+
+        $matrixDataGridqrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' => 'matrix_qrms'])->firstOrCreate();
+        $matrixDataGridqrms->deviation_id = $id;
+        $matrixDataGridqrms->identifier = 'matrix_qrms';
+        $matrixDataGridqrms->data = $request->matrix_qrms;
+        $matrixDataGridqrms->save();
 
         if ($deviation->stage < 6) {
             $deviation->CAPA_Rquired = $request->CAPA_Rquired;

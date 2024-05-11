@@ -425,19 +425,73 @@
     </script>
     <script>
         $(document).ready(function() {
+            $('#risk-assessment-risk-management').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var users = @json($users);
+
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+
+                        // '<td><input disabled type="text" name="failure_mode_qrms[' + serialNumber + '][serial]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" class="numberDetail" name="failure_mode_qrms[' + serialNumber +'][risk_factor]"></td>' +
+                        '<td><input type="text" class="numberDetail" name="failure_mode_qrms[' + serialNumber +'][risk_element]"></td>' +
+                        '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][probale_of_risk_element]"></td>' +
+                        '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][existing_risk_control]"></td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][initial_severity]" id=""> <option value="">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][initial_probability]" id=""> <option value="">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option></select> </td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][initial_detectability]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
+                        '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][initial_rpn]"></td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][risk_acceptance]" id=""> <option value="n">-- Select --</option><option value="n">N</option> <option> Y </option> </select> </td>' +
+                        '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][proposed_additional_risk_control]"></td>' +
+                        
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][residual_severity]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][residual_probability]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][residual_detectability]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
+                        '<td><input type="text" class="Document_Remarks"              name="failure_mode_qrms[' + serialNumber + '][residual_rpn]"></td>' +
+                        '<td> <select name="failure_mode_qrms[' + serialNumber + '][risk_acceptance]" id=""> <option value="">-- Select --</option><option value="n">N</option>   <option value="y">Y</option></select> </td>' +
+
+                        '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][mitigation_proposal]"></td>' +
+
+
+                        '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
+
+                        '</tr>';
+
+                    for (var i = 0; i < users.length; i++) {
+                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    }
+
+                    html += '</select></td>' +
+
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#risk-assessment-risk-management tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
+        });
+    </script>
+
+
+<script>
+        $(document).ready(function() {
             $('#risk_matrix_details').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
 
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" class="Document_Remarks" name="Risk_Assessment[]"></td>' +
-                        '<td><input type="text" class="Document_Remarks" name="Review_Schedule[]"></td>' +
-                        '<td><input type="text" class="Document_Remarks" name="Actual_Reviewed[]"></td>' +
-                        '<td><input type="text" class="Document_Remarks" name="Recorded_By[]"></td>' +
-                        '<td><input type="text" class="Document_Remarks" name="Remarks[]"></td>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" class="numberDetail" name="matrix_qrms[' + serialNumber +'][risk_Assesment]"></td>' +
+                        '<td><input type="text" class="numberDetail" name="matrix_qrms[' + serialNumber +'][review_schedule]"></td>' +
+                        '<td><input type="text" class="numberDetail" name="matrix_qrms[' + serialNumber +'][actual_reviewed]"></td>' +
+                        '<td><input type="text" class="numberDetail" name="matrix_qrms[' + serialNumber +'][recorded_by]"></td>' +
+                        '<td><input type="text" class="numberDetail" name="matrix_qrms[' + serialNumber +'][remark]"></td>' +
                         '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
 
                         '</tr>';
@@ -2129,10 +2183,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                                 </div>
                             </div>
                         </div>
@@ -2941,10 +2995,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                             </div>
                         </div>
                     </div>
@@ -8102,10 +8156,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                         </div>
                     </div>
             </div>
@@ -8116,7 +8170,21 @@
         <div id="CCForm9" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
-
+                    @if($deviationExtension && $deviationExtension->dev_proposed_due_date)
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <input name="dev_proposed_due_date" id="dev_proposed_due_date" value="{{ Helpers::getdateFormat($deviationExtension->dev_proposed_due_date) }}" disabled>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <input name="dev_proposed_due_date" id="dev_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
+                            </div>
+                        </div>
+                    @endif
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
                             <label for="Investigation Summary">Description of Event</label>
@@ -9010,10 +9078,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                 </div>
             </div>
         </div>
@@ -9023,6 +9091,22 @@
             <div class="inner-block-content">
                 <div class="row">
                     <div class="col-12 sub-head"></div>
+                    @if($qrmExtension && $qrmExtension->qrm_proposed_due_date)
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <input name="qrm_proposed_due_date" id="qrm_proposed_due_date" value="{{ Helpers::getdateFormat($qrmExtension->qrm_proposed_due_date) }}" disabled>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <input name="qrm_proposed_due_date" id="qrm_proposed_due_date" disabled>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-12 mb-4">
                         <div class="group-input">
                             <label for="agenda">
@@ -9062,7 +9146,279 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    </tbody>
+
+    @if ($grid_data_qrms && is_array($grid_data_qrms->data))
+        <!-- {{-- {{ count($investigation_data->data) }} --}} -->
+        @foreach ($grid_data_qrms->data as $grid_data_qrms)
+            <tr>
+
+                <td><input disabled type="text"name="serial[]"
+                        {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
+                <td>
+                    <input type="text" class="numberDetail" name="failure_mode_qrms[{{ $loop->index }}][risk_factor]"
+                        value="{{ isset($grid_data_qrms['risk_factor']) ? $grid_data_qrms['risk_factor'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail" name="failure_mode_qrms[{{ $loop->index }}][risk_element]"
+                        value="{{ isset($grid_data_qrms['risk_element']) ? $grid_data_qrms['risk_element'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="failure_mode_qrms[{{ $loop->index }}][probale_of_risk_element]"
+                        value="{{ isset($grid_data_qrms['probale_of_risk_element']) ? $grid_data_qrms['probale_of_risk_element'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="failure_mode_qrms[{{ $loop->index }}][existing_risk_control]"
+                        value="{{ isset($grid_data_qrms['existing_risk_control']) ? $grid_data_qrms['existing_risk_control'] : '' }}">
+                </td>
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][initial_severity]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="1"
+                            {{ isset($grid_data_qrms['initial_severity']) && $grid_data_qrms['initial_severity'] == '1' ? 'selected' : '' }}>
+                            1</option>
+                        <option value="2"
+                            {{ isset($grid_data_qrms['initial_severity']) && $grid_data_qrms['initial_severity'] == '2' ? 'selected' : '' }}>
+                            2</option>
+                        <option value="3"
+                            {{ isset($grid_data_qrms['initial_severity']) && $grid_data_qrms['initial_severity'] == '3' ? 'selected' : '' }}>
+                            3</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][initial_probability]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="1"
+                            {{ isset($grid_data_qrms['initial_probability']) && $grid_data_qrms['initial_probability'] == '1' ? 'selected' : '' }}>
+                            1</option>
+                        <option value="2"
+                            {{ isset($grid_data_qrms['initial_probability']) && $grid_data_qrms['initial_probability'] == '2' ? 'selected' : '' }}>
+                            2</option>
+                        <option value="3"
+                            {{ isset($grid_data_qrms['initial_probability']) && $grid_data_qrms['initial_probability'] == '3' ? 'selected' : '' }}>
+                            3</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][initial_detectability]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="1"
+                            {{ isset($grid_data_qrms['initial_detectability']) && $grid_data_qrms['initial_detectability'] == '1' ? 'selected' : '' }}>
+                            1</option>
+                        <option value="2"
+                            {{ isset($grid_data_qrms['initial_detectability']) && $grid_data_qrms['initial_detectability'] == '2' ? 'selected' : '' }}>
+                            2</option>
+                        <option value="3"
+                            {{ isset($grid_data_qrms['initial_detectability']) && $grid_data_qrms['initial_detectability'] == '3' ? 'selected' : '' }}>
+                            3</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="failure_mode_qrms[{{ $loop->index }}][initial_rpn]"
+                        value="{{ isset($grid_data_qrms['initial_rpn']) ? $grid_data_qrms['initial_rpn'] : '' }}">
+                </td>
+
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][risk_acceptance]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="n"
+                            {{ isset($grid_data_qrms['risk_acceptance']) && $grid_data_qrms['risk_acceptance'] == 'n' ? 'selected' : '' }}>
+                            N</option>
+                        <option value="y"
+                            {{ isset($grid_data_qrms['risk_acceptance']) && $grid_data_qrms['risk_acceptance'] == 'y' ? 'selected' : '' }}>
+                            Y</option>
+                </td>
+
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="failure_mode_qrms[{{ $loop->index }}][proposed_additional_risk_control]"
+                        value="{{ isset($grid_data_qrms['proposed_additional_risk_control']) ? $grid_data_qrms['proposed_additional_risk_control'] : '' }}">
+                </td>
+
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][residual_severity]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="1"
+                            {{ isset($grid_data_qrms['residual_severity']) && $grid_data_qrms['residual_severity'] == '1' ? 'selected' : '' }}>
+                            1</option>
+                        <option value="2"
+                            {{ isset($grid_data_qrms['residual_severity']) && $grid_data_qrms['residual_severity'] == '2' ? 'selected' : '' }}>
+                            2</option>
+                        <option value="3"
+                            {{ isset($grid_data_qrms['residual_severity']) && $grid_data_qrms['residual_severity'] == '3' ? 'selected' : '' }}>
+                            3</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][residual_probability]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="1"
+                            {{ isset($grid_data_qrms['residual_probability']) && $grid_data_qrms['residual_probability'] == '1' ? 'selected' : '' }}>
+                            1</option>
+                        <option value="2"
+                            {{ isset($grid_data_qrms['residual_probability']) && $grid_data_qrms['residual_probability'] == '2' ? 'selected' : '' }}>
+                            2</option>
+                        <option value="3"
+                            {{ isset($grid_data_qrms['residual_probability']) && $grid_data_qrms['residual_probability'] == '3' ? 'selected' : '' }}>
+                            3</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][residual_detectability]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="1"
+                            {{ isset($grid_data_qrms['residual_detectability']) && $grid_data_qrms['residual_detectability'] == '1' ? 'selected' : '' }}>
+                            1</option>
+                        <option value="2"
+                            {{ isset($grid_data_qrms['residual_detectability']) && $grid_data_qrms['residual_detectability'] == '2' ? 'selected' : '' }}>
+                            2</option>
+                        <option value="3"
+                            {{ isset($grid_data_qrms['residual_detectability']) && $grid_data_qrms['residual_detectability'] == '3' ? 'selected' : '' }}>
+                            3</option>
+                    </select>
+                </td>
+
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="failure_mode_qrms[{{ $loop->index }}][residual_rpn]"
+                        value="{{ isset($grid_data_qrms['residual_rpn']) ? $grid_data_qrms['residual_rpn'] : '' }}">
+                </td>
+
+                <td>
+                    <select name="failure_mode_qrms[{{ $loop->index }}][risk_acceptance]" id="">
+                        <option value="">-- Select --</option>
+                        <option value="n"
+                            {{ isset($grid_data_qrms['risk_acceptance']) && $grid_data_qrms['risk_acceptance'] == 'n' ? 'selected' : '' }}>
+                            N</option>
+                        <option value="y"
+                            {{ isset($grid_data_qrms['risk_acceptance']) && $grid_data_qrms['risk_acceptance'] == 'y' ? 'selected' : '' }}>
+                            Y</option>
+                </td>
+
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="failure_mode_qrms[{{ $loop->index }}][mitigation_proposal]"
+                        value="{{ isset($grid_data_qrms['mitigation_proposal']) ? $grid_data_qrms['mitigation_proposal'] : '' }}">
+                </td>
+
+                <td><input type="text" class="Action" name=""></td>
+            </tr>
+        @endforeach
+    @else
+        <!-- <td><input disabled type="text" name="failure_mode_qrms[0][serial]" value=""></td> -->
+        <td><input disabled type="text"name="serial[]"
+                {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
+        <td><input type="text" class="numberDetail" name="failure_mode_qrms[0][risk_factor]"></td>
+        <td><input type="text" class="Document_Remarks" name="failure_mode_qrms[0][risk_element]"></td>
+        <td><input type="text" class="Document_Remarks" name="failure_mode_qrms[0][probale_of_risk_element]"></td>
+        <td><input type="text" class="Document_Remarks" name="failure_mode_qrms[0][existing_risk_control]"></td>
+        <td>
+            <select name="failure_mode_qrms[0][initial_severity]" id="">
+                <option value="">-- Select --</option>
+                <option value="1" ($grid_data_qrms && isset($grid_data_qrms['initial_severity']=='1' ? 'selected'
+                    : '' ))>1</option>
+                <option value="2" ($grid_data_qrms && isset($grid_data_qrms['initial_severity']=='2' ? 'selected'
+                    : '' ))>2</option>
+                <option value="3" ($grid_data_qrms && isset($grid_data_qrms['initial_severity']=='3' ? 'selected'
+                    : '' ))>3</option>
+            </select>
+        </td>
+        <td>
+            <select name="failure_mode_qrms[0][initial_probability]" id="">
+                <option value="">-- Select --</option>
+                <option value="1" ($grid_data_qrms && isset($grid_data_qrms['initial_probability']=='1'
+                    ? 'selected' : '' ))>1</option>
+                <option value="2" ($grid_data_qrms && isset($grid_data_qrms['initial_probability']=='2'
+                    ? 'selected' : '' ))>2</option>
+                <option value="3" ($grid_data_qrms && isset($grid_data_qrms['initial_probability']=='3'
+                    ? 'selected' : '' ))>3</option>
+            </select>
+        </td>
+        <td>
+            <select name="failure_mode_qrms[0][initial_detectability]" id="">
+                <option value="">-- Select --</option>
+                <option value="1" ($grid_data_qrms && isset($grid_data_qrms['initial_detectability']=='1'
+                    ? 'selected' : '' ))>1</option>
+                <option value="2" ($grid_data_qrms && isset($grid_data_qrms['initial_detectability']=='2'
+                    ? 'selected' : '' ))>2</option>
+                <option value="3" ($grid_data_qrms && isset($grid_data_qrms['initial_detectability']=='3'
+                    ? 'selected' : '' ))>3</option>
+            </select>
+        </td>
+        <td><input type="text" class="Document_Remarks" name="failure_mode_qrms[0][initial_rpn]"></td>
+
+        <td>
+            <select name="failure_mode_qrms[0][risk_acceptance]" id="">
+                <option value="">-- Select --</option>
+                <option value="n" ($grid_data_qrms && isset($grid_data_qrms['risk_acceptance']=='n' ? 'selected'
+                    : '' ))>N</option>
+                <option value="y" ($grid_data_qrms && isset($grid_data_qrms['risk_acceptance']=='y' ? 'selected'
+                    : '' ))>Y</option>
+            </select>
+        </td>
+
+        <td><input type="text" class="Document_Remarks"
+                name="failure_mode_qrms[0][proposed_additional_risk_control]"></td>
+
+        <td>
+            <select name="failure_mode_qrms[0][residual_severity]" id="">
+                <option value="">-- Select --</option>
+                <option value="1" ($grid_data_qrms && isset($grid_data_qrms['residual_severity']=='1' ? 'selected'
+                    : '' ))>1</option>
+                <option value="2" ($grid_data_qrms && isset($grid_data_qrms['residual_severity']=='2' ? 'selected'
+                    : '' ))>2</option>
+                <option value="3" ($grid_data_qrms && isset($grid_data_qrms['residual_severity']=='3' ? 'selected'
+                    : '' ))>3</option>
+            </select>
+        </td>
+
+        <td>
+            <select name="failure_mode_qrms[0][residual_probability]" id="">
+                <option value="">-- Select --</option>
+                <option value="1" ($grid_data_qrms && isset($grid_data_qrms['residual_probability']=='1'
+                    ? 'selected' : '' ))>1</option>
+                <option value="2" ($grid_data_qrms && isset($grid_data_qrms['residual_probability']=='2'
+                    ? 'selected' : '' ))>2</option>
+                <option value="3" ($grid_data_qrms && isset($grid_data_qrms['residual_probability']=='3'
+                    ? 'selected' : '' ))>3</option>
+            </select>
+        </td>
+
+        <td>
+            <select name="failure_mode_qrms[0][residual_detectability]" id="">
+                <option value="">-- Select --</option>
+                <option value="1" ($grid_data_qrms && isset($grid_data_qrms['residual_detectability']=='1'
+                    ? 'selected' : '' ))>1</option>
+                <option value="2" ($grid_data_qrms && isset($grid_data_qrms['residual_detectability']=='2'
+                    ? 'selected' : '' ))>2</option>
+                <option value="3" ($grid_data_qrms && isset($grid_data_qrms['residual_detectability']=='3'
+                    ? 'selected' : '' ))>3</option>
+            </select>
+        </td>
+
+        <td><input type="text" class="Document_Remarks" name="failure_mode_qrms[0][residual_rpn]"></td>
+
+        <td>
+            <select name="failure_mode_qrms[0][risk_acceptance]" id="">
+                <option value="">-- Select --</option>
+                <option value="n" ($grid_data_qrms && isset($grid_data_qrms['risk_acceptance']=='n' ? 'selected'
+                    : '' ))>N</option>
+                <option value="y" ($grid_data_qrms && isset($grid_data_qrms['risk_acceptance']=='y' ? 'selected'
+                    : '' ))>Y</option>
+            </select>
+        </td>
+
+        <td><input type="text" class="Document_Remarks" name="failure_mode_qrms[0][mitigation_proposal]"></td>
+
+        <td><input type="text" class="Action" name=""></td>
+    @endif
+
+</tbody>
                                 </table>
                             </div>
                         </div>
@@ -9161,17 +9517,61 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" class="Document_Remarks" name="Risk_Assessment[]">
-                                        </td>
-                                        <td><input type="text" class="Document_Remarks" name="Review_Schedule[]">
-                                        </td>
-                                        <td><input type="text" class="Document_Remarks" name="Actual_Reviewed[]">
-                                        </td>
-                                        <td><input type="text" class="Document_Remarks" name="Recorded_By[]"></td>
-                                        <td><input type="text" class="Document_Remarks" name="Remarks[]"></td>
-                                        <td><input type="text" class="Removebtn" name="Action[]"></td>
-                                    </tbody>
+
+    @if ($grid_data_matrix_qrms && is_array($grid_data_matrix_qrms->data))
+        <!-- {{-- {{ count($investigation_data->data) }} --}} -->
+        @foreach ($grid_data_matrix_qrms->data as $grid_data_matrix_qrms)
+            <tr>
+
+                <!-- <td> <input disabled type="text" name="matrix_qrms[{{ $loop->index }}][serial]" value="1">  </td> -->
+                <td><input disabled type="text"name="serial[]"
+                        {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $key + 1 }}">
+                </td>
+
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="matrix_qrms[{{ $loop->index }}][risk_Assesment]"
+                        value="{{ isset($grid_data_matrix_qrms['risk_Assesment']) ? $grid_data_matrix_qrms['risk_Assesment'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="matrix_qrms[{{ $loop->index }}][review_schedule]"
+                        value="{{ isset($grid_data_matrix_qrms['review_schedule']) ? $grid_data_matrix_qrms['review_schedule'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail"
+                        name="matrix_qrms[{{ $loop->index }}][actual_reviewed]"
+                        value="{{ isset($grid_data_matrix_qrms['actual_reviewed']) ? $grid_data_matrix_qrms['actual_reviewed'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail" name="matrix_qrms[{{ $loop->index }}][recorded_by]"
+                        value="{{ isset($grid_data_matrix_qrms['recorded_by']) ? $grid_data_matrix_qrms['recorded_by'] : '' }}">
+                </td>
+                <td>
+                    <input type="text" class="numberDetail" name="matrix_qrms[{{ $loop->index }}][remark]"
+                        value="{{ isset($grid_data_matrix_qrms['remark']) ? $grid_data_matrix_qrms['remark'] : '' }}">
+                </td>
+
+                <td><input type="text" class="Action" name=""></td>
+            </tr>
+        @endforeach
+    @else
+        <td><input disabled type="text"name="serial[]"
+                {{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
+        <!-- <td><input disabled type="text" name="matrix_qrms[0][serial]" value=""></td> -->
+
+        <td><input type="text" class="numberDetail" name="matrix_qrms[0][risk_Assesment]"></td>
+        <td><input type="text" class="Document_Remarks" name="matrix_qrms[0][review_schedule]"></td>
+        <td><input type="text" class="Document_Remarks" name="matrix_qrms[0][actual_reviewed]"></td>
+        <td><input type="text" class="Document_Remarks" name="matrix_qrms[0][recorded_by]"></td>
+        <td><input type="text" class="Document_Remarks" name="matrix_qrms[0][remark]"></td>
+
+        <td><input type="text" class="Action" name=""></td>
+    @endif
+
+
+
+</tbody>
                                 </table>
                             </div>
                         </div>
@@ -9197,7 +9597,7 @@
                 </script>
                 <div class="button-block">
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
-                    <a href="/rcms/qms-dashboard">
+                    <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                         <button type="button" class="backButton">Back</button>
                     </a>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -9209,10 +9609,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                 </div>
             </div>
         </div>
@@ -9222,12 +9622,27 @@
     <div id="CCForm10" class="inner-block cctabcontent">
         <div class="inner-block-content">
             <div class="row">
+                @if($capaExtension && $capaExtension->capa_proposed_due_date)
                     <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="CAPA_Number"><b>CAPA No</b></label>
-                        <input disabled type="text" name="capa_number">
+                        <div class="group-input">
+                            <label for="capa_proposed_due_date"><b>Proposed Due Date</b></label>
+                            <input disabled type="text" name="capa_proposed_due_date" id="capa_proposed_due_date" value="{{ Helpers::getdateFormat($capaExtension->capa_proposed_due_date) }}">
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="capa_proposed_due_date"><b>Proposed Due Date</b></label>
+                            <input disabled type="text" name="capa_proposed_due_date" id="capa_proposed_due_date" >
+                        </div>
+                    </div>
+                @endif
+                    <!-- <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="CAPA_Number"><b>CAPA No</b></label>
+                            <input disabled type="text" name="capa_number">
+                        </div>
+                    </div> -->
                 <!-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department1"> Other's 1 Department <span id="asteriskod1" style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}" class="text-danger">*</span></label>
@@ -9491,13 +9906,13 @@
             </div>
 
             <div class="button-block">
-            <button  style=" justify-content: center; width: 4rem; margin-left: auto;"type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
+            <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                         <span class="sr-only">Loading...</span>
                         </div>
                         Save
                 </button>
-                <a href="/rcms/qms-dashboard">
+                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                         <button type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} class="backButton">Back</button>
                     </a>
 
@@ -9510,10 +9925,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
             </div>
         </div>
     </div>
@@ -9953,10 +10368,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                 </div>
             </div>
         </div>
@@ -10090,10 +10505,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                 </div>
             </div>
         </div>
@@ -10106,89 +10521,62 @@
                         Deviation Extension
                     </div>
 
-                    <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="Proposed_Due_date_deviation" readonly
-                                    placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="Proposed_Due_date_deviation"
-                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                    oninput="handleDateInput(this, 'Proposed_Due_date_deviation')" />
+                    @if($deviationExtension && $deviationExtension->dev_proposed_due_date)
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label> 
+                                <div class="calenderauditee">
+                                    <input type="text" id="dev_proposed_due_date" id="dev_proposed_due_date" readonly value="{{Helpers::getdateFormat($deviationExtension->dev_proposed_due_date)}}" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Extension_Justification_deviation" id="summernote-10">
-                </textarea>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By </label>
-                            <select name="Deviation_Extension_Completed_By" id="Deviation_Extension_Completed_By">
-                                <option value="">-- Select --</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="Deviation_Extension_Completed_On" readonly
-                                    placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="Deviation_Extension_Completed_On"
-                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                    oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')" />
+                    @else
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="dev_proposed_due_date" id="dev_proposed_due_date" readonly />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+                    
 
-
-                    <div class="sub-head">
-                        CAPA Extension
-                    </div>
-
-                    <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="Proposed_Due_date_CAPA" readonly
-                                    placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="Proposed_Due_date_CAPA"
-                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                    oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')" />
+                    @if($deviationExtension && $deviationExtension->dev_extension_justification)
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" name="dev_extension_justification" disabled id="dev_extension_justification" value="{{$deviationExtension->dev_extension_justification}}">{{$deviationExtension->dev_extension_justification}}</textarea>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Extension_Justification_CAPA">Extension Justification (CAPA)</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Extension_Justification_CAPA" id="summernote-10">
-                </textarea>
+                    @else
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" name="dev_extension_justification" id="dev_extension_justification" disabled ></textarea>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
-
-                    {{-- row --}}
-                    <div class="row">
+                    @if($deviationExtension && $deviationExtension->dev_extension_completed_by)
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for=" CAPA_Extension_Completed_By"> CAPA Extension Completed By </label>
-                                <select name="CAPA_Extension_Completed_By" id="CAPA_Extension_Completed_By">
+                                <label for=" dev_extension_completed_by"> Deviation Extension Completed By </label>
+                                <select name="dev_extension_completed_by" id="dev_extension_completed_by" disabled>
+                                    <option value="">-- Select --</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}" @if($user->id == $deviationExtension->dev_extension_completed_by) selected @endif >{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for=" dev_extension_completed_by"> Deviation Extension Completed By </label>
+                                <select name="dev_extension_completed_by" id="dev_extension_completed_by" disabled>
                                     <option value="">-- Select --</option>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -10196,134 +10584,313 @@
                                 </select>
                             </div>
                         </div>
+                    @endif
 
+                    @if($deviationExtension && $deviationExtension->dev_completed_on)
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
+                                <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="CAPA_Extension_Completed_On" readonly
-                                        placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="CAPA_Extension_Completed_On"
-                                        max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')" />
+                                    <input type="text" id="dev_completed_on" readonly name="dev_completed_on" placeholder="DD-MMM-YYYY" value="{{Helpers::getdateFormat($deviationExtension->dev_completed_on)}}" />
                                 </div>
                             </div>
                         </div>
-                        {{-- row_end --}}
+                    @else
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="dev_completed_on" readonly name="dev_completed_on" placeholder="DD-MMM-YYYY" />
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- CAPA EXTENSION START -->
+                    <div class="sub-head">
+                        CAPA Extension
                     </div>
+                    @if($capaExtension && $capaExtension->capa_proposed_due_date)
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="capa_proposed_due_date">Proposed Due Date (CAPA)</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="capa_proposed_due_date" disabled name="capa_proposed_due_date"
+                                        placeholder="DD-MMM-YYYY" value="{{Helpers::getdateFormat($capaExtension->capa_proposed_due_date)}}" />
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="capa_proposed_due_date">Proposed Due Date (CAPA)</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="capa_proposed_due_date" disabled name="capa_proposed_due_date"
+                                        placeholder="DD-MMM-YYYY" />
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($capaExtension && $capaExtension->capa_extension_justification)
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="capa_extension_justification">Extension Justification (CAPA)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" name="capa_extension_justification" id="capa_extension_justification" disabled>{{$capaExtension->capa_extension_justification}}</textarea>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="capa_extension_justification">Extension Justification (CAPA)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" name="capa_extension_justification" id="capa_extension_justification" disbaled></textarea>
+                            </div>
+                        </div>
+                    @endif
+
+
+                    <div class="row">
+                        @if($capaExtension && $capaExtension->capa_extension_completed_by)
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for=" capa_extension_completed_by"> CAPA Extension Completed By </label>
+                                    <select name="capa_extension_completed_by" id="capa_extension_completed_by" disabled>
+                                        <option value="">-- Select --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" @if($user->id == $capaExtension->capa_extension_completed_by) selected @endif  >{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for=" capa_extension_completed_by"> CAPA Extension Completed By </label>
+                                    <select name="capa_extension_completed_by" id="capa_extension_completed_by" disbaled>
+                                        <option value="">-- Select --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($capaExtension && $capaExtension->capa_completed_on)
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="capa_completed_on" name="capa_completed_on" value="" disabled placeholder="DD-MMM-YYYY" value="{{Helpers::getdateFormat($capaExtension->capa_completed_on)}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="capa_completed_on" name="capa_completed_on" value="" disabled placeholder="DD-MMM-YYYY" />
+                                    </div>
+                                </div>
+                            </div> 
+                        @endif
+
+                    </div>
+                    <!-- CAPA EXTENSION ENDS -->
+
+
+                    <!-- QRM EXTENSION START -->
                     <div class="sub-head">
                         Quality Risk Management Extension
                     </div>
 
-                    <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Proposed_Due_Date_QRM">Proposed Due Date (Quality Risk Management)</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="Proposed_Due_Date_QRM" readonly placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="Proposed_Due_Date_QRM"
-                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                    oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Extension_Justi_QRM">Extension Justification (Quality Risk Management)</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
-                </textarea>
-                        </div>
-                    </div>
-
-                    {{-- row --}}
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for=" Quality_Risk_Management_Extension_Completed_By"> Quality Risk Management
-                                    Extension Completed By </label>
-                                <select name="Quality_Risk_Management_Extension_Completed_By"
-                                    id="Quality_Risk_Management_Extension_Completed_By">
-                                    <option value="">-- Select --</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
+                    @if($qrmExtension && $qrmExtension->qrm_proposed_due_date)
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Quality_Risk_Management_Extension_Completed_ON">Quality Risk Management
-                                    Extension Completed On</label>
+                                <label for="qrm_proposed_due_date">Proposed Due Date (Quality Risk Management)</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="Quality_Risk_Management_Extension_Completed_ON" readonly
-                                        placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="Quality_Risk_Management_Extension_Completed_ON"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')" />
+                                    <input type="text" id="qrm_proposed_due_date" name="qrm_proposed_due_date" value="{{Helpers::getdateFormat($qrmExtension->qrm_proposed_due_date)}}" disabled placeholder="DD-MMM-YYYY" />
                                 </div>
                             </div>
                         </div>
-                        {{-- row_end --}}
+                    @else
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="qrm_proposed_due_date">Proposed Due Date (Quality Risk Management)</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="qrm_proposed_due_date" name="qrm_proposed_due_date" disabled placeholder="DD-MMM-YYYY" />
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+
+                    @if($qrmExtension && $qrmExtension->qrm_extension_justification)
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="qrm_extension_justification">Extension Justification (Quality Risk Management)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" disbaled name="qrm_extension_justification" id="qrm_extension_justification" value="{{$qrmExtension->qrm_extension_justification}}">{{$qrmExtension->qrm_extension_justification}}</textarea>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="qrm_extension_justification">Extension Justification (Quality Risk Management)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" disbaled name="qrm_extension_justification" id="qrm_extension_justification"> </textarea>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="row">
+                        @if($qrmExtension && $qrmExtension->qrm_extension_completed_by)
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="qrm_extension_completed_by"> Quality Risk Management Extension Completed By </label>
+                                    <select name="qrm_extension_completed_by" id="qrm_extension_completed_by" disabled>
+                                        <option value="">-- Select --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" @if($user->id == $qrmExtension->qrm_extension_completed_by) selected @endif >{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="qrm_extension_completed_by"> Quality Risk Management Extension Completed By </label>
+                                    <select name="qrm_extension_completed_by" id="qrm_extension_completed_by" disabled>
+                                        <option value="">-- Select --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($qrmExtension && $qrmExtension->qrm_completed_on)
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="qrm_completed_on">Quality Risk Management Extension Completed On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="qrm_completed_on" name="qrm_completed_on" value="{{Helpers::getdateFormat($qrmExtension->qrm_completed_on)}}" disabled placeholder="DD-MMM-YYYY" />
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="qrm_completed_on">Quality Risk Management Extension Completed On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="qrm_completed_on" name="qrm_completed_on" disabled placeholder="DD-MMM-YYYY" />
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
+                    <!-- QRM EXTENSION START -->
+
+
+                     <!-- Investigation EXTENSION START -->
+
                     <div class="sub-head">
                         Investigation Extension
                     </div>
 
-                    <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Proposed_Due_date_investigation">Proposed Due Date (Investigation)</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="Proposed_Due_date_investigation" readonly
-                                    placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="Proposed_Due_date_investigation"
-                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                    oninput="handleDateInput(this, 'Proposed_Due_date_investigation')" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="Extension_Justification_investigation">Extension Justification
-                                (Investigation)</label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
-                                    completion</small></div>
-                            <textarea class="tiny" name="Extension_Justification_investigation" id="summernote-10">
-                </textarea>
-                        </div>
-                    </div>
-                    {{-- row --}}
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for=" Investigation_Extension_Completed_By"> Investigation Extension Completed By
-                                </label>
-                                <select name="Investigation_Extension_Completed_By"
-                                    id="Investigation_Extension_Completed_By">
-                                    <option value="">-- Select --</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                    @if($investigationExtension && $investigationExtension->investigation_proposed_due_date)
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Investigation_Extension_Completed_On">Investigation Extension Completed
-                                    On</label>
+                                <label for="investigation_proposed_due_date">Proposed Due Date (Investigation)</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                        placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="Investigation_Extension_Completed_On"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
+                                    <input type="text" id="investigation_proposed_due_date" name="investigation_proposed_due_date" value="{{Helpers::getdateFormat($investigationExtension->investigation_proposed_due_date)}}" disabled placeholder="DD-MMM-YYYY" />
                                 </div>
                             </div>
                         </div>
-                        {{-- row-end --}}
+                    @else 
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="investigation_proposed_due_date">Proposed Due Date (Investigation)</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="investigation_proposed_due_date" name="investigation_proposed_due_date" disbaled placeholder="DD-MMM-YYYY" />
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($investigationExtension && $investigationExtension->investigation_extension_justification)
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="investigation_extension_justification">Extension Justification (Investigation)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" disabled name="investigation_extension_justification" id="investigation_extension_justification" value="{{$investigationExtension->investigation_extension_justification}}">{{$investigationExtension->investigation_extension_justification}}</textarea>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="investigation_extension_justification">Extension Justification (Investigation)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="tiny" name="investigation_extension_justification" id="investigation_extension_justification" disabled ></textarea>
+                            </div>
+                        </div>
+                    @endif
+
+
+                    <div class="row">
+                        @if($investigationExtension && $investigationExtension->investigation_extension_completed_by)
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for=" Investigation_Extension_Completed_By"> Investigation Extension Completed By</label>
+                                    <select name="investigation_extension_completed_by" id="investigation_extension_completed_by" disabled>
+                                        <option value="">-- Select --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" @if($user->id == $investigationExtension->investigation_extension_completed_by) selected @endif >{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for=" Investigation_Extension_Completed_By"> Investigation Extension Completed By</label>
+                                    <select name="investigation_extension_completed_by" id="investigation_extension_completed_by" disabled>
+                                        <option value="">-- Select --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($investigationExtension && $investigationExtension->investigation_completed_on)
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="investigation_completed_on">Investigation Extension Completed On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="investigation_completed_on" id="investigation_completed_on" value="{{Helpers::getdateFormat($investigationExtension->investigation_completed_on)}}" disabled placeholder="DD-MMM-YYYY" />
+                                    </div>
+                                </div>
+                            </div>
+                        @else 
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="investigation_completed_on">Investigation Extension Completed On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="investigation_completed_on" id="investigation_completed_on" disabled placeholder="DD-MMM-YYYY" />
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
+                    <!-- Investigation EXTENSION START -->
+
+                    
                     <div class="sub-head">
                         Deviation Effectiveness Check
                     </div>
@@ -10332,12 +10899,10 @@
                             <label for="Effectiveness_Check_Plan_Deviation">Effectiveness Check Plan(Deviation)</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea class="tiny" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
-                </textarea>
+                            <textarea class="tiny" name="Effectiveness_Check_Plan_Deviation" id="summernote-10"> </textarea>
                         </div>
                     </div>
 
-                    {{-- row --}}
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -10365,7 +10930,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row-end --}}
                     </div>
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
@@ -10373,8 +10937,7 @@
                                 Comments(Deviation)</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea class="tiny" name="EC_Closure_comments_deviation" id="summernote-10">
-                </textarea>
+                            <textarea class="tiny" name="EC_Closure_comments_deviation" id="summernote-10"> </textarea>
                         </div>
                     </div>
                     <div class="col-lg-6 new-date-data-field">
@@ -10389,7 +10952,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- row --}}
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -10416,7 +10978,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row-end --}}
                     </div>
 
                     <div class="sub-head">
@@ -10725,10 +11286,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> -->
                     </div>
                 </div>
             </div>
@@ -12246,7 +12807,7 @@
     </script>
     <script>
         VirtualSelect.init({
-            ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record, #related_records, #audit_type'
+            ele: '#Facility, #Group, #Audit, #Auditee ,#reference_record, #related_records, #investigation_approach, #audit_type'
         });
 
         function openCity(evt, cityName) {
