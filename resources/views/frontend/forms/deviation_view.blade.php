@@ -475,7 +475,7 @@
                     return html;
                 }
 
-                var tableBody = $('#risk-assessment-risk-management tbody');
+                var tableBody = $('#risk-assessment-risk-management_details tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
@@ -883,8 +883,7 @@
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                     <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                    <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension & Effectiveness
-                        Check</button>
+                    <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button>
 
                     <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
                 </div>
@@ -2183,12 +2182,15 @@
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
-                                            class="text-white"> Exit </a> </button>
+                                            class="text-white"> Exit </a> 
+                                        </button>
+                                        @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
-                                            class="button  launch_extension" data-bs-toggle="modal"
-                                            data-bs-target="#launch_extension">
-                                            Launch Extension
-                                        </a>
+                                                class="button  launch_extension" data-bs-toggle="modal"
+                                                data-bs-target="#launch_extension">
+                                                Launch Extension
+                                            </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -2996,11 +2998,13 @@
                                     class="nextButton" onclick="nextStep()">Next</button>
                                 <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
+                                        @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                         <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -8157,11 +8161,13 @@
                                 id="ChangeNextButton" class="nextButton">Next</button>
                             <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                     Exit </a> </button>
+                                    @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                     <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -9322,12 +9328,13 @@
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
-
+                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -9362,7 +9369,7 @@
                             <label for="agenda">
                                 Failure Mode and Effect Analysis
                                 <button type="button" name="agenda"
-                                    onclick="addRiskAssessment('risk-assessment-risk-management')">+</button>
+                                   id="risk-assessment-risk-management">+</button>
                                 <span class="text-primary" data-bs-toggle="modal"
                                             data-bs-target="#failure_mode_and_effect_analysis" style="font-size: 0.8rem; font-weight: 400;">
                                     (Launch Instruction)
@@ -9370,7 +9377,7 @@
                             </label>
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="width: 200%"
-                                    id="risk-assessment-risk-management">
+                                    id="risk-assessment-risk-management_details">
                                     <thead>
                                         <tr>
                                             <th>Row #</th>
@@ -9853,12 +9860,13 @@
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
-
+                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10169,12 +10177,13 @@
                 <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                 <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                         Exit </a> </button>
-
+                        @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                         <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10613,11 +10622,14 @@
                         class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
+
+                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10750,11 +10762,13 @@
                         class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
+                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -11141,7 +11155,7 @@
                     <!-- Investigation EXTENSION START -->
 
                     
-                    <div class="sub-head">
+                    {{-- <div class="sub-head">
                         Deviation Effectiveness Check
                     </div>
                     <div class="col-md-12 mb-3">
@@ -11244,7 +11258,7 @@
                         </div>
                     </div>
 
-                    {{-- row --}}
+                    
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11272,7 +11286,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row-end --}}
+                        
                     </div>
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
@@ -11295,7 +11309,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- row --}}
+                    
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11322,7 +11336,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row-end --}}
+                        
                     </div>
                     <div class="sub-head">
                         Quality Risk Management Effectiveness Check
@@ -11339,7 +11353,7 @@
                 </textarea>
                         </div>
                     </div>
-                    {{-- row --}}
+                    
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11367,7 +11381,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row-end --}}
+                        
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -11423,7 +11437,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row div --}}
+                        
                     </div>
                     <div class="sub-head">
                         Investigation Effectiveness Check
@@ -11439,7 +11453,7 @@
                         </div>
                     </div>
 
-                    {{-- row --}}
+                    
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11467,7 +11481,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- row div --}}
+                        
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -11520,7 +11534,7 @@
                                         oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')" />
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="button-block">
@@ -11531,11 +11545,13 @@
                         <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                         <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                 Exit </a> </button>
+                                @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                 <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
+                                        @endif
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check

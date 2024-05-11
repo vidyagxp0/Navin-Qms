@@ -572,7 +572,7 @@
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension & Effectiveness Check</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button>
 
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
@@ -5581,7 +5581,7 @@
                                 </div>
 
 
-                                <div class="sub-head">
+                                {{-- <div class="sub-head">
                                     Deviation Effectiveness Check
                                 </div>
 
@@ -5596,7 +5596,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                                
                                 <div class="row">
 
                                     <div class="col-lg-6">
@@ -5627,7 +5627,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
 
 
@@ -5655,7 +5655,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- row --}}
+                                
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5684,7 +5684,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
 
                                 <div class="sub-head">
@@ -5701,7 +5701,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                                
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5731,7 +5731,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
 
 
@@ -5758,7 +5758,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- row --}}
+                                
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5788,7 +5788,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
                                 <div class="sub-head">
                                     Quality Risk Management Effectiveness Check
@@ -5805,7 +5805,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                                
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5836,7 +5836,7 @@
                                         </div>
 
                                     </div>
-                                    {{-- row-end --}}
+                                    
                                 </div>
 
 
@@ -5895,7 +5895,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row div --}}
+                                    
                                 </div>
                                 <div class="sub-head">
                                     Investigation Effectiveness Check
@@ -5911,7 +5911,7 @@
                                     </div>
                                 </div>
 
-                                {{-- row --}}
+                                
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5941,7 +5941,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- row div --}}
+                                    
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -5996,7 +5996,7 @@
                                                     oninput="handleDateInput(this, 'Investigation_Effectiveness_Check_Closed_On')" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="button-block">
