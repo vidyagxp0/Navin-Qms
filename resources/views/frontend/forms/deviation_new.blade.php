@@ -1510,10 +1510,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
                         </div>
                     </div>
@@ -1723,10 +1723,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
                         </div>
                     </div>
@@ -3910,10 +3910,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
 
                         </div>
@@ -4593,10 +4593,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
                         </div>
                     </div>
@@ -4797,10 +4797,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
                         </div>
                     </div>
@@ -4816,12 +4816,12 @@
                                         <textarea class="" name="Investigation_Summary" id="Investigation_Summary" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="CAPA_Number"><b>CAPA No</b></label>
                                         <input disabled type="text" name="capa_number">
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -5037,12 +5037,12 @@
                                 </div>
 
                                 <div class="button-block">
-                                    <button type="submit" class="saveButton">Save</button>
-                                    <a href="/rcms/qms-dashboard">
+                                    <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                    <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                                         <button type="button" class="backButton">Back</button>
                                     </a>
-                                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" > <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
                                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -5050,10 +5050,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> --}}
                                 </div>
                             </div>
                         </div>
@@ -5245,10 +5245,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
                         </div>
                     </div>
@@ -5325,10 +5325,10 @@
                                         data-bs-target="#launch_extension">
                                         Launch Extension
                                     </a>
-                                    <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
-                                    </a>
+                                    </a> --}}
                             </div>
                         </div>
                     </div>
@@ -6013,10 +6013,10 @@
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                        {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a>
+                                        </a> --}}
                                 </div>
                             </div>
                         </div>
