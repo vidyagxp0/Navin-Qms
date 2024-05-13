@@ -1458,7 +1458,7 @@
                                     id="ChangeNextButton" class="nextButton">Next</button>
                                 <button style=" justify-content: center; width: 4rem; margin-left: auto;"type="button"> <a
                                         href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -1612,7 +1612,7 @@
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Deviation_category">Initial Deviation Category</label>
-                                        <select name="Deviation_category" id="Deviation_category"
+                                        <select name="Deviation_category" id="Deviation_category" disabled
                                             onchange="handleDeviationCategoryChange()">
                                             <option value="0">-- Select -- </option>
                                             <option value="minor">Minor </option>
@@ -1625,7 +1625,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Required ?</label>
-                                        <select name="Investigation_required" id="Investigation_required">
+                                        <select name="Investigation_required" id="Investigation_required" disabled>
                                             <option value="select">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1636,7 +1636,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="capa_required"> CAPA Required ?</label>
-                                        <select name="capa_required" id="capa_required">
+                                        <select name="capa_required" id="capa_required" disabled>
                                             <option value="select">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1647,7 +1647,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="qrm_required">QRM Required ?</label>
-                                        <select name="qrm_required" id="qrm_required">
+                                        <select name="qrm_required" id="qrm_required" disabled>
                                             <option value="select">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -1703,7 +1703,7 @@
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="Initial_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
+                                                    oninput="addMultipleFiles(this, 'Initial_attachment')" multiple disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -1942,7 +1942,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.p_erson').hide();
-                                
+
                                         $('[name="Production_Review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.p_erson').show();
@@ -1957,7 +1957,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Production Review">Production Review Required ?</label>
-                                        <select name="Production_Review" id="Production_Review">
+                                        <select name="Production_Review" id="Production_Review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2044,7 +2044,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.warehouse').hide();
-                                
+
                                         $('[name="Warehouse_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.warehouse').show();
@@ -2062,7 +2062,7 @@
                                 <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Warehouse Review Required">Warehouse Review Required ?</label>
-                                        <select name="Warehouse_review" id="Warehouse_review">
+                                        <select name="Warehouse_review" id="Warehouse_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2148,7 +2148,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.quality_control').hide();
-                                
+
                                         $('[name="Quality_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.quality_control').show();
@@ -2167,7 +2167,7 @@
                                     <div class="group-input">
                                         <label for="Quality Control Review Required">Quality Control Review Required
                                             ?</label>
-                                        <select name="Quality_review" id="Quality_review">
+                                        <select name="Quality_review" id="Quality_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2190,7 +2190,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Person">Quality Control Person</label>
-                                        <select name="Quality_Control_Person" id="Quality_Control_Person">
+                                        <select name="Quality_Control_Person" id="Quality_Control_Person" disabled>
                                             <option value="0">-- Select --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -2205,7 +2205,7 @@
                                         <textarea class="" name="Quality_Control_assessment" id="summernote-21">
                                     </textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Feedback">Quality Control Feedback</label>
@@ -2253,7 +2253,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.quality_assurance').hide();
-                                
+
                                         $('[name="Quality_Assurance"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.quality_assurance').show();
@@ -2271,7 +2271,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Quality Assurance Review Required ?</label>
-                                        <select name="Quality_Assurance" id="QualityAssurance_review">
+                                        <select name="Quality_Assurance" id="QualityAssurance_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2363,7 +2363,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.engineering').hide();
-                                
+
                                         $('[name="Engineering_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.engineering').show();
@@ -2381,7 +2381,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Engineering Review Required">Engineering Review Required ?</label>
-                                        <select name="Engineering_review" id="Engineering_review">
+                                        <select name="Engineering_review" id="Engineering_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2469,7 +2469,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.analytical_development').hide();
-                                
+
                                         $('[name="Analytical_Development_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.analytical_development').show();
@@ -2488,7 +2488,7 @@
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Required">Analytical
                                             Development Laboratory Review Required ?</label>
-                                        <select name="Analytical_Development_review" id="Analytical_Development_review">
+                                        <select name="Analytical_Development_review" id="Analytical_Development_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2587,7 +2587,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.kilo_lab').hide();
-                                
+
                                         $('[name="Kilo_Lab_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.kilo_lab').show();
@@ -2606,7 +2606,7 @@
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Review Required ?</label>
-                                        <select name="Kilo_Lab_review" id="Kilo_Lab_review">
+                                        <select name="Kilo_Lab_review" id="Kilo_Lab_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2699,7 +2699,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.technology_transfer').hide();
-                                
+
                                         $('[name="Technology_transfer_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.technology_transfer').show();
@@ -2718,7 +2718,7 @@
                                     <div class="group-input">
                                         <label for="Design Review Required">Technology Transfer / Design Review Required
                                             ?</label>
-                                        <select name="Technology_transfer_review" id="Technology_transfer_review">
+                                        <select name="Technology_transfer_review" id="Technology_transfer_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2808,7 +2808,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.environmental_health').hide();
-                                
+
                                         $('[name="Environment_Health_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.environmental_health').show();
@@ -2827,7 +2827,7 @@
                                     <div class="group-input">
                                         <label for="Safety Review Required">Environment, Health & Safety Review Required
                                             ?</label>
-                                        <select name="Environment_Health_review" id="Environment_Health_review">
+                                        <select name="Environment_Health_review" id="Environment_Health_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -2920,7 +2920,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.human_resources').hide();
-                                
+
                                         $('[name="Human_Resource_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.human_resources').show();
@@ -2939,7 +2939,7 @@
                                     <div class="group-input">
                                         <label for="Administration Review Required">Human Resource & Administration Review
                                             Required ?</label>
-                                        <select name="Human_Resource_review" id="Human_Resource_review">
+                                        <select name="Human_Resource_review" id="Human_Resource_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3031,7 +3031,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.information_technology').hide();
-                                
+
                                         $('[name="Information_Technology_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.information_technology').show();
@@ -3051,7 +3051,7 @@
                                         <label for="Information Technology Review Required"> Information Technology Review
                                             Required ?</label>
                                         <select name=" Information_Technology_review"
-                                            id=" Information_Technology_review">
+                                            id=" Information_Technology_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3143,7 +3143,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.project_management').hide();
-                                
+
                                         $('[name="Project_management_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.project_management').show();
@@ -3162,7 +3162,7 @@
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
                                             Required ?</label>
-                                        <select name="Project_management_review" id="Project_management_review">
+                                        <select name="Project_management_review" id="Project_management_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3254,7 +3254,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.other1_reviews').hide();
-                                
+
                                         $('[name="Other1_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.other1_reviews').show();
@@ -3272,7 +3272,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 1 Review Required ?</label>
-                                        <select name="Other1_review" id="Other1_review">
+                                        <select name="Other1_review" id="Other1_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3381,7 +3381,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other2_reviews').hide();
-                                
+
                                         $('[name="Other2_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other2_reviews').show();
@@ -3399,7 +3399,7 @@
                                 <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 2 Review Required ?</label>
-                                        <select name="Other2_review" id="Other2_review">
+                                        <select name="Other2_review" id="Other2_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3510,7 +3510,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other3_reviews').hide();
-                                
+
                                         $('[name="Other3_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other3_reviews').show();
@@ -3528,7 +3528,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Other's 3 Review Required ?</label>
-                                        <select name="Other3_review" id="Other3_review">
+                                        <select name="Other3_review" id="Other3_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3617,7 +3617,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-6 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
@@ -3639,7 +3639,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other4_reviews').hide();
-                                
+
                                         $('[name="Other4_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other4_reviews').show();
@@ -3657,7 +3657,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review4"> Other's 4 Review Required ?</label>
-                                        <select name="Other4_review" id="Other4_review">
+                                        <select name="Other4_review" id="Other4_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -3676,7 +3676,7 @@
                                         ->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp 
+                                @endphp
                                 <div class="col-lg-6 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Person4"> Other's 4 Person</label>
@@ -3769,7 +3769,7 @@
                                 <script>
                                     $(document).ready(function() {
                                         $('.Other5_reviews').hide();
-                                
+
                                         $('[name="Other5_review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.Other5_reviews').show();
@@ -3787,7 +3787,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review5"> Other's 5 Review Required ?</label>
-                                        <select name="Other5_review" id="Other5_review">
+                                        <select name="Other5_review" id="Other5_review" disabled>
                                             <option value="0">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
@@ -5064,7 +5064,7 @@
                     {{-- <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                               
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Investigation Summary">Investigation Summary</label>
@@ -5073,7 +5073,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment">Impact Assessment</label>
@@ -5082,7 +5082,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Root Cause">Root Cause</label>
@@ -5114,7 +5114,7 @@
                                       </select>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="CAPA Description">CAPA Description</label>
@@ -5123,7 +5123,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
@@ -5263,7 +5263,7 @@
                                             Deviation</label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before
                                                 updating.</small></div>
-                                        <select name="Post_Categorization" id="Post_Categorization">
+                                        <select name="Post_Categorization" id="Post_Categorization" disabled>
                                             <option value=""> -- Select --</option>
                                             <option value="major">Major</option>
                                             <option value="minor">Minor</option>
@@ -5347,10 +5347,10 @@
                                         <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_deviation" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MMM-YYYY" disabled/>
                                             <input type="date" name="Proposed_Due_date_deviation"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_date_deviation')" />
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_deviation')" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -5371,7 +5371,7 @@
                                         <label for=" Deviation_Extension_Completed_By"> Deviation Extension Completed By
                                         </label>
                                         <select name="Deviation_Extension_Completed_By"
-                                            id="Deviation_Extension_Completed_By">
+                                            id="Deviation_Extension_Completed_By" disabled>
                                             <option value="">-- Select --</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -5385,10 +5385,10 @@
                                         <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_Extension_Completed_On" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MMM-YYYY" disabled/>
                                             <input type="date" name="Deviation_Extension_Completed_On"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')" />
+                                                oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')" disabled/>
                                         </div>
                                     </div>
                                 </div>
@@ -5403,10 +5403,10 @@
                                         <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_CAPA" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MMM-YYYY" disabled />
                                             <input type="date" name="Proposed_Due_date_CAPA"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')" />
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -5428,7 +5428,7 @@
                                         <div class="group-input">
                                             <label for=" CAPA_Extension_Completed_By"> CAPA Extension Completed By
                                             </label>
-                                            <select name="CAPA_Extension_Completed_By" id="CAPA_Extension_Completed_By">
+                                            <select name="CAPA_Extension_Completed_By" id="CAPA_Extension_Completed_By" disabled>
                                                 <option value="">-- Select --</option>
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -5442,11 +5442,11 @@
                                             <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="CAPA_Extension_Completed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MMM-YYYY" disabled />
                                                 <input type="date" name="CAPA_Extension_Completed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
-                                                    oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')" />
+                                                    oninput="handleDateInput(this, 'CAPA_Extension_Completed_On')" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -5462,10 +5462,10 @@
                                             Management)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_Date_QRM" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MMM-YYYY" disabled />
                                             <input type="date" name="Proposed_Due_Date_QRM"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')" />
+                                                oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -5490,7 +5490,7 @@
                                             <label for=" Quality_Risk_Management_Extension_Completed_By"> Quality Risk
                                                 Management Extension Completed By </label>
                                             <select name="Quality_Risk_Management_Extension_Completed_By"
-                                                id="Quality_Risk_Management_Extension_Completed_By">
+                                                id="Quality_Risk_Management_Extension_Completed_By" disabled>
                                                 <option value="">-- Select --</option>
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -5506,12 +5506,12 @@
                                             <div class="calenderauditee">
                                                 <input type="text"
                                                     id="Quality_Risk_Management_Extension_Completed_ON" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MMM-YYYY" disabled />
                                                 <input type="date"
                                                     name="Quality_Risk_Management_Extension_Completed_ON"
                                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
-                                                    oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')" />
+                                                    oninput="handleDateInput(this, 'Quality_Risk_Management_Extension_Completed_ON')" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -5527,10 +5527,10 @@
                                             (Investigation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_investigation" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MMM-YYYY" disabled />
                                             <input type="date" name="Proposed_Due_date_investigation"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Proposed_Due_date_investigation')" />
+                                                oninput="handleDateInput(this, 'Proposed_Due_date_investigation')" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -5554,7 +5554,7 @@
                                             <label for=" Investigation_Extension_Completed_By"> Investigation Extension
                                                 Completed By </label>
                                             <select name="Investigation_Extension_Completed_By"
-                                                id="Investigation_Extension_Completed_By">
+                                                id="Investigation_Extension_Completed_By" disabled>
                                                 <option value="">-- Select --</option>
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -5569,11 +5569,11 @@
                                                 Completed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MMM-YYYY" disabled />
                                                 <input type="date" name="Investigation_Extension_Completed_On"
                                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
-                                                    oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
+                                                    oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -5596,7 +5596,7 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="row">
 
                                     <div class="col-lg-6">
@@ -5627,7 +5627,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -5655,7 +5655,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5684,7 +5684,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
                                 <div class="sub-head">
@@ -5701,7 +5701,7 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5731,7 +5731,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -5758,7 +5758,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5788,7 +5788,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="sub-head">
                                     Quality Risk Management Effectiveness Check
@@ -5805,7 +5805,7 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5836,7 +5836,7 @@
                                         </div>
 
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -5895,7 +5895,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="sub-head">
                                     Investigation Effectiveness Check
@@ -5911,7 +5911,7 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -5941,7 +5941,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -6305,7 +6305,7 @@
                                 <div class="down-logo">
                                     <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
                                         class="w-100 h-100">
-                                </div>                              
+                                </div>
                                 <div style="background: #ff000042;" class="mini_buttons">
                                     Closed - Done
                                 </div>
@@ -7848,7 +7848,7 @@
                 let textarea = document.createElement('textarea')
                 textarea.setAttribute('name', name);
                 container.append(textarea)
-                
+
 
                 $(textarea).after('<button class="remove-row">Remove</button>');
                 $(textarea).next('.remove-row').on('click', function() {

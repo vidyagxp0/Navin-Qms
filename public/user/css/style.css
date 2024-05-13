@@ -37,7 +37,7 @@ a {
 
 a:hover {
     color: #4274da;
-    background: #FFF;
+    /* background: #FFF; */
     text-decoration: none;
 }
 
@@ -2741,7 +2741,7 @@ section#pdf-page .watermark {
 #tms-dashboard .tms-dashboard-tabs .tab-btn.active {
     background-image: linear-gradient(120deg, #4f4d4b 0%, #2b2c2c 100%);
     color: #fff;
-}   
+}
 
 #tms-dashboard .tms-block {
     display: none;
@@ -3534,7 +3534,7 @@ section#pdf-page .watermark {
 #change-control-view .inner-block .block-list .block .bar {
     margin-bottom: 5px;
 }
-    
+
 #change-control-view .state-block .progress-bars {
     display: flex;
 }
@@ -6177,11 +6177,11 @@ section#pdf-page .watermark {
     background-color: gray;
     border: 1px solid black;
     /* border-radius: 50%; */
-    
+
 }
 #new-button-icon:hover{
     background-color: gray;
-    
+
 }
 
 .sticky-buttons {
@@ -6192,7 +6192,7 @@ section#pdf-page .watermark {
     display: grid;
     gap: 10px;
     z-index: 5;
-    
+
 }
 .sticky-buttons div {
     background: #4274da;
@@ -6203,7 +6203,7 @@ section#pdf-page .watermark {
     border-radius: 0 5px 5px 0;
 }
 
-  
+
   .modal.right.fade.in .modal-dialog {
   right:0 !important;
   transform: translateX(-50%);
@@ -6232,23 +6232,23 @@ section#pdf-page .watermark {
   -o-transition: opacity 0.3s linear, right 0.3s ease-out;
   transition: opacity 0.3s linear, right 0.3s ease-out;
   }
-      
-      
+
+
      .modal.right .modal-header {background-color:#4274da; color:#fff;     display: flex;
         justify-content: center;}
       .modal.right .modal-header::after {content:""; display:inline-block;}
       .modal.right .close {text-shadow:none; opacity:1; color:#ff4d4d; font-size:26px}
   /*  form-control  */
-      
+
       .form-control {border-radius:0; box-shadow:none}
       .form-control:focus {box-shadow:none}
-      
-      
+
+
   /*  Button  */
-      
+
       .btn {border-top-right-radius:5;
         border-top-right-radius:5;
-    
+
     }
 
     .button-box{
@@ -6269,7 +6269,7 @@ section#pdf-page .watermark {
     }
   .dawn_arrow{
     /* position: absolute; */
-    
+
     top: 100%;
     left: 50%;
     transform: rotate(90deg) translate(-12%, 23px);
