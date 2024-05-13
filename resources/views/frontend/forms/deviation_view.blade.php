@@ -3061,6 +3061,7 @@
 
                                         $('[name="Production_Review"]').change(function() {
                                             if ($(this).val() === 'yes') {
+                                                console.log('jhbjb');
                                                 $('.p_erson').show();
                                                 $('.p_erson span').show();
                                             } else {
@@ -3081,7 +3082,7 @@
                                             <label for="Production Review"> Production Review Required ? <span
                                                     class="text-danger">*</span></label>
                                             <select name="Production_Review" id="Production_Review"
-                                                @if ($data->stage == 4) disabled @endif
+                                                @if ($data->stage == 4)  @endif
                                                 @if ($data->stage == 3) required @endif>
                                                 <option value="">-- Select --</option>
                                                 <option @if ($data1->Production_Review == 'yes') selected @endif value='yes'>
@@ -3411,7 +3412,7 @@
                                                     value="no">No</option>
                                                 <option @if ($data1->Warehouse_review == 'na') selected @endif
                                                     value="na">NA</option>
-
+  
                                             </select>
 
                                         </div>
@@ -3553,7 +3554,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="col-lg-6 warehouse">
+                                    <div class="col-lg-6 ">
                                         <div class="group-input">
                                             <label for="Warehouse Review Required">Warehouse Review Required ?</label>
                                             <select disabled name="Warehouse_review" id="Warehouse_review">
@@ -3851,7 +3852,7 @@
                                     $(document).ready(function() {
                                         $('.quality_assurance').hide();
 
-                                        $('[name="Quality_Assurance"]').change(function() {
+                                        $('[name="Quality_Assurance_Review"]').change(function() {
                                             if ($(this).val() === 'yes') {
                                                 $('.quality_assurance').show();
                                                 $('.quality_assurance span').show();
@@ -4005,9 +4006,6 @@
                                             value="{{ $data1->QualityAssurance_on }}">
                                     </div>
                                 </div>
-                                <div class="sub-head">
-                                    Engineering
-                                </div>
                                 <script>
                                     $(document).ready(function() {
                                         $('.engineering').hide();
@@ -4023,6 +4021,10 @@
                                         });
                                     });
                                 </script>
+                                <div class="sub-head">
+                                    Engineering
+                                </div>
+                                
                                 <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ? <span
@@ -5318,7 +5320,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Person">Quality Control Person</label>
                                         <select disabled name="Quality_Control_Person" id="Quality_Control_Person">
@@ -5333,7 +5335,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -5343,7 +5345,7 @@
                                             id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Feedback">Quality Control Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -5353,7 +5355,7 @@
                                             id="summernote-22">{{ $data1->Quality_Control_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Attachments">Quality Control Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -5386,7 +5388,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed By">Quality Control Review Completed
                                             By</label>
@@ -5395,7 +5397,7 @@
                                             name="Quality_Control_by" id="Quality_Control_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
@@ -5412,6 +5414,8 @@
                                         <label for="Quality Assurance Review Required">Quality Assurance Review Required
                                             ?</label>
                                         <select disabled name="Quality_Assurance_Review" id="Quality_Assurance_Review">
+                                            <option value="">-- Select --</option>
+
                                             <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif value="yes">
                                                 Yes</option>
                                             <option @if ($data1->Quality_Assurance_Review == 'no') selected @endif value="no">
@@ -5428,7 +5432,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_assurance" >
                                     <div class="group-input">
                                         <label for="Quality Assurance Person">Quality Assurance Person</label>
                                         <select disabled name="QualityAssurance_person" id="QualityAssurance_person">
@@ -5441,7 +5445,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -5451,7 +5455,7 @@
                                             id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -5461,7 +5465,7 @@
                                             id="summernote-24">{{ $data1->QualityAssurance_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Attachments">Quality Assurance Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -5496,7 +5500,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review
                                             Completed By</label>
@@ -5505,7 +5509,7 @@
                                             name="QualityAssurance_by" id="QualityAssurance_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 quality_assurance">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
@@ -5539,7 +5543,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 engineering">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Person</label>
                                         <select disabled name="Engineering_person" id="Engineering_person">
@@ -5551,7 +5555,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -5561,7 +5565,7 @@
                                             id="summernote-25">{{ $data1->Engineering_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Feedback">Engineering Feedback</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -5570,7 +5574,7 @@
                                             id="summernote-26">{{ $data1->Engineering_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 engineering">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Engineering Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -5602,7 +5606,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed
                                             By</label>
@@ -5612,7 +5616,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 engineering">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
@@ -5649,7 +5653,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Person"> Analytical Development
                                             Laboratory Person</label>
@@ -5665,7 +5669,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development
                                             Laboratory)</label>
@@ -5674,7 +5678,7 @@
                                             id="summernote-27">{{ $data1->Analytical_Development_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development
                                             Laboratory Feedback</label>
@@ -5683,7 +5687,7 @@
                                             id="summernote-28">{{ $data1->Analytical_Development_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 analytical_development">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Analytical Development Laboratory
                                             Attachments</label>
@@ -5719,7 +5723,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical
                                             Development Laboratory Review Completed By</label>
@@ -5728,7 +5732,7 @@
                                             name="Analytical_Development_by" id="Analytical_Development_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
@@ -5765,7 +5769,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 kilo_lab">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Person</label>
@@ -5779,7 +5783,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development
                                             Laboratory / Kilo Lab)</label>
@@ -5787,7 +5791,7 @@
                                             id="summernote-29">{{ $data1->Kilo_Lab_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab
                                             Feedback</label>
@@ -5795,7 +5799,7 @@
                                             id="summernote-30">{{ $data1->Kilo_Lab_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 kilo_lab">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Process Development Laboratory / Kilo Lab
                                             Attachments</label>
@@ -5828,7 +5832,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo
                                             Lab Review Completed By</label>
@@ -5837,7 +5841,7 @@
                                             name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 kilo_lab">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
@@ -5891,7 +5895,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer /
                                             Design)</label>
@@ -5900,7 +5904,7 @@
                                             id="summernote-31">{{ $data1->Technology_transfer_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design Feedback</label>
                                         <textarea class="tiny"
@@ -5908,7 +5912,7 @@
                                             id="summernote-32">{{ $data1->Technology_transfer_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 technology_transfer">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Technology Transfer / Design Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -5943,7 +5947,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             By</label>
@@ -5954,7 +5958,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 technology_transfer">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             On</label>
@@ -5991,7 +5995,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Person"> Environment, Health & Safety Person</label>
                                         <select disabled name="Environment_Health_Safety_person"
@@ -6006,7 +6010,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health &
                                             Safety)</label>
@@ -6015,7 +6019,7 @@
                                             id="summernote-33">{{ $data1->Health_Safety_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Feedback">Environment, Health & Safety Feedback</label>
                                         <textarea class="tiny"
@@ -6023,7 +6027,7 @@
                                             id="summernote-34">{{ $data1->Health_Safety_feedback }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 environmental_health">
                                     <div class="group-input">
                                         <label for="Audit Attachments"> Environment, Health & Safety Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6058,7 +6062,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Review Completed By">Environment, Health & Safety Review
                                             Completed By</label>
@@ -6070,7 +6074,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
@@ -6106,7 +6110,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 human_resources">
                                     <div class="group-input">
                                         <label for="Customer notification"> Human Resource & Administration Person</label>
                                         <select disabled name="Human_Resource_person" id="Human_Resource_person">
@@ -6119,7 +6123,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource &
                                             Administration )</label>
@@ -6128,7 +6132,7 @@
                                             id="summernote-35">{{ $data1->Human_Resource_assessment }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration Feedback</label>
                                         <textarea class="tiny"
@@ -6137,7 +6141,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-12 human_resources ">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Human Resource & Administration Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
@@ -6170,7 +6174,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 human_resources">
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration
                                             Review Completed By</label>
