@@ -1555,7 +1555,7 @@
                                                                                 {{ isset($facility_name[$key]) && $facility_name[$key] == 'Facility' ? 'selected' : 'Facility' }}>
                                                                                 Facility</option>
                                                                             <option value="Equipment"
-                                                                                {{ isset($facility_name[$key]) && $facility_name[$key] == 'Facility' ? 'selected' : 'Equipment' }}>
+                                                                                {{ isset($facility_name[$key]) && $facility_name[$key] == 'Equipment' ? 'selected' : 'Equipment' }}>
                                                                                 Equipment</option>
                                                                             <option value="Instrument"
                                                                                 {{ isset($facility_name[$key]) && $facility_name[$key] == 'Instrument' ? 'selected' : 'Instrument' }}>
@@ -8197,18 +8197,18 @@
         <div id="CCForm9" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
-                    @if($deviationExtension && $deviationExtension->dev_proposed_due_date)
+                    @if($investigationExtension && $investigationExtension->investigation_proposed_due_date)
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Proposed Due Date">Proposed Due Date</label> 
-                                <input name="dev_proposed_due_date" id="dev_proposed_due_date" value="{{ Helpers::getdateFormat($deviationExtension->dev_proposed_due_date) }}" disabled>
+                                <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" value="{{ Helpers::getdateFormat($investigationExtension->investigation_proposed_due_date) }}" disabled>
                             </div>
                         </div>
                     @else
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Proposed Due Date">Proposed Due Date</label> 
-                                <input name="dev_proposed_due_date" id="dev_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
+                                <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
                             </div>
                         </div>
                     @endif
