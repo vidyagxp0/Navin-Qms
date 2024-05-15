@@ -64,115 +64,118 @@
     </div>
     {{-- CHAT PDF MODAL END --}}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
             
-        const config = {
-            headers: {
-                "x-api-key": "sec_qLUcsYBeIWAt564Tk5zhHg76DQHjastL",
-                "Content-Type": "application/json",
-            },
-        };
+        $(document).ready(function() {
+            const config = {
+                headers: {
+                    "x-api-key": "sec_qLUcsYBeIWAt564Tk5zhHg76DQHjastL",
+                    "Content-Type": "application/json",
+                },
+            };
 
-        function scrollToBottom() {
-            var chatContent = $('#chatContent');
-            chatContent.animate({
-                scrollTop: chatContent.prop('scrollHeight')
-            }, 500);
-        }
-
-        const data = {
-            url: "{{ asset('user/pdf'. $name .'.pdf') }}"
-        }
-
-        let srcId = "";
-
-        function getUserMessageHtml(message)
-        {
-            let html = `<div class="chat-content-user-chat bg-dark text-white p-3 rounded-3 w-50 mb-2" style="margin-left: auto;">${message}</div>`;
-            return html;
-        }
-
-        function getResponseMessageHtml(message)
-        {
-            let html = `<div class="chat-content-ai-chat bg-light p-3 rounded-3 w-50 mb-2" style="margin-right: auto;">${message}</div>`;
-            return html;
-        }
-
-        async function initializeChatModal()
-        {
-            console.log('initializeChatModal')
-            try {
-                const addPdfUrl = "https://api.chatpdf.com/v1/sources/add-url";
-
-                const res = await axios.post(addPdfUrl, data, config)
-
-                console.log('res', res);
-
-                let srcId = res.data.sourceId;
-
-            } catch (err) {
-                console.log('Error in initializeChatModal fn', err.message)
+            function scrollToBottom() {
+                var chatContent = $('#chatContent');
+                chatContent.animate({
+                    scrollTop: chatContent.prop('scrollHeight')
+                }, 500);
             }
-        }
 
-        async function sendChat()
-        {
+            const data = {
+                url: "{{ asset('user/pdf/'. $name .'.pdf') }}"
+            }
 
-            let message = $('textarea[name=chatSendMessage]').val();
+            let srcId = "";
 
-            if (message && message.trim() !== '')
+            function getUserMessageHtml(message)
             {
-                scrollToBottom()
-
-                $('#sendChatBtn').prop('disabled', true);
-                $('#sendChatBtn > i').hide();
-                $('#sendChatBtn > div').show();
-
-                const chatData = {
-                    "sourceId": srcId,
-                    "messages": [
-                        {
-                            "role": "user",
-                            "content": message
-                        }
-                    ]
-                }
-    
-                const userMsgHtml = getUserMessageHtml(message);
-                $('#chatContent').append(userMsgHtml).show('slow');
-                $('textarea[name=chatSendMessage]').val('');
-    
-                try {
-    
-                    const chatPdfEndpoint = "https://api.chatpdf.com/v1/chats/message";
-    
-                    const res = await axios.post(chatPdfEndpoint, chatData, config)
-    
-                    console.log('res', res);
-    
-                    let resMsg = res.data.content;
-    
-                    const aiResHtml = getResponseMessageHtml(resMsg);
-                    $('#chatContent').append(aiResHtml).show('slow');
-    
-                } catch (err) {
-                    console.log('Error in sendChat fn', err.message)
-                }
-                $('#sendChatBtn').prop('disabled', false);
-                $('#sendChatBtn > i').show();
-                $('#sendChatBtn > div').hide();
-
-                scrollToBottom()
+                let html = `<div class="chat-content-user-chat bg-dark text-white p-3 rounded-3 w-50 mb-2" style="margin-left: auto;">${message}</div>`;
+                return html;
             }
 
-            
-        }
+            function getResponseMessageHtml(message)
+            {
+                let html = `<div class="chat-content-ai-chat bg-light p-3 rounded-3 w-50 mb-2" style="margin-right: auto;">${message}</div>`;
+                return html;
+            }
 
-        initializeChatModal();
+            async function initializeChatModal()
+            {
+                console.log('initializeChatModal')
+                try {
+                    const addPdfUrl = "https://api.chatpdf.com/v1/sources/add-url";
 
-        $('#sendChatBtn').click(function() {
-            sendChat();
+                    const res = await axios.post(addPdfUrl, data, config)
+
+                    console.log('res', res);
+
+                    srcId = res.data.sourceId;
+
+                } catch (err) {
+                    console.log('Error in initializeChatModal fn', err.message)
+                }
+            }
+
+            async function sendChat()
+            {
+
+                let message = $('textarea[name=chatSendMessage]').val();
+
+                if (message && message.trim() !== '')
+                {
+                    scrollToBottom()
+
+                    $('#sendChatBtn').prop('disabled', true);
+                    $('#sendChatBtn > i').hide();
+                    $('#sendChatBtn > div').show();
+
+                    const chatData = {
+                        "sourceId": srcId,
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": message
+                            }
+                        ]
+                    }
+        
+                    const userMsgHtml = getUserMessageHtml(message);
+                    $('#chatContent').append(userMsgHtml).show('slow');
+                    $('textarea[name=chatSendMessage]').val('');
+        
+                    try {
+        
+                        const chatPdfEndpoint = "https://api.chatpdf.com/v1/chats/message";
+        
+                        const res = await axios.post(chatPdfEndpoint, chatData, config)
+        
+                        console.log('res', res);
+        
+                        let resMsg = res.data.content;
+        
+                        const aiResHtml = getResponseMessageHtml(resMsg);
+                        $('#chatContent').append(aiResHtml).show('slow');
+        
+                    } catch (err) {
+                        console.log('Error in sendChat fn', err.message)
+                    }
+                    $('#sendChatBtn').prop('disabled', false);
+                    $('#sendChatBtn > i').show();
+                    $('#sendChatBtn > div').hide();
+
+                    scrollToBottom()
+                }
+
+                
+            }
+
+            initializeChatModal();
+
+            $('#sendChatBtn').click(function() {
+                sendChat();
+            })
         })
 
     </script>

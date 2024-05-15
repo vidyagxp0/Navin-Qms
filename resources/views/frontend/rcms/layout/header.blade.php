@@ -424,7 +424,7 @@ body > header > div.header_rcms_bottom > div.container-fluid > div > div.left-bl
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="stander_heading">
-                            <a href="{{ route('pdf.show', 'gamp5') }}" class="btn btn-dark" target="_blank">
+                            <a href="{{ route('pdf.show', 'GAMP_5_Good_Automated_Manufacturing_Practice_v5') }}" class="btn btn-dark" target="_blank">
                                 GAMP 5
                             </a>
                             <a href="{{ route('pdf.show', '21_CFR_Part_11') }}" class="btn btn-dark" target="_blank">
