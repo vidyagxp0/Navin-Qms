@@ -3388,7 +3388,7 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
-                                        @if($data1->Quality_review !== 'yes')
+                                        @if($data1->Warehouse_review !== 'yes')
 
                                         $('.warehouse').hide();
 
@@ -3859,6 +3859,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Quality_Assurance_Review !== 'yes')
+
                                         $('.quality_assurance').hide();
 
                                         $('[name="Quality_Assurance_Review"]').change(function() {
@@ -3870,6 +3872,8 @@
                                                 $('.quality_assurance span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -4017,6 +4021,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Engineering_review !== 'yes')
+
                                         $('.engineering').hide();
 
                                         $('[name="Engineering_review"]').change(function() {
@@ -4028,6 +4034,8 @@
                                                 $('.engineering span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="sub-head">
@@ -4177,6 +4185,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Analytical_Development_review!== 'yes')
+
                                         $('.analytical_development').hide();
 
                                         $('[name="Analytical_Development_review"]').change(function() {
@@ -4188,6 +4198,8 @@
                                                 $('.analytical_development span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -4341,6 +4353,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Kilo_Lab_review !== 'yes')
+
                                         $('.kilo_lab').hide();
 
                                         $('[name="Kilo_Lab_review"]').change(function() {
@@ -4352,6 +4366,8 @@
                                                 $('.kilo_lab span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -4498,6 +4514,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Technology_transfer_review !== 'yes')
+
                                         $('.technology_transfer').hide();
 
                                         $('[name="Technology_transfer_review"]').change(function() {
@@ -4509,6 +4527,8 @@
                                                 $('.technology_transfer span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -4661,6 +4681,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Environment_Health_review !== 'yes')
+
                                         $('.environmental_health').hide();
 
                                         $('[name="Environment_Health_review"]').change(function() {
@@ -4672,6 +4694,8 @@
                                                 $('.environmental_health span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -4826,6 +4850,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Human_Resource_review !== 'yes')
+
                                         $('.human_resources').hide();
 
                                         $('[name="Human_Resource_review"]').change(function() {
@@ -4837,6 +4863,8 @@
                                                 $('.human_resources span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -4985,6 +5013,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Information_Technology_review !== 'yes')
+
                                         $('.information_technology').hide();
 
                                         $('[name="Information_Technology_review"]').change(function() {
@@ -4996,6 +5026,8 @@
                                                 $('.information_technology span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6 ">
@@ -5147,6 +5179,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Project_management_review !== 'yes')
+
                                         $('.project_management').hide();
 
                                         $('[name="Project_management_review"]').change(function() {
@@ -5158,6 +5192,8 @@
                                                 $('.project_management span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
