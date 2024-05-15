@@ -2610,7 +2610,7 @@
                                     </th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($investigationExtension->investigation_proposed_due_date) {{  Helpers::getdateFormat($investigationExtension->investigation_proposed_due_date)  }} @else Not Applicable @endif
+                                            @if ($investigationExtension && $investigationExtension->investigation_proposed_due_date) {{  Helpers::getdateFormat($investigationExtension->investigation_proposed_due_date)  }} @else Not Applicable @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -3196,7 +3196,7 @@
                                     </th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($qrmExtension->qrm_proposed_due_date) {{ Helpers::getdateFormat($qrmExtension->qrm_proposed_due_date) }} @else Not Applicable @endif
+                                            @if ($qrmExtension && $qrmExtension->qrm_proposed_due_date) {{ Helpers::getdateFormat($qrmExtension->qrm_proposed_due_date) }} @else Not Applicable @endif
                                         </div>
                                     </td>
                                     <th class="w-20">Conclusion</th>
@@ -3246,12 +3246,11 @@
                                 </tr>
                             </table>
 
-                            <!-- <div class="border-table">
-                                <div class="block-">
+                            <div class="border-table">
+                                <div class="block-" style="margin:bottom:5px;">
                                     Failure Mode and Effect Analysis
                                 </div>
                                 <table>
-
                                     <tr class="table_bg">
                                         <th>Row #</th>
                                         <th>Risk Factor</th>
@@ -3259,12 +3258,115 @@
                                         <th>Probable cause of risk element</th>
                                         <th>Existing Risk Controls</th>
                                         <th>Initial Severity- H(3)/M(2)/L(1)</th>
+                                    </tr>
+
+                                    <tbody>
+                                        @if ($grid_data_qrms && is_array($grid_data_qrms->data))
+                                             @php
+                                                $serialNumber = 1;
+                                            @endphp
+                                            @foreach ($grid_data_qrms->data as $grid_item)
+                                            <tr>
+                                                <td>{{$serialNumber++}}</td>
+                                                <td>{{$grid_item['risk_factor']}}</td>
+                                                <td>{{$grid_item['risk_element']}}</td>
+                                                <td>{{$grid_item['probale_of_risk_element']}}</td>
+                                                <td>{{$grid_item['existing_risk_control']}}</td>
+                                                <td>{{$grid_item['initial_severity']}}</td>
+                                            </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td class="w-20">1</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                            </tr>`
+                                        @endif
+                                    </tbody>
+                                </table>
+
+
+                                <table style="margin-top:10px;">
+                                    <tr class="table_bg">
+                                        <th>Row #</th>
                                         <th>Initial Probability- H(3)/M(2)/L(1)</th>
                                         <th>Initial Detectability- H(1)/M(2)/L(3)</th>
                                         <th>Initial RPN</th>
+                                        <th>Risk Acceptance (Y/N)</th>
+                                        <th>Proposed Additional Risk control measure</th>
                                     </tr>
+                                    <tbody>
+                                        @if ($grid_data_qrms && is_array($grid_data_qrms->data))
+                                            @php
+                                                $serialNumber = 1;
+                                            @endphp
+                                            @foreach ($grid_data_qrms->data as $grid_item)
+                                                <tr>
+                                                    <td>{{$serialNumber++}}</td>
+                                                    <td>{{$grid_item['initial_probability']}}</td>
+                                                    <td>{{$grid_item['initial_detectability']}}</td>
+                                                    <td>{{$grid_item['initial_rpn']}}</td>
+                                                    <td>{{$grid_item['risk_acceptance']}}</td>
+                                                    <td>{{$grid_item['proposed_additional_risk_control']}}</td>
+                                                </tr>                                                
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td class="w-20">1</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
                                 </table>
-                            </div> -->
+
+                                <table style="margin-top:10px;">
+                                    <tr class="table_bg">
+                                        <th>Row #</th>
+                                        <th>Residual Severity- H(3)/M(2)/L(1)</th>
+                                        <th>Residual Probability- H(3)/M(2)/L(1)</th>
+                                        <th>Residual Detectability- H(1)/M(2)/L(3)</th>
+                                        <th>Residual RPN</th>
+                                        <th>Risk Acceptance (Y/N)</th>
+                                        <th>Mitigation proposal</th>
+                                    </tr> 
+
+                                    <tbody>
+                                        @if ($grid_data_qrms && is_array($grid_data_qrms->data))
+                                            @php
+                                                $serialNumber = 1;
+                                            @endphp
+                                            @foreach ($grid_data_qrms->data as $grid_item)
+                                                <tr>
+                                                    <td>{{$serialNumber++}}</td>
+                                                    <td>{{$grid_item['residual_severity']}}</td>
+                                                    <td>{{$grid_item['residual_probability']}}</td>
+                                                    <td>{{$grid_item['residual_detectability']}}</td>
+                                                    <td>{{$grid_item['residual_rpn']}}</td>
+                                                    <td>{{$grid_item['risk_acceptance']}}</td>
+                                                    <td>{{$grid_item['mitigation_proposal']}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td class="w-20">1</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                                <td class="w-20">Not Applicable</td>
+                                            </tr>`
+                                        @endif
+                                    </tbody>
+                                </table>
+
+                               
+                            </div>
 
                             <div class="border-table">
                                 <div class="block-" style=" font-weight:bold; margin-bottom:5px;">
@@ -3327,7 +3429,7 @@
                                     </th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($capaExtension->capa_proposed_due_date) {{ $capaExtension->capa_proposed_due_date }} @else Not Applicable @endif
+                                            @if ($capaExtension && $capaExtension->capa_proposed_due_date) {{ $capaExtension->capa_proposed_due_date }} @else Not Applicable @endif
                                         </div>
                                     </td>
                                     <th class="w-20">Name of the Department</th>

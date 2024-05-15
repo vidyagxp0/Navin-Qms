@@ -1504,16 +1504,16 @@ class DeviationController extends Controller
                 'Deviation_date' => 'required',
                 'deviation_time' => 'required',
                 'Deviation_reported_date' => 'required',
-                'Delay_Justification' => [
-                    function ($attribute, $value, $fail) use ($request) {
-                        $deviation_date = Carbon::parse($request->Deviation_date);
-                        $reported_date = Carbon::parse($request->Deviation_reported_date);
-                        $diff_in_days = $reported_date->diffInDays($deviation_date);
-                        if ($diff_in_days !== 0) {
-                            $fail('The Delay Justification is required!');
-                        }
-                    },
-                ],
+                // 'Delay_Justification' => [
+                //     function ($attribute, $value, $fail) use ($request) {
+                //         $deviation_date = Carbon::parse($request->Deviation_date);
+                //         $reported_date = Carbon::parse($request->Deviation_reported_date);
+                //         $diff_in_days = $reported_date->diffInDays($deviation_date);
+                //         if ($diff_in_days !== 0) {
+                //             $fail('The Delay Justification is required!');
+                //         }
+                //     },
+                // ],
                 'audit_type' => [
                     'required',
                     'array',
@@ -1726,6 +1726,7 @@ class DeviationController extends Controller
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
+        $deviation->Delay_Justification = $request->Delay_Justification;
         $deviation->audit_type = implode(',', $request->audit_type);
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
@@ -1753,7 +1754,6 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
-
 
         $deviation->Conclusion = $request->Conclusion;
         $deviation->Identified_Risk = $request->Identified_Risk;

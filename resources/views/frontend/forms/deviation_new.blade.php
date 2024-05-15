@@ -1057,7 +1057,7 @@
                                                     </select> </td>
                                                 <td><input type="text" name="IDnumber[]" class="id-number"></td>
                                                 <td><input type="text" name="Remarks[]" class="remarks"></td>
-                                                <td><input type="text" name="Action[]" class="action"></td>
+                                                <td><input type="text" name="Action[]" class="action" readonly></td>
 
                                             </tbody>
 
@@ -1148,7 +1148,7 @@
                                                         name="ReferenceDocumentName[]"></td>
                                                 <td><input type="text" class="Document_Remarks"
                                                         name="Document_Remarks[]"></td>
-                                                <td><input type="text" class="" name="Action[]"></td>
+                                                <td><input type="text" class="" name="Action[]" readonly></td>
 
 
                                             </tbody>
