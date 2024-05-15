@@ -862,19 +862,8 @@
                                 </script>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        @php
-                                            $users = DB::table('users')->get();
-                                        @endphp
-                                        <label for="If Other">Deviation Observed By</label>
-                                        <input type="text" name="Facility" id="Facility"
-                                            placeholder="Select Facility Name">
-
-                                        {{-- <select  multiple name="Facility[]" placeholder="Select Facility Name"
-                                            data-search="false" data-silent-initial-value-set="true" id="Facility">
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach
-                                        </select> --}}
+                                        <label for="facility">Deviation Observed By</label>
+                                        <input type="text" name="Facility" id="deviation_observed_by" placeholder="Enter Facility Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">

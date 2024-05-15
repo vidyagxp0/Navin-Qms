@@ -1497,30 +1497,6 @@
                                                 (Launch Instruction)
                                             </span>
                                         </label>
-                                        {{-- <div class="table-responsive">
-                                                <table class="table table-bordered" id="onservation-field-table"
-                                                    style="width: 100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 5%">Row#</th>
-                                                            <th style="width: 12%">Name</th>
-                                                            <th style="width: 16%"> ID Number</th>
-                                                            <th style="width: 15%">Remarks</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @if ($grid_data->Remarks)
-                                                        @foreach (unserialize($grid_data->Remarks) as $key => $temps)
-                                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                            <td> <select name="name" id="facility_name" value="{{ unserialize($grid_data->facility_name)[$key] ? unserialize($grid_data->facility_name)[$key] : '' }}">  <option value="">-- Select --</option>  <option value="1">Facility</option>  <option value="2"> Equipment</option> <option value="3">Instrument</option></select> </td>
-                                                            <td><input type="text" name="IDnumber[]"value="{{ unserialize($grid_data->IDnumber)[$key] ? unserialize($grid_data->IDnumber)[$key] : '' }}"></td>
-                                                            <td><input type="text" name="Remarks[]"value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}"></td>
-                                                        @endforeach
-                                                        @endif
-                                                    </tbody>
-
-                                                </table>
-                                            </div> --}}
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="onservation-field-table"
                                                 style="width: 100%;">
@@ -1563,10 +1539,6 @@
                                                                                 Instrument</option>
                                                                         @endif
 
-
-                                                                        {{-- <option value="1" {{ (unserialize($grid_data->facility_name)[$key] == "1")?"selected":"1"}}>Facility</option>
-                                                                            <option value="2" {{ (unserialize($grid_data->facility_name)[$key] == "2")?"selected":"2"}}>Equipment</option>
-                                                                            <option value="3" {{ (unserialize($grid_data->facility_name)[$key] == "3")?"selected":"2"}}>Instrument</option> --}}
                                                                     </select>
                                                                 </td>
                                                                 <td><input class="id-number" type="text"
@@ -2018,7 +1990,7 @@
                                     </div>
                                 </div>
                                 <div class="button-block">
-                                    <button  type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                    <button  type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                                         id="ChangesaveButton01" class="saveButton saveAuditFormBtn d-flex"
                                         style="align-items: center;">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -2168,7 +2140,7 @@
                                 </div>
                                 <div class="button-block">
 
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
                                         id="ChangesaveButton02">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -2984,7 +2956,7 @@
                             @endif
 
                             <div class="button-block">
-                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                                     id="ChangesaveButton03" class="saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                                         role="status">
@@ -8149,7 +8121,7 @@
 
                         </div>
                         <div class="button-block">
-                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                                 id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex"
                                 style="align-items: center;">
                                 <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
@@ -8292,7 +8264,7 @@
                                                     @endforeach
                                                     <td><input type="text" class="numberDetail" name="investication[0][responsibility]"></td>
                                                     <td><input type="text" class="Document_Remarks" name="investication[0][remarks]"></td>
-                                                    <td><input type="text" class="Action" name=""></td>
+                                                    <td><input type="text" class="Action" name="" readonly></td>
                                                 @endif
 
 
@@ -8632,7 +8604,7 @@
                                                     <td><input type="text" class="Document_Remarks" name="rootCause[0][ifother]"></td>
                                                     <td><input type="text" class="Document_Remarks" name="rootCause[0][probability]"></td>
                                                     <td><input type="text" class="Document_Remarks" name="rootCause[0][remarks]"></td>
-                                                    <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                                    <td><input type="text" class="Removebtn" name="Action[]" readonly></td>
 
                                                 @endif
                                             </tbody>
@@ -9322,7 +9294,7 @@
                 </div>
 
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;"  type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                     {{-- <a href="/rcms/qms-dashboard">
                         <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="backButton">Back</button>
                     </a> --}}
@@ -9401,6 +9373,7 @@
                                             <th>Mitigation proposal (Mention either CAPA reference number, IQ,
                                                 OQ or
                                                 PQ)</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -9824,7 +9797,7 @@
         <td><input type="text" class="Document_Remarks" name="matrix_qrms[0][recorded_by]"></td>
         <td><input type="text" class="Document_Remarks" name="matrix_qrms[0][remark]"></td>
 
-        <td><input type="text" class="Action" name=""></td>
+        <td><input type="text" class="Action" name="" disabled></td>
     @endif
 
 
@@ -9854,7 +9827,7 @@
                     }
                 </script>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                     <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                         <button type="button" class="backButton">Back</button>
                     </a>
@@ -10165,7 +10138,7 @@
             </div>
 
             <div class="button-block">
-            <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
+            <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                         <span class="sr-only">Loading...</span>
                         </div>
@@ -10293,7 +10266,7 @@
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation <span style="display: {{ $data->stage == 5 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
-                                        <select name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
+                                        <select name="Post_Categorization"  id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
                                             value="major">Major</option>
@@ -10436,7 +10409,7 @@
                                     <div class="group-input">
                                         <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                                         <div><small class="text-primary">Please Refer Intial deviation category before updating.</small></div>
-                                        <select disabled name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}  id="Post_Categorization" value="Post_Categorization">
+                                        <select name="Post_Categorization" id="Post_Categorization" value="Post_Categorization">
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
                                             value="major">Major</option>
@@ -10515,7 +10488,7 @@
                             </div>
                             @endif
                             <div class="button-block">
-                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
+                                <button type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
                                         <span class="sr-only">Loading...</span>
                                       </div>
@@ -10608,7 +10581,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                         id="ChangesaveButton05" class="saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -10648,7 +10621,7 @@
                             <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                             <div><small class="text-primary">Please Refer Intial deviation category before
                                     updating.</small></div>
-                            <select disabled
+                            <select 
                                 name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                 id="Post_Categorization" value="Post_Categorization">
                                 <option value=""> -- Select --</option>
@@ -10748,7 +10721,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                         id="ChangesaveButton06" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -10812,7 +10785,7 @@
                             <div class="group-input">
                                 <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" name="dev_extension_justification" disabled id="dev_extension_justification" value="{{$deviationExtension->dev_extension_justification}}">{{$deviationExtension->dev_extension_justification}}</textarea>
+                                <textarea name="dev_extension_justification" placeholder="Deviation Extension Justification" disabled id="dev_extension_justification" value="{{$deviationExtension->dev_extension_justification}}">{{$deviationExtension->dev_extension_justification}}</textarea>
                             </div>
                         </div>
                     @else
@@ -10820,7 +10793,7 @@
                             <div class="group-input">
                                 <label for="Extension_Justification_deviation">Extension Justification (Deviation)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" name="dev_extension_justification" id="dev_extension_justification" disabled ></textarea>
+                                <textarea name="dev_extension_justification" placeholder="Deviation Extension Justification" id="dev_extension_justification" disabled ></textarea>
                             </div>
                         </div>
                     @endif
@@ -10902,7 +10875,7 @@
                             <div class="group-input">
                                 <label for="capa_extension_justification">Extension Justification (CAPA)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" name="capa_extension_justification" id="capa_extension_justification" disabled>{{$capaExtension->capa_extension_justification}}</textarea>
+                                <textarea name="capa_extension_justification" placeholder="Capa Extension Justification" id="capa_extension_justification" disabled>{{$capaExtension->capa_extension_justification}}</textarea>
                             </div>
                         </div>
                     @else
@@ -10910,7 +10883,7 @@
                             <div class="group-input">
                                 <label for="capa_extension_justification">Extension Justification (CAPA)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" name="capa_extension_justification" id="capa_extension_justification" disbaled></textarea>
+                                <textarea name="capa_extension_justification" placeholder="Capa Extension Justification" id="capa_extension_justification" disabled></textarea>
                             </div>
                         </div>
                     @endif
@@ -10948,7 +10921,7 @@
                                 <div class="group-input input-date">
                                     <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="capa_completed_on" name="capa_completed_on" value="" disabled placeholder="DD-MMM-YYYY" value="{{Helpers::getdateFormat($capaExtension->capa_completed_on)}}" />
+                                        <input type="text" id="capa_completed_on" name="capa_completed_on" disabled placeholder="DD-MMM-YYYY" value="{{Helpers::getdateFormat($capaExtension->capa_completed_on)}}" />
                                     </div>
                                 </div>
                             </div>
@@ -10957,7 +10930,7 @@
                                 <div class="group-input input-date">
                                     <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="capa_completed_on" name="capa_completed_on" value="" disabled placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="capa_completed_on" name="capa_completed_on" disabled placeholder="DD-MMM-YYYY" />
                                     </div>
                                 </div>
                             </div> 
@@ -10998,7 +10971,7 @@
                             <div class="group-input">
                                 <label for="qrm_extension_justification">Extension Justification (Quality Risk Management)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" disbaled name="qrm_extension_justification" id="qrm_extension_justification" value="{{$qrmExtension->qrm_extension_justification}}">{{$qrmExtension->qrm_extension_justification}}</textarea>
+                                <textarea disabled name="qrm_extension_justification" id="qrm_extension_justification" value="{{$qrmExtension->qrm_extension_justification}}">{{$qrmExtension->qrm_extension_justification}}</textarea>
                             </div>
                         </div>
                     @else
@@ -11006,7 +10979,7 @@
                             <div class="group-input">
                                 <label for="qrm_extension_justification">Extension Justification (Quality Risk Management)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" disbaled name="qrm_extension_justification" id="qrm_extension_justification"> </textarea>
+                                <textarea disabled name="qrm_extension_justification" placeholder="QRM Extension Justification" id="qrm_extension_justification"> </textarea>
                             </div>
                         </div>
                     @endif
@@ -11092,7 +11065,7 @@
                             <div class="group-input">
                                 <label for="investigation_extension_justification">Extension Justification (Investigation)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" disabled name="investigation_extension_justification" id="investigation_extension_justification" value="{{$investigationExtension->investigation_extension_justification}}">{{$investigationExtension->investigation_extension_justification}}</textarea>
+                                <textarea disabled name="investigation_extension_justification" placeholder="Investigation Extension Justification" id="investigation_extension_justification" value="{{$investigationExtension->investigation_extension_justification}}">{{$investigationExtension->investigation_extension_justification}}</textarea>
                             </div>
                         </div>
                     @else
@@ -11100,7 +11073,7 @@
                             <div class="group-input">
                                 <label for="investigation_extension_justification">Extension Justification (Investigation)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                <textarea class="tiny" name="investigation_extension_justification" id="investigation_extension_justification" disabled ></textarea>
+                                <textarea name="investigation_extension_justification" placeholder="Investigation Extension Justification" id="investigation_extension_justification" disabled ></textarea>
                             </div>
                         </div>
                     @endif
@@ -11539,7 +11512,7 @@
                     </div>
 
                     <div class="button-block">
-                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton">Save</button>
+                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                         <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                             <button type="button" class="backButton">Back</button>
                         </a>
@@ -11716,7 +11689,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -12787,7 +12760,7 @@
                         </div>
                         <!-- Save button -->
                         <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-                            <button type="button" onclick="submitForm()" class="saveButton saveAuditFormBtn">
+                            <button type="button" onclick="submitForm()" class="saveButton saveAuditFormBtn" {{ $data->stage == 9 ? 'disabled' : '' }}>
                                 <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                                     role="status">
                                     <span class="sr-only">Loading...</span>

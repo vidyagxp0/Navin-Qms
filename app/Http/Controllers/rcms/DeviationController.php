@@ -74,8 +74,6 @@ class DeviationController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-
         $form_progress = null; // initialize form progress
 
         if ($request->form_name == 'general')
@@ -136,6 +134,7 @@ class DeviationController extends Controller
         //  $deviation->record_number = $request->record_number;
         $deviation->division_id = $request->division_id;
         $deviation->assign_to = $request->assign_to;
+        $deviation->Facility = $request->Facility;
         $deviation->due_date = $request->due_date;
         $deviation->intiation_date = $request->intiation_date;
         $deviation->Initiator_Group = $request->Initiator_Group;
@@ -145,10 +144,6 @@ class DeviationController extends Controller
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
-        if (is_array($request->Facility))
-        {
-            $deviation->Facility = implode(',', $request->Facility);
-        }
         // $deviation->Observed_by = $request->Observed_by;
         if (is_array($request->audit_type)) {
             $deviation->audit_type = implode(',', $request->audit_type);
@@ -887,27 +882,27 @@ class DeviationController extends Controller
 
         $Cft->save();
 
-        $data4 = new DeviationGrid();
-        $data4->Number = $deviation->id;
-        $data4->type = "Deviation";
-        if (!empty ($request->Number)) {
-            $data4->Number = serialize($request->Number);
-        }
-        if (!empty ($request->ReferenceDocumentName)) {
-            $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
-        }
-        $data4->save();
+        // $data4 = new DeviationGrid();
+        // $data4->Number = $deviation->id;
+        // $data4->type = "Deviation";
+        // if (!empty ($request->Number)) {
+        //     $data4->Number = serialize($request->Number);
+        // }
+        // if (!empty ($request->ReferenceDocumentName)) {
+        //     $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
+        // }
+        // $data4->save();
 
-        $data5 = new DeviationGrid();
-        $data5->nameofproduct = $deviation->id;
-        $data5->type = "Deviation";
-        if (!empty ($request->nameofproduct)) {
-            $data5->nameofproduct = serialize($request->nameofproduct);
-        }
-        if (!empty ($request->ExpiryDate)) {
-            $data5->ExpiryDate = serialize($request->ExpiryDate);
-        }
-        $data5->save();
+        // $data5 = new DeviationGrid();
+        // $data5->nameofproduct = $deviation->id;
+        // $data5->type = "Deviation";
+        // if (!empty ($request->nameofproduct)) {
+        //     $data5->nameofproduct = serialize($request->nameofproduct);
+        // }
+        // if (!empty ($request->ExpiryDate)) {
+        //     $data5->ExpiryDate = serialize($request->ExpiryDate);
+        // }
+        // $data5->save();
 
         $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
@@ -1727,7 +1722,7 @@ class DeviationController extends Controller
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
         $deviation->Delay_Justification = $request->Delay_Justification;
-        $deviation->audit_type = implode(',', $request->audit_type);
+        // $deviation->audit_type = implode(',', $request->audit_type);
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
@@ -2390,6 +2385,45 @@ class DeviationController extends Controller
         $newDataGridFishbone->identifier = 'fishbone';
         $newDataGridFishbone->data = $request->fishbone;
         $newDataGridFishbone->save();
+        
+
+        // *******************Extension Update********************
+
+        // $qrmExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'QRM'])->first();
+        // $qrmExtesnsion->deviation_id = $id;
+        // $qrmExtesnsion->extension_identifier = 'QRM';
+        // $qrmExtesnsion->qrm_proposed_due_date = $qrmExtesnsion->qrm_proposed_due_date;
+        // $qrmExtesnsion->qrm_extension_justification = $qrmExtesnsion->qrm_extension_justification;
+        // $qrmExtesnsion->qrm_extension_completed_by = $qrmExtesnsion->qrm_extension_completed_by;
+        // $qrmExtesnsion->qrm_completed_on = $qrmExtesnsion->qrm_completed_on;
+        // $qrmExtesnsion->save();
+
+        // $deviationExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Deviation'])->first();
+        // $deviationExtesnsion->deviation_id = $id;
+        // $deviationExtesnsion->extension_identifier = 'Deviation';
+        // $deviationExtesnsion->dev_proposed_due_date = $deviationExtesnsion->dev_proposed_due_date;
+        // $deviationExtesnsion->dev_extension_justification = $deviationExtesnsion->dev_extension_justification;
+        // $deviationExtesnsion->dev_extension_completed_by = $deviationExtesnsion->dev_extension_completed_by;
+        // $deviationExtesnsion->dev_completed_on = $deviationExtesnsion->dev_completed_on;
+        // $deviationExtesnsion->save();
+
+        // $capaExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Capa'])->first();
+        // $capaExtesnsion->deviation_id = $id;
+        // $capaExtesnsion->extension_identifier = 'Capa';
+        // $capaExtesnsion->capa_proposed_due_date = $capaExtesnsion->capa_proposed_due_date;
+        // $capaExtesnsion->capa_extension_justification = $capaExtesnsion->capa_extension_justification;
+        // $capaExtesnsion->capa_extension_completed_by = $capaExtesnsion->capa_extension_completed_by;
+        // $capaExtesnsion->capa_completed_on = $capaExtesnsion->capa_completed_on;
+        // $capaExtesnsion->save();
+
+        // $investigationExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Investigation'])->first();
+        // $investigationExtesnsion->deviation_id = $id;
+        // $investigationExtesnsion->extension_identifier = 'Investigation';
+        // $investigationExtesnsion->investigation_proposed_due_date = $investigationExtesnsion->investigation_proposed_due_date;
+        // $investigationExtesnsion->investigation_extension_justification = $investigationExtesnsion->investigation_extension_justification;
+        // $investigationExtesnsion->investigation_extension_completed_by = $investigationExtesnsion->investigation_extension_completed_by;
+        // $investigationExtesnsion->investigation_completed_on = $investigationExtesnsion->investigation_completed_on;
+        // $investigationExtesnsion->save();
 }
 
 

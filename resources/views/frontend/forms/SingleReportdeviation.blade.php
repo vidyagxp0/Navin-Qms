@@ -2804,7 +2804,7 @@
                                         <th class="w-20">Problem Statement</th>
                                         <td class="w-30">
                                             <div>
-                                                @if ($why_data->data['problem_statement'])
+                                                @if ($why_data && $why_data->data['problem_statement'])
                                                     {{ $why_data->data['problem_statement'] }}
                                                 @else
                                                     Not Applicable
@@ -2814,7 +2814,7 @@
                                         <th class="w-20">Root Cause</th>
                                         <td class="w-30">
                                             <div>
-                                                @if ($why_data->data['root-cause'])
+                                                @if ($why_data && $why_data->data['root-cause'])
                                                     {{ $why_data->data['root-cause'] }}
                                                 @else
                                                     Not Applicable
