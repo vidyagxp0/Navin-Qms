@@ -12,19 +12,22 @@ function addMultipleFiles(input, block_id) {
     for (let i = 0; i < files.length; i++) {
         let div = document.createElement('div');
         div.innerHTML += files[i].name;
+
         let viewLink = document.createElement("a");
         viewLink.href = URL.createObjectURL(files[i]);
-        viewLink.textContent = "<View>";
+        viewLink.textContent = "View";
+        viewLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(viewLink.href, '_blank');
+        });
 
         let removeLink = document.createElement("a");
         removeLink.className = 'remove-file';
-        removeLink.textContent = "<Remove>";
-
-        let fileClone = files[i].slice();
-        viewLink.addEventListener('click',function(e){
-            e.preventDefault();
-            window.open(viewLink.href,'_blank');
+        removeLink.textContent = "Remove";
+        removeLink.addEventListener('click', function() {
+            div.remove(); // Remove the parent div when remove link is clicked
         });
+
         div.appendChild(viewLink);
         div.appendChild(removeLink);
         block.appendChild(div);
@@ -962,7 +965,7 @@ function openDivision(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 
- 
+
 function handleDateInput(element, textInputID) {
     let textInput = document.getElementById(textInputID)
     const date = new Date(element.value);
@@ -972,20 +975,20 @@ function handleDateInput(element, textInputID) {
     const year = date.getFullYear();
     textInput.setAttribute('value', `${day}-${month}-${year}`)
   }
- 
+
   function isStartDateLessThanEndDate(startDate, endDate) {
     // Convert date strings to Date objects
     const startDateObj = new Date(startDate);
-    const endDateObj = new Date(endDate); 
+    const endDateObj = new Date(endDate);
     // Compare the dates
     return startDateObj <= endDateObj;
   }
-  
+
   function checkDate(textInputID,textInputID2){
     const startDate = $('#'+textInputID).val();  // Replace with your start date
-    const endDate = $('#'+textInputID2).val();    // Replace with your end date 
+    const endDate = $('#'+textInputID2).val();    // Replace with your end date
     if ((startDate.trim() !== '') && (endDate.trim() !== '')) {
-        let endDataStr = textInputID2.replace(/_checkdate/g, ""); 
+        let endDataStr = textInputID2.replace(/_checkdate/g, "");
         if (isStartDateLessThanEndDate(startDate, endDate)) {
             console.log("Start date is less than end date.");
             //let textInput = document.getElementById(endDataStr)
@@ -995,7 +998,7 @@ function handleDateInput(element, textInputID) {
             // const day = date.getDate();
             // const year = date.getFullYear();
             // textInput.setAttribute('value', `${day}-${month}-${year}`)
-        } else { 
+        } else {
         alert("Start date is not less than end date.");
         let textInput = document.getElementById(endDataStr)
         textInput.setAttribute('value', ``)
@@ -1005,9 +1008,9 @@ function handleDateInput(element, textInputID) {
   }
   function checkParentDate(textInputID,textInputID2){
     const startDate = $('#'+textInputID).val();  // Replace with your start date
-    const endDate = $('#'+textInputID2).val();    // Replace with your end date 
+    const endDate = $('#'+textInputID2).val();    // Replace with your end date
     if ((startDate.trim() !== '') && (endDate.trim() !== '')) {
-        let endDataStr = textInputID2.replace(/_checkParentDate/g, ""); 
+        let endDataStr = textInputID2.replace(/_checkParentDate/g, "");
         if (isStartDateLessThanEndDate(startDate, endDate)) {
             console.log("Revised Due Date is less than Current Parent Due Date.");
             //let textInput = document.getElementById(endDataStr)
@@ -1017,7 +1020,7 @@ function handleDateInput(element, textInputID) {
             // const day = date.getDate();
             // const year = date.getFullYear();
             // textInput.setAttribute('value', `${day}-${month}-${year}`)
-        } else { 
+        } else {
         alert("Revised Due Date is less than Current Parent Due Date.");
         let textInput = document.getElementById(endDataStr)
         textInput.setAttribute('value', ``)
