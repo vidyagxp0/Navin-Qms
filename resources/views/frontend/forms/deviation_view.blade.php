@@ -450,7 +450,7 @@
                         '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][initial_rpn]"></td>' +
                         '<td> <select name="failure_mode_qrms[' + serialNumber + '][risk_acceptance]" id=""> <option value="n">-- Select --</option><option value="n">N</option> <option> Y </option> </select> </td>' +
                         '<td><input type="text" class="Document_Remarks" name="failure_mode_qrms[' + serialNumber + '][proposed_additional_risk_control]"></td>' +
-                        
+
                         '<td> <select name="failure_mode_qrms[' + serialNumber + '][residual_severity]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
                         '<td> <select name="failure_mode_qrms[' + serialNumber + '][residual_probability]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
                         '<td> <select name="failure_mode_qrms[' + serialNumber + '][residual_detectability]" id=""> <option value="1">-- Select --</option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </td>' +
@@ -626,9 +626,9 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cft-not-reqired">
                                 CFT Review Not Required
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
-                            </button>
+                            </button> --}}
                         @elseif(
                             $data->stage == 4 &&
                                 (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
@@ -654,9 +654,9 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Final Review Complete
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
-                            </button>
+                            </button> --}}
                         @elseif($data->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                                 More Info Required
@@ -1207,8 +1207,8 @@
                                     <div class="col-lg-6 new-time-data-field">
                                         <div
                                             class="group-input input-time @error('Delay_Justification') @else delayJustificationBlock @enderror">
-                                            <label for="deviation_time">Delay Justification</label>
-                                            <textarea id="Delay_Justification" name="Delay_Justification"></textarea>
+                                            <label for="deviation_time">Delay Justification <span class="text-danger">*</span></label>
+                                            <textarea id="Delay_Justification" name="Delay_Justification">{{ $data->Delay_Justification }}</textarea>
                                         </div>
                                         @error('Delay_Justification')
                                             <div class="text-danger">{{ $message }}</div>
@@ -1322,7 +1322,7 @@
                                     </div>
 
 
-                                    <script>
+                                    {{-- <script>
                                         $('.delayJustificationBlock').hide();
 
                                         function calculateDateDifference() {
@@ -1354,7 +1354,42 @@
                                         $('input[name=Deviation_reported_date]').on('change', function() {
                                             calculateDateDifference();
                                         })
-                                    </script>
+                                    </script> --}}
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Hide the delayJustificationBlock initially
+                                            $('.delayJustificationBlock').hide();
+
+                                            // Check the condition on page load
+                                            checkDateDifference();
+                                        });
+
+                                        function checkDateDifference() {
+                                            let deviationDate = $('input[name=Deviation_date]').val();
+                                            let reportedDate = $('input[name=Deviation_reported_date]').val();
+
+                                            if (!deviationDate || !reportedDate) {
+                                                console.error('Deviation date or reported date is missing.');
+                                                return;
+                                            }
+
+                                            let deviationDateMoment = moment(deviationDate);
+                                            let reportedDateMoment = moment(reportedDate);
+
+                                            let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
+
+                                            if (diffInDays > 0) {
+                                                $('.delayJustificationBlock').show();
+                                            } else {
+                                                $('.delayJustificationBlock').hide();
+                                            }
+                                        }
+
+                                        // Call checkDateDifference whenever the values are changed
+                                        $('input[name=Deviation_date], input[name=Deviation_reported_date]').on('change', function() {
+                                            checkDateDifference();
+                                        });
+                                        </script>
 
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -2000,21 +2035,55 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="Inv Attachments">Initial Attachments</label>
+                                            <div><small class="text-primary">Please Attach all relevant or supporting
+                                                    documents</small></div>
+                                            <div class="file-attachment-field">
+                                                <div disabled class="file-attachment-list" id="initial_file">
+                                                    @if ($data->initial_file)
+                                                        @foreach (json_decode($data->initial_file) as $file)
+                                                            <h6 class="file-container text-dark"
+                                                                style="background-color: rgb(243, 242, 240);">
+                                                                <b>{{ $file }}</b>
+                                                                <a href="{{ asset('upload/' . $file) }}"
+                                                                    target="_blank"><i class="fa fa-eye text-primary"
+                                                                        style="font-size:20px; margin-right:-10px;"></i></a>
+                                                                <a class="remove-file"
+                                                                    data-file-name="{{ $file }}"><i
+                                                                        class="fa-solid fa-circle-xmark"
+                                                                        style="color:red; font-size:20px;"></i></a>
+                                                            </h6>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                                <div class="add-btn">
+                                                    <div>Add</div>
+                                                    <input
+                                                        {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                        type="file" id="HOD_Attachments"
+                                                        name="initial_file[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                        oninput="addMultipleFiles(this, 'initial_file')" multiple>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-lg-12">
                                         <div class="group-input">
                                             <label for="Audit Attachments">Initial Attachments</label>
                                             <div><small class="text-primary">Please Attach all relevant or supporting
                                                     documents</small></div>
                                             <div class="file-attachment-field">
-                                                <div class="file-attachment-list" id="Audit_file"></div>
+                                                <div class="file-attachment-list" id="initial_file"></div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
-                                                    <input type="file" id="HOD_Attachments" name="Audit_file[]"
-                                                        oninput="addMultipleFiles(this, 'Audit_file')" multiple>
+                                                    <input type="file" id="initial_file" name="initial_file[]"
+                                                        oninput="addMultipleFiles(this, 'initial_file')" multiple>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="button-block">
                                     <button  type="submit"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
@@ -2182,7 +2251,7 @@
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
-                                            class="text-white"> Exit </a> 
+                                            class="text-white"> Exit </a>
                                         </button>
                                         @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -3063,7 +3132,7 @@
 
                                         $('[name="Production_Review"]').change(function() {
                                             if ($(this).val() === 'yes') {
-                                                
+
                                                 $('.p_erson').show();
                                                 $('.p_erson span').show();
                                             } else {
@@ -3419,7 +3488,7 @@
                                                     value="no">No</option>
                                                 <option @if ($data1->Warehouse_review == 'na') selected @endif
                                                     value="na">NA</option>
-  
+
                                             </select>
 
                                         </div>
@@ -4041,7 +4110,7 @@
                                 <div class="sub-head">
                                     Engineering
                                 </div>
-                                
+
                                 <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ? <span
@@ -8236,14 +8305,14 @@
                     @if($investigationExtension && $investigationExtension->investigation_proposed_due_date)
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <label for="Proposed Due Date">Proposed Due Date</label>
                                 <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" value="{{ Helpers::getdateFormat($investigationExtension->investigation_proposed_due_date) }}" disabled>
                             </div>
                         </div>
                     @else
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <label for="Proposed Due Date">Proposed Due Date</label>
                                 <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
                             </div>
                         </div>
@@ -9402,14 +9471,14 @@
                     @if($qrmExtension && $qrmExtension->qrm_proposed_due_date)
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <label for="Proposed Due Date">Proposed Due Date</label>
                                 <input name="qrm_proposed_due_date" id="qrm_proposed_due_date" value="{{ Helpers::getdateFormat($qrmExtension->qrm_proposed_due_date) }}" disabled>
                             </div>
                         </div>
                     @else
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Proposed Due Date">Proposed Due Date</label> 
+                                <label for="Proposed Due Date">Proposed Due Date</label>
                                 <input name="qrm_proposed_due_date" id="qrm_proposed_due_date" disabled>
                             </div>
                         </div>
@@ -10839,7 +10908,7 @@
                     @if($deviationExtension && $deviationExtension->dev_proposed_due_date)
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label> 
+                                <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
                                 <div class="calenderauditee">
                                     <input type="text" id="dev_proposed_due_date" id="dev_proposed_due_date" readonly value="{{Helpers::getdateFormat($deviationExtension->dev_proposed_due_date)}}" />
                                 </div>
@@ -10855,7 +10924,7 @@
                             </div>
                         </div>
                     @endif
-                    
+
 
                     @if($deviationExtension && $deviationExtension->dev_extension_justification)
                         <div class="col-md-12 mb-3">
@@ -11010,7 +11079,7 @@
                                         <input type="text" id="capa_completed_on" name="capa_completed_on" value="" disabled placeholder="DD-MMM-YYYY" />
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         @endif
 
                     </div>
@@ -11126,7 +11195,7 @@
                                 </div>
                             </div>
                         </div>
-                    @else 
+                    @else
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="investigation_proposed_due_date">Proposed Due Date (Investigation)</label>
@@ -11192,7 +11261,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @else 
+                        @else
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="investigation_completed_on">Investigation Extension Completed On</label>
@@ -11205,7 +11274,7 @@
                     </div>
                     <!-- Investigation EXTENSION START -->
 
-                    
+
                     {{-- <div class="sub-head">
                         Deviation Effectiveness Check
                     </div>
@@ -11309,7 +11378,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11337,7 +11406,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
@@ -11360,7 +11429,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11387,7 +11456,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="sub-head">
                         Quality Risk Management Effectiveness Check
@@ -11404,7 +11473,7 @@
                 </textarea>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11432,7 +11501,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -11488,7 +11557,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="sub-head">
                         Investigation Effectiveness Check
@@ -11504,7 +11573,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -11532,7 +11601,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -12089,12 +12158,12 @@
                     <div class="main_head_modal">
                         <ul>
                             <li>
-                                <div> 
+                                <div>
                                     @if($qrmExtension && $qrmExtension->counter == 3)
                                         <a>-------</a>
                                     @else
                                         <a href="" data-bs-toggle="modal" data-bs-target="#qrm_extension"> QRM</a>
-                                    @endif                                    
+                                    @endif
                                 </div>
                             </li>
                             <li>
@@ -13926,22 +13995,27 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const removeButtons = document.querySelectorAll('.remove-file');
+        function clicktoremove(){
 
-            removeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const fileName = this.getAttribute('data-file-name');
-                    const fileContainer = this.closest('.file-container');
+        }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-file');
 
-                    // Hide the file container
-                    if (fileContainer) {
-                        fileContainer.style.display = 'none';
-                    }
-                });
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-file-name');
+                const fileContainer = this.parentElement;
+
+                // Hide the file container
+                if (fileContainer) {
+                    fileContainer.style.display = 'none';
+                }
             });
         });
-    </script>
+    });
+</script>
     <script>
         var maxLength = 255;
         $('#docname').keyup(function() {
