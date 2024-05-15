@@ -22,4 +22,9 @@ class Deviation extends Model
     {
         return $this->hasMany(DeviationGridQrms::class, 'deviation_id');
     }
+
+    public function record_initiator()
+    {
+        return $this->belongsTo(User::class, 'initiator_id');
+    }
 }

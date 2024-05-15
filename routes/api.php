@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TinyController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\UserLoginController;
 use Illuminate\Http\Request;
@@ -24,3 +25,4 @@ Route::get('dashboardStatus', [ApiController::class, 'dashboardStatus']);
 Route::get('getProfile', [ApiController::class, 'getProfile']);
 Route::get('capaStatus', [ApiController::class, 'capaStatus']);
 
+Route::post('image-upload', [TinyController::class, 'image_upload'])->name('tiny.image_upload');
