@@ -179,7 +179,7 @@ header .header_rcms_bottom {
 
 header .header_rcms_bottom .bottom-head {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 180px 1fr;
     align-items: center;
 }
 
@@ -189,7 +189,7 @@ header .header_rcms_bottom .bottom-head .link-block {
     gap: 10px;
 }
 
-header .header_rcms_bottom .bottom-head .link-block>* {
+header .header_rcms_bottom .bottom-head .link-block .nnnn {
     display: grid;
     width: 40px;
     font-size: 1.1rem;

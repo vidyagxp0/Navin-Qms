@@ -80,6 +80,10 @@
     right: 0;
     font-size: 1.2rem;
 }
+body > header > div.header_rcms_bottom > div.container-fluid > div > div.left-block > div > div:nth-child(3) > a > svg{
+    height: 20px;;
+    margin-top: 6px;
+}
 </style>
 </head>
 
@@ -157,13 +161,19 @@
                 <div class="bottom-head">
                     <div class="left-block">
                         <div class="link-block">
-                            <a href="{{ url('rcms/qms-dashboard') }}" data-bs-toggle="tooltip" title="Dekstop">
+                            <a class="nnnn" href="{{ url('rcms/qms-dashboard') }}" data-bs-toggle="tooltip" title="Dekstop">
                                 <i class="fa-solid fa-house-user"></i>
                             </a>
-                            <div onclick="window.open('/rcms_desktop', '_blank', 'width=1200, height=900, top=0, left=0');"
+                            <div class="nnnn" onclick="window.open('/rcms_desktop', '_blank', 'width=1200, height=900, top=0, left=0');"
                                 data-bs-toggle="tooltip" title="Logs">
                                 <i class="fa-solid fa-gauge-high"></i>
                             </div>
+                            <div> <a class="nnnn" href=""data-bs-toggle="modal"
+                                data-bs-target="#standard_modal">  <svg class="w-20 h-20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M21 2.9918V21.0082C21 21.5447 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.44476 2 3.9934 2H20.0066C20.5551 2 21 2.44405 21 2.9918ZM7 4V13L10.5 11L14 13V4H7Z"></path></svg> <span class="fw-bold"> </span>
+                                </a></div>
+
+
+                                
                             {{-- <a href="/rcms_reports" data-bs-toggle="tooltip" title="Analytics">
                                 <svg width="20" height="20" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -304,6 +314,14 @@
             background: #4274da;
             color: white
         }
+        .stander_heading{
+            display: flex;
+    justify-content: space-around;
+    margin-top: 15px;    
+    }
+        .stander_heading button{
+    width: 170px;
+        }
     </style>
 
 
@@ -386,3 +404,66 @@
             </div>
         </div>
     </div>
+
+
+
+    {{-- ====================================standard========================== --}}
+    <div class="modal fade" id="standard_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Standards</h4>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+  <div class="stander_heading">
+   <button    class="">
+    GAMP 5
+    {{-- <iframe id="theFrame" width="100%" height="800"
+                                src="{{ url('documents/viewpdf/' . $document->id) }}#toolbar=0"></iframe>
+                        --}}
+   </button>
+   <button>
+    21 CFR Part 11
+   </button>
+</div>
+
+<div class="stander_heading">
+
+  <button>  EU GMP Annex 11</button>
+  <button> 21 CFR Part 211</button>
+</div>
+
+<div class="stander_heading">
+<button>
+    21 CFR Part 210</button>
+    <button>ISO 9001:2015 </button>
+</div>
+
+<div class="stander_heading">
+
+   <button> EudraLex Volume 4</button>
+</div>
+ 
+                       
+                    </div>
+
+
+                    {{-- <div class="modal-footer">
+                        <button type="submit">
+                            Submit
+                        </button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div> --}}
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- ====================================== --}}

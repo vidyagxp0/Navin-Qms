@@ -420,6 +420,11 @@ Route::view('new-root-cause-analysis', 'frontend.forms.new-root-cause-analysis')
 Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
+
+// ==========================pdf============================
+Route::view('documentpdf', 'frontend.rcms.layout.documentpdf');
+
+
 //notification
 Route::get('send-notification-before-seven-due-date', [CronNotification::class, 'sendNotificationBeforeSevenDueDate']);
 Route::get('send-notification-before-six-due-date', [CronNotification::class, 'sendNotificationBeforeSixDueDate']);
