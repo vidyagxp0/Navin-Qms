@@ -1468,7 +1468,7 @@
 
 
                                     <div class="col-lg-6" id="others_block"
-                                        @if (strpos($data->audit_type, 'Anyother(specify)')) style="display: none" @endif>
+                                    @if (strstr($data->audit_type, 'Anyother(specify)') === false) style="display: none" @endif>
                                         <div class="group-input">
                                             <label for="others">Others <span id="asteriskInOther"
                                                     style="display: {{ $data->audit_type == 'Anyother(specify)' ? 'inline' : 'none' }}"
@@ -9941,7 +9941,7 @@
                     </div>
 
                 </div>
-                
+
                 <div class="button-block">
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                     <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
@@ -14087,5 +14087,5 @@
             });
         }
     </script>
-   
+
 @endsection

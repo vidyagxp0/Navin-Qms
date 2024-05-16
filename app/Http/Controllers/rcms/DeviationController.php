@@ -1743,7 +1743,7 @@ class DeviationController extends Controller
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
         $deviation->Delay_Justification = $request->Delay_Justification;
-        // $deviation->audit_type = implode(',', $request->audit_type);
+        $deviation->audit_type = implode(',', $request->audit_type);
         $deviation->short_description_required = $request->short_description_required;
         $deviation->nature_of_repeat = $request->nature_of_repeat;
         $deviation->others = $request->others;
@@ -2449,7 +2449,7 @@ class DeviationController extends Controller
         $newDataGridFishbone->identifier = 'fishbone';
         $newDataGridFishbone->data = $request->fishbone;
         $newDataGridFishbone->save();
-        
+
 
         // *******************Extension Update********************
 
