@@ -9,9 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    {{-- <h1>{{ $name }}</h1> --}}
 
-    <iframe src="{{ route('pdf.stream', $name) }}" frameborder="0" width="1500" height="1500"></iframe>
+    <iframe src="{{ route('deviationSingleReport', $id) }}" frameborder="0" width="1500" height="1500"></iframe>
 
 
     {{-- CHAT PDF MODAL START --}}
@@ -84,7 +83,7 @@
             }
 
             const data = {
-                url: "{{ asset('user/pdf/'. $name .'.pdf') }}"
+                url: "{{ asset('user/pdf/'. $id .'.pdf') }}"
             }
 
             let srcId = "";

@@ -18,4 +18,9 @@ class PDFController extends Controller
             public_path('user/pdf/'. $name .'.pdf')
         );
     }
+
+    public function singleReport($id)
+    {
+        return view('frontend.rcms.layout.singlePdf', compact('id'));
+    }
 }
