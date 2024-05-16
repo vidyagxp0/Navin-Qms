@@ -764,7 +764,7 @@ class DashboardController extends Controller
             $family="DeviationFamily/". $data->id;
         } elseif ($type == "Deviation") {
             $data = Deviation::find($id);
-            $single = "deviationSingleReport/". $data->id  . "/show";
+            $single = "deviationSingleReport/". $data->id . "/show";
             $audit = " deviationAuditReport/". $data->id;
             $parent="deviationparentchildReport/". $data->id;
             $family="DeviationFamily/". $data->id;
@@ -805,6 +805,9 @@ class DashboardController extends Controller
         $response['html'] = $html;
 
         return response()->json($response);
+
+        // <a target="__blank" href="' . $parent . '" class="inner-item"> Deviation Parent with immediate child Report</a>
+        // <a target="__blank" href="' . $family . '" class="inner-item">  Deviation  Family Report</a>
     }
 
     //----------PAginator

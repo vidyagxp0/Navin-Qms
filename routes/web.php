@@ -20,6 +20,7 @@ use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\LabIncidentController;
@@ -422,9 +423,9 @@ Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
 
 // ==========================pdf============================
-Route::view('documentpdf', 'frontend.rcms.layout.documentpdf');
 Route::get('documentpdf/stream/{name?}', [PDFController::class, 'stream'])->name('pdf.stream');
 Route::get('documentpdf/{name}', [PDFController::class, 'show'])->name('pdf.show');
+
 
 //notification
 Route::get('send-notification-before-seven-due-date', [CronNotification::class, 'sendNotificationBeforeSevenDueDate']);
