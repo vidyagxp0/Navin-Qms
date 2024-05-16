@@ -3438,6 +3438,7 @@
                                                 $('.warehouse span').hide();
                                             }
                                         });
+                                        @endif
                                     });
                                 </script>
                                 @if ($data->stage == 3 || $data->stage == 4)
@@ -10732,7 +10733,7 @@
                             <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                             <div><small class="text-primary">Please Refer Intial deviation category before
                                     updating.</small></div>
-                            <select 
+                            <select
                                 name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                 id="Post_Categorization" value="Post_Categorization">
                                 <option value=""> -- Select --</option>
