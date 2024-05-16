@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -179,6 +180,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('launch-extension-investigation/{id}', [DeviationController::class, 'launchExtensionInvestigation'])->name('launch-extension-investigation');
 
              Route::get('deviation', [DeviationController::class, 'deviation']);
+             Route::get('deviationSingleReport/{id}/show', [PDFController::class, 'singleReport'])->name('deviationSingleReport.show');
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationAuditReport/{id}', [DeviationController::class, 'auditReport'])->name('deviationAuditReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
