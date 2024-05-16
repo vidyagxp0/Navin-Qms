@@ -429,6 +429,20 @@
             });
         });
     </script>
+     <script>
+        function calculateRiskAnalysis(selectElement) {
+            console.log('test call')
+            let row = selectElement.closest('tr');
+
+            let R = parseFloat(document.getElementById('analysisR').value) || 0;
+            let P = parseFloat(document.getElementById('analysisP').value) || 0;
+            let N = parseFloat(document.getElementById('analysisN').value) || 0;
+
+            let result = R * P * N;
+
+            document.getElementById('analysisRPN').value = result;
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#risk-assessment-risk-management').click(function(e) {
@@ -9797,10 +9811,10 @@
                             <label for="Severity Rate">Severity Rate</label>
                             <select name="severity_rate" id="analysisR" onchange='calculateRiskAnalysis(this)'>
                                 <option value="">Enter Your Selection Here</option>
-                                <option value="negligible" @if ($data->severity_rate == 'negligible') selected @endif>Negligible</option>
-                                <option value="moderate"  @if ($data->severity_rate == 'moderate') selected @endif>Moderate</option>
-                                <option value="major" @if ($data->severity_rate == 'major') selected @endif>Major</option>
-                                <option value="fatal"  @if ($data->severity_rate == 'fatal') selected @endif>Fatal</option>
+                                <option value="1" @if ($data->severity_rate == '1') selected @endif>Negligible</option>
+                                <option value="2"  @if ($data->severity_rate == '2') selected @endif>Moderate</option>
+                                <option value="3" @if ($data->severity_rate == '3') selected @endif>Major</option>
+                                <option value="4"  @if ($data->severity_rate == '4') selected @endif>Fatal</option>
                             </select>
                         </div>
                     </div>
@@ -9809,11 +9823,11 @@
                             <label for="Occurrence">Occurrence</label>
                             <select name="Occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
                                 <option value="">Enter Your Selection Here</option>
-                                <option value="extremely_unilikely" @if ($data->Occurrence == 'extremely_unilikely') selected @endif>Extremely Unlikely</option>
-                                <option value="rare" @if ($data->Occurrence == 'rare') selected @endif>Rare</option>
-                                <option value="unlikely" @if ($data->Occurrence == 'unlikely') selected @endif>Unlikely</option>
-                                <option value="likely" @if ($data->Occurrence == 'likely') selected @endif>Likely</option>
-                                <option value="very_likely" @if ($data->Occurrence == 'very_likely') selected @endif>Very Likely</option>
+                                <option value="5" @if ($data->Occurrence == '5') selected @endif>Extremely Unlikely</option>
+                                <option value="4" @if ($data->Occurrence == '4') selected @endif>Rare</option>
+                                <option value="3" @if ($data->Occurrence == '3') selected @endif>Unlikely</option>
+                                <option value="2" @if ($data->Occurrence == '2') selected @endif>Likely</option>
+                                <option value="1" @if ($data->Occurrence == '1') selected @endif>Very Likely</option>
                             </select>
                         </div>
                     </div>
@@ -9822,11 +9836,11 @@
                             <label for="Detection">Detection</label>
                             <select name="detection" id="analysisN" onchange='calculateRiskAnalysis(this)'>
                                 <option value="">Enter Your Selection Here</option>
-                                <option value="impossible" @if ($data->detection == 'impossible') selected @endif>Impossible</option>
-                                <option value="rare" @if ($data->detection== 'rare') selected @endif>Rare</option>
-                                <option value="unlikely" @if ($data->detection == 'unlikely') selected @endif>Unlikely</option>
-                                <option value="likely"  @if ($data->detection == 'likely') selected @endif>Likely</option>
-                                <option value="very_likely" @if ($data->detection == 'very_likely') selected @endif>Very Likely</option>
+                                <option value="5" @if ($data->detection == '5') selected @endif>Impossible</option>
+                                <option value="4" @if ($data->detection== '4') selected @endif>Rare</option>
+                                <option value="3" @if ($data->detection == '3') selected @endif>Unlikely</option>
+                                <option value="2"  @if ($data->detection == '2') selected @endif>Likely</option>
+                                <option value="1" @if ($data->detection == '1') selected @endif>Very Likely</option>
                             </select>
                         </div>
                     </div>
@@ -9927,23 +9941,7 @@
                     </div>
 
                 </div>
-                <script>
-                    function calculateRiskAnalysis(selectElement) {
-                        // Get the row containing the changed select element
-                        let row = selectElement.closest('tr');
-
-                        // Get values from select elements within the row
-                        let R = parseFloat(document.getElementById('analysisR').value) || 0;
-                        let P = parseFloat(document.getElementById('analysisP').value) || 0;
-                        let N = parseFloat(document.getElementById('analysisN').value) || 0;
-
-                        // Perform the calculation
-                        let result = R * P * N;
-
-                        // Update the result field within the row
-                        document.getElementById('analysisRPN').value = result;
-                    }
-                </script>
+                
                 <div class="button-block">
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                     <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
@@ -14089,4 +14087,5 @@
             });
         }
     </script>
+   
 @endsection

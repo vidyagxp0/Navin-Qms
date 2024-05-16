@@ -423,7 +423,8 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ==========================pdf============================
 Route::view('documentpdf', 'frontend.rcms.layout.documentpdf');
-
+Route::get('documentpdf/stream/{name?}', [PDFController::class, 'stream'])->name('pdf.stream');
+Route::get('documentpdf/{name}', [PDFController::class, 'show'])->name('pdf.show');
 
 //notification
 Route::get('send-notification-before-seven-due-date', [CronNotification::class, 'sendNotificationBeforeSevenDueDate']);

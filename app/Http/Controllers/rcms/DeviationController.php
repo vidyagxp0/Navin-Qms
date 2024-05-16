@@ -5194,6 +5194,10 @@ class DeviationController extends Controller
             $width = $canvas->get_width();
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
             $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            
+            $filePath = public_path('user/pdf/'. $id .'.pdf');
+            file_put_contents($filePath, $pdf->output());
+            
             return $pdf->stream('Deviation' . $id . '.pdf');
         }
     }

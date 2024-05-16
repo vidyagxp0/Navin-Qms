@@ -423,36 +423,39 @@ body > header > div.header_rcms_bottom > div.container-fluid > div > div.left-bl
 
                     <!-- Modal body -->
                     <div class="modal-body">
-  <div class="stander_heading">
-   <button    class="">
-    GAMP 5
-    {{-- <iframe id="theFrame" width="100%" height="800"
-                                src="{{ url('documents/viewpdf/' . $document->id) }}#toolbar=0"></iframe>
-                        --}}
-   </button>
-   <button>
-    21 CFR Part 11
-   </button>
-</div>
+                        <div class="stander_heading">
+                            <a href="{{ route('pdf.show', 'GAMP_5_Good_Automated_Manufacturing_Practice_v5') }}" class="btn btn-dark" target="_blank">
+                                GAMP 5
+                            </a>
+                            <a href="{{ route('pdf.show', '21_CFR_Part_11') }}" class="btn btn-dark" target="_blank">
+                                21 CFR Part 11
+                            </a>
+                        </div>
 
-<div class="stander_heading">
+                        <div class="stander_heading">
+                            <a href="{{ route('pdf.show', 'annex11_01-2011_en_0') }}" class="btn btn-dark" target="_blank"> 
+                                EU GMP Annex 11
+                            </a>
+                            <a href="{{ route('pdf.show', 'CFR-2013') }}" class="btn btn-dark" target="_blank"> 
+                                21 CFR Part 211
+                            </a>
+                        </div>
 
-  <button>  EU GMP Annex 11</button>
-  <button> 21 CFR Part 211</button>
-</div>
+                        <div class="stander_heading">
+                            <a href="{{ route('pdf.show', 'CFR-2013-title21-vol4-part210') }}" class="btn btn-dark" target="_blank">
+                                21 CFR Part 210
+                            </a>
+                            <a href="{{ route('pdf.show', 'ISO_9001_2015_QMS') }}" class="btn btn-dark" target="_blank">
+                                ISO 9001:2015 
+                            </a>
+                        </div>
 
-<div class="stander_heading">
-<button>
-    21 CFR Part 210</button>
-    <button>ISO 9001:2015 </button>
-</div>
-
-<div class="stander_heading">
-
-   <button> EudraLex Volume 4</button>
-</div>
+                        <div class="stander_heading">
+                            <a href="{{ route('pdf.show', '2017_11_22_guidelines_gmp') }}" class="btn btn-dark" target="_blank"> 
+                                EudraLex Volume 4
+                            </a>
+                        </div>
  
-                       
                     </div>
 
 
