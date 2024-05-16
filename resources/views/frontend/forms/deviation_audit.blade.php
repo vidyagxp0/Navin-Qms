@@ -245,7 +245,7 @@
                 </div>
 
                 @php
-                $reviewer = DB::table('audit_reviewers_details')->get();
+                $reviewer = DB::table('audit_reviewers_details')->where('deviation_id', $document->id)->get();
             @endphp
             <!-- Customer grid view -->
             <div class="table-responsive" style="
@@ -334,7 +334,7 @@
               </div>
          
             <div> <strong>Record ID.</strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>     
-            <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}</div>
+            <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ $document->record_initiator ? $document->record_initiator->name : '' }}</div>
             <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$document->short_description}}</div>
             <div style="margin-bottom: 5px;  font-weight: bold;">Due Date :  {{$document->due_date}}</div>
       
@@ -428,7 +428,7 @@
                         <div>
                      <strong> Data Field Name :</strong><a href="{{ url('DeviationAuditTrialDetails', $dataDemo->id) }}">{{ $dataDemo->activity_type ? $dataDemo->activity_type  : "Not Applicable" }}</a> </div>
                       <div style="margin-top: 5px;">
-                      <strong>Change From :</strong>{{$dataDemo->previous ? $dataDemo->previous  : "Not Applicable"}}</div>
+                      <strong>Change From :</strong>{{$dataDemo->previous ? $dataDemo->previous  : "NULL"}}</div>
                             <br>
                             <!--  -->
                       <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
