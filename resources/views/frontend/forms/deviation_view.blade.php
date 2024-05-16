@@ -1566,7 +1566,7 @@
                                                                                 {{ isset($facility_name[$key]) && $facility_name[$key] == 'Facility' ? 'selected' : 'Facility' }}>
                                                                                 Facility</option>
                                                                             <option value="Equipment"
-                                                                                {{ isset($facility_name[$key]) && $facility_name[$key] == 'Facility' ? 'selected' : 'Equipment' }}>
+                                                                                {{ isset($facility_name[$key]) && $facility_name[$key] == 'Equipment' ? 'selected' : 'Equipment' }}>
                                                                                 Equipment</option>
                                                                             <option value="Instrument"
                                                                                 {{ isset($facility_name[$key]) && $facility_name[$key] == 'Instrument' ? 'selected' : 'Instrument' }}>
@@ -1824,6 +1824,7 @@
                                                         <tbody>
                                                             @if ($grid_data2->product_name)
                                                                 @foreach (unserialize($grid_data2->product_name) as $key => $temps)
+                                                                <tr>
                                                                     <td><input disabled type="text"
                                                                             name="serial[]"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
                                                                             value="{{ $key + 1 }}"></td>
@@ -1882,6 +1883,7 @@
                                                                     </td>
                                                                     <td><input type="text" class="Removebtn"
                                                                             name="Action[]" readonly></td>
+                                                                </tr>
                                                                 @endforeach
                                                             @endif
                                                         </tbody>
@@ -3098,11 +3100,12 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Production_Review !== 'yes')
+
                                         $('.p_erson').hide();
 
                                         $('[name="Production_Review"]').change(function() {
                                             if ($(this).val() === 'yes') {
-
                                                 $('.p_erson').show();
                                                 $('.p_erson span').show();
                                             } else {
@@ -3110,6 +3113,8 @@
                                                 $('.p_erson span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 @php
@@ -4076,9 +4081,9 @@
 
                                     });
                                 </script>
-                                <div class="sub-head">
+                                {{-- <div class="sub-head">
                                     Engineering
-                                </div>
+                                </div> --}}
 
                                 <div class="col-lg-6 ">
                                     <div class="group-input">
@@ -8355,10 +8360,11 @@
                                                         </td>
                                                         <td>
                                                             <select name="investication[{{ $loop->index }}][investioncation_team]" id="" class="investioncation_team">
-                                                                <option value="">-- Select --</option>
+                                                                @if(!$investigation_data['investioncation_team'])<option value="">-- Select --</option> @endif
                                                                 @foreach ($users as $user)
-                                                                    <option value="{{ $user->id }}" {{ $investigation_data['investioncation_team'] == $user->id ? 'selected' : '' }}>{{ $user->name }}</option> </select>
+                                                                    <option value="{{ $user->id }}" {{ $investigation_data['investioncation_team'] == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                                                                 @endforeach
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" class="numberDetail" name="investication[{{ $loop->index }}][responsibility]" value="{{ $investigation_data['responsibility'] }}">
