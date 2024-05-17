@@ -746,7 +746,7 @@
                             <div class="bg-danger">Closed-Cancelled</div>
                         </div>
                     @else
-                        <div class="progress-bars" style="font-size: 15px;">
+                        <div class="progress-bars" style="font-size: 12px;">
                             @if ($data->stage >= 1)
                                 <div class="active">Opened</div>
                             @else
