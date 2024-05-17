@@ -3542,7 +3542,7 @@ section#pdf-page .watermark {
 #change-control-view .state-block .progress-bars div {
     flex: 1 1 auto;
     border: 1px solid grey;
-    padding: 5px;
+    padding: 7px;
     text-align: center;
     position: relative;
     border-right: none;
