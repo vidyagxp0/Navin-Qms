@@ -1512,8 +1512,7 @@ class DeviationController extends Controller
             $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
                 'short_description' => 'required',
-                'short_description_required' => 'required|in:Recurring,Non_Recurring',
-                'nature_of_repeat' => 'required_if:short_description_required,Recurring',
+                
                 'Deviation_date' => 'required',
                 'deviation_time' => 'required',
                 'Deviation_reported_date' => 'required',
@@ -1597,8 +1596,8 @@ class DeviationController extends Controller
                     },
                 ],
             ], [
-                'short_description_required.required' => 'Nature of Repeat required!',
-                'nature_of_repeat.required' =>  'The nature of repeat field is required when nature of repeat is Recurring.',
+                // 'short_description_required.required' => 'Nature of Repeat required!',
+                // 'nature_of_repeat.required' =>  'The nature of repeat field is required when nature of repeat is Recurring.',
                 'audit_type' => 'Deviation related to field required!'
             ]);
 
@@ -1617,14 +1616,19 @@ class DeviationController extends Controller
         if ($request->form_name == 'qa')
         {
             $validator = Validator::make($request->all(), [
-                'Deviation_category' => 'required|not_in:0',
+                // 'Deviation_category' => 'required|not_in:0',
                 'Justification_for_categorization' => 'required',
-
+                'short_description_required' => 'required|in:Recurring,Non_Recurring',
+                'nature_of_repeat' => 'required_if:short_description_required,Recurring',
                 // 'Investigation_required' => 'required|in:yes,no|not_in:0',
                 // 'capa_required' => 'required|in:yes,no|not_in:0',
                 // 'qrm_required' => 'required|in:yes,no|not_in:0',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
                 'QAInitialRemark' => 'required'
+            ], [
+                'short_description_required.required' => 'Nature of Repeat required!',
+                'nature_of_repeat.required' =>  'The nature of repeat field is required when nature of repeat is Recurring.',
+                'audit_type' => 'Deviation related to field required!'
             ]);
 
             if ($validator->fails()) {

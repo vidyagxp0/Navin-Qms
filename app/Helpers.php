@@ -19,28 +19,26 @@ class Helpers
     // }
     public static function getdateFormat($date)
     {
-        if(empty($date)) {
+        if (empty($date)) {
             return ''; // or any default value you prefer
-        }
-        else{        
+        } else {        
             $date = Carbon::parse($date);
-            $formatted_date = $date->format("d-M-Y");
+            $formatted_date = $date->format("d/m/Y"); // Updated to DD/MM/YYYY format
             return $formatted_date;
         }
-
     }
 
     static public function getDueDate($date, $addDays = false, $format = null)
     {
         try {
             if ($date) {
-                $format = $format ? $format : 'd M Y';
+                $format = $format ? $format : 'd/m/Y'; // Updated to DD/MM/YYYY format
                 $dateInstance = Carbon::parse($date);
                 if ($addDays) {
                     $dateInstance->addDays(30);
                 }
                 return $dateInstance->format($format);
-        }
+            }
         } catch (\Exception $e) {
             return 'NA';
         }
@@ -48,7 +46,7 @@ class Helpers
 
     public static function getdateFormat1($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-Y');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y'); // Updated to DD/MM/YYYY format
     }
 
     public static function isRevised($data)
@@ -459,5 +457,24 @@ public static function getInitiatorGroupFullName($shortName)
             $message->to("shaleen.mishra@mydemosoftware.com")
                     ->subject('Record is for Review');
         });
+    }
+
+    public static function formatDateWithTime1($dateTime)
+    {
+        if (empty($dateTime)) {
+            return ''; // or any default value you prefer
+        }
+
+        // Split the date and time parts
+        $parts = explode(' ', $dateTime);
+        if (count($parts) >= 2) {
+            // Format the date part
+            $datePart = Carbon::createFromFormat('d-M-Y', $parts[0])->format('d/m/Y');
+            // Keep the time part unchanged
+            $timePart = implode(' ', array_slice($parts, 1));
+            return $datePart . ' ' . $timePart;
+        } else {
+            return $dateTime; // Return as is if the format is unexpected
+        }
     }
 }

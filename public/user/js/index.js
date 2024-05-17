@@ -967,14 +967,17 @@ function openDivision(evt, cityName) {
 
 
 function handleDateInput(element, textInputID) {
-    let textInput = document.getElementById(textInputID)
+    let textInput = document.getElementById(textInputID);
     const date = new Date(element.value);
-    const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
-    const month = months[date.getMonth()];
-    const day = date.getDate();
+    
+    // Extracting day, month, and year from the date
+    const day = date.getDate().toString().padStart(2, '0'); // Ensuring two digits
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensuring two digits
     const year = date.getFullYear();
-    textInput.setAttribute('value', `${day}-${month}-${year}`)
-  }
+
+    // Formatting the date in "DD/MM/YYYY" format
+    textInput.setAttribute('value', `${day}/${month}/${year}`);
+}
 
   function isStartDateLessThanEndDate(startDate, endDate) {
     // Convert date strings to Date objects

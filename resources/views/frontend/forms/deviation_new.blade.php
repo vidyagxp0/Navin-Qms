@@ -262,7 +262,7 @@
                         '<td><input type="text" name="audit[]"></td>' +
                         '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="scheduled_start_date' +
                         serialNumber +
-                        '" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="scheduled_start_date[]" id="scheduled_start_date' +
+                        '" readonly placeholder="DD-MM-YYYY" /><input type="date" name="scheduled_start_date[]" id="scheduled_start_date' +
                         serialNumber +
                         '_checkdate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `scheduled_start_date' +
                     serialNumber + '`);checkDate(`scheduled_start_date' + serialNumber +
@@ -272,7 +272,7 @@
                         '<td><input type="time" name="scheduled_start_time[]"></td>' +
                         '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="scheduled_end_date' +
                         serialNumber +
-                        '" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="scheduled_end_date[]" id="scheduled_end_date' +
+                        '" readonly placeholder="DD-MM-YYYY" /><input type="date" name="scheduled_end_date[]" id="scheduled_end_date' +
                         serialNumber +
                         '_checkdate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `scheduled_end_date' +
                     serialNumber + '`);checkDate(`scheduled_start_date' + serialNumber +
@@ -628,14 +628,13 @@
                                 @php
                                     // Calculate the due date (30 days from the initiation date)
                                     $initiationDate = date('Y-m-d'); // Current date as initiation date
-                                    $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
+                                    $dueDate = date('d/m/Y', strtotime($initiationDate . '+30 days')); // Due date in DD/MM/YYYY format
                                 @endphp
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="initiation_date"
-                                            id="initiation_date"
+                                        <input readonly type="text" value="{{ date('d/m/Y') }}" name="initiation_date" id="initiation_date"
                                             style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))">
                                         <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                     </div>
@@ -647,39 +646,64 @@
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision
                                                 reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                            <input type="date" name="due_date"
-                                                min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'due_date')" />
+                                            <input type="text" id="due_date_display" readonly placeholder="DD/MM/YYYY" />
+                                            <input type="date" id="due_date" name="due_date"
+                                                class="hide-input"
+                                                onchange="handleDateInput(this, 'due_date_display')" />
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <script>
-                                    // Format the due date to DD-MM-YYYY
-                                    // Your input date
-                                    var dueDate = "{{ $dueDate }}"; // Replace {{ $dueDate }} with your actual date variable
-
-                                    // Create a Date object
-                                    var date = new Date(dueDate);
-
-                                    // Array of month names
-                                    var monthNames = [
-                                        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-                                    ];
-
-                                    // Extracting day, month, and year from the date
-                                    var day = date.getDate().toString().padStart(2, '0'); // Ensuring two digits
-                                    var monthIndex = date.getMonth();
-                                    var year = date.getFullYear();
-
-                                    // Formatting the date in "dd-MMM-yyyy" format
-                                    var dueDateFormatted = `${day}-${monthNames[monthIndex]}-${year}`;
-
-                                    // Set the formatted due date value to the input field
-                                    document.getElementById('due_date').value = dueDateFormatted;
+                                    // Function to handle date input and update the display
+                                    function handleDateInput(element, textInputID) {
+                                        let textInput = document.getElementById(textInputID);
+                                        const date = new Date(element.value);
+                                
+                                        if (!isNaN(date)) {
+                                            const day = date.getDate().toString().padStart(2, '0'); // Ensuring two digits
+                                            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensuring two digits
+                                            const year = date.getFullYear();
+                                
+                                            // Formatting the date in "DD/MM/YYYY" format
+                                            textInput.value = `${day}/${month}/${year}`;
+                                        } else {
+                                            textInput.value = "";
+                                        }
+                                    }
+                                
+                                    // Set min attribute for date input to today
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var today = new Date();
+                                        var day = today.getDate().toString().padStart(2, '0');
+                                        var month = (today.getMonth() + 1).toString().padStart(2, '0');
+                                        var year = today.getFullYear();
+                                
+                                        var minDate = `${year}-${month}-${day}`;
+                                        document.getElementById('due_date').setAttribute('min', minDate);
+                                
+                                        var dueDate = "{{ $dueDate }}"; // Replace {{ $dueDate }} with your actual date variable
+                                
+                                        if (dueDate) {
+                                            var parts = dueDate.split('/');
+                                            if (parts.length === 3) {
+                                                var date = new Date(parts[2], parts[1] - 1, parts[0]);
+                                
+                                                if (!isNaN(date)) {
+                                                    const formattedDay = date.getDate().toString().padStart(2, '0');
+                                                    const formattedMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+                                                    const formattedYear = date.getFullYear();
+                                
+                                                    var dueDateFormatted = `${formattedDay}/${formattedMonth}/${formattedYear}`;
+                                
+                                                    document.getElementById('due_date_display').value = dueDateFormatted;
+                                                    document.getElementById('due_date').value = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+                                                }
+                                            }
+                                        }
+                                    });
                                 </script>
+                                
 
                                 <div class="col-lg-12">
                                     <div class="group-input">
@@ -753,64 +777,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="short_description_required">Repeat Deviation?</label>
-                                        <select name="short_description_required" id="short_description_required"
-                                            required>
-                                            <option value="0">-- Select --</option>
-                                            <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
-                                                Yes</option>
-                                            <option value="Non_Recurring"
-                                                @if (old('short_description_required') == 'Non_Recurring') selected @endif>
-                                                No</option>
-                                        </select>
-                                    </div>
-                                    @error('short_description_required')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-lg-6" id="nature_of_repeat_block" style="display: none">
-
-                                    <div class="group-input" id="nature_of_repeat">
-                                        <label for="nature_of_repeat">Repeat Nature </label>
-                                        <textarea name="nature_of_repeat" class="nature_of_repeat">{{ isset($data) ? $data->short_description_required : '' }}</textarea>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        var selectField = document.getElementById('short_description_required');
-                                        var inputsToToggle = [];
-
-                                        // Add elements with class 'facility-name' to inputsToToggle
-                                        var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
-
-                                        for (var i = 0; i < facilityNameInputs.length; i++) {
-                                            inputsToToggle.push(facilityNameInputs[i]);
-                                        }
-
-
-                                        selectField.addEventListener('change', function() {
-                                            var isRequired = this.value === 'Recurring';
-
-                                            inputsToToggle.forEach(function(input) {
-                                                if (!isRequired) {
-                                                    document.getElementById('nature_of_repeat_block').style.display = 'none';
-                                                } else {
-                                                    document.getElementById('nature_of_repeat_block').style.display = 'block';
-                                                }
-                                                input.required = isRequired;
-                                                console.log(input.required, isRequired, 'input req');
-                                            });
-
-                                            // Show or hide the asterisk icon based on the selected value
-                                            var asteriskIcon = document.getElementById('asteriskInviRecurring');
-                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
-                                        });
-                                    });
-                                </script>
+                                
 
 
                                 <div class="col-lg-6 new-date-data-field">
@@ -818,7 +785,7 @@
                                         <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_date" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
                                             <input type="date" name="Deviation_date"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -871,7 +838,7 @@
                                         <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Deviation_reported_date"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_reported_date')" />
@@ -1643,7 +1610,64 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="short_description_required">Repeat Deviation?</label>
+                                        <select name="short_description_required" id="short_description_required" disabled
+                                            required>
+                                            <option value="0">-- Select --</option>
+                                            <option value="Recurring" @if (old('short_description_required') == 'Recurring') selected @endif>
+                                                Yes</option>
+                                            <option value="Non_Recurring"
+                                                @if (old('short_description_required') == 'Non_Recurring') selected @endif>
+                                                No</option>
+                                        </select>
+                                    </div>
+                                    @error('short_description_required')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
+                                <div class="col-lg-6" id="nature_of_repeat_block" style="display: none">
+
+                                    <div class="group-input" id="nature_of_repeat">
+                                        <label for="nature_of_repeat">Repeat Nature </label>
+                                        <textarea name="nature_of_repeat" class="nature_of_repeat">{{ isset($data) ? $data->short_description_required : '' }}</textarea>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var selectField = document.getElementById('short_description_required');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'facility-name' to inputsToToggle
+                                        var facilityNameInputs = document.getElementsByClassName('nature_of_repeat');
+
+                                        for (var i = 0; i < facilityNameInputs.length; i++) {
+                                            inputsToToggle.push(facilityNameInputs[i]);
+                                        }
+
+
+                                        selectField.addEventListener('change', function() {
+                                            var isRequired = this.value === 'Recurring';
+
+                                            inputsToToggle.forEach(function(input) {
+                                                if (!isRequired) {
+                                                    document.getElementById('nature_of_repeat_block').style.display = 'none';
+                                                } else {
+                                                    document.getElementById('nature_of_repeat_block').style.display = 'block';
+                                                }
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            // Show or hide the asterisk icon based on the selected value
+                                            var asteriskIcon = document.getElementById('asteriskInviRecurring');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                </script>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Justification for Categorization">Justification for
@@ -2023,7 +2047,7 @@
                                         <label for="Production Review Completed On">Production Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="production_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="production_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'production_on')" />
@@ -2127,7 +2151,7 @@
                                     <div class="group-input input-date">
                                         <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="Warehouse_on" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="text" id="Warehouse_on" readonly placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Warehouse_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Warehouse_on')" />
@@ -2231,7 +2255,7 @@
                                             On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Quality_Control_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Quality_Control_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Quality_Control_on')" />
@@ -2341,7 +2365,7 @@
                                             Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="QualityAssurance_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="QualityAssurance_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'QualityAssurance_on')" />
@@ -2448,7 +2472,7 @@
                                             On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Engineering_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Engineering_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Engineering_on')" />
@@ -2566,7 +2590,7 @@
                                             Development Laboratory Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Analytical_Development_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Analytical_Development_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Analytical_Development_on')" />
@@ -2678,7 +2702,7 @@
                                             Lab Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Kilo_Lab_attachment_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Kilo_Lab_attachment_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Kilo_Lab_attachment_on')" />
@@ -2787,7 +2811,7 @@
                                             Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Technology_transfer_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Technology_transfer_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Technology_transfer_on')" />
@@ -2898,7 +2922,7 @@
                                             Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Environment_Health_Safety_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Environment_Health_Safety_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Environment_Health_Safety_on')" />
@@ -3010,7 +3034,7 @@
                                             Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Human_Resource_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Human_Resource_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Human_Resource_on')" />
@@ -3121,7 +3145,7 @@
                                             Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Information_Technology_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Information_Technology_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Information_Technology_on')" />
@@ -3233,7 +3257,7 @@
                                             Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Project_management_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Project_management_on"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Project_management_on')" />
@@ -3363,7 +3387,7 @@
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Other1_on" name="Other1_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                         </div>
                                     </div>
                                 </div>
@@ -3490,7 +3514,7 @@
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Other2_on" name="Other2_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             {{-- <input type="date"  name="Other2_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                     oninput="handleDateInput(this, 'Other2_on')" /> --}}
                                         </div>
@@ -3619,7 +3643,7 @@
                                         <label for="Review Completed On3">Other's 3 Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Other3_on" name="Other3_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             {{-- <input type="date"  name="Other3_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                     oninput="handleDateInput(this, 'Other3_on')" /> --}}
                                         </div>
@@ -3748,7 +3772,7 @@
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Other4_on" name="Other4_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             {{-- <input type="date"  name="Other4_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                     oninput="handleDateInput(this, 'Other4_on')" /> --}}
                                         </div>
@@ -3878,7 +3902,7 @@
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Other5_on" name="Other5_on" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             {{-- <input type="date"  name="Other5_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                     oninput="handleDateInput(this, 'Other5_on')" /> --}}
                                         </div>
@@ -5336,7 +5360,7 @@
                                         <label for="Audit Schedule End Date">Proposed Due Date (Deviation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_deviation" readonly
-                                                placeholder="DD-MMM-YYYY" disabled/>
+                                                placeholder="DD-MM-YYYY" disabled/>
                                             <input type="date" name="Proposed_Due_date_deviation"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Proposed_Due_date_deviation')" disabled />
@@ -5374,7 +5398,7 @@
                                         <label for="Audit Schedule End Date">Deviation Extension Completed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_Extension_Completed_On" readonly
-                                                placeholder="DD-MMM-YYYY" disabled/>
+                                                placeholder="DD-MM-YYYY" disabled/>
                                             <input type="date" name="Deviation_Extension_Completed_On"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_Extension_Completed_On')" disabled/>
@@ -5392,7 +5416,7 @@
                                         <label for="Proposed_Due_date_CAPA">Proposed Due Date (CAPA)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_CAPA" readonly
-                                                placeholder="DD-MMM-YYYY" disabled />
+                                                placeholder="DD-MM-YYYY" disabled />
                                             <input type="date" name="Proposed_Due_date_CAPA"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Proposed_Due_date_CAPA')" disabled />
@@ -5431,7 +5455,7 @@
                                             <label for="Audit Schedule End Date">CAPA Extension Completed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="CAPA_Extension_Completed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" disabled />
+                                                    placeholder="DD-MM-YYYY" disabled />
                                                 <input type="date" name="CAPA_Extension_Completed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5451,7 +5475,7 @@
                                             Management)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_Date_QRM" readonly
-                                                placeholder="DD-MMM-YYYY" disabled />
+                                                placeholder="DD-MM-YYYY" disabled />
                                             <input type="date" name="Proposed_Due_Date_QRM"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Proposed_Due_Date_QRM')" disabled />
@@ -5495,7 +5519,7 @@
                                             <div class="calenderauditee">
                                                 <input type="text"
                                                     id="Quality_Risk_Management_Extension_Completed_ON" readonly
-                                                    placeholder="DD-MMM-YYYY" disabled />
+                                                    placeholder="DD-MM-YYYY" disabled />
                                                 <input type="date"
                                                     name="Quality_Risk_Management_Extension_Completed_ON"
                                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
@@ -5516,7 +5540,7 @@
                                             (Investigation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Proposed_Due_date_investigation" readonly
-                                                placeholder="DD-MMM-YYYY" disabled />
+                                                placeholder="DD-MM-YYYY" disabled />
                                             <input type="date" name="Proposed_Due_date_investigation"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Proposed_Due_date_investigation')" disabled />
@@ -5558,7 +5582,7 @@
                                                 Completed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" disabled />
+                                                    placeholder="DD-MM-YYYY" disabled />
                                                 <input type="date" name="Investigation_Extension_Completed_On"
                                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5608,7 +5632,7 @@
                                                 Proposed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="deviation_EC_Plan_Proposed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="deviation_EC_Plan_Proposed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5637,7 +5661,7 @@
                                         <label for="Next_review_date_deviation">Next Review Date(Deviation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Next_review_date_deviation" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Next_review_date_deviation"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Next_review_date_deviation')" />
@@ -5665,7 +5689,7 @@
                                                 Check Closed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="deviation_Effectiveness_Check_Closed_On"
-                                                    readonly placeholder="DD-MMM-YYYY" />
+                                                    readonly placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="deviation_Effectiveness_Check_Closed_On"
                                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5712,7 +5736,7 @@
                                                 Plan Proposed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="Investigation_Extension_Completed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5740,7 +5764,7 @@
                                         <label for="Investigation_Extension_Completed_On">Next Review Date(CAPA)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Investigation_Extension_Completed_On"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
@@ -5769,7 +5793,7 @@
                                                 On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Effectiveness_Check_Closed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="Effectiveness_Check_Closed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5816,7 +5840,7 @@
                                                 Proposed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="Investigation_Extension_Completed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5846,7 +5870,7 @@
                                             Management)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Investigation_Extension_Completed_On"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
@@ -5876,7 +5900,7 @@
                                                 On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Effectiveness_Check_Closed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="Effectiveness_Check_Closed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5922,7 +5946,7 @@
                                                 Check Plan Proposed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Effectiveness_Check_Plan_Proposed_On" readonly
-                                                    placeholder="DD-MMM-YYYY" />
+                                                    placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="Effectiveness_Check_Plan_Proposed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"
@@ -5950,7 +5974,7 @@
                                             (Investigation)</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Investigation_Extension_Completed_On" readonly
-                                                placeholder="DD-MMM-YYYY" />
+                                                placeholder="DD-MM-YYYY" />
                                             <input type="date" name="Investigation_Extension_Completed_On"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Investigation_Extension_Completed_On')" />
@@ -5978,7 +6002,7 @@
                                                 Effectiveness Check Closed On</label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Investigation_Effectiveness_Check_Closed_On"
-                                                    readonly placeholder="DD-MMM-YYYY" />
+                                                    readonly placeholder="DD-MM-YYYY" />
                                                 <input type="date" name="Investigation_Effectiveness_Check_Closed_On"
                                                     max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                     class="hide-input"

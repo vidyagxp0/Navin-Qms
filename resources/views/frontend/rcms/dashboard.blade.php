@@ -437,7 +437,7 @@
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
-                                                {{ $datas->date_open }}
+                                                {{ Helpers::formatDateWithTime1($datas->date_open) }}
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
@@ -449,9 +449,8 @@
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
-                                                {{-- {{ Helpers::getdateFormat($datas->intiation_date) }} --}}
                                                 @if (property_exists($datas, 'due_date'))
-                                                    {{ $datas->type !== 'Extension' ? Helpers::getDueDate($datas->due_date, false) : ''  }}
+                                                    {{ $datas->type !== 'Extension' ? Helpers::getDueDate($datas->due_date, false, 'd/m/Y') : '' }}
                                                 @endif
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
