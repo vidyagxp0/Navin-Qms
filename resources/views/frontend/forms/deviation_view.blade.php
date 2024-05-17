@@ -691,7 +691,30 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Initiator Updated Complete
                             </button>
-                        @elseif($data->stage == 8 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                            @elseif($data->stage == 8 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
+                                Send to Opened
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
+                            Send to Pending Initiator Update
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            HOD Final Review Complete
+                            </button>
+                        @elseif($data->stage == 9 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
+                                Send to Opened
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                                Send to HOD Review
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
+                                Send to Pending Initiator Update
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            QA Final Review Complete
+                            </button>
+                        @elseif($data->stage == 10 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
@@ -705,8 +728,9 @@
                             Send to Pending Initiator Update
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            QA Final Review Complete
+                            QA Final Approval Complete
                             </button>
+                        
                         @endif
                         <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
                             </a> </button>
@@ -764,11 +788,21 @@
                                 <div class="">Pending Initiator Update</div>
                             @endif
                             @if ($data->stage >= 8)
+                                <div class="active">HOD Final Review</div>
+                            @else
+                                <div class="">HOD Final Review</div>
+                            @endif
+                            @if ($data->stage >= 9)
+                                <div class="active">QA Final Review</div>
+                            @else
+                                <div class="">QA Final Review</div>
+                            @endif
+                            @if ($data->stage >= 10)
                                 <div class="active">QA Final Approval</div>
                             @else
                                 <div class="">QA Final Approval</div>
                             @endif
-                            @if ($data->stage >= 9)
+                            @if ($data->stage >= 11)
                                 <div class="bg-danger">Closed - Done</div>
                             @else
                                 <div class="">Closed - Done</div>
@@ -891,11 +925,11 @@
                     <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
                     <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-                    <button class="cctablinks " id="Investigation_button" onclick="openCity(event, 'CCForm9')" style="display: none">Investigation</button>
-                    <button class="cctablinks " id="QRM_button" onclick="openCity(event, 'CCForm11')" style="display: none">QRM</button>
-                    <button class="cctablinks " id="CAPA_button" onclick="openCity(event, 'CCForm10')" style="display: none">CAPA</button>
+                    {{-- <button class="cctablinks " id="QRM_button" onclick="openCity(event, 'CCForm11')" style="display: none">QRM</button>
+                    <button class="cctablinks " id="CAPA_button" onclick="openCity(event, 'CCForm10')" style="display: none">CAPA</button>--}}
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                     <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
+                    <button class="cctablinks " id="Investigation_button" onclick="openCity(event, 'CCForm9')" style="display: none">Investigation</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button>
 
@@ -2480,7 +2514,7 @@
                                 @if ($data->stage == 3)
                                     <div class="row">
 
-                                        <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                        {{--  <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                                             <div class="group-input input-date">
 
                                                 @if ($data->stage == 3)
@@ -2519,6 +2553,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        --}}
                                 @endif
                                 <!-- <div class="col-lg-6">
                                     <div class="group-input">
@@ -2531,7 +2566,7 @@
                                     </div>
                                 </div> -->
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Capa Required">CAPA Required? <span
                                                     class="text-danger">*</span></label>
@@ -2544,13 +2579,13 @@
                                                 <option @if ($data->capa_required == 'no') selected @endif value='no'>
                                                     No</option>
                                             </select>
-                                            <!-- @error('capa_required')
+                                             @error('capa_required')
                                                 <div class="text-danger">{{ $message }}</div>
-                                            @enderror -->
+                                            @enderror 
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                <!-- <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="qrm_required">QRM Required ?</label>
                                         <select name="qrm_required" id="qrm_required">
@@ -2559,9 +2594,9 @@
                                             <option value="no">No</option>
                                         </select>
                                     </div>
-                                </div> -->
+                                </div> --}}
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="QRM Required">QRM Required? <span
                                                     class="text-danger">*</span></label>
@@ -2578,9 +2613,9 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror -->
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Investigation required">Investigation Required? <span
                                                     class="text-danger">*</span></label>
@@ -2597,7 +2632,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 @if ($data->stage == 3)
 
@@ -2672,6 +2707,24 @@
                                                 });
                                             </script>
                                             @error('Investigation_Details')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="group-input">
+                                            <label for="Customer notification">Customer Notification Required ? <span
+                                                class="text-danger">*</span></label>
+                                            <select name="Customer_notification"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
+                                                <option value="0">-- Select --</option>
+                                                <option  @if ($data->Customer_notification == 'Yes') selected @endif
+                                                value="Yes">Yes</option>
+                                                <option  @if ($data->Customer_notification == 'No') selected @endif
+                                                value="No">No</option>
+                                                <option  @if ($data->Customer_notification == 'NA') selected @endif
+                                                    value="NA">NA</option>
+                                            </select>
+                                            @error('Customer_notification')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -2814,7 +2867,7 @@
                         @else
                             <div class="row">
                                 <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
+                                   {{-- <div class="group-input input-date">
                                         @if ($data->stage == 3)
                                             <label for="Deviation category">Initial Deviation category <span
                                                     class="text-danger">*</span></label>
@@ -2848,7 +2901,7 @@
                                         @error('Deviation_category')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="col-md-12">
                                     <div class="group-input">
@@ -2865,7 +2918,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Required?</label>
                                         <select disabled name="Investigation_required" id="Investigation_required"
@@ -2880,7 +2933,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div>--}}
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Details">Investigation Details <span
@@ -8286,7 +8339,7 @@
         <div id="CCForm9" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
-                    @if($investigationExtension && $investigationExtension->investigation_proposed_due_date)
+                    {{--@if($investigationExtension && $investigationExtension->investigation_proposed_due_date)
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Proposed Due Date">Proposed Due Date</label>
@@ -8298,12 +8351,17 @@
                             <div class="group-input">
                                 <label for="Proposed Due Date">Proposed Due Date</label>
                                 <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
-                            </div>
+                            </div>  
+
+
+                            Investigation summary, root cause, impact assessment, corrective & preventive actions, Investigation HOD remarks, Investigation QA remarks.
+
                         </div>
-                    @endif
+                    @endif --}}
+
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
-                            <label for="Investigation Summary">Description of Event</label>
+                            <label for="Investigation Summary">Investigation summary</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
                             <textarea class="tiny" name="Discription_Event" id="summernote-8">{{ $data->Discription_Event }}</textarea>
@@ -8312,7 +8370,7 @@
 
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
-                            <label for="Impact Assessment">Objective</label>
+                            <label for="Impact Assessment">Impact Assessment</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
                             <textarea class="tiny" name="objective" id="summernote-9">{{ $data->objective }}</textarea>
@@ -8321,7 +8379,7 @@
 
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
-                            <label for="Root Cause">Scope</label>
+                            <label for="Root Cause">Corrective & Preventive Actions</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
                             <textarea class="tiny" name="scope" id="summernote-10">{{ $data->scope }}</textarea>
@@ -8329,15 +8387,23 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
-                            <label for="Root Cause">Immediate Action</label>
+                            <label for="Root Cause">Investigation HOD remarks</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
                             <textarea class="tiny" name="imidiate_action" id="summernote-10">{{ $data->imidiate_action }}</textarea>
                         </div>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Root Cause">Investigation QA remarks</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea class="tiny" name="imidiate_action1" id="summernote-10"></textarea>
+                        </div>
+                    </div>
 
 
-                    <div class="col-lg-12">
+                   {{-- <div class="col-lg-12">
                         <div class="group-input" id="documentsRowna">
                             <label for="audit-agenda-grid">
                                 Investigation team and Responsibilities
@@ -8366,7 +8432,6 @@
                                                 <tbody>
 
                                                     @if ($investigation_data && is_array($investigation_data->data))
-                                                    <!-- {{-- {{ count($investigation_data->data) }} --}} -->
                                                     @foreach ($investigation_data->data as $investigation_data)
                                                     <tr>
                                                         <td>
@@ -8415,7 +8480,6 @@
                                 <div class="group-input">
                                     <label for="audit type">Investigation Approach </label>
                                     <select multiple name="investigation_approach[]" id="investigation_approach">
-                                        {{-- <option value="">Enter Your Selection Here</option> --}}
                                         <option value="Why-Why Chart" {{ strpos($data->investigation_approach, 'Why-Why Chart') !== false ? 'selected' : '' }}>Why-Why Chart</option>
                                         <option value="Failure Mode and Efect Analysis" {{ strpos($data->investigation_approach, 'Failure Mode and Efect Analysis') !== false ? 'selected' : '' }}>Failure Mode and Efect Analysis</option>
                                         <option value="Fishbone or Ishikawa Diagram" {{ strpos($data->investigation_approach, 'Fishbone or Ishikawa Diagram') !== false ? 'selected' : '' }}>Fishbone or Ishikawa Diagram</option>
@@ -8425,7 +8489,7 @@
 
                                     </select>
                                 </div>
-                            </div>
+                            </div>--}}
 
 
 
@@ -8744,14 +8808,9 @@
                                         </table>
                                     </div>
                                 </div>
-                                <!-- {{-- @error('Product_Batch')
-                                    <div class="text-danger">{{ $message  }}</div>
-                                @enderror --}} -->
                             </div>
 
                             <script>
-                                // $(document).ready(function () {
-                                    // $('#Root_Cause_Category_Select').change(function () {
                                     $(document).on('change', '.Root_Cause_Category_Select', function () {
                                         console.log('this', $(this))
                                         console.log('change')
@@ -8953,11 +9012,10 @@
 
                                         }
                                     });
-                                // });
-                    </script>
+                            </script>
 
-
-                    <div class="col-12 sub-head"></div>
+                    {{--
+<div class="col-12 sub-head"></div>
                     <div class="col-12">
                         <div class="group-input">
                             <label for="fishbone">
@@ -8984,14 +9042,6 @@
                                         </div>
                                         <div class="top-field-group">
                                             <div class="grid-field fields top-field">
-                                                {{-- @for ($i = 0; $i < $fishbone_count; $i++)
-                                                    <div><input type="text" name="fishbone[measurement][{{ $i }}]"
-                                                        value="{{ array_key_exists($fishbone_measurement_keys[$i], $fishbone_data->data['measurement']) ? $fishbone_data->data['measurement'][$fishbone_measurement_keys[$i]] : '' }}"></div>
-                                                    <div><input type="text" name="fishbone[materials][{{ $i }}]"
-                                                        value="{{ array_key_exists($fishbone_materials_keys[$i], $fishbone_data->data['materials']) ? $fishbone_data->data['materials'][$fishbone_materials_keys[$i]] : '' }}"></div>
-                                                    <div><input type="text" name="fishbone[methods][{{ $i }}]"
-                                                        value="{{ array_key_exists($fishbone_methods_keys[$i], $fishbone_data->data['methods']) ? $fishbone_data->data['methods'][$fishbone_methods_keys[$i]] : '' }}"></div>
-                                                @endfor --}}
 
                                                 @foreach ($fishbone_data->data['measurement'] as $measurement)
                                                     <div><input type="text" name="fishbone[measurement][{{ $loop->index }}]" value="{{ $measurement }}"></div>
@@ -9090,7 +9140,6 @@
                                             <tr style="background: #f4bb22">
                                                 <th style="width:150px;">Problem Statement :</th>
                                                 <td>
-                                                    {{-- <textarea name="why[{{ $loop->index }}][problem_statement]" value="{{arra_key_exists('problem_statement', $why_data) ? $why_data['problem_statement'] : ''}}"></textarea> --}}
                                                     <textarea name="why[problem_statement]">{{ $why_data->data['problem_statement'] }}</textarea>
                                                 </td>
                                             </tr>
@@ -9256,7 +9305,6 @@
                                         <tbody>
                                             <tr>
                                                 <td style="background: rgb(222 220 220 / 58%)">
-                                                    <!-- {{-- <input disabled type="text"  value=""> --}} -->
                                                     1
                                                 </td>
                                                 <th style="background: ">Attention</th>
@@ -9423,6 +9471,8 @@
                             </div>
                         </div>
                     </div>
+                    --}}
+                    
                 </div>
 
                 <div class="button-block">
@@ -10624,6 +10674,71 @@
         <div id="CCForm4" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
+                    <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                        <div class="group-input input-date">
+                            <label for="Deviation category">Initial Deviation category <span
+                                                            class="text-danger">*</span></label>
+                                                    <select id="Deviation_category11"
+                                                        name="Deviation_category"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                        value="{{ $data->Deviation_category }}"
+                                                        onchange="handleDeviationCategoryChange11()" required>
+                                                        <option value="0">-- Select --</option>
+                                                        <option @if ($data->Deviation_category == 'minor') selected @endif
+                                                            value="minor">Minor</option>
+                                                        <option @if ($data->Deviation_category == 'major') selected @endif
+                                                            value="major">Major</option>
+                                                        <option @if ($data->Deviation_category == 'critical') selected @endif
+                                                            value="critical">Critical</option>
+                                                    </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input">
+                                            <label for="Investigation required">Investigation Required? <span
+                                                    class="text-danger">*</span></label>
+                                            <select
+                                                name="Investigation_required"{{ $data->stage == 0 || $data->stage == 7 ? 'disabled' : '' }}
+                                                id="Investigation_required" value="{{ $data->Investigation_required }}">
+                                                <option value="select">-- Select --</option>
+                                                <option @if ($data->Investigation_required == 'yes') selected @endif value='yes'>
+                                                    Yes</option>
+                                                <option @if ($data->Investigation_required == 'no') selected @endif value='no'>
+                                                    No</option>
+                                            </select>
+                                            @error('Investigation_required')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                </div>
+
+                    <script>
+                        function handleDeviationCategoryChange11() {
+                            var selectElement = document.getElementById("Deviation_category11");
+                            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+
+                            if (selectedOption === "major" || selectedOption === "critical") {
+                                    // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
+                                    document.getElementById("Investigation_required").value = "yes";
+                                    document.getElementById("capa_required").value = "yes";
+                                    document.getElementById("qrm_required").value = "yes";
+
+                                    // Show the Investigation, CAPA, and QRM buttons
+                                    document.getElementById("Investigation_button").style.display = "block";
+                                    document.getElementById("CAPA_button").style.display = "block";
+                                    document.getElementById("QRM_button").style.display = "block";
+                                } else {
+                                    // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
+                                    document.getElementById("Investigation_required").value = "select";
+                                    document.getElementById("capa_required").value = "select";
+                                    document.getElementById("qrm_required").value = "select";
+
+                                    // Hide the Investigation, CAPA, and QRM buttons
+                                    document.getElementById("Investigation_button").style.display = "none";
+                                    document.getElementById("CAPA_button").style.display = "none";
+                                    document.getElementById("QRM_button").style.display = "none";
+                                }
+                        }
+                        </script>
                     <div class="col-md-12">
                         @if ($data->stage == 5)
                             <div class="group-input">

@@ -3914,7 +3914,7 @@ class DeviationController extends Controller
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Deviation sent to QA Final Approval.'
+                        'message' => 'Deviation sent to next stage.'
                     ]);
                 }
 
@@ -3944,17 +3944,119 @@ class DeviationController extends Controller
 
                 // return "PAUSE";
 
+                // $deviation->stage = "8";
+                // $deviation->status = "QA Final Approval";
+                // $deviation->Approved_By = Auth::user()->name;
+                // $deviation->Approved_On = Carbon::now()->format('d-M-Y');
+                // $deviation->Approved_Comments = $request->comment;
+
                 $deviation->stage = "8";
-                $deviation->status = "QA Final Approval";
+                $deviation->status = "HOD Final Review";
                 $deviation->Approved_By = Auth::user()->name;
                 $deviation->Approved_On = Carbon::now()->format('d-M-Y');
                 $deviation->Approved_Comments = $request->comment;
+
 
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action ='Initiator Updated Complete';
+                $history->action ='Submit';
+                $history->current = $deviation->Approved_By;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "HOD Final Review";
+                $history->change_from = $lastDocument->status;
+                $history->stage = 'Completed';
+                $history->save();
+                $list = Helpers::getQAUserList();
+                foreach ($list as $u) {
+                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Exception $e) {
+                                //log error
+                            }
+                        }
+                    }
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($deviation->stage == 8) {
+                $deviation->stage = "9";
+                $deviation->status = "QA Final Review";
+                $deviation->Approved_By = Auth::user()->name;
+                $deviation->Approved_On = Carbon::now()->format('d-M-Y');
+                $deviation->Approved_Comments = $request->comment;
+
+
+                $history = new DeviationAuditTrail();
+                $history->deviation_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->action ='Submit';
+                $history->current = $deviation->Approved_By;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "QA Final Review";
+                $history->change_from = $lastDocument->status;
+                $history->stage = 'Completed';
+                $history->save();
+                // $list = Helpers::getQAUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
+                //             try {
+                //                 Mail::send(
+                //                     'mail.view-mail',
+                //                     ['data' => $deviation],
+                //                     function ($message) use ($email) {
+                //                         $message->to($email)
+                //                             ->subject("Activity Performed By " . Auth::user()->name);
+                //                     }
+                //                 );
+                //             } catch (\Exception $e) {
+                //                 //log error
+                //             }
+                //         }
+                //     }
+                // }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($deviation->stage == 9) {
+                $deviation->stage = "10";
+                $deviation->status = "QA Final Approval";
+                $deviation->Approved_By = Auth::user()->name;
+                $deviation->Approved_On = Carbon::now()->format('d-M-Y');
+                $deviation->Approved_Comments = $request->comment;
+
+
+
+                $history = new DeviationAuditTrail();
+                $history->deviation_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->action ='Submit';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -3991,7 +4093,7 @@ class DeviationController extends Controller
             }
 
 
-            if ($deviation->stage == 8) {
+            if ($deviation->stage == 10) {
 
                 if ($deviation->form_progress !== 'qah')
                 {
@@ -4037,7 +4139,7 @@ class DeviationController extends Controller
 
                 // return "PAUSE";
 
-                $deviation->stage = "9";
+                $deviation->stage = "11";
                 $deviation->status = "Closed-Done";
                 $deviation->Approved_By = Auth::user()->name;
                 $deviation->Approved_On = Carbon::now()->format('d-M-Y');

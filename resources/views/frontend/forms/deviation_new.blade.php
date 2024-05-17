@@ -564,11 +564,11 @@
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
                 <button class="cctablinks " id="Investigation_button" style="display: none"
                     onclick="openCity(event, 'CCForm9')">Investigation</button>
-                <button id="QRM_button" class="cctablinks" style="display: none"
+                {{-- <button id="QRM_button" class="cctablinks" style="display: none"
                     onclick="openCity(event, 'CCForm11')">QRM</button>
 
                 <button id="CAPA_button" class="cctablinks" style="display: none"
-                    onclick="openCity(event, 'CCForm10')">CAPA</button>
+                    onclick="openCity(event, 'CCForm10')">CAPA</button> --}}
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
@@ -1519,8 +1519,8 @@
 
 
                                     function handleInvestigationRequiredChange() {
-                                        var investigationSelect = document.getElementById("Investigation_required");
-                                        var investigationButton = document.getElementById("Investigation_button");
+                                        // var investigationSelect = document.getElementById("Investigation_required");
+                                        // var investigationButton = document.getElementById("Investigation_button");
 
                                         // Get the selected value of the Investigation Required dropdown
                                         var investigationRequired = investigationSelect.value;
@@ -1569,24 +1569,24 @@
                                         // Check if the selected option is "Major" or "Critical"
                                         if (selectedOption === "major" || selectedOption === "critical") {
                                             // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
-                                            document.getElementById("Investigation_required").value = "yes";
+                                            // document.getElementById("Investigation_required").value = "yes";
                                             document.getElementById("capa_required").value = "yes";
-                                            document.getElementById("qrm_required").value = "yes";
+                                            // document.getElementById("qrm_required").value = "yes";
 
                                             // Show the Investigation, CAPA, and QRM buttons
-                                            document.getElementById("Investigation_button").style.display = "block";
+                                            // document.getElementById("Investigation_button").style.display = "block";
                                             document.getElementById("CAPA_button").style.display = "block";
-                                            document.getElementById("QRM_button").style.display = "block";
+                                            // document.getElementById("QRM_button").style.display = "block";
                                         } else {
                                             // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
-                                            document.getElementById("Investigation_required").value = "select";
+                                            // document.getElementById("Investigation_required").value = "select";
                                             document.getElementById("capa_required").value = "select";
-                                            document.getElementById("qrm_required").value = "select";
+                                            // document.getElementById("qrm_required").value = "select";
 
                                             // Hide the Investigation, CAPA, and QRM buttons
-                                            document.getElementById("Investigation_button").style.display = "none";
+                                            // document.getElementById("Investigation_button").style.display = "none";
                                             document.getElementById("CAPA_button").style.display = "none";
-                                            document.getElementById("QRM_button").style.display = "none";
+                                            // document.getElementById("QRM_button").style.display = "none";
 
 
 
@@ -1598,31 +1598,20 @@
 
 
 
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
-                                    <div class="group-input input-date">
-                                        <label for="Deviation_category">Initial Deviation Category</label>
-                                        <select name="Deviation_category" id="Deviation_category" disabled
-                                            onchange="handleDeviationCategoryChange()">
-                                            <option value="0">-- Select -- </option>
-                                            <option value="minor">Minor </option>
-                                            <option value="major">Major </option>
-                                            <option value="critical">Critical </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
 
-                                <div class="col-lg-6">
+                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation Required ?</label>
-                                        <select name="Investigation_required" id="Investigation_required" disabled>
+                                        <select disabled name="Investigation_required" id="Investigation_required" disabled>
                                             <option value="select">-- Select --</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> 
 
-                                <div class="col-lg-6">
+                               {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="capa_required"> CAPA Required ?</label>
                                         <select name="capa_required" id="capa_required" disabled>
@@ -1631,9 +1620,9 @@
                                             <option value="no">No</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="qrm_required">QRM Required ?</label>
                                         <select name="qrm_required" id="qrm_required" disabled>
@@ -1642,7 +1631,7 @@
                                             <option value="no">No</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
@@ -1650,8 +1639,7 @@
                                             Categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Justification_for_categorization" id="summernote-5">
-                                    </textarea>
+                                        <textarea class="tiny" name="Justification_for_categorization" id="summernote-5" disabled></textarea>
                                     </div>
                                 </div>
 
@@ -1668,8 +1656,26 @@
                                                 class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class=" Investigation_Details" name="Investigation_Details" id="summernote-6">
+                                        <textarea class=" Investigation_Details" name="Investigation_Details" id="summernote-6" disabled>
                                     </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Customer notification">Customer Notification Required ? <span
+                                            class="text-danger">*</span></label>
+                                        <select disabled name="Customer_notification" id="Customer_notification" >
+                                            <option value="0">-- Select --</option>
+                                            <option 
+                                            value="Yes">Yes</option>
+                                            <option  
+                                            value="No">No</option>
+                                            <option  
+                                                value="NA">NA</option>
+                                        </select>
+                                        @error('Customer_notification')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -1678,7 +1684,7 @@
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="QAInitialRemark" id="summernote-7">
+                                        <textarea disabled class="tiny" name="QAInitialRemark" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1723,21 +1729,21 @@
                         // This is a JQuery used for showing the Investigation
 
                         $(document).ready(function() {
-                            $('#Deviation_category, #Investigation_required, #qrm_required, #capa_required').change(
+                            $('#Deviation_category,  #capa_required').change(
                                 function() {
                                     // Get the selected values
                                     var deviationCategory = $('#Deviation_category').val();
-                                    var investigationRequired = $('#Investigation_required').val();
+                                    // var investigationRequired = $('#Investigation_required').val();
                                     var capaRequired = $('#capa_required').val();
-                                    var qrmRequired = $('#qrm_required').val();
+                                    // var qrmRequired = $('#qrm_required').val();
 
 
                                     // Check if both conditions are met
-                                    if (investigationRequired === 'yes') {
-                                        $('#Investigation_button').show(); // Show the investigation button
-                                    } else {
-                                        $('#Investigation_button').hide(); // Hide the investigation button
-                                    }
+                                    // if (investigationRequired === 'yes') {
+                                    //     $('#Investigation_button').show(); // Show the investigation button
+                                    // } else {
+                                    //     $('#Investigation_button').hide(); // Hide the investigation button
+                                    // }
                                     //CAPA condition
                                     if (capaRequired === 'yes') {
                                         $('#CAPA_button').show(); // Show the investigation button
@@ -1745,11 +1751,11 @@
                                         $('#CAPA_button').hide(); // Hide the investigation button
                                     }
                                     //QRMCon
-                                    if (qrmRequired === 'yes') {
-                                        $('#QRM_button').show(); // Show the investigation button
-                                    } else {
-                                        $('#QRM_button').hide(); // Hide the investigation button
-                                    }
+                                    // if (qrmRequired === 'yes') {
+                                    //     $('#QRM_button').show(); // Show the investigation button
+                                    // } else {
+                                    //     $('#QRM_button').hide(); // Hide the investigation button
+                                    // }
                                 });
                         });
 
@@ -1781,13 +1787,13 @@
                                 var selectedValues = $(this).val();
 
                                 if (selectedValues === 'major' || selectedValues === 'critical') {
-                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    // $('#Investigation_required').val('yes').prop('disabled', true);
                                     $('#capa_required').val('yes').prop('disabled', true);
-                                    $('#qrm_required').val('yes').prop('disabled', true);
+                                    // $('#qrm_required').val('yes').prop('disabled', true);
 
                                 } else {
-                                    $('#Investigation_required').prop('disabled', false);
-                                    $('#qrm_required').prop('disabled', false);
+                                    // $('#Investigation_required').prop('disabled', false);
+                                    // $('#qrm_required').prop('disabled', false);
                                     $('#capa_required').prop('disabled', false);
                                 }
 
@@ -1799,7 +1805,7 @@
 
                             $('#Deviation_category').change(function() {
                                 if ($(this).val() === 'major') {
-                                    $('#Investigation_required').val('yes').prop('disabled', true);
+                                    // $('#Investigation_required').val('yes').prop('disabled', true);
 
 
                                     $('#Investigations_details').show();
@@ -1812,7 +1818,7 @@
                                     $('#Customer_notification').prop('disabled', false);
                                     $('#customer_option').hide();
                                     $('textarea[name="customer_option"]').prop('required', false);
-                                    $('#Investigation_required').prop('disabled', false);
+                                    // $('#Investigation_required').prop('disabled', false);
 
 
                                     $('#Investigations_details').hide();
@@ -1824,21 +1830,21 @@
                                 // }
                             });
                         });
-                        $(document).ready(function() {
-                            $('#Investigation_required').change(function() {
-                                var selectedValue = $(this).val();
-                                if (selectedValue === 'yes') {
-                                    $('#Investigations_details').show();
-                                    $('textarea[name="Investigations_details"]').prop('required', true);
-                                } else {
-                                    $('#Investigations_details').hide();
-                                    $('textarea[name="Investigations_details"]').prop('required', false);
-                                }
-                            });
+                        // $(document).ready(function() {
+                        //     $('#Investigation_required').change(function() {
+                        //         var selectedValue = $(this).val();
+                        //         if (selectedValue === 'yes') {
+                        //             $('#Investigations_details').show();
+                        //             $('textarea[name="Investigations_details"]').prop('required', true);
+                        //         } else {
+                        //             $('#Investigations_details').hide();
+                        //             $('textarea[name="Investigations_details"]').prop('required', false);
+                        //         }
+                        //     });
 
                             // Trigger change event on page load if already selected value is "Recurring"
-                            $('#Investigation_required').change();
-                        });
+                            // $('#Investigation_required').change();
+                        // });
                         $(document).ready(function() {
                             $('#Customer_notification').change(function() {
                                 var selectedValue = $(this).val();
