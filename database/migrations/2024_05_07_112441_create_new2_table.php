@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('objective')->nullable();
             $table->string('scope')->nullable();
             $table->string('imidiate_action')->nullable();
+            $table->string('imidiate_action1')->nullable();
             $table->string('investigation_approach')->nullable();
 
             $table->longtext('attention_issues')->nullable();

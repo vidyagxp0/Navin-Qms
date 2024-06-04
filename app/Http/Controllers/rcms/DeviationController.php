@@ -166,7 +166,6 @@ class DeviationController extends Controller
 
         $deviation->HOD_Remarks = $request->HOD_Remarks;
         $deviation->Deviation_category = $request->Deviation_category;
-        if($request->Deviation_category=='')
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
         $deviation->Investigation_required = $request->Investigation_required;
         $deviation->capa_required = $request->capa_required;
@@ -1482,15 +1481,10 @@ class DeviationController extends Controller
     public function update(Request $request, $id)
     {
         $form_progress = null;
-
-
-        // dd($request->Delay_Justification);
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
         $deviation->Delay_Justification = $request->Delay_Justification;
-        // dd($request->Delay_Justification,
 
-        // $request->initial_file);
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
         {
             $deviation->Investigation_required = "yes";
@@ -1507,8 +1501,6 @@ class DeviationController extends Controller
 
         if ($request->form_name == 'general-open')
         {
-
-            // dd($request->Delay_Justification);
             $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
                 'short_description' => 'required',
@@ -1596,8 +1588,6 @@ class DeviationController extends Controller
                     },
                 ],
             ], [
-                // 'short_description_required.required' => 'Nature of Repeat required!',
-                // 'nature_of_repeat.required' =>  'The nature of repeat field is required when nature of repeat is Recurring.',
                 'audit_type' => 'Deviation related to field required!'
             ]);
 
@@ -1616,13 +1606,9 @@ class DeviationController extends Controller
         if ($request->form_name == 'qa')
         {
             $validator = Validator::make($request->all(), [
-                // 'Deviation_category' => 'required|not_in:0',
                 'Justification_for_categorization' => 'required',
                 'short_description_required' => 'required|in:Recurring,Non_Recurring',
                 'nature_of_repeat' => 'required_if:short_description_required,Recurring',
-                // 'Investigation_required' => 'required|in:yes,no|not_in:0',
-                // 'capa_required' => 'required|in:yes,no|not_in:0',
-                // 'qrm_required' => 'required|in:yes,no|not_in:0',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
                 'QAInitialRemark' => 'required'
             ], [
@@ -1802,9 +1788,10 @@ class DeviationController extends Controller
             $deviation->capa_type = $request->capa_type;
         }
 
+        $deviation->Deviation_category = !empty($request->Deviation_category) ? $request->Deviation_category : $deviation->Deviation_category;
         $deviation->CAPA_Description = !empty($request->CAPA_Description) ? $request->CAPA_Description : $deviation->CAPA_Description;
         $deviation->Post_Categorization = !empty($request->Post_Categorization) ? $request->Post_Categorization : $deviation->Post_Categorization;
-        $deviation->Investigation_Of_Review = $request->Investigation_Of_Review;
+        $deviation->Investigation_Of_Review = !empty($request->Investigation_Of_Review) ? $request->Investigation_Of_Review : $deviation->Investigation_Of_Review;
         $deviation->QA_Feedbacks = $request->has('QA_Feedbacks') ? $request->QA_Feedbacks : $deviation->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
@@ -1817,7 +1804,7 @@ class DeviationController extends Controller
             // $deviation->Investigation_required = $request->Investigation_required;
             // $deviation->capa_required = $request->capa_required;
             // $deviation->qrm_required = $request->qrm_required;
-            $deviation->Deviation_category = $request->Deviation_category;
+            // $deviation->Deviation_category = $request->Deviation_category;
             $deviation->QAInitialRemark = $request->QAInitialRemark;
             // $deviation->customers = $request->customers;
         }
@@ -2392,12 +2379,13 @@ class DeviationController extends Controller
         }
     if($deviation->stage > 0){
 
-
         //investiocation dynamic
         $deviation->Discription_Event = $request->Discription_Event;
         $deviation->objective = $request->objective;
         $deviation->scope = $request->scope;
         $deviation->imidiate_action = $request->imidiate_action;
+        $deviation->imidiate_action1 = $request->imidiate_action1;
+        // dd($deviation->imidiate_action1);
         $deviation->investigation_approach = is_array($request->investigation_approach) ? implode(',', $request->investigation_approach) : '';
         $deviation->attention_issues = $request->attention_issues;
         $deviation->attention_actions = $request->attention_actions;
