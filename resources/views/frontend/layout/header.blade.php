@@ -48,8 +48,8 @@
         }
         .button_theme1 {
     height: 35px;
-    padding: 4px 15px;
-    font-size: 0.9rem;
+    padding: 4px 7px;
+    font-size: 0.7rem;
     border: none;
     outline: none;
     color: #fff;

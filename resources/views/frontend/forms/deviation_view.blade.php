@@ -689,17 +689,20 @@
                                 Send to QA Initial Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                Initiator Updated Complete
+                                Investigation Created
                             </button>
                             @elseif($data->stage == 8 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                                Send to HOD Review
+                            </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
-                            Send to Pending Initiator Update
+                            Send to Pending Investigation Creation
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            HOD Final Review Complete
+                            HOD Investigation Review Complete
                             </button>
                         @elseif($data->stage == 9 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
@@ -709,15 +712,13 @@
                                 Send to HOD Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
-                                Send to Pending Initiator Update
+                                Send to Pending Investigation Creation
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             QA Final Review Complete
                             </button>
                         @elseif($data->stage == 10 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
-                                Send to Opened
-                            </button>
+                            
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
                                 Send to HOD Review
                             </button>
@@ -725,10 +726,13 @@
                                 Send to QA Initial Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
-                            Send to Pending Initiator Update
+                            Send to Pending Investigation Creation
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
+                                Send to Final Investigation Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            QA Final Approval Complete
+                            QA Head Final Approval Complete
                             </button>
                         
                         @endif
@@ -783,24 +787,24 @@
                                 <div class="">QA Head/Manager Designee Approval</div>
                             @endif
                             @if ($data->stage >= 7)
-                                <div class="active">Pending Initiator Update</div>
+                                <div class="active">Pending Investigation Creation</div>
                             @else
-                                <div class="">Pending Initiator Update</div>
+                                <div class="">Pending Investigation Creation</div>
                             @endif
                             @if ($data->stage >= 8)
-                                <div class="active">HOD Final Review</div>
+                                <div class="active">Investigation Review</div>
                             @else
-                                <div class="">HOD Final Review</div>
+                                <div class="">Investigation Review</div>
                             @endif
                             @if ($data->stage >= 9)
-                                <div class="active">QA Final Review</div>
+                                <div class="active">Final Investigation Review</div>
                             @else
-                                <div class="">QA Final Review</div>
+                                <div class="">Final Investigation Review</div>
                             @endif
                             @if ($data->stage >= 10)
-                                <div class="active">QA Final Approval</div>
+                                <div class="active">QA Head Final Approval</div>
                             @else
-                                <div class="">QA Final Approval</div>
+                                <div class="">QA Head Final Approval</div>
                             @endif
                             @if ($data->stage >= 11)
                                 <div class="bg-danger">Closed - Done</div>
@@ -12099,7 +12103,7 @@
                             </div>
 
                             <div style="background: #0000ff1f;" class="mini_buttons">
-                                Pending Initiator Update
+                                Pending Investigation Creation
                             </div>
                             <div class="down-logo">
                                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
@@ -12107,7 +12111,23 @@
                             </div>
 
                             <div style="background: #0000ff1f;" class="mini_buttons">
-                                QA Final Approval
+                                Investigation Review
+                            </div>
+                            <div class="down-logo">
+                                <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
+                                    class="w-100 h-100">
+                            </div>
+
+                            <div style="background: #0000ff1f;" class="mini_buttons">
+                                Final Investigation Review
+                            </div>
+                            <div class="down-logo">
+                                <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
+                                    class="w-100 h-100">
+                            </div>
+
+                            <div style="background: #0000ff1f;" class="mini_buttons">
+                                QA Head Final Approval
                             </div>
                             <div class="down-logo">
                                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
