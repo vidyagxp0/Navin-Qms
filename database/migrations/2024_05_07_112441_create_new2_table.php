@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('deviations', function (Blueprint $table) {
-            $table->string('Discription_Event')->nullable();
-            $table->string('objective')->nullable();
-            $table->string('scope')->nullable();
-            $table->string('imidiate_action')->nullable();
-            $table->string('imidiate_action1')->nullable();
-            $table->string('investigation_approach')->nullable();
+            $table->longtext('Discription_Event')->nullable();
+            $table->longtext('objective')->nullable();
+            $table->longtext('scope')->nullable();
+            $table->longtext('imidiate_action')->nullable();
+            $table->longtext('imidiate_action1')->nullable();
+            // $table->longtext('investigation_approach')->nullable();
 
             $table->longtext('attention_issues')->nullable();
             $table->longtext('attention_actions')->nullable();

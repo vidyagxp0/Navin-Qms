@@ -15,7 +15,7 @@ function addMultipleFiles(input, block_id) {
 
         let viewLink = document.createElement("a");
         viewLink.href = URL.createObjectURL(files[i]);
-        viewLink.textContent = "View";
+        viewLink.textContent = "<View>";
         viewLink.addEventListener('click', function(e) {
             e.preventDefault();
             window.open(viewLink.href, '_blank');
@@ -23,7 +23,7 @@ function addMultipleFiles(input, block_id) {
 
         let removeLink = document.createElement("a");
         removeLink.className = 'remove-file';
-        removeLink.textContent = "Remove";
+        removeLink.textContent = "<Remove>";
         removeLink.addEventListener('click', function() {
             div.remove(); // Remove the parent div when remove link is clicked
         });

@@ -931,7 +931,7 @@
                     <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
                     <button class="cctablinks " id="Investigation_button" onclick="openCity(event, 'CCForm9')" style="display: none">Investigation</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                    <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button>
+                    {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button> --}}
 
                     <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
                 </div>
@@ -1050,7 +1050,7 @@
                                         </div>
                                         <input readonly type="text"
                                             value="{{ Helpers::getdateFormat($data->due_date) }}"
-                                            name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}>
+                                            name="due_date"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : ''}}>
                                         {{-- <input type="text" value="{{ $data->due_date }}" name="due_date">
                                         {{-- <div class="static"> {{ $due_date }}</div>
 
@@ -1138,7 +1138,7 @@
                                             <label for="Short Description">Short Description<span class="text-danger">
                                                     *</span></label><span id="rchars">255</span>characters remaining
                                             <textarea name="short_description"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="docname"
-                                                type="text" maxlength="255" required {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>{{ $data->short_description }}</textarea>
+                                                type="text" maxlength="255" required {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>{{ $data->short_description }}</textarea>
                                         </div>
                                         @error('short_description')
                                             <div class="text-danger">{{ $message }}</div>
@@ -1670,7 +1670,7 @@
                                                         @foreach (unserialize($grid_data1->ReferenceDocumentName) as $key => $temps)
                                                             <tr>
                                                                 <td><input disabled type="text"
-                                                                        name="serial[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                                        name="serial[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                                         value="{{ $key + 1 }}"></td>
                                                                 <td><input class="numberDetail" type="text"
                                                                         name="Number[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -2007,7 +2007,7 @@
                                                 <div class="add-btn">
                                                     <div>Add</div>
                                                     <input
-                                                        {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                        {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                         type="file" id="HOD_Attachments"
                                                         name="initial_file[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                         oninput="addMultipleFiles(this, 'initial_file')" multiple>
@@ -2102,7 +2102,7 @@
                                                     <div class="add-btn">
                                                         <div>Add</div>
                                                         <input
-                                                            {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                            {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                             type="file" id="HOD_Attachments"
                                                             name="Audit_file[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                             oninput="addMultipleFiles(this, 'Audit_file')" multiple>
@@ -2135,7 +2135,7 @@
                                                     <div class="add-btn">
                                                         <div>Add</div>
                                                         <input disabled
-                                                            {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                            {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                             type="file" id="HOD_Attachments"
                                                             name="Audit_file[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                             oninput="addMultipleFiles(this, 'Audit_file')" multiple>
@@ -2160,7 +2160,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} type="file" id="HOD_Attachments" name="Audit_file[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Audit_file')"
                                                     multiple>
                                             </div>
@@ -2199,13 +2199,13 @@
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white"> Exit </a>
                                         </button>
-                                        @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                                        {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                                 class="button  launch_extension" data-bs-toggle="modal"
                                                 data-bs-target="#launch_extension">
                                                 Launch Extension
                                             </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -2636,34 +2636,7 @@
                                         }
                                     }
                                 </script>
-                                    @if ($data->stage == 3)
-                                        <div class="col-md-12">
-                                            <div class="group-input">
-                                                <label for="Justification for  categorization">Justification for
-                                                    categorization <span class="text-danger">*</span></label>
-                                                <div><small class="text-primary">Please insert "NA" in the data field if it
-                                                        does not require completion</small></div>
-                                                <textarea class="tiny Justification_for_categorization"
-                                                    name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                    id="summernote-5" required>{{ $data->Justification_for_categorization }}</textarea>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="col-md-12">
-                                            <div class="group-input">
-                                                <label for="Justification for  categorization">Justification for
-                                                    categorization</label>
-                                                <div><small class="text-primary">Please insert "NA" in the data field if it
-                                                        does not require completion</small></div>
-                                                <textarea class="tiny Justification_for_categorization"
-                                                    name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                    id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @error('Justification_for_categorization')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
 
                                     <div class="col-md-12">
                                         <div class="group-input" id="investigation_details_block" style="display: none">
@@ -2962,20 +2935,7 @@
                                         @enderror
                                     </div> --}}
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="group-input">
-                                        <label for="Justification for  categorization">Justification for
-                                            categorization</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                                not require completion</small></div>
-                                        <textarea disabled class="tiny"
-                                            name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                            id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
-                                    </div>
-                                    @error('Justification_for_categorization')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                
 
                                 {{-- <div class="col-lg-12">
                                     <div class="group-input">
@@ -3167,13 +3127,13 @@
                                     class="nextButton" onclick="nextStep()">Next</button>
                                 <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                                        {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                         <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -3345,7 +3305,7 @@
                                                 </div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
-                                                    <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                    <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                         type="file" id="myfile"
                                                         name="production_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                         oninput="addMultipleFiles(this, 'production_attachment')" multiple>
@@ -3520,7 +3480,7 @@
                                                 <div class="add-btn">
                                                     <div>Add</div>
                                                     <input disabled
-                                                        {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                        {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                         type="file" id="myfile" name="production_attachment[]"
                                                         oninput="addMultipleFiles(this, 'production_attachment')"
                                                         multiple>
@@ -3669,7 +3629,7 @@
                                                 </div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
-                                                    <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                    <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                         type="file" id="myfile" name="Warehouse_attachment[]"
                                                         oninput="addMultipleFiles(this, 'Warehouse_attachment')" multiple>
                                                 </div>
@@ -3832,7 +3792,7 @@
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                            <input disabled {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 type="file" id="myfile" name="Warehouse_attachment[]"
                                                 oninput="addMultipleFiles(this, 'Warehouse_attachment')" multiple>
                                         </div>
@@ -3997,7 +3957,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Quality_Control_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Quality_Control_attachment')"
                                                     multiple>
@@ -4162,7 +4122,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Quality_Assurance_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Quality_Assurance_attachment')"
@@ -4326,7 +4286,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Engineering_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Engineering_attachment')" multiple>
                                             </div>
@@ -4492,7 +4452,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Analytical_Development_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Analytical_Development_attachment')"
@@ -4655,7 +4615,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Kilo_Lab_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Kilo_Lab_attachment')" multiple>
                                             </div>
@@ -4819,7 +4779,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Technology_transfer_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Technology_transfer_attachment')"
@@ -4986,7 +4946,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Environment_Health_Safety_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Environment_Health_Safety_attachment')"
@@ -5151,7 +5111,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Human_Resource_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Human_Resource_attachment')"
                                                     multiple>
@@ -5480,7 +5440,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Project_management_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Project_management_attachment')"
@@ -5597,7 +5557,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Quality_Control_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Quality_Control_attachment')"
                                                     multiple>
@@ -5706,7 +5666,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Quality_Assurance_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Quality_Assurance_attachment')"
@@ -5814,7 +5774,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Engineering_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Engineering_attachment')" multiple>
                                             </div>
@@ -5929,7 +5889,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Analytical_Development_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Analytical_Development_attachment')"
@@ -6040,7 +6000,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Kilo_Lab_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Kilo_Lab_attachment')" multiple>
                                             </div>
@@ -6153,7 +6113,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Technology_transfer_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Technology_transfer_attachment')"
@@ -6267,7 +6227,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Environment_Health_Safety_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Environment_Health_Safety_attachment')"
@@ -6498,7 +6458,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Information_Technology_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Information_Technology_attachment')"
@@ -6610,7 +6570,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile"
                                                     name="Project_management_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Project_management_attachment')"
@@ -6646,6 +6606,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Other1_review !== 'yes')
+
                                         $('.other1_reviews').hide();
 
                                         $('[name="Other1_review"]').change(function() {
@@ -6657,8 +6619,11 @@
                                                 $('.other1_reviews span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
+                                
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Review Required1"> Other's 1 Review Required? </label>
@@ -6817,7 +6782,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other1_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other1_attachment')" multiple>
                                             </div>
@@ -6845,6 +6810,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Other2_review !== 'yes')
+
                                         $('.Other2_reviews').hide();
 
                                         $('[name="Other2_review"]').change(function() {
@@ -6856,6 +6823,8 @@
                                                 $('.Other2_reviews span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -7013,7 +6982,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other2_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other2_attachment')" multiple>
                                             </div>
@@ -7041,6 +7010,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Other3_review !== 'yes')
+
                                         $('.Other3_reviews').hide();
 
                                         $('[name="Other3_review"]').change(function() {
@@ -7052,6 +7023,8 @@
                                                 $('.Other3_reviews span').hide();
                                             }
                                         });
+                                        @endif
+
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -7211,7 +7184,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other3_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other3_attachment')" multiple>
                                             </div>
@@ -7238,6 +7211,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Other4_review !== 'yes')
+
                                         $('.Other4_reviews').hide();
 
                                         $('[name="Other4_review"]').change(function() {
@@ -7249,6 +7224,7 @@
                                                 $('.Other4_reviews span').hide();
                                             }
                                         });
+                                        @endif
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -7406,7 +7382,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other4_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other4_attachment')" multiple>
                                             </div>
@@ -7437,6 +7413,8 @@
                                 </div>
                                 <script>
                                     $(document).ready(function() {
+                                        @if($data1->Other5_review !== 'yes')
+
                                         $('.Other5_reviews').hide();
 
                                         $('[name="Other5_review"]').change(function() {
@@ -7448,6 +7426,7 @@
                                                 $('.Other5_reviews span').hide();
                                             }
                                         });
+                                        @endif
                                     });
                                 </script>
                                 <div class="col-lg-6">
@@ -7621,7 +7600,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other5_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other5_attachment')" multiple>
                                             </div>
@@ -7752,7 +7731,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other1_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other1_attachment')" multiple>
                                             </div>
@@ -7898,7 +7877,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other2_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other2_attachment')" multiple>
                                             </div>
@@ -8044,7 +8023,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other3_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other3_attachment')" multiple>
                                             </div>
@@ -8187,7 +8166,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other4_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other4_attachment')" multiple>
                                             </div>
@@ -8350,7 +8329,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other5_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other5_attachment')" multiple>
                                             </div>
@@ -8381,13 +8360,13 @@
                                 id="ChangeNextButton" class="nextButton">Next</button>
                             <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                     Exit </a> </button>
-                                    @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                                    {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                     <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -8782,7 +8761,7 @@
                                                         <td>
                                                             <input type="text" class="Document_Remarks" name="rootCause[{{ $loop->index }}][remarks]" value="{{ array_key_exists('remarks', $root_cause_dat) ? $root_cause_dat['remarks'] : '' }}">
                                                         </td>
-                                                        <td><input type="text" class="Removebtn" name="Action[]"></td>
+                                                        <td><input type="text" readonly class="Removebtn" name="Action[]"></td>
                                                     </tr>
                                                     @endforeach
                                                 @else
@@ -9546,13 +9525,13 @@
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
-                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                            {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10063,13 +10042,13 @@
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
-                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                            {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10331,7 +10310,7 @@
                                 <div>Add</div>
                                 <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
                                     oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value=""
-                                    {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
+                                    {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
                             </div>
                         </div>
                     </div>
@@ -10355,7 +10334,7 @@
                                 <div>Add</div>
                                 <input  type="file" id="CAPA_Closure_attachment" name="CAPA_Closure_attachment[]"
                                     oninput="addMultipleFiles(this, 'CAPA_Closure_attachment')" value=""
-                                    {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
+                                    {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} {{ $data->stage == 0 || $data->stage == 2 ? 'disabled' : '' }} multiple>
                             </div>
                         </div>
                     </div>
@@ -10380,13 +10359,13 @@
                 <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                 <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                         Exit </a> </button>
-                        @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                        {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                         <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10681,7 +10660,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                <input disabled {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} type="file" id="myfile" name="Investigation_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Investigation_attachment')"
                                                     multiple>
                                             </div>
@@ -10707,7 +10686,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input disabled {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                <input disabled {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} type="file" id="myfile" name="Capa_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Capa_attachment')"
                                                     multiple>
                                             </div>
@@ -10740,27 +10719,42 @@
                     <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                         <div class="group-input input-date">
                             <label for="Deviation category">Initial Deviation category <span
-                                                            class="text-danger">*</span></label>
-                                                    <select id="Deviation_category11"
-                                                        name="Deviation_category"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                        value="{{ $data->Deviation_category }}"
-                                                        onchange="handleDeviationCategoryChange11()" required>
-                                                        <option value="0">-- Select --</option>
-                                                        <option @if ($data->Deviation_category == 'minor') selected @endif
-                                                            value="minor">Minor</option>
-                                                        <option @if ($data->Deviation_category == 'major') selected @endif
-                                                            value="major">Major</option>
-                                                        <option @if ($data->Deviation_category == 'critical') selected @endif
-                                                            value="critical">Critical</option>
-                                                    </select>
+                            class="text-danger">*</span></label>
+                            <select id="Deviation_category11"
+                                name="Deviation_category"{{ $data->stage == 0 || $data->stage == 11 || $data->stage != 5 ? 'disabled' : '' }}
+                                value="{{ $data->Deviation_category }}"
+                                onchange="handleDeviationCategoryChange11()" required>
+                                <option value="0">-- Select --</option>
+                                <option @if ($data->Deviation_category == 'minor') selected @endif
+                                    value="minor">Minor</option>
+                                <option @if ($data->Deviation_category == 'major') selected @endif
+                                    value="major">Major</option>
+                                <option @if ($data->Deviation_category == 'critical') selected @endif
+                                    value="critical">Critical</option>
+                            </select>
                         </div>
                     </div>
+                
+
+                <div class="col-md-12">
+                    <div class="group-input">
+                        <label for="Justification for categorization">Justification for categorization</label>
+                        <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                not require completion</small></div>
+                        <textarea class="tiny"
+                            name="Justification_for_categorization"{{ $data->stage == 0 || $data->stage == 11 || $data->stage != 5 ? 'disabled' : '' }}
+                            id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
+                    </div>
+                    @error('Justification_for_categorization')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
                     <div class="col-lg-12">
                         <div class="group-input">
                                             <label for="Investigation required">Investigation Required? <span
                                                     class="text-danger">*</span></label>
                                             <select
-                                                name="Investigation_required"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                name="Investigation_required"{{ $data->stage == 0 || $data->stage == 11 || $data->stage != 5 ? 'disabled' : '' }}
                                                 id="Investigation_required" value="{{ $data->Investigation_required }}">
                                                 <option value="select">-- Select --</option>
                                                 <option @if ($data->Investigation_required == 'yes') selected @endif value='yes'>
@@ -10782,13 +10776,13 @@
                             if (selectedOption === "major" || selectedOption === "critical") {
                                     // If "Major" or "Critical" is selected, set default value to "yes" for all Investigation, CAPA, and QRM fields
                                     document.getElementById("Investigation_required").value = "yes";
-                                    document.getElementById("capa_required").value = "yes";
-                                    document.getElementById("qrm_required").value = "yes";
+                                    // document.getElementById("capa_required").value = "yes";
+                                    // document.getElementById("qrm_required").value = "yes";
 
                                     // Show the Investigation, CAPA, and QRM buttons
                                     document.getElementById("Investigation_button").style.display = "block";
-                                    document.getElementById("CAPA_button").style.display = "block";
-                                    document.getElementById("QRM_button").style.display = "block";
+                                    // document.getElementById("CAPA_button").style.display = "block";
+                                    // document.getElementById("QRM_button").style.display = "block";
                                 } else {
                                     // If any other option is selected, set default value to "select" for all Investigation, CAPA, and QRM fields
                                     document.getElementById("Investigation_required").value = "select";
@@ -10891,13 +10885,13 @@
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
 
-                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                            {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -10949,14 +10943,14 @@
                     <div class="col-md-12">
                         <div class="group-input">
                             <label for="Closure Comments">Closure Comments <span class="text-danger">
-                                    @if ($data->stage == 6)
+                                    @if ($data->stage == 10)
                                         *
                                     @else
                                     @endif
                                 </span></label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea @if ($data->stage != 6) disabled @endif required class="tiny"
+                            <textarea @if ($data->stage != 10) readonly @endif required class="tiny"
                                 name="Closure_Comments"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-15">{{ $data->Closure_Comments }}</textarea>
                         </div>
                         @error('Closure_Comments')
@@ -10966,14 +10960,14 @@
                     <div class="col-md-12">
                         <div class="group-input">
                             <label for="Disposition of Batch">Disposition of Batch <span class="text-danger">
-                                    @if ($data->stage == 6)
+                                    @if ($data->stage == 10)
                                         *
                                     @else
                                     @endif
                                 </span></label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea @if ($data->stage != 6) readonly @endif required class="tiny"
+                            <textarea @if ($data->stage != 10) readonly @endif required class="tiny"
                                 name="Disposition_Batch"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
                         </div>
                         @error('Disposition_Batch')
@@ -11030,13 +11024,13 @@
                         class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
-                            @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
+                            {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
                                         </a>
-                                        @endif
+                                        @endif --}}
                                         <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -11045,7 +11039,7 @@
             </div>
         </div>
         <!-- Effectiveness Check-->
-
+{{-- 
         <div id="CCForm12" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
@@ -11138,7 +11132,6 @@
                         </div>
                     @endif
 
-                    <!-- CAPA EXTENSION START -->
                     <div class="sub-head">
                         CAPA Extension
                     </div>
@@ -11231,10 +11224,7 @@
                         @endif
 
                     </div>
-                    <!-- CAPA EXTENSION ENDS -->
-
-
-                    <!-- QRM EXTENSION START -->
+                  
                     <div class="sub-head">
                         Quality Risk Management Extension
                     </div>
@@ -11325,10 +11315,7 @@
                             </div>
                         @endif
                     </div>
-                    <!-- QRM EXTENSION START -->
-
-
-                     <!-- Investigation EXTENSION START -->
+                   
 
                     <div class="sub-head">
                         Investigation Extension
@@ -11419,7 +11406,7 @@
                                 </div>
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
                     <!-- Investigation EXTENSION START -->
 
 
@@ -11803,7 +11790,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                    </div>
+                    {{-- </div>
 
                     <div class="button-block">
                         <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
@@ -11820,14 +11807,14 @@
                                             Launch Extension
                                         </a>
                                         @endif
-                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
+                                       <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
-                                        </a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
 
 
 
@@ -11995,7 +11982,7 @@
                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                             class="backButton">Back</button>
                     </a>
-                    <button type="submit"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>Submit</button>
+                    {{-- <button type="submit"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>Submit</button> --}}
                     <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}> <a
                             href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>

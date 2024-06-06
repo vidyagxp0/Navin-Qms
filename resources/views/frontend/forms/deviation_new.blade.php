@@ -1461,11 +1461,11 @@
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -1737,11 +1737,11 @@
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"  class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -3924,11 +3924,11 @@
                                     onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -4607,11 +4607,11 @@
                                 <button type="button" class="nextButton" style=" justify-content: center; width: 4rem; margin-left: auto;" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -4811,11 +4811,11 @@
                                 <button type="button"  style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -5064,11 +5064,11 @@
                                     <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" > <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
-                                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
-                                        </a>
+                                        </a> --}}
                                         {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check
@@ -5259,11 +5259,11 @@
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -5339,11 +5339,11 @@
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#launch_extension">
                                         Launch Extension
-                                    </a>
+                                    </a> --}}
                                     {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                         data-bs-target="#effectivenss_extension">
                                         Launch Effectiveness Check
@@ -6027,11 +6027,11 @@
                                     <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
-                                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
+                                            {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                             class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#launch_extension">
                                             Launch Extension
-                                        </a>
+                                        </a> --}}
                                         {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
                                             data-bs-target="#effectivenss_extension">
                                             Launch Effectiveness Check

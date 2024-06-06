@@ -1606,7 +1606,7 @@ class DeviationController extends Controller
         if ($request->form_name == 'qa')
         {
             $validator = Validator::make($request->all(), [
-                'Justification_for_categorization' => 'required',
+                // 'Justification_for_categorization' => 'required',
                 'short_description_required' => 'required|in:Recurring,Non_Recurring',
                 'nature_of_repeat' => 'required_if:short_description_required,Recurring',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
@@ -1706,18 +1706,21 @@ class DeviationController extends Controller
 
         if ($request->form_name == 'qah')
         {
-            $validator = Validator::make($request->all(), [
-                'Closure_Comments' => 'required',
-                'Disposition_Batch' => 'required',
-            ]);
-
-            if ($validator->fails()) {
-                return back()
-                    ->withErrors($validator)
-                    ->withInput();
-            } else {
-                $form_progress = 'qah';
+            if($deviation->stage == 10){
+                $validator = Validator::make($request->all(), [
+                    'Closure_Comments' => 'required',
+                    'Disposition_Batch' => 'required',
+                ]);
+    
+                if ($validator->fails()) {
+                    return back()
+                        ->withErrors($validator)
+                        ->withInput();
+                } else {
+                    $form_progress = 'qah';
+                }
             }
+           
         }
 
         $deviation->assign_to = $request->assign_to;
@@ -3801,23 +3804,23 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 6) {
 
-                if ($deviation->form_progress !== 'qah')
-                {
+                // if ($deviation->form_progress !== 'qah')
+                // {
 
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields!',
-                        'message' => 'QAH/Designee Approval Tab is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields!',
+                //         'message' => 'QAH/Designee Approval Tab is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Deviation sent to Intiator Update'
-                    ]);
-                }
+                //     return redirect()->back();
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Deviation sent to Intiator Update'
+                //     ]);
+                // }
 
                 $extension = Extension::where('parent_id', $deviation->id)->first();
 
@@ -3891,56 +3894,6 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 7) {
-
-                if ($deviation->form_progress !== 'qah')
-                {
-
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields!',
-                        'message' => 'QAH/Designee Approval Tab is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
-
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Deviation sent to next stage.'
-                    ]);
-                }
-
-                $extension = Extension::where('parent_id', $deviation->id)->first();
-
-                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
-
-                if ($extension && $extension->status !== 'Closed-Done') {
-                    Session::flash('swal', [
-                        'title' => 'Extension record pending!',
-                        'message' => 'There is an Extension record which is yet to be closed/done!',
-                        'type' => 'warning',
-                    ]);
-
-                    return redirect()->back();
-                }
-
-                if ($rca && $rca->status !== 'Closed-Done') {
-                    Session::flash('swal', [
-                        'title' => 'RCA record pending!',
-                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
-                        'type' => 'warning',
-                    ]);
-
-                    return redirect()->back();
-                }
-
-                // return "PAUSE";
-
-                // $deviation->stage = "8";
-                // $deviation->status = "QA Final Approval";
-                // $deviation->Approved_By = Auth::user()->name;
-                // $deviation->Approved_On = Carbon::now()->format('d-M-Y');
-                // $deviation->Approved_Comments = $request->comment;
 
                 $deviation->stage = "8";
                 $deviation->status = "HOD Final Review";
@@ -4036,6 +3989,22 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 9) {
+                if ($deviation->form_progress !== 'general-open')
+                {
+                    Session::flash('swal', [
+                        'type' => 'warning',
+                        'title' => 'Mandatory Fields!',
+                        'message' => 'General Information Tab is yet to be filled'
+                    ]);
+
+                    return redirect()->back();
+                } else {
+                    Session::flash('swal', [
+                        'type' => 'success',
+                        'title' => 'Success',
+                        'message' => 'Sent for HOD review state'
+                    ]);
+                }
                 $deviation->stage = "10";
                 $deviation->status = "QA Final Approval";
                 $deviation->Approved_By = Auth::user()->name;
