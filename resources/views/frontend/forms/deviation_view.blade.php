@@ -1015,7 +1015,7 @@
                                                 <input readonly type="text"
                                                     value="{{ Helpers::getdateFormat($data->due_date) }}"
                                                     name="due_date" />
-                                                <input type="date" name="due_date"
+                                                <input type="date" readonly name="due_date"
                                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                     oninput="handleDateInput(this, 'due_date')" />
                                             </div>

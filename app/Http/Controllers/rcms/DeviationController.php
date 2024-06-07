@@ -2387,10 +2387,7 @@ class DeviationController extends Controller
         $deviation->objective = $request->objective;
         $deviation->scope = $request->scope;
         $deviation->imidiate_action = $request->imidiate_action;
-        $deviation->imidiate_action1 = $request->imidiate_action1;
-        // dd($deviation->imidiate_action1);
-        $deviation->investigation_approach = is_array($request->investigation_approach) ? implode(',', $request->investigation_approach) : '';
-        $deviation->attention_issues = $request->attention_issues;
+        $deviation->imidiate_action1 = $request->imidiate_action1; $deviation->attention_issues = $request->attention_issues;
         $deviation->attention_actions = $request->attention_actions;
         $deviation->attention_remarks = $request->attention_remarks;
         $deviation->understanding_issues = $request->understanding_issues;

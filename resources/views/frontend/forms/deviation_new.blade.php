@@ -572,7 +572,7 @@
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button>
+                {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button> --}}
 
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
@@ -647,7 +647,7 @@
                                                 reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
                                             <input type="text" id="due_date_display" readonly placeholder="DD/MM/YYYY" />
-                                            <input type="date" id="due_date" name="due_date"
+                                            <input type="date" id="due_date" name="due_date" readonly
                                                 class="hide-input"
                                                 onchange="handleDateInput(this, 'due_date_display')" />
                                         </div>
