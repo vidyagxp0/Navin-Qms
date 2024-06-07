@@ -1389,11 +1389,11 @@
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Audit_file"></div>
+                                            <div class="file-attachment-list" id="initial_file"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'Audit_file')" multiple>
+                                                <input type="file" id="HOD_Attachments" name="initial_file[]"
+                                                    oninput="addMultipleFiles(this, 'initial_file')" multiple>
                                             </div>
                                         </div>
                                     </div>

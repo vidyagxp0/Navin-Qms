@@ -1369,6 +1369,7 @@
                                                 name="audit_type[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 id="audit_type">
                                                 {{-- <option value="">Enter Your Selection Here</option> --}}
+                                                
                                                 <option
                                                     value="Facility"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     {{ strpos($data->audit_type, 'Facility') !== false ? 'selected' : '' }}>
@@ -1376,8 +1377,8 @@
                                                 <option value="Equipment/Instrument"
                                                     {{ strpos($data->audit_type, 'Equipment/Instrument') !== false ? 'selected' : '' }}>
                                                     Equipment/Instrument</option>
-                                                <option value="Documentationerror"
-                                                    {{ strpos($data->audit_type, 'Documentationerror') !== false ? 'selected' : '' }}>
+                                                <option value="DocError"
+                                                    {{ strpos($data->audit_type, 'DocError') !== false ? 'selected' : '' }}>
                                                     Documentation error</option>
                                                 <option value="STP/ADS_instruction"
                                                     {{ strpos($data->audit_type, 'STP/ADS_instruction') !== false ? 'selected' : '' }}>
@@ -2638,7 +2639,7 @@
                                 </script>
                                   
 
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="group-input" id="investigation_details_block" style="display: none">
                                             <label for="Investigation Details">Investigation Details <span
                                                     id="asteriskInviinvestication"
@@ -2649,14 +2650,12 @@
                                             <textarea class="summernote Investigation_Details"
                                                 name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
-                                            {{-- <span class="error-message" style="color: red; display: none;">Please fill out this field.</span> --}}
 
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
                                                     var selectField = document.getElementById('Investigation_required');
                                                     var inputsToToggle = [];
 
-                                                    // Add elements with class 'facility-name' to inputsToToggle
                                                     var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
                                                     for (var i = 0; i < facilityNameInputs.length; i++) {
                                                         inputsToToggle.push(facilityNameInputs[i]);
@@ -2673,7 +2672,6 @@
 
                                                         document.getElementById('investigation_details_block').style.display = isRequired ?
                                                             'inline' : 'none';
-                                                        // Show or hide the asterisk icon based on the selected value
                                                         var asteriskIcon = document.getElementById('asteriskInviinvestication');
                                                         asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                                     });
@@ -2683,7 +2681,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
                                      <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? <span
@@ -2695,7 +2693,7 @@
                                             <option  @if ($data->Customer_notification == 'no') selected @endif
                                             value="no">No</option>
                                             <option  @if ($data->Customer_notification == 'na') selected @endif
-                                                value="na">Na</option>
+                                                value="na">NA</option>
                                         </select>
                                         @error('Customer_notification')
                                             <div class="text-danger">{{ $message }}</div>
@@ -2953,7 +2951,7 @@
                                         @enderror
                                     </div>
                                 </div>--}}
-                                <div class="col-md-12">
+                                {{-- <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Investigation Details">Investigation Details <span
                                                 id="asteriskInviinvestication" style="display: none"
@@ -2963,7 +2961,6 @@
                                         <textarea disabled class="summernote Investigation_Details"
                                             name="Investigation_Details"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             class="Investigation_Details" id="summernote-6">{{ $data->Investigation_Details }}</textarea>
-                                        {{-- <span class="error-message" style="color: red; display: none;">Please fill out this field.</span> --}}
                                         @error('Investigation_Details')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -2972,34 +2969,22 @@
                                                 var selectField = document.getElementById('Investigation_required');
                                                 var inputsToToggle = [];
 
-                                                // Add elements with class 'facility-name' to inputsToToggle
-                                                // var facilityNameInputs = document.getElementsByClassName('Investigation_Details');
-                                                // for (var i = 0; i < facilityNameInputs.length; i++) {
-                                                //     inputsToToggle.push(facilityNameInputs[i]);
-                                                // }
 
 
                                                 selectField.addEventListener('change', function() {
                                                     var isRequired = this.value === 'yes';
-
-                                                    // inputsToToggle.forEach(function (input) {
-                                                    //     input.required = isRequired;
-                                                    //     console.log(input.required, isRequired, 'input req');
-                                                    // });
-
-                                                    // Show or hide the asterisk icon based on the selected value
                                                     var asteriskIcon = document.getElementById('asteriskInviinvestication');
                                                     asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                                 });
                                             });
                                         </script>
                                     </div>
-                                </div>
-                                {{-- <div class="col-lg-6">
+                                </div> --}}
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? </label>
                                         <select disabled name="Customer_notification"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
-                                            <option value="0">-- Select --</option>
+                                            <option value="">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
                                             <option  @if ($data->Customer_notification == 'no') selected @endif
@@ -3009,7 +2994,7 @@
                                         </select>
 
                                     </div>
-                                </div> --}}
+                                </div>
                                 {{-- <div class="col-5">
                                     <div class="group-input">
                                         @php
@@ -3101,7 +3086,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input disabled type="file" id="myfile"
+                                                <input disabled type="file" 
                                                     name="Initial_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     oninput="addMultipleFiles(this, 'Initial_attachment')" multiple>
                                             </div>
@@ -8376,6 +8361,7 @@
             </div>
         </div>
 
+        
 
         <!-- investigation -->
         <div id="CCForm9" class="inner-block cctabcontent">

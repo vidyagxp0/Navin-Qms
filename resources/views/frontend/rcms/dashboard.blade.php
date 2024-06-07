@@ -192,7 +192,7 @@
                                          <th>Parent ID</th> 
                                         <th style="width: 10%">Division</th>
                                         <th>Process</th>
-                                        <th style="width: 25%" class="td_desc">Short Description</th>
+                                        <th style="width: 10px;" class="td_desc">Short Description</th>
                                         <th style="width: 12%">Date Opened</th>
                                         <th>Originator</th>
                                         <th> Due Date</th>

@@ -1480,6 +1480,10 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        // dd($request->initial_file);  
+
+
         $form_progress = null;
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
@@ -2243,9 +2247,12 @@ class DeviationController extends Controller
             }
             $deviation->Audit_file = json_encode($files);
         }
+
+
+
         if (!empty($request->initial_file)) {
             $files = [];
-
+        
             // Decode existing files if they exist
             if ($deviation->initial_file) {
                 $existingFiles = json_decode($deviation->initial_file, true); // Convert to associative array
@@ -2253,7 +2260,17 @@ class DeviationController extends Controller
                     $files = $existingFiles;
                 }
             }
-
+        
+            // Remove files that were removed in the frontend
+            if ($request->has('removed_files')) {
+                $removedFiles = json_decode($request->removed_files, true);
+                $files = array_diff($files, $removedFiles);
+                // Optionally, delete the files from the server
+                foreach ($removedFiles as $removedFile) {
+                    @unlink('upload/' . $removedFile);
+                }
+            }
+        
             // Process and add new files
             if ($request->hasfile('initial_file')) {
                 foreach ($request->file('initial_file') as $file) {
@@ -2262,7 +2279,7 @@ class DeviationController extends Controller
                     $files[] = $name;
                 }
             }
-
+        
             // Encode the files array and update the model
             $deviation->initial_file = json_encode($files);
         }
