@@ -2397,108 +2397,182 @@ class DeviationController extends Controller
 
             $deviation->closure_attachment = json_encode($files);
         }
-    if($deviation->stage > 0){
+            if($deviation->stage > 0){
 
-        //investiocation dynamic
-        $deviation->Discription_Event = $request->Discription_Event;
-        $deviation->objective = $request->objective;
-        $deviation->scope = $request->scope;
-        $deviation->imidiate_action = $request->imidiate_action;
-        $deviation->imidiate_action1 = $request->imidiate_action1; $deviation->attention_issues = $request->attention_issues;
-        $deviation->attention_actions = $request->attention_actions;
-        $deviation->attention_remarks = $request->attention_remarks;
-        $deviation->understanding_issues = $request->understanding_issues;
-        $deviation->understanding_actions = $request->understanding_actions;
-        $deviation->understanding_remarks = $request->understanding_remarks;
-        $deviation->procedural_issues = $request->procedural_issues;
-        $deviation->procedural_actions = $request->procedural_actions;
-        $deviation->procedural_remarks = $request->procedural_remarks;
-        $deviation->behavioiral_issues = $request->behavioiral_issues;
-        $deviation->behavioiral_actions = $request->behavioiral_actions;
-        $deviation->behavioiral_remarks = $request->behavioiral_remarks;
-        $deviation->skill_issues = $request->skill_issues;
-        $deviation->skill_actions = $request->skill_actions;
-        $deviation->skill_remarks = $request->skill_remarks;
-        $deviation->what_will_be = $request->what_will_be;
-        $deviation->what_will_not_be = $request->what_will_not_be;
-        $deviation->what_rationable = $request->what_rationable;
-        $deviation->where_will_be = $request->where_will_be;
-        $deviation->where_will_not_be = $request->where_will_not_be;
-        $deviation->where_rationable = $request->where_rationable;
-        $deviation->when_will_not_be = $request->when_will_not_be;
-        $deviation->when_will_be = $request->when_will_be;
-        $deviation->when_rationable = $request->when_rationable;
-        $deviation->coverage_will_be = $request->coverage_will_be;
-        $deviation->coverage_will_not_be = $request->coverage_will_not_be;
-        $deviation->coverage_rationable = $request->coverage_rationable;
-        $deviation->who_will_be = $request->who_will_be;
-        $deviation->who_will_not_be = $request->who_will_not_be;
-        $deviation->who_rationable = $request->who_rationable;
+                //investiocation dynamic
+                $deviation->Discription_Event = $request->Discription_Event;
+                $deviation->objective = $request->objective;
+                $deviation->scope = $request->scope;
+                $deviation->imidiate_action = $request->imidiate_action;
+                $deviation->imidiate_action1 = $request->imidiate_action1; $deviation->attention_issues = $request->attention_issues;
+                $deviation->attention_actions = $request->attention_actions;
+                $deviation->attention_remarks = $request->attention_remarks;
+                $deviation->understanding_issues = $request->understanding_issues;
+                $deviation->understanding_actions = $request->understanding_actions;
+                $deviation->understanding_remarks = $request->understanding_remarks;
+                $deviation->procedural_issues = $request->procedural_issues;
+                $deviation->procedural_actions = $request->procedural_actions;
+                $deviation->procedural_remarks = $request->procedural_remarks;
+                $deviation->behavioiral_issues = $request->behavioiral_issues;
+                $deviation->behavioiral_actions = $request->behavioiral_actions;
+                $deviation->behavioiral_remarks = $request->behavioiral_remarks;
+                $deviation->skill_issues = $request->skill_issues;
+                $deviation->skill_actions = $request->skill_actions;
+                $deviation->skill_remarks = $request->skill_remarks;
+                $deviation->what_will_be = $request->what_will_be;
+                $deviation->what_will_not_be = $request->what_will_not_be;
+                $deviation->what_rationable = $request->what_rationable;
+                $deviation->where_will_be = $request->where_will_be;
+                $deviation->where_will_not_be = $request->where_will_not_be;
+                $deviation->where_rationable = $request->where_rationable;
+                $deviation->when_will_not_be = $request->when_will_not_be;
+                $deviation->when_will_be = $request->when_will_be;
+                $deviation->when_rationable = $request->when_rationable;
+                $deviation->coverage_will_be = $request->coverage_will_be;
+                $deviation->coverage_will_not_be = $request->coverage_will_not_be;
+                $deviation->coverage_rationable = $request->coverage_rationable;
+                $deviation->who_will_be = $request->who_will_be;
+                $deviation->who_will_not_be = $request->who_will_not_be;
+                $deviation->who_rationable = $request->who_rationable;
 
-        $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
-        $newDataGridInvestication->deviation_id = $id;
-        $newDataGridInvestication->identifier = 'investication';
-        $newDataGridInvestication->data = $request->investication;
-        $newDataGridInvestication->save();
+                $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
+                $newDataGridInvestication->deviation_id = $id;
+                $newDataGridInvestication->identifier = 'investication';
+                $newDataGridInvestication->data = $request->investication;
+                $newDataGridInvestication->save();
 
-        $newDataGridRCA = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->firstOrCreate();
-        $newDataGridRCA->deviation_id = $id;
-        $newDataGridRCA->identifier = 'rootCause';
-        $newDataGridRCA->data = $request->rootCause;
-        $newDataGridRCA->save();
+                $newDataGridRCA = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->firstOrCreate();
+                $newDataGridRCA->deviation_id = $id;
+                $newDataGridRCA->identifier = 'rootCause';
+                $newDataGridRCA->data = $request->rootCause;
+                $newDataGridRCA->save();
 
-        $newDataGridWhy = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'why'])->firstOrCreate();
-        $newDataGridWhy->deviation_id = $id;
-        $newDataGridWhy->identifier = 'why';
-        $newDataGridWhy->data = $request->why;
-        $newDataGridWhy->save();
+                $newDataGridWhy = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'why'])->firstOrCreate();
+                $newDataGridWhy->deviation_id = $id;
+                $newDataGridWhy->identifier = 'why';
+                $newDataGridWhy->data = $request->why;
+                $newDataGridWhy->save();
 
-        $newDataGridFishbone = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'fishbone'])->firstOrCreate();
-        $newDataGridFishbone->deviation_id = $id;
-        $newDataGridFishbone->identifier = 'fishbone';
-        $newDataGridFishbone->data = $request->fishbone;
-        $newDataGridFishbone->save();
+                $newDataGridFishbone = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'fishbone'])->firstOrCreate();
+                $newDataGridFishbone->deviation_id = $id;
+                $newDataGridFishbone->identifier = 'fishbone';
+                $newDataGridFishbone->data = $request->fishbone;
+                $newDataGridFishbone->save();
 
 
-        // *******************Extension Update********************
+                // *******************Extension Update********************
 
-        // $qrmExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'QRM'])->first();
-        // $qrmExtesnsion->deviation_id = $id;
-        // $qrmExtesnsion->extension_identifier = 'QRM';
-        // $qrmExtesnsion->qrm_proposed_due_date = $qrmExtesnsion->qrm_proposed_due_date;
-        // $qrmExtesnsion->qrm_extension_justification = $qrmExtesnsion->qrm_extension_justification;
-        // $qrmExtesnsion->qrm_extension_completed_by = $qrmExtesnsion->qrm_extension_completed_by;
-        // $qrmExtesnsion->qrm_completed_on = $qrmExtesnsion->qrm_completed_on;
-        // $qrmExtesnsion->save();
+                // $qrmExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'QRM'])->first();
+                // $qrmExtesnsion->deviation_id = $id;
+                // $qrmExtesnsion->extension_identifier = 'QRM';
+                // $qrmExtesnsion->qrm_proposed_due_date = $qrmExtesnsion->qrm_proposed_due_date;
+                // $qrmExtesnsion->qrm_extension_justification = $qrmExtesnsion->qrm_extension_justification;
+                // $qrmExtesnsion->qrm_extension_completed_by = $qrmExtesnsion->qrm_extension_completed_by;
+                // $qrmExtesnsion->qrm_completed_on = $qrmExtesnsion->qrm_completed_on;
+                // $qrmExtesnsion->save();
 
-        // $deviationExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Deviation'])->first();
-        // $deviationExtesnsion->deviation_id = $id;
-        // $deviationExtesnsion->extension_identifier = 'Deviation';
-        // $deviationExtesnsion->dev_proposed_due_date = $deviationExtesnsion->dev_proposed_due_date;
-        // $deviationExtesnsion->dev_extension_justification = $deviationExtesnsion->dev_extension_justification;
-        // $deviationExtesnsion->dev_extension_completed_by = $deviationExtesnsion->dev_extension_completed_by;
-        // $deviationExtesnsion->dev_completed_on = $deviationExtesnsion->dev_completed_on;
-        // $deviationExtesnsion->save();
+                // $deviationExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Deviation'])->first();
+                // $deviationExtesnsion->deviation_id = $id;
+                // $deviationExtesnsion->extension_identifier = 'Deviation';
+                // $deviationExtesnsion->dev_proposed_due_date = $deviationExtesnsion->dev_proposed_due_date;
+                // $deviationExtesnsion->dev_extension_justification = $deviationExtesnsion->dev_extension_justification;
+                // $deviationExtesnsion->dev_extension_completed_by = $deviationExtesnsion->dev_extension_completed_by;
+                // $deviationExtesnsion->dev_completed_on = $deviationExtesnsion->dev_completed_on;
+                // $deviationExtesnsion->save();
 
-        // $capaExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Capa'])->first();
-        // $capaExtesnsion->deviation_id = $id;
-        // $capaExtesnsion->extension_identifier = 'Capa';
-        // $capaExtesnsion->capa_proposed_due_date = $capaExtesnsion->capa_proposed_due_date;
-        // $capaExtesnsion->capa_extension_justification = $capaExtesnsion->capa_extension_justification;
-        // $capaExtesnsion->capa_extension_completed_by = $capaExtesnsion->capa_extension_completed_by;
-        // $capaExtesnsion->capa_completed_on = $capaExtesnsion->capa_completed_on;
-        // $capaExtesnsion->save();
+                // $capaExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Capa'])->first();
+                // $capaExtesnsion->deviation_id = $id;
+                // $capaExtesnsion->extension_identifier = 'Capa';
+                // $capaExtesnsion->capa_proposed_due_date = $capaExtesnsion->capa_proposed_due_date;
+                // $capaExtesnsion->capa_extension_justification = $capaExtesnsion->capa_extension_justification;
+                // $capaExtesnsion->capa_extension_completed_by = $capaExtesnsion->capa_extension_completed_by;
+                // $capaExtesnsion->capa_completed_on = $capaExtesnsion->capa_completed_on;
+                // $capaExtesnsion->save();
 
-        // $investigationExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Investigation'])->first();
-        // $investigationExtesnsion->deviation_id = $id;
-        // $investigationExtesnsion->extension_identifier = 'Investigation';
-        // $investigationExtesnsion->investigation_proposed_due_date = $investigationExtesnsion->investigation_proposed_due_date;
-        // $investigationExtesnsion->investigation_extension_justification = $investigationExtesnsion->investigation_extension_justification;
-        // $investigationExtesnsion->investigation_extension_completed_by = $investigationExtesnsion->investigation_extension_completed_by;
-        // $investigationExtesnsion->investigation_completed_on = $investigationExtesnsion->investigation_completed_on;
-        // $investigationExtesnsion->save();
-}
+                // $investigationExtesnsion = LaunchExtension::where(['deviation_id' => $id, 'extension_identifier' => 'Investigation'])->first();
+                // $investigationExtesnsion->deviation_id = $id;
+                // $investigationExtesnsion->extension_identifier = 'Investigation';
+                // $investigationExtesnsion->investigation_proposed_due_date = $investigationExtesnsion->investigation_proposed_due_date;
+                // $investigationExtesnsion->investigation_extension_justification = $investigationExtesnsion->investigation_extension_justification;
+                // $investigationExtesnsion->investigation_extension_completed_by = $investigationExtesnsion->investigation_extension_completed_by;
+                // $investigationExtesnsion->investigation_completed_on = $investigationExtesnsion->investigation_completed_on;
+                // $investigationExtesnsion->save();
+        }
 
+
+        if($deviation->stage == 7){
+            $deviation->initiator_final_remarks = $request->initiator_final_remarks;
+            // dd($deviation->initiator_final_remarks);
+
+            if (!empty ($request->initiator_final_attachments)) {
+
+                $files = [];
+
+                if ($deviation->initiator_final_attachments) {
+                    $existingFiles = json_decode($deviation->initiator_final_attachments, true); // Convert to associative array
+                    if (is_array($existingFiles)) {
+                        $files = $existingFiles;
+                    }
+                }
+
+                if ($request->hasfile('initiator_final_attachments')) {
+                    foreach ($request->file('initiator_final_attachments') as $file) {
+                        $name = $request->name . 'initiator_final_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                        $file->move('upload/', $name);
+                        $files[] = $name;
+                    }
+                }
+                $deviation->initiator_final_attachments = json_encode($files);
+            }
+        }
+        if($deviation->stage == 8){
+            $deviation->hod_final_remarks = $request->hod_final_remarks;
+
+            if (!empty ($request->hod_final_attachments)) {
+
+                $files = [];
+
+                if ($deviation->hod_final_attachments) {
+                    $existingFiles = json_decode($deviation->hod_final_attachments, true); // Convert to associative array
+                    if (is_array($existingFiles)) {
+                        $files = $existingFiles;
+                    }
+                }
+
+                if ($request->hasfile('hod_final_attachments')) {
+                    foreach ($request->file('hod_final_attachments') as $file) {
+                        $name = $request->name . 'hod_final_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                        $file->move('upload/', $name);
+                        $files[] = $name;
+                    }
+                }
+                $deviation->hod_final_attachments = json_encode($files);
+            }
+        }
+        if($deviation->stage == 9){
+            $deviation->qa_final_remarks = $request->qa_final_remarks;
+
+            if (!empty ($request->qa_final_attachments)) {
+
+                $files = [];
+
+                if ($deviation->qa_final_attachments) {
+                    $existingFiles = json_decode($deviation->qa_final_attachments, true); // Convert to associative array
+                    if (is_array($existingFiles)) {
+                        $files = $existingFiles;
+                    }
+                }
+
+                if ($request->hasfile('qa_final_attachments')) {
+                    foreach ($request->file('qa_final_attachments') as $file) {
+                        $name = $request->name . 'qa_final_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                        $file->move('upload/', $name);
+                        $files[] = $name;
+                    }
+                }
+                $deviation->qa_final_attachments = json_encode($files);
+            }
+        }
 
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
         $deviation->update();
@@ -2545,7 +2619,58 @@ class DeviationController extends Controller
             }
             $data5->update();
 
-
+        
+        if ($lastDeviation->hod_final_remarks != $deviation->hod_final_remarks || !empty ($request->comment)) {
+            // return 'history';
+            $history = new DeviationAuditTrail;
+            $history->deviation_id = $id;
+            $history->activity_type = 'HOD Final Remarks';
+             $history->previous = $lastDeviation->hod_final_remarks;
+            $history->current = $deviation->hod_final_remarks;
+            $history->comment = $deviation->submit_comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
+            $history->action_name = $history->origin_state;
+            $history->save();
+        }
+        if ($lastDeviation->qa_final_remarks != $deviation->qa_final_remarks || !empty ($request->comment)) {
+            // return 'history';
+            $history = new DeviationAuditTrail;
+            $history->deviation_id = $id;
+            $history->activity_type = 'QA Final Remarks';
+             $history->previous = $lastDeviation->qa_final_remarks;
+            $history->current = $deviation->qa_final_remarks;
+            $history->comment = $deviation->submit_comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
+            $history->action_name = $history->origin_state;
+            $history->save();
+        }
+        if ($lastDeviation->initiator_final_remarks != $deviation->initiator_final_remarks || !empty ($request->comment)) {
+            // return 'history';
+            $history = new DeviationAuditTrail;
+            $history->deviation_id = $id;
+            $history->activity_type = 'Initiator Final Remarks';
+             $history->previous = $lastDeviation->initiator_final_remarks;
+            $history->current = $deviation->initiator_final_remarks;
+            $history->comment = $deviation->submit_comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDeviation->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDeviation->status;
+            $history->action_name = $history->origin_state;
+            $history->save();
+        }
         if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
@@ -3764,7 +3889,7 @@ class DeviationController extends Controller
                     Session::flash('swal', [
                         'type' => 'warning',
                         'title' => 'Mandatory Fields!',
-                        'message' => 'Investigation and CAPA / QA Final review Tab is yet to be filled!'
+                        'message' => 'QA Secondary Review Tab is yet to be filled!'
                     ]);
 
                     return redirect()->back();
@@ -4003,22 +4128,22 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 9) {
-                if ($deviation->form_progress !== 'general-open')
-                {
-                    Session::flash('swal', [
-                        'type' => 'warning',
-                        'title' => 'Mandatory Fields!',
-                        'message' => 'General Information Tab is yet to be filled'
-                    ]);
+                // if ($deviation->form_progress !== 'general-open')
+                // {
+                //     Session::flash('swal', [
+                //         'type' => 'warning',
+                //         'title' => 'Mandatory Fields!',
+                //         'message' => 'General Information Tab is yet to be filled'
+                //     ]);
 
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Sent for HOD review state'
-                    ]);
-                }
+                //     return redirect()->back();
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for HOD review state'
+                //     ]);
+                // }
                 $deviation->stage = "10";
                 $deviation->status = "QA Final Approval";
                 $deviation->Approved_By = Auth::user()->name;

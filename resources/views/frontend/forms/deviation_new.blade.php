@@ -570,7 +570,9 @@
                 <button id="CAPA_button" class="cctablinks" style="display: none"
                     onclick="openCity(event, 'CCForm10')">CAPA</button> --}}
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
-                <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Initiator Update</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm4')">HOD Final Review</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm13')">QA Final Review</button>
+
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button> --}}
 
@@ -1403,7 +1405,7 @@
 
                                 <button style="  justify-content: center; width: 4rem; margin-left: auto;" type="submit"
                                     id="ChangesaveButton0011" onclick="submitForm()"
-                                    class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
+                                    class="saveButton saveAuditFormBtn d-flex " style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                                         role="status">
                                         <span class="sr-only">Loading...</span>
@@ -5213,38 +5215,30 @@
                         </div>
                     </div>  --}}
 
-                    <!-- Initiator Update -->
+                    <!-- hod final review -->
                     <div id="CCForm4" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-
-
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="QA Feedbacks">QA Feedbacks</label>
-                                        <textarea class="" name="QA_Feedbacks"></textarea>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
-                                        <label for="QA Feedbacks">Initiator Feedbacks</label>
+                                        <label for="QA Feedbacks">HOD Final Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="QA_Feedbacks" id="summernote-14">
+                                        <textarea class="tiny" name="hod_final_remarks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="QA attachments">Initiator Additional Attachments</label>
+                                        <label for="QA attachments">HOD Final Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="QA_attachments"></div>
+                                            <div class="file-attachment-list" id="hod_final_attachments"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="QA_attachments[]"
-                                                    oninput="addMultipleFiles(this, 'QA_attachments')" multiple>
+                                                <input type="file" id="myfile" name="hod_final_attachments[]"
+                                                    oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
                                             </div>
                                         </div>
                                     </div>
@@ -5259,15 +5253,50 @@
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
-                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
-                                        class="button  launch_extension" data-bs-toggle="modal"
-                                        data-bs-target="#launch_extension">
-                                        Launch Extension
-                                    </a> --}}
-                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
-                                        data-bs-target="#effectivenss_extension">
-                                        Launch Effectiveness Check
-                                    </a> --}}
+                                       
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- QA final review -->
+                     <div id="CCForm13" class="inner-block cctabcontent">
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="QA Feedbacks">QA Final Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                                not require completion</small></div>
+                                        <textarea class="tiny" name="qa_final_remarks" id="summernote-14">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="group-input">
+                                        <label for="QA attachments">QA Final Attachments</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting
+                                                documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="qa_final_attachments"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="qa_final_attachments[]"
+                                                    oninput="addMultipleFiles(this, 'qa_final_attachments')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="button-block">
+                                <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button"  class="backButton">Back</button>
+                                </a>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                                       
                             </div>
                         </div>
                     </div>

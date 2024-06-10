@@ -676,7 +676,7 @@
                                 More Info Required
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                Approved
+                                QAH Primary Approved Completed
                             </button>
                         @elseif($data->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
@@ -746,7 +746,7 @@
                             <div class="bg-danger">Closed-Cancelled</div>
                         </div>
                     @else
-                        <div class="progress-bars" style="font-size: 12px;">
+                        <div class="progress-bars" style="font-size: 11px;">
                             @if ($data->stage >= 1)
                                 <div class="active">Opened</div>
                             @else
@@ -773,14 +773,14 @@
 
 
                             @if ($data->stage >= 5)
-                                <div class="active">QA Final Review</div>
+                                <div class="active">QA Secondary Review</div>
                             @else
-                                <div class="">QA Final Review</div>
+                                <div class="">QA Secondary Review</div>
                             @endif
                             @if ($data->stage >= 6)
-                                <div class="active">QA Head/Manager Designee Approval</div>
+                                <div class="active">QA Head/Manager Designee Primary Approval</div>
                             @else
-                                <div class="">QA Head/Manager Designee Approval</div>
+                                <div class="">QA Head/Manager Designee Primary Approval</div>
                             @endif
                             @if ($data->stage >= 7)
                                 <div class="active">Pending Initiator Update</div>
@@ -928,8 +928,10 @@
                     {{-- <button class="cctablinks " id="QRM_button" onclick="openCity(event, 'CCForm11')" style="display: none">QRM</button>
                     <button class="cctablinks " id="CAPA_button" onclick="openCity(event, 'CCForm10')" style="display: none">CAPA</button>--}}
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
-                    <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Final Review</button>
+                    <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Secondary Review</button>
                     <button class="cctablinks " id="Investigation_button" onclick="openCity(event, 'CCForm9')" style="display: none">Investigation</button>
+                    <button class="cctablinks" onclick="openCity(event, 'CCForm14')">HOD Final Review</button>
+                    <button class="cctablinks" onclick="openCity(event, 'CCForm13')">QA Final Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button> --}}
 
@@ -1379,7 +1381,7 @@
                                                     Equipment/Instrument</option>
                                                 <option value="DocError"
                                                     {{ strpos($data->audit_type, 'DocError') !== false ? 'selected' : '' }}>
-                                                    Documentation error</option>
+                                                    Document</option>
                                                 <option value="STP/ADS_instruction"
                                                     {{ strpos($data->audit_type, 'STP/ADS_instruction') !== false ? 'selected' : '' }}>
                                                     STP/ADS instruction</option>
@@ -2824,7 +2826,7 @@
                                         <label for="Short Description required">Repeat Deviation? <span
                                                 class="text-danger">*</span></label>
                                         <select name="short_description_required"
-                                            {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                            disabled
                                             id="short_description_required" onchange="checkRecurring(this)"
                                             value="{{ $data->short_description_required }}">
                                             <option value="0">-- Select --</option>
@@ -2845,7 +2847,7 @@
                                                 style="display: {{ $data->short_description_required == 'Recurring' ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
                                         <textarea class="nature_of_repeat"
-                                            name="nature_of_repeat"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="nature_of_repeat"
+                                            name="nature_of_repeat" disabled id="nature_of_repeat"
                                             class="nature_of_repeat">{{ $data->nature_of_repeat }}</textarea>
                                     </div>
                                     @error('nature_of_repeat')
@@ -3315,7 +3317,7 @@
                                             <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
                                             <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                            <input type="date"id="production_on"
+                                            <input type="date" readonly id="production_on"
                                                 name="production_on"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 value="{{ $data1->production_on }}">
                                         </div>
@@ -3568,7 +3570,7 @@
                                     </div>
                                     <div class="col-md-12 mb-3 warehouse">
                                         <div class="group-input">
-                                            <label for="Impact Assessment1">Impact Assessment (By Warehouse) <span
+                                            <label for="Impact Assessment1">Impact Assessment sssssss(By Warehouse) <span
                                                     id="asteriskware2"
                                                     style="display: {{ $data1->Warehouse_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                     class="text-danger">*</span></label>
@@ -3578,6 +3580,8 @@
                                                 name="Warehouse_assessment" id="summernote-19" @if ($data->stage == 3 || Auth::user()->id != $data1->Warehouse_notification) readonly @endif>{{ $data1->Warehouse_assessment }}</textarea>
                                         </div>
                                     </div>
+
+                                    {{-- {{ dd($data1->Warehouse_review == 'yes' && $data->stage == 4); }} --}}
                                     {{-- <div class="col-md-12 mb-3 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Feedback">Warehouse Feedback <span id="asteriskware3"
@@ -3658,7 +3662,7 @@
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed By">Warehouse Review Completed
                                                 By</label>
-                                            <input disabled type="text" value="{{ $data1->Warehouse_by }}"
+                                            <input readonly type="text" value="{{ $data1->Warehouse_by }}"
                                                 name="Warehouse_by" id="Warehouse_by">
                                             {{-- <input disabled   type="text" value={{ $data1->Warehouse_by }} name="Warehouse_by" placeholder="Warehouse Review Completed By" id="Warehouse_by" > --}}
 
@@ -3669,7 +3673,7 @@
                                             <label for="Warehouse Review Completed On">Warehouse Review Completed
                                                 On</label>
                                             <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                            <input type="date"id="Warehouse_on" name="Warehouse_on"
+                                            <input type="date"id="Warehouse_on" readonly name="Warehouse_on"
                                                 value="{{ $data1->Warehouse_on }}">
                                         </div>
                                     </div>
@@ -3964,7 +3968,7 @@
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="Quality_Control_on" name="Quality_Control_on"
+                                        <input type="date"id="Quality_Control_on" readonly name="Quality_Control_on"
                                             value="{{ $data1->Quality_Control_on }}">
                                     </div>
                                 </div>
@@ -4129,7 +4133,7 @@
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="QualityAssurance_on" name="QualityAssurance_on"
+                                        <input type="date"id="QualityAssurance_on" readonly name="QualityAssurance_on"
                                             value="{{ $data1->QualityAssurance_on }}">
                                     </div>
                                 </div>
@@ -4293,7 +4297,7 @@
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" id="Engineering_on" name="Engineering_on"
+                                        <input type="date" id="Engineering_on" name="Engineering_on" readonly
                                             value="{{ $data1->Engineering_on }}">
                                     </div>
                                 </div>
@@ -4460,7 +4464,7 @@
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
                                         <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" id="Analytical_Development_on"
+                                        <input type="date" id="Analytical_Development_on" readonly
                                             name="Analytical_Development_on"
                                             value="{{ $data1->Analytical_Development_on }}">
                                     </div>
@@ -4620,7 +4624,7 @@
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
-                                        <input type="date" id="Kilo_Lab_attachment_on"
+                                        <input type="date" id="Kilo_Lab_attachment_on" readonly
                                             name="Kilo_Lab_attachment_on"
                                             value="{{ $data1->Kilo_Lab_attachment_on }}">
 
@@ -4956,7 +4960,7 @@
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
-                                        <input type="date" id="Environment_Health_Safety_on"
+                                        <input type="date" id="Environment_Health_Safety_on" readonly
                                             name="Environment_Health_Safety_on"
                                             value="{{ $data1->Environment_Health_Safety_on }}">
 
@@ -5120,7 +5124,7 @@
                                         <label for="Administration Review Completed On"> Human Resource & Administration
                                             Review Completed On</label>
                                         <input type="date" id="Environment_Health_Safety_on"
-                                            name="Environment_Health_Safety_on"
+                                            name="Environment_Health_Safety_on" readonly
                                             value="{{ $data1->Environment_Health_Safety_on }}">
                                         {{-- <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on"> --}}
                                     </div>
@@ -5286,8 +5290,8 @@
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed On">Information Technology
                                             Review Completed On</label>
-                                        <input type="text" name="Information_Technology_on"
-                                            id="Information_Technology_on"
+                                        <input type="date" name="Information_Technology_on"
+                                            id="Information_Technology_on" readonly
                                             value={{ $data1->Information_Technology_on }}>
                                     </div>
                                 </div>
@@ -5448,7 +5452,7 @@
                                     <div class="group-input">
                                         <label for="Project management Review Completed On">Project management Review
                                             Completed On</label>
-                                        <input type="date" name="Project_management_on" id="Project_management_on"
+                                        <input type="date" name="Project_management_on" id="Project_management_on" readonly
                                             value={{ $data1->Project_management_on }}>
 
 
@@ -6348,7 +6352,7 @@
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration
                                             Review Completed On</label>
-                                        <input type="date" id="Environment_Health_Safety_on"
+                                        <input type="date" id="Environment_Health_Safety_on" readonly
                                             name="Environment_Health_Safety_on"
                                             value="{{ $data1->Environment_Health_Safety_on }}">
                                         {{-- <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on"> --}}
@@ -9500,7 +9504,51 @@
                         </div>
                     </div>
                     --}}
-                    
+                    <div class="sub-head">
+                        Initiator Update
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="QA Feedbacks">Initiator Final Remarks <span style="display: {{ $data->stage == 7 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                    not require completion</small></div>
+                            <textarea class="tiny" {{ $data->stage == 7 ? 'required' : 'disabled' }} name="initiator_final_remarks" id="summernote-14">{{ $data->initiator_final_remarks }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input">
+                            <label for="Inv Attachments">Initiator Final Attachments</label>
+                            <div><small class="text-primary">Please Attach all relevant or supporting
+                                    documents</small></div>
+                            <div class="file-attachment-field">
+                                <div disabled class="file-attachment-list" id="initiator_final_attachments">
+                                    @if ($data->initiator_final_attachments)
+                                        @foreach (json_decode($data->initiator_final_attachments) as $file)
+                                            <h6 class="file-container text-dark"
+                                                style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}"
+                                                    target="_blank"><i class="fa fa-eye text-primary"
+                                                        style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a class="remove-file"
+                                                    data-file-name="{{ $file }}"><i
+                                                        class="fa-solid fa-circle-xmark"
+                                                        style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input
+                                    {{ $data->stage == 8 ? '' : 'disabled' }}
+                                        type="file" id="HOD_Attachments"
+                                        name="initiator_final_attachments[]" 
+                                        oninput="addMultipleFiles(this, 'initiator_final_attachments')" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="button-block">
@@ -9525,7 +9573,127 @@
                 </div>
             </div>
         </div>
+ <!-- hod final review -->
+ <div id="CCForm14" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">HOD Final Remarks <span style="display: {{ $data->stage == 8 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does
+                            not require completion</small></div>
+                    <textarea class="tiny" {{ $data->stage == 8 ? 'required' : 'disabled' }} name="hod_final_remarks" id="summernote-14">{{ $data->hod_final_remarks }}</textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="group-input">
+                    <label for="Inv Attachments">HOD Final Attachments</label>
+                    <div><small class="text-primary">Please Attach all relevant or supporting
+                            documents</small></div>
+                    <div class="file-attachment-field">
+                        <div disabled class="file-attachment-list" id="hod_final_attachments">
+                            @if ($data->hod_final_attachments)
+                                @foreach (json_decode($data->hod_final_attachments) as $file)
+                                    <h6 class="file-container text-dark"
+                                        style="background-color: rgb(243, 242, 240);">
+                                        <b>{{ $file }}</b>
+                                        <a href="{{ asset('upload/' . $file) }}"
+                                            target="_blank"><i class="fa fa-eye text-primary"
+                                                style="font-size:20px; margin-right:-10px;"></i></a>
+                                        <a class="remove-file"
+                                            data-file-name="{{ $file }}"><i
+                                                class="fa-solid fa-circle-xmark"
+                                                style="color:red; font-size:20px;"></i></a>
+                                    </h6>
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="add-btn">
+                            <div>Add</div>
+                            <input
+                            {{ $data->stage == 8 ? '' : 'disabled' }}
+                                type="file" id="HOD_Attachments"
+                                name="hod_final_attachments[]" 
+                                oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <div class="button-block">
+            <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                <button type="button"  class="backButton">Back</button>
+            </a>
+            {{-- <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button> --}}
+            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+                   
+        </div>
+    </div>
+</div>
+
+ <!-- QA final review -->
+ <div id="CCForm13" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">QA Final Remarks <span style="display: {{ $data->stage == 9 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does
+                            not require completion</small></div>
+                    <textarea class="tiny" {{ $data->stage == 9 ? 'required' : 'disabled' }} name="qa_final_remarks" id="summernote-14">{{ $data->qa_final_remarks }}</textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="group-input">
+                    <label for="Inv Attachments">QA Final Attachments</label>
+                    <div><small class="text-primary">Please Attach all relevant or supporting
+                            documents</small></div>
+                    <div class="file-attachment-field">
+                        <div disabled class="file-attachment-list" id="qa_final_attachments">
+                            @if ($data->qa_final_attachments)
+                                @foreach (json_decode($data->qa_final_attachments) as $file)
+                                    <h6 class="file-container text-dark"
+                                        style="background-color: rgb(243, 242, 240);">
+                                        <b>{{ $file }}</b>
+                                        <a href="{{ asset('upload/' . $file) }}"
+                                            target="_blank"><i class="fa fa-eye text-primary"
+                                                style="font-size:20px; margin-right:-10px;"></i></a>
+                                        <a class="remove-file"
+                                            data-file-name="{{ $file }}"><i
+                                                class="fa-solid fa-circle-xmark"
+                                                style="color:red; font-size:20px;"></i></a>
+                                    </h6>
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="add-btn">
+                            <div>Add</div>
+                            <input
+                            {{ $data->stage == 8 ? '' : 'disabled' }}
+                                type="file" id="HOD_Attachments"
+                                name="qa_final_attachments[]" 
+                                oninput="addMultipleFiles(this, 'qa_final_attachments')" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="button-block">
+            <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                <button type="button"  class="backButton">Back</button>
+            </a>
+            {{-- <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button> --}}
+            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+                   
+        </div>
+    </div>
+</div>
         <!-- {{-- -------------QRM----------------- --}} -->
         <div id="CCForm11" class="inner-block cctabcontent">
             <div class="inner-block-content">
@@ -11889,7 +12057,7 @@
                             <div class="">{{ $data->CFT_Review_Comments }}</div>
                         </div>
                     </div>
-                    <div class="sub-head">Initiator Update</div>
+                    {{-- <div class="sub-head">Initiator Update</div>
 
                     <div class="col-lg-6">
                         <div class="group-input">
@@ -11908,7 +12076,7 @@
                             <label for="CFT Review Comments">Initiator Update Comments :-</label>
                             <div class="static"></div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="sub-head"> QA Final Review Completed</div>
                     <div class="col-lg-6">
                         <div class="group-input">
@@ -11928,7 +12096,7 @@
                             <div class="">{{ $data->QA_Final_Review_Comments }}</div>
                         </div>
                     </div>
-                    <div class="sub-head">Approved</div>
+                    <div class="sub-head">QAH Primary Approved Completed</div>
 
                     <div class="col-lg-6">
                         <div class="group-input">
@@ -11950,9 +12118,90 @@
                     </div>
 
 
+                    <div class="sub-head">Initiator Update Completed</div>
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved By">Initiator Update By :-</label>
+                            <div class="static">{{ $data->Initiator_Update_By }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved On">Initiator Update On :-</label>
+                            <div class="static">{{ $data->Initiator_Update_On }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
+                            <label for="Approved Comments">Initiator Update Comments :-</label>
+                            <div class="">{{ $data->Initiator_Update_Comments }}</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-head">HOD Final Review Completed</div>
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved By">HOD Final Review By :-</label>
+                            <div class="static">{{ $data->HOD_Final_Review_By }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved On">HOD Final Review On :-</label>
+                            <div class="static">{{ $data->HOD_Final_Review_On }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
+                            <label for="Approved Comments">HOD Final Review Comments :-</label>
+                            <div class="">{{ $data->HOD_Final_Review_Comments }}</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-head">QA Final Review Completed</div>
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved By">QA Final Review By :-</label>
+                            <div class="static">{{ $data->QA_Final_Review_By }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved On">QA Final Review On :-</label>
+                            <div class="static">{{ $data->QA_Final_Review_On }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
+                            <label for="Approved Comments">QA Final Review Comments :-</label>
+                            <div class="">{{ $data->QA_Final_Review_Comments }}</div>
+                        </div>
+                    </div>
 
 
+                    <div class="sub-head">QA Final Approval Completed</div>
 
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved By">QA Final Approval By :-</label>
+                            <div class="static">{{ $data->QA_Final_Approval_By }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Approved On">QA Final Approval On :-</label>
+                            <div class="static">{{ $data->QA_Final_Approval_On }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input" style="width:1620px; height:100px; line-height:3em;  `padding:5px; ">
+                            <label for="Approved Comments">QA Final Approval Comments :-</label>
+                            <div class="">{{ $data->QA_Final_Approval_Comments }}</div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="button-block">
@@ -12056,7 +12305,7 @@
 
                             </div>
                             <div style="background: #0000ff1f;" class="mini_buttons">
-                                QA Final Review
+                                QA Secondary Review
                             </div>
                             <div class="down-logo">
                                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
@@ -12064,7 +12313,7 @@
 
                             </div>
                             <div style="background: #0000ff1f;" class="mini_buttons">
-                                QA Head/Manager Designee Approval
+                                QA Head/Manager Designee Primary Approval
                             </div>
                             <div class="down-logo">
                                 <img class="dawn_arrow" src="{{ asset('user/images/down.gif') }}" alt="..."
