@@ -1433,7 +1433,7 @@
                                         <label for="HOD Remarks">HOD Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="HOD_Remarks" id="summernote-4">
+                                        <textarea disabled class="tiny" name="HOD_Remarks" id="summernote-4">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1446,7 +1446,7 @@
                                             <div class="file-attachment-list" id="Audit_file"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="HOD_Attachments" name="Audit_file[]"
+                                                <input disabled type="file" id="HOD_Attachments" name="Audit_file[]"
                                                     oninput="addMultipleFiles(this, 'Audit_file')" multiple>
                                             </div>
                                         </div>
@@ -5224,7 +5224,7 @@
                                         <label for="QA Feedbacks">HOD Final Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="hod_final_remarks" id="summernote-14">
+                                        <textarea disabled class="tiny" name="hod_final_remarks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5237,7 +5237,7 @@
                                             <div class="file-attachment-list" id="hod_final_attachments"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="hod_final_attachments[]"
+                                                <input disabled type="file" id="myfile" name="hod_final_attachments[]"
                                                     oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
                                             </div>
                                         </div>
@@ -5267,7 +5267,7 @@
                                         <label for="QA Feedbacks">QA Final Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="qa_final_remarks" id="summernote-14">
+                                        <textarea disabled class="tiny" name="qa_final_remarks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5280,7 +5280,7 @@
                                             <div class="file-attachment-list" id="qa_final_attachments"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="qa_final_attachments[]"
+                                                <input disabled type="file" id="myfile" name="qa_final_attachments[]"
                                                     oninput="addMultipleFiles(this, 'qa_final_attachments')" multiple>
                                             </div>
                                         </div>
@@ -5326,20 +5326,20 @@
                                             Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Investigation_Of_Review" id="summernote-13">
+                                        <textarea disabled class="tiny" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="Remarks">Closure Comments</label>
-                                        <textarea class="tiny" name="Closure_Comments" id="summernote-15"></textarea>
+                                        <textarea disabled class="tiny" name="Closure_Comments" id="summernote-15"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="Audit Comments">Disposition of Batch</label>
-                                        <textarea class="tiny" name="Disposition_Batch" id="summernote-16"></textarea>
+                                        <textarea disabled class="tiny" name="Disposition_Batch" id="summernote-16"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5352,7 +5352,7 @@
                                             <div class="file-attachment-list" id="closure_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="closure_attachment[]"
+                                                <input disabled type="file" id="myfile" name="closure_attachment[]"
                                                     oninput="addMultipleFiles(this, 'closure_attachment')" multiple>
                                             </div>
                                         </div>

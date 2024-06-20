@@ -17,20 +17,18 @@ return new class extends Migration
             $table->id();
             $table->integer('initiator_id')->nullable();
             $table->integer('record')->nullable();
-            $table->string('division_id')->nullable();
-            //$table->string('division_code')->nullable();
-            $table->string('initiator_group_code')->nullable();
+            $table->tinyText('division_id')->nullable();
+            $table->tinyText('initiator_group_code')->nullable();
             $table->date('intiation_date')->nullable();
             $table->string('form_type')->nullable();
             $table->integer('record_number')->nullable();
-            //$table->string('text')->nullable();
             $table->integer('assign_to')->nullable();
-            $table->text('due_date')->nullable();
-            $table->text('deviation_time')->nullable();
+            $table->string('due_date')->nullable();
+            $table->string('deviation_time')->nullable();
             $table->string('Initiator_Group')->nullable();
-            $table->longText('short_description')->nullable();
+            $table->string('short_description')->nullable();
             $table->string('short_description_required')->nullable();
-            $table->longText('nature_of_repeat')->nullable();
+            $table->string('nature_of_repeat')->nullable();
             $table->date('Deviation_date')->nullable();
             $table->date('Deviation_reported_date')->nullable();
             $table->string('Facility')->nullable();
@@ -44,9 +42,8 @@ return new class extends Migration
             $table->longText('others')->nullable();
             $table->string('Facility_Equipment')->nullable();
             $table->string('Document_Details_Required')->nullable();
-            $table->longText('Product_Batch')->nullable();
             $table->longText('Description_Deviation')->nullable();
-            $table->text('Related_Records1')->nullable();
+            $table->string('Related_Records1')->nullable();
             $table->longText('Immediate_Action')->nullable();
             $table->longText('Preliminary_Impact')->nullable();
             $table->longText('Product_Details_Required')->nullable();
@@ -57,15 +54,15 @@ return new class extends Migration
             $table->longText('Investigation_Details')->nullable();
             $table->string('Customer_notification')->nullable();
             $table->string('customers')->nullable();
-            $table->string('deviation_id')->nullable();
+            $table->tinyText('deviation_id')->nullable();
             $table->longText('QAInitialRemark')->nullable();
            
             $table->longText('Investigation_Summary')->nullable();
             $table->longText('Impact_assessment')->nullable();
             $table->longText('Root_cause')->nullable();
-            $table->string('CAPA_Rquired')->nullable();
-            $table->string('capa_type')->nullable();
-            $table->longText('CAPA_Description')->nullable();
+            // $table->string('CAPA_Rquired')->nullable();
+            // $table->string('capa_type')->nullable();
+            // $table->longText('CAPA_Description')->nullable();
             $table->longText('Post_Categorization')->nullable();
             $table->longText('Investigation_Of_Review')->nullable();
             $table->longText('QA_Feedbacks')->nullable();
@@ -74,8 +71,8 @@ return new class extends Migration
             $table->longText('Audit_file')->nullable();
             $table->longText('Initial_attachment')->nullable();
             $table->longText('QA_attachment')->nullable();
-            $table->longText('Investigation_attachment')->nullable();
-            $table->longText('Capa_attachment')->nullable();
+            // $table->longText('Investigation_attachment')->nullable();
+            // $table->longText('Capa_attachment')->nullable();
             $table->longText('QA_attachments')->nullable();
             $table->longText('closure_attachment')->nullable();
 
@@ -105,11 +102,51 @@ return new class extends Migration
             $table->string('cancelled_by')->nullable();
             $table->string('rejected_on')->nullable();
             $table->string('rejected_by')->nullable();
-            //$table->string('production_byy')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
-
             $table->string('form_progress')->nullable();
+
+            $table->longText('initiator_final_remarks')->nullable();
+            $table->text('initiator_final_attachments')->nullable();
+            $table->longText('hod_final_remarks')->nullable();
+            $table->text('hod_final_attachments')->nullable();
+            $table->longText('qa_final_remarks')->nullable();
+            $table->text('qa_final_attachments')->nullable();
+
+            $table->string('Initiator_Update_By')->nullable();
+            $table->string('Initiator_Update_On')->nullable();
+            $table->longText('Initiator_Update_Comments')->nullable();
+
+            $table->string('HOD_Final_Review_By')->nullable();
+            $table->string('HOD_Final_Review_On')->nullable();
+            $table->longText('HOD_Final_Review_Comments')->nullable();
+
+            $table->string('QA_Final_Review_By')->nullable();
+            $table->string('QA_Final_Review_On')->nullable();
+            // $table->longText('QA_Final_Review_Comments')->nullable();
+
+            $table->string('QA_Final_Approval_By')->nullable();
+            $table->string('QA_Final_Approval_On')->nullable();
+            $table->longText('QA_Final_Approval_Comments')->nullable();
+
+
+            $table->string('Conclusion')->nullable();
+            $table->string('Identified_Risk')->nullable();
+            $table->string('severity_rate')->nullable();
+            $table->string('Occurrence')->nullable();
+            $table->string('detection')->nullable();
+            $table->string('capa_required')->nullable();
+            $table->string('qrm_required')->nullable();
+            // $table->string('Post_Categorization')->nullable();
+
+            $table->longText('initial_file')->nullable();
+            $table->longText('Delay_Justification')->nullable();
+            $table->string('Discription_Event')->nullable();
+            $table->string('objective')->nullable();
+            $table->string('scope')->nullable();
+            $table->string('imidiate_action')->nullable();
+            $table->string('imidiate_action1')->nullable();
+            $table->string('investigation_approach')->nullable();
 
             $table->timestamps();
         });
