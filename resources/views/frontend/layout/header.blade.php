@@ -37,6 +37,8 @@
     <script src="{{ asset('user/js/virtual-select.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
     {{-- @toastr_css --}}
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' /><script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
+
 </head>
 
 <body>
