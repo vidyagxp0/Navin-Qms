@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HelperController;
 use App\Http\Controllers\Api\TinyController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\UserLoginController;
@@ -26,3 +27,5 @@ Route::get('getProfile', [ApiController::class, 'getProfile']);
 Route::get('capaStatus', [ApiController::class, 'capaStatus']);
 
 Route::post('image-upload', [TinyController::class, 'image_upload'])->name('tiny.image_upload');
+
+Route::post('upload-files', [HelperController::class, 'upload_file'])->name('api.upload.file');
