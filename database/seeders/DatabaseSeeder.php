@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             // UserLoginSeeder::class,
             QMSRolesSeeder::class,
             CustomerSeeder::class,
+            CFTSeeder::class,
 
         ]);
     }

@@ -1309,40 +1309,6 @@
                                         @enderror
                                     </div>
 
-
-                                    {{-- <script>
-                                        $('.delayJustificationBlock').hide();
-
-                                        function calculateDateDifference() {
-                                            let deviationDate = $('input[name=Deviation_date]').val();
-                                            let reportedDate = $('input[name=Deviation_reported_date]').val();
-
-                                            if (!deviationDate || !reportedDate) {
-                                                console.error('Deviation date or reported date is missing.');
-                                                return;
-                                            }
-
-                                            let deviationDateMoment = moment(deviationDate);
-                                            let reportedDateMoment = moment(reportedDate);
-
-                                            let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
-
-                                            if (diffInDays > 0) {
-                                                $('.delayJustificationBlock').show();
-                                            } else {
-                                                $('.delayJustificationBlock').hide();
-                                            }
-
-                                        }
-
-                                        $('input[name=Deviation_date]').on('change', function() {
-                                            calculateDateDifference();
-                                        })
-
-                                        $('input[name=Deviation_reported_date]').on('change', function() {
-                                            calculateDateDifference();
-                                        })
-                                    </script> --}}
                                     <script>
                                         $(document).ready(function() {
                                             // Hide the delayJustificationBlock initially
@@ -1536,7 +1502,7 @@
                                                 <tbody>
                                                     @if (!empty($grid_data->Remarks))
                                                         @foreach (unserialize($grid_data->Remarks) as $key => $temps)
-                                                            @if (!empty($facility_name[$key]))
+                                                            @if (isset(unserialize($grid_data->IDnumber)[$key]) && unserialize($grid_data->IDnumber)[$key])
                                                                 <tr>
                                                                     <td><input disabled type="text"
                                                                             name="serial[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -8256,7 +8222,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                <input {{ $data->stage == 0 || $data->stage == 11 || $data->stage != 4 ? 'disabled' : '' }}
                                                     type="file" id="myfile" name="Other5_attachment[]"
                                                     oninput="addMultipleFiles(this, 'Other5_attachment')" multiple>
                                             </div>
