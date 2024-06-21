@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('Initiator_Group')->nullable();
             $table->string('short_description')->nullable();
             $table->string('short_description_required')->nullable();
-            $table->string('nature_of_repeat')->nullable();
+            $table->longText('nature_of_repeat')->nullable();
             $table->date('Deviation_date')->nullable();
             $table->date('Deviation_reported_date')->nullable();
             $table->string('Facility')->nullable();
@@ -146,7 +146,8 @@ return new class extends Migration
             $table->string('scope')->nullable();
             $table->string('imidiate_action')->nullable();
             $table->string('imidiate_action1')->nullable();
-            $table->string('investigation_approach')->nullable();
+
+            //attention_issues
 
             $table->timestamps();
         });

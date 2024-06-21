@@ -21,6 +21,9 @@
             display: none;
         }
 
+        .button_theme1{
+            font-size: 10px !important;
+        }
         .sub-main-head {
             display: flex;
             justify-content: space-evenly;
@@ -666,7 +669,7 @@
                                 Send to QA Initial Review
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                QA Final Review Complete
+                                QA Secondary Review Complete
                             </button>
                             {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
@@ -868,7 +871,22 @@
                     document.getElementById('formNameField').value = 'qah';
                     submitForm();
                 });
-
+                $('#ChangesaveButton123').click(function() {
+                    document.getElementById('formNameField').value = 'pending-initiator';
+                    submitForm();
+                });
+                $('#ChangesaveButton132').click(function() {
+                    document.getElementById('formNameField').value = 'hod-final';
+                    submitForm();
+                });
+                $('#ChangesaveButton312').click(function() {
+                    document.getElementById('formNameField').value = 'qa-final-remark';
+                    submitForm();
+                });
+                $('#ChangesaveButton444').click(function() {
+                    document.getElementById('formNameField').value = 'qah-des';
+                    submitForm();
+                });
                 $('#signatureModalButton').click(function() {
 
                 });
@@ -2033,7 +2051,7 @@
                                     </div> --}}
                                 </div>
                                 <div class="button-block">
-                                    <button  type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                                    <button  type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                         id="ChangesaveButton01" class="saveButton saveAuditFormBtn d-flex"
                                         style="align-items: center;">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -2069,7 +2087,7 @@
                                                 <label for="HOD Remarks">HOD Remarks</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it
                                                         does not require completion</small></div>
-                                                <textarea readonly class="tiny" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea disabled class="tiny" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
                                             </div>
                                         @endif
                                         @error('HOD_Remarks')
@@ -2160,7 +2178,7 @@
                                 </div>
                                 <div class="button-block">
 
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
                                         id="ChangesaveButton02">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -3074,7 +3092,7 @@
                     @endif
 
                             <div class="button-block">
-                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                     id="ChangesaveButton03" class="saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                                         role="status">
@@ -3162,7 +3180,6 @@
                                             }
                                         });
                                         @endif
-
                                     });
                                 </script>
                                 @php
@@ -3221,7 +3238,6 @@
                                     <div class="col-md-12 mb-3 p_erson">
                                         <div class="group-input">
                                             <label for="Production assessment">Impact Assessment (By Production) <span
-                                                    id="asteriskProduction1"
                                                     style="display: {{ $data1->Production_Review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                     class="text-danger">*</span></label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
@@ -3230,51 +3246,7 @@
                                                 @if ($data->stage == 3 || Auth::user()->id != $data1->Production_person) readonly @endif name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-12 mb-3 p_erson">
-                                        <div class="group-input">
-                                            <label for="Production feedback">Production Feedback <span
-                                                    id="asteriskProduction2"
-                                                    style="display: {{ $data1->Production_Review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
-                                                    class="text-danger">*</span></label>
-                                            <div><small class="text-primary">Please insert "NA" in the data field if it
-                                                    does not require completion</small></div>
-                                            <textarea class="summernote Production_feedback" @if ($data->stage == 3 || Auth::user()->id != $data1->Production_person) readonly @endif
-                                                name="Production_feedback" id="summernote-18" @if ($data1->Production_Review == 'yes' && $data->stage == 4) required @endif>{{ $data1->Production_feedback }}</textarea>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="col-12 p_erson">
-                                        <div class="group-input">
-                                            <label for="production attachment">Production Attachments</label>
-                                            <div><small class="text-primary">Please Attach all relevant or supporting
-                                                    documents</small></div>
-                                            <div class="file-attachment-field">
-                                                <div disabled class="file-attachment-list" id="production_attachment">
-                                                    @if ($data1->production_attachment)
-                                                        @foreach (json_decode($data1->production_attachment) as $file)
-                                                            <h6 type="button" class="file-container text-dark"
-                                                                style="background-color: rgb(243, 242, 240);">
-                                                                <b>{{ $file }}</b>
-                                                                <a href="{{ asset('upload/' . $file) }}"
-                                                                    target="_blank"><i class="fa fa-eye text-primary"
-                                                                        style="font-size:20px; margin-right:-10px;"></i></a>
-                                                                <a type="button" class="remove-file"
-                                                                    data-file-name="{{ $file }}"><i
-                                                                        class="fa-solid fa-circle-xmark"
-                                                                        style="color:red; font-size:20px;"></i></a>
-                                                            </h6>
-                                                        @endforeach
-                                                    @endif
-                                                </div>
-                                                <div class="add-btn">
-                                                    <div>Add</div>
-                                                    <input {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                        type="file" id="myfile"
-                                                        name="production_attachment[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                        oninput="addMultipleFiles(this, 'production_attachment')" multiple>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                    
                                     <div class="col-md-6 mb-3 p_erson">
                                         <div class="group-input">
                                             <label for="Production Review Completed By">Production Review Completed
@@ -3291,7 +3263,6 @@
                                         <div class="group-input ">
                                             <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
-                                            <!-- <div><small class="text-primary">Please select related information</small></div> -->
                                             <input type="date" readonly id="production_on"
                                                 name="production_on"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 value="{{ $data1->production_on }}">
@@ -3307,14 +3278,6 @@
                                             for (var i = 0; i < facilityNameInputs.length; i++) {
                                                 inputsToToggle.push(facilityNameInputs[i]);
                                             }
-                                            // var facilityNameInputs = document.getElementsByClassName('Production_assessment');
-                                            // for (var i = 0; i < facilityNameInputs.length; i++) {
-                                            //     inputsToToggle.push(facilityNameInputs[i]);
-                                            // }
-                                            // var facilityNameInputs = document.getElementsByClassName('Production_feedback');
-                                            // for (var i = 0; i < facilityNameInputs.length; i++) {
-                                            //     inputsToToggle.push(facilityNameInputs[i]);
-                                            // }
 
                                             selectField.addEventListener('change', function() {
                                                 var isRequired = this.value === 'yes';
@@ -3545,7 +3508,7 @@
                                     </div>
                                     <div class="col-md-12 mb-3 warehouse">
                                         <div class="group-input">
-                                            <label for="Impact Assessment1">Impact Assessment sssssss(By Warehouse) <span
+                                            <label for="Impact Assessment1">Impact Assessment(By Warehouse) <span
                                                     id="asteriskware2"
                                                     style="display: {{ $data1->Warehouse_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                     class="text-danger">*</span></label>
@@ -8311,7 +8274,7 @@
 
                         </div>
                         <div class="button-block">
-                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                 id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex"
                                 style="align-items: center;">
                                 <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
@@ -8939,6 +8902,9 @@
                                     not require completion</small></div>
                             <textarea class="tiny" {{ $data->stage == 7 ? 'required' : 'disabled' }} name="initiator_final_remarks" id="summernote-14">{{ $data->initiator_final_remarks }}</textarea>
                         </div>
+                        @error('initiator_final_remarks')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                     </div>
                     <div class="col-lg-12">
                         <div class="group-input">
@@ -8966,7 +8932,7 @@
                                 <div class="add-btn">
                                     <div>Add</div>
                                     <input
-                                    {{ $data->stage == 8 ? '' : 'disabled' }}
+                                    {{ $data->stage == 7 ? '' : 'disabled' }}
                                         type="file" id="HOD_Attachments"
                                         name="initiator_final_attachments[]" 
                                         oninput="addMultipleFiles(this, 'initiator_final_attachments')" multiple>
@@ -8977,24 +8943,18 @@
                 </div>
 
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;"  type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
-                    {{-- <a href="/rcms/qms-dashboard">
-                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="backButton">Back</button>
-                    </a> --}}
+                    <button  type="submit" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                        id="ChangesaveButton123" class="saveButton saveAuditFormBtn d-flex"
+                                        style="align-items: center;">
+                                        <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                            style="display: none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save
+                                    </button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
-                            {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
-                            <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
-                                            class="button  launch_extension" data-bs-toggle="modal"
-                                            data-bs-target="#launch_extension">
-                                            Launch Extension
-                                        </a>
-                                        @endif --}}
-                                        <!-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
-                                            data-bs-target="#effectivenss_extension">
-                                            Launch Effectiveness Check
-                                        </a> -->
                 </div>
             </div>
         </div>
@@ -9047,7 +9007,17 @@
 
         </div>
         <div class="button-block">
-            <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+            {{-- <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>--}}
+            <button  type="submit" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                        id="ChangesaveButton132" class="saveButton saveAuditFormBtn d-flex"
+                                        style="align-items: center;">
+                                        <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                            style="display: none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save
+                                    </button>
+
             <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                 <button type="button"  class="backButton">Back</button>
             </a>
@@ -9097,7 +9067,7 @@
                         <div class="add-btn">
                             <div>Add</div>
                             <input
-                            {{ $data->stage == 8 ? '' : 'disabled' }}
+                            {{ $data->stage == 9 ? '' : 'disabled' }}
                                 type="file" id="HOD_Attachments"
                                 name="qa_final_attachments[]" 
                                 oninput="addMultipleFiles(this, 'qa_final_attachments')" multiple>
@@ -9108,7 +9078,16 @@
 
         </div>
         <div class="button-block">
-            <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+            {{--<button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>--}}
+            <button  type="submit" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                        id="ChangesaveButton312" class="saveButton saveAuditFormBtn d-flex"
+                                        style="align-items: center;">
+                                        <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                            style="display: none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save
+                                    </button>
             <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                 <button type="button"  class="backButton">Back</button>
             </a>
@@ -9924,12 +9903,15 @@
             </div>
 
             <div class="button-block">
-            <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }} id="ChangesaveButton04" class=" saveAuditFormBtn d-flex" style="align-items: center;">
-                    <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none" role="status">
-                        <span class="sr-only">Loading...</span>
-                        </div>
-                        Save
-                </button>
+                <button  type="submit" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                        id="ChangesaveButton444" class="saveButton saveAuditFormBtn d-flex"
+                                        style="align-items: center;">
+                                        <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                            style="display: none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save
+                                    </button>
                 <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} class="backButton">Back</button>
                     </a>
@@ -10093,7 +10075,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                         id="ChangesaveButton05" class="saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -10233,7 +10215,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                         id="ChangesaveButton06" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -11275,7 +11257,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button type="submit"{{ $data->stage == 0 || $data->stage == 7 || $data->stage == 9 ? 'disabled' : '' }}
+                    <button type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">

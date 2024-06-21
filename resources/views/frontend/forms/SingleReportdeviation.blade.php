@@ -204,15 +204,15 @@
                         <th class="w-20">Date of Initiation</th>
                         {{-- <td class="w-30">@if{{ Helpers::getdateFormat($data->intiation_date) }} @else Not Applicable @endif</td> --}}
                         {{-- <td class="w-30">@if (Helpers::getdateFormat($data->intiation_date)) {{ Helpers::getdateFormat($data->intiation_date) }} @else Not Applicable @endif</td> --}}
-                        <td class="w-30">{{ $data->created_at ? $data->created_at->format('d-M-Y') : '' }} </td>
+                        <td class="w-30">{{ $data->created_at ? $data->created_at->format('d-m-Y') : '' }} </td>
 
                         <th class="w-20">Due Date</th>
                         <td class="w-30">
                             @if ($data->due_date)
-                                {{ $data->due_date }}
-                            @else
-                                Not Applicable
-                            @endif
+                            {{ \Carbon\Carbon::parse($data->due_date)->format('d-m-Y') }}
+                        @else
+                            Not Applicable
+                        @endif
                         </td>
                     </tr>
                     <tr>
@@ -691,7 +691,7 @@
                                 <td class="w-30">
                                     <div>
                                         @if ($data1->Production_person)
-                                            {{ $data1->Production_person }}
+                                        {{ DB::table('users')->where('id', $data1->Production_person)->value('name') }}
                                         @else
                                             Not Applicable
                                         @endif
@@ -712,16 +712,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                <th class="w-20">Production Feedback</th>
-                                <td class="w-30">
-                                    <div>
-                                        @if ($data1->Production_feedback)
-                                            {{ $data1->Production_feedback }}
-                                        @else
-                                            Not Applicable
-                                        @endif
-                                    </div>
-                                </td>
+                               
                             </tr>
                             <tr>
 
@@ -749,33 +740,7 @@
 
                         </table>
                     </div>
-                    <div class="border-table">
-                        <div class="block-">
-                            Production Attachments
-                        </div>
-                        <table>
-
-                            <tr class="table_bg">
-                                <th class="w-20">S.N.</th>
-                                <th class="w-60">Attachment</th>
-                            </tr>
-                            @if ($data1->production_attachment)
-                                @foreach (json_decode($data1->production_attachment) as $key => $file)
-                                    <tr>
-                                        <td class="w-20">{{ $key + 1 }}</td>
-                                        <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                target="_blank"><b>{{ $file }}</b></a> </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td class="w-20">1</td>
-                                    <td class="w-20">Not Applicable</td>
-                                </tr>
-                            @endif
-
-                        </table>
-                    </div>
+                   
 
                     <div class="block">
                         <div class="head">
@@ -801,7 +766,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Warehouse_notification)
-                                                {{ $data1->Warehouse_notification }}
+                                            {{ DB::table('users')->where('id', $data1->Warehouse_notification)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -821,16 +786,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Warehouse Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Warehouse_feedback)
-                                                {{ $data1->Warehouse_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -857,33 +813,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Production Attachments 2
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Warehouse_attachment)
-                                    @foreach (json_decode($data1->Warehouse_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                     
                     </div>
                     <div class="block">
                         <div class="head">
@@ -909,7 +839,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Quality_Control_Person)
-                                                {{ $data1->Quality_Control_Person }}
+                                            {{ DB::table('users')->where('id', $data1->Quality_Control_Person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -929,16 +859,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Quality Control Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Quality_Control_feedback)
-                                                {{ $data1->Quality_Control_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -965,33 +886,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Quality Control Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Quality_Control_attachment)
-                                    @foreach (json_decode($data1->Quality_Control_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                       
                     </div>
 
 
@@ -1019,7 +914,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->QualityAssurance_person)
-                                                {{ $data1->QualityAssurance_person }}
+                                            {{ DB::table('users')->where('id', $data1->QualityAssurance_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1039,16 +934,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Quality Assurance feedback Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Quality_Assurance_feedback)
-                                                {{ $data1->Quality_Assurance_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -1075,33 +961,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Quality Assurance Attachments 
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Quality_Assurance_attachment)
-                                    @foreach (json_decode($data1->Quality_Assurance_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                      
                     </div>
                     <div class="block">
                         <div class="head">
@@ -1127,7 +987,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Engineering_person)
-                                                {{ $data1->Engineering_person }}
+                                            {{ DB::table('users')->where('id', $data1->Engineering_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1147,16 +1007,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Engineering Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Engineering_feedback)
-                                                {{ $data1->Engineering_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
 
@@ -1183,33 +1034,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Engineering Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Engineering_attachment)
-                                    @foreach (json_decode($data1->Engineering_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                        
                     </div>
                     <div class="block">
                         <div class="head">
@@ -1235,7 +1060,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Analytical_Development_person)
-                                                {{ $data1->Analytical_Development_person }}
+                                            {{ DB::table('users')->where('id', $data1->Analytical_Development_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1255,16 +1080,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Analytical Development Laboratory Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Analytical_Development_feedback)
-                                                {{ $data1->Analytical_Development_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                  
                                 </tr>
                                 <tr>
 
@@ -1291,33 +1107,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Analytical Development Laboratory Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Analytical_Development_attachment)
-                                    @foreach (json_decode($data1->Analytical_Development_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                      
                     </div>
                     <div class="block">
                         <div class="head">
@@ -1343,7 +1133,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Kilo_Lab_person)
-                                                {{ $data1->Kilo_Lab_person }}
+                                            {{ DB::table('users')->where('id', $data1->Kilo_Lab_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1364,16 +1154,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Process Development Laboratory / Kilo Lab Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Kilo_Lab_feedback)
-                                                {{ $data1->Kilo_Lab_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                  
                                 </tr>
                                 <tr>
 
@@ -1402,33 +1183,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Process Development
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Kilo_Lab_attachment)
-                                    @foreach (json_decode($data1->Kilo_Lab_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                      
                     </div>
 
                     <div class="block">
@@ -1455,7 +1210,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Technology_transfer_person)
-                                                {{ $data1->Technology_transfer_person }}
+                                            {{ DB::table('users')->where('id', $data1->Technology_transfer_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1475,16 +1230,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Technology Transfer / Design Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Technology_transfer_feedback)
-                                                {{ $data1->Technology_transfer_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
 
@@ -1511,33 +1257,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Technology Transfer / Design Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Technology_transfer_attachment)
-                                    @foreach (json_decode($data1->Technology_transfer_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                      
                     </div>
 
                     <div class="block">
@@ -1564,7 +1284,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Environment_Health_Safety_person)
-                                                {{ $data1->Environment_Health_Safety_person }}
+                                            {{ DB::table('users')->where('id', $data1->Environment_Health_Safety_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1584,16 +1304,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Environment, Health & Safety Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Health_Safety_feedback)
-                                                {{ $data1->Health_Safety_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -1620,33 +1331,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Environment, Health & Safety Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Human_Resource_attachment)
-                                    @foreach (json_decode($data1->Human_Resource_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                       
                     </div>
                     <div class="block">
                         <div class="head">
@@ -1672,7 +1357,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Human_Resource_person)
-                                                {{ $data1->Human_Resource_person }}
+                                            {{ DB::table('users')->where('id', $data1->Human_Resource_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1692,16 +1377,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Human Resource & Administration Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Human_Resource_feedback)
-                                                {{ $data1->Human_Resource_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
 
@@ -1728,33 +1404,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Human Resource & Administration Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Initial_attachment)
-                                    @foreach (json_decode($data1->Initial_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                       
                     </div>
                     ---
                     <div class="block">
@@ -1782,7 +1432,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Information_Technology_person)
-                                                {{ $data1->Information_Technology_person }}
+                                            {{ DB::table('users')->where('id', $data1->Information_Technology_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1802,16 +1452,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Information Technology Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Information_Technology_feedback)
-                                                {{ $data1->Information_Technology_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
 
@@ -1838,33 +1479,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Information Technology Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Information_Technology_attachment)
-                                    @foreach (json_decode($data1->Information_Technology_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                        
                     </div>
 
                     <div class="block">
@@ -1892,7 +1507,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Project_management_person)
-                                                {{ $data1->Project_management_person }}
+                                            {{ DB::table('users')->where('id', $data1->Project_management_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1912,16 +1527,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Project Management Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Project_management_feedback)
-                                                {{ $data1->Project_management_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
 
@@ -1948,33 +1554,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Project Management Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Project_management_attachment)
-                                    @foreach (json_decode($data1->Project_management_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                       
                     </div>
                     <div class="block">
                         <div class="head">
@@ -2000,7 +1580,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other1_person)
-                                                {{ $data1->Other1_person }}
+                                            {{ DB::table('users')->where('id', $data1->Other1_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2010,7 +1590,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other1_Department_person)
-                                                {{ $data1->Other1_Department_person }}
+                                            {{ DB::table('c_f_t_departments')->where('id', $data1->Other1_Department_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2030,16 +1610,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Other's 1 Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Other1_feedback)
-                                                {{ $data1->Other1_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                                 <tr>
 
@@ -2066,33 +1637,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Other's 1 Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Other1_attachment)
-                                    @foreach (json_decode($data1->Other1_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                      
                     </div>
                     <div class="block">
                         <div class="head">
@@ -2118,7 +1663,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other2_person)
-                                                {{ $data1->Other2_person }}
+                                            {{ DB::table('users')->where('id', $data1->Other2_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2128,7 +1673,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other2_Department_person)
-                                                {{ $data1->Other2_Department_person }}
+                                            {{ DB::table('c_f_t_departments')->where('id', $data1->Other2_Department_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2148,16 +1693,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Other's 2 Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Other2_feedback)
-                                                {{ $data1->Other2_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -2184,33 +1720,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Other's 2 Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Other2_attachment)
-                                    @foreach (json_decode($data1->Other2_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                       
                     </div>
                     <div class="block">
                         <div class="head">
@@ -2236,7 +1746,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other3_person)
-                                                {{ $data1->Other3_person }}
+                                            {{ DB::table('users')->where('id', $data1->Other3_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2246,7 +1756,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other3_Department_person)
-                                                {{ $data1->Other3_Department_person }}
+                                            {{ DB::table('c_f_t_departments')->where('id', $data1->Other3_Department_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2266,16 +1776,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Other's 3 Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Other3_feedback)
-                                                {{ $data1->Other3_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                  
                                 </tr>
                                 <tr>
 
@@ -2302,33 +1803,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Other's 3 Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Other3_attachment)
-                                    @foreach (json_decode($data1->Other3_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">4</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                       
                     </div>
                     <div class="block">
                         <div class="head">
@@ -2354,7 +1829,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other4_person)
-                                                {{ $data1->Other4_person }}
+                                            {{ DB::table('users')->where('id', $data1->Other4_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2364,7 +1839,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other4_Department_person)
-                                                {{ $data1->Other4_Department_person }}
+                                            {{ DB::table('c_f_t_departments')->where('id', $data1->Other4_Department_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2384,16 +1859,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Other's 4 Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Other4_feedback)
-                                                {{ $data1->Other4_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -2420,33 +1886,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Other's 4 Attachments
-                            </div>
-                            <table>
-
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Other4_attachment)
-                                    @foreach (json_decode($data1->Other4_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
-                                    </tr>
-                                @endif
-
-                            </table>
-                        </div>
+                     
                     </div>
                     <div class="block">
                         <div class="head">
@@ -2472,7 +1912,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other5_person)
-                                                {{ $data1->Other5_person }}
+                                            {{ DB::table('users')->where('id', $data1->Other5_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2482,7 +1922,7 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other5_Department_person)
-                                                {{ $data1->Other5_Department_person }}
+                                            {{ DB::table('c_f_t_departments')->where('id', $data1->Other5_Department_person)->value('name') }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -2502,16 +1942,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Other's 5 Feedback</th>
-                                    <td class="w-30">
-                                        <div>
-                                            @if ($data1->Other5_feedback)
-                                                {{ $data1->Other5_feedback }}
-                                            @else
-                                                Not Applicable
-                                            @endif
-                                        </div>
-                                    </td>
+                                   
                                 </tr>
                                 <tr>
 
@@ -2537,34 +1968,35 @@
                                     </td>
                                 </tr>
                             </table>
-                        </div>
-                        <div class="border-table">
-                            <div class="block-">
-                                Other's 5 Attachments
-                            </div>
-                            <table>
 
-                                <tr class="table_bg">
-                                    <th class="w-20">S.N.</th>
-                                    <th class="w-60">Attachment</th>
-                                </tr>
-                                @if ($data1->Other5_attachment)
-                                    @foreach (json_decode($data1->Other5_attachment) as $key => $file)
-                                        <tr>
-                                            <td class="w-20">{{ $key + 1 }}</td>
-                                            <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><b>{{ $file }}</b></a> </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="w-20">1</td>
-                                        <td class="w-20">Not Applicable</td>
+                            <div class="border-table">
+                                <div class="block-head">
+                                    CFT Attachments
+                                </div>
+                                <table>
+                                    <tr class="table_bg">
+                                        <th class="w-20">S.N.</th>
+                                        <th class="w-60">Attachment</th>
                                     </tr>
-                                @endif
-
-                            </table>
+                                    @if ($data1->QA_attachments)
+                                        @foreach (json_decode($data1->QA_attachments) as $key => $file)
+                                            <tr>
+                                                <td class="w-20">{{ $key + 1 }}</td>
+                                                <td class="w-20"><a href="{{ asset('upload/' . $file) }}"
+                                                        target="_blank"><b>{{ $file }}</b></a> </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td class="w-20">1</td>
+                                            <td class="w-20">Not Applicable</td>
+                                        </tr>
+                                    @endif
+                
+                                </table>
+                            </div>
                         </div>
+                      
                     </div>
                     <div class="block">
                         <div class="block-head">
@@ -3754,7 +3186,7 @@
                         <th class="w-20">Submit By</th>
                         <td class="w-30">{{ $data->submit_by }}</td>
                         <th class="w-20">Submit On</th>
-                        <td class="w-30">{{ $data->submit_on }}</td>
+                        <td class="w-30"> {{ \Carbon\Carbon::parse($data->submit_on)->format('d-m-Y') }}</td>
                         <th class="w-20">Submit Comments</th>
                         <td class="w-30">{{ $data->submit_comment }}</td>
                     </tr>
