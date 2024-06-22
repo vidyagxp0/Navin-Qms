@@ -660,7 +660,7 @@
                             @endif
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
-                                Send to Initiator
+                                Send to Opened
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
                                 Send to HOD
@@ -715,7 +715,7 @@
                                 Send to Pending Initiator Update
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                QA Secondary Review Complete
+                                QA Final Review Complete
                             </button>
                         @elseif($data->stage == 10 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
@@ -946,6 +946,7 @@
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                     <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Secondary Review</button>
                     <button class="cctablinks " id="Investigation_button" onclick="openCity(event, 'CCForm9')" style="display: none">Investigation</button>
+                    <button class="cctablinks" onclick="openCity(event, 'CCForm123')">Initiator Update</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm14')">HOD Final Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm13')">QA Final Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
@@ -1214,71 +1215,6 @@
 
                                         });
                                     </script>
-                                    {{--  <div class="col-lg-6">
-                                        <div class="group-input">
-                                            @php
-                                                $users = DB::table('users')->get();
-                                                $facilities = $data->Facility;
-                                            @endphp
-                                            <label for="If Other">Deviation Observed By<span class="text-danger d-none">*</span></label>
-                                            <select multiple name="Facility[]" placeholder="Select Facility Name"
-                                                data-search="false" data-silent-initial-value-set="true" id="Facility">
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}" @if (in_array($user->id, explode(',', $data->Facility))) selected @endif>{{ $user->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Initiator Group">Deviation Reported On</label>
-                                            <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                            <input type="date"id="Deviation_reported_date" name="Deviation_reported_date" value="{{ $data->Deviation_reported_date }}" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="audit type">Deviation Related To </label>
-                                            <select  name="audit_type" id="audit_type"  value="{{ $data->audit_type }}">
-                                                <option value="">Enter Your Selection Here</option>
-                                                <option @if ($data->audit_type == 'Facility') selected @endif
-                                                    value="Facility">Facility</option>
-                                                    <option @if ($data->audit_type == 'Equipment/Instrument') selected @endif
-                                                        value="Equipment/Instrument">Equipment/Instrument</option>
-                                                        <option @if ($data->audit_type == 'Documentationerror') selected @endif
-                                                            value="Documentationerror">Documentation error</option>
-                                                            <option @if ($data->audit_type == 'STP/ADS_instruction') selected @endif
-                                                                value="STP/ADS_instruction">STP/ADS instruction</option>
-                                                                <option @if ($data->audit_type == 'Packaging&Labelling') selected @endif
-                                                                    value="Packaging&Labelling">Packaging & Labelling</option>
-                                                                    <option @if ($data->audit_type == 'Material_System') selected @endif
-                                                                        value="Material_System">Material System</option>
-                                                                        <option @if ($data->audit_type == 'Laboratory_Instrument/System') selected @endif
-                                                                            value="Laboratory_Instrument/System">Laboratory_Instrument/System</option>
-                                                                            <option @if ($data->audit_type == 'Utility_System') selected @endif
-                                                                                value="Utility_System">Utility System</option>
-                                                                                <option @if ($data->audit_type == 'Computer_System') selected @endif
-                                                                                    value="Computer_System">Computer System</option>
-                                                                                    <option @if ($data->audit_type == 'Document') selected @endif
-                                                                                        value="Document">Document</option>
-                                                                                        <option @if ($data->audit_type == 'Data integrity') selected @endif
-                                                                                            value="Data integrity">Data integrity</option>
-                                                                                            <option @if ($data->audit_type == 'SOP Instruction') selected @endif
-                                                                                                value="SOP Instruction">SOP Instruction</option>
-                                                                                                <option @if ($data->audit_type == 'BMR/ECR Instruction') selected @endif
-                                                                                                    value="BMR/ECR Instruction">BMR/ECR Instruction</option>
-                                                                                            <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
-                                                                                                value="Anyother(specify)">Anyother(specify)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="others">Others</label>
-                                            <input type="text" id="others" name="others">
-                                        </div>
-                                    </div>
-                                <div>  --}}
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             @php
@@ -1298,9 +1234,7 @@
                                         <div class="group-input">
                                             <label for="Initiator Group">Deviation Reported On <span
                                                     class="text-danger">*</span></label>
-                                            <!-- <div><small class="text-primary">Please select related information</small></div> -->
                                             <input type="date" id="Deviation_reported_date"
-                                                max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                 name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 value="{{ $data->Deviation_reported_date }}">
                                         </div>
@@ -1539,8 +1473,7 @@
                                                                             name="Remarks[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                                             value="{{ unserialize($grid_data->Remarks)[$key] ? unserialize($grid_data->Remarks)[$key] : '' }}">
                                                                     </td>
-                                                                    <td><input type="text" class="Removebtn"
-                                                                            name="Action[]" readonly></td>
+                                                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
 
                                                                 </tr>
                                                             @endif
@@ -1669,8 +1602,7 @@
                                                                         name="Document_Remarks[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                                         value="{{ unserialize($grid_data1->Document_Remarks)[$key] ? unserialize($grid_data1->Document_Remarks)[$key] : '' }}">
                                                                 </td>
-                                                                <td><input type="text" class="Removebtn"
-                                                                        name="Action[]" readonly></td>
+                                                                <td><button type="text" class="removeRowBtn">Remove</button></td>
 
                                                             </tr>
                                                         @endforeach
@@ -1838,8 +1770,7 @@
                                                                             name="batch_no[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                                             value="{{ isset(unserialize($grid_data2->batch_no)[$key]) ? unserialize($grid_data2->batch_no)[$key] : '' }}">
                                                                     </td>
-                                                                    <td><input type="text" class="Removebtn"
-                                                                            name="Action[]" readonly></td>
+                                                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
                                                                 </tr>
                                                                 @endforeach
                                                             @endif
@@ -2040,22 +1971,13 @@
                             <div class="inner-block-content">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        @if ($data->stage == 2)
                                             <div class="group-input">
                                                 <label for="HOD Remarks">HOD Remarks <span
                                                         class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it
                                                         does not require completion</small></div>
-                                                <textarea class="tiny" name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
+                                                <textarea {{$data->stage == 2 ? '' : 'disabled' }} class="tiny" name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
                                             </div>
-                                        @else
-                                            <div class="group-input">
-                                                <label for="HOD Remarks">HOD Remarks</label>
-                                                <div><small class="text-primary">Please insert "NA" in the data field if it
-                                                        does not require completion</small></div>
-                                                <textarea disabled class="tiny" name="HOD_Remarks" id="summernote-4">{{ $data->HOD_Remarks }}</textarea>
-                                            </div>
-                                        @endif
                                         @error('HOD_Remarks')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -2738,7 +2660,7 @@
                                                     class="text-danger">*</span></label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea @if ($data->stage == 3) required @endif class="summernote QAInitialRemark"
+                                            <textarea @if ($data->stage == 3) required @endif class="tiny QAInitialRemark"
                                                 name="QAInitialRemark"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
                                         </div>
                                         @error('QAInitialRemark')
@@ -3227,11 +3149,11 @@
                                     </div>
                                     <div class="col-lg-6 p_erson">
                                         <div class="group-input ">
-                                            <label for="Production Review Completed On">Production Review Completed
+                                            <label for="Production Review Completed On">Production Review Completedss
                                                 On</label>
-                                            <input type="date" readonly id="production_on"
-                                                name="production_on"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                value="{{ $data1->production_on }}">
+                                                <input type="text" id="production_on" readonly
+                                                name="production_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->production_on ? \Carbon\Carbon::parse($data1->production_on)->format('d-m-Y') : '' }}">
                                         </div>
                                     </div>
                                     <script>
@@ -3394,9 +3316,9 @@
                                         <div class="group-input">
                                             <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
-                                            <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                            <input readonly type="date"id="production_on" name="production_on"
-                                                value="{{ $data1->production_on }}">
+                                            <input type="text" id="production_on" readonly
+                                                name="production_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->production_on ? \Carbon\Carbon::parse($data1->production_on)->format('d-m-Y') : '' }}">
                                         </div>
                                     </div>
                                 @endif
@@ -3576,9 +3498,9 @@
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed On">Warehouse Review Completed
                                                 On</label>
-                                            <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                            <input type="date"id="Warehouse_on" readonly name="Warehouse_on"
-                                                value="{{ $data1->Warehouse_on }}">
+                                            <input type="text" id="Warehouse_on" readonly
+                                                name="Warehouse_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Warehouse_on ? \Carbon\Carbon::parse($data1->Warehouse_on)->format('d-m-Y') : ''}}">
                                         </div>
                                     </div>
                                 @else
@@ -3704,9 +3626,9 @@
                             <div class="col-lg-6 warehouse">
                                 <div class="group-input">
                                     <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
-                                    <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                    <input disabled type="date"id="Warehouse_on" name="Warehouse_on"
-                                        value="{{ $data1->Warehouse_on }}">
+                                    <input type="text" id="Warehouse_on" readonly
+                                                name="Warehouse_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Warehouse_on ? \Carbon\Carbon::parse($data1->Warehouse_on)->format('d-m-Y') : ''}}">
                                 </div>
                             </div>
                             @endif
@@ -3871,9 +3793,9 @@
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="Quality_Control_on" readonly name="Quality_Control_on"
-                                            value="{{ $data1->Quality_Control_on }}">
+                                            <input type="text" id="Quality_Control_on" readonly
+                                                name="Quality_Control_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Quality_Control_on ? \Carbon\Carbon::parse($data1->Quality_Control_on)->format('d-m-Y') : '' }}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4036,9 +3958,9 @@
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date"id="QualityAssurance_on" readonly name="QualityAssurance_on"
-                                            value="{{ $data1->QualityAssurance_on }}">
+                                            <input type="text" id="QualityAssurance_on" readonly
+                                                name="QualityAssurance_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->QualityAssurance_on ? \Carbon\Carbon::parse($data1->QualityAssurance_on)->format('d-m-Y') : '' }}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4200,9 +4122,9 @@
                                     <div class="group-input">
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" id="Engineering_on" name="Engineering_on" readonly
-                                            value="{{ $data1->Engineering_on }}">
+                                            <input type="text" id="Engineering_on" readonly
+                                                name="Engineering_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Engineering_on ? \Carbon\Carbon::parse($data1->Engineering_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4367,10 +4289,9 @@
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input type="date" id="Analytical_Development_on" readonly
-                                            name="Analytical_Development_on"
-                                            value="{{ $data1->Analytical_Development_on }}">
+                                         <input type="text" id="Analytical_Development_on" readonly
+                                                name="Analytical_Development_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Analytical_Development_on ? \Carbon\Carbon::parse($data1->Analytical_Development_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4528,9 +4449,9 @@
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
-                                        <input type="date" id="Kilo_Lab_attachment_on" readonly
-                                            name="Kilo_Lab_attachment_on"
-                                            value="{{ $data1->Kilo_Lab_attachment_on }}">
+                                            <input type="text" id="Kilo_Lab_attachment_on" readonly
+                                                name="Kilo_Lab_attachment_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Kilo_Lab_attachment_on ? \Carbon\Carbon::parse($data1->Kilo_Lab_attachment_on)->format('d-m-Y') : '' }}">
 
                                     </div>
                                 </div>
@@ -4696,9 +4617,9 @@
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             On</label>
-                                        <input type="date" id="Technology_transfer_on"
-                                            name="Technology_transfer_on"
-                                            value="{{ $data1->Technology_transfer_on }}">
+                                            <input type="text" id="Technology_transfer_on" readonly
+                                                name="Technology_transfer_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Technology_transfer_on ? \Carbon\Carbon::parse($data1->Technology_transfer_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -4864,9 +4785,9 @@
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
-                                        <input type="date" id="Environment_Health_Safety_on" readonly
-                                            name="Environment_Health_Safety_on"
-                                            value="{{ $data1->Environment_Health_Safety_on }}">
+                                            <input type="text" id="Environment_Health_Safety_on" readonly
+                                                name="Environment_Health_Safety_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Environment_Health_Safety_on ? \Carbon\Carbon::parse($data1->Environment_Health_Safety_on)->format('d-m-Y') : '' }}">
 
                                     </div>
                                 </div>
@@ -5027,10 +4948,9 @@
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration
                                             Review Completed On</label>
-                                        <input type="date" id="Environment_Health_Safety_on"
-                                            name="Environment_Health_Safety_on" readonly
-                                            value="{{ $data1->Environment_Health_Safety_on }}">
-                                        {{-- <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on"> --}}
+                                            <input type="text" id="Human_Resource_on" readonly
+                                                name="Human_Resource_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Human_Resource_on ? \Carbon\Carbon::parse($data1->Human_Resource_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -5194,9 +5114,9 @@
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed On">Information Technology
                                             Review Completed On</label>
-                                        <input type="date" name="Information_Technology_on"
-                                            id="Information_Technology_on" readonly
-                                            value={{ $data1->Information_Technology_on }}>
+                                            <input type="text" id="Information_Technology_on" readonly
+                                                name="Information_Technology_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Information_Technology_on ? \Carbon\Carbon::parse($data1->Information_Technology_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -5356,8 +5276,9 @@
                                     <div class="group-input">
                                         <label for="Project management Review Completed On">Project management Review
                                             Completed On</label>
-                                        <input type="date" name="Project_management_on" id="Project_management_on" readonly
-                                            value={{ $data1->Project_management_on }}>
+                                            <input type="text" id="Project_management_on" readonly
+                                                name="Project_management_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Project_management_on ? \Carbon\Carbon::parse($data1->Project_management_on)->format('d-m-Y') : ''}}">
 
 
                                     </div>
@@ -5471,9 +5392,9 @@
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input disabled type="date"id="Quality_Control_on" name="Quality_Control_on"
-                                            value="{{ $data1->Quality_Control_on }}">
+                                            <input type="text" id="Quality_Control_on" readonly
+                                                name="Quality_Control_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Quality_Control_on ? \Carbon\Carbon::parse($data1->Quality_Control_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -5581,9 +5502,9 @@
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input disabled type="date"id="QualityAssurance_on"
-                                            name="QualityAssurance_on" value="{{ $data1->QualityAssurance_on }}">
+                                            <input type="text" id="QualityAssurance_on" readonly
+                                                name="QualityAssurance_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->QualityAssurance_on ? \Carbon\Carbon::parse($data1->QualityAssurance_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -5688,9 +5609,9 @@
                                     <div class="group-input">
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input disabled type="date" id="Engineering_on" name="Engineering_on"
-                                            value="{{ $data1->Engineering_on }}">
+                                            <input type="text" id="Engineering_on" readonly
+                                                name="Engineering_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Engineering_on ? \Carbon\Carbon::parse($data1->Engineering_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -5804,10 +5725,9 @@
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
-                                        <!-- <div><small class="text-primary">Please select related information</small></div> -->
-                                        <input disabled type="date" id="Analytical_Development_on"
-                                            name="Analytical_Development_on"
-                                            value="{{ $data1->Analytical_Development_on }}">
+                                            <input type="text" id="Analytical_Development_on" readonly
+                                                name="Analytical_Development_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Analytical_Development_on ? \Carbon\Carbon::parse($data1->Analytical_Development_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -5913,9 +5833,9 @@
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
-                                        <input disabled type="date" id="Kilo_Lab_attachment_on"
-                                            name="Kilo_Lab_attachment_on"
-                                            value="{{ $data1->Kilo_Lab_attachment_on }}">
+                                        <input type="text" id="Kilo_Lab_attachment_on" readonly
+                                                name="Kilo_Lab_attachment_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Kilo_Lab_attachment_on ? \Carbon\Carbon::parse($data1->Kilo_Lab_attachment_on)->format('d-m-Y') : ''}}">
 
                                     </div>
                                 </div>
@@ -6029,9 +5949,9 @@
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             On</label>
-                                        <input disabled type="date" id="Technology_transfer_on"
-                                            name="Technology_transfer_on"
-                                            value="{{ $data1->Technology_transfer_on }}">
+                                            <input type="text" id="Technology_transfer_on" readonly
+                                                name="Technology_transfer_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Technology_transfer_on ? \Carbon\Carbon::parse($data1->Technology_transfer_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -6145,9 +6065,9 @@
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
-                                        <input disabled type="date" id="Environment_Health_Safety_on"
-                                            name="Environment_Health_Safety_on"
-                                            value="{{ $data1->Environment_Health_Safety_on }}">
+                                            <input type="text" id="Environment_Health_Safety_on" readonly
+                                                name="Environment_Health_Safety_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Environment_Health_Safety_on ? \Carbon\Carbon::parse($data1->Environment_Health_Safety_on)->format('d-m-Y') : ''}}">
 
                                     </div>
                                 </div>
@@ -6256,10 +6176,9 @@
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration
                                             Review Completed On</label>
-                                        <input type="date" id="Environment_Health_Safety_on" readonly
-                                            name="Environment_Health_Safety_on"
-                                            value="{{ $data1->Environment_Health_Safety_on }}">
-                                        {{-- <input disabled type="text" value="{{ $data1->Environment_Health_Safety_on }}" name="Environment_Health_Safety_on" id="Environment_Health_Safety_on"> --}}
+                                            <input type="text" id="Human_Resource_on" readonly
+                                                name="Human_Resource_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Human_Resource_on ? \Carbon\Carbon::parse($data1->Human_Resource_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -6374,9 +6293,9 @@
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed On">Information Technology
                                             Review Completed On</label>
-                                        <input disabled type="text" name="Information_Technology_on"
-                                            id="Information_Technology_on"
-                                            value={{ $data1->Information_Technology_on }}>
+                                            <input type="text" id="Information_Technology_on" readonly
+                                                name="Information_Technology_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Information_Technology_on ? \Carbon\Carbon::parse($data1->Information_Technology_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -6486,8 +6405,9 @@
                                     <div class="group-input">
                                         <label for="Project management Review Completed On">Project management Review
                                             Completed On</label>
-                                        <input disabled type="date" name="Project_management_on"
-                                            id="Project_management_on" value={{ $data1->Project_management_on }}>
+                                            <input type="text" id="Project_management_on" readonly
+                                                name="Project_management_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Project_management_on ? \Carbon\Carbon::parse($data1->Project_management_on)->format('d-m-Y')  : ''}}">
 
 
                                     </div>
@@ -6693,8 +6613,9 @@
                                 <div class="col-md-6 mb-3 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
-                                        <input disabled type="date" name="Other1_on" id="Other1_on"
-                                            value="{{ $data1->Other1_on }}">
+                                        <input type="text" id="Other1_on" readonly
+                                                name="Other1_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other1_on ? \Carbon\Carbon::parse($data1->Other1_on)->format('d-m-Y') : ''}}">
 
                                     </div>
                                 </div>
@@ -6893,8 +6814,9 @@
                                 <div class="col-md-6 mb-3 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
-                                        <input disabled type="date" name="Other2_on" id="Other2_on"
-                                            value="{{ $data1->Other2_on }}">
+                                        <input type="text" id="Other2_on" readonly
+                                                name="Other2_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other2_on ? \Carbon\Carbon::parse($data1->Other2_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
 
@@ -7095,8 +7017,9 @@
                                 <div class="col-md-6 mb-3 Other3_reviews">
                                     <div class="group-input">
                                         <label for="productionfeedback">Other's 3 Review Completed On</label>
-                                        <input disabled type="date" name="Other3_on" id="Other3_on"
-                                            value="{{ $data1->Other3_on }}">
+                                        <input type="text" id="Other3_on" readonly
+                                                name="Other3_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other3_on ? \Carbon\Carbon::parse($data1->Other3_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -7293,9 +7216,9 @@
                                 <div class="col-md-6 mb-3 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
-                                        <input disabled type="date" name="Other4_on" id="Other4_on"
-                                            value="{{ $data1->Other4_on }}">
-
+                                        <input type="text" id="Other4_on" readonly
+                                                name="Other4_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other4_on ? \Carbon\Carbon::parse($data1->Other4_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
 
@@ -7464,8 +7387,9 @@
                                 <div class="col-md-6 mb-3 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
-                                        <input disabled type="date" name="Other5_on" id="Other5_on"
-                                            value="{{ $data1->Other5_on }}">
+                                        <input type="text" id="Other5_on" readonly
+                                                name="Other5_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other5_on ? \Carbon\Carbon::parse($data1->Other5_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="col-12 ">
@@ -7642,8 +7566,9 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
-                                        <input disabled type="date" name="Other1_on" id="Other1_on"
-                                            value="{{ $data1->Other1_on }}">
+                                        <input type="text" id="Other1_on" readonly
+                                                name="Other1_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other1_on ? \Carbon\Carbon::parse($data1->Other1_on)->format('d-m-Y') : ''}}">
 
                                     </div>
                                 </div>
@@ -7788,8 +7713,9 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
-                                        <input disabled type="date" name="Other2_on" id="Other2_on"
-                                            value="{{ $data1->Other2_on }}">
+                                        <input type="text" id="Other2_on" readonly
+                                                name="Other2_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other2_on ? \Carbon\Carbon::parse($data1->Other2_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
 
@@ -7934,8 +7860,9 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Other's 3 Review Completed On</label>
-                                        <input disabled type="date" name="Other3_on" id="Other3_on"
-                                            value="{{ $data1->Other3_on }}">
+                                        <input type="text" id="Other3_on" readonly
+                                                name="Other3_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other3_on ? \Carbon\Carbon::parse($data1->Other3_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -8077,8 +8004,9 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
-                                        <input disabled type="date" name="Other4_on" id="Other4_on"
-                                            value="{{ $data1->Other4_on }}">
+                                        <input type="text" id="Other4_on" readonly
+                                                name="Other4_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other4_on ? \Carbon\Carbon::parse($data1->Other4_on)->format('d-m-Y') : ''}}">
 
                                     </div>
                                 </div>
@@ -8193,8 +8121,9 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
-                                        <input disabled type="date" name="Other5_on" id="Other5_on"
-                                            value="{{ $data1->Other5_on }}">
+                                        <input type="text" id="Other5_on" readonly
+                                                name="Other5_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                value="{{ $data1->Other5_on ? \Carbon\Carbon::parse($data1->Other5_on)->format('d-m-Y') : ''}}">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -8564,7 +8493,8 @@
                                                         <td>
                                                             <input type="text" class="Document_Remarks" name="rootCause[{{ $loop->index }}][remarks]" value="{{ array_key_exists('remarks', $root_cause_dat) ? $root_cause_dat['remarks'] : '' }}">
                                                         </td>
-                                                        <td><input type="text" readonly class="Removebtn" name="Action[]"></td>
+
+                                                        <td><button type="text" class="removeRowBtn">Remove</button></td>
                                                     </tr>
                                                     @endforeach
                                                 @else
@@ -8645,8 +8575,7 @@
                                                     <td><input type="text" class="Document_Remarks" name="rootCause[0][ifother]"></td>
                                                     <td><input type="text" class="Document_Remarks" name="rootCause[0][probability]"></td>
                                                     <td><input type="text" class="Document_Remarks" name="rootCause[0][remarks]"></td>
-                                                    <td><input type="text" class="Removebtn" name="Action[]" readonly></td>
-
+                                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
                                                 @endif
                                             </tbody>
 
@@ -8858,59 +8787,12 @@
                                         }
                                     });
                             </script>
-                    <div class="sub-head">
-                        Initiator Update
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <div class="group-input">
-                            <label for="QA Feedbacks">Initiator Final Remarks <span style="display: {{ $data->stage == 7 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                    not require completion</small></div>
-                            <textarea class="tiny" {{ $data->stage == 7 ? 'required' : 'disabled' }} name="initiator_final_remarks" id="summernote-14">{{ $data->initiator_final_remarks }}</textarea>
-                        </div>
-                        @error('initiator_final_remarks')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="group-input">
-                            <label for="Inv Attachments">Initiator Final Attachments</label>
-                            <div><small class="text-primary">Please Attach all relevant or supporting
-                                    documents</small></div>
-                            <div class="file-attachment-field">
-                                <div disabled class="file-attachment-list" id="initiator_final_attachments">
-                                    @if ($data->initiator_final_attachments)
-                                        @foreach (json_decode($data->initiator_final_attachments) as $file)
-                                            <h6 class="file-container text-dark"
-                                                style="background-color: rgb(243, 242, 240);">
-                                                <b>{{ $file }}</b>
-                                                <a href="{{ asset('upload/' . $file) }}"
-                                                    target="_blank"><i class="fa fa-eye text-primary"
-                                                        style="font-size:20px; margin-right:-10px;"></i></a>
-                                                <a class="remove-file"
-                                                    data-file-name="{{ $file }}"><i
-                                                        class="fa-solid fa-circle-xmark"
-                                                        style="color:red; font-size:20px;"></i></a>
-                                            </h6>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div class="add-btn">
-                                    <div>Add</div>
-                                    <input
-                                    {{ $data->stage == 7 ? '' : 'disabled' }}
-                                        type="file" id="HOD_Attachments"
-                                        name="initiator_final_attachments[]" 
-                                        oninput="addMultipleFiles(this, 'initiator_final_attachments')" multiple>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <div class="button-block">
                     <button  type="submit" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                        id="ChangesaveButton123" class="saveButton saveAuditFormBtn d-flex"
+                                        id="" class="saveButton saveAuditFormBtn d-flex"
                                         style="align-items: center;">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
                                             style="display: none" role="status">
@@ -10072,7 +9954,77 @@
             </div>
         </div>
 
-        <!-- QAH-->
+        {{-- Pending Initiator Update --}}
+        <div id="CCForm123" class="inner-block cctabcontent">
+                            <div class="inner-block-content">
+                                <div class="sub-head">
+                        Initiator Update
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="QA Feedbacks">Initiator Final Remarks <span style="display: {{ $data->stage == 7 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                    not require completion</small></div>
+                            <textarea class="tiny" {{ $data->stage == 7 ? 'required' : 'disabled' }} name="initiator_final_remarks" id="summernote-14">{{ $data->initiator_final_remarks }}</textarea>
+                        </div>
+                        @error('initiator_final_remarks')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="group-input">
+                            <label for="Inv Attachments">Initiator Final Attachments</label>
+                            <div><small class="text-primary">Please Attach all relevant or supporting
+                                    documents</small></div>
+                            <div class="file-attachment-field">
+                                <div disabled class="file-attachment-list" id="initiator_final_attachments">
+                                    @if ($data->initiator_final_attachments)
+                                        @foreach (json_decode($data->initiator_final_attachments) as $file)
+                                            <h6 class="file-container text-dark"
+                                                style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}"
+                                                    target="_blank"><i class="fa fa-eye text-primary"
+                                                        style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a class="remove-file"
+                                                    data-file-name="{{ $file }}"><i
+                                                        class="fa-solid fa-circle-xmark"
+                                                        style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input
+                                    {{ $data->stage == 7 ? '' : 'disabled' }}
+                                        type="file" id="HOD_Attachments"
+                                        name="initiator_final_attachments[]" 
+                                        oninput="addMultipleFiles(this, 'initiator_final_attachments')" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                <div class="button-block">
+
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                                        class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
+                                        id="ChangesaveButton123">
+                                        <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                            style="display: none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save
+                                    </button>
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                        class="nextButton" onclick="nextStep()">Next</button>
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                            class="text-white"> Exit </a>
+                                        </button>
+                                </div>
+                            </div>
+                        </div>
+        {{-- QAH--}}
         <div id="CCForm5" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
@@ -13125,8 +13077,8 @@
                             <input type="password" name="password" required>
                         </div>
                         <div class="group-input">
-                            <label for="comment">Comment</label>
-                            <input type="comment" name="comment">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -28,7 +28,7 @@
     .w-10 {
         width: 10%;
     }
-  
+
     .w-20 {
         width: 20%;
     }
@@ -174,7 +174,7 @@
     <header>
         <table>
             <tr>
-               
+
                 {{-- <td class="w-30"> --}}
                     {{-- <div class="btn-group" style="font-size: 1rem; text-align: center; border-radius: 20px; color: white; margin-left : 5px; padding: 7px 50px; cursor: pointer;">
                         <button onclick="window.print();return false;" type="button">Print</button>
@@ -183,7 +183,7 @@
                         <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                {{-- + </td> --}}
-               
+
             </tr>
         </table>
         {{-- <table style="margin-top: 5px;">
@@ -192,10 +192,10 @@
                     <strong>Deviation Audit No.</strong>
                 </td>
                 <td class="w-40">
-                   
+
                 </td>
                 <td class="w-30">
-                    <strong>Record No. 000{{$document->record}}</strong> 
+                    <strong>Record No. 000{{$document->record}}</strong>
                 </td>
             </tr>
         </table> --}}
@@ -231,7 +231,7 @@
        <div class="modal fade" id="auditViewers">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <style>
                     .validationClass{
                         margin-left: 100px
@@ -285,7 +285,7 @@
        <div class="modal fade" id="auditReviewer">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-        
+
                     <style>
                         .validationClass{
                             margin-left: 100px
@@ -317,31 +317,31 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            {!! $auditCollect ? '' : '<button type="submit" >Submit</button>' !!} 
+                            {!! $auditCollect ? '' : '<button type="submit" >Submit</button>' !!}
                             <button type="button" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
-                
+
                 </div>
             </div>
         </div>
 
         <table>
         <div class="heading">
-           
+
               <div class="heading-new">
                 Audit Trail
               </div>
-         
-            <div> <strong>Record ID.</strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>     
+
+            <div> <strong>Record ID.</strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ $document->record_initiator ? $document->record_initiator->name : '' }}</div>
             <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$document->short_description}}</div>
             <div style="margin-bottom: 5px;  font-weight: bold;">Due Date :  {{$document->due_date}}</div>
-      
+
        </div>
         </div>
         </table>
-        
+
     </header>
 
     <div class="inner-block">
@@ -351,7 +351,7 @@
         <div class="division">
         </div>
 
-        
+
         <div class="second-table">
             <table>
                 <tr class="table_bg">
@@ -362,7 +362,7 @@
                     <th>Action Type</th>
                     <th>Performer</th>
                 </tr>
-                
+
                     <tr>
                         @php
                             $previousItem = null;
@@ -375,7 +375,7 @@
                         {{-- <td>
                                 @php
                                     $newPrevState = null;
-                                    
+
                                     if (!$dataDemo->action) {
                                         switch ($dataDemo->deviation->status) {
                                             case 'Opened':
@@ -405,7 +405,7 @@
                                     }
 
                                     $previousItem  = $newPrevState;
-                                @endphp    
+                                @endphp
 
                                 @if($previousItem == null)
                                     <div><strong>Changed From :</strong>{{ "Intiation" }}</div>
@@ -415,12 +415,12 @@
 
                         </td> --}}
                         <td>
-                            <div><strong>Changed From :</strong>{{ $dataDemo->change_from }}</div>
+                            <div><strong>Changed From :</strong>{!! $dataDemo->change_from !!}</div>
                         </td>
-                        
+
                         <td>
                          {{-- <div><strong>Changed To :</strong>{{ !$dataDemo->action ? "Not Applicable" : $dataDemo->deviation->status}}</div> --}}
-                         <div><strong>Changed To :</strong>{{ $dataDemo->change_to}}</div>
+                         <div><strong>Changed To :</strong>{!! $dataDemo->change_to!!}</div>
 
                         </td>
                         <!-- ------Record Is send by Hod Review----------- -->
@@ -428,10 +428,10 @@
                         <div>
                      <strong> Data Field Name :</strong><a href="{{ url('DeviationAuditTrialDetails', $dataDemo->id) }}">{{ $dataDemo->activity_type ? $dataDemo->activity_type  : "Not Applicable" }}</a> </div>
                       <div style="margin-top: 5px;">
-                      <strong>Change From :</strong>{{$dataDemo->previous ? $dataDemo->previous  : "NULL"}}</div>
+                      <strong>Change From :</strong>{!!$dataDemo->previous ? $dataDemo->previous  : "NULL"!!}</div>
                             <br>
                             <!--  -->
-                      <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
+                      <div ><strong>Changed To :</strong>{!!$dataDemo->current ? $dataDemo->current  : "Not Applicable"!!}</div>
                             <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
                             </div>
                         </td>
@@ -448,7 +448,7 @@
 
                         </td>
                     </tr>
-                    @endforeach              
+                    @endforeach
             </table>
         </div>
     </div>

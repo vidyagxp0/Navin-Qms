@@ -3634,6 +3634,8 @@ section#pdf-page .watermark {
 #hodsend .group-input select,
 #sendToInitiator .group-input input,
 #sendToInitiator .group-input select,
+#pending-initiator-update .group-input input,
+#pending-initiator-update .group-input select,
 #qasend .group-input input,
 #qasend .group-input select{
     display: block;
@@ -3679,6 +3681,7 @@ section#pdf-page .watermark {
 #cft-not-reqired .modal-footer button,
 #hodsend .modal-footer button,
 #sendToInitiator .modal-footer button,
+#pending-initiator-update .modal-footer button,
 #qasend .modal-footer button {
     color: white;
     background: #4274da;
