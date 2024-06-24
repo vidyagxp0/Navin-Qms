@@ -141,11 +141,11 @@ return new class extends Migration
 
             $table->longText('initial_file')->nullable();
             $table->longText('Delay_Justification')->nullable();
-            $table->string('Discription_Event')->nullable();
-            $table->string('objective')->nullable();
-            $table->string('scope')->nullable();
-            $table->string('imidiate_action')->nullable();
-            $table->string('imidiate_action1')->nullable();
+            $table->longText('Discription_Event')->nullable();
+            $table->longText('objective')->nullable();
+            $table->longText('scope')->nullable();
+            $table->longText('imidiate_action')->nullable();
+            $table->longText('imidiate_action1')->nullable();
 
             //attention_issues
 
