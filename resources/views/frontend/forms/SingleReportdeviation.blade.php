@@ -3186,7 +3186,7 @@
                         <th class="w-20">Submit By</th>
                         <td class="w-30">{{ $data->submit_by }}</td>
                         <th class="w-20">Submit On</th>
-                        <td class="w-30"> {{ \Carbon\Carbon::parse($data->submit_on)->format('d-m-Y') }}</td>
+                        <td class="w-30">{{ $data->submit_on }}</td>
                         <th class="w-20">Submit Comments</th>
                         <td class="w-30">{{ $data->submit_comment }}</td>
                     </tr>
