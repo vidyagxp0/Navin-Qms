@@ -177,7 +177,7 @@
                     <strong> Deviation No.</strong>
                 </td>
                 <td class="w-40">
-                    {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::divisionNameForQMS($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -185,7 +185,21 @@
             </tr>
         </table>
     </header>
-
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{-- <td class="w-30">
+                    <strong>Page :</strong> 
+                </td> --}}
+            </tr>
+        </table>
+    </footer>
     <div class="inner-block">
         <div class="content-table">
             <div class="block">
@@ -241,10 +255,10 @@
                         <th class="w-20"> Deviation Observed On</th>
                         <td class="w-30">
                             @if ($data->Deviation_date)
-                                {{ $data->Deviation_date }}
-                            @else
-                                Not Applicable
-                            @endif
+                            {{ \Carbon\Carbon::parse($data->Deviation_date)->format('d-m-Y') }}
+                        @else
+                            Not Applicable
+                        @endif
                         </td>
                         <th class="w-20"> Deviation Observed On (Time)</th>
                         <td class="w-30">
@@ -258,7 +272,11 @@
                     </tr>
                     <tr>
                         <th class="w-20"> Delay Justification</th>
-                        <td class="w-30"></td>
+                        <td class="w-30"> @if ($data->Delay_Justification)
+                            {{ $data->Delay_Justification }}
+                        @else
+                            Not Applicable
+                        @endif</td>
                         <th class="w-20">Deviation Observed by</th>
                         @php
                             $facilityIds = explode(',', $data->Facility);
@@ -266,13 +284,11 @@
                         @endphp
 
                         <td>
-                            @if ($facilityIds && count($users) > 0)
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
-                                @endforeach
-                            @else
-                                Not Applicable
-                            @endif
+                            @if ($data->Facility)
+                            {{ $data->Facility }}
+                        @else
+                            Not Applicable
+                        @endif
                         </td>
 
 
@@ -284,10 +300,10 @@
                         <th class="w-20">Deviation Reported On </th>
                         <td class="w-30">
                             @if ($data->Deviation_reported_date)
-                                {{ $data->Deviation_reported_date }}
-                            @else
-                                Not Applicable
-                            @endif
+                            {{ \Carbon\Carbon::parse($data->Deviation_reported_date)->format('d-m-Y') }}
+                        @else
+                            Not Applicable
+                        @endif
                         </td>
                         <th class="w-20">Deviation Related To</th>
                         <td class="w-30">
@@ -328,10 +344,10 @@
                                 Not Applicable
                             @endif
                         </td>
-                        <th class="w-20">Description of Deviation</th>
+                        <th class="w-20">Product/Batch Required?</th>
                         <td class="w-30">
-                            @if ($data->Description_Deviation)
-                                {{ strip_tags($data->Description_Deviation) }}
+                            @if ($data->Product_Details_Required)
+                                {{ $data->Product_Details_Required }}
                             @else
                                 Not Applicable
                             @endif
@@ -345,27 +361,43 @@
                     {{-- <th class="w-20">Name of Product & Batch No</th> --}}
                     {{-- <td class="w-30">@if ($data->Product_Batch){{ ($data->Product_Batch) }} @else Not Applicable @endif</td> --}}
                     {{-- </tr> --}}
-
-                    <tr>
-                        <th class="w-20">Immediate Action (if any)</th>
-                        <td class="w-30">
-                            @if ($data->Immediate_Action)
-                                {{ strip_tags($data->Immediate_Action) }}
-                            @else
-                                Not Applicable
-                            @endif
-                        </td>
-                        <th class="w-20">Preliminary Impact of Deviation</th>
-                        <td class="w-30">
-                            @if ($data->Preliminary_Impact)
-                                {{strip_tags($data->Preliminary_Impact) }}
-                            @else
-                                Not Applicable
-                            @endif
-                        </td>
-                    </tr>
+                 
 
                 </table>
+                <div class="block">
+                    <table>
+                        <tr>
+                            <th class="w-20">Description of Deviation</th>
+                            <td class="w-80">
+                                @if ($data->Description_Deviation)
+                                    {{ strip_tags($data->Description_Deviation) }}
+                                @else
+                                    Not Applicable
+                                @endif
+                            </td>
+                           </tr>
+                            <tr>
+                                <th class="w-20">Immediate Action (if any)</th>
+                                <td class="w-80">
+                                    @if ($data->Immediate_Action)
+                                        {{ strip_tags($data->Immediate_Action) }}
+                                    @else
+                                        Not Applicable
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="w-20">Preliminary Impact of Deviation</th>
+                                <td class="w-80">
+                                    @if ($data->Preliminary_Impact)
+                                        {{strip_tags($data->Preliminary_Impact) }}
+                                    @else
+                                        Not Applicable
+                                    @endif
+                                </td>
+                            </tr>
+                    </table>
+                </div>
                 <div class="block">
                     <div class="block-head">
                         Facility/ Equipment/ Instrument/ System Details
@@ -527,8 +559,8 @@
                     </div>
                     <table>
                         <tr>
-                            <th class="w-30">HOD Remarks</th>
-                            <td class="w-20">
+                            <th class="w-20">HOD Remarks</th>
+                            <td class="w-80">
                                 @if ($data->HOD_Remarks)
                                     {{ strip_tags($data->HOD_Remarks) }}
                                 @else
@@ -576,15 +608,17 @@
                 <table>
                     <tr>
                         <th class="w-20"> Repeat Deviation?</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($data->short_description_required)
                                 {{ $data->short_description_required }}
                             @else
                                 Not Applicable
                             @endif
                         </td>
+                    </tr>
+                    <tr>
                         <th class="w-20"> Repeat Nature</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($data->nature_of_repeat)
                                 {{ $data->nature_of_repeat }}
                             @else
@@ -595,15 +629,17 @@
                     </tr>
                     <tr>
                         <th class="w-20">Customer Notification Required?</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($data->Customer_notification)
                                 {{ $data->Customer_notification }}
                             @else
                                 Not Applicable
                             @endif
                         </td>
+                    </tr>
+                    <tr>
                         <th class="w-20">QA Initial Remarks  </th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($data->QAInitialRemark)
                                 {{ strip_tags($data->QAInitialRemark) }}
                             @else
@@ -699,11 +735,12 @@
                                 </td>
                             </tr>
 
-
+                        </table>
+                        <table>
                             <tr>
 
-                                <th class="w-20">Impact Assessment (By Production)</< /th>
-                                <td class="w-30">
+                                <th class="w-20">Impact Assessment (By Production)</th>
+                                <td class="w-80">
                                     <div>
                                         @if ($data1->Production_assessment)
                                             {{ $data1->Production_assessment }}
@@ -714,26 +751,29 @@
                                 </td>
                                
                             </tr>
+                        </table>
+                        <table>
                             <tr>
-
+{{-- {{ dd($data1); }} --}}
                                 <th class="w-20">Production Review Completed By</th>
                                 <td class="w-30">
                                     <div>
-                                        @if ($data1->Production_Review_Completed_By)
-                                            {{ $data1->production_by }}
+                                        @if ($data1->Production_by)
+                                            {{ $data1->Production_by }}
                                         @else
                                             Not Applicable
                                         @endif
                                     </div>
                                 </td>
+
                                 <th class="w-20">Production Review Completed On</th>
                                 <td class="w-30">
                                     <div>
                                         @if ($data1->production_on)
-                                            {{ $data1->production_on }}
-                                        @else
-                                            Not Applicable
-                                        @endif
+                                        {{ \Carbon\Carbon::parse($data->production_on)->format('d-m-Y') }}
+                                    @else
+                                        Not Applicable
+                                    @endif
                                     </div>
                                 </td>
                             </tr>
@@ -773,11 +813,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Warehouse)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Warehouse)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Warehouse_assessment)
                                                 {{ $data1->Warehouse_assessment }}
@@ -788,6 +829,8 @@
                                     </td>
                                    
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Warehouse Review Completed By</th>
@@ -803,11 +846,11 @@
                                     <th class="w-20">Warehouse Review Completed On</th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($data1->Warehouse_Review_Completed_On)
-                                                {{ $data1->Warehouse_Review_Completed_On }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            @if ($data1->Warehouse_on)
+                                            {{ \Carbon\Carbon::parse($data->Warehouse_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -846,11 +889,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Quality Control)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Quality Control)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Quality_Control_assessment)
                                                 {{ $data1->Quality_Control_assessment }}
@@ -861,19 +905,21 @@
                                     </td>
                                    
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Quality Review Completed By</th>
+                                    <th class="w-20">Quality Control Review Completed By</th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($data1->QualityAssurance__by)
-                                                {{ $data1->QualityAssurance__by }}
+                                            @if ($data1->Quality_Control_by)
+                                                {{ $data1->Quality_Control_by }}
                                             @else
                                                 Not Applicable
                                             @endif
                                         </div>
                                     </td>
-                                    <th class="w-20">Quality Review Completed On</th>
+                                    <th class="w-20">Quality Control Review Completed On</th>
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Quality_Control_on)
@@ -896,6 +942,7 @@
                                 Quality Assurance
                             </div>
                             <table>
+{{-- {{ dd($data1); }} --}}
 
                                 <tr>
 
@@ -903,8 +950,8 @@
                                     </th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($data1->Quality_Assurance)
-                                                {{ $data1->Quality_Assurance }}
+                                            @if ($data1->Quality_Assurance_Review)
+                                                {{ $data1->Quality_Assurance_Review }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -921,11 +968,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Quality Assurance)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Quality Assurance)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->QualityAssurance_assessment)
                                                 {{ $data1->QualityAssurance_assessment }}
@@ -936,6 +984,8 @@
                                     </td>
                                    
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Quality Assurance Review Completed By</th>
@@ -952,10 +1002,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->QualityAssurance_on)
-                                                {{ $data1->QualityAssurance_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->QualityAssurance_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -994,11 +1044,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Engineering)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Engineering)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Engineering_assessment)
                                                 {{ $data1->Engineering_assessment }}
@@ -1009,6 +1060,8 @@
                                     </td>
                                     
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Engineering Review Completed By</th>
@@ -1025,10 +1078,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Engineering_on)
-                                                {{ $data1->Engineering_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Engineering_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1067,11 +1120,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Analytical Development Laboratory)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Analytical Development Laboratory)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Analytical_Development_assessment)
                                                 {{ $data1->Analytical_Development_assessment }}
@@ -1082,6 +1136,8 @@
                                     </td>
                                   
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Analytical Development Laboratory Review Completed By</th>
@@ -1098,10 +1154,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Analytical_Development_on)
-                                                {{ $data1->Analytical_Development_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Analytical_Development_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1140,12 +1196,13 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Impact Assessment (By Process Development Laboratory / Kilo Lab)
-                                        </< /th>
-                                    <td class="w-30">
+                                        </th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Kilo_Lab_assessment)
                                                 {{ $data1->Kilo_Lab_assessment }}
@@ -1156,6 +1213,8 @@
                                     </td>
                                   
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Process Development Laboratory / Kilo Lab Review Completed By
@@ -1173,11 +1232,11 @@
                                     </th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($data1->Kilo_Lab_attachment_on)
-                                                {{ $data1->Kilo_Lab_attachment_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            @if ($data1->Kilo_Lab_attachment_on )
+                                            {{ \Carbon\Carbon::parse($data->Kilo_Lab_attachment_on )->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1217,11 +1276,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Technology Transfer / Design)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Technology Transfer / Design)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Technology_transfer_assessment)
                                                 {{ $data1->Technology_transfer_assessment }}
@@ -1232,6 +1292,8 @@
                                     </td>
                                     
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Technology Transfer / Design Review Completed By</th>
@@ -1248,10 +1310,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Technology_transfer_on)
-                                                {{ $data1->Technology_transfer_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Technology_transfer_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1291,28 +1353,27 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Environment, Health & Safety)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Environment, Health & Safety)</th>
+                                    <td class="w-80">
                                         <div>
-                                            @if ($data1->Health_Safety_assessment)
-                                                {{ $data1->Health_Safety_assessment }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {!!$data1->Health_Safety_assessment ? $data1->Health_Safety_assessment  : "Not Applicable"!!}
                                         </div>
                                     </td>
                                    
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Environment, Health & Safety Review Completed By</th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($data1->production_by)
-                                                {{ $data1->Human_Resource_by }}
+                                            @if ($data1->Environment_Health_Safety_by)
+                                                {{ $data1->Environment_Health_Safety_by }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1321,11 +1382,11 @@
                                     <th class="w-20"> Environment, Health & Safety Review Completed On</th>
                                     <td class="w-30">
                                         <div>
-                                            @if ($data1->Human_Resource_on)
-                                                {{ $data1->Human_Resource_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            @if ($data1->Environment_Health_Safety_on)
+                                            {{ \Carbon\Carbon::parse($data->Environment_Health_Safety_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1364,11 +1425,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Human Resource & Administration)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Human Resource & Administration)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Human_Resource_assessment)
                                                 {{ $data1->Human_Resource_assessment }}
@@ -1379,13 +1441,15 @@
                                     </td>
                                     
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Human Resource & Administration Review Completed By</th>
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Human_Resource_by)
-                                                {{ $data1->production_by }}
+                                                {{ $data1->Human_Resource_by }}
                                             @else
                                                 Not Applicable
                                             @endif
@@ -1395,10 +1459,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->production_on)
-                                                {{ $data1->production_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->production_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1406,7 +1470,7 @@
                         </div>
                        
                     </div>
-                    ---
+                   
                     <div class="block">
                         <div class="head">
                             <div class="block-head">
@@ -1439,11 +1503,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Information Technology)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Information Technology)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Information_Technology_assessment)
                                                 {{ $data1->Information_Technology_assessment }}
@@ -1454,6 +1519,8 @@
                                     </td>
                                     
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Information Technology Review Completed By</th>
@@ -1470,10 +1537,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Information_Technology_on)
-                                                {{ $data1->Information_Technology_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Information_Technology_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1514,11 +1581,12 @@
                                         </div>
                                     </td>
                                 </tr>
-
+                            </table>
+                            <table>
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Project Management)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Project Management)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Project_management_assessment)
                                                 {{ $data1->Project_management_assessment }}
@@ -1529,6 +1597,8 @@
                                     </td>
                                     
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
 
                                     <th class="w-20">Project Management Review Completed By</th>
@@ -1545,10 +1615,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Project_management_on)
-                                                {{ $data1->Project_management_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Project_management_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1600,8 +1670,8 @@
 
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Other's 1)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Other's 1)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Other1_assessment)
                                                 {{ $data1->Other1_assessment }}
@@ -1628,10 +1698,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other1_on)
-                                                {{ $data1->Other1_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Other1_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1683,8 +1753,8 @@
 
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Other's 2)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Other's 2)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Other2_assessment)
                                                 {{ $data1->Other2_assessment }}
@@ -1711,10 +1781,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other2_on)
-                                                {{ $data1->Other2_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Other2_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1766,8 +1836,8 @@
 
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Other's 3)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Other's 3)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Other3_assessment)
                                                 {{ $data1->Other3_assessment }}
@@ -1794,10 +1864,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other3_on)
-                                                {{ $data1->Other3_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Other3_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1849,8 +1919,8 @@
 
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Other's 4)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Other's 4)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Other4_assessment)
                                                 {{ $data1->Other4_assessment }}
@@ -1877,10 +1947,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other4_on)
-                                                {{ $data1->Other4_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Other4_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -1932,8 +2002,8 @@
 
                                 <tr>
 
-                                    <th class="w-20">Impact Assessment (By Other's 5)</< /th>
-                                    <td class="w-30">
+                                    <th class="w-20">Impact Assessment (By Other's 5)</th>
+                                    <td class="w-80">
                                         <div>
                                             @if ($data1->Other5_assessment)
                                                 {{ $data1->Other5_assessment }}
@@ -1960,10 +2030,10 @@
                                     <td class="w-30">
                                         <div>
                                             @if ($data1->Other5_on)
-                                                {{ $data1->Other5_on }}
-                                            @else
-                                                Not Applicable
-                                            @endif
+                                            {{ \Carbon\Carbon::parse($data->Other5_on)->format('d-m-Y') }}
+                                        @else
+                                            Not Applicable
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -3186,7 +3256,7 @@
                         <th class="w-20">Submit By</th>
                         <td class="w-30">{{ $data->submit_by }}</td>
                         <th class="w-20">Submit On</th>
-                        <td class="w-30">{{ $data->submit_on }}</td>
+                        <td class="w-30"> {{ \Carbon\Carbon::parse($data->submit_on)->format('d-m-Y') }}</td>
                         <th class="w-20">Submit Comments</th>
                         <td class="w-30">{{ $data->submit_comment }}</td>
                     </tr>
@@ -3215,6 +3285,39 @@
                         <td class="w-30">{{ $data->CFT_Review_Comments }}</td>
                     </tr>
                     <tr>
+                        <th class="w-20">QA Secondary Review Complete By</th>
+                        <td class="w-30"></td>
+                        <th class="w-20">QA Secondary Review Complete On</th>
+                        <td class="w-30"></td>
+                        <th class="w-20">QA Secondary Review Complete Comments</th>
+                        <td class="w-30"></td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">QAH Primary Approved Completed By</th>
+                        <td class="w-30"></td>
+                        <th class="w-20">QAH Primary Approved Completed On</th>
+                        <td class="w-30"></td>
+                        <th class="w-20">QAH Primary Approved Completed Comments</th>
+                        <td class="w-30"></td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">Initiator Update By</th>
+                        <td class="w-30">{{ $data->CFT_Review_Complete_By }}</td>
+                        <th class="w-20">Initiator Update On </th>
+                        <td class="w-30">{{ $data->CFT_Review_Complete_On }}</td>
+                        <th class="w-20">Initiator Update Comments</th>
+                        <td class="w-30">{{ $data->CFT_Review_Comments }}</td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">HOD Final Review By </th>
+                        <td class="w-30">{{ $data->CFT_Review_Complete_By }}</td>
+                        <th class="w-20">HOD Final Review On </th>
+                        <td class="w-30">{{ $data->CFT_Review_Complete_On }}</td>
+                        <th class="w-20">HOD Final Review Comments</th>
+                        <td class="w-30">{{ $data->CFT_Review_Comments }}</td>
+                    </tr>
+
+                    <tr>
                         <th class="w-20">QA Final Review Complete By</th>
                         <td class="w-30">{{ $data->QA_Final_Review_Complete_By }}</td>
                         <th class="w-20">QA Final Review Complete On</th>
@@ -3222,6 +3325,7 @@
                         <th class="w-20">QA Final Review Comments</th>
                         <td class="w-30">{{ $data->QA_Final_Review_Comments }}</td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Approved By</th>
                         <td class="w-30">{{ $data->Approved_By }}</td>
@@ -3238,21 +3342,7 @@
 
     </div>
 
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{-- <td class="w-30">
-                    <strong>Page :</strong> 1 of 1
-                </td> --}}
-            </tr>
-        </table>
-    </footer>
+  
 
 </body>
 

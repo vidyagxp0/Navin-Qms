@@ -16,6 +16,7 @@
         padding: 0;
         min-width: 100vw;
         min-height: 100vh;
+        
     }
 
     .w-10 {
@@ -90,6 +91,7 @@
         size: A4;
         margin-top: 160px;
         margin-bottom: 60px;
+        
     }
 
     header {
@@ -146,6 +148,7 @@
     /* .pagenum:before {
         content: counter(page);
     } */
+   
 </style>
 
 <body>
@@ -169,7 +172,7 @@
                     <strong>Deviation No.</strong>
                 </td>
                 <td class="w-40">
-                    {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::divisionNameForQMS($doc->division_id) }}/DEV/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -177,13 +180,27 @@
             </tr>
         </table>
     </header>
-
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                <td class="w-30">
+                    
+                </td>
+            </tr>
+        </table>
+    </footer>
     <div class="inner-block">
 
         <div class="head">Deviation Audit Trail Report</div>
 
         <div class="division">
-            {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+            {{ Helpers::divisionNameForQMS($doc->division_id) }}/DEV/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
         </div>
 
         {{-- <div class="first-table">
@@ -253,10 +270,11 @@
                                     <div>
                                 <strong> Data Field Name :</strong>{{ $dataDemo->activity_type ? $dataDemo->activity_type  : "Not Applicable" }}</a> </div>
                                 <div style="margin-top: 5px;">
-                                <strong>Change From :</strong>{{$dataDemo->previous ? $dataDemo->previous  : "Not Applicable"}}</div>
+                               
+                                        <strong>Change From :</strong>{!!$dataDemo->previous ? $dataDemo->previous  : "NULL"!!}</div>
                                         <br>
                                         <!--  -->
-                                <div ><strong>Changed To :</strong>{{$dataDemo->current ? $dataDemo->current  : "Not Applicable"}}</div> 
+                                <div ><strong>Changed To :</strong>{!!$dataDemo->current ? $dataDemo->current  : "Not Applicable"!!}</div> 
                                         <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$dataDemo->action_name ? $dataDemo->action_name  : "Not Applicable"}}
                                         </div>
                             </td>
@@ -290,21 +308,7 @@
 
     </div>
 
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                <td class="w-30">
-                    
-                </td>
-            </tr>
-        </table>
-    </footer>
+    
 
 </body>
 
