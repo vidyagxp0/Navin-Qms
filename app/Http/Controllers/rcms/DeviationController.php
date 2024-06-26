@@ -1505,7 +1505,9 @@ class DeviationController extends Controller
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
 
-        $deviation->HOD_Remarks = $request->HOD_Remarks;
+        if($deviation->stage == 2){
+            $deviation->HOD_Remarks = $request->HOD_Remarks;
+        }
         $deviation->Justification_for_categorization = !empty($request->Justification_for_categorization) ? $request->Justification_for_categorization : $deviation->Justification_for_categorization;
 
         $deviation->Investigation_Details = !empty($request->Investigation_Details) ? $request->Investigation_Details : $deviation->Investigation_Details;

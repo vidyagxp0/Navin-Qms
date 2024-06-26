@@ -954,8 +954,14 @@
 
                     <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
                 </div>
-
-                <form id="auditForm" action="{{ route('deviationupdate', $data->id) }}" method="post"
+                <script>
+                    $(document).ready(function() {
+                        <?php if ($data->stage == 11): ?>
+                            $("#target :input").prop("disabled", true);
+                        <?php endif; ?>
+                    });
+                </script>
+                <form id="target" id="auditForm" action="{{ route('deviationupdate', $data->id) }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="form_name" id="formNameField" value="">
@@ -1890,7 +1896,7 @@
                                                     class="text-danger">*</span></label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea class="tiny" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                            <textarea  class="tiny" name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
                                         </div>
                                         @error('Preliminary_Impact')
