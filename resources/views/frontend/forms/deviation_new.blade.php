@@ -564,11 +564,11 @@
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
                 <button class="cctablinks " id="Investigation_button" style="display: none"
                     onclick="openCity(event, 'CCForm9')">Investigation</button>
-                {{-- <button id="QRM_button" class="cctablinks" style="display: none"
-                    onclick="openCity(event, 'CCForm11')">QRM</button>
+               <button id="QRM_button" class="cctablinks" 
+                    onclick="openCity(event, 'CCForm115')">QA Secondary Review</button>
 
-                <button id="CAPA_button" class="cctablinks" style="display: none"
-                    onclick="openCity(event, 'CCForm10')">CAPA</button> --}}
+                <button id="CAPA_button" class="cctablinks" 
+                    onclick="openCity(event, 'CCForm105')">Initiator Update</button> 
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">HOD Final Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm13')">QA Final Review</button>
@@ -1341,7 +1341,7 @@
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Description_Deviation[]" id="summernote-1" required>
+                                        <textarea class="tiny-disable" name="Description_Deviation[]" id="summernote-1" required>
                                     </textarea>
                                     </div>
                                     @error('Description_Deviation[]')
@@ -1360,7 +1360,7 @@
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Immediate_Action[]" id="summernote-2"required>
+                                        <textarea class="tiny-disable" name="Immediate_Action[]" id="summernote-2"required>
                                     </textarea>
                                     </div>
                                     @error('record')
@@ -1378,7 +1378,7 @@
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Preliminary_Impact[]" id="summernote-3" required>
+                                        <textarea class="tiny-disable" name="Preliminary_Impact[]" id="summernote-3" required>
                                     </textarea>
                                     </div>
                                     @error('Preliminary_Impact')
@@ -1433,7 +1433,7 @@
                                         <label for="HOD Remarks">HOD Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea disabled class="tiny" name="HOD_Remarks" id="summernote-4">
+                                        <textarea disabled class="tiny-disable" name="HOD_Remarks" id="summernote-4">
                                     </textarea>
                                     </div>
                                 </div>
@@ -1665,7 +1665,7 @@
                                             Categorization</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Justification_for_categorization" id="summernote-5" disabled></textarea>
+                                        <textarea class="tiny-disable" name="Justification_for_categorization" id="summernote-5" disabled></textarea>
                                     </div>
                                 </div>
 
@@ -1710,7 +1710,7 @@
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea disabled class="tiny" name="QAInitialRemark" id="summernote-7">
+                                        <textarea disabled class="tiny-disable" name="QAInitialRemark" id="summernote-7">
                                     </textarea>
                                     </div>
                                 </div>
@@ -3951,7 +3951,7 @@
                                         <label for="Investigation Summary">Description of Event</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Discription_Event" id="summernote-8">
+                                        <textarea class="tiny-disable" name="Discription_Event" id="summernote-8">
                                 </textarea>
                                     </div>
                                 </div>
@@ -3961,7 +3961,7 @@
                                         <label for="Impact Assessment">Objective</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="objective" id="summernote-9">
+                                        <textarea class="tiny-disable" name="objective" id="summernote-9">
                                 </textarea>
                                     </div>
                                 </div>
@@ -3971,7 +3971,7 @@
                                         <label for="Root Cause">Scope</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="scope" id="summernote-10">
+                                        <textarea class="tiny-disable" name="scope" id="summernote-10">
                                 </textarea>
                                     </div>
                                 </div>
@@ -3980,7 +3980,7 @@
                                         <label for="Root Cause">Immediate Action</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="imidiate_action" id="summernote-10">
+                                        <textarea class="tiny-disable" name="imidiate_action" id="summernote-10">
                                 </textarea>
                                     </div>
                                 </div>
@@ -4677,7 +4677,7 @@
                                         <label for="Investigation Summary">Conclusion</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Conclusion" id="summernote-8">
+                                        <textarea class="tiny-disable" name="Conclusion" id="summernote-8">
                                          </textarea>
                                     </div>
                                 </div>
@@ -4687,7 +4687,7 @@
                                         <label for="Investigation Summary">Identified Risk</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Identified_Risk" id="summernote-8">
+                                        <textarea class="tiny-disable" name="Identified_Risk" id="summernote-8">
                                         </textarea>
                                     </div>
                                 </div>
@@ -4940,7 +4940,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Description_of_Discrepancy">Description of Discrepancy </label>
-                                        <textarea class="tiny" name="Description_of_Discrepancy" id="summernote-8">
+                                        <textarea class="tiny-disable" name="Description_of_Discrepancy" id="summernote-8">
                                     </textarea>
                                     </div>
                                 </div>
@@ -4955,7 +4955,7 @@
                                         <label for="Root_Cause">Root Cause</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Root_Cause" id="summernote-9">
+                                        <textarea class="tiny-disable" name="Root_Cause" id="summernote-9">
                                     </textarea>
                                     </div>
                                 </div>
@@ -4970,7 +4970,7 @@
                                         <label for="Immediate_Action_Take">Immediate Action Taken (If Applicable)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Immediate_Action_Take" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Immediate_Action_Take" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -4979,7 +4979,7 @@
                                         <label for="Corrective_Action_Details">Corrective Action Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Corrective_Action_Details" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Corrective_Action_Details" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -4988,7 +4988,7 @@
                                         <label for="Preventive_Action_Details">Preventive Action Details</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Preventive_Action_Details" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Preventive_Action_Details" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -4999,7 +4999,7 @@
                                         <label for="Interim_Control">Interim Control(If Any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Interim_Control" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Interim_Control" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5011,7 +5011,7 @@
                                         <label for="Corrective_Action_Taken">Corrective Action Taken</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Corrective_Action_Taken" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Corrective_Action_Taken" id="summernote-10">
                                     </textarea>
                                     </div>
 
@@ -5021,7 +5021,7 @@
                                         <label for="Preventive_action_Taken">Preventive Action Taken</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Preventive_action_Taken" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Preventive_action_Taken" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5214,7 +5214,113 @@
                             </div>
                         </div>
                     </div>  --}}
+                    <!-- QA secondary review review -->
+<div id="CCForm115" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">Initial Deviation category</label>
+                    <select name="" disabled id="">
+                        <option value="">-- select --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">Justification for categorization</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does
+                            not require completion</small></div>
+                    <textarea disabled class="tiny-disable" name="qa_final_remarks" id="summernote-14"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">Investigation Required</label>
+                    <select name="" disabled id="">
+                        <option value="">-- select --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">QA Feedbacks</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does
+                            not require completion</small></div>
+                    <textarea disabled class="tiny-disable" name="qa_final_remarks" id="summernote-14"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="group-input">
+                    <label for="QA attachments">QA Attachments</label>
+                    <div><small class="text-primary">Please Attach all relevant or supporting
+                            documents</small></div>
+                    <div class="file-attachment-field">
+                        <div class="file-attachment-list" id="hod_final"></div>
+                        <div class="add-btn">
+                            <div>Add</div>
+                            <input disabled type="file" id="myfile" name="hod_final_attachments[]"
+                                oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <div class="button-block">
+            <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                <button type="button"  class="backButton">Back</button>
+            </a>
+            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+                   
+        </div>
+    </div>
+</div>
+<!-- initiator update review -->
+<div id="CCForm105" class="inner-block cctabcontent">
+    <div class="inner-block-content">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="group-input">
+                    <label for="QA Feedbacks">Initiator Final Remarks</label>
+                    <div><small class="text-primary">Please insert "NA" in the data field if it does
+                            not require completion</small></div>
+                    <textarea disabled class="tiny-disable" name="" id="summernote-14">
+                </textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="group-input">
+                    <label for="QA attachments">Initiator Final Attachments</label>
+                    <div><small class="text-primary">Please Attach all relevant or supporting
+                            documents</small></div>
+                    <div class="file-attachment-field">
+                        <div class="file-attachment-list" id="hod_final"></div>
+                        <div class="add-btn">
+                            <div>Add</div>
+                            <input disabled type="file" id="myfile" name="hod_final_attachments[]"
+                                oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="button-block">
+            <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                <button type="button"  class="backButton">Back</button>
+            </a>
+            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    Exit </a> </button>
+                   
+        </div>
+    </div>
+</div>
                     <!-- hod final review -->
                     <div id="CCForm4" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -5224,7 +5330,7 @@
                                         <label for="QA Feedbacks">HOD Final Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea disabled class="tiny" name="hod_final_remarks" id="summernote-14">
+                                        <textarea disabled class="tiny-disable" name="hod_final_remarks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5267,7 +5373,7 @@
                                         <label for="QA Feedbacks">QA Final Remarks</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea disabled class="tiny" name="qa_final_remarks" id="summernote-14">
+                                        <textarea disabled class="tiny-disable" name="qa_final_remarks" id="summernote-14">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5326,20 +5432,20 @@
                                             Category</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea disabled class="tiny" name="Investigation_Of_Review" id="summernote-13">
+                                        <textarea disabled class="tiny-disable" name="Investigation_Of_Review" id="summernote-13">
                                     </textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="Remarks">Closure Comments</label>
-                                        <textarea disabled class="tiny" name="Closure_Comments" id="summernote-15"></textarea>
+                                        <textarea disabled class="tiny-disable" name="Closure_Comments" id="summernote-15"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label class="mt-4" for="Audit Comments">Disposition of Batch</label>
-                                        <textarea disabled class="tiny" name="Disposition_Batch" id="summernote-16"></textarea>
+                                        <textarea disabled class="tiny-disable" name="Disposition_Batch" id="summernote-16"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -5409,7 +5515,7 @@
                                             (Deviation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justification_deviation" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justification_deviation" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5464,7 +5570,7 @@
                                         <label for="Extension_Justification_CAPA">Extension Justification (CAPA)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justification_CAPA" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justification_CAPA" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5524,7 +5630,7 @@
                                             Management)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5589,7 +5695,7 @@
                                             (Investigation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justification_investigation" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justification_investigation" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5639,7 +5745,7 @@
                                             Plan(Deviation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Effectiveness_Check_Plan_Deviation" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5685,7 +5791,7 @@
                                             Comments(Deviation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="EC_Closure_comments_deviation" id="summernote-10">
+                                        <textarea class="tiny-disable" name="EC_Closure_comments_deviation" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5744,7 +5850,7 @@
                                         <label for="EC_plan_Capa">Effectiveness Check Plan(CAPA)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="EC_plan_Capa" id="summernote-10">
+                                        <textarea class="tiny-disable" name="EC_plan_Capa" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5789,7 +5895,7 @@
                                             Comments(CAPA)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5848,7 +5954,7 @@
                                             Management)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5894,7 +6000,7 @@
                                             Risk Management)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5954,7 +6060,7 @@
                                         <label for="Extension_Justi_QRM">Effectiveness Check Plan(Investigation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Extension_Justi_QRM" id="summernote-10">
+                                        <textarea class="tiny-disable" name="Extension_Justi_QRM" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
@@ -5998,7 +6104,7 @@
                                             Comments(Investigation)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="EC_Closure_Comments_investigation" id="summernote-10">
+                                        <textarea class="tiny-disable" name="EC_Closure_Comments_investigation" id="summernote-10">
                                     </textarea>
                                     </div>
                                 </div>
