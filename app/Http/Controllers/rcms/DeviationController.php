@@ -374,7 +374,7 @@ class DeviationController extends Controller
 
             $deviation->initial_file = json_encode($files);
         }
-        //dd($request->Initial_attachment);
+        
         if (!empty ($request->Initial_attachment)) {
             $files = [];
             if ($request->hasfile('Initial_attachment')) {
@@ -1175,7 +1175,6 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $form_progress = null;
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
@@ -1558,10 +1557,8 @@ class DeviationController extends Controller
             $deviation->QA_Feedbacks = $request->QA_Feedbacks;
             $deviation->Closure_Comments = $request->Closure_Comments;
             $deviation->Disposition_Batch = $request->Disposition_Batch;
+            $files = is_array($request->existing_closure_attachment) ? $request->existing_closure_attachment : [];
             if (!empty ($request->closure_attachment)) {
-
-                $files = [];
-
                 if ($deviation->closure_attachment) {
                     $existingFiles = json_decode($deviation->closure_attachment, true); // Convert to associative array
                     if (is_array($existingFiles)) {
@@ -1577,10 +1574,8 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-
-
-                $deviation->closure_attachment = json_encode($files);
             }
+            $deviation->closure_attachment = json_encode($files);
         }
         if($deviation->stage == 3 || $deviation->stage == 4 ){
 
@@ -1969,33 +1964,30 @@ class DeviationController extends Controller
                     }
                 }
 
-
-            if (!empty ($request->Initial_attachment)) {
-                $files = [];
-
-                if ($deviation->Initial_attachment) {
-                    $files = is_array(json_decode($deviation->Initial_attachment)) ? $deviation->Initial_attachment : [];
-                }
-
-                if ($request->hasfile('Initial_attachment')) {
-                    foreach ($request->file('Initial_attachment') as $file) {
-                        $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
+                $files = is_array($request->existing_Initial_attachment) ? $request->existing_Initial_attachment : [];
+                if (!empty ($request->Initial_attachment)) {
+                    if ($deviation->Initial_attachment) {
+                        $existingFiles = json_decode($deviation->Initial_attachment, true); // Convert to associative array
+                        if (is_array($existingFiles)) {
+                            $files = $existingFiles;
+                        }
+                        // $files = is_array(json_decode($deviation->Initial_attachment)) ? $deviation->Initial_attachment : [];
+                    }
+        
+                    if ($request->hasfile('Initial_attachment')) {
+                        foreach ($request->file('Initial_attachment') as $file) {
+                            $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                            $file->move('upload/', $name);
+                            $files[] = $name;
+                        }
                     }
                 }
-
-
                 $deviation->Initial_attachment = json_encode($files);
-            }
         }
 
 
-
+        $files = is_array($request->existing_Audit_file) ? $request->existing_Audit_file : [];
         if (!empty ($request->Audit_file)) {
-
-            $files = [];
-
             if ($deviation->Audit_file) {
                 $existingFiles = json_decode($deviation->Audit_file, true); // Convert to associative array
                 if (is_array($existingFiles)) {
@@ -2011,10 +2003,11 @@ class DeviationController extends Controller
                     $files[] = $name;
                 }
             }
-            $deviation->Audit_file = json_encode($files);
         }
+        $deviation->Audit_file = json_encode($files);
 
 
+        $files = is_array($request->existing_initial_file) ? $request->existing_initial_file : [];
 
         if (!empty($request->initial_file)) {
             $files = [];
@@ -2045,11 +2038,10 @@ class DeviationController extends Controller
                     $files[] = $name;
                 }
             }
-
-            // Encode the files array and update the model
-            $deviation->initial_file = json_encode($files);
         }
 
+        $deviation->initial_file = json_encode($files);
+        
         if (!empty ($request->QA_attachment)) {
             $files = [];
 
@@ -2095,12 +2087,14 @@ class DeviationController extends Controller
 
             $deviation->Capa_attachment = json_encode($files);
         }
+        $files = is_array($request->existing_QA_attachments) ? $request->existing_QA_attachments : [];
         if (!empty ($request->QA_attachments)) {
-
-            $files = [];
-
             if ($deviation->QA_attachments) {
-                $files = is_array(json_decode($deviation->QA_attachments)) ? $deviation->QA_attachments : [];
+                $existingFiles = json_decode($deviation->QA_attachments, true); // Convert to associative array
+                if (is_array($existingFiles)) {
+                    $files = $existingFiles;
+                }
+                // $files = is_array(json_decode($deviation->QA_attachments)) ? $deviation->QA_attachments : [];
             }
 
             if ($request->hasfile('QA_attachments')) {
@@ -2110,10 +2104,8 @@ class DeviationController extends Controller
                     $files[] = $name;
                 }
             }
-
-
-            $deviation->QA_attachments = json_encode($files);
         }
+        $deviation->QA_attachments = json_encode($files);
 
 
             if($deviation->stage >= 5){
@@ -2142,15 +2134,14 @@ class DeviationController extends Controller
             $deviation->initiator_final_remarks = $request->initiator_final_remarks;
             // dd($deviation->initiator_final_remarks);
 
+            $files = is_array($request->existing_initiator_final_attachments) ? $request->existing_initiator_final_attachments : [];
             if (!empty ($request->initiator_final_attachments)) {
-
-                $files = [];
-
                 if ($deviation->initiator_final_attachments) {
                     $existingFiles = json_decode($deviation->initiator_final_attachments, true); // Convert to associative array
                     if (is_array($existingFiles)) {
                         $files = $existingFiles;
                     }
+                    // $files = is_array(json_decode($deviation->initiator_final_attachments)) ? $deviation->initiator_final_attachments : [];
                 }
 
                 if ($request->hasfile('initiator_final_attachments')) {
@@ -2160,21 +2151,20 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-                $deviation->initiator_final_attachments = json_encode($files);
             }
+            $deviation->initiator_final_attachments = json_encode($files);
         }
         if($deviation->stage == 8){
             $deviation->hod_final_remarks = $request->hod_final_remarks;
 
+            $files = is_array($request->existing_hod_final_attachments) ? $request->existing_hod_final_attachments : [];
             if (!empty ($request->hod_final_attachments)) {
-
-                $files = [];
-
                 if ($deviation->hod_final_attachments) {
                     $existingFiles = json_decode($deviation->hod_final_attachments, true); // Convert to associative array
                     if (is_array($existingFiles)) {
                         $files = $existingFiles;
                     }
+                    // $files = is_array(json_decode($deviation->hod_final_attachments)) ? $deviation->hod_final_attachments : [];
                 }
 
                 if ($request->hasfile('hod_final_attachments')) {
@@ -2184,21 +2174,20 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-                $deviation->hod_final_attachments = json_encode($files);
             }
+            $deviation->hod_final_attachments = json_encode($files);
         }
         if($deviation->stage == 9){
             $deviation->qa_final_remarks = $request->qa_final_remarks;
 
+            $files = is_array($request->existing_qa_final_attachments) ? $request->existing_qa_final_attachments : [];
             if (!empty ($request->qa_final_attachments)) {
-
-                $files = [];
-
                 if ($deviation->qa_final_attachments) {
                     $existingFiles = json_decode($deviation->qa_final_attachments, true); // Convert to associative array
                     if (is_array($existingFiles)) {
                         $files = $existingFiles;
                     }
+                    // $files = is_array(json_decode($deviation->qa_final_attachments)) ? $deviation->qa_final_attachments : [];
                 }
 
                 if ($request->hasfile('qa_final_attachments')) {
@@ -2208,8 +2197,8 @@ class DeviationController extends Controller
                         $files[] = $name;
                     }
                 }
-                $deviation->qa_final_attachments = json_encode($files);
             }
+            $deviation->qa_final_attachments = json_encode($files);
         }
 
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
