@@ -787,7 +787,7 @@
                                         <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_date" readonly
-                                                placeholder="DD-MM-YYYY" />
+                                                placeholder="DD/MM/YYYY" />
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
                                             <input type="date" name="Deviation_date"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -840,7 +840,7 @@
                                         <label for="Audit Schedule End Date">Deviation Reported on</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_reported_date" readonly
-                                                placeholder="DD-MM-YYYY" />
+                                                placeholder="DD/MM/YYYY" />
                                             <input type="date" name="Deviation_reported_date"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'Deviation_reported_date')" />
