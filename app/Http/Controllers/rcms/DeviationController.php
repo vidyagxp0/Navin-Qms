@@ -7,7 +7,7 @@ use App\Models\DeviationNewGridData;
 use App\Models\DeviationCftsResponse;
 use App\Models\RootCauseAnalysis;
 use App\Http\Controllers\Controller;
-use App\Models\{EffectivenessCheck, LaunchExtension, DeviationGridQrms};
+use App\Models\{EffectivenessCheck,LaunchExtension,DeviationGridQrms};
 use App\Models\CC;
 use App\Models\RootAuditTrail;
 use App\Models\ActionItem;
@@ -64,6 +64,7 @@ class DeviationController extends Controller
      */
     public function create(request $request)
     {
+
     }
 
     /**
@@ -76,7 +77,8 @@ class DeviationController extends Controller
     {
         $form_progress = null; // initialize form progress
 
-        if ($request->form_name == 'general') {
+        if ($request->form_name == 'general')
+        {
             $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
                 'short_description' => 'required'
@@ -145,7 +147,7 @@ class DeviationController extends Controller
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
-        if ($deviation->stage == 2) {
+        if($deviation->stage == 2){
             $deviation->HOD_Remarks = $request->HOD_Remarks;
         }
         $deviation->Deviation_category = $request->Deviation_category;
@@ -164,183 +166,189 @@ class DeviationController extends Controller
 
         $deviation->Facility_Equipment = $request->Facility_Equipment;
         $deviation->Document_Details_Required = $request->Document_Details_Required;
-        // // Get the current date
-        // $due_date = new Deviation();
+            // // Get the current date
+            // $due_date = new Deviation();
 
-        // // Threshold for sending notification (e.g., 7 days)`
-        // $threshold_days = 30;
+            // // Threshold for sending notification (e.g., 7 days)`
+            // $threshold_days = 30;
 
-        // // Iterate through the CEO user list
-        // $list = Helpers::getCEOUserList();
-        // foreach ($list as $u) {
-        //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
-        //         $email = Helpers::getInitiatorEmail($u->user_id);
-        //         if ($email !== null) {
-        //             // Calculate remaining days until due date
-        //             $due_date = new Deviation($deviation->due_date);
-        //             $remaining_days = $due_date->diff($due_date)->days;
+            // // Iterate through the CEO user list
+            // $list = Helpers::getCEOUserList();
+            // foreach ($list as $u) {
+            //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+            //         $email = Helpers::getInitiatorEmail($u->user_id);
+            //         if ($email !== null) {
+            //             // Calculate remaining days until due date
+            //             $due_date = new Deviation($deviation->due_date);
+            //             $remaining_days = $due_date->diff($due_date)->days;
 
-        //             // Check if remaining days are within the threshold
-        //             if ($remaining_days <= $threshold_days) {
-        //                 // Send email notification
-        //                 Mail::send(
-        //                     'mail.duedateapproaching',
-        //                     ['data' => $deviation],
-        //                     function ($message) use ($email) {
-        //                         $message->to($email)
-        //                             ->subject("Activity Performed By " . Auth::user()->name);
-        //                     }
-        //                 );
-        //             }
-        //         }
-        //     }
-        // }
+            //             // Check if remaining days are within the threshold
+            //             if ($remaining_days <= $threshold_days) {
+            //                 // Send email notification
+            //                 Mail::send(
+            //                     'mail.duedateapproaching',
+            //                     ['data' => $deviation],
+            //                     function ($message) use ($email) {
+            //                         $message->to($email)
+            //                             ->subject("Activity Performed By " . Auth::user()->name);
+            //                     }
+            //                 );
+            //             }
+            //         }
+            //     }
+            // }
 
 
 
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
             $list = Helpers::getHeadoperationsUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        // Add this if statement
-                        try {
-                            Mail::send(
-                                'mail.Categorymail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
+                    foreach ($list as $u) {
+                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
+                                 // Add this if statement
+                                try {
+                                    Mail::send(
+                                        'mail.Categorymail',
+                                        ['data' => $deviation],
+                                        function ($message) use ($email) {
+                                            $message->to($email)
+                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                        }
+                                    );
+                                } catch (\Exception $e) {
+                                    //log error
                                 }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
+
+                            }
                         }
                     }
                 }
-            }
-        }
 
 
-        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
-            $list = Helpers::getCEOUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        // Add this if statement
-                        try {
-                            Mail::send(
-                                'mail.Categorymail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
-                        }
-                    }
-                }
-            }
-        }
-        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
-            $list = Helpers::getCorporateEHSHeadUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        // Add this if statement
-                        try {
-                            Mail::send(
-                                'mail.Categorymail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
-                        }
-                    }
-                }
-            }
-        }
+                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                    $list = Helpers::getCEOUserList();
+                            foreach ($list as $u) {
+                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                    if ($email !== null) {
+                                         // Add this if statement
+                                         try {
+                                                Mail::send(
+                                                    'mail.Categorymail',
+                                                    ['data' => $deviation],
+                                                    function ($message) use ($email) {
+                                                        $message->to($email)
+                                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                                    }
+                                                );
+                                            } catch (\Exception $e) {
+                                                //log error
+                                            }
 
-        if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
-            $list = Helpers::getHeadoperationsUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        // Add this if statement
-                        try {
-                            Mail::send(
-                                'mail.Categorymail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                    }
                                 }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
+                            }
                         }
-                    }
-                }
-            }
-        }
-        if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
-            $list = Helpers::getCEOUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        // Add this if statement
-                        try {
-                            Mail::send(
-                                'mail.Categorymail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
-                        }
-                    }
-                }
-            }
-        }
-        if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
-            $list = Helpers::getCorporateEHSHeadUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        // Add this if statement
-                        try {
-                            Mail::send(
-                                'mail.Categorymail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
-                        }
-                    }
-                }
-            }
-        }
+                        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                            $list = Helpers::getCorporateEHSHeadUserList();
+                                    foreach ($list as $u) {
+                                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                            $email = Helpers::getInitiatorEmail($u->user_id);
+                                            if ($email !== null) {
+                                                 // Add this if statement
+                                                 try {
+                                                        Mail::send(
+                                                            'mail.Categorymail',
+                                                            ['data' => $deviation],
+                                                            function ($message) use ($email) {
+                                                                $message->to($email)
+                                                                    ->subject("Activity Performed By " . Auth::user()->name);
+                                                            }
+                                                        );
+                                                    } catch (\Exception $e) {
+                                                        //log error
+                                                    }
 
-        if (!empty($request->Audit_file)) {
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
+                                    $list = Helpers::getHeadoperationsUserList();
+                                            foreach ($list as $u) {
+                                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                                    if ($email !== null) {
+                                                         // Add this if statement
+                                                         try {
+                                                            Mail::send(
+                                                                'mail.Categorymail',
+                                                                ['data' => $deviation],
+                                                                function ($message) use ($email) {
+                                                                    $message->to($email)
+                                                                        ->subject("Activity Performed By " . Auth::user()->name);
+                                                                }
+                                                            );
+                                                        } catch (\Exception $e) {
+                                                            //log error
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
+                                            $list = Helpers::getCEOUserList();
+                                                    foreach ($list as $u) {
+                                                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                            $email = Helpers::getInitiatorEmail($u->user_id);
+                                                            if ($email !== null) {
+                                                                 // Add this if statement
+                                                                 try {
+                                                                        Mail::send(
+                                                                            'mail.Categorymail',
+                                                                            ['data' => $deviation],
+                                                                            function ($message) use ($email) {
+                                                                                $message->to($email)
+                                                                                    ->subject("Activity Performed By " . Auth::user()->name);
+                                                                            }
+                                                                        );
+                                                                    } catch (\Exception $e) {
+                                                                        //log error
+                                                                    }
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if ($request->Post_Categorization == 'major' || $request->Post_Categorization == 'minor' || $request->Post_Categorization == 'critical') {
+                                                    $list = Helpers::getCorporateEHSHeadUserList();
+                                                            foreach ($list as $u) {
+                                                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                                                    if ($email !== null) {
+                                                                         // Add this if statement
+                                                                         try {
+                                                                                Mail::send(
+                                                                                    'mail.Categorymail',
+                                                                                    ['data' => $deviation],
+                                                                                    function ($message) use ($email) {
+                                                                                        $message->to($email)
+                                                                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                                                                    }
+                                                                                );
+                                                                            } catch (\Exception $e) {
+                                                                                //log error
+                                                                            }
+
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+        if (!empty ($request->Audit_file)) {
             $files = [];
             if ($request->hasfile('Audit_file')) {
                 foreach ($request->file('Audit_file') as $file) {
@@ -353,7 +361,7 @@ class DeviationController extends Controller
 
             $deviation->Audit_file = json_encode($files);
         }
-        if (!empty($request->initial_file)) {
+        if (!empty ($request->initial_file)) {
             $files = [];
             if ($request->hasfile('initial_file')) {
                 foreach ($request->file('initial_file') as $file) {
@@ -366,8 +374,8 @@ class DeviationController extends Controller
 
             $deviation->initial_file = json_encode($files);
         }
-        //dd($request->Initial_attachment);
-        if (!empty($request->Initial_attachment)) {
+        
+        if (!empty ($request->Initial_attachment)) {
             $files = [];
             if ($request->hasfile('Initial_attachment')) {
                 foreach ($request->file('Initial_attachment') as $file) {
@@ -381,7 +389,7 @@ class DeviationController extends Controller
             $deviation->Initial_attachment = json_encode($files);
         }
 
-        if (!empty($request->QA_attachment)) {
+        if (!empty ($request->QA_attachment)) {
             $files = [];
             if ($request->hasfile('QA_attachment')) {
                 foreach ($request->file('QA_attachment') as $file) {
@@ -394,7 +402,7 @@ class DeviationController extends Controller
 
             $deviation->QA_attachment = json_encode($files);
         }
-        if (!empty($request->Capa_attachment)) {
+        if (!empty ($request->Capa_attachment)) {
             $files = [];
             if ($request->hasfile('Capa_attachment')) {
                 foreach ($request->file('Capa_attachment') as $file) {
@@ -408,7 +416,7 @@ class DeviationController extends Controller
             $deviation->Capa_attachment = json_encode($files);
         }
 
-        if (!empty($request->QA_attachments)) {
+        if (!empty ($request->QA_attachments)) {
             $files = [];
             if ($request->hasfile('QA_attachments')) {
                 foreach ($request->file('QA_attachments') as $file) {
@@ -422,7 +430,7 @@ class DeviationController extends Controller
             $deviation->QA_attachments = json_encode($files);
         }
 
-        if (!empty($request->closure_attachment)) {
+        if (!empty ($request->closure_attachment)) {
             $files = [];
             if ($request->hasfile('closure_attachment')) {
                 foreach ($request->file('closure_attachment') as $file) {
@@ -619,7 +627,7 @@ class DeviationController extends Controller
         $Cft->Other5_by = $request->Other5_by;
         $Cft->Other5_on = $request->Other5_on;
 
-        if (!empty($request->production_attachment)) {
+        if (!empty ($request->production_attachment)) {
             $files = [];
             if ($request->hasfile('production_attachment')) {
                 foreach ($request->file('production_attachment') as $file) {
@@ -632,7 +640,7 @@ class DeviationController extends Controller
 
             $Cft->production_attachment = json_encode($files);
         }
-        if (!empty($request->Warehouse_attachment)) {
+        if (!empty ($request->Warehouse_attachment)) {
             $files = [];
             if ($request->hasfile('Warehouse_attachment')) {
                 foreach ($request->file('Warehouse_attachment') as $file) {
@@ -645,7 +653,7 @@ class DeviationController extends Controller
 
             $Cft->Warehouse_attachment = json_encode($files);
         }
-        if (!empty($request->Quality_Control_attachment)) {
+        if (!empty ($request->Quality_Control_attachment)) {
             $files = [];
             if ($request->hasfile('Quality_Control_attachment')) {
                 foreach ($request->file('Quality_Control_attachment') as $file) {
@@ -658,7 +666,7 @@ class DeviationController extends Controller
 
             $Cft->Quality_Control_attachment = json_encode($files);
         }
-        if (!empty($request->Quality_Assurance_attachment)) {
+        if (!empty ($request->Quality_Assurance_attachment)) {
             $files = [];
             if ($request->hasfile('Quality_Assurance_attachment')) {
                 foreach ($request->file('Quality_Assurance_attachment') as $file) {
@@ -671,7 +679,7 @@ class DeviationController extends Controller
 
             $Cft->Quality_Assurance_attachment = json_encode($files);
         }
-        if (!empty($request->Engineering_attachment)) {
+        if (!empty ($request->Engineering_attachment)) {
             $files = [];
             if ($request->hasfile('Engineering_attachment')) {
                 foreach ($request->file('Engineering_attachment') as $file) {
@@ -684,7 +692,7 @@ class DeviationController extends Controller
 
             $Cft->Engineering_attachment = json_encode($files);
         }
-        if (!empty($request->Analytical_Development_attachment)) {
+        if (!empty ($request->Analytical_Development_attachment)) {
             $files = [];
             if ($request->hasfile('Analytical_Development_attachment')) {
                 foreach ($request->file('Analytical_Development_attachment') as $file) {
@@ -697,7 +705,7 @@ class DeviationController extends Controller
 
             $Cft->Analytical_Development_attachment = json_encode($files);
         }
-        if (!empty($request->Kilo_Lab_attachment)) {
+        if (!empty ($request->Kilo_Lab_attachment)) {
             $files = [];
             if ($request->hasfile('Kilo_Lab_attachment')) {
                 foreach ($request->file('Kilo_Lab_attachment') as $file) {
@@ -710,7 +718,7 @@ class DeviationController extends Controller
 
             $Cft->Kilo_Lab_attachment = json_encode($files);
         }
-        if (!empty($request->Technology_transfer_attachment)) {
+        if (!empty ($request->Technology_transfer_attachment)) {
             $files = [];
             if ($request->hasfile('Technology_transfer_attachment')) {
                 foreach ($request->file('Technology_transfer_attachment') as $file) {
@@ -723,7 +731,7 @@ class DeviationController extends Controller
 
             $Cft->Technology_transfer_attachment = json_encode($files);
         }
-        if (!empty($request->Environment_Health_Safety_attachment)) {
+        if (!empty ($request->Environment_Health_Safety_attachment)) {
             $files = [];
             if ($request->hasfile('Environment_Health_Safety_attachment')) {
                 foreach ($request->file('Environment_Health_Safety_attachment') as $file) {
@@ -736,7 +744,7 @@ class DeviationController extends Controller
 
             $Cft->Environment_Health_Safety_attachment = json_encode($files);
         }
-        if (!empty($request->Human_Resource_attachment)) {
+        if (!empty ($request->Human_Resource_attachment)) {
             $files = [];
             if ($request->hasfile('Human_Resource_attachment')) {
                 foreach ($request->file('Human_Resource_attachment') as $file) {
@@ -749,7 +757,7 @@ class DeviationController extends Controller
 
             $Cft->Human_Resource_attachment = json_encode($files);
         }
-        if (!empty($request->Information_Technology_attachment)) {
+        if (!empty ($request->Information_Technology_attachment)) {
             $files = [];
             if ($request->hasfile('Information_Technology_attachment')) {
                 foreach ($request->file('Information_Technology_attachment') as $file) {
@@ -762,7 +770,7 @@ class DeviationController extends Controller
 
             $Cft->Information_Technology_attachment = json_encode($files);
         }
-        if (!empty($request->Project_management_attachment)) {
+        if (!empty ($request->Project_management_attachment)) {
             $files = [];
             if ($request->hasfile('Project_management_attachment')) {
                 foreach ($request->file('Project_management_attachment') as $file) {
@@ -775,7 +783,7 @@ class DeviationController extends Controller
 
             $Cft->Project_management_attachment = json_encode($files);
         }
-        if (!empty($request->Other1_attachment)) {
+        if (!empty ($request->Other1_attachment)) {
             $files = [];
             if ($request->hasfile('Other1_attachment')) {
                 foreach ($request->file('Other1_attachment') as $file) {
@@ -788,7 +796,7 @@ class DeviationController extends Controller
 
             $Cft->Other1_attachment = json_encode($files);
         }
-        if (!empty($request->Other2_attachment)) {
+        if (!empty ($request->Other2_attachment)) {
             $files = [];
             if ($request->hasfile('Other2_attachment')) {
                 foreach ($request->file('Other2_attachment') as $file) {
@@ -801,7 +809,7 @@ class DeviationController extends Controller
 
             $Cft->Other2_attachment = json_encode($files);
         }
-        if (!empty($request->Other3_attachment)) {
+        if (!empty ($request->Other3_attachment)) {
             $files = [];
             if ($request->hasfile('Other3_attachment')) {
                 foreach ($request->file('Other3_attachment') as $file) {
@@ -814,7 +822,7 @@ class DeviationController extends Controller
 
             $Cft->Other3_attachment = json_encode($files);
         }
-        if (!empty($request->Other4_attachment)) {
+        if (!empty ($request->Other4_attachment)) {
             $files = [];
             if ($request->hasfile('Other4_attachment')) {
                 foreach ($request->file('Other4_attachment') as $file) {
@@ -827,7 +835,7 @@ class DeviationController extends Controller
 
             $Cft->Other4_attachment = json_encode($files);
         }
-        if (!empty($request->Other5_attachment)) {
+        if (!empty ($request->Other5_attachment)) {
             $files = [];
             if ($request->hasfile('Other5_attachment')) {
                 foreach ($request->file('Other5_attachment') as $file) {
@@ -866,52 +874,52 @@ class DeviationController extends Controller
         // }
         // $data5->save();
 
-        // $history = new DeviationAuditTrail();
-        //     $history->deviation_id = $deviation->id;
-        //     $history->activity_type = 'Initiator';
-        //     $history->previous = "Null";
-        //     $history->current = Auth::user()->name;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $deviation->status;
-        //     $history->change_to =   "Opened";
-        //     $history->change_from = "Initiator";
-        //     $history->action_name = 'Create';
-        //     $history->save();
+        $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Initiator';
+            $history->previous = "Null";
+            $history->current = Auth::user()->name;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
 
-        // $history = new DeviationAuditTrail();
-        // $history->deviation_id = $deviation->id;
-        // $history->activity_type = 'Due Date';
-        // $history->previous = "Null";
-        // $history->current = $deviation->due_date;
-        // $history->comment = "Not Applicable";
-        // $history->user_id = Auth::user()->id;
-        // $history->user_name = Auth::user()->name;
-        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        // $history->origin_state = $deviation->status;
-        // $history->change_to =   "Opened";
-        // $history->change_from = "Initiator";
-        // $history->action_name = 'Create';
-        // $history->save();
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Due Date';
+            $history->previous = "Null";
+            $history->current = $deviation->due_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
 
-        // $history = new DeviationAuditTrail();
-        // $history->deviation_id = $deviation->id;
-        // $history->activity_type = 'Date of Initiation';
-        // $history->previous = "Null";
-        // $history->current = Carbon::now()->format('d-M-Y');
-        // $history->comment = "Not Applicable";
-        // $history->user_id = Auth::user()->id;
-        // $history->user_name = Auth::user()->name;
-        // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        // $history->origin_state = $deviation->status;
-        // $history->change_to =   "Opened";
-        // $history->change_from = "Initiator";
-        // $history->action_name = 'Create';
-        // $history->save();
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $deviation->id;
+            $history->activity_type = 'Date of Initiation';
+            $history->previous = "Null";
+            $history->current = Carbon::now()->format('d-M-Y');
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $deviation->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = 'Create';
+            $history->save();
 
-        if (!empty($request->short_description)) {
+        if (!empty ($request->short_description)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Short Description';
@@ -928,7 +936,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if (!empty($request->Initiator_Group)) {
+        if (!empty ($request->Initiator_Group)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Department';
@@ -944,7 +952,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-        if (!empty($request->Deviation_date)) {
+        if (!empty ($request->Deviation_date)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Deviation Observed';
@@ -960,25 +968,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-
-        if (!empty($request->deviation_time)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Deviation Observed On (Time)';
-            $history->previous = "Null";
-            $history->current = $deviation->deviation_time;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-        if (is_array($request->Facility) && $request->Facility[0] !== null) {
+        if (is_array($request->Facility) && $request->Facility[0] !== null){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Observed by';
@@ -994,7 +984,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-        if (!empty($request->Deviation_reported_date)) {
+        if (!empty ($request->Deviation_reported_date)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Deviation Reported on';
@@ -1010,7 +1000,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-        if ($request->audit_type[0] !== null) {
+        if ($request->audit_type[0] !== null){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Deviation Related To';
@@ -1026,42 +1016,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-
-        if (!empty($request->short_description_required)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Repeat Deviation?';
-            $history->previous = "Null";
-            $history->current = $deviation->short_description_required;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->save();
-        }
-
-        if (!empty($request->nature_of_repeat)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Repeat Nature';
-            $history->previous = "Null";
-            $history->current = $deviation->nature_of_repeat;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->save();
-        }
-
-        if (!empty($request->others)) {
+        if (!empty ($request->others)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Others';
@@ -1077,183 +1032,7 @@ class DeviationController extends Controller
             $history->change_from = "Initiator";
             $history->save();
         }
-
-        // if (!empty ($request->Description_Deviation)){
-        //     $history = new DeviationAuditTrail();
-        //     $history->deviation_id = $deviation->id;
-        //     $history->activity_type = 'Description of Deviation';
-        //     $history->previous = "Null";
-        //     $history->current = $deviation->Description_Deviation;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $deviation->status;
-        //     $history->action_name = 'Create';
-        //     $history->change_to =   "Opened";
-        //     $history->change_from = "Initiator";
-        //     $history->save();
-        // }
-
-
-        // if (!empty ($request->Immediate_Action)){
-        //     $history = new DeviationAuditTrail();
-        //     $history->deviation_id = $deviation->id;
-        //     $history->activity_type = 'Immediate Action (if any)';
-        //     $history->previous = "Null";
-        //     $history->current = $deviation->Immediate_Action;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $deviation->status;
-        //     $history->action_name = 'Create';
-        //     $history->change_to =   "Opened";
-        //     $history->change_from = "Initiator";
-        //     $history->save();
-        // }
-
-        // if (!empty ($request->Preliminary_Impact)){
-        //     $history = new DeviationAuditTrail();
-        //     $history->deviation_id = $deviation->id;
-        //     $history->activity_type = 'Immediate Action (if any)';
-        //     $history->previous = "Null";
-        //     $history->current = $deviation->Preliminary_Impact;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $deviation->status;
-        //     $history->action_name = 'Create';
-        //     $history->change_to =   "Opened";
-        //     $history->change_from = "Initiator";
-        //     $history->save();
-        // }
-
-
-        if (!empty($request->Product_Details_Required)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Product/Batch Required?';
-            $history->previous = "Null";
-            $history->current = $deviation->Product_Details_Required;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->save();
-        }
-
-        if (!empty($request->HOD_Remarks)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Facility/ Equipment/ Instrument/ System Details Required?';
-            $history->previous = "Null";
-            $history->current = $deviation->HOD_Remarks;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-        if (!empty($request->Investigation_required)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Investigation Required?';
-            $history->previous = "Null";
-            $history->current = $deviation->Investigation_required;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-        if (!empty($request->Justification_for_categorization)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Justification for categorization';
-            $history->previous = "Null";
-            $history->current = $deviation->Justification_for_categorization;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-
-        if (!empty($request->Customer_notification)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Customer Notification Required ?';
-            $history->previous = "Null";
-            $history->current = $deviation->Customer_notification;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-
-        if (!empty($request->QAInitialRemark)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'QA Initial Remarks ';
-            $history->previous = "Null";
-            $history->current = $deviation->QAInitialRemark;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-        if (!empty($request->Root_cause)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Root Cause';
-            $history->previous = "Null";
-            $history->current = $deviation->Root_cause;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-
-        if (!empty($request->Facility_Equipment)) {
+        if (!empty ($request->Facility_Equipment)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Facility/ Equipment/ Instrument/ System Details Required?';
@@ -1269,7 +1048,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-        if (!empty($request->Document_Details_Required)) {
+        if (!empty ($request->Document_Details_Required)){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Document Details Required';
@@ -1285,64 +1064,7 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-
-
-        if (!empty($request->Deviation_category)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Initial Deviation category';
-            $history->previous = "Null";
-            $history->current = $deviation->Deviation_category;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-
-        if (!empty($request->Post_Categorization)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Post Categorization Of Deviation';
-            $history->previous = "Null";
-            $history->current = $deviation->Post_Categorization;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-
-
-        if (!empty($request->Initial_attachment)) {
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Initial Attachments';
-            $history->previous = "Null";
-            $history->current = $deviation->Initial_attachment;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->save();
-        }
-
-
-        if ($request->Description_Deviation[0] !== null) {
+        if ($request->Description_Deviation[0] !== null){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Description of Deviation';
@@ -1358,23 +1080,23 @@ class DeviationController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-        if ($request->Immediate_Action[0] !== null) {
+        if ($request->Immediate_Action[0] !== null){
             $history = new DeviationAuditTrail();
-            $history->deviation_id = $deviation->id;
-            $history->activity_type = 'Immediate Action (if any)';
-            $history->previous = "Null";
-            $history->current = $deviation->Immediate_Action;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->change_to =   "Opened";
+        $history->deviation_id = $deviation->id;
+        $history->activity_type = 'Immediate Action (if any)';
+        $history->previous = "Null";
+        $history->current = $deviation->Immediate_Action;
+        $history->comment = "Not Applicable";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->change_to =   "Opened";
             $history->change_from = "Initiator";
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $deviation->status;
-            $history->action_name = 'Create';
-            $history->save();
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $deviation->status;
+        $history->action_name = 'Create';
+        $history->save();
         }
-        if ($request->Preliminary_Impact[0] !== null) {
+        if ($request->Preliminary_Impact[0] !== null){
             $history = new DeviationAuditTrail();
             $history->deviation_id = $deviation->id;
             $history->activity_type = 'Preliminary Impact of Deviation';
@@ -1431,7 +1153,7 @@ class DeviationController extends Controller
         $investigationExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Investigation"])->first();
         $deviationExtension = LaunchExtension::where(['deviation_id' => $id, "extension_identifier" => "Deviation"])->first();
 
-        return view('frontend.forms.deviation_view', compact('data', 'userData', 'grid_data_qrms', 'grid_data_matrix_qrms', 'capaExtension', 'qrmExtension', 'investigationExtension', 'deviationExtension', 'old_record', 'pre', 'data1', 'divisionName', 'grid_data', 'grid_data1', 'deviationNewGrid', 'grid_data2', 'investigation_data', 'root_cause_data', 'why_data', 'fishbone_data'));
+        return view('frontend.forms.deviation_view', compact('data','userData', 'grid_data_qrms','grid_data_matrix_qrms', 'capaExtension','qrmExtension','investigationExtension','deviationExtension', 'old_record', 'pre', 'data1', 'divisionName','grid_data','grid_data1', 'deviationNewGrid','grid_data2','investigation_data','root_cause_data', 'why_data', 'fishbone_data'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -1453,26 +1175,27 @@ class DeviationController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
         $form_progress = null;
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
         $deviation->Delay_Justification = $request->Delay_Justification;
 
-        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical') {
+        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
+        {
             $deviation->Investigation_required = "yes";
             $deviation->capa_required = "yes";
             $deviation->qrm_required = "yes";
         }
 
-        if ($request->Deviation_category == 'minor') {
+        if ($request->Deviation_category == 'minor')
+        {
             $deviation->Investigation_required = $request->Investigation_required;
             $deviation->capa_required = $request->capa_required;
             $deviation->qrm_required = $request->qrm_required;
         }
 
-        if ($request->form_name == 'general-open') {
+        if ($request->form_name == 'general-open')
+        {
             $validator = Validator::make($request->all(), [
                 'Initiator_Group' => 'required',
                 'short_description' => 'required',
@@ -1486,7 +1209,7 @@ class DeviationController extends Controller
                         $reported_date = Carbon::parse($request->Deviation_reported_date);
                         $diff_in_days = $reported_date->diffInDays($deviation_date);
                         if ($diff_in_days !== 0) {
-                            if (!$request->Delay_Justification) {
+                            if(!$request->Delay_Justification){
                                 $fail('The Delay Justification is required!');
                             }
                         }
@@ -1495,9 +1218,9 @@ class DeviationController extends Controller
                 'audit_type' => [
                     'required',
                     'array',
-                    function ($attribute, $value, $fail) {
+                    function($attribute, $value, $fail) {
                         if (count($value) === 1 && reset($value) === null) {
-                            return $fail($attribute . ' must not contain only null values.');
+                            return $fail($attribute.' must not contain only null values.');
                         }
                     },
                 ],
@@ -1535,7 +1258,7 @@ class DeviationController extends Controller
                 'Description_Deviation' => [
                     'required',
                     'array',
-                    function ($attribute, $value, $fail) {
+                    function($attribute, $value, $fail) {
                         if (count($value) === 1 && reset($value) === null) {
                             return $fail('Description of deviation must not be empty!.');
                         }
@@ -1544,7 +1267,7 @@ class DeviationController extends Controller
                 'Immediate_Action' => [
                     'required',
                     'array',
-                    function ($attribute, $value, $fail) {
+                    function($attribute, $value, $fail) {
                         if (count($value) === 1 && reset($value) === null) {
                             return $fail('Immediate Action field must not be empty!.');
                         }
@@ -1553,7 +1276,7 @@ class DeviationController extends Controller
                 'Preliminary_Impact' => [
                     'required',
                     'array',
-                    function ($attribute, $value, $fail) {
+                    function($attribute, $value, $fail) {
                         if (count($value) === 1 && reset($value) === null) {
                             return $fail('Preliminary Impact field must not be empty!.');
                         }
@@ -1575,7 +1298,8 @@ class DeviationController extends Controller
                 $form_progress = 'general-open';
             }
         }
-        if ($request->form_name == 'qa') {
+        if ($request->form_name == 'qa')
+        {
             $validator = Validator::make($request->all(), [
                 // 'Justification_for_categorization' => 'required',
                 'short_description_required' => 'required|in:Recurring,Non_Recurring',
@@ -1596,7 +1320,8 @@ class DeviationController extends Controller
                 $form_progress = 'qa';
             }
         }
-        if ($request->form_name == 'pending-initiator') {
+        if ($request->form_name == 'pending-initiator')
+        {
             $validator = Validator::make($request->all(), [
                 'initiator_final_remarks' => 'required'
             ], [
@@ -1612,7 +1337,8 @@ class DeviationController extends Controller
             }
         }
 
-        if ($request->form_name == 'hod-final') {
+        if ($request->form_name == 'hod-final')
+        {
             $validator = Validator::make($request->all(), [
                 'hod_final_remarks' => 'required'
             ], [
@@ -1627,7 +1353,8 @@ class DeviationController extends Controller
                 $form_progress = 'hod-final';
             }
         }
-        if ($request->form_name == 'qa-final-remark') {
+        if ($request->form_name == 'qa-final-remark')
+        {
             $validator = Validator::make($request->all(), [
                 'qa_final_remarks' => 'required'
             ], [
@@ -1642,7 +1369,8 @@ class DeviationController extends Controller
                 $form_progress = 'qa-final-remark';
             }
         }
-        if ($request->form_name == 'qah-des') {
+        if ($request->form_name == 'qah-des')
+        {
             $validator = Validator::make($request->all(), [
                 'Disposition_Batch' => 'required',
                 'Closure_Comments' => 'required'
@@ -1660,42 +1388,45 @@ class DeviationController extends Controller
             }
         }
 
-        if ($request->form_name == 'capa') {
+        if ($request->form_name == 'capa')
+        {
 
             // ============ capa ======================
-            if ($request->form_name == 'capa') {
-                if ($request->source_doc != "") {
-                    $deviation->capa_number = $request->capa_number ? $request->capa_number : $deviation->capa_number;
-                    $deviation->department_capa = $request->department_capa ? $request->department_capa : $deviation->department_capa;
-                    $deviation->source_of_capa = $request->source_of_capa ? $request->source_of_capa : $deviation->source_of_capa;
-                    $deviation->capa_others = $request->capa_others ? $request->capa_others : $deviation->capa_others;
-                    $deviation->source_doc = $request->source_doc ? $request->source_doc : $deviation->source_doc;
-                    $deviation->Description_of_Discrepancy = $request->Description_of_Discrepancy ? $request->Description_of_Discrepancy : $deviation->Description_of_Discrepancy;
-                    $deviation->capa_root_cause = $request->capa_root_cause ? $request->capa_root_cause : $deviation->capa_root_cause;
-                    $deviation->Immediate_Action_Take = $request->Immediate_Action_Take ? $request->Immediate_Action_Take : $deviation->Immediate_Action_Take;
-                    $deviation->Corrective_Action_Details = $request->Corrective_Action_Details ? $request->Corrective_Action_Details : $deviation->Corrective_Action_Details;
-                    $deviation->Preventive_Action_Details = $request->Preventive_Action_Details ? $request->Preventive_Action_Details : $deviation->Preventive_Action_Details;
-                    $deviation->capa_completed_date = $request->capa_completed_date ? $request->capa_completed_date : $deviation->capa_completed_date;
-                    $deviation->Interim_Control = $request->Interim_Control ? $request->Interim_Control : $deviation->Interim_Control;
-                    $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
-                    $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
-                    $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
+        if ($request->form_name == 'capa')
+        {
+            if($request->source_doc!=""){
+                $deviation->capa_number = $request->capa_number ? $request->capa_number : $deviation->capa_number;
+                $deviation->department_capa = $request->department_capa ? $request->department_capa : $deviation->department_capa;
+                $deviation->source_of_capa = $request->source_of_capa ? $request->source_of_capa : $deviation->source_of_capa;
+                $deviation->capa_others = $request->capa_others ? $request->capa_others : $deviation->capa_others;
+                $deviation->source_doc = $request->source_doc ? $request->source_doc : $deviation->source_doc;
+                $deviation->Description_of_Discrepancy = $request->Description_of_Discrepancy ? $request->Description_of_Discrepancy : $deviation->Description_of_Discrepancy;
+                $deviation->capa_root_cause = $request->capa_root_cause ? $request->capa_root_cause : $deviation->capa_root_cause;
+                $deviation->Immediate_Action_Take = $request->Immediate_Action_Take ? $request->Immediate_Action_Take : $deviation->Immediate_Action_Take;
+                $deviation->Corrective_Action_Details = $request->Corrective_Action_Details ? $request->Corrective_Action_Details : $deviation->Corrective_Action_Details;
+                $deviation->Preventive_Action_Details = $request->Preventive_Action_Details ? $request->Preventive_Action_Details : $deviation->Preventive_Action_Details;
+                $deviation->capa_completed_date = $request->capa_completed_date ? $request->capa_completed_date : $deviation->capa_completed_date;
+                $deviation->Interim_Control = $request->Interim_Control ? $request->Interim_Control : $deviation->Interim_Control;
+                $deviation->Corrective_Action_Taken = $request->Corrective_Action_Taken ? $request->Corrective_Action_Taken : $deviation->Corrective_Action_Taken;
+                $deviation->Preventive_action_Taken = $request->Preventive_action_Taken ? $request->Preventive_action_Taken : $deviation->Preventive_action_Taken;
+                $deviation->CAPA_Closure_Comments = $request->CAPA_Closure_Comments ? $request->CAPA_Closure_Comments : $deviation->CAPA_Closure_Comments;
 
-                    if (!empty($request->CAPA_Closure_attachment)) {
-                        $files = [];
-                        if ($request->hasfile('CAPA_Closure_attachment')) {
+                 if (!empty ($request->CAPA_Closure_attachment)) {
+                    $files = [];
+                    if ($request->hasfile('CAPA_Closure_attachment')) {
 
-                            foreach ($request->file('CAPA_Closure_attachment') as $file) {
-                                $name = 'capa_closure_attachment-' . time() . '.' . $file->getClientOriginalExtension();
-                                $file->move('upload/', $name);
-                                $files[] = $name;
-                            }
+                        foreach ($request->file('CAPA_Closure_attachment') as $file) {
+                            $name = 'capa_closure_attachment-' . time() . '.' . $file->getClientOriginalExtension();
+                            $file->move('upload/', $name);
+                            $files[] = $name;
                         }
-                        $deviation->CAPA_Closure_attachment = json_encode($files);
                     }
-                    $deviation->update();
-                    toastr()->success('Document Sent');
-                    return back();
+                    $deviation->CAPA_Closure_attachment = json_encode($files);
+
+                }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
                 }
 
 
@@ -1713,15 +1444,21 @@ class DeviationController extends Controller
                 } else {
                     $form_progress = 'capa';
                 }
+
             }
+
+
+
         }
 
-        if ($request->form_name == 'qa-final') {
+        if ($request->form_name == 'qa-final')
+        {
             $form_progress = 'capa';
         }
 
-        if ($request->form_name == 'qah') {
-            if ($deviation->stage == 10) {
+        if ($request->form_name == 'qah')
+        {
+            if($deviation->stage == 10){
                 $validator = Validator::make($request->all(), [
                     'Closure_Comments' => 'required',
                     'Disposition_Batch' => 'required',
@@ -1735,6 +1472,7 @@ class DeviationController extends Controller
                     $form_progress = 'qah';
                 }
             }
+
         }
 
         $deviation->assign_to = $request->assign_to;
@@ -1766,9 +1504,8 @@ class DeviationController extends Controller
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
 
-        if($deviation->stage ==2 ){
-        $deviation->HOD_Remarks = $request->HOD_Remarks;
-
+        if($deviation->stage == 2){
+            $deviation->HOD_Remarks = $request->HOD_Remarks;
         }
         $deviation->Justification_for_categorization = !empty($request->Justification_for_categorization) ? $request->Justification_for_categorization : $deviation->Justification_for_categorization;
 
@@ -1781,7 +1518,7 @@ class DeviationController extends Controller
         $deviation->Identified_Risk = $request->Identified_Risk;
         $deviation->severity_rate = $request->severity_rate ? $request->severity_rate : $deviation->severity_rate;
         $deviation->Occurrence = $request->Occurrence ? $request->Occurrence : $deviation->Occurrence;
-        $deviation->detection = $request->detection ? $request->detection : $deviation->detection;
+        $deviation->detection = $request->detection ? $request->detection: $deviation->detection;
 
         $newDataGridqrms = DeviationGridQrms::where(['deviation_id' => $id, 'identifier' =>
         'failure_mode_qrms'])->firstOrCreate();
@@ -1805,7 +1542,8 @@ class DeviationController extends Controller
         $deviation->Facility_Equipment = $request->Facility_Equipment;
         $deviation->Document_Details_Required = $request->Document_Details_Required;
 
-        if ($deviation->stage == 3) {
+        if ($deviation->stage == 3)
+        {
             $deviation->short_description_required = $request->short_description_required;
             $deviation->nature_of_repeat = $request->nature_of_repeat;
             $deviation->Customer_notification = $request->Customer_notification;
@@ -1813,13 +1551,13 @@ class DeviationController extends Controller
         }
 
 
-        if ($deviation->stage == 10) {
+        if($deviation->stage == 10){
             $deviation->Post_Categorization = $request->Post_Categorization;
             $deviation->Investigation_Of_Review = $request->Investigation_Of_Review;
             $deviation->QA_Feedbacks = $request->QA_Feedbacks;
             $deviation->Closure_Comments = $request->Closure_Comments;
             $deviation->Disposition_Batch = $request->Disposition_Batch;
-             $files = is_array($request->existing_closure_attachment) ? $request->existing_closure_attachment : [];
+            $files = is_array($request->existing_closure_attachment) ? $request->existing_closure_attachment : [];
             if (!empty ($request->closure_attachment)) {
                 if ($deviation->closure_attachment) {
                     $existingFiles = json_decode($deviation->closure_attachment, true); // Convert to associative array
@@ -1839,10 +1577,7 @@ class DeviationController extends Controller
             }
             $deviation->closure_attachment = json_encode($files);
         }
-        $productionBy = $request->Production_by;
-        $productionOn = $request->Production_on;
-
-        if ($deviation->stage == 3 || $deviation->stage == 4) {
+        if($deviation->stage == 3 || $deviation->stage == 4 ){
 
 
             if (!$form_progress) {
@@ -1850,10 +1585,7 @@ class DeviationController extends Controller
             }
 
             $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
-            $lastCft = DeviationCft::where('deviation_id', $id)->first();
-
-
-            if ($Cft && $deviation->stage == 4) {
+            if($Cft && $deviation->stage == 4 ){
                 $Cft->Production_Review = $request->Production_Review == null ? $Cft->Production_Review : $request->Production_Review;
                 $Cft->Production_person = $request->Production_person == null ? $Cft->Production_person : $request->Production_Review;
                 $Cft->Warehouse_review = $request->Warehouse_review == null ? $Cft->Warehouse_review : $request->Warehouse_review;
@@ -1894,7 +1626,8 @@ class DeviationController extends Controller
                 $Cft->Other5_review = $request->Other5_review  == null ? $Cft->Other5_review : $request->Other5_review;
                 $Cft->Other5_person = $request->Other5_person  == null ? $Cft->Other5_person : $request->Other5_person;
                 $Cft->Other5_Department_person = $request->Other5_Department_person  == null ? $Cft->Other5_Department_person : $request->Other5_Department_person;
-            } else {
+            }
+            else{
                 $Cft->Production_Review = $request->Production_Review;
                 $Cft->Production_person = $request->Production_person;
                 $Cft->Warehouse_review = $request->Warehouse_review;
@@ -1971,7 +1704,7 @@ class DeviationController extends Controller
             $Cft->Other5_feedback = $request->Other5_feedback;
 
 
-            if (!empty($request->production_attachment)) {
+            if (!empty ($request->production_attachment)) {
                 $files = [];
                 if ($request->hasfile('production_attachment')) {
                     foreach ($request->file('production_attachment') as $file) {
@@ -1984,7 +1717,7 @@ class DeviationController extends Controller
 
                 $Cft->production_attachment = json_encode($files);
             }
-            if (!empty($request->Warehouse_attachment)) {
+            if (!empty ($request->Warehouse_attachment)) {
                 $files = [];
                 if ($request->hasfile('Warehouse_attachment')) {
                     foreach ($request->file('Warehouse_attachment') as $file) {
@@ -1997,7 +1730,7 @@ class DeviationController extends Controller
 
                 $Cft->Warehouse_attachment = json_encode($files);
             }
-            if (!empty($request->Quality_Control_attachment)) {
+            if (!empty ($request->Quality_Control_attachment)) {
                 $files = [];
                 if ($request->hasfile('Quality_Control_attachment')) {
                     foreach ($request->file('Quality_Control_attachment') as $file) {
@@ -2010,7 +1743,7 @@ class DeviationController extends Controller
 
                 $Cft->Quality_Control_attachment = json_encode($files);
             }
-            if (!empty($request->Quality_Assurance_attachment)) {
+            if (!empty ($request->Quality_Assurance_attachment)) {
                 $files = [];
                 if ($request->hasfile('Quality_Assurance_attachment')) {
                     foreach ($request->file('Quality_Assurance_attachment') as $file) {
@@ -2023,7 +1756,7 @@ class DeviationController extends Controller
 
                 $Cft->Quality_Assurance_attachment = json_encode($files);
             }
-            if (!empty($request->Engineering_attachment)) {
+            if (!empty ($request->Engineering_attachment)) {
                 $files = [];
                 if ($request->hasfile('Engineering_attachment')) {
                     foreach ($request->file('Engineering_attachment') as $file) {
@@ -2036,7 +1769,7 @@ class DeviationController extends Controller
 
                 $Cft->Engineering_attachment = json_encode($files);
             }
-            if (!empty($request->Analytical_Development_attachment)) {
+            if (!empty ($request->Analytical_Development_attachment)) {
                 $files = [];
                 if ($request->hasfile('Analytical_Development_attachment')) {
                     foreach ($request->file('Analytical_Development_attachment') as $file) {
@@ -2049,7 +1782,7 @@ class DeviationController extends Controller
 
                 $Cft->Analytical_Development_attachment = json_encode($files);
             }
-            if (!empty($request->Kilo_Lab_attachment)) {
+            if (!empty ($request->Kilo_Lab_attachment)) {
                 $files = [];
                 if ($request->hasfile('Kilo_Lab_attachment')) {
                     foreach ($request->file('Kilo_Lab_attachment') as $file) {
@@ -2062,7 +1795,7 @@ class DeviationController extends Controller
 
                 $Cft->Kilo_Lab_attachment = json_encode($files);
             }
-            if (!empty($request->Technology_transfer_attachment)) {
+            if (!empty ($request->Technology_transfer_attachment)) {
                 $files = [];
                 if ($request->hasfile('Technology_transfer_attachment')) {
                     foreach ($request->file('Technology_transfer_attachment') as $file) {
@@ -2075,7 +1808,7 @@ class DeviationController extends Controller
 
                 $Cft->Technology_transfer_attachment = json_encode($files);
             }
-            if (!empty($request->Environment_Health_Safety_attachment)) {
+            if (!empty ($request->Environment_Health_Safety_attachment)) {
                 $files = [];
                 if ($request->hasfile('Environment_Health_Safety_attachment')) {
                     foreach ($request->file('Environment_Health_Safety_attachment') as $file) {
@@ -2088,7 +1821,7 @@ class DeviationController extends Controller
 
                 $Cft->Environment_Health_Safety_attachment = json_encode($files);
             }
-            if (!empty($request->Human_Resource_attachment)) {
+            if (!empty ($request->Human_Resource_attachment)) {
                 $files = [];
                 if ($request->hasfile('Human_Resource_attachment')) {
                     foreach ($request->file('Human_Resource_attachment') as $file) {
@@ -2101,7 +1834,7 @@ class DeviationController extends Controller
 
                 $Cft->Human_Resource_attachment = json_encode($files);
             }
-            if (!empty($request->Information_Technology_attachment)) {
+            if (!empty ($request->Information_Technology_attachment)) {
                 $files = [];
                 if ($request->hasfile('Information_Technology_attachment')) {
                     foreach ($request->file('Information_Technology_attachment') as $file) {
@@ -2114,7 +1847,7 @@ class DeviationController extends Controller
 
                 $Cft->Information_Technology_attachment = json_encode($files);
             }
-            if (!empty($request->Project_management_attachment)) {
+            if (!empty ($request->Project_management_attachment)) {
                 $files = [];
                 if ($request->hasfile('Project_management_attachment')) {
                     foreach ($request->file('Project_management_attachment') as $file) {
@@ -2127,7 +1860,7 @@ class DeviationController extends Controller
 
                 $Cft->Project_management_attachment = json_encode($files);
             }
-            if (!empty($request->Other1_attachment)) {
+            if (!empty ($request->Other1_attachment)) {
                 $files = [];
                 if ($request->hasfile('Other1_attachment')) {
                     foreach ($request->file('Other1_attachment') as $file) {
@@ -2140,7 +1873,7 @@ class DeviationController extends Controller
 
                 $Cft->Other1_attachment = json_encode($files);
             }
-            if (!empty($request->Other2_attachment)) {
+            if (!empty ($request->Other2_attachment)) {
                 $files = [];
                 if ($request->hasfile('Other2_attachment')) {
                     foreach ($request->file('Other2_attachment') as $file) {
@@ -2153,7 +1886,7 @@ class DeviationController extends Controller
 
                 $Cft->Other2_attachment = json_encode($files);
             }
-            if (!empty($request->Other3_attachment)) {
+            if (!empty ($request->Other3_attachment)) {
                 $files = [];
                 if ($request->hasfile('Other3_attachment')) {
                     foreach ($request->file('Other3_attachment') as $file) {
@@ -2164,7 +1897,7 @@ class DeviationController extends Controller
                 }
                 $Cft->Other3_attachment = json_encode($files);
             }
-            if (!empty($request->Other4_attachment)) {
+            if (!empty ($request->Other4_attachment)) {
                 $files = [];
                 if ($request->hasfile('Other4_attachment')) {
                     foreach ($request->file('Other4_attachment') as $file) {
@@ -2176,7 +1909,7 @@ class DeviationController extends Controller
 
                 $Cft->Other4_attachment = json_encode($files);
             }
-            if (!empty($request->Other5_attachment)) {
+            if (!empty ($request->Other5_attachment)) {
                 $files = [];
                 if ($request->hasfile('Other5_attachment')) {
                     foreach ($request->file('Other5_attachment') as $file) {
@@ -2191,1703 +1924,47 @@ class DeviationController extends Controller
             }
 
 
-
-
-            $Cft->save();
-
-            //=======================CFT=============================
-
-
-            //    $lastCft = DeviationCft::where('deviation_id', $id)->first();
-
-
-
-            // if($Cft->stage == 3){
-            if ($lastCft->Production_Review != $Cft->Production_Review && !empty($Cft->Production_Review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Production Review Required ?';
-                $history->previous = $lastCft->Production_Review;
-                $history->current = $Cft->Production_Review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Production_person != $Cft->Production_person && !empty($Cft->Production_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Production Person';
-                $history->previous = $lastCft->Production_person;
-                $history->current = $Cft->Production_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Warehouse_review != $Cft->Warehouse_review && !empty($request->Warehouse_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Warehouse Review Required ?';
-                $history->previous = $lastCft->Warehouse_review;
-                $history->current = $Cft->Warehouse_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Warehouse_notification != $Cft->Warehouse_notification && !empty($Cft->Warehouse_notification)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Warehouse Person';
-                $history->previous = $lastCft->Warehouse_notification;
-                $history->current = $Cft->Warehouse_notification;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Quality_review != $Cft->Quality_review && !empty($Cft->Quality_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Quality Control Review Required?';
-                $history->previous = $lastCft->Quality_review;
-                $history->current = $Cft->Quality_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Quality_Control_Person != $Cft->Quality_Control_Person && !empty($Cft->Quality_Control_Person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Quality Control Person';
-                $history->previous = $lastCft->Quality_Control_Person;
-                $history->current = $Cft->Quality_Control_Person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Quality_Assurance_Review != $Cft->Quality_Assurance_Review && !empty($Cft->Quality_Assurance_Review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Quality Assurance Review Required ?';
-                $history->previous = $lastCft->Quality_Assurance_Review;
-                $history->current = $Cft->Quality_Assurance_Review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->QualityAssurance_person != $Cft->QualityAssurance_person && !empty($Cft->QualityAssurance_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Quality Assurance Person';
-                $history->previous = $lastCft->QualityAssurance_person;
-                $history->current = $Cft->QualityAssurance_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Engineering_review != $Cft->Engineering_review && !empty($Cft->Engineering_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Engineering Review Required ?';
-                $history->previous = $lastCft->Engineering_review;
-                $history->current = $Cft->Engineering_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Engineering_person != $Cft->Engineering_person && !empty($Cft->Engineering_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Engineering Person';
-                $history->previous = $lastCft->Engineering_person;
-                $history->current = $Cft->Engineering_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Analytical_Development_review != $Cft->Analytical_Development_review && !empty($Cft->Analytical_Development_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Analytical Development Laboratory Review Required ?';
-                $history->previous = $lastCft->Analytical_Development_review;
-                $history->current = $Cft->Analytical_Development_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Analytical_Development_person != $Cft->Analytical_Development_person && !empty($Cft->Analytical_Development_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Analytical Development Laboratory Person';
-                $history->previous = $lastCft->Analytical_Development_person;
-                $history->current = $Cft->Analytical_Development_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Kilo_Lab_review != $Cft->Kilo_Lab_review && !empty($Cft->Kilo_Lab_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Process Development Laboratory / Kilo Lab Review Required ?';
-                $history->previous = $lastCft->Kilo_Lab_review;
-                $history->current = $Cft->Kilo_Lab_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Kilo_Lab_person != $Cft->Kilo_Lab_person && !empty($Cft->Kilo_Lab_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Process Development Laboratory / Kilo Lab Person';
-                $history->previous = $lastCft->Kilo_Lab_person;
-                $history->current = $Cft->Kilo_Lab_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Technology_transfer_review != $Cft->Technology_transfer_review && !empty($Cft->Technology_transfer_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Technology Transfer / Design Review Required ?';
-                $history->previous = $lastCft->Technology_transfer_review;
-                $history->current = $Cft->Technology_transfer_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Technology_transfer_person != $Cft->Technology_transfer_person && !empty($Cft->Technology_transfer_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Technology Transfer / Design Person';
-                $history->previous = $lastCft->Technology_transfer_person;
-                $history->current = $Cft->Technology_transfer_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Environment_Health_review != $Cft->Environment_Health_review && !empty($Cft->Environment_Health_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Environment, Health & Safety Review Required ?';
-                $history->previous = $lastCft->Environment_Health_review;
-                $history->current = $Cft->Environment_Health_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Environment_Health_Safety_person != $Cft->Environment_Health_Safety_person && !empty($Cft->Environment_Health_Safety_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Environment, Health & Safety Person';
-                $history->previous = $lastCft->Environment_Health_Safety_person;
-                $history->current = $Cft->Environment_Health_Safety_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Human_Resource_review != $Cft->Human_Resource_review && !empty($Cft->Human_Resource_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Human Resource & Administration Review Required ?';
-                $history->previous = $lastCft->Human_Resource_review;
-                $history->current = $Cft->Human_Resource_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Human_Resource_person != $Cft->Human_Resource_person && !empty($Cft->Human_Resource_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Human Resource & Administration Person';
-                $history->previous = $lastCft->Human_Resource_person;
-                $history->current = $Cft->Human_Resource_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Information_Technology_review != $Cft->Information_Technology_review && !empty($Cft->Information_Technology_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Information Technology Review Required ?';
-                $history->previous = $lastCft->Information_Technology_review;
-                $history->current = $Cft->Information_Technology_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Information_Technology_person != $Cft->Information_Technology_person && !empty($Cft->Information_Technology_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Information Technology Person';
-                $history->previous = $lastCft->Information_Technology_person;
-                $history->current = $Cft->Information_Technology_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Project_management_review != $Cft->Project_management_review && !empty($Cft->Project_management_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Project management Review Required ?';
-                $history->previous = $lastCft->Project_management_review;
-                $history->current = $Cft->Project_management_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Project_management_person != $Cft->Project_management_person && !empty($Cft->Project_management_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Project management Person';
-                $history->previous = $lastCft->Project_management_person;
-                $history->current = $Cft->Project_management_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other1_review != $Cft->Other1_review && !empty($Cft->Other1_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Other 1 Review Required?';
-                $history->previous = $lastCft->Other1_review;
-                $history->current = $Cft->Other1_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other1_person != $Cft->Other1_person && !empty($Cft->Other1_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 1 Person';
-                $history->previous = $lastCft->Other1_person;
-                $history->current = $Cft->Other1_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other1_Department_person != $Cft->Other1_Department_person && !empty($Cft->Other1_Department_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 1 Department';
-                $history->previous = $lastCft->Other1_Department_person;
-                $history->current = $Cft->Other1_Department_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other2_review != $Cft->Other2_review && !empty($Cft->Other2_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 2 Review Completed On';
-                $history->previous = $lastCft->Other2_review;
-                $history->current = $Cft->Other2_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other2_person != $Cft->Other2_person && !empty($Cft->Other2_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 2 Person';
-                $history->previous = $lastCft->Other2_person;
-                $history->current = $Cft->Other2_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other2_Department_person != $Cft->Other2_Department_person && !empty($Cft->Other2_Department_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 2 Department';
-                $history->previous = $lastCft->Other2_Department_person;
-                $history->current = $Cft->Other2_Department_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Other3_review != $Cft->Other3_review && !empty($Cft->Other3_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 3 Review Required ?';
-                $history->previous = $lastCft->Other3_review;
-                $history->current = $Cft->Other3_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other3_person != $Cft->Other3_person && !empty($Cft->Other3_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 3 Person';
-                $history->previous = $lastCft->Other3_person;
-                $history->current = $Cft->Other3_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other3_Department_person != $Cft->Other3_Department_person && !empty($Cft->Other3_Department_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 3 Department';
-                $history->previous = $lastCft->Other3_Department_person;
-                $history->current = $Cft->Other3_Department_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Other4_review != $Cft->Other4_review && !empty($Cft->Other4_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 4 Review Required ?';
-                $history->previous = $lastCft->Other4_review;
-                $history->current = $Cft->Other4_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other4_person != $Cft->Other4_person && !empty($Cft->Other4_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 4 Person';
-                $history->previous = $lastCft->Other4_person;
-                $history->current = $Cft->Other4_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other4_Department_person != $Cft->Other4_Department_person && !empty($Cft->Other4_Department_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 4 Department';
-                $history->previous = $lastCft->Other4_Department_person;
-                $history->current = $Cft->Other4_Department_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other5_review != $Cft->Other5_review && !empty($Cft->Other5_review)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 5 Review Required ?';
-                $history->previous = $lastCft->Other5_review;
-                $history->current = $Cft->Other5_review;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Other5_person != $Cft->Other5_person && !empty($Cft->Other5_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 5 Person';
-                $history->previous = $lastCft->Other5_person;
-                $history->current = $Cft->Other5_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Other5_Department_person != $Cft->Other5_Department_person && !empty($Cft->Other5_Department_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 5 Department';
-                $history->previous = $lastCft->Other5_Department_person;
-                $history->current = $Cft->Other5_Department_person;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            // }
-
-
-
-            //=====================================================================
-
-
-            // if($Cft->stage == 4){
-            if ($lastCft->Production_assessment != $Cft->Production_assessment && !empty($Cft->Production_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Production)';
-                $history->previous = $lastCft->Production_assessment;
-                $history->current = $Cft->Production_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Warehouse_assessment != $Cft->Warehouse_assessment && !empty($Cft->Warehouse_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Warehouse)';
-                $history->previous = $lastCft->Warehouse_assessment;
-                $history->current = $Cft->Warehouse_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Quality_Control_assessment != $Cft->Quality_Control_assessment && !empty($Cft->Quality_Control_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Quality Control)';
-                $history->previous = $lastCft->Quality_Control_assessment;
-                $history->current = $Cft->Quality_Control_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->QualityAssurance_assessment != $Cft->QualityAssurance_assessment && !empty($Cft->QualityAssurance_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Impact Assessment (By Quality Assurance)';
-                $history->previous = $lastCft->QualityAssurance_assessment;
-                $history->current = $Cft->QualityAssurance_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Engineering_assessment != $Cft->Engineering_assessment && !empty($Cft->Engineering_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Impact Assessment (By Engineering)';
-                $history->previous = $lastCft->Engineering_assessment;
-                $history->current = $Cft->Engineering_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Analytical_Development_assessment != $Cft->Analytical_Development_assessment && !empty($Cft->Analytical_Development_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Impact Assessment (By Analytical Development Laboratory)';
-                $history->previous = $lastCft->Analytical_Development_assessment;
-                $history->current = $Cft->Analytical_Development_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Kilo_Lab_assessment != $Cft->Kilo_Lab_assessment && !empty($Cft->Kilo_Lab_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Process Development Laboratory / Kilo Lab)';
-                $history->previous = $lastCft->Kilo_Lab_assessment;
-                $history->current = $Cft->Kilo_Lab_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Technology_transfer_assessment != $Cft->Technology_transfer_assessment && !empty($Cft->Technology_transfer_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Impact Assessment (By Technology Transfer / Design)';
-                $history->previous = $lastCft->Technology_transfer_assessment;
-                $history->current = $Cft->Technology_transfer_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Health_Safety_assessment != $Cft->Health_Safety_assessment && !empty($Cft->Health_Safety_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Impact Assessment (By Environment, Health & Safety)';
-                $history->previous = $lastCft->Health_Safety_assessment;
-                $history->current = $Cft->Health_Safety_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Human_Resource_assessment != $Cft->Human_Resource_assessment && !empty($Cft->Human_Resource_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Impact Assessment (By Human Resource & Administration )';
-                $history->previous = $lastCft->Human_Resource_assessment;
-                $history->current = $Cft->Human_Resource_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Information_Technology_assessment != $Cft->Information_Technology_assessment && !empty($Cft->Information_Technology_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Information Technology)';
-                $history->previous = $lastCft->Information_Technology_assessment;
-                $history->current = $Cft->Information_Technology_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Project_management_assessment != $Cft->Project_management_assessment && !empty($Cft->Project_management_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Project management )';
-                $history->previous = $lastCft->Project_management_assessment;
-                $history->current = $Cft->Project_management_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Other1_assessment != $Cft->Other1_assessment && !empty($Cft->Other1_assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Others 1)';
-                $history->previous = $lastCft->Other1_assessment;
-                $history->current = $Cft->Other1_assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other2_Assessment != $Cft->Other2_Assessment && !empty($Cft->Other2_Assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Others 2)';
-                $history->previous = $lastCft->Other2_Assessment;
-                $history->current = $Cft->Other2_Assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other3_Assessment != $Cft->Other3_Assessment && !empty($Cft->Other3_Assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Others 3)';
-                $history->previous = $lastCft->Other3_Assessment;
-                $history->current = $Cft->Other3_Assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Other4_Assessment != $Cft->Other4_Assessment && !empty($Cft->Other4_Assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Others 4)';
-                $history->previous = $lastCft->Other4_Assessment;
-                $history->current = $Cft->Other4_Assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other5_Assessment != $Cft->Other5_Assessment && !empty($Cft->Other5_Assessment)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Impact Assessment (By Others 5)';
-                $history->previous = $lastCft->Other5_Assessment;
-                $history->current = $Cft->Other5_Assessment;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            // }
-
-
-
-
-            if ($lastCft->Warehouse_by != $Cft->Warehouse_by && !empty($Cft->Warehouse_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Warehouse Review Completed By';
-                $history->previous = $lastCft->Warehouse_by;
-                $history->current = $Cft->Warehouse_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Warehouse_on != $Cft->Warehouse_on && !empty($Cft->Warehouse_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Warehouse Review Completed On';
-                $history->previous = $lastCft->Warehouse_on;
-                $history->current = $Cft->Warehouse_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-
-            if ($lastCft->Quality_Control_by != $Cft->Quality_Control_by && !empty($Cft->Quality_Control_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Quality Control Review Completed By';
-                $history->previous = $lastCft->Quality_Control_by;
-                $history->current = $Cft->Quality_Control_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Quality_Control_on != $Cft->Quality_Control_on && !empty($Cft->Quality_Control_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Control Review Completed On';
-                $history->previous = $lastCft->Quality_Control_on;
-                $history->current = $Cft->Quality_Control_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->QualityAssurance_by != $Cft->QualityAssurance_by && !empty($Cft->QualityAssurance_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Quality Assurance Review Completed By';
-                $history->previous = $lastCft->QualityAssurance_by;
-                $history->current = $Cft->QualityAssurance_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->QualityAssurance_on != $Cft->QualityAssurance_on && !empty($Cft->QualityAssurance_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Quality Assurance Review Completed On';
-                $history->previous = $lastCft->QualityAssurance_on;
-                $history->current = $Cft->QualityAssurance_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Engineering_by != $Cft->Engineering_by && !empty($Cft->Engineering_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Engineering Review Completed By';
-                $history->previous = $lastCft->Engineering_by;
-                $history->current = $Cft->Engineering_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Engineering_on != $Cft->Engineering_on && !empty($Cft->Engineering_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Engineering Review Completed On';
-                $history->previous = $lastCft->Engineering_on;
-                $history->current = $Cft->Engineering_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Analytical_Development_by != $Cft->Analytical_Development_by && !empty($Cft->Analytical_Development_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Analytical Development Laboratory Review Completed By';
-                $history->previous = $lastCft->Analytical_Development_by;
-                $history->current = $Cft->Analytical_Development_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Analytical_Development_on != $Cft->Analytical_Development_on && !empty($Cft->Analytical_Development_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Analytical Development Laboratory Review Completed On';
-                $history->previous = $lastCft->Analytical_Development_on;
-                $history->current = $Cft->Analytical_Development_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Kilo_Lab_attachment_by != $Cft->Kilo_Lab_attachment_by && !empty($Cft->Kilo_Lab_attachment_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Process Development Laboratory / Kilo Lab Review Completed By';
-                $history->previous = $lastCft->Kilo_Lab_attachment_by;
-                $history->current = $Cft->Kilo_Lab_attachment_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Kilo_Lab_attachment_on != $Cft->Kilo_Lab_attachment_on && !empty($Cft->Kilo_Lab_attachment_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Process Development Laboratory / Kilo Lab Review Completed On';
-                $history->previous = $lastCft->Kilo_Lab_attachment_on;
-                $history->current = $Cft->Kilo_Lab_attachment_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Technology_transfer_by != $Cft->Technology_transfer_by && !empty($Cft->Technology_transfer_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Technology Transfer / Design Review Completed By';
-                $history->previous = $lastCft->Technology_transfer_by;
-                $history->current = $Cft->Technology_transfer_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Technology_transfer_on != $Cft->Technology_transfer_on && !empty($Cft->Technology_transfer_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Technology Transfer / Design Review Completed On';
-                $history->previous = $lastCft->Technology_transfer_on;
-                $history->current = $Cft->Technology_transfer_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-            if ($lastCft->Environment_Health_Safety_by != $Cft->Environment_Health_Safety_by && !empty($Cft->Environment_Health_Safety_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Environment, Health & Safety Review Completed By';
-                $history->previous = $lastCft->Environment_Health_Safety_by;
-                $history->current = $Cft->Environment_Health_Safety_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Environment_Health_Safety_on != $Cft->Environment_Health_Safety_on && !empty($Cft->Environment_Health_Safety_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Environment, Health & Safety Review Completed On';
-                $history->previous = $lastCft->Environment_Health_Safety_on;
-                $history->current = $Cft->Environment_Health_Safety_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-
-            if ($lastCft->Human_Resource_by != $Cft->Human_Resource_by && !empty($Cft->Human_Resource_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Human Resource & Administration Review Completed By';
-                $history->previous = $lastCft->Human_Resource_by;
-                $history->current = $Cft->Human_Resource_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Environment_Health_Safety_on != $Cft->Environment_Health_Safety_on && !empty ($Cft->Production_person)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = ' Environment, Health & Safety Review Completed On';
-                $history->previous = $lastCft->Environment_Health_Safety_on;
-                $history->current = $Cft->Environment_Health_Safety_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Information_Technology_by != $Cft->Information_Technology_by && !empty($Cft->Information_Technology_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Information Technology Review Completed By';
-                $history->previous = $lastCft->Information_Technology_by;
-                $history->current = $Cft->Information_Technology_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-            if ($lastCft->Information_Technology_on != $Cft->Information_Technology_on && !empty($Cft->Information_Technology_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Information Technology Review Completed On';
-                $history->previous = $lastCft->Information_Technology_on;
-                $history->current = $Cft->Information_Technology_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Project_management_by != $Cft->Project_management_by && !empty($Cft->Project_management_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Project management Review Completed By';
-                $history->previous = $lastCft->Project_management_by;
-                $history->current = $Cft->Project_management_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Project_management_on != $Cft->Project_management_on && !empty($Cft->Project_management_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Project management Review Completed On';
-                $history->previous = $lastCft->Project_management_on;
-                $history->current = $Cft->Project_management_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Other1_by != $Cft->Other1_by && !empty($Cft->Other1_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 1 Review Completed By';
-                $history->previous = $lastCft->Other1_by;
-                $history->current = $Cft->Other1_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other1_on != $Cft->Other1_on && !empty($Cft->Other1_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 1 Review Completed On';
-                $history->previous = $lastCft->Other1_on;
-                $history->current = $Cft->Other1_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Other2_by != $Cft->Other2_by && !empty($Cft->Other2_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 2 Review Completed By';
-                $history->previous = $lastCft->Other2_by;
-                $history->current = $Cft->Other2_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other2_on != $Cft->Other2_on && !empty($Cft->Other2_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 2 Review Completed On';
-                $history->previous = $lastCft->Other2_on;
-                $history->current = $Cft->Other2_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Other3_by != $Cft->Other3_by && !empty($Cft->Other3_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 3 Review Completed By';
-                $history->previous = $lastCft->Other3_by;
-                $history->current = $Cft->Other3_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other3_on != $Cft->Other3_on && !empty($Cft->Other3_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 3 Review Completed On';
-                $history->previous = $lastCft->Other3_on;
-                $history->current = $Cft->Other3_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-
-
-            if ($lastCft->Other4_by != $Cft->Other4_by && !empty($Cft->Other4_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 4 Review Completed By';
-                $history->previous = $lastCft->Other4_by;
-                $history->current = $Cft->Other4_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            if ($lastCft->Other4_on != $Cft->Other4_on && !empty($Cft->Other4_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 4 Review Completed On';
-                $history->previous = $lastCft->Other4_on;
-                $history->current = $Cft->Other4_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Other5_by != $Cft->Other5_by && !empty($Cft->Other5_by)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 5 Review Completed By';
-                $history->previous = $lastCft->Other5_by;
-                $history->current = $Cft->Other5_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-
-            if ($lastCft->Other5_on != $Cft->Other5_on && !empty($Cft->Other5_on)) {
-                // return 'history';
-                $history = new DeviationAuditTrail;
-                $history->deviation_id = $id;
-                $history->activity_type = 'Others 5 Review Completed On';
-                $history->previous = $lastCft->Other5_on;
-                $history->current = $Cft->Other5_on;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastCft->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastDeviation->status;
-                $history->action_name = 'Update';
-                $history->save();
-            }
-
-            $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 1, 'deviation_id' => $id])->latest()->first();
-            $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
-            // Define the column names
-            $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person', 'Other1_person', 'Other2_person', 'Other3_person', 'Other4_person', 'Other5_person'];
-
-            // Initialize an array to store the values
-            $valuesArray = [];
-
-            foreach ($columns as $index => $column) {
-                $value = $cftUsers->$column;
-                // Check if the value is not null and not equal to 0
-                if ($value != null && $value != 0) {
-                    $valuesArray[] = $value;
-                }
-            }
-            // Remove duplicates from the array
-            $valuesArray = array_unique($valuesArray);
-
-            // Convert the array to a re-indexed array
-            $valuesArray = array_values($valuesArray);
-
-            foreach ($valuesArray as $u) {
-                $email = Helpers::getInitiatorEmail($u);
-                if ($email !== null) {
-                    try {
-                        Mail::send(
-                            'mail.view-mail',
-                            ['data' => $deviation],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("CFT Assgineed by " . Auth::user()->name);
-                            }
-                        );
-                    } catch (\Exception $e) {
-                        //log error
+        $Cft->save();
+                $IsCFTRequired = DeviationCftsResponse::withoutTrashed()->where(['is_required' => 1, 'deviation_id' => $id])->latest()->first();
+                $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
+                // Define the column names
+                $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person','Other1_person','Other2_person','Other3_person','Other4_person','Other5_person'];
+
+                // Initialize an array to store the values
+                $valuesArray = [];
+
+                foreach ($columns as $index => $column) {
+                    $value = $cftUsers->$column;
+                    // Check if the value is not null and not equal to 0
+                    if ($value != null && $value != 0) {
+                        $valuesArray[] = $value;
                     }
                 }
-            }
+                // Remove duplicates from the array
+                $valuesArray = array_unique($valuesArray);
 
+                // Convert the array to a re-indexed array
+                $valuesArray = array_values($valuesArray);
 
-            $files = is_array($request->existing_Initial_attachment) ? $request->existing_Initial_attachment : [];
+                foreach ($valuesArray as $u) {
+                        $email = Helpers::getInitiatorEmail($u);
+                        if ($email !== null) {
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("CFT Assgineed by " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Exception $e) {
+                                //log error
+                            }
+                    }
+                }
+
+                $files = is_array($request->existing_Initial_attachment) ? $request->existing_Initial_attachment : [];
                 if (!empty ($request->Initial_attachment)) {
                     if ($deviation->Initial_attachment) {
                         $existingFiles = json_decode($deviation->Initial_attachment, true); // Convert to associative array
@@ -3896,7 +1973,7 @@ class DeviationController extends Controller
                         }
                         // $files = is_array(json_decode($deviation->Initial_attachment)) ? $deviation->Initial_attachment : [];
                     }
-
+        
                     if ($request->hasfile('Initial_attachment')) {
                         foreach ($request->file('Initial_attachment') as $file) {
                             $name = $request->name . 'Initial_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
@@ -3907,8 +1984,6 @@ class DeviationController extends Controller
                 }
                 $deviation->Initial_attachment = json_encode($files);
         }
-
-
 
 
         $files = is_array($request->existing_Audit_file) ? $request->existing_Audit_file : [];
@@ -3966,8 +2041,7 @@ class DeviationController extends Controller
         }
 
         $deviation->initial_file = json_encode($files);
-
-
+        
         if (!empty ($request->QA_attachment)) {
             $files = [];
 
@@ -4034,30 +2108,32 @@ class DeviationController extends Controller
         $deviation->QA_attachments = json_encode($files);
 
 
-        if ($deviation->stage >= 5) {
+            if($deviation->stage >= 5){
 
-            //investiocation dynamic
-            $deviation->Discription_Event = $request->Discription_Event;
-            $deviation->objective = $request->objective;
-            $deviation->scope = $request->scope;
-            $deviation->imidiate_action = $request->imidiate_action;
-            $deviation->imidiate_action1 = $request->imidiate_action1;
-            $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
-            $newDataGridInvestication->deviation_id = $id;
-            $newDataGridInvestication->identifier = 'investication';
-            $newDataGridInvestication->data = $request->investication;
-            $newDataGridInvestication->save();
+                //investiocation dynamic
+                $deviation->Discription_Event = $request->Discription_Event;
+                $deviation->objective = $request->objective;
+                $deviation->scope = $request->scope;
+                $deviation->imidiate_action = $request->imidiate_action;
+                $deviation->imidiate_action1 = $request->imidiate_action1;
+                $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
+                $newDataGridInvestication->deviation_id = $id;
+                $newDataGridInvestication->identifier = 'investication';
+                $newDataGridInvestication->data = $request->investication;
+                $newDataGridInvestication->save();
 
-            $newDataGridRCA = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->firstOrCreate();
-            $newDataGridRCA->deviation_id = $id;
-            $newDataGridRCA->identifier = 'rootCause';
-            $newDataGridRCA->data = $request->rootCause;
-            $newDataGridRCA->save();
-        }
+                $newDataGridRCA = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'rootCause'])->firstOrCreate();
+                $newDataGridRCA->deviation_id = $id;
+                $newDataGridRCA->identifier = 'rootCause';
+                $newDataGridRCA->data = $request->rootCause;
+                $newDataGridRCA->save();
+            }
 
 
         if($deviation->stage == 7){
             $deviation->initiator_final_remarks = $request->initiator_final_remarks;
+            // dd($deviation->initiator_final_remarks);
+
             $files = is_array($request->existing_initiator_final_attachments) ? $request->existing_initiator_final_attachments : [];
             if (!empty ($request->initiator_final_attachments)) {
                 if ($deviation->initiator_final_attachments) {
@@ -4080,6 +2156,7 @@ class DeviationController extends Controller
         }
         if($deviation->stage == 8){
             $deviation->hod_final_remarks = $request->hod_final_remarks;
+
             $files = is_array($request->existing_hod_final_attachments) ? $request->existing_hod_final_attachments : [];
             if (!empty ($request->hod_final_attachments)) {
                 if ($deviation->hod_final_attachments) {
@@ -4127,55 +2204,55 @@ class DeviationController extends Controller
         $deviation->form_progress = isset($form_progress) ? $form_progress : null;
         $deviation->update();
         // grid
-        $data3 = DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Deviation")->first();
-        if (!empty($request->IDnumber)) {
-            $data3->IDnumber = serialize($request->IDnumber);
-        }
-        if (!empty($request->facility_name)) {
-            $data3->facility_name = serialize($request->facility_name);
-        }
+         $data3=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Deviation")->first();
+                if (!empty($request->IDnumber)) {
+                    $data3->IDnumber = serialize($request->IDnumber);
+                }
+                if (!empty($request->facility_name)) {
+                    $data3->facility_name = serialize($request->facility_name);
+                }
 
-        if (!empty($request->Remarks)) {
-            $data3->Remarks = serialize($request->Remarks);
-        }
+                if (!empty($request->Remarks)) {
+                    $data3->Remarks = serialize($request->Remarks);
+                }
 
-        $data3->update();
-        // dd($request->Remarks);
-
-
-        $data4 = DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Document")->first();
-        if (!empty($request->Number)) {
-            $data4->Number = serialize($request->Number);
-        }
-        if (!empty($request->ReferenceDocumentName)) {
-            $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
-        }
-
-        if (!empty($request->Document_Remarks)) {
-            $data4->Document_Remarks = serialize($request->Document_Remarks);
-        }
-        $data4->update();
-
-        $data5 = DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Product")->first();
-        if (!empty($request->product_name)) {
-            $data5->product_name = serialize($request->product_name);
-        }
-        if (!empty($request->product_stage)) {
-            $data5->product_stage = serialize($request->product_stage);
-        }
-
-        if (!empty($request->batch_no)) {
-            $data5->batch_no = serialize($request->batch_no);
-        }
-        $data5->update();
+                $data3->update();
+                // dd($request->Remarks);
 
 
-        if ($lastDeviation->hod_final_remarks != $deviation->hod_final_remarks || !empty($request->comment)) {
+            $data4=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Document")->first();
+            if (!empty($request->Number)) {
+                $data4->Number = serialize($request->Number);
+            }
+            if (!empty($request->ReferenceDocumentName)) {
+                $data4->ReferenceDocumentName = serialize($request->ReferenceDocumentName);
+            }
+
+            if (!empty($request->Document_Remarks)) {
+                $data4->Document_Remarks = serialize($request->Document_Remarks);
+            }
+            $data4->update();
+
+            $data5=DeviationGrid::where('deviation_grid_id', $deviation->id)->where('type', "Product")->first();
+            if (!empty($request->product_name)) {
+                $data5->product_name = serialize($request->product_name);
+            }
+            if (!empty($request->product_stage)) {
+                $data5->product_stage = serialize($request->product_stage);
+            }
+
+            if (!empty($request->batch_no)) {
+                $data5->batch_no = serialize($request->batch_no);
+            }
+            $data5->update();
+
+
+        if ($lastDeviation->hod_final_remarks != $deviation->hod_final_remarks || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
             $history->activity_type = 'HOD Final Remarks';
-            $history->previous = $lastDeviation->hod_final_remarks;
+             $history->previous = $lastDeviation->hod_final_remarks;
             $history->current = $deviation->hod_final_remarks;
             $history->comment = $deviation->submit_comment;
             $history->user_id = Auth::user()->id;
@@ -4187,12 +2264,12 @@ class DeviationController extends Controller
             $history->action_name = "Update";
             $history->save();
         }
-        if ($lastDeviation->qa_final_remarks != $deviation->qa_final_remarks || !empty($request->comment)) {
+        if ($lastDeviation->qa_final_remarks != $deviation->qa_final_remarks || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
             $history->activity_type = 'QA Final Remarks';
-            $history->previous = $lastDeviation->qa_final_remarks;
+             $history->previous = $lastDeviation->qa_final_remarks;
             $history->current = $deviation->qa_final_remarks;
             $history->comment = $deviation->submit_comment;
             $history->user_id = Auth::user()->id;
@@ -4204,12 +2281,12 @@ class DeviationController extends Controller
             $history->action_name = "Update";
             $history->save();
         }
-        if ($lastDeviation->initiator_final_remarks != $deviation->initiator_final_remarks || !empty($request->comment)) {
+        if ($lastDeviation->initiator_final_remarks != $deviation->initiator_final_remarks || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
             $history->activity_type = 'Initiator Final Remarks';
-            $history->previous = $lastDeviation->initiator_final_remarks;
+             $history->previous = $lastDeviation->initiator_final_remarks;
             $history->current = $deviation->initiator_final_remarks;
             $history->comment = $deviation->submit_comment;
             $history->user_id = Auth::user()->id;
@@ -4221,12 +2298,12 @@ class DeviationController extends Controller
             $history->action_name = "Update";
             $history->save();
         }
-        if ($lastDeviation->short_description != $deviation->short_description || !empty($request->comment)) {
+        if ($lastDeviation->short_description != $deviation->short_description || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
             $history->activity_type = 'Short Description';
-            $history->previous = $lastDeviation->short_description;
+             $history->previous = $lastDeviation->short_description;
             $history->current = $deviation->short_description;
             $history->comment = $deviation->submit_comment;
             $history->user_id = Auth::user()->id;
@@ -4238,7 +2315,7 @@ class DeviationController extends Controller
             $history->action_name = "Update";
             $history->save();
         }
-        if ($lastDeviation->Initiator_Group != $deviation->Initiator_Group || !empty($request->comment)) {
+        if ($lastDeviation->Initiator_Group != $deviation->Initiator_Group || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4256,7 +2333,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Deviation_date != $deviation->Deviation_date || !empty($request->comment)) {
+        if ($lastDeviation->Deviation_date != $deviation->Deviation_date || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4274,7 +2351,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Observed_by != $deviation->Observed_by || !empty($request->comment)) {
+        if ($lastDeviation->Observed_by != $deviation->Observed_by || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4292,11 +2369,11 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Deviation_reported_date != $deviation->Deviation_reported_date || !empty($request->comment)) {
+        if ($lastDeviation->Deviation_reported_date != $deviation->Deviation_reported_date || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
-            $history->activity_type = 'Deviation Reported On';
+            $history->activity_type = 'Deviation Reported on';
             $history->previous = $lastDeviation->Deviation_reported_date;
             $history->current = $deviation->Deviation_reported_date;
             $history->comment = $request->comment;
@@ -4310,7 +2387,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->audit_type != $deviation->audit_type || !empty($request->comment)) {
+        if ($lastDeviation->audit_type != $deviation->audit_type || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4328,7 +2405,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Others != $deviation->Others || !empty($request->comment)) {
+        if ($lastDeviation->Others != $deviation->Others || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4346,7 +2423,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Facility_Equipment != $deviation->Facility_Equipment || !empty($request->comment)) {
+        if ($lastDeviation->Facility_Equipment != $deviation->Facility_Equipment || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4364,7 +2441,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Document_Details_Required != $deviation->Document_Details_Required || !empty($request->comment)) {
+        if ($lastDeviation->Document_Details_Required != $deviation->Document_Details_Required || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4382,7 +2459,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Description_Deviation != $deviation->Description_Deviation || !empty($request->comment)) {
+        if ($lastDeviation->Description_Deviation != $deviation->Description_Deviation || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4400,7 +2477,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Immediate_Action != $deviation->Immediate_Action || !empty($request->comment)) {
+        if ($lastDeviation->Immediate_Action != $deviation->Immediate_Action || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4418,7 +2495,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Preliminary_Impact != $deviation->Preliminary_Impact || !empty($request->comment)) {
+        if ($lastDeviation->Preliminary_Impact != $deviation->Preliminary_Impact || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4436,7 +2513,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->HOD_Remarks != $deviation->HOD_Remarks || !empty($request->comment)) {
+        if ($lastDeviation->HOD_Remarks != $deviation->HOD_Remarks || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4454,7 +2531,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Deviation_category != $deviation->Deviation_category || !empty($request->comment)) {
+        if ($lastDeviation->Deviation_category != $deviation->Deviation_category || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4472,7 +2549,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Justification_for_categorization != $deviation->Justification_for_categorization || !empty($request->comment)) {
+        if ($lastDeviation->Justification_for_categorization != $deviation->Justification_for_categorization || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4490,7 +2567,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Investigation_required != $deviation->Investigation_required || !empty($request->comment)) {
+        if ($lastDeviation->Investigation_required != $deviation->Investigation_required || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4508,7 +2585,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Investigation_Details != $deviation->Investigation_Details || !empty($request->comment)) {
+        if ($lastDeviation->Investigation_Details != $deviation->Investigation_Details || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4526,7 +2603,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Customer_notification != $deviation->Customer_notification || !empty($request->comment)) {
+        if ($lastDeviation->Customer_notification != $deviation->Customer_notification || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4544,7 +2621,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->customers != $deviation->customers || !empty($request->comment)) {
+        if ($lastDeviation->customers != $deviation->customers || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4562,7 +2639,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->QAInitialRemark != $deviation->QAInitialRemark || !empty($request->comment)) {
+        if ($lastDeviation->QAInitialRemark != $deviation->QAInitialRemark || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4580,7 +2657,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Root_cause != $deviation->Root_cause || !empty($request->comment)) {
+        if ($lastDeviation->Root_cause != $deviation->Root_cause || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4599,7 +2676,7 @@ class DeviationController extends Controller
         }
 
 
-        if ($lastDeviation->Post_Categorization != $deviation->Post_Categorization || !empty($request->comment)) {
+        if ($lastDeviation->Post_Categorization != $deviation->Post_Categorization || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4617,11 +2694,11 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Investigation_Of_Review != $deviation->Investigation_Of_Review || !empty($request->comment)) {
+        if ($lastDeviation->Investigation_Of_Review != $deviation->Investigation_Of_Review || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
-            $history->activity_type = 'Justification Of Revised Categorization';
+            $history->activity_type = 'Investigation Of Revised Categorization';
             $history->previous = $lastDeviation->Investigation_Of_Review;
             $history->current = $deviation->Investigation_Of_Review;
             $history->comment = $request->comment;
@@ -4635,7 +2712,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->QA_Feedbacks != $deviation->QA_Feedbacks || !empty($request->comment)) {
+        if ($lastDeviation->QA_Feedbacks != $deviation->QA_Feedbacks || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4653,7 +2730,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-        if ($lastDeviation->Closure_Comments != $deviation->Closure_Comments || !empty($request->comment)) {
+        if ($lastDeviation->Closure_Comments != $deviation->Closure_Comments || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -4671,389 +2748,7 @@ class DeviationController extends Controller
             $history->save();
         }
 
-
-        if ($lastDeviation->deviation_time != $deviation->deviation_time || !empty($request->comment)) {
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Deviation Observed On (Time)';
-            $history->previous = $lastDeviation->deviation_time;
-            $history->current = $deviation->deviation_time;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to = "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->Delay_Justification != $deviation->Delay_Justification || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Delay Justification';
-            $history->previous = $lastDeviation->Delay_Justification;
-            $history->current = $deviation->Delay_Justification;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to = "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->Facility != $deviation->Facility || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Deviation Observed By';
-            $history->previous = $lastDeviation->Facility;
-            $history->current = $deviation->Facility;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to = "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-
-        if ($lastDeviation->Facility != $deviation->Facility || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Deviation Observed By';
-            $history->previous = $lastDeviation->Facility;
-            $history->current = $deviation->Facility;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-
-        if ($lastDeviation->Audit_file != $deviation->Audit_file || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'HOD Attachments';
-            $history->previous = $lastDeviation->Audit_file;
-            $history->current = $deviation->Audit_file;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->initial_file != $deviation->initial_file || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Initial Attachments';
-            $history->previous = $lastDeviation->initial_file;
-            $history->current = $deviation->initial_file;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-
-        if ($lastDeviation->short_description_required != $deviation->short_description_required || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Repeat Deviation?';
-            $history->previous = $lastDeviation->short_description_required;
-            $history->current = $deviation->short_description_required;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->Initial_attachment != $deviation->Initial_attachment || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'QA Initial Attachments';
-            $history->previous = $lastDeviation->Initial_attachment;
-            $history->current = $deviation->Initial_attachment;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->nature_of_repeat != $deviation->nature_of_repeat || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Repeat Nature';
-            $history->previous = $lastDeviation->nature_of_repeat;
-            $history->current = $deviation->nature_of_repeat;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->QA_attachments != $deviation->QA_attachments || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'QA Attachments';
-            $history->previous = $lastDeviation->QA_attachments;
-            $history->current = $deviation->QA_attachments;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->QA_attachments != $deviation->QA_attachments || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'QA Attachments';
-            $history->previous = $lastDeviation->QA_attachments;
-            $history->current = $deviation->QA_attachments;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->Conclusion != $deviation->Conclusion || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Investigation summary';
-            $history->previous = $lastDeviation->Conclusion;
-            $history->current = $deviation->Conclusion;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->objective != $deviation->objective || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Impact Assessment';
-            $history->previous = $lastDeviation->objective;
-            $history->current = $deviation->objective;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->scope != $deviation->scope || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Corrective & Preventive Actions';
-            $history->previous = $lastDeviation->scope;
-            $history->current = $deviation->scope;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->imidiate_action != $deviation->imidiate_action || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Investigation HOD remarks';
-            $history->previous = $lastDeviation->imidiate_action;
-            $history->current = $deviation->imidiate_action;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->imidiate_action1 != $deviation->imidiate_action1 || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Investigation QA remarks';
-            $history->previous = $lastDeviation->imidiate_action1;
-            $history->current = $deviation->imidiate_action1;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->tiny != $deviation->tiny || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Initiator Final Remarks';
-            $history->previous = $lastDeviation->tiny;
-            $history->current = $deviation->tiny;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-        if ($lastDeviation->initiator_final_attachments != $deviation->initiator_final_attachments || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Initiator Final Attachments';
-            $history->previous = $lastDeviation->initiator_final_attachments;
-            $history->current = $deviation->initiator_final_attachments;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->hod_final_attachments != $deviation->hod_final_attachments || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'HOD Final Attachments';
-            $history->previous = $lastDeviation->hod_final_attachments;
-            $history->current = $deviation->hod_final_attachments;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->qa_final_attachments != $deviation->qa_final_attachments || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'QA Final Attachments';
-            $history->previous = $lastDeviation->qa_final_attachments;
-            $history->current = $deviation->qa_final_attachments;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-        if ($lastDeviation->closure_attachment != $deviation->closure_attachment || !empty($request->comment)) {
-            // return 'history';
-            $history = new DeviationAuditTrail;
-            $history->deviation_id = $id;
-            $history->activity_type = 'Closure Attachments';
-            $history->previous = $lastDeviation->closure_attachment;
-            $history->current = $deviation->closure_attachment;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDeviation->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastDeviation->status;
-            $history->action_name = 'Update';
-            $history->save();
-        }
-
-
-
-        if ($lastDeviation->Disposition_Batch != $deviation->Disposition_Batch || !empty($request->comment)) {
+        if ($lastDeviation->Disposition_Batch != $deviation->Disposition_Batch || !empty ($request->comment)) {
             // return 'history';
             $history = new DeviationAuditTrail;
             $history->deviation_id = $id;
@@ -5071,8 +2766,6 @@ class DeviationController extends Controller
             $history->save();
         }
 
-
-
         toastr()->success('Record is Update Successfully');
 
         return back();
@@ -5089,16 +2782,15 @@ class DeviationController extends Controller
         //
     }
 
-    public function launchExtensionDeviation(Request $request, $id)
-    {
+    public function launchExtensionDeviation(Request $request, $id){
         $deviation = Deviation::find($id);
         $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "Deviation"])->first();
-        if ($getCounter && $getCounter->counter == null) {
+        if($getCounter && $getCounter->counter == null){
             $counter = 1;
         } else {
             $counter = $getCounter ? $getCounter->counter + 1 : 1;
         }
-        if ($deviation->id != null) {
+        if($deviation->id != null){
             $data = LaunchExtension::where([
                 'deviation_id' => $deviation->id,
                 'extension_identifier' => "Deviation"
@@ -5118,16 +2810,15 @@ class DeviationController extends Controller
         }
     }
 
-    public function launchExtensionCapa(Request $request, $id)
-    {
+    public function launchExtensionCapa(Request $request, $id){
         $deviation = Deviation::find($id);
         $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "Capa"])->first();
-        if ($getCounter && $getCounter->counter == null) {
+        if($getCounter && $getCounter->counter == null){
             $counter = 1;
         } else {
             $counter = $getCounter ? $getCounter->counter + 1 : 1;
         }
-        if ($deviation->id != null) {
+        if($deviation->id != null){
 
             $data = LaunchExtension::where([
                 'deviation_id' => $deviation->id,
@@ -5149,16 +2840,15 @@ class DeviationController extends Controller
     }
 
 
-    public function launchExtensionQrm(Request $request, $id)
-    {
+    public function launchExtensionQrm(Request $request, $id){
         $deviation = Deviation::find($id);
         $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "QRM"])->first();
-        if ($getCounter && $getCounter->counter == null) {
+        if($getCounter && $getCounter->counter == null){
             $counter = 1;
         } else {
             $counter = $getCounter ? $getCounter->counter + 1 : 1;
         }
-        if ($deviation->id != null) {
+        if($deviation->id != null){
 
             $data = LaunchExtension::where([
                 'deviation_id' => $deviation->id,
@@ -5179,16 +2869,15 @@ class DeviationController extends Controller
         }
     }
 
-    public function launchExtensionInvestigation(Request $request, $id)
-    {
+    public function launchExtensionInvestigation(Request $request, $id){
         $deviation = Deviation::find($id);
         $getCounter = LaunchExtension::where(['deviation_id' => $deviation->id, 'extension_identifier' => "Investigation"])->first();
-        if ($getCounter && $getCounter->counter == null) {
+        if($getCounter && $getCounter->counter == null){
             $counter = 1;
         } else {
             $counter = $getCounter ? $getCounter->counter + 1 : 1;
         }
-        if ($deviation->id != null) {
+        if($deviation->id != null){
 
             $data = LaunchExtension::where([
                 'deviation_id' => $deviation->id,
@@ -5217,14 +2906,11 @@ class DeviationController extends Controller
             $updateCFT = DeviationCft::where('deviation_id', $id)->latest()->first();
             $lastDocument = Deviation::find($id);
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
-            // $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
-            $lastCft = DeviationCft::where('deviation_id', $id)->first();
-            // $lastDeviation = deviation::find($id);
-
 
             if ($deviation->stage == 1) {
 
-                if ($deviation->form_progress !== 'general-open') {
+                if ($deviation->form_progress !== 'general-open')
+                {
                     Session::flash('swal', [
                         'type' => 'warning',
                         'title' => 'Mandatory Fields!',
@@ -5250,7 +2936,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'Submit';
+                $history->action='Submit';
                 $history->current = $deviation->submit_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -5344,7 +3030,7 @@ class DeviationController extends Controller
                 $history->previous = "";
                 $history->current = $deviation->HOD_Review_Complete_By;
                 $history->comment = $request->comment;
-                $history->action = 'HOD Review Complete';
+                $history->action= 'HOD Review Complete';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -5381,7 +3067,8 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 3) {
-                if ($deviation->form_progress !== 'cft') {
+                if ($deviation->form_progress !== 'cft')
+                {
                     Session::flash('swal', [
                         'type' => 'warning',
                         'title' => 'Mandatory Fields!',
@@ -5417,7 +3104,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'QA Initial Review Complete';
+                $history->action= 'QA Initial Review Complete';
                 $history->current = $deviation->QA_Initial_Review_Complete_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -5451,73 +3138,76 @@ class DeviationController extends Controller
 
                 if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
                     $list = Helpers::getHeadoperationsUserList();
-                    foreach ($list as $u) {
-                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                            $email = Helpers::getInitiatorEmail($u->user_id);
-                            if ($email !== null) {
-                                // Add this if statement
-                                try {
-                                    Mail::send(
-                                        'mail.Categorymail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("Activity Performed By " . Auth::user()->name);
-                                        }
-                                    );
-                                } catch (\Exception $e) {
-                                    //log error
+                            foreach ($list as $u) {
+                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                    if ($email !== null) {
+                                         // Add this if statement
+                                         try {
+                                                Mail::send(
+                                                    'mail.Categorymail',
+                                                    ['data' => $deviation],
+                                                    function ($message) use ($email) {
+                                                        $message->to($email)
+                                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                                    }
+                                                );
+                                            } catch (\Exception $e) {
+                                                //log error
+                                            }
+
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
-                    $list = Helpers::getCEOUserList();
-                    foreach ($list as $u) {
-                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                            $email = Helpers::getInitiatorEmail($u->user_id);
-                            if ($email !== null) {
-                                // Add this if statement
-                                try {
-                                    Mail::send(
-                                        'mail.Categorymail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("Activity Performed By " . Auth::user()->name);
+                        if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                            $list = Helpers::getCEOUserList();
+                                    foreach ($list as $u) {
+                                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                            $email = Helpers::getInitiatorEmail($u->user_id);
+                                            if ($email !== null) {
+                                                 // Add this if statement
+                                                 try {
+                                                        Mail::send(
+                                                            'mail.Categorymail',
+                                                            ['data' => $deviation],
+                                                            function ($message) use ($email) {
+                                                                $message->to($email)
+                                                                    ->subject("Activity Performed By " . Auth::user()->name);
+                                                            }
+                                                        );
+                                                    } catch (\Exception $e) {
+                                                        //log error
+                                                    }
+
+                                            }
                                         }
-                                    );
-                                } catch (\Exception $e) {
-                                    //log error
+                                    }
                                 }
-                            }
-                        }
-                    }
-                }
-                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
-                    $list = Helpers::getCorporateEHSHeadUserList();
-                    foreach ($list as $u) {
-                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                            $email = Helpers::getInitiatorEmail($u->user_id);
-                            if ($email !== null) {
-                                // Add this if statement
-                                try {
-                                    Mail::send(
-                                        'mail.Categorymail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("Activity Performed By " . Auth::user()->name);
+                                if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
+                                    $list = Helpers::getCorporateEHSHeadUserList();
+                                            foreach ($list as $u) {
+                                                if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                                    if ($email !== null) {
+                                                         // Add this if statement
+                                                         try {
+                                                                Mail::send(
+                                                                    'mail.Categorymail',
+                                                                    ['data' => $deviation],
+                                                                    function ($message) use ($email) {
+                                                                        $message->to($email)
+                                                                            ->subject("Activity Performed By " . Auth::user()->name);
+                                                                    }
+                                                                );
+                                                            } catch (\Exception $e) {
+                                                                //log error
+                                                            }
+
+                                                    }
+                                                }
+                                            }
                                         }
-                                    );
-                                } catch (\Exception $e) {
-                                    //log error
-                                }
-                            }
-                        }
-                    }
-                }
 
                 $deviation->update();
                 toastr()->success('Document Sent');
@@ -5526,7 +3216,8 @@ class DeviationController extends Controller
             if ($deviation->stage == 4) {
 
                 // CFT review state update form_progress
-                if ($deviation->form_progress !== 'cft') {
+                if ($deviation->form_progress !== 'cft')
+                {
                     Session::flash('swal', [
                         'type' => 'warning',
                         'title' => 'Mandatory Fields!',
@@ -5547,7 +3238,7 @@ class DeviationController extends Controller
                 $cftUsers = DB::table('deviationcfts')->where(['deviation_id' => $id])->first();
                 // dd($cftUsers);
                 // Define the column names
-                $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person', 'Other1_person', 'Other2_person', 'Other3_person', 'Other4_person', 'Other5_person'];
+                $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person','Other1_person','Other2_person','Other3_person','Other4_person','Other5_person'];
                 // $columns2 = ['Production_review', 'Warehouse_review', 'Quality_Control_review', 'QualityAssurance_review', 'Engineering_review', 'Analytical_Development_review', 'Kilo_Lab_review', 'Technology_transfer_review', 'Environment_Health_Safety_review', 'Human_Resource_review', 'Information_Technology_review', 'Project_management_review'];
 
                 // Initialize an array to store the values
@@ -5556,705 +3247,73 @@ class DeviationController extends Controller
                 // Iterate over the columns and retrieve the values
                 foreach ($columns as $index => $column) {
                     $value = $cftUsers->$column;
-                    if ($index == 0 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 0 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Production_by = Auth::user()->name;
                         $updateCFT->production_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Production_by != $updateCFT->Production_by && !empty($updateCFT->Production_by)) {
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Production Review Completed By';
-                            $history->previous = $lastCft->Production_by;
-                            $history->current = $updateCFT->Production_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->production_on != $updateCFT->production_on && !empty($updateCFT->production_on)) {
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Production Review Completed On';
-                            $history->previous = $lastCft->production_on;
-                            $history->current = $updateCFT->production_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
                     }
-                    if ($index == 1 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 1 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Warehouse_by = Auth::user()->name;
                         $updateCFT->Warehouse_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Warehouse_by != $updateCFT->Warehouse_by && !empty($updateCFT->Warehouse_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Warehouse Review Completed By';
-                            $history->previous = $lastCft->Warehouse_by;
-                            $history->current = $updateCFT->Warehouse_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Warehouse_on != $updateCFT->Warehouse_on && !empty($updateCFT->Warehouse_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Warehouse Review Completed On';
-                            $history->previous = $lastCft->Warehouse_on;
-                            $history->current = $updateCFT->Warehouse_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 2 && $cftUsers->$column == Auth::user()->id) {
-                        $updateCFT->Quality_Control_by = Auth::user()->name;
-                        $updateCFT->Quality_Control_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Quality_Control_by != $updateCFT->Quality_Control_by && !empty($updateCFT->Quality_Control_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Quality Control Review Completed By';
-                            $history->previous = $lastCft->Quality_Control_by;
-                            $history->current = $updateCFT->Quality_Control_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Quality_Control_on != $updateCFT->Quality_Control_on && !empty($updateCFT->Quality_Control_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Control Review Completed On';
-                            $history->previous = $lastCft->Quality_Control_on;
-                            $history->current = $updateCFT->Quality_Control_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                    }
-                    if ($index == 3 && $cftUsers->$column == Auth::user()->id) {
-                        $updateCFT->QualityAssurance_by = Auth::user()->name;
-                        $updateCFT->QualityAssurance_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->QualityAssurance_by != $updateCFT->QualityAssurance_by && !empty($updateCFT->QualityAssurance_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Quality Assurance Review Completed By';
-                            $history->previous = $lastCft->QualityAssurance_by;
-                            $history->current = $updateCFT->QualityAssurance_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->QualityAssurance_on != $updateCFT->QualityAssurance_on && !empty($updateCFT->QualityAssurance_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Quality Assurance Review Completed On';
-                            $history->previous = $lastCft->QualityAssurance_on;
-                            $history->current = $updateCFT->QualityAssurance_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
-                    }
-                    if ($index == 4 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 4 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Engineering_by = Auth::user()->name;
                         $updateCFT->Engineering_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Engineering_by != $updateCFT->Engineering_by && !empty($updateCFT->Engineering_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Engineering Review Completed By';
-                            $history->previous = $lastCft->Engineering_by;
-                            $history->current = $updateCFT->Engineering_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Engineering_on != $updateCFT->Engineering_on && !empty($updateCFT->Engineering_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Engineering Review Completed On';
-                            $history->previous = $lastCft->Engineering_on;
-                            $history->current = $updateCFT->Engineering_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 5 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 2 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->Quality_Control_by = Auth::user()->name;
+                        $updateCFT->Quality_Control_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 3 && $cftUsers->$column == Auth::user()->id){
+                        $updateCFT->QualityAssurance_by = Auth::user()->name;
+                        $updateCFT->QualityAssurance_on = Carbon::now()->format('Y-m-d');
+                    }
+                    if($index == 5 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Analytical_Development_by = Auth::user()->name;
                         $updateCFT->Analytical_Development_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Analytical_Development_by != $updateCFT->Analytical_Development_by && !empty($updateCFT->Analytical_Development_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Analytical Development Laboratory Review Completed By';
-                            $history->previous = $lastCft->Analytical_Development_by;
-                            $history->current = $updateCFT->Analytical_Development_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Analytical_Development_on != $updateCFT->Analytical_Development_on && !empty($updateCFT->Analytical_Development_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Analytical Development Laboratory Review Completed On';
-                            $history->previous = $lastCft->Analytical_Development_on;
-                            $history->current = $updateCFT->Analytical_Development_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 6 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 6 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Kilo_Lab_attachment_by = Auth::user()->name;
                         $updateCFT->Kilo_Lab_attachment_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Kilo_Lab_attachment_by != $updateCFT->Kilo_Lab_attachment_by && !empty($updateCFT->Kilo_Lab_attachment_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Process Development Laboratory / Kilo Lab Review Completed By';
-                            $history->previous = $lastCft->Kilo_Lab_attachment_by;
-                            $history->current = $updateCFT->Kilo_Lab_attachment_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Kilo_Lab_attachment_on != $updateCFT->Kilo_Lab_attachment_on && !empty($updateCFT->Kilo_Lab_attachment_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Process Development Laboratory / Kilo Lab Review Completed On';
-                            $history->previous = $lastCft->Kilo_Lab_attachment_on;
-                            $history->current = $updateCFT->Kilo_Lab_attachment_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 7 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 7 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Technology_transfer_by = Auth::user()->name;
                         $updateCFT->Technology_transfer_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Technology_transfer_by != $updateCFT->Technology_transfer_by && !empty($updateCFT->Technology_transfer_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Technology Transfer / Design Review Completed By';
-                            $history->previous = $lastCft->Technology_transfer_by;
-                            $history->current = $updateCFT->Technology_transfer_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
-                        if ($lastCft->Technology_transfer_on != $updateCFT->Technology_transfer_on && !empty($updateCFT->Technology_transfer_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Technology Transfer / Design Review Completed On';
-                            $history->previous = $lastCft->Technology_transfer_on;
-                            $history->current = $updateCFT->Technology_transfer_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 8 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 8 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Environment_Health_Safety_by = Auth::user()->name;
                         $updateCFT->Environment_Health_Safety_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Environment_Health_Safety_by != $updateCFT->Environment_Health_Safety_by && !empty($updateCFT->Environment_Health_Safety_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Environment, Health & Safety Review Completed By';
-                            $history->previous = $lastCft->Environment_Health_Safety_by;
-                            $history->current = $updateCFT->Environment_Health_Safety_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-                        if ($lastCft->Environment_Health_Safety_on != $updateCFT->Environment_Health_Safety_on && !empty($updateCFT->Environment_Health_Safety_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Environment, Health & Safety Review Completed On';
-                            $history->previous = $lastCft->Environment_Health_Safety_on;
-                            $history->current = $updateCFT->Environment_Health_Safety_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 9 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 9 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Human_Resource_by = Auth::user()->name;
                         $updateCFT->Human_Resource_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Human_Resource_by != $updateCFT->Human_Resource_by && !empty($updateCFT->Human_Resource_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Human Resource & Administration Review Completed By';
-                            $history->previous = $lastCft->Human_Resource_by;
-                            $history->current = $updateCFT->Human_Resource_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
-                        if ($lastCft->Environment_Health_Safety_on != $updateCFT->Environment_Health_Safety_on && !empty ($updateCFT->Production_person)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = ' Environment, Health & Safety Review Completed On';
-                            $history->previous = $lastCft->Environment_Health_Safety_on;
-                            $history->current = $updateCFT->Environment_Health_Safety_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 10 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 10 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Information_Technology_by = Auth::user()->name;
                         $updateCFT->Information_Technology_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Information_Technology_by != $updateCFT->Information_Technology_by && !empty($updateCFT->Information_Technology_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Information Technology Review Completed By';
-                            $history->previous = $lastCft->Information_Technology_by;
-                            $history->current = $updateCFT->Information_Technology_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-                        if ($lastCft->Information_Technology_on != $updateCFT->Information_Technology_on && !empty($updateCFT->Information_Technology_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Information Technology Review Completed On';
-                            $history->previous = $lastCft->Information_Technology_on;
-                            $history->current = $updateCFT->Information_Technology_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
                     }
-                    if ($index == 11 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 11 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Project_management_by = Auth::user()->name;
                         $updateCFT->Project_management_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Project_management_by != $updateCFT->Project_management_by && !empty($updateCFT->Project_management_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Project management Review Completed By';
-                            $history->previous = $lastCft->Project_management_by;
-                            $history->current = $updateCFT->Project_management_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Project_management_on != $updateCFT->Project_management_on && !empty($updateCFT->Project_management_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Project management Review Completed On';
-                            $history->previous = $lastCft->Project_management_on;
-                            $history->current = $updateCFT->Project_management_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 12 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 12 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Other1_by = Auth::user()->name;
                         $updateCFT->Other1_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Other1_by != $updateCFT->Other1_by && !empty($updateCFT->Other1_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 1 Review Completed By';
-                            $history->previous = $lastCft->Other1_by;
-                            $history->current = $updateCFT->Other1_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Other1_on != $updateCFT->Other1_on && !empty($updateCFT->Other1_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 1 Review Completed On';
-                            $history->previous = $lastCft->Other1_on;
-                            $history->current = $updateCFT->Other1_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
                     }
-                    if ($index == 13 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 13 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Other2_by = Auth::user()->name;
                         $updateCFT->Other2_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Other2_by != $updateCFT->Other2_by && !empty($updateCFT->Other2_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 2 Review Completed By';
-                            $history->previous = $lastCft->Other2_by;
-                            $history->current = $updateCFT->Other2_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Other2_on != $updateCFT->Other2_on && !empty($updateCFT->Other2_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 2 Review Completed On';
-                            $history->previous = $lastCft->Other2_on;
-                            $history->current = $updateCFT->Other2_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 14 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 14 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Other3_by = Auth::user()->name;
                         $updateCFT->Other3_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Other3_by != $updateCFT->Other3_by && !empty($updateCFT->Other3_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 3 Review Completed By';
-                            $history->previous = $lastCft->Other3_by;
-                            $history->current = $updateCFT->Other3_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Other3_on != $updateCFT->Other3_on && !empty($updateCFT->Other3_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 3 Review Completed On';
-                            $history->previous = $lastCft->Other3_on;
-                            $history->current = $updateCFT->Other3_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 15 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 15 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Other4_by = Auth::user()->name;
                         $updateCFT->Other4_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Other4_by != $updateCFT->Other4_by && !empty($updateCFT->Other4_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 4 Review Completed By';
-                            $history->previous = $lastCft->Other4_by;
-                            $history->current = $updateCFT->Other4_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-                        if ($lastCft->Other4_on != $updateCFT->Other4_on && !empty($updateCFT->Other4_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 4 Review Completed On';
-                            $history->previous = $lastCft->Other4_on;
-                            $history->current = $updateCFT->Other4_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
-                    if ($index == 16 && $cftUsers->$column == Auth::user()->id) {
+                    if($index == 16 && $cftUsers->$column == Auth::user()->id){
                         $updateCFT->Other5_by = Auth::user()->name;
                         $updateCFT->Other5_on = Carbon::now()->format('Y-m-d');
-
-                        if ($lastCft->Other5_by != $updateCFT->Other5_by && !empty($updateCFT->Other5_by)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 5 Review Completed By';
-                            $history->previous = $lastCft->Other5_by;
-                            $history->current = $updateCFT->Other5_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
-
-                        if ($lastCft->Other5_on != $updateCFT->Other5_on && !empty($updateCFT->Other5_on)) {
-                            // return 'history';
-                            $history = new DeviationAuditTrail;
-                            $history->deviation_id = $id;
-                            $history->activity_type = 'Others 5 Review Completed On';
-                            $history->previous = $lastCft->Other5_on;
-                            $history->current = $updateCFT->Other5_on;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastCft->status;
-                            $history->change_to =   "Not Applicable";
-                            $history->change_from = $lastDocument->status;
-                            $history->action_name = 'Update';
-                            $history->save();
-                        }
-
                     }
                     $updateCFT->update();
 
@@ -6300,7 +3359,7 @@ class DeviationController extends Controller
                     $history->deviation_id = $id;
                     $history->activity_type = 'Activity Log';
                     $history->previous = "";
-                    $history->action = 'CFT Review Complete';
+                    $history->action='CFT Review Complete';
                     $history->current = $deviation->CFT_Review_Complete_By;
                     $history->comment = $request->comment;
                     $history->user_id = Auth::user()->id;
@@ -6339,12 +3398,14 @@ class DeviationController extends Controller
 
             if ($deviation->stage == 5) {
 
-                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks)) {
+                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks))
+                {
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
                         'message' => 'Sent for QA Head/Manager Designee Primary Approval'
                     ]);
+
                 } else {
                     Session::flash('swal', [
                         'type' => 'warning',
@@ -6368,7 +3429,7 @@ class DeviationController extends Controller
                 $history->previous = "";
                 $history->current = $deviation->QA_Final_Review_Complete_By;
                 $history->comment = $request->comment;
-                $history->action = 'QA Secondary Review Complete';
+                $history->action ='QA Secondary Review Complete';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -6457,7 +3518,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'QAH Primary Approved Completed';
+                $history->action ='QAH Primary Approved Completed';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -6523,7 +3584,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'Initiator Update Complete';
+                $history->action ='Initiator Update Complete';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -6588,7 +3649,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'HOD Final Review Complete';
+                $history->action ='HOD Final Review Complete';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -6653,7 +3714,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'QA Final Review Complete';
+                $history->action ='QA Secondary Review Complete';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -6703,7 +3764,7 @@ class DeviationController extends Controller
 
                     return redirect()->back();
                 }
-                if (!$deviation->Disposition_Batch) {
+                if(!$deviation->Disposition_Batch){
                     Session::flash('swal', [
                         'title' => 'Mandatory Fields Required!',
                         'message' => 'Disposition of Batch  is yet to be filled!',
@@ -6711,7 +3772,7 @@ class DeviationController extends Controller
                     ]);
 
                     return redirect()->back();
-                } else {
+                }else {
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
@@ -6755,7 +3816,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'QA Final Approval Complete';
+                $history->action ='QA Final Approval Complete';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -6794,6 +3855,8 @@ class DeviationController extends Controller
             toastr()->error('E-signature Not match');
             return back();
         }
+
+
     }
     public function cftnotreqired(Request $request, $id)
     {
@@ -6804,98 +3867,32 @@ class DeviationController extends Controller
             $lastDocument = Deviation::find($id);
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
 
-            $deviation->stage = "5";
-            $deviation->status = "QA Secondary Review";
-            $deviation->QA_Final_Review_Complete_By = Auth::user()->name;
-            $deviation->QA_Final_Review_Complete_On = Carbon::now()->format('d-M-Y');
-            $deviation->QA_Final_Review_Comments = $request->comment;
+                $deviation->stage = "5";
+                $deviation->status = "QA Secondary Review";
+                $deviation->QA_Final_Review_Complete_By = Auth::user()->name;
+                $deviation->QA_Final_Review_Complete_On = Carbon::now()->format('d-M-Y');
+                $deviation->QA_Final_Review_Comments = $request->comment;
 
-            $history = new DeviationAuditTrail();
-            $history->deviation_id = $id;
-            $history->activity_type = 'Activity Log';
-            $history->previous = "";
-            $history->action = 'CFT Review Not Required';
-            $history->current = $deviation->QA_Final_Review_Complete_By;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDocument->status;
-            $history->stage = 'QA Secondary Review';
-            $history->change_to =   "QA Secondary Review";
-            $history->change_from = $lastDocument->status;
-            $history->save();
-            $list = Helpers::getQAUserList();
-            foreach ($list as $u) {
-                if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                    $email = Helpers::getInitiatorEmail($u->user_id);
-                    if ($email !== null) {
-                        try {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Activity Performed By " . Auth::user()->name);
-                                }
-                            );
-                        } catch (\Exception $e) {
-                            //log error
-                        }
-                    }
-                }
-            }
-            $deviation->update();
-            toastr()->success('Document Sent');
-            return back();
-        } else {
-            toastr()->error('E-signature Not match');
-            return back();
-        }
-    }
-
-    public function deviationCancel(Request $request, $id)
-    {
-        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-            $deviation = Deviation::find($id);
-            $lastDocument = Deviation::find($id);
-
-            if ($deviation->stage == 1) {
-                $deviation->stage = "0";
-                $deviation->status = "Closed-Cancelled";
-                $deviation->cancelled_by = Auth::user()->name;
-                $deviation->cancelled_on = Carbon::now()->format('d-M-Y');
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->current = $deviation->cancelled_by;
+                $history->action ='CFT Review Not Required';
+                $history->current = $deviation->QA_Final_Review_Complete_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $deviation->status;
-                $history->stage = 'Closed-Cancelled';
-                $history->change_to =   "Closed-Cancelled";
+                $history->origin_state = $lastDocument->status;
+                $history->stage = 'QA Secondary Review';
+                $history->change_to =   "QA Secondary Review";
                 $history->change_from = $lastDocument->status;
-                $history->action = 'Cancel';
                 $history->save();
-                $deviation->update();
-                $history = new DeviationHistory();
-                $history->type = "Deviation";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $deviation->stage;
-                $history->status = $deviation->status;
-                $history->save();
-
-                $list = Helpers::getInitiatorUserList();
+                $list = Helpers::getQAUserList();
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-
                             try {
                                 Mail::send(
                                     'mail.view-mail',
@@ -6911,35 +3908,102 @@ class DeviationController extends Controller
                         }
                     }
                 }
-
-                toastr()->success('Document Sent');
-                return back();
-            }
-
-            if ($deviation->stage == 2) {
-                $deviation->stage = "0";
-                $deviation->status = "Closed-Cancelled";
-                $deviation->cancelled_by = Auth::user()->name;
-                $deviation->cancelled_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->cancelled_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $deviation->status;
-                $history->stage = 'Closed-Cancelled';
-                $history->change_to =   "Closed-Cancelled";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Cancel';
-                $history->save();
                 $deviation->update();
                 toastr()->success('Document Sent');
                 return back();
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
+    public function deviationCancel(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $deviation = Deviation::find($id);
+            $lastDocument = Deviation::find($id);
+
+if( $deviation->stage == 1){
+    $deviation->stage = "0";
+    $deviation->status = "Closed-Cancelled";
+    $deviation->cancelled_by = Auth::user()->name;
+    $deviation->cancelled_on = Carbon::now()->format('d-M-Y');
+    $history = new DeviationAuditTrail();
+    $history->deviation_id = $id;
+    $history->activity_type = 'Activity Log';
+    $history->previous = "";
+    $history->current = $deviation->cancelled_by;
+    $history->comment = $request->comment;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+    $history->origin_state = $deviation->status;
+    $history->stage = 'Closed-Cancelled';
+    $history->change_to =   "Closed-Cancelled";
+    $history->change_from = $lastDocument->status;
+    $history->action = 'Cancel';
+    $history->save();
+    $deviation->update();
+    $history = new DeviationHistory();
+    $history->type = "Deviation";
+    $history->doc_id = $id;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->stage_id = $deviation->stage;
+    $history->status = $deviation->status;
+    $history->save();
+
+    $list = Helpers::getInitiatorUserList();
+    foreach ($list as $u) {
+        if ($u->q_m_s_divisions_id == $deviation->division_id) {
+            $email = Helpers::getInitiatorEmail($u->user_id);
+            if ($email !== null) {
+
+                try {
+                    Mail::send(
+                        'mail.view-mail',
+                        ['data' => $deviation],
+                        function ($message) use ($email) {
+                            $message->to($email)
+                                ->subject("Activity Performed By " . Auth::user()->name);
+                        }
+                    );
+                } catch (\Exception $e) {
+                    //log error
+                }
             }
+        }
+    }
+
+    toastr()->success('Document Sent');
+    return back();
+
+}
+
+if($deviation->stage == 2){
+    $deviation->stage = "0";
+    $deviation->status = "Closed-Cancelled";
+    $deviation->cancelled_by = Auth::user()->name;
+    $deviation->cancelled_on = Carbon::now()->format('d-M-Y');
+    $history = new DeviationAuditTrail();
+    $history->deviation_id = $id;
+    $history->activity_type = 'Activity Log';
+    $history->previous = "";
+    $history->current = $deviation->cancelled_by;
+    $history->comment = $request->comment;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+    $history->origin_state = $deviation->status;
+    $history->stage = 'Closed-Cancelled';
+    $history->change_to =   "Closed-Cancelled";
+    $history->change_from = $lastDocument->status;
+    $history->action = 'Cancel';
+    $history->save();
+    $deviation->update();
+    toastr()->success('Document Sent');
+    return back();
+}
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -7196,7 +4260,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'More Information Required';
+                $history->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -7247,7 +4311,7 @@ class DeviationController extends Controller
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action = 'More Information Required';
+                $history->action='More Information Required';
                 $history->current = $deviation->qa_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -7282,115 +4346,118 @@ class DeviationController extends Controller
             $lastDocument = Deviation::find($id);
             // $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
             $list = Helpers::getInitiatorUserList();
-            // Soft delete all records
-            //    $cftResponse->each(function ($response) {
-            //     $response->delete();
-            // });
+           // Soft delete all records
+        //    $cftResponse->each(function ($response) {
+        //     $response->delete();
+        // });
 
 
-            if ($deviation->stage == 8) {
-                $deviation->stage = "7";
-                $deviation->status = "Pending Initiator Update";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Pending Initiator Update';
-                // $history->stage = 'Send to Pending Initiator Update';
-                $history->change_to =   "Pending Initiator Update";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Pending Initiator Update';
-                $history->save();
-                $deviation->update();
-                $history = new DeviationHistory();
-                $history->type = "Deviation";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $deviation->stage;
-                $history->status = "Send to Pending Initiator Update";
-                $history->save();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+       if($deviation->stage == 8){
+        $deviation->stage = "7";
+        $deviation->status = "Pending Initiator Update";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Pending Initiator Update';
+        // $history->stage = 'Send to Pending Initiator Update';
+        $history->change_to =   "Pending Initiator Update";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Pending Initiator Update';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to Pending Initiator Update";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
 
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
+                    try {
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
-                        }
+                        );
+                    } catch (\Exception $e) {
+                        //log error
                     }
                 }
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
             }
-            if ($deviation->stage == 9) {
-                $deviation->stage = "7";
-                $deviation->status = "Pending Initiator Update";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Pending Initiator Update';
-                $history->change_to =   "Pending Initiator Update";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Pending Initiator Update';
-                $history->save();
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
 
-            if ($deviation->stage == 10) {
-                $deviation->stage = "7";
-                $deviation->status = "Pending Initiator Update";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Pending Initiator Update';
-                $history->change_to =   "Pending Initiator Update";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Pending Initiator Update';
-                $history->save();
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+    }
+        if($deviation->stage == 9){
+            $deviation->stage = "7";
+            $deviation->status = "Pending Initiator Update";
+            $deviation->qa_more_info_required_by = Auth::user()->name;
+            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $deviation->qa_more_info_required_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Pending Initiator Update';
+            $history->change_to =   "Pending Initiator Update";
+            $history->change_from = $lastDocument->status;
+            $history->action = 'Send to Pending Initiator Update';
+            $history->save();
+            $deviation->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+
+        if($deviation->stage == 10){
+            $deviation->stage = "7";
+            $deviation->status = "Pending Initiator Update";
+            $deviation->qa_more_info_required_by = Auth::user()->name;
+            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+            $history = new DeviationAuditTrail();
+            $history->deviation_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $deviation->qa_more_info_required_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Pending Initiator Update';
+            $history->change_to =   "Pending Initiator Update";
+            $history->change_from = $lastDocument->status;
+            $history->action = 'Send to Pending Initiator Update';
+            $history->save();
+            $deviation->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+
+
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -7405,207 +4472,209 @@ class DeviationController extends Controller
             $lastDocument = Deviation::find($id);
             $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
             $list = Helpers::getInitiatorUserList();
-            // Soft delete all records
-            $cftResponse->each(function ($response) {
-                $response->delete();
-            });
+           // Soft delete all records
+           $cftResponse->each(function ($response) {
+            $response->delete();
+        });
 
-            // dd($deviation->stage);
+// dd($deviation->stage);
 
-            if ($deviation->stage == 5) {
+if ($deviation->stage == 5) {
 
 
-                $deviation->stage = "1";
-                $deviation->status = "Opened";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                // $history->stage = 'Send to Initiator';
-                $history->change_to =   "Opened";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Opened';
-                $history->save();
-                $deviation->update();
-                $history = new DeviationHistory();
-                $history->type = "Deviation";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $deviation->stage;
-                $history->status = "Send to Opened";
-                $history->save();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        // $history->stage = 'Send to Initiator';
+        $history->change_to =   "Opened";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Opened';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to Opened";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
 
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
+                    try {
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
-                        }
+                        );
+                    } catch (\Exception $e) {
+                        //log error
                     }
                 }
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
             }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
 
-            if ($deviation->stage == 7) {
+    }
 
-                $deviation->stage = "1";
-                $deviation->status = "Opened";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Opened';
-                $history->change_to =   "Opened";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Opened';
-                $history->save();
-                $deviation->update();
+    if($deviation->stage == 7){
 
-                toastr()->success('Document Sent');
-                return back();
-            }
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Opened';
+        $history->change_to =   "Opened";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Opened';
+        $history->save();
+        $deviation->update();
 
-
-            if ($deviation->stage == 8) {
-
-                $deviation->stage = "1";
-                $deviation->status = "Opened";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Opened';
-                $history->change_to =   "Opened";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Opened';
-                $history->save();
-                $deviation->update();
-
-                toastr()->success('Document Sent');
-                return back();
-            }
+        toastr()->success('Document Sent');
+        return back();
+    }
 
 
-            if ($deviation->stage == 8) {
+    if($deviation->stage == 8){
 
-                $deviation->stage = "1";
-                $deviation->status = "Opened";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Opened';
-                $history->change_to =   "Opened";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Opened';
-                $history->save();
-                $deviation->update();
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Opened';
+        $history->change_to =   "Opened";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Opened';
+        $history->save();
+        $deviation->update();
 
-                toastr()->success('Document Sent');
-                return back();
-            }
-
-
-            if ($deviation->stage == 9) {
-
-                $deviation->stage = "1";
-                $deviation->status = "Opened";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Opened';
-                $history->change_to =   "Opened";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Opened';
-                $history->save();
-                $deviation->update();
-
-                toastr()->success('Document Sent');
-                return back();
-            }
+        toastr()->success('Document Sent');
+        return back();
+    }
 
 
-            if ($deviation->stage == 10) {
+    if($deviation->stage == 8){
 
-                $deviation->stage = "1";
-                $deviation->status = "Opened";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Opened';
-                $history->change_to =   "Opened";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to Opened';
-                $history->save();
-                $deviation->update();
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Opened';
+        $history->change_to =   "Opened";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Opened';
+        $history->save();
+        $deviation->update();
 
-                toastr()->success('Document Sent');
-                return back();
-            }
+        toastr()->success('Document Sent');
+        return back();
+    }
+
+
+    if($deviation->stage == 9){
+
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Opened';
+        $history->change_to =   "Opened";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Opened';
+        $history->save();
+        $deviation->update();
+
+        toastr()->success('Document Sent');
+        return back();
+    }
+
+
+    if($deviation->stage == 10){
+
+        $deviation->stage = "1";
+        $deviation->status = "Opened";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->stage = 'Opened';
+        $history->change_to =   "Opened";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to Opened';
+        $history->save();
+        $deviation->update();
+
+        toastr()->success('Document Sent');
+        return back();
+    }
+
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -7620,139 +4689,141 @@ class DeviationController extends Controller
             $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
             $list = Helpers::getInitiatorUserList();
 
-            // Soft delete all records
-            $cftResponse->each(function ($response) {
-                $response->delete();
-            });
-            if ($deviation->stage == 5) {
-                $deviation->stage = "2";
-                $deviation->status = "HOD Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->change_to =   "HOD Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to HOD';
-                // $history->stage = 'Send to HOD';
-                $history->save();
-                $deviation->update();
-                $history = new DeviationHistory();
-                $history->type = "Deviation";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $deviation->stage;
-                $history->status = "Send to HOD Review";
-                $history->save();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+        // Soft delete all records
+        $cftResponse->each(function ($response) {
+            $response->delete();
+        });
+       if($deviation->stage == 5){
+        $deviation->stage = "2";
+        $deviation->status = "HOD Review";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->change_to =   "HOD Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to HOD';
+        // $history->stage = 'Send to HOD';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to HOD Review";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
 
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
+                    try {
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
-                        }
+                        );
+                    } catch (\Exception $e) {
+                        //log error
                     }
                 }
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
             }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+
+       }
 
 
-            if ($deviation->stage == 7) {
-                $deviation->stage = "2";
-                $deviation->status = "HOD Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->change_to =   "HOD Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to HOD Review';
-                // $history->stage = 'Send to HOD';
-                $history->save();
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+       if($deviation->stage == 7){
+        $deviation->stage = "2";
+        $deviation->status = "HOD Review";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->change_to =   "HOD Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to HOD Review';
+        // $history->stage = 'Send to HOD';
+        $history->save();
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+       }
 
-            if ($deviation->stage == 9) {
-                $deviation->stage = "2";
-                $deviation->status = "HOD Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->change_to =   "HOD Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to HOD Review';
-                // $history->stage = 'Send to HOD';
-                $history->save();
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+       if($deviation->stage == 9){
+        $deviation->stage = "2";
+        $deviation->status = "HOD Review";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->change_to =   "HOD Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to HOD Review';
+        // $history->stage = 'Send to HOD';
+        $history->save();
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+       }
 
-            if ($deviation->stage == 10) {
-                $deviation->stage = "2";
-                $deviation->status = "HOD Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->change_to =   "HOD Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to HOD Review';
-                // $history->stage = 'Send to HOD';
-                $history->save();
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+       if($deviation->stage == 10){
+        $deviation->stage = "2";
+        $deviation->status = "HOD Review";
+        $deviation->qa_more_info_required_by = Auth::user()->name;
+        $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        $history->change_to =   "HOD Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to HOD Review';
+        // $history->stage = 'Send to HOD';
+        $history->save();
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
+       }
+
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -7767,120 +4838,124 @@ class DeviationController extends Controller
             $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
             $list = Helpers::getInitiatorUserList();
 
-            // Soft delete all records
-            $cftResponse->each(function ($response) {
-                $response->delete();
-            });
+        // Soft delete all records
+        $cftResponse->each(function ($response) {
+            $response->delete();
+        });
 
-            if ($deviation->stage == 5) {
-                $deviation->stage = "3";
-                $deviation->status = "QA Initial Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                // $history->stage = 'Send to HOD';
-                $history->stage = 'QA Initial Review';
-                $history->change_to =   "QA Initial Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to QA Initial Review';
-                $history->save();
-                $deviation->update();
-                $history = new DeviationHistory();
-                $history->type = "Deviation";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $deviation->stage;
-                $history->status = "Send to QA Initial Review";
-                $history->save();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+        if($deviation->stage == 5){
+            $deviation->stage = "3";
+            $deviation->status = "QA Initial Review";
+            $deviation->qa_more_info_required_by = Auth::user()->name;
+            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        // $history->stage = 'Send to HOD';
+        $history->stage = 'QA Initial Review';
+        $history->change_to =   "QA Initial Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to QA Initial Review';
+        $history->save();
+        $deviation->update();
+        $history = new DeviationHistory();
+        $history->type = "Deviation";
+        $history->doc_id = $id;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->stage_id = $deviation->stage;
+        $history->status = "Send to QA Initial Review";
+        $history->save();
+        foreach ($list as $u) {
+            if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                $email = Helpers::getInitiatorEmail($u->user_id);
+                if ($email !== null) {
 
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
+                    try {
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $deviation],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Activity Performed By " . Auth::user()->name);
                             }
-                        }
+                        );
+                    } catch (\Exception $e) {
+                        //log error
                     }
                 }
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
             }
+        }
+        $deviation->update();
+        toastr()->success('Document Sent');
+        return back();
 
-            if ($deviation->stage == 7) {
-                $deviation->stage = "3";
-                $deviation->status = "QA Initial Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                // $history->stage = 'Send to HOD';
-                $history->stage = 'QA Initial Review';
-                $history->change_to =   "QA Initial Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to QA Initial Review';
-                $history->save();
-                $deviation->update();
+        }
 
-                toastr()->success('Document Sent');
-                return back();
-            }
+        if($deviation->stage == 7){
+            $deviation->stage = "3";
+            $deviation->status = "QA Initial Review";
+            $deviation->qa_more_info_required_by = Auth::user()->name;
+            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        // $history->stage = 'Send to HOD';
+        $history->stage = 'QA Initial Review';
+        $history->change_to =   "QA Initial Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to QA Initial Review';
+        $history->save();
+        $deviation->update();
+
+        toastr()->success('Document Sent');
+        return back();
+
+        }
 
 
-            if ($deviation->stage == 10) {
-                $deviation->stage = "3";
-                $deviation->status = "QA Initial Review";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                // $history->stage = 'Send to HOD';
-                $history->stage = 'QA Initial Review';
-                $history->change_to =   "QA Initial Review";
-                $history->change_from = $lastDocument->status;
-                $history->action = 'Send to QA Initial Review';
-                $history->save();
-                $deviation->update();
+        if($deviation->stage == 10){
+            $deviation->stage = "3";
+            $deviation->status = "QA Initial Review";
+            $deviation->qa_more_info_required_by = Auth::user()->name;
+            $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+        $history = new DeviationAuditTrail();
+        $history->deviation_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->previous = "";
+        $history->current = $deviation->qa_more_info_required_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastDocument->status;
+        // $history->stage = 'Send to HOD';
+        $history->stage = 'QA Initial Review';
+        $history->change_to =   "QA Initial Review";
+        $history->change_from = $lastDocument->status;
+        $history->action = 'Send to QA Initial Review';
+        $history->save();
+        $deviation->update();
 
-                toastr()->success('Document Sent');
-                return back();
-            }
+        toastr()->success('Document Sent');
+        return back();
+
+        }
+
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -8135,7 +5210,7 @@ class DeviationController extends Controller
                 return back();
             }
 
-            if ($deviation->stage = 8) {
+            if($deviation->stage = 8){
                 $deviation->stage = "7";
                 $deviation->status = "Pending Initiator Update";
                 $deviation->qa_more_info_required_by = Auth::user()->name;
@@ -8159,6 +5234,7 @@ class DeviationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
+
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -8197,7 +5273,7 @@ class DeviationController extends Controller
             $Extensionchild = Deviation::find($id);
             $Extensionchild->Extensionchild = $record_number;
             $Extensionchild->save();
-            return view('frontend.forms.extension', compact('parent_id', 'parent_record', 'parent_name', 'record_number', 'parent_due_date', 'due_date', 'parent_created_at'));
+            return view('frontend.forms.extension', compact('parent_id','parent_record', 'parent_name', 'record_number', 'parent_due_date', 'due_date', 'parent_created_at'));
         }
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
         // dd($request->child_type)
@@ -8207,8 +5283,9 @@ class DeviationController extends Controller
             $Capachild->Capachild = $record_number;
             $Capachild->save();
 
-            return view('frontend.forms.capa', compact('parent_id', 'parent_record', 'parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'old_record', 'cft'));
-        } elseif ($request->child_type == "Action_Item") {
+            return view('frontend.forms.capa', compact('parent_id', 'parent_record','parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'old_record', 'cft'));
+        } elseif ($request->child_type == "Action_Item")
+         {
             $parent_name = "CAPA";
             $actionchild = Deviation::find($id);
             $actionchild->actionchild = $record_number;
@@ -8216,27 +5293,31 @@ class DeviationController extends Controller
             $actionchild->save();
 
             return view('frontend.forms.action-item', compact('old_record', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'record_number', 'due_date', 'parent_id', 'parent_type'));
-        } elseif ($request->child_type == "effectiveness_check") {
+        }
+        elseif ($request->child_type == "effectiveness_check")
+         {
             $parent_name = "CAPA";
             $effectivenesschild = Deviation::find($id);
             $effectivenesschild->effectivenesschild = $record_number;
 
             $effectivenesschild->save();
-            return view('frontend.forms.effectiveness-check', compact('old_record', 'parent_short_description', 'parent_record', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id',  'record_number', 'due_date', 'parent_id', 'parent_type'));
-        } elseif ($request->child_type == "Change_control") {
+        return view('frontend.forms.effectiveness-check', compact('old_record','parent_short_description','parent_record', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id',  'record_number', 'due_date', 'parent_id', 'parent_type'));
+        }
+        elseif ($request->child_type == "Change_control") {
             $parent_name = "CAPA";
             $Changecontrolchild = Deviation::find($id);
             $Changecontrolchild->Changecontrolchild = $record_number;
 
             $Changecontrolchild->save();
 
-            return view('frontend.change-control.new-change-control', compact('cft', 'pre', 'hod', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id',  'record_number', 'due_date', 'parent_id', 'parent_type'));
-        } else {
+            return view('frontend.change-control.new-change-control', compact('cft','pre','hod','parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_division_id',  'record_number', 'due_date', 'parent_id', 'parent_type'));
+        }
+        else {
             $parent_name = "Root";
             $Rootchild = Deviation::find($id);
             $Rootchild->Rootchild = $record_number;
             $Rootchild->save();
-            return view('frontend.forms.root-cause-analysis', compact('parent_id', 'parent_record', 'parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
+            return view('frontend.forms.root-cause-analysis', compact('parent_id', 'parent_record','parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', ));
         }
     }
 
@@ -8244,8 +5325,8 @@ class DeviationController extends Controller
     {
         // $audit = DeviationAuditTrail::where('deviation_id', $id)->orderByDESC('id')->get()->unique('activity_type');
         $audit = DeviationAuditTrail::where('deviation_id', $id)
-            ->orderByDesc('id')
-            ->paginate(5);
+        ->orderByDesc('id')
+        ->paginate(5);
 
         // dd($audit);
         $today = Carbon::now()->format('d-m-y');
@@ -8282,7 +5363,7 @@ class DeviationController extends Controller
         $data = Deviation::find($id);
         // return $data;
         $data1 =  DeviationCft::where('deviation_id', $id)->first();
-        if (!empty($data)) {
+        if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
@@ -8300,13 +5381,13 @@ class DeviationController extends Controller
 
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.SingleReportdeviation', compact('data', 'grid_data_qrms', 'grid_data_matrix_qrms', 'capaExtension', 'qrmExtension', 'investigationExtension', 'root_cause_data', 'why_data', 'investigation_data', 'grid_data', 'grid_data1', 'data1'))
+            $pdf = PDF::loadview('frontend.forms.SingleReportdeviation', compact('data','grid_data_qrms','grid_data_matrix_qrms','capaExtension','qrmExtension','investigationExtension','root_cause_data','why_data','investigation_data','grid_data','grid_data1', 'data1'))
                 ->setOptions([
-                    'defaultFont' => 'sans-serif',
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => true,
-                    'isPhpEnabled' => true,
-                ]);
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
             $pdf->setPaper('A4');
             $pdf->render();
             $canvas = $pdf->getDomPDF()->getCanvas();
@@ -8315,7 +5396,7 @@ class DeviationController extends Controller
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
             $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
 
-            $filePath = public_path('user/pdf/' . $id . '.pdf');
+            $filePath = public_path('user/pdf/'. $id .'.pdf');
             file_put_contents($filePath, $pdf->output());
 
             return $pdf->stream('Deviation' . $id . '.pdf');
@@ -8333,20 +5414,20 @@ class DeviationController extends Controller
         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
 
         $data3 = Extension::where('record', $Extensionchild)->first();
-        if (!empty($data)) {
+        if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
 
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data', 'data1', 'data2', 'data3', 'data4', 'grid_data1', 'grid_data'))
+            $pdf = PDF::loadview('frontend.forms.deviationparentchildReport', compact('data', 'data1', 'data2', 'data3','data4','grid_data1','grid_data'))
                 ->setOptions([
-                    'defaultFont' => 'sans-serif',
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => true,
-                    'isPhpEnabled' => true,
-                ]);
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
             $pdf->setPaper('A4');
             $pdf->render();
             $canvas = $pdf->getDomPDF()->getCanvas();
@@ -8365,9 +5446,9 @@ class DeviationController extends Controller
 
         $Rootchild = $data->Rootchild;
         $Extensionchild = $data->Extensionchild;
-        $actionchild = $data->actionchild;
-        $effectivenesschild = $data->effectivenesschild;
-        $Changecontrolchild = $data->Changecontrolchild;
+         $actionchild=$data->actionchild;
+         $effectivenesschild=$data->effectivenesschild;
+         $Changecontrolchild=$data->Changecontrolchild;
         //  dd($Changecontrolchild);
         $data1 = Capa::where('record', $Capachild)->first();
         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
@@ -8378,20 +5459,20 @@ class DeviationController extends Controller
 
         // $data4 = CC::find($id);
 
-        if (!empty($data)) {
+        if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $grid_data = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Deviation")->first();
 
             $grid_data1 = DeviationGrid::where('deviation_grid_id', $id)->where('type', "Document")->first();
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'grid_data1', 'grid_data', 'data7'))
+            $pdf = PDF::loadview('frontend.forms.DeviationFamily', compact('data', 'data1', 'data2', 'data3','data4','data5','data6','grid_data1','grid_data','data7'))
                 ->setOptions([
-                    'defaultFont' => 'sans-serif',
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => true,
-                    'isPhpEnabled' => true,
-                ]);
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
             $pdf->setPaper('A4');
             $pdf->render();
             $canvas = $pdf->getDomPDF()->getCanvas();
@@ -8433,14 +5514,15 @@ class DeviationController extends Controller
 
     public function store_audit_review(Request $request, $id)
     {
-        $history = new AuditReviewersDetails;
-        $history->deviation_id = $id;
-        $history->user_id = Auth::user()->id;
-        $history->reviewer_comment = $request->reviewer_comment;
-        $history->reviewer_comment_by = Auth::user()->name;
-        $history->reviewer_comment_on = Carbon::now()->toDateString();
-        $history->save();
+            $history = new AuditReviewersDetails;
+            $history->deviation_id = $id;
+            $history->user_id = Auth::user()->id;
+            $history->reviewer_comment = $request->reviewer_comment;
+            $history->reviewer_comment_by = Auth::user()->name;
+            $history->reviewer_comment_on = Carbon::now()->toDateString();
+            $history->save();
 
         return redirect()->back();
     }
+
 }
