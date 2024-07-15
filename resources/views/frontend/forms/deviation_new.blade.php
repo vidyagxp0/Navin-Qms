@@ -397,8 +397,9 @@
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
                         '<td><input type="text" name="product_name[]"></td>' +
-                        '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>' +
+                        '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="1">1 <option value="2">2</option> <option value="3">3</option><option value="4">4</option> <option value="5">5</option><option value="6">6</option> <option value="7">7</option> <option value="8">8</option><option value="9">9</option><option value="Final">Final</option> </select></td>' +
                         '<td><input type="text" name="batch_no[]"></td>' +
+                        '<td><input type="text" name="product_remark[]"></td>' +
                         '<td><button class="removeRowBtn">Remove</button></td>' +
 
 
@@ -630,13 +631,13 @@
                                 @php
                                     // Calculate the due date (30 days from the initiation date)
                                     $initiationDate = date('Y-m-d'); // Current date as initiation date
-                                    $dueDate = date('d/m/Y', strtotime($initiationDate . '+30 days')); // Due date in DD/MM/YYYY format
+                                    $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date in DD/MM/YYYY format
                                 @endphp
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d/m/Y') }}" name="initiation_date" id="initiation_date"
+                                        <input readonly type="text" value="{{ date('d-m-Y') }}" name="initiation_date" id="initiation_date"
                                             style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))">
                                         <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                     </div>
@@ -708,63 +709,48 @@
                                 
 
                                 <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Initiator Group"><b>Department</b><span
-                                                class="text-danger">*</span></label>
-                                        <select name="Initiator_Group" id="initiator_group" required>
-                                            <option value="">-- Select --</option>
-                                            <option value="CQA" @if (old('Initiator_Group') == 'CQA') selected @endif>
-                                                Corporate Quality Assurance</option>
-                                            <option value="QAB" @if (old('Initiator_Group') == 'QAB') selected @endif>
-                                                Quality
-                                                Assurance Biopharma</option>
-                                            <option value="CQC" @if (old('Initiator_Group') == 'CQC') selected @endif>
-                                                Central
-                                                Quality Control</option>
-                                            <option value="MANU" @if (old('Initiator_Group') == 'MANU') selected @endif>
-                                                Manufacturing</option>
-                                            <option value="PSG" @if (old('Initiator_Group') == 'PSG') selected @endif>Plasma
-                                                Sourcing Group</option>
-                                            <option value="CS" @if (old('Initiator_Group') == 'CS') selected @endif>
-                                                Central
-                                                Stores</option>
-                                            <option value="ITG" @if (old('Initiator_Group') == 'ITG') selected @endif>
-                                                Information Technology Group</option>
-                                            <option value="MM" @if (old('Initiator_Group') == 'MM') selected @endif>
-                                                Molecular Medicine</option>
-                                            <option value="CL" @if (old('Initiator_Group') == 'CL') selected @endif>
-                                                Central
-                                                Laboratory</option>
+                                                <div class="group-input">
+                                                    <label for="Initiator Group"><b>Department</b><span class="text-danger">*</span></label>
+                                                    <select name="Initiator_Group" id="initiator_group" required onchange="showOtherInput()">
+                                                        <option value="">-- Select --</option>
+                                                        <option value="Production" @if (old('Initiator_Group') == 'Production') selected @endif>Production</option>
+                                                        <option value="Warehouse" @if (old('Initiator_Group') == 'Warehouse') selected @endif>Warehouse</option>
+                                                        <option value="Quality Control" @if (old('Initiator_Group') == 'Quality Control') selected @endif>Quality Control</option>
+                                                        <option value="Engineering" @if (old('Initiator_Group') == 'Engineering') selected @endif>Engineering</option>
+                                                        <option value="Information Technology" @if (old('Initiator_Group') == 'Information Technology') selected @endif>Information Technology</option>
+                                                        <option value="Project Management" @if (old('Initiator_Group') == 'Project Management') selected @endif>Project Management</option>
+                                                        <option value="Environment Health & Safety" @if (old('Initiator_Group') == 'Environment Health & Safety') selected @endif>Environment Health & Safety</option>
+                                                        <option value="Human Resource & Administration" @if (old('Initiator_Group') == 'Human Resource & Administration') selected @endif>Human Resource & Administration</option>
+                                                        <option value="Quality Assurance" @if (old('Initiator_Group') == 'Quality Assurance') selected @endif>Quality Assurance</option>
+                                                        <option value="Analytical Development Library" @if (old('Initiator_Group') == 'Analytical Development Library') selected @endif>Analytical Development Library</option>
+                                                        <option value="Process Development Laboratory / Kilo Lab" @if (old('Initiator_Group') == 'Process Development Laboratory / Kilo Lab') selected @endif>Process Development Laboratory / Kilo Lab</option>
+                                                        <option value="Technology transfer/design" @if (old('Initiator_Group') == 'Technology transfer/design') selected @endif>Technology transfer/design</option>
+                                                        <option value="Any Other" @if (old('Initiator_Group') == 'Any Other') selected @endif>Any Other</option>
+                                                    </select>
+                                                    @error('Initiator_Group')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="group-input" id="other_input_group" style="display: none;">
+                                                    <label for="Other Department"><b>Department (Any Other)</b><span class="text-danger">*</span></label>
+                                                    <input type="text" name="departments_other" id="other_department" />
+                                                </div>
+                                            </div>
 
-                                            <option value="TT" @if (old('Initiator_Group') == 'TT') selected @endif>Tech
-                                                team</option>
-                                            <option value="QA" @if (old('Initiator_Group') == 'QA') selected @endif>
-                                                Quality Assurance</option>
-                                            <option value="QM" @if (old('Initiator_Group') == 'QM') selected @endif>
-                                                Quality Management</option>
-                                            <option value="IA" @if (old('Initiator_Group') == 'IA') selected @endif>IT
-                                                Administration</option>
-                                            <option value="ACC" @if (old('Initiator_Group') == 'ACC') selected @endif>
-                                                Accounting</option>
-                                            <option value="LOG" @if (old('Initiator_Group') == 'LOG') selected @endif>
-                                                Logistics</option>
-                                            <option value="SM" @if (old('Initiator_Group') == 'SM') selected @endif>
-                                                Senior Management</option>
-                                            <option value="BA" @if (old('Initiator_Group') == 'BA') selected @endif>
-                                                Business Administration</option>
-                                        </select>
-                                        @error('Initiator_Group')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Initiator Group Code">Department Code</label>
-                                        <input type="text" name="initiator_group_code" id="initiator_group_code"
-                                            value="" readonly>
-                                    </div>
-                                </div> --}}
+                                            <script>
+                                                function showOtherInput() {
+                                                var selectElement = document.getElementById("initiator_group");
+                                                var otherInputGroup = document.getElementById("other_input_group");
+
+                                                if (selectElement.value === "Any Other") {
+                                                    otherInputGroup.style.display = "block";
+                                                } else {
+                                                    otherInputGroup.style.display = "none";
+                                                }
+                                            }
+
+                                            </script>
+                                     
 
                                 <div class="col-12">
                                     <div class="group-input">
@@ -779,15 +765,13 @@
                                     @enderror
                                 </div>
 
-                                
-
-
+                              
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed On</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="Deviation_date" readonly
-                                                placeholder="DD/MM/YYYY" />
+                                                placeholder="DD/MM/YYYY" value="{{ date('d-m-Y') }}" />
                                             {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
                                             <input type="date" name="Deviation_date"
                                                 max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -847,12 +831,62 @@
                                         </div>
                                     </div>
                                 </div>
+                                 
+
                                 <script>
+                                        $(document).ready(function() {
+                                            // Hide the delayJustificationBlock initially
+                                            $('.delayJustificationBlock').hide();
+
+                                            // Check the condition on page load
+                                            checkDateDifference();
+                                        });
+
+                                        function checkDateDifference() {
+                                            let deviationDate = moment().format('YYYY-MM-DD');
+                                            let reportedDate = $('input[name=Deviation_reported_date]').val();
+
+                                            
+                                        console.log('d date: ',deviationDate)
+                                            console.log('r date: ',reportedDate)
+
+                                            if (!deviationDate || !reportedDate) {
+                                                console.error('Deviation date or reported date is missing.');
+                                                return;
+                                            }
+
+                                            let deviationDateMoment = moment(deviationDate);
+                                            let reportedDateMoment = moment(reportedDate);
+
+                                            console.log('DM',deviationDateMoment)
+                                            console.log('RM',reportedDateMoment)
+
+                                            let diffInDays = deviationDateMoment.diff(reportedDateMoment, 'days');
+
+                                            console.log('Difference: ',diffInDays)
+
+                                            if (diffInDays > 1) {
+                                                $('.delayJustificationBlock').show();
+                                            } else {
+                                                $('.delayJustificationBlock').hide();
+                                            }
+                                        }
+
+                                        // Call checkDateDifference whenever the values are changed
+                                        $('input[name=Deviation_date], input[name=Deviation_reported_date]').on('change', function() {
+                                            checkDateDifference();
+                                        });
+                                        </script>
+
+                                <!-- <script>
                                     $('.delayJustificationBlock').hide();
 
                                     function calculateDateDifference() {
-                                        let deviationDate = $('input[name=Deviation_date]').val();
+                                        let deviationDate = moment().format('YYYY-MM-DD');
                                         let reportedDate = $('input[name=Deviation_reported_date]').val();
+
+                                        console.log('d date: ',deviationDate)
+                                            console.log('r date: ',reportedDate)
 
                                         if (!deviationDate || !reportedDate) {
                                             console.error('Deviation date or reported date is missing.');
@@ -862,9 +896,15 @@
                                         let deviationDateMoment = moment(deviationDate);
                                         let reportedDateMoment = moment(reportedDate);
 
-                                        let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
+                                        
+                                        console.log('DM',deviationDateMoment)
+                                            console.log('RM',reportedDateMoment)
 
-                                        if (diffInDays > 0) {
+                                        let diffInDays = deviationDateMoment.diff(reportedDateMoment, 'days');
+
+                                        console.log('diffInDays',deviationDateMoment)
+
+                                        if (diffInDays < 1) {
                                             $('.delayJustificationBlock').show();
                                         } else {
                                             $('.delayJustificationBlock').hide();
@@ -872,14 +912,16 @@
 
                                     }
 
-                                    $('input[name=Deviation_date]').on('change', function() {
-                                        calculateDateDifference();
-                                    })
-
                                     $('input[name=Deviation_reported_date]').on('change', function() {
                                         calculateDateDifference();
                                     })
-                                </script>
+
+                                    $('input[name=Deviation_date]').on('change', function() {
+                                        calculateDateDifference();
+                                    })
+                                </script> -->
+
+
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1192,6 +1234,7 @@
                                                         <th style="width: 12%">Product</th>
                                                         <th style="width: 16%"> Stage</th>
                                                         <th style="width: 16%">Batch No</th>
+                                                        <th style="width: 16%">Remarks</th>
                                                         <th style="width: 8%">Action</th>
 
 
@@ -1208,19 +1251,21 @@
                                                         <select name="product_stage[]" id="product_stage"
                                                             class="productStage">
                                                             <option value="">-- Select --</option>
-                                                            <option value="">1</option>
-                                                            <option value="">2</option>
-                                                            <option value="">3</option>
-                                                            <option value="">4</option>
-                                                            <option value="">5</option>
-                                                            <option value="">6</option>
-                                                            <option value="">7</option>
-                                                            <option value="">8</option>
-                                                            <option value="">9</option>
-                                                            <option value="">Final</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="Final">Final</option>
                                                         </select>
                                                     </td>
                                                     <td><input type="text" class="productBatchNo" name="batch_no[]">
+                                                    </td>
+                                                    <td><input type="text" class="productRemarks" name="product_remark[]">
                                                     </td>
                                                     <td><input type="text" class="Removebtn" name="Action[]" readonly>
                                                     </td>
@@ -1237,6 +1282,9 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                     @error('batch_no')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    @error('product_remark')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -1261,9 +1309,14 @@
                                         var productBatchNoInputs = document.getElementsByClassName('productBatchNo');
                                         for (var k = 0; k < productBatchNoInputs.length; k++) {
                                             inputsToToggle.push(productBatchNoInputs[k]);
+                                            
                                         }
 
+                                        var productRemarksInputs = document.getElementsByClassName('productRemarks');
+                                        for (var l = 0; l < productRemarksInputs.length; l++) {
+                                            inputsToToggle.push(productRemarksInputs[l]);
 
+                                        }
                                         selectField.addEventListener('change', function() {
                                             var isRequired = this.value === 'yes';
                                             console.log(this.value, isRequired, 'value');
@@ -1400,6 +1453,58 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="why-why-chart">
+                                            More Info Required
+                                            <!-- <span class="text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#is_is_not-instruction-modal"
+                                                style="font-size: 0.8rem; font-weight: 400;">
+                                                (Launch Instruction)
+                                            </span> -->
+                                        </label>
+                                        <div class="why-why-chart">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 30%;">Stage</th>
+                                                        <th>More Info Required By</th>
+                                                        <th>More Info Required On</th>
+                                                        <th>Comment</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>HOD Review</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>QA Initial Review</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CFT Review</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>QA Head/Manager Designee Approval</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="button-block">
 
@@ -3346,7 +3451,7 @@
                                             <option value="Human Resource & Administration">Human Resource &
                                                 Administration</option>
                                             <option value="Information Technology">Information Technology</option>
-                                            <option value="Project management">Project management</option>
+                                            <option value="Project management">Project management</option> 
 
 
 
@@ -4537,13 +4642,13 @@
                                                     <tr>
                                                         <th style="background: rgb(222 220 220 / 58%)">What</th>
                                                         <td>
-                                                            <textarea name="what_will_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="what_will_not_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="what_rationable"></textarea>
+                                                           
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -4561,37 +4666,37 @@
                                                     <tr>
                                                         <th style="background: rgb(222 220 220 / 58%)">When</th>
                                                         <td>
-                                                            <textarea name="when_will_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="when_will_not_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="when_rationable"></textarea>
+                                                           
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th style="background:rgb(222 220 220 / 58%)">Coverage</th>
                                                         <td>
-                                                            <textarea name="coverage_will_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="coverage_will_not_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="coverage_rationable"></textarea>
+                                                           
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th style="background:rgb(222 220 220 / 58%)">Who</th>
                                                         <td>
-                                                            <textarea name="who_will_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="who_will_not_be"></textarea>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <textarea name="who_rationable"></textarea>
+                                                           
                                                         </td>
                                                     </tr>
                                                 </tbody>

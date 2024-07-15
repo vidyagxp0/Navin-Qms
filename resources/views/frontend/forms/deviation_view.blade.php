@@ -308,38 +308,39 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            $('#Product_Details').click(function(e) {
-                function generateTableRow(serialNumber) {
-                    var users = @json($users);
+   <script>
+    $(document).ready(function() {
+        $('#Product_Details').click(function(e) {
+            function generateTableRow(serialNumber) {
+                var users = @json($users);
 
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                        '<td><input type="text" name="product_name[]"></td>' +
-                        '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="">1 <option value="">2</option> <option value="">3</option><option value="">4</option> <option value="">5</option><option value="">6</option> <option value="">7</option> <option value="">8</option><option value="">9</option><option value="">Final</option> </select></td>' +
-                        '<td><input type="text" name="batch_no[]"></td>' +
-                        '<td><button class="removeRowBtn">Remove</button></td>' +
-                        '</tr>';
-                    for (var i = 0; i < users.length; i++) {
-                        html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    }
-
-                    html += '</select></td>' +
-
-                        '</tr>';
-
-                    return html;
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="product_name[]"></td>' +
+                    '<td> <select name="product_stage[]" id=""> <option value="">-- Select --</option> <option value="1">1 <option value="2">2</option> <option value="3">3</option><option value="4">4</option> <option value="5">5</option><option value="6">6</option> <option value="7">7</option> <option value="8">8</option><option value="9">9</option><option value="Final">Final</option> </select></td>' +
+                    '<td><input type="text" name="batch_no[]"></td>' +
+                    '<td><input type="text" name="product_remark[]"></td>' +
+                    '<td><button class="removeRowBtn">Remove</button></td>' +
+                    '</tr>';
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 }
 
-                var tableBody = $('#Product_Details_Details tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
-                tableBody.append(newRow);
-            });
+                html += '</select></td>' +
+
+                    '</tr>';
+
+                return html;
+            }
+
+            var tableBody = $('#Product_Details_Details tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
         });
-    </script>
+    });
+</script>
     <script>
         $(document).ready(function() {
             $('#investigation_Details').click(function(e) {
@@ -1070,72 +1071,54 @@
                                     </div>
                                 </div> --}}
 
-                                    <div class="col-lg-12">
-                                        <div class="group-input">
-                                            <label for="Initiator Group"><b>Department</b> <span
-                                                    class="text-danger">*</span></label>
-                                            <select name="Initiator_Group"
-                                                {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="initiator_group">
-                                                <option value="">Enter Your Selection Here</option>
-                                                <option value="CQA" @if ($data->Initiator_Group == 'CQA') selected @endif>
-                                                    Corporate
-                                                    Quality Assurance</option>
-                                                <option value="QAB" @if ($data->Initiator_Group == 'QAB') selected @endif>
-                                                    Quality
-                                                    Assurance Biopharma</option>
-                                                <option value="CQC" @if ($data->Initiator_Group == 'CQC') selected @endif>
-                                                    Central
-                                                    Quality Control</option>
-                                                <option value="MANU" @if ($data->Initiator_Group == 'MANU') selected @endif>
-                                                    Manufacturing
-                                                </option>
-                                                <option value="PSG" @if ($data->Initiator_Group == 'PSG') selected @endif>
-                                                    Plasma
-                                                    Sourcing Group</option>
-                                                <option value="CS" @if ($data->Initiator_Group == 'CS') selected @endif>
-                                                    Central
-                                                    Stores</option>
-                                                <option value="ITG" @if ($data->Initiator_Group == 'ITG') selected @endif>
-                                                    Information
-                                                    Technology Group</option>
-                                                <option value="MM" @if ($data->Initiator_Group == 'MM') selected @endif>
-                                                    Molecular
-                                                    Medicine</option>
-                                                <option value="CL" @if ($data->Initiator_Group == 'CL') selected @endif>
-                                                    Central
-                                                    Laboratory</option>
-                                                <option value="TT" @if ($data->Initiator_Group == 'TT') selected @endif>
-                                                    Tech
-                                                    team</option>
-                                                <option value="QA" @if ($data->Initiator_Group == 'QA') selected @endif>
-                                                    Quality
-                                                    Assurance</option>
-                                                <option value="QM" @if ($data->Initiator_Group == 'QM') selected @endif>
-                                                    Quality
-                                                    Management</option>
-                                                <option value="IA" @if ($data->Initiator_Group == 'IA') selected @endif>
-                                                    IT
-                                                    Administration</option>
-                                                <option value="ACC" @if ($data->Initiator_Group == 'ACC') selected @endif>
-                                                    Accounting
-                                                </option>
-                                                <option value="LOG" @if ($data->Initiator_Group == 'LOG') selected @endif>
-                                                    Logistics
-                                                </option>
-                                                <option value="SM" @if ($data->Initiator_Group == 'SM') selected @endif>
-                                                    Senior
-                                                    Management</option>
-                                                <option value="BA" @if ($data->Initiator_Group == 'BA') selected @endif>
-                                                    Business
-                                                    Administration</option>
+                                <div class="col-lg-12">
+                                                <div class="group-input">
+                                                    <label for="Initiator Group"><b>Department</b><span class="text-danger">*</span></label>
+                                                    <select name="Initiator_Group" id="initiator_group" required onchange="showOtherInput()">
+                                                        <option value="">-- Select --</option>
+                                                        <option value="Production" @if ($data->Initiator_Group == 'Production') selected @endif>Production</option>
+                                                        <option value="Warehouse" @if ($data->Initiator_Group == 'Warehouse') selected @endif>Warehouse</option>
+                                                        <option value="Quality Control" @if ($data->Initiator_Group == 'Quality Control') selected @endif>Quality Control</option>
+                                                        <option value="Engineering" @if ($data->Initiator_Group == 'Engineering') selected @endif>Engineering</option>
+                                                        <option value="Information Technology" @if ($data->Initiator_Group == 'Information Technology') selected @endif>Information Technology</option>
+                                                        <option value="Project Management" @if ($data->Initiator_Group == 'Project Management') selected @endif>Project Management</option>
+                                                        <option value="Environment Health & Safety" @if ($data->Initiator_Group == 'Environment Health & Safety') selected @endif>Environment Health & Safety</option>
+                                                        <option value="Human Resource & Administration" @if ($data->Initiator_Group == 'Human Resource & Administration') selected @endif>Human Resource & Administration</option>
+                                                        <option value="Quality Assurance" @if ($data->Initiator_Group == 'Quality Assurance') selected @endif>Quality Assurance</option>
+                                                        <option value="Analytical Development Library" @if ($data->Initiator_Group == 'Analytical Development Library') selected @endif>Analytical Development Library</option>
+                                                        <option value="Process Development Laboratory / Kilo Lab" @if ($data->Initiator_Group == 'Process Development Laboratory / Kilo Lab') selected @endif>Process Development Laboratory / Kilo Lab</option>
+                                                        <option value="Technology transfer/design" @if ($data->Initiator_Group == 'Technology transfer/design') selected @endif>Technology transfer/design</option>
+                                                        <option value="Any Other" @if ($data->Initiator_Group == 'Any Other') selected @endif>Any Other</option>
+                                                    </select>
+                                                    @error('Initiator_Group')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="group-input" id="other_input_group" style="display: none;">
+                                                    <label for="Other Department"><b>Department (Any Other)</b><span class="text-danger">*</span></label>
+                                                    <input type="text" name="departments_other" id="other_department" value="{{ $data->departments_other }}" />
+                                                </div>
+                                            </div>
 
-                                            </select>
-                                        </div>
-                                        @error('Initiator_Group')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                            <script>
+                                                 function showOtherInput() {
+            var selectElement = document.getElementById("initiator_group");
+            var otherInputGroup = document.getElementById("other_input_group");
+
+            if (selectElement.value === "Any Other") {
+                otherInputGroup.style.display = "block";
+            } else {
+                otherInputGroup.style.display = "none";
+            }
+        }
+
+        // Ensure the field is hidden when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            showOtherInput();
+        });
+
+                                            </script>
+                                     
                                     {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group Code">Department Code</label>
@@ -1174,26 +1157,42 @@
                                         }
                                     }
                                     </script>
+
+
+                                    <!-- <div class="col-lg-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="Deviation date">Deviation Observed On<span
+                                                class="text-danger">*</span></label>
+                                                @if(isset($deviation->Deviation_date))
+                                                <input readonly type="text" value="{{ \Carbon\Carbon::parse($deviation->Deviation_date)->format('Y-m-d') }}" name="Deviation_date" id="Deviation_date">
+                                                <input type="hidden" value="{{ $data->Deviation_date }}" name="Deviation_date_hidden">
+                                            @else
+                                                <input readonly type="text" value="{{ date('Y-m-d') }}" name="Deviation_date" id="Deviation_date">
+                                                <input type="hidden" value="{{ date('Y-m-d') }}" name="Deviation_date_hidden">
+                                            @endif
+                                        </div>
+                                        @error('Deviation_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div> -->
                                     
                                     <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
                                             <label for="Deviation date">Deviation Observed On<span
                                                 class="text-danger">*</span></label>
-                                            <div class="calenderauditee">
-                                                <input type="text" id="Deviation_date" readonly
-                                                value="{{ $data->Deviation_date ? \Carbon\Carbon::parse($data->Deviation_date)->format('d/m/Y') : '' }}"
-                                                    placeholder="DD/MM/YYYY" />
-                                                {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
-                                                <input type="date" name="Deviation_date"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                value="{{ old('Deviation_date') ? old('Deviation_date') : $data->Deviation_date }}"
-                                                    max="{{ $data->Deviation_date ? \Carbon\Carbon::parse($data->Deviation_date)->format('Y-m-d') : '' }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Deviation_date')" />
-                                            </div>
+                                                @if(isset($deviation->Deviation_date))
+                                                <input readonly type="text" value="{{ \Carbon\Carbon::parse($deviation->Deviation_date)->format('Y-m-d') }}" name="Deviation_date" id="Deviation_date">
+                                                <input type="hidden" value="{{ $data->Deviation_date }}" name="Deviation_date_hidden">
+                                            @else
+                                                <input readonly type="text" value="{{ date('Y-m-d') }}" name="Deviation_date" id="Deviation_date">
+                                                <input type="hidden" value="{{ date('Y-m-d') }}" name="Deviation_date_hidden">
+                                            @endif
                                         </div>
                                         @error('Deviation_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="col-lg-6 new-time-data-field">
                                         <div class="group-input input-time">
                                             <label for="deviation_time">Deviation Observed On (Time) <span
@@ -1250,7 +1249,7 @@
                                     <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
                                             <label for="Audit Schedule End Date">Deviation Reported on<span
-                                                class="text-danger">*</span></label>
+                                                class="text-danger">*</span></label>    
                                             <div class="calenderauditee">
                                                 <input type="text" id="Deviation_reported_date" readonly
                                                 value="{{ $data->Deviation_reported_date ? \Carbon\Carbon::parse($data->Deviation_reported_date)->format('d/m/Y') : '' }}"
@@ -1262,6 +1261,22 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- <div class="col-lg-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="Audit Schedule End Date">Deviation Reported on
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            @if(isset($deviation->Deviation_reported_date))
+                                                <input readonly type="text" value="{{ \Carbon\Carbon::parse($deviation->Deviation_reported_date)->format('Y-m-d') }}" name="Deviation_reported_date" id="Deviation_reported_date">
+                                                <input type="hidden" value="{{ $data->Deviation_reported_date }}" name="Deviation_reported_date_hidden">
+                                            @else
+                                                <input readonly type="text" value="{{ date('Y-m-d') }}" name="Deviation_reported_date" id="Deviation_reported_date">
+                                                <input type="hidden" value="{{ date('Y-m-d') }}" name="Deviation_reported_date_hidden">
+                                            @endif
+                                        </div>
+                                    </div> -->
+                                    
                                     <script>
                                         $(document).ready(function() {
                                             // Hide the delayJustificationBlock initially
@@ -1272,7 +1287,7 @@
                                         });
 
                                         function checkDateDifference() {
-                                            let deviationDate = $('input[name=Deviation_date]').val();
+                                            let deviationDate = moment().format('YYYY-MM-DD');
                                             let reportedDate = $('input[name=Deviation_reported_date]').val();
 
                                             if (!deviationDate || !reportedDate) {
@@ -1283,9 +1298,11 @@
                                             let deviationDateMoment = moment(deviationDate);
                                             let reportedDateMoment = moment(reportedDate);
 
-                                            let diffInDays = reportedDateMoment.diff(deviationDateMoment, 'days');
+                                            let diffInDays = deviationDateMoment.diff(reportedDateMoment, 'days');
 
-                                            if (diffInDays > 0) {
+                                            console.log(diffInDays)
+
+                                            if (diffInDays > 1) {
                                                 $('.delayJustificationBlock').show();
                                             } else {
                                                 $('.delayJustificationBlock').hide();
@@ -1297,6 +1314,9 @@
                                             checkDateDifference();
                                         });
                                         </script>
+
+
+
 
                                     <div class="col-lg-6">
                                         <div class="group-input">
@@ -1701,149 +1721,92 @@
                                         </div>
 
 
-                                    <div class="col-lg-12">
                                         <div class="col-lg-12">
-                                            <div class="group-input" id="productRow"  @if ($data->Product_Details_Required == 'no') style="display: none" @endif>
-                                                <label for="audit-agenda-grid">
-                                                    Product/Batch Details
-                                                    <button type="button" name="audit-agenda-grid"
-                                                        id="Product_Details">+</button>
-                                                    <span class="text-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#product-batch-grid"
-                                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                        (Launch Instruction)
-                                                    </span>
-                                                </label>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered" id="Product_Details_Details"
-                                                        style="width: 100%;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="width: 4%">Row#</th>
-                                                                <th style="width: 12%">Product</th>
-                                                                <th style="width: 16%"> Stage</th>
-                                                                <th style="width: 16%">Batch No</th>
-                                                                <th style="width: 8%">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @if ($grid_data2->product_name)
-                                                                @foreach (unserialize($grid_data2->product_name) as $key => $temps)
-                                                                <tr>
-                                                                    <td><input disabled type="text"
-                                                                            name="serial[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                                            value="{{ $key + 1 }}"></td>
-                                                                    <td><input class="productName" type="text"
-                                                                            name="product_name[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                                            value="{{ isset(unserialize($grid_data2->product_name)[$key]) ? unserialize($grid_data2->product_name)[$key] : '' }}">
-                                                                    </td>
-                                                                    <td>
-                                                                        <select class="productStage"
-                                                                            name="product_stage[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                                            id="product_stage">
-                                                                            @if (isset($grid_data2->product_stage))
-                                                                                @php
-                                                                                    $product_stage = unserialize(
-                                                                                        $grid_data2->product_stage,
-                                                                                    );
-                                                                                @endphp
-                                                                                <option value="">-- Select -- </option>
-                                                                                <option value="1"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '1' ? 'selected' : '1' }}>
-                                                                                    1</option>
-                                                                                <option value="2"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '2' ? 'selected' : '2' }}>
-                                                                                    2</option>
-                                                                                <option value="3"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '3' ? 'selected' : '3' }}>
-                                                                                    3</option>
-                                                                                <option value="4"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '4' ? 'selected' : '4' }}>
-                                                                                    4</option>
-                                                                                <option value="5"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '5' ? 'selected' : '5' }}>
-                                                                                    5</option>
-                                                                                <option value="6"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '6' ? 'selected' : '6' }}>
-                                                                                    6</option>
-                                                                                <option value="7"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '7' ? 'selected' : '7' }}>
-                                                                                    7</option>
-                                                                                <option value="8"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '8' ? 'selected' : '8' }}>
-                                                                                    8</option>
-                                                                                <option value="9"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == '9' ? 'selected' : '9' }}>
-                                                                                    9</option>
-                                                                                <option value="Final"
-                                                                                    {{ isset($product_stage[$key]) && $product_stage[$key] == 'Final' ? 'selected' : 'Final' }}>
-                                                                                    Final</option>
-                                                                            @endif
-                                                                        </select>
-                                                                    </td>
-                                                                    <td><input class="productBatchNo" type="text"
-                                                                            name="batch_no[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                                            value="{{ isset(unserialize($grid_data2->batch_no)[$key]) ? unserialize($grid_data2->batch_no)[$key] : '' }}">
-                                                                    </td>
-                                                                    <td><button type="text" class="removeRowBtn" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>Remove</button></td>
-                                                                </tr>
-                                                                @endforeach
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                    <div class="col-lg-12">
+                                        <div class="group-input" id="productRow" @if ($data->Product_Details_Required == 'no') style="display: none" @endif>
+                                            <label for="audit-agenda-grid">
+                                                Product/Batch Details
+                                                <span class="text-danger">*</span>
+                                                <button type="button" name="audit-agenda-grid" id="Product_Details">+</button>
+                                                <span class="text-primary" data-bs-toggle="modal" data-bs-target="#product-batch-grid" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                    (Launch Instruction)
+                                                </span>
+                                            </label>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="Product_Details_Details" style="width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 4%">Row#</th>
+                                                            <th style="width: 12%">Product</th>
+                                                            <th style="width: 16%"> Stage</th>
+                                                            <th style="width: 16%">Batch No</th>
+                                                            <th style="width: 16%">Remarks</th>
+                                                            <th style="width: 8%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if ($grid_data2->product_name)
+                                                        @foreach (unserialize($grid_data2->product_name) as $key => $temps)
+                                                        <tr>
+                                                            <td><input disabled type="text" name="serial[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} value="{{ $key + 1 }}"></td>
+                                                            <td><input class="productName" type="text" name="product_name[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data2->product_name)[$key]) ? unserialize($grid_data2->product_name)[$key] : '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <select class="productStage" name="product_stage[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="product_stage">
+                                                                    @if (isset($grid_data2->product_stage))
+                                                                    @php
+                                                                    $product_stage = unserialize(
+                                                                    $grid_data2->product_stage,
+                                                                    );
+                                                                    @endphp
+                                                                    <option value="">-- Select -- </option>
+                                                                    <option value="1" {{ isset($product_stage[$key]) && $product_stage[$key] == '1' ? 'selected' : '1' }}>
+                                                                        1</option>
+                                                                    <option value="2" {{ isset($product_stage[$key]) && $product_stage[$key] == '2' ? 'selected' : '2' }}>
+                                                                        2</option>
+                                                                    <option value="3" {{ isset($product_stage[$key]) && $product_stage[$key] == '3' ? 'selected' : '3' }}>
+                                                                        3</option>
+                                                                    <option value="4" {{ isset($product_stage[$key]) && $product_stage[$key] == '4' ? 'selected' : '4' }}>
+                                                                        4</option>
+                                                                    <option value="5" {{ isset($product_stage[$key]) && $product_stage[$key] == '5' ? 'selected' : '5' }}>
+                                                                        5</option>
+                                                                    <option value="6" {{ isset($product_stage[$key]) && $product_stage[$key] == '6' ? 'selected' : '6' }}>
+                                                                        6</option>
+                                                                    <option value="7" {{ isset($product_stage[$key]) && $product_stage[$key] == '7' ? 'selected' : '7' }}>
+                                                                        7</option>
+                                                                    <option value="8" {{ isset($product_stage[$key]) && $product_stage[$key] == '8' ? 'selected' : '8' }}>
+                                                                        8</option>
+                                                                    <option value="9" {{ isset($product_stage[$key]) && $product_stage[$key] == '9' ? 'selected' : '9' }}>
+                                                                        9</option>
+                                                                    <option value="Final" {{ isset($product_stage[$key]) && $product_stage[$key] == 'Final' ? 'selected' : 'Final' }}>
+                                                                        Final</option>
+                                                                    @endif
+                                                                </select>
+                                                            </td>
+                                                            <td><input class="productBatchNo" type="text" name="batch_no[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data2->batch_no)[$key]) ? unserialize($grid_data2->batch_no)[$key] : '' }}">
+                                                            </td>
+                                                            <td><input class="productBatchNo" type="text" name="product_remark[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} value="{{ isset(unserialize($grid_data2->product_remark)[$key]) ? unserialize($grid_data2->product_remark)[$key] : '' }}">
+                                                            </td>
+                                                            <td><button type="text" class="removeRowBtn" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>Remove</button></td>
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            @error('product_name')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                            @error('product_stage')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                            @error('batch_no')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
                                         </div>
-
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {
-                                                // note-codable
-                                                var selectField = document.getElementById('Product_Details_Required');
-                                                var inputsToToggle = [];
-
-                                                // Add elements with class 'productName' to inputsToToggle
-                                                var productNameInput = document.getElementsByClassName('productName');
-                                                for (var i = 0; i < productNameInput.length; i++) {
-                                                    inputsToToggle.push(productNameInput[i]);
-                                                }
-
-                                                // Add elements with class 'productStage' to inputsToToggle
-                                                var productStageInput = document.getElementsByClassName('productStage');
-                                                for (var j = 0; j < productStageInput.length; j++) {
-                                                    inputsToToggle.push(productStageInput[j]);
-                                                }
-
-                                                // Add elements with class 'productBatchNo' to inputsToToggle
-                                                var batchNoInput = document.getElementsByClassName('productBatchNo');
-                                                for (var k = 0; k < batchNoInput.length; k++) {
-                                                    inputsToToggle.push(batchNoInput[k]);
-                                                }
-
-                                                selectField.addEventListener('change', function() {
-                                                var isRequired = this.value === 'yes';
-                                                console.log(this.value, isRequired, 'value');
-
-                                                inputsToToggle.forEach(function(input) {
-                                                    input.required = isRequired;
-                                                    console.log(input.required, isRequired, 'input req');
-                                                });
-
-                                                // Show or hide the asterisk icon based on the selected value
-                                                document.getElementById('productRow').style.display = isRequired ? 'block' : 'none';
-                                                var asteriskIcon = document.getElementById('asteriskInvidoc');
-                                                asteriskIcon.style.display = isRequired ? 'inline' : 'none';
-                                            });
-                                            });
-                                        </script>
+                                        @error('product_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('product_stage')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('batch_no')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('product_remark')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     {{-- <div class="col-6">
@@ -1968,6 +1931,62 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    
+                                    <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="why-why-chart">
+                                                More Info Required
+                                                <!-- <span class="text-primary" data-bs-toggle="modal"
+                                                                                    data-bs-target="#is_is_not-instruction-modal"
+                                                                                    style="font-size: 0.8rem; font-weight: 400;">
+                                                                                    (Launch Instruction)
+                                                                                </span> -->
+                                            </label>
+                                            <div class="why-why-chart">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 30%;">Stage</th>
+                                                            <th>More Info Required By</th>
+                                                            <th>More Info Required On</th>
+                                                            <th>Comment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>HOD Review</td>
+                                                            <td>{{ $data->rejected_by }}</td>
+                                                            <td>{{ $data->rejected_on }}</td>
+                                                            <td>{{ $data->rejected_comment }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>QA Initial Review</td>
+                                                            <td>{{ $data->qa_more_info_required_by }}</td>
+                                                            <td>{{ $data->qa_more_info_required_on }}</td>
+                                                            <td>{{ $data->qa_more_info_required_comment }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>CFT Review</td>
+                                                            <td>{{ $data->cft_more_info_required_by }}</td>
+                                                            <td>{{ $data->cft_more_info_required_on }}</td>
+                                                            <td>{{ $data->cft_more_info_required_comment }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>QA Head/Manager Designee Approval</td>
+                                                            <td>{{ $data->qa_head_more_info_required_by }}</td>
+                                                            <td>{{ $data->qa_head_more_info_required_on }}</td>
+                                                            <td>{{ $data->qa_head_more_info_required_comment }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+
+
                                     {{-- <div class="col-lg-12">
                                         <div class="group-input">
                                             <label for="Audit Attachments">Initial Attachments</label>

@@ -122,6 +122,7 @@ class DeviationController extends Controller
         $deviation->Initiator_Group = $request->Initiator_Group;
         $deviation->due_date = Carbon::now()->addDays(30)->format('d-M-Y');
         $deviation->initiator_group_code = $request->initiator_group_code;
+        $deviation->departments_other = $request->departments_other;
         $deviation->short_description = $request->short_description;
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
@@ -496,6 +497,10 @@ class DeviationController extends Controller
 
         if (!empty($request->batch_no)) {
             $data5->batch_no = serialize($request->batch_no);
+        }
+
+        if (!empty($request->product_remark)) {
+            $data5->product_remark = serialize($request->product_remark);
         }
         $data5->save();
 
@@ -1179,6 +1184,7 @@ class DeviationController extends Controller
         $lastDeviation = deviation::find($id);
         $deviation = deviation::find($id);
         $deviation->Delay_Justification = $request->Delay_Justification;
+        $deviation->departments_other = $request->departments_other;
 
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'critical')
         {
@@ -2243,6 +2249,10 @@ class DeviationController extends Controller
 
             if (!empty($request->batch_no)) {
                 $data5->batch_no = serialize($request->batch_no);
+            }
+
+            if (!empty($request->product_remark)) {
+                $data5->product_remark = serialize($request->product_remark);
             }
             $data5->update();
 
@@ -4978,6 +4988,7 @@ if ($deviation->stage == 5) {
                 $deviation->status = "Opened";
                 $deviation->rejected_by = Auth::user()->name;
                 $deviation->rejected_on = Carbon::now()->format('d-M-Y');
+                $deviation->rejected_comment = $request->comment;
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -5032,6 +5043,7 @@ if ($deviation->stage == 5) {
                 $deviation->form_progress = 'hod';
                 $deviation->qa_more_info_required_by = Auth::user()->name;
                 $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+                $deviation->qa_more_info_required_comment = $request->comment;
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -5102,14 +5114,15 @@ if ($deviation->stage == 5) {
                 $deviation->status = "QA Initial Review";
                 $deviation->form_progress = 'qa';
 
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+                $deviation->cft_more_info_required_by = Auth::user()->name;
+                $deviation->cft_more_info_required_on = Carbon::now()->format('d-M-Y');
+                $deviation->cft_more_info_required_comment = $request->comment;
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
                 // $history->action='More Info Required';
-                $history->current = $deviation->qa_more_info_required_by;
+                $history->current = $deviation->cft_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -5158,14 +5171,15 @@ if ($deviation->stage == 5) {
                 $deviation->status = "QA Secondary Review";
                 $deviation->form_progress = 'capa';
 
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+                $deviation->qa_head_more_info_required_by = Auth::user()->name;
+                $deviation->qa_head_more_info_required_on = Carbon::now()->format('d-M-Y');                
+                $deviation->qa_head_more_info_required_comment = $request->comment;
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
                 // $history->action='More Info Required';
-                $history->current = $deviation->qa_more_info_required_by;
+                $history->current = $deviation->qa_head_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -5213,13 +5227,14 @@ if ($deviation->stage == 5) {
             if($deviation->stage = 8){
                 $deviation->stage = "7";
                 $deviation->status = "Pending Initiator Update";
-                $deviation->qa_more_info_required_by = Auth::user()->name;
-                $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
+                $deviation->hod_final_more_info_required_by = Auth::user()->name;
+                $deviation->hod_final_qa_more_info_required_on = Carbon::now()->format('d-M-Y');                
+                $deviation->hod_final_qa_more_info_required_comment = $request->comment;
                 $history = new DeviationAuditTrail();
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->current = $deviation->qa_more_info_required_by;
+                $history->current = $deviation->hod_final_more_info_required_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
