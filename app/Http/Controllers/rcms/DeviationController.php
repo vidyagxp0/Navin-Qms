@@ -1206,7 +1206,7 @@ class DeviationController extends Controller
                 'Initiator_Group' => 'required',
                 'short_description' => 'required',
 
-                'Deviation_date' => 'required',
+                // 'Deviation_date' => 'required',
                 'deviation_time' => 'required',
                 'Deviation_reported_date' => 'required',
                 'Delay_Justification' => [

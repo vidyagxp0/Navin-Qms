@@ -1181,7 +1181,7 @@
                                             <label for="Deviation date">Deviation Observed On<span
                                                 class="text-danger">*</span></label>
                                             <input disabled type="text"
-                                                value="{{($data->Deviation_date) }}"
+                                                value="{{ old('Deviation_date') ? old('Deviation_date') : $data->Deviation_date }}"
                                                 name="Deviation_date" id="initiation_date">
                                         </div>
                                         @error('Deviation_date')
