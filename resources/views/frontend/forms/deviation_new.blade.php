@@ -637,7 +637,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                        <input readonly type="text" value="{{ date('d-m-Y') }}" name="initiation_date" id="initiation_date"
+                                        <input readonly type="text" value="{{ date('d/m/Y') }}" name="initiation_date" id="initiation_date"
                                             style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))">
                                         <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
                                     </div>
@@ -769,14 +769,18 @@
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Deviation date">Deviation Observed On</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="Deviation_date" readonly
-                                                placeholder="DD/MM/YYYY" value="{{ date('d-m-Y') }}" />
-                                            {{-- <td><input type="time" name="scheduled_start_time[]"></td> --}}
-                                            <input type="date" name="Deviation_date"
-                                                max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_date')" />
-                                        </div>
+                                        @if (isset($data) && $data->Deviation_date)
+                                            <input disabled type="text"
+                                                value="{{ \Carbon\Carbon::parse($data->Deviation_date)->format('d/m/Y') }}"
+                                                name="Deviation_date">
+                                            <input type="hidden" value="{{ $data->Deviation_date }}" name="Deviation_date"
+                                                id="initiation_date">
+                                        @else
+                                            <input disabled type="text" value="{{ date('d/m/Y') }}"
+                                                name="Deviation_date">
+                                            <input type="hidden" value="{{ date('d/m/Y') }}" name="Deviation_date"
+                                                id="initiation_date">
+                                        @endif
                                     </div>
                                     @error('Deviation_date')
                                         <div class="text-danger">{{ $message }}</div>

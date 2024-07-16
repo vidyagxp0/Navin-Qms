@@ -1016,7 +1016,7 @@
                                             <label for="Date of Initiation"><b>Date of Initiation</b></label>
                                             <input readonly type="text" value="{{ date('d/m/Y') }}" name="initiation_date" id="initiation_date"
                                                 style="background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3))">
-                                            <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date_hidden">
+                                            <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
                                         </div>
                                     </div>
 
@@ -1180,13 +1180,9 @@
                                         <div class="group-input input-date">
                                             <label for="Deviation date">Deviation Observed On<span
                                                 class="text-danger">*</span></label>
-                                                @if(isset($deviation->Deviation_date))
-                                                <input readonly type="text" value="{{ \Carbon\Carbon::parse($deviation->Deviation_date)->format('Y-m-d') }}" name="Deviation_date" id="Deviation_date">
-                                                <input type="hidden" value="{{ $data->Deviation_date }}" name="Deviation_date_hidden">
-                                            @else
-                                                <input readonly type="text" value="{{ date('Y-m-d') }}" name="Deviation_date" id="Deviation_date">
-                                                <input type="hidden" value="{{ date('Y-m-d') }}" name="Deviation_date_hidden">
-                                            @endif
+                                            <input disabled type="text"
+                                                value="{{($data->Deviation_date) }}"
+                                                name="Deviation_date" id="initiation_date">
                                         </div>
                                         @error('Deviation_date')
                                             <div class="text-danger">{{ $message }}</div>
