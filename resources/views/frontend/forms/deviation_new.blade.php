@@ -812,7 +812,7 @@
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
                                         noCalendar: true,
-                                        dateFormat: "H:i", // 24-hour format without AM/PM
+                                        dateFormat: "h:i K", // 24-hour format without AM/PM
                                         minuteIncrement: 1 // Set minute increment to 1
 
                                     });
