@@ -1181,7 +1181,7 @@
                                             <label for="Deviation date">Deviation Observed On<span
                                                 class="text-danger">*</span></label>
                                             <input disabled type="text"
-                                                value="{{ old('Deviation_date') ? old('Deviation_date') : $data->Deviation_date }}"
+                                                value="{{ $data->Deviation_date }}"
                                                 name="Deviation_date" id="initiation_date">
                                         </div>
                                         @error('Deviation_date')
@@ -1804,6 +1804,51 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var selectField = document.getElementById('Product_Details_Required');
+                                        var inputsToToggle = [];
+
+                                        // Add elements with class 'productName' to inputsToToggle
+                                        var productNameInputs = document.getElementsByClassName('productName');
+                                        for (var i = 0; i < productNameInputs.length; i++) {
+                                            inputsToToggle.push(productNameInputs[i]);
+                                        }
+
+                                        // Add elements with class 'productStage' to inputsToToggle
+                                        var productStageInputs = document.getElementsByClassName('productStage');
+                                        for (var j = 0; j < productStageInputs.length; j++) {
+                                            inputsToToggle.push(productStageInputs[j]);
+                                        }
+
+                                        // Add elements with class 'productBatchNo' to inputsToToggle
+                                        var productBatchNoInputs = document.getElementsByClassName('productBatchNo');
+                                        for (var k = 0; k < productBatchNoInputs.length; k++) {
+                                            inputsToToggle.push(productBatchNoInputs[k]);
+                                            
+                                        }
+
+                                        var productRemarksInputs = document.getElementsByClassName('productRemarks');
+                                        for (var l = 0; l < productRemarksInputs.length; l++) {
+                                            inputsToToggle.push(productRemarksInputs[l]);
+
+                                        }
+                                        selectField.addEventListener('change', function() {
+                                            var isRequired = this.value === 'yes';
+                                            console.log(this.value, isRequired, 'value');
+
+                                            inputsToToggle.forEach(function(input) {
+                                                input.required = isRequired;
+                                                console.log(input.required, isRequired, 'input req');
+                                            });
+
+                                            document.getElementById('productRow').style.display = isRequired ? 'block' : 'none';
+                                            var asteriskIcon = document.getElementById('asteriskInvi');
+                                            asteriskIcon.style.display = isRequired ? 'inline' : 'none';
+                                        });
+                                    });
+                                </script>
 
                                     {{-- <div class="col-6">
                                     <div class="group-input">
