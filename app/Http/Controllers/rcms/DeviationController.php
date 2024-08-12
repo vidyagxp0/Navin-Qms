@@ -2133,6 +2133,26 @@ class DeviationController extends Controller
                 $newDataGridRCA->identifier = 'rootCause';
                 $newDataGridRCA->data = $request->rootCause;
                 $newDataGridRCA->save();
+
+                $files = is_array($request->existing_investigation_attachment_need) ? $request->existing_investigation_attachment_need : [];
+                if (!empty ($request->investigation_attachment_need)) {
+                    if ($deviation->investigation_attachment_need) {
+                        $existingFiles = json_decode($deviation->investigation_attachment_need, true); // Convert to associative array
+                        if (is_array($existingFiles)) {
+                            $files = $existingFiles;
+                        }
+                        // $files = is_array(json_decode($deviation->investigation_attachment_need)) ? $deviation->investigation_attachment_need : [];
+                    }
+
+                    if ($request->hasfile('investigation_attachment_need')) {
+                        foreach ($request->file('investigation_attachment_need') as $file) {
+                            $name = $request->name . 'investigation_attachment_need' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                            $file->move('upload/', $name);
+                            $files[] = $name;
+                        }
+                    }
+                }
+                $deviation->investigation_attachment_need = json_encode($files);
             }
 
 
@@ -3408,7 +3428,7 @@ class DeviationController extends Controller
 
             if ($deviation->stage == 5) {
 
-                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks))
+                if ($deviation->form_progress === 'capa')
                 {
                     Session::flash('swal', [
                         'type' => 'success',

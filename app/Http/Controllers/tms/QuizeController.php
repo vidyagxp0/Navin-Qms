@@ -166,14 +166,18 @@ class QuizeController extends Controller
         $htmls =[];
         $html ='';
       foreach($array as $temp){
-        $html =
-        '
-    <tr data-item="'.$temp->id.'">
-        <td>'.$temp->question.'</td>
-        <td>'.$temp->type.'</td>
-    </tr>';
-    
-    array_push($htmls,$html);
+        if($temp){
+            $html =
+
+            '
+        <tr data-item="'.$temp->id.'">
+            <td>'.$temp->question.'</td>
+            <td>'.$temp->type.'</td>
+        </tr>';
+        
+        array_push($htmls,$html);
+        }
+       
       }
         $response['htmls'] = $htmls;
 

@@ -1795,25 +1795,6 @@
                                     </textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Customer notification">Customer Notification Required ? <span
-                                            class="text-danger">*</span></label>
-                                        <select disabled name="Customer_notification" id="Customer_notification" >
-                                            <option value="0">-- Select --</option>
-                                            <option 
-                                            value="Yes">Yes</option>
-                                            <option  
-                                            value="No">No</option>
-                                            <option  
-                                                value="NA">NA</option>
-                                        </select>
-                                        @error('Customer_notification')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="QAInitialRemark">QA Initial Remarks</label>
@@ -5351,12 +5332,22 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-12 mb-3">
+            <div class="col-lg-6">
                 <div class="group-input">
-                    <label for="QA Feedbacks">QA Feedbacks</label>
-                    <div><small class="text-primary">Please insert "NA" in the data field if it does
-                            not require completion</small></div>
-                    <textarea disabled class="tiny-disable" name="qa_final_remarks" id="summernote-14"></textarea>
+                    <label for="Customer notification">Customer Notification Required ? <span
+                        class="text-danger">*</span></label>
+                    <select disabled name="Customer_notification" id="Customer_notification" >
+                        <option value="0">-- Select --</option>
+                        <option 
+                        value="Yes">Yes</option>
+                        <option  
+                        value="No">No</option>
+                        <option  
+                            value="NA">NA</option>
+                    </select>
+                    @error('Customer_notification')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="col-lg-12">
