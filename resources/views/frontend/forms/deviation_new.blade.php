@@ -568,14 +568,18 @@
                <button id="QRM_button" class="cctablinks" 
                     onclick="openCity(event, 'CCForm115')">QA Secondary Review</button>
 
-                <button id="CAPA_button" class="cctablinks" 
-                    onclick="openCity(event, 'CCForm105')">Initiator Update</button> 
+                {{-- <button id="CAPA_button" class="cctablinks" 
+                    onclick="openCity(event, 'CCForm105')">Initiator Update</button>  --}}
+
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
+
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">HOD Final Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm13')">QA Final Review</button>
 
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                 {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button> --}}
+
+                <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Addendum</button>
 
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
             </div>
@@ -798,14 +802,14 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-lg-6 new-time-data-field">
-                                    <div class="group-input input-time delayJustificationBlock">
-                                        <label for="deviation_time">Delay Justification</label>
+                                <div class="col-lg-6">
+                                    <div class="group-input  delayJustificationBlock">
+                                        <label for="">Delay Justification</label>
                                         <textarea id="Delay_Justification" name="Delay_Justification"></textarea>
                                     </div>
-                                    {{-- @error('Deviation_date')
+                                  @error('Delay_Justification')
                                         <div class="text-danger">{{  $message  }}</div>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
 
                                 <script>
@@ -1393,7 +1397,8 @@
                                         <textarea class="" id="Description_Deviation" name="Description_Deviation[]"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-12 mb-3">
+
+                                {{--  update <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1404,7 +1409,7 @@
                                     @error('Description_Deviation[]')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 {{-- <div class="col-6">
                                 <div class="group-input">
@@ -1412,7 +1417,7 @@
                                         <textarea class="" id="Immediate_Action" name="Immediate_Action[]"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-12 mb-3">
+                                {{-- update <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1423,14 +1428,14 @@
                                     @error('record')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
                                         <textarea class="" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-12 mb-3">
+                                {{--  update<div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1441,7 +1446,7 @@
                                     @error('Preliminary_Impact')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Initial Attachments</label>
@@ -5304,6 +5309,8 @@
                             </div>
                         </div>
                     </div>  --}}
+
+
                     <!-- QA secondary review review -->
 <div id="CCForm115" class="inner-block cctabcontent">
     <div class="inner-block-content">
@@ -5359,8 +5366,8 @@
                         <div class="file-attachment-list" id="hod_final"></div>
                         <div class="add-btn">
                             <div>Add</div>
-                            <input disabled type="file" id="myfile" name="hod_final_attachments[]"
-                                oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
+                            <input disabled type="file" id="myfile" name="qa_attachments[]"
+                                oninput="addMultipleFiles(this, 'qa_attachments')" multiple>
                         </div>
                     </div>
                 </div>
@@ -5421,6 +5428,82 @@
         </div>
     </div>
 </div>
+
+{{--New Addendum Tab  Start--}}
+
+<div id="CCForm12" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                        Addendum
+                        </div>
+                            <div class="col-12">
+                                <div class="group-input">
+                                    <label for="Short Description">Objective<span class="text-danger">
+                                            *</span></label>
+                                    <input name="addendum_objective" type="text" maxlength="255" value="" required >
+                                </div>
+                                @error('addendum_objective')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Description Deviation">Description of Deviation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                                not require completion</small></div>
+                                        <textarea class="tiny" name="Description_Deviation[]" id="summernote-1" required>
+                                    </textarea>
+                                    </div>
+                                    @error('Description_Deviation[]')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                                 <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Immediate Action">Immediate Action (if any)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                                not require completion</small></div>
+                                        <textarea class="tiny" name="Immediate_Action[]" id="summernote-2"required>
+                                    </textarea>
+                                    </div>
+                                    @error('record')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div> 
+            
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                                not require completion</small></div>
+                                        <textarea class="tiny" name="Preliminary_Impact[]" id="summernote-3" required>
+                                    </textarea>
+                                    </div>
+                                    @error('Preliminary_Impact')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="button-block">
+                                <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+                                    <button type="button"  class="backButton">Back</button>
+                                </a>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                                       
+                            </div>
+     
+                    </div>
+</div>
+
+{{--New Addendum Tab  end--}}
+
+
                     <!-- hod final review -->
                     <div id="CCForm4" class="inner-block cctabcontent">
                         <div class="inner-block-content">

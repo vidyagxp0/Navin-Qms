@@ -941,11 +941,13 @@
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Investigation & CAPA</button> --}}
                     <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Secondary Review</button>
                     <button class="cctablinks " onclick="openCity(event, 'CCForm9')" >Investigation</button>
-                    <button class="cctablinks" onclick="openCity(event, 'CCForm123')">Initiator Update</button>
+                    <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm123')">Initiator Update</button> -->
                     <button class="cctablinks" onclick="openCity(event, 'CCForm14')">HOD Final Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm13')">QA Final Review</button>
                     <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QAH/Designee Approval</button>
                     {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Extension</button> --}}
+
+                    <button class="cctablinks" onclick="openCity(event, 'CCForm12')">Addendum</button>
 
                     <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
                 </div>
@@ -1856,7 +1858,7 @@
                                         <textarea class="tiny"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
                                     </div>
                                 </div> --}}
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="group-input">
                                             <label for="Description Deviation">Description of Deviation <span
                                                     class="text-danger">*</span></label>
@@ -1868,7 +1870,7 @@
                                         @error('Description_Deviation')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <!-- <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Production feedback">Production Feedback <span class="text-danger">*</span></label>
@@ -1883,7 +1885,7 @@
                                         <textarea class="tiny" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
                                 </div> --}}
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="group-input">
                                             <label for="Immediate Action">Immediate Action (if any) <span
                                                     class="text-danger">*</span></label>
@@ -1895,7 +1897,7 @@
                                         @error('Immediate_Action')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="col-6">
                                 <div class="group-input">
@@ -1904,7 +1906,7 @@
                                     </div>
                                 </div> --}}
 
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="group-input">
                                             <label for="Preliminary Impact">Preliminary Impact of Deviation <span
                                                     class="text-danger">*</span></label>
@@ -1916,7 +1918,7 @@
                                         @error('Preliminary_Impact')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     {{-- EXISTING ATTACHMENTS START --}}
                                     @if ($data->initial_file)
@@ -2454,7 +2456,7 @@
                                             @enderror
                                         </div>
                                     </div> --}}
-                                     <div class="col-lg-6">
+                                     <!-- <div class="col-lg-6"> -->
                                     {{-- <div class="group-input">
                                         <label for="Customer notification">Customer Notification Required ? <span
                                             class="text-danger">*</span></label>
@@ -2471,7 +2473,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div> --}}
-                                </div> 
+                                <!-- </div>  -->
                                     {{-- <div class="col-5">
                                     {{-- <div class="group-input">
                                             @php
@@ -2556,6 +2558,8 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    </div>
+
                                        {{-- EXISTING ATTACHMENTS START --}}
                                        @if ($data->Initial_attachment)
                                             @foreach (json_decode($data->Initial_attachment) as $file)
@@ -2677,7 +2681,7 @@
                                         }
                                     }
                                 </script>
-                                <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
+                                <!-- <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field "> -->
                                    {{-- <div class="group-input input-date">
                                         @if ($data->stage == 3)
                                             <label for="Deviation category">Initial Deviation category <span
@@ -2713,7 +2717,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div> --}}
-                                </div>
+                                <!-- </div> -->
                                 
 
                                 {{-- <div class="col-lg-12">
@@ -2903,7 +2907,8 @@
                                         ->first();
                                 @endphp
                                 @if ($data->stage == 3 || $data->stage == 4)
-                                    <div class="col-lg-6">
+   <div class="row">
+   <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Production Review"> Production Review Required ? <span
                                                     class="text-danger">*</span></label>
@@ -2950,6 +2955,7 @@
                                             </select>
                                         </div>
                                     </div>
+   </div>
                              
                                     
                                     <script>
@@ -3046,7 +3052,8 @@
                                     });
                                 </script>
                                 @if ($data->stage == 3 || $data->stage == 4)
-                                    <div class="col-lg-6">
+                                <div class="row">
+                                <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Warehouse Review Required">Warehouse Review Required ? <span
                                                     class="text-danger">*</span></label>
@@ -3094,6 +3101,7 @@
 
                                         </div>
                                     </div>
+                                </div>
              
                                     <script>
                                         document.addEventListener('DOMContentLoaded', function() {
@@ -3234,7 +3242,8 @@
                                 });
                             </script>
                             @if ($data->stage == 3 || $data->stage == 4)
-                                <div class="col-lg-6">
+                       <div class="row">
+                       <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Review Required">Quality Control Review Required?
                                             <span class="text-danger">*</span></label>
@@ -3278,6 +3287,7 @@
 
                                     </div>
                                 </div>
+                       </div>
                            
                 
                                 <script>
@@ -3328,47 +3338,51 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Quality Assurance Review Required">Quality Assurance Review Required ?
+                                        <label for="Quality Control Review Required">Quality Control Review Required?
                                             <span class="text-danger">*</span></label>
-                                        <select @if ($data->stage == 3) required @endif
-                                            name="Quality_Assurance_Review" id="Quality_Assurance_Review"
-                                            @if ($data->stage == 4) disabled @endif>
+                                        <select @if ($data->stage == 3) required @endif name="Quality_review"
+                                            id="Quality_review" @if ($data->stage == 4) disabled @endif>
                                             <option value="">-- Select --</option>
-                                            <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif value="yes">
+                                            <option @if ($data1->Quality_review == 'yes') selected @endif value="yes">
                                                 Yes</option>
-                                            <option @if ($data1->Quality_Assurance_Review == 'no') selected @endif value="no">No
+                                            <option @if ($data1->Quality_review == 'no') selected @endif value="no">No
                                             </option>
-                                            <option @if ($data1->Quality_Assurance_Review == 'na') selected @endif value="na">NA
+                                            <option @if ($data1->Quality_review == 'na') selected @endif value="na">NA
                                             </option>
+
                                         </select>
+
                                     </div>
                                 </div>
                                 @php
                                     $userRoles = DB::table('user_roles')
-                                        ->where(['q_m_s_roles_id' => 26, 'q_m_s_divisions_id' => $data->division_id])
+                                        ->where(['q_m_s_roles_id' => 24, 'q_m_s_divisions_id' => $data->division_id])
                                         ->get();
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 quality_assurance">
+                                <div class="col-lg-6 quality_control">
                                     <div class="group-input">
-                                        <label for="Quality Assurance Person">Quality Assurance Person <span
-                                                id="asteriskQQA"
-                                                style="display: {{ $data1->Quality_Assurance_Review == 'yes' ? 'inline' : 'none' }}"
+                                        <label for="Quality Control Person">Quality Control Person <span id="asteriskQC"
+                                                style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <select name="QualityAssurance_person" class="QualityAssurance_person"
-                                            id="QualityAssurance_person"
+                                        <select name="Quality_Control_Person" class="Quality_Control_Person"
+                                            id="Quality_Control_Person"
                                             @if ($data->stage == 4) disabled @endif>
                                             <option value="">-- Select --</option>
                                             @foreach ($users as $user)
                                                 <option
-                                                    {{ $data1->QualityAssurance_person == $user->id ? 'selected' : '' }}
+                                                    {{ $data1->Quality_Control_Person == $user->id ? 'selected' : '' }}
                                                     value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
+
                                         </select>
+
                                     </div>
+                                </div>
                                 </div>
               
 
@@ -3425,7 +3439,8 @@
                                     Engineering
                                 </div> --}}
 
-                                <div class="col-lg-6 ">
+                               <div class="row">
+                               <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ? <span
                                                 class="text-danger">*</span></label>
@@ -3465,6 +3480,7 @@
                                         </select>
                                     </div>
                                 </div>
+                               </div>
    
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -3514,6 +3530,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Required">Analytical
@@ -3559,6 +3576,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
                 
                 
@@ -3610,7 +3628,8 @@
 
                                     });
                                 </script>
-                                <div class="col-lg-6">
+                               <div class="row">
+                               <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Review Required ? <span class="text-danger">*</span></label>
@@ -3653,6 +3672,7 @@
 
                                     </div>
                                 </div>
+                               </div>
            
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -3702,6 +3722,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Design Review Required">Technology Transfer / Design Review Required ?
@@ -3747,6 +3768,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
                       
         
@@ -3798,7 +3820,8 @@
 
                                     });
                                 </script>
-                                <div class="col-lg-6">
+                               <div class="row">
+                               <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Safety Review Required">Environment, Health & Safety Review Required ?
                                             <span class="text-danger">*</span></label>
@@ -3844,6 +3867,7 @@
 
                                     </div>
                                 </div>
+                               </div>
      
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -3894,6 +3918,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required
@@ -3936,6 +3961,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
          
                                 <script>
@@ -3985,6 +4011,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Information Technology Review Required"> Information Technology Review
@@ -4030,6 +4057,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
              
                                 <script>
@@ -4078,6 +4106,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
@@ -4120,6 +4149,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                </div>
            
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -4149,6 +4179,7 @@
 
                                 {{-- ---------------------------------- else --}}
                             @else
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Review Required">Quality Control Review
@@ -4188,10 +4219,12 @@
 
                                     </div>
                                 </div>
+                                </div>
        
                                 <div class="sub-head">
                                     Quality Assurance
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Required">Quality Assurance Review Required
@@ -4226,10 +4259,12 @@
                                         </select>
                                     </div>
                                 </div>
+                                </div>
 
                                 <div class="sub-head">
                                     Engineering
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ?</label>
@@ -4264,12 +4299,14 @@
                                         </select>
                                     </div>
                                 </div>
+                                </div>
               
 
                                 <div class="sub-head">
                                     Analytical Development Laboratory
                                 </div>
-                                <div class="col-lg-6">
+                                 <div class="row">
+                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Required">Analytical
                                             Development Laboratory Review Required ?</label>
@@ -4310,10 +4347,12 @@
 
                                     </div>
                                 </div>
+                                 </div>
               
                                 <div class="sub-head">
                                     Process Development Laboratory / Kilo Lab
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
@@ -4352,11 +4391,13 @@
 
                                     </div>
                                 </div>
+                                </div>
 
 
                                 <div class="sub-head">
                                     Technology Transfer / Design
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Design Review Required">Technology Transfer / Design Review Required
@@ -4398,10 +4439,12 @@
 
                                     </div>
                                 </div>
+                                </div>
 
                                 <div class="sub-head">
                                     Environment, Health & Safety
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Safety Review Required">Environment, Health & Safety Review Required
@@ -4442,10 +4485,12 @@
 
                                     </div>
                                 </div>
+                                </div>
 
                                 <div class="sub-head">
                                     Human Resource & Administration
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required
@@ -4482,10 +4527,12 @@
 
                                     </div>
                                 </div>
+                                </div>
 
                                 <div class="sub-head">
                                     Information Technology
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Information Technology Review Required"> Information Technology Review
@@ -4527,10 +4574,12 @@
 
                                     </div>
                                 </div>
+                                </div>
 
                                 <div class="sub-head">
                                     Project Management
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
@@ -4568,6 +4617,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                </div>
 
                             @endif
                             @if ($data->stage == 3 || $data->stage == 4)
@@ -4594,7 +4644,8 @@
                                     });
                                 </script>
                                 
-                                <div class="col-lg-6">
+                               <div class="row">
+                               <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Review Required1"> Other's 1 Review Required? </label>
                                         <select name="Other1_review" @if ($data->stage == 4) disabled @endif
@@ -4635,6 +4686,7 @@
 
                                     </div>
                                 </div>
+                               </div>
     
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -4689,6 +4741,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review2"> Other's 2 Review Required ?</label>
@@ -4728,6 +4781,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
                      
                                 <script>
@@ -4784,6 +4838,7 @@
 
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review3"> Other's 3 Review Required ?</label>
@@ -4826,6 +4881,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
 
                                 <script>
@@ -4880,6 +4936,7 @@
                                         @endif
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review4">Other's 4 Review Required ?</label>
@@ -4920,6 +4977,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
 
                                 <script>
@@ -4975,6 +5033,7 @@
                                         @endif
                                     });
                                 </script>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review5">Other's 5 Review Required ?</label>
@@ -5015,6 +5074,7 @@
 
                                     </div>
                                 </div>
+                                </div>
   
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -5051,6 +5111,7 @@
                                 <div class="sub-head">
                                     Other's 1 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Review Required1"> Other's 1 Review Required? </label>
@@ -5092,11 +5153,13 @@
 
                                     </div>
                                 </div>
+                                </div>
                     
 
                                 <div class="sub-head">
                                     Other's 2 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review2"> Other's 2 Review Required ?</label>
@@ -5137,12 +5200,14 @@
 
                                     </div>
                                 </div>
+                                </div>
 
 
                                 <div class="sub-head">
                                     Other's 3 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                               <div class="row">
+                               <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review3"> Other's 3 Review Required ?</label>
                                         <select disabled
@@ -5185,11 +5250,13 @@
 
                                     </div>
                                 </div>
+                               </div>
                   
  
                                 <div class="sub-head">
                                     Other's 4 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review4">Other's 4 Review Required ?</label>
@@ -5231,10 +5298,12 @@
 
                                     </div>
                                 </div>
+                                </div>
 
                                 <div class="sub-head">
                                     Other's 5 ( Additional Person Review From Departments If Required)
                                 </div>
+                                <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review5">Other's 5 Review Required ?</label>
@@ -5274,6 +5343,7 @@
                                         </select>
 
                                     </div>
+                                </div>
                                 </div>
 
                           
@@ -5349,6 +5419,9 @@
                         });
                     </script>
 
+
+
+
                     <!-- CFT -->
                     <div id="CCForm7" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -5380,8 +5453,8 @@
                                         ->where('deviation_id', $data->id)
                                         ->first();
                                 @endphp
-                              
-                                    <!-- <div class="col-lg-6">
+                                @if ($data->stage == 3 || $data->stage == 4)
+                                    {{-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Production Review"> Production Review Required ? <span
                                                     class="text-danger">*</span></label>
@@ -5398,8 +5471,8 @@
                                             </select>
 
                                         </div>
-                                    </div> -->
-                                    <!-- @php
+                                    </div> --}}
+                                    {{-- @php
                                         $userRoles = DB::table('user_roles')
                                             ->where([
                                                 'q_m_s_roles_id' => 22,
@@ -5408,8 +5481,8 @@
                                             ->get();
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                    @endphp -->
-                                    <!-- <div class="col-lg-6 p_erson">
+                                    @endphp --}}
+                                    {{-- <div class="col-lg-6 p_erson">
                                         <div class="group-input">
                                             <label for="Production notification">Production Person <span
                                                     id="asteriskProduction"
@@ -5427,8 +5500,8 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div> -->
-                                    <div class="col-md-12 mb-3 p_erson">
+                                    </div> --}}
+                                    <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Production assessment">Impact Assessment (By Production) <span
                                                     style=""
@@ -5436,12 +5509,12 @@
                                                     <!-- style=display: {{ $data1->Production_Review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }} -->
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea class={{ $data->stage == 4 && Auth::user()->id == $data1->Production_person ? 'tiny Production_assessment' : 'tiny-disable' }}
+                                            <textarea class={{ $data->stage == 3 && Auth::user()->id == $data1->Production_person ? 'tiny Production_assessment' : 'tiny-disable' }}
                                                 @if ($data->stage == 3 || Auth::user()->id != $data1->Production_person) readonly @endif name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                         </div>
                                     </div>
-                                    @if ($data->stage == 3 || $data->stage == 4)
-                                    <div class="col-md-6 mb-3 p_erson">
+                                    
+                                    <div class="col-md-6 mb-3">
                                         <div class="group-input">
                                             <label for="Production Review Completed By">Production Review Completed
                                                 By</label>
@@ -5453,7 +5526,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 p_erson">
+                                    <div class="col-lg-6">
                                         <div class="group-input ">
                                             <label for="Production Review Completed On">Production Review Completedss
                                                 On</label>
@@ -5462,7 +5535,7 @@
                                                 value="{{ $data1->production_on ? \Carbon\Carbon::parse($data1->production_on)->format('d-m-Y') : '' }}">
                                         </div>
                                     </div>
-                                    <script>
+                                    {{-- <script>
                                         document.addEventListener('DOMContentLoaded', function() {
                                             var selectField = document.getElementById('Production_Review');
                                             var inputsToToggle = [];
@@ -5486,10 +5559,10 @@
                                                 asteriskIcon.style.display = isRequired ? 'inline' : 'none';
                                             });
                                         });
-                                    </script>
+                                    </script> --}}
                                     {{-- Else conditon for other roles fields all fields disabled --}}
                                 @else
-                                    <div class="col-lg-6">
+                                    <!-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Production Review">Production Review Required ?</label>
                                             <select name="Production_Review" disabled id="Production_Review">
@@ -5502,7 +5575,7 @@
                                                     NA</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     @php
                                         $userRoles = DB::table('user_roles')
                                             ->where([
@@ -5513,7 +5586,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6 p_erson">
+                                    <!-- <div class="col-lg-6 p_erson">
                                         <div class="group-input">
                                             <label for="Production notification">Production Person <span
                                                     id="asteriskInvi11" style="display: none"
@@ -5527,16 +5600,16 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     @if ($data->stage == 4)
-                                        <div class="col-md-12 mb-3 p_erson">
+                                        <div class="col-md-12 mb-3">
                                             <div class="group-input">
                                                 <label for="Production assessment">Impact Assessment (By Production) <span
                                                         id="asteriskInvi12" style="display: none"
                                                         class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it
                                                         does not require completion</small></div>
-                                                <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Production_person  ? 'tiny' : 'tiny-disable' }} name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                                <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Production_person  ? 'tiny' : 'tiny-disable' }} name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-12 mb-3 p_erson">
@@ -5550,14 +5623,14 @@
                                             </div>
                                         </div> --}}
                                     @else
-                                        <div class="col-md-12 mb-3 p_erson">
+                                        <div class="col-md-12 mb-3">
                                             <div class="group-input">
                                                 <label for="Production assessment">Impact Assessment (By Production) <span
                                                         id="asteriskInvi12" style="display: none"
                                                         class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it
                                                         does not require completion</small></div>
-                                                <textarea disabled class={{ $data->stage == 4 && Auth::user()->id == $data1->Production_person ? 'tiny ' : 'tiny-disable' }} name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
+                                                <textarea disabled class={{ $data->stage == 3 && Auth::user()->id == $data1->Production_person ? 'tiny ' : 'tiny-disable' }} name="Production_assessment" id="summernote-17">{{ $data1->Production_assessment }}</textarea>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-12 mb-3 p_erson">
@@ -5605,7 +5678,7 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <div class="col-md-6 mb-3 p_erson">
+                                    <div class="col-md-6 mb-3">
                                         <div class="group-input">
                                             <label for="Production Review Completed By">Production Review Completed
                                                 By</label>
@@ -5616,7 +5689,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 p_erson">
+                                    <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
@@ -5631,7 +5704,7 @@
                                 <div class="sub-head">
                                     Warehouse
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Warehouse_review !== 'yes')
 
@@ -5648,9 +5721,9 @@
                                         });
                                         @endif
                                     });
-                                </script>
+                                </script> --}}
                                 @if ($data->stage == 3 || $data->stage == 4)
-                                    <div class="col-lg-6">
+                                    {{-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Warehouse Review Required">Warehouse Review Required ? <span
                                                     class="text-danger">*</span></label>
@@ -5668,7 +5741,7 @@
                                             </select>
 
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     @php
                                         $userRoles = DB::table('user_roles')
                                             ->where([
@@ -5679,7 +5752,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6 warehouse">
+                                    {{-- <div class="col-lg-6 warehouse">
                                         <div class="group-input">
                                             <label for="Warehouse Person">Warehouse Person <span id="asteriskware"
                                                     style="display: {{ $data1->Warehouse_review == 'yes' ? 'inline' : 'none' }}"
@@ -5697,8 +5770,8 @@
                                             </select>
 
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 mb-3 warehouse">
+                                    </div> --}}
+                                    <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Impact Assessment1">Impact Assessment(By Warehouse) <span
                                                     id="asteriskware2"
@@ -5706,7 +5779,7 @@
                                                     class="text-danger">*</span></label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea class={{ $data->stage == 4 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny Warehouse_assessment' : 'tiny-disable' }}
+                                            <textarea class={{ $data->stage == 3 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny Warehouse_assessment' : 'tiny-disable' }}
                                                 name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                         </div>
                                     </div>
@@ -5788,7 +5861,7 @@
                                         });
                                     </script>
 
-                                    <div class="col-md-6 mb-3 warehouse">
+                                    <div class="col-md-6 mb-3">
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed By">Warehouse Review Completed
                                                 By</label>
@@ -5798,7 +5871,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3 warehouse">
+                                    <div class="col-lg-6 mb-3 ">
                                         <div class="group-input">
                                             <label for="Warehouse Review Completed On">Warehouse Review Completed
                                                 On</label>
@@ -5808,7 +5881,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="col-lg-6 ">
+                                    <!-- <div class="col-lg-6 ">
                                         <div class="group-input">
                                             <label for="Warehouse Review Required">Warehouse Review Required ?</label>
                                             <select disabled name="Warehouse_review" id="Warehouse_review">
@@ -5823,7 +5896,7 @@
                                             </select>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                     @php
                                         $userRoles = DB::table('user_roles')
                                             ->where([
@@ -5834,7 +5907,7 @@
                                         $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                         $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                     @endphp
-                                    <div class="col-lg-6 warehouse">
+                                    <!-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Warehouse Person">Warehouse Person </label>
                                             <select disabled name="Warehouse_notification" id="Warehouse_notification"
@@ -5848,15 +5921,15 @@
                                             </select>
 
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     @if ($data->stage == 4)
-                                        <div class="col-md-12 mb-3 warehouse">
+                                        <div class="col-md-12 mb-3">
                                             <div class="group-input">
                                                 <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if
                                                         it does not require completion</small></div>
-                                                <textarea class={{ $data->stage == 4 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny' : 'tiny-disable' }} name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
+                                                <textarea class={{ $data->stage == 3 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny' : 'tiny-disable' }} name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-12 mb-3 warehouse">
@@ -5869,12 +5942,12 @@
                                         </div> --}}
                             </div>
                         @else
-                            <div class="col-md-12 mb-3 warehouse">
+                            <div class="col-md-12 mb-3">
                                 <div class="group-input">
                                     <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
                                     <div><small class="text-primary">Please insert "NA" in the data field if it does not
                                             require completion</small></div>
-                                    <textarea disabled class={{ $data->stage == 4 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny' : 'tiny-disable' }} name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
+                                    <textarea disabled class={{ $data->stage == 3 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny' : 'tiny-disable' }} name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                 </div>
                             </div>
                             {{-- <div class="col-md-12 mb-3 warehouse">
@@ -5918,7 +5991,7 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="col-md-6 mb-3 warehouse">
+                            <div class="col-md-6 mb-3">
                                 <div class="group-input">
                                     <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
                                     <input disabled type="text" value="{{ $data1->Warehouse_by }}"
@@ -5927,7 +6000,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-6 warehouse">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Warehouse Review Completed On">Warehouse Review Completed On</label>
                                     <input type="text" id="Warehouse_on" readonly
@@ -5940,7 +6013,7 @@
                             <div class="sub-head">
                                 Quality Control
                             </div>
-                            <script>
+                            {{-- <script>
                                 $(document).ready(function() {
                                     @if($data1->Quality_review !== 'yes')
 
@@ -5957,9 +6030,9 @@
                                     });
                                     @endif
                                 });
-                            </script>
+                            </script> --}}
                             @if ($data->stage == 3 || $data->stage == 4)
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Review Required">Quality Control Review Required?
                                             <span class="text-danger">*</span></label>
@@ -5976,7 +6049,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 24, 'q_m_s_divisions_id' => $data->division_id])
@@ -5984,7 +6057,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 quality_control">
+                                <!-- <div class="col-lg-6 quality_control">
                                     <div class="group-input">
                                         <label for="Quality Control Person">Quality Control Person <span id="asteriskQC"
                                                 style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}"
@@ -6002,8 +6075,8 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 quality_control">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment2">Impact Assessment (By Quality Control) <span
                                                 id="asteriskQC1"
@@ -6011,7 +6084,7 @@
                                                 class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea @if ($data1->Quality_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Quality_Control_Person  ? 'tiny Quality_Control_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Quality_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Quality_Control_Person  ? 'tiny Quality_Control_assessment' : 'tiny-disable' }}
                                             name="Quality_Control_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Quality_Control_Person) readonly @endif id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -6084,7 +6157,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 quality_control">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed By">Quality Control Review Completed
                                             By</label>
@@ -6093,7 +6166,7 @@
                                             name="Quality_Control_by" id="Quality_Control_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 quality_control">
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed On">Quality Control Review Completed
                                             On</label>
@@ -6105,7 +6178,7 @@
                                 <div class="sub-head">
                                     Quality Assurance
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Quality_Assurance_Review !== 'yes')
 
@@ -6123,8 +6196,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Required">Quality Assurance Review Required ?
                                             <span class="text-danger">*</span></label>
@@ -6140,7 +6213,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 26, 'q_m_s_divisions_id' => $data->division_id])
@@ -6148,7 +6221,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 quality_assurance">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Person">Quality Assurance Person <span
                                                 id="asteriskQQA"
@@ -6165,8 +6238,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 quality_assurance">
+                                </div> -->
+                                <div class="col-md-12 mb-3 ">
                                     <div class="group-input">
                                         <label for="Impact Assessment3">Impact Assessment (By Quality Assurance) <span
                                                 id="asteriskQQA1"
@@ -6174,11 +6247,11 @@
                                                 class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea @if ($data1->Quality_Assurance_Review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->QualityAssurance_person  ? 'tiny QualityAssurance_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Quality_Assurance_Review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->QualityAssurance_person  ? 'tiny QualityAssurance_assessment' : 'tiny-disable' }}
                                             name="QualityAssurance_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->QualityAssurance_person) readonly @endif id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12 mb-3 quality_assurance">
+                                {{-- <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback <span
                                                 id="asteriskQQA2"
@@ -6250,7 +6323,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 quality_assurance">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review
                                             Completed By</label>
@@ -6258,7 +6331,7 @@
                                             value="{{ $data1->QualityAssurance_by }}" disabled>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 quality_assurance">
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed On">Quality Assurance Review
                                             Completed On</label>
@@ -6270,7 +6343,7 @@
                                 <div class="sub-head">
                                     Engineering
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Engineering_review !== 'yes')
 
@@ -6288,12 +6361,12 @@
                                         @endif
 
                                     });
-                                </script>
+                                </script> --}}
                                 {{-- <div class="sub-head">
                                     Engineering
                                 </div> --}}
 
-                                <div class="col-lg-6 ">
+                                <!-- <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ? <span
                                                 class="text-danger">*</span></label>
@@ -6310,7 +6383,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 25, 'q_m_s_divisions_id' => $data->division_id])
@@ -6318,7 +6391,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 engineering">
+                                <!-- <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Person <span id="asteriskEP"
                                                 style="display: {{ $data1->Engineering_review == 'yes' ? 'inline' : 'none' }}"
@@ -6332,8 +6405,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 engineering">
+                                </div> -->
+                                <div class="col-md-12 mb-3 ">
                                     <div class="group-input">
                                         <label for="Impact Assessment4">Impact Assessment (By Engineering) <span
                                                 id="asteriskEP1"
@@ -6341,7 +6414,7 @@
                                                 class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea @if ($data1->Engineering_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Engineering_person ? 'tiny Engineering_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Engineering_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Engineering_person ? 'tiny Engineering_assessment' : 'tiny-disable' }}
                                             name="Engineering_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Engineering_person) readonly @endif id="summernote-25">{{ $data1->Engineering_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -6352,7 +6425,7 @@
                                                 class="text-danger">*</span></label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea @if ($data1->Engineering_review == 'yes' && $data->stage == 4) required @endif class="summernote Engineering_feedback"
+                                        <textarea @if ($data1->Engineering_review == 'yes' && $data->stage == 3) required @endif class="summernote Engineering_feedback"
                                             name="Engineering_feedback" @if ($data->stage == 3 || Auth::user()->id != $data1->Engineering_person) readonly @endif id="summernote-26">{{ $data1->Engineering_feedback }}</textarea>
                                     </div>
                                 </div> --}}
@@ -6412,7 +6485,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 engineering">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed
                                             By</label>
@@ -6422,7 +6495,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 engineering">
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Engineering Review Completed On">Engineering Review Completed
                                             On</label>
@@ -6434,7 +6507,8 @@
                                 <div class="sub-head">
                                     Analytical Development Laboratory
                                 </div>
-                                <script>
+                                
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Analytical_Development_review!== 'yes')
 
@@ -6452,8 +6526,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Required">Analytical
                                             Development Laboratory Review Required ? <span
@@ -6472,7 +6546,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 27, 'q_m_s_divisions_id' => $data->division_id])
@@ -6480,7 +6554,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 analytical_development">
+                                <!-- <div class="col-lg-6 analytical_development">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Person"> Analytical Development
                                             Laboratory Person <span id="asteriskAD"
@@ -6498,25 +6572,25 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 analytical_development">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development
                                             Laboratory) <span id="asteriskAD1"
                                                 style="display: {{ $data1->Analytical_Development_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Analytical_Development_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Analytical_Development_person ? 'tiny Analytical_Development_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Analytical_Development_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Analytical_Development_person ? 'tiny Analytical_Development_assessment' : 'tiny-disable' }}
                                             name="Analytical_Development_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Analytical_Development_person) readonly @endif
                                             id="summernote-27">{{ $data1->Analytical_Development_assessment }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12 mb-3 analytical_development">
+                                {{-- <div class="col-md-12 mb-3 ">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Feedback"> Analytical Development
                                             Laboratory Feedback <span id="asteriskAD2"
                                                 style="display: {{ $data1->Analytical_Development_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Analytical_Development_review == 'yes' && $data->stage == 4) required @endif class="summernote Analytical_Development_feedback"
+                                        <textarea @if ($data1->Analytical_Development_review == 'yes' && $data->stage == 3) required @endif class="summernote Analytical_Development_feedback"
                                             name="Analytical_Development_feedback" @if ($data->stage == 3 || Auth::user()->id != $data1->Analytical_Development_person) readonly @endif id="summernote-28">{{ $data1->Analytical_Development_feedback }}</textarea>
                                     </div>
                                 </div> --}}
@@ -6580,7 +6654,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 analytical_development">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical
                                             Development Laboratory Review Completed By</label>
@@ -6589,7 +6663,7 @@
                                             name="Analytical_Development_by" id="Analytical_Development_by">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 analytical_development">
+                                <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed On">Analytical
                                             Development Laboratory Review Completed On</label>
@@ -6601,7 +6675,7 @@
                                 <div class="sub-head">
                                     Process Development Laboratory / Kilo Lab
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Kilo_Lab_review !== 'yes')
 
@@ -6619,8 +6693,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Review Required ? <span class="text-danger">*</span></label>
@@ -6638,7 +6712,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 28, 'q_m_s_divisions_id' => $data->division_id])
@@ -6646,7 +6720,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 kilo_lab">
+                                <!-- <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Person <span id="asteriskPDL"
@@ -6662,24 +6736,24 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 kilo_lab">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development
                                             Laboratory / Kilo Lab) <span id="asteriskPDL1"
                                                 style="display: {{ $data1->Kilo_Lab_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Kilo_Lab_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Kilo_Lab_person ? 'tiny Analytical_Development_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Kilo_Lab_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Kilo_Lab_person ? 'tiny Analytical_Development_assessment' : 'tiny-disable' }}
                                             name="Kilo_Lab_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Kilo_Lab_person) readonly @endif id="summernote-29">{{ $data1->Kilo_Lab_assessment }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12 mb-3 kilo_lab">
+                                {{-- <div class="col-md-12 mb-3 ">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab Feedback
                                             <span id="asteriskPDL2"
                                                 style="display: {{ $data1->Kilo_Lab_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Kilo_Lab_review == 'yes' && $data->stage == 4) required @endif class="summernote Analytical_Development_feedback"
+                                        <textarea @if ($data1->Kilo_Lab_review == 'yes' && $data->stage == 3) required @endif class="summernote Analytical_Development_feedback"
                                             name="Kilo_Lab_feedback" @if ($data->stage == 3 || Auth::user()->id != $data1->Kilo_Lab_person) readonly @endif id="summernote-30">{{ $data1->Kilo_Lab_feedback }}</textarea>
                                     </div>
                                 </div> --}}
@@ -6740,7 +6814,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 kilo_lab">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo
                                             Lab Review Completed By</label>
@@ -6749,7 +6823,7 @@
                                             name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 kilo_lab">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo
                                             Lab Review Completed On</label>
@@ -6762,7 +6836,7 @@
                                 <div class="sub-head">
                                     Technology Transfer / Design
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Technology_transfer_review !== 'yes')
 
@@ -6780,8 +6854,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Design Review Required">Technology Transfer / Design Review Required ?
                                             <span class="text-danger">*</span></label>
@@ -6799,7 +6873,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 29, 'q_m_s_divisions_id' => $data->division_id])
@@ -6807,7 +6881,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 technology_transfer">
+                                <!-- <div class="col-lg-6 technology_transfer">
                                     <div class="group-input">
                                         <label for="Design Person"> Technology Transfer / Design Person <span
                                                 id="asteriskTT"
@@ -6826,24 +6900,24 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 technology_transfer">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer /
                                             Design) <span id="asteriskTT1"
                                                 style="display: {{ $data1->Technology_transfer_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Technology_transfer_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Technology_transfer_person ? 'tiny Technology_transfer_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Technology_transfer_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Technology_transfer_person ? 'tiny Technology_transfer_assessment' : 'tiny-disable' }}
                                             name="Technology_transfer_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Technology_transfer_person) readonly @endif id="summernote-31">{{ $data1->Technology_transfer_assessment }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12 mb-3 technology_transfer">
+                                {{-- <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Design Feedback"> Technology Transfer / Design Feedback <span
                                                 id="asteriskTT2"
                                                 style="display: {{ $data1->Technology_transfer_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Technology_transfer_review == 'yes' && $data->stage == 4) required @endif class="summernote Technology_transfer_feedback"
+                                        <textarea @if ($data1->Technology_transfer_review == 'yes' && $data->stage == 3) required @endif class="summernote Technology_transfer_feedback"
                                             name="Technology_transfer_feedback" @if ($data->stage == 3 || Auth::user()->id != $data1->Technology_transfer_person) readonly @endif id="summernote-32">{{ $data1->Technology_transfer_feedback }}</textarea>
                                     </div>
                                 </div> --}}
@@ -6906,7 +6980,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 technology_transfer">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             By</label>
@@ -6917,7 +6991,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 technology_transfer">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed
                                             On</label>
@@ -6929,7 +7003,7 @@
                                 <div class="sub-head">
                                     Environment, Health & Safety
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Environment_Health_review !== 'yes')
 
@@ -6947,8 +7021,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Safety Review Required">Environment, Health & Safety Review Required ?
                                             <span class="text-danger">*</span></label>
@@ -6966,7 +7040,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 30, 'q_m_s_divisions_id' => $data->division_id])
@@ -6974,7 +7048,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 environmental_health">
+                                <!-- <div class="col-lg-6 environmental_health">
                                     <div class="group-input">
                                         <label for="Safety Person"> Environment, Health & Safety Person <span
                                                 id="asteriskEH"
@@ -6993,14 +7067,14 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 environmental_health">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health &
                                             Safety) <span id="asteriskEH1"
                                                 style="display: {{ $data1->Environment_Health_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Environment_Health_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Environment_Health_Safety_person ? 'tiny' : 'tiny-disable' }} name="Health_Safety_assessment"
+                                        <textarea @if ($data1->Environment_Health_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Environment_Health_Safety_person ? 'tiny' : 'tiny-disable' }} name="Health_Safety_assessment"
                                             @if ($data->stage == 3 || Auth::user()->id != $data1->Environment_Health_Safety_person) readonly @endif id="summernote-33">{{ $data1->Health_Safety_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -7073,7 +7147,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 environmental_health">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Review Completed By">Environment, Health & Safety Review
                                             Completed By</label>
@@ -7085,7 +7159,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 environmental_health">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review
                                             Completed On</label>
@@ -7098,7 +7172,7 @@
                                 <div class="sub-head">
                                     Human Resource & Administration
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Human_Resource_review !== 'yes')
 
@@ -7116,8 +7190,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required
                                             ? <span class="text-danger">*</span></label>
@@ -7134,7 +7208,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 31, 'q_m_s_divisions_id' => $data->division_id])
@@ -7142,7 +7216,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 human_resources">
+                                <!-- <div class="col-lg-6 human_resources">
                                     <div class="group-input">
                                         <label for="Customer notification"> Human Resource & Administration Person <span
                                                 id="asteriskHR"
@@ -7159,14 +7233,14 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 human_resources">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource &
                                             Administration ) <span id="asteriskHR1"
                                                 style="display: {{ $data1->Human_Resource_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Human_Resource_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Human_Resource_person ? 'tiny Human_Resource_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Human_Resource_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Human_Resource_person ? 'tiny Human_Resource_assessment' : 'tiny-disable' }}
                                             name="Human_Resource_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Human_Resource_person) readonly @endif id="summernote-35">{{ $data1->Human_Resource_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -7237,7 +7311,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 human_resources">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration
                                             Review Completed By</label>
@@ -7248,7 +7322,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 human_resources">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration
                                             Review Completed On</label>
@@ -7279,7 +7353,7 @@
 
                                     });
                                 </script>
-                                <div class="col-lg-6 ">
+                                <!-- <div class="col-lg-6 ">
                                     <div class="group-input">
                                         <label for="Information Technology Review Required"> Information Technology Review
                                             Required ? <span class="text-danger">*</span></label>
@@ -7298,7 +7372,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $data->division_id])
@@ -7306,7 +7380,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 information_technology">
+                                <!-- <div class="col-lg-6 information_technology">
                                     <div class="group-input">
                                         <label for="Information Technology Person"> Information Technology Person <span
                                                 id="asteriskITP"
@@ -7324,14 +7398,14 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 information_technology">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information Technology)
                                             <span id="asteriskITP"
                                                 style="display: {{ $data1->Information_Technology_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Information_Technology_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Information_Technology_person ? 'tiny Information_Technology_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Information_Technology_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Information_Technology_person ? 'tiny Information_Technology_assessment' : 'tiny-disable' }}
                                             name="Information_Technology_assessment" @if ($data->stage == 3 || Auth::user()->id != $data1->Information_Technology_person) readonly @endif
                                             id="summernote-37">{{ $data1->Information_Technology_assessment }}</textarea>
                                     </div>
@@ -7404,7 +7478,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 information_technology">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed By"> Information Technology
                                             Review Completed By</label>
@@ -7414,7 +7488,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 information_technology">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Review Completed On">Information Technology
                                             Review Completed On</label>
@@ -7426,7 +7500,7 @@
                                 <div class="sub-head">
                                     Project Management
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Project_management_review !== 'yes')
 
@@ -7444,8 +7518,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
                                             Required ? <span class="text-danger">*</span></label>
@@ -7461,7 +7535,7 @@
                                                 NA</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $data->division_id])
@@ -7469,7 +7543,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 project_management">
+                                <!-- <div class="col-lg-6 project_management">
                                     <div class="group-input">
                                         <label for="Project management Person"> Project management Person <span
                                                 id="asteriskPMP"
@@ -7486,14 +7560,14 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-12 mb-3 project_management">
+                                </div> -->
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By Project management ) <span
                                                 id="asteriskPMP"
                                                 style="display: {{ $data1->Project_management_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data1->Project_management_review == 'yes' && $data->stage == 4) required @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Project_management_person ? 'tiny Project_management_assessment' : 'tiny-disable' }}
+                                        <textarea @if ($data1->Project_management_review == 'yes' && $data->stage == 3) required @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Project_management_person ? 'tiny Project_management_assessment' : 'tiny-disable' }}
                                             name="Project_management_assessment" id="summernote-39" @if ($data->stage == 3 || Auth::user()->id != $data1->Project_management_person) readonly @endif>{{ $data1->Project_management_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -7566,7 +7640,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 project_management">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Project management Review Completed By"> Project management Review
                                             Completed By</label>
@@ -7576,7 +7650,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 project_management">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Project management Review Completed On">Project management Review
                                             Completed On</label>
@@ -7591,7 +7665,7 @@
 
                                 {{-- ---------------------------------- else --}}
                             @else
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Review Required">Quality Control Review
                                             Required?</label>
@@ -7607,7 +7681,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 24, 'q_m_s_divisions_id' => $data->division_id])
@@ -7615,7 +7689,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Control Person">Quality Control Person</label>
                                         <select disabled name="Quality_Control_Person" id="Quality_Control_Person">
@@ -7629,13 +7703,13 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment2">Impact Assessment (By Quality Control)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Quality_Control_Person ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Quality_Control_Person ? 'tiny ' : 'tiny-disable' }}
                                             name="Quality_Control_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-21">{{ $data1->Quality_Control_assessment }}</textarea>
                                     </div>
@@ -7704,7 +7778,7 @@
                                 <div class="sub-head">
                                     Quality Assurance
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Required">Quality Assurance Review Required
                                             ?</label>
@@ -7717,7 +7791,7 @@
                                                 NA</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 26, 'q_m_s_divisions_id' => $data->division_id])
@@ -7725,7 +7799,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Quality Assurance Person">Quality Assurance Person</label>
                                         <select disabled name="QualityAssurance_person" id="QualityAssurance_person">
@@ -7737,13 +7811,13 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment3">Impact Assessment (By Quality Assurance)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->QualityAssurance_person  ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->QualityAssurance_person  ? 'tiny ' : 'tiny-disable' }}
                                             name="QualityAssurance_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-23">{{ $data1->QualityAssurance_assessment }}</textarea>
                                     </div>
@@ -7814,7 +7888,7 @@
                                 <div class="sub-head">
                                     Engineering
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Review Required ?</label>
                                         <select disabled name="Engineering_review" id="Engineering_review">
@@ -7828,7 +7902,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 25, 'q_m_s_divisions_id' => $data->division_id])
@@ -7836,7 +7910,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Engineering Person</label>
                                         <select disabled name="Engineering_person" id="Engineering_person">
@@ -7847,13 +7921,13 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment4">Impact Assessment (By Engineering)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Engineering_person ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Engineering_person ? 'tiny ' : 'tiny-disable' }}
                                             name="Engineering_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-25">{{ $data1->Engineering_assessment }}</textarea>
                                     </div>
@@ -7921,7 +7995,7 @@
                                 <div class="sub-head">
                                     Analytical Development Laboratory
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Required">Analytical
                                             Development Laboratory Review Required ?</label>
@@ -7938,7 +8012,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 27, 'q_m_s_divisions_id' => $data->division_id])
@@ -7946,7 +8020,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Person"> Analytical Development
                                             Laboratory Person</label>
@@ -7961,12 +8035,12 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment5">Impact Assessment (By Analytical Development
                                             Laboratory)</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Analytical_Development_person ? 'tiny' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Analytical_Development_person ? 'tiny' : 'tiny-disable' }}
                                             name="Analytical_Development_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-27">{{ $data1->Analytical_Development_assessment }}</textarea>
                                     </div>
@@ -8037,7 +8111,7 @@
                                 <div class="sub-head">
                                     Process Development Laboratory / Kilo Lab
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Review Required ?</label>
@@ -8053,7 +8127,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 28, 'q_m_s_divisions_id' => $data->division_id])
@@ -8061,7 +8135,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Process Development Laboratory"> Process Development Laboratory / Kilo
                                             Lab Person</label>
@@ -8074,12 +8148,12 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment6">Impact Assessment (By Process Development
                                             Laboratory / Kilo Lab)</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Kilo_Lab_person ? 'tiny ' : 'tiny-disable' }} name="Kilo_Lab_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Kilo_Lab_person ? 'tiny ' : 'tiny-disable' }} name="Kilo_Lab_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-29">{{ $data1->Kilo_Lab_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -8146,7 +8220,7 @@
                                 <div class="sub-head">
                                     Technology Transfer / Design
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Design Review Required">Technology Transfer / Design Review Required
                                             ?</label>
@@ -8163,7 +8237,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 29, 'q_m_s_divisions_id' => $data->division_id])
@@ -8171,7 +8245,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Design Person"> Technology Transfer / Design Person</label>
                                         <select disabled name="Technology_transfer_person"
@@ -8186,12 +8260,12 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment7">Impact Assessment (By Technology Transfer /
                                             Design)</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Technology_transfer_person ? 'tiny Technology_transfer_assessment' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Technology_transfer_person ? 'tiny Technology_transfer_assessment' : 'tiny-disable' }}
                                             name="Technology_transfer_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-31">{{ $data1->Technology_transfer_assessment }}</textarea>
                                     </div>
@@ -8261,7 +8335,7 @@
                                 <div class="sub-head">
                                     Environment, Health & Safety
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Safety Review Required">Environment, Health & Safety Review Required
                                             ?</label>
@@ -8278,7 +8352,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 30, 'q_m_s_divisions_id' => $data->division_id])
@@ -8286,7 +8360,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Safety Person"> Environment, Health & Safety Person</label>
                                         <select disabled name="Environment_Health_Safety_person"
@@ -8300,12 +8374,12 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment8">Impact Assessment (By Environment, Health &
                                             Safety)</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Environment_Health_Safety_person ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Environment_Health_Safety_person ? 'tiny ' : 'tiny-disable' }}
                                             name="Health_Safety_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-33">{{ $data1->Health_Safety_assessment }}</textarea>
                                     </div>
@@ -8378,7 +8452,7 @@
                                 <div class="sub-head">
                                     Human Resource & Administration
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification">Human Resource & Administration Review Required
                                             ?</label>
@@ -8393,7 +8467,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 31, 'q_m_s_divisions_id' => $data->division_id])
@@ -8401,7 +8475,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Customer notification"> Human Resource & Administration Person</label>
                                         <select disabled name="Human_Resource_person" id="Human_Resource_person">
@@ -8413,12 +8487,12 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Impact Assessment (By Human Resource &
                                             Administration )</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Human_Resource_person  ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Human_Resource_person  ? 'tiny ' : 'tiny-disable' }}
                                             name="Human_Resource_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-35">{{ $data1->Human_Resource_assessment }}</textarea>
                                     </div>
@@ -8488,7 +8562,7 @@
                                 <div class="sub-head">
                                     Information Technology
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Information Technology Review Required"> Information Technology Review
                                             Required ?</label>
@@ -8506,7 +8580,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 32, 'q_m_s_divisions_id' => $data->division_id])
@@ -8514,7 +8588,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Information Technology Person"> Information Technology Person</label>
                                         <select disabled name=" Information_Technology_person"
@@ -8528,12 +8602,12 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment10">Impact Assessment (By Information
                                             Technology)</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Information_Technology_person ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Information_Technology_person ? 'tiny ' : 'tiny-disable' }}
                                             name="Information_Technology_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-37">{{ $data1->Information_Technology_assessment }}</textarea>
                                     </div>
@@ -8605,7 +8679,7 @@
                                 <div class="sub-head">
                                     Project Management
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Project management Review Required"> Project management Review
                                             Required ?</label>
@@ -8620,7 +8694,7 @@
                                                 NA</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_roles_id' => 33, 'q_m_s_divisions_id' => $data->division_id])
@@ -8628,7 +8702,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Project management Person"> Project management Person</label>
                                         <select disabled name="Project_management_person"
@@ -8641,12 +8715,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment11">Impact Assessment (By Project management
                                             )</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Project_management_person ? 'tiny' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Project_management_person ? 'tiny' : 'tiny-disable' }}
                                             name="Project_management_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="summernote-39">{{ $data1->Project_management_assessment }}</textarea>
                                     </div>
@@ -8721,7 +8795,7 @@
                                 <div class="sub-head">
                                     Other's 1 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <script>
+                               {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Other1_review !== 'yes')
 
@@ -8739,9 +8813,9 @@
                                         @endif
 
                                     });
-                                </script>
+                                </script>  --}}
                                 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Review Required1"> Other's 1 Review Required? </label>
                                         <select name="Other1_review" @if ($data->stage == 4) disabled @endif
@@ -8757,7 +8831,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_divisions_id' => $data->division_id])
@@ -8765,7 +8839,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 other1_reviews ">
+                                {{-- <div class="col-lg-6 other1_reviews ">
                                     <div class="group-input">
                                         <label for="Person1"> Other's 1 Person <span id="asterisko1"
                                                 style="display: {{ $data1->Other1_review == 'yes' ? 'inline' : 'none' }}"
@@ -8781,8 +8855,8 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-12 other1_reviews ">
+                                </div> --}}
+                                <div class="col-lg-12">
 
                                     <div class="group-input">
                                         <label for="Department1"> Other's 1 Department <span id="asteriskod1"
@@ -8825,7 +8899,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3 other1_reviews ">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By Other's 1) <span
                                                 id=""
@@ -8906,7 +8980,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 other1_reviews ">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By1"> Other's 1 Review Completed By</label>
                                         <input disabled type="text" value="{{ $data1->Other1_by }}"
@@ -8914,7 +8988,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 other1_reviews ">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <input type="text" id="Other1_on" readonly
@@ -8926,7 +9000,7 @@
                                 <div class="sub-head">
                                     Other's 2 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Other2_review !== 'yes')
 
@@ -8944,8 +9018,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review2"> Other's 2 Review Required ?</label>
                                         <select name="Other2_review" @if ($data->stage == 4) disabled @endif
@@ -8960,7 +9034,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @php
                                     $userRoles = DB::table('user_roles')
@@ -8969,7 +9043,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 Other2_reviews">
+                                {{-- <div class="col-lg-6 Other2_reviews">
                                     <div class="group-input">
                                         <label for="Person2"> Other's 2 Person <span id="asterisko2"
                                                 style="display: {{ $data1->Other2_review == 'yes' ? 'inline' : 'none' }}"
@@ -8984,8 +9058,8 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-12 Other2_reviews">
+                                </div> --}}
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department2"> Other's 2 Department <span id="asteriskod2"
                                                 style="display: {{ $data1->Other2_review == 'yes' ? 'inline' : 'none' }}"
@@ -9056,14 +9130,14 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3 Other2_reviews">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By Other's 2) <span
                                                 id=""
                                                 style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
                                         <textarea @if ($data->stage == 3 || Auth::user()->id != $data1->Other2_person) readonly @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Other2_person ? 'tiny ' : 'tiny-disable' }} name="Other2_Assessment"
-                                            @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-43">{{ $data1->Other2_Assessment }}</textarea>
+                                            @if ($data1->Other2_review == 'yes' && $data->stage == 3) required @endif id="summernote-43">{{ $data1->Other2_Assessment }}</textarea>
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-12 mb-3 Other2_reviews">
@@ -9072,7 +9146,7 @@
                                                 style="display: {{ $data1->Other2_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
                                         <textarea @if ($data->stage == 3 || Auth::user()->id != $data1->Other2_person) readonly @endif class="tiny" name="Other2_feedback"
-                                            @if ($data1->Other2_review == 'yes' && $data->stage == 4) required @endif id="summernote-44">{{ $data1->Other2_feedback }}</textarea>
+                                            @if ($data1->Other2_review == 'yes' && $data->stage == 3) required @endif id="summernote-44">{{ $data1->Other2_feedback }}</textarea>
                                     </div>
                                 </div> --}}
                                 {{-- <div class="col-12 Other2_reviews">
@@ -9107,7 +9181,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 Other2_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                         <input type="text" name="Other2_by" id="Other2_by"
@@ -9115,7 +9189,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 Other2_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On2">Other's 2 Review Completed On</label>
                                         <input type="text" id="Other2_on" readonly
@@ -9127,7 +9201,7 @@
                                 <div class="sub-head">
                                     Other's 3 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Other3_review !== 'yes')
 
@@ -9145,8 +9219,8 @@
                                         @endif
 
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review3"> Other's 3 Review Required ?</label>
                                         <select name="Other3_review" @if ($data->stage == 4) disabled @endif
@@ -9163,7 +9237,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @php
                                     $userRoles = DB::table('user_roles')
@@ -9172,7 +9246,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 Other3_reviews">
+                                {{-- <div class="col-lg-6 Other3_reviews">
                                     <div class="group-input">
                                         <label for="Person3">Other's 3 Person <span id="asterisko3"
                                                 style="display: {{ $data1->Other3_review == 'yes' ? 'inline' : 'none' }}"
@@ -9188,8 +9262,8 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-12 Other3_reviews">
+                                </div> --}}
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department3">Other's 3 Department <span id="asteriskod3"
                                                 style="display: {{ $data1->Other3_review == 'yes' ? 'inline' : 'none' }}"
@@ -9259,7 +9333,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3 Other3_reviews">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By Other's 3) <span
                                                 id=""
@@ -9310,7 +9384,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 Other3_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                         <input type="text" name="Other3_by" id="Other3_by"
@@ -9318,7 +9392,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 Other3_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Other's 3 Review Completed On</label>
                                         <input type="text" id="Other3_on" readonly
@@ -9329,7 +9403,7 @@
                                 <div class="sub-head">
                                     Other's 4 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Other4_review !== 'yes')
 
@@ -9346,8 +9420,8 @@
                                         });
                                         @endif
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review4">Other's 4 Review Required ?</label>
                                         <select name="Other4_review" @if ($data->stage == 4) disabled @endif
@@ -9363,7 +9437,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @php
                                     $userRoles = DB::table('user_roles')
@@ -9372,7 +9446,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 Other4_reviews">
+                                {{-- <div class="col-lg-6 Other4_reviews">
                                     <div class="group-input">
                                         <label for="Person4"> Other's 4 Person <span id="asterisko4"
                                                 style="display: {{ $data1->Other4_review == 'yes' ? 'inline' : 'none' }}"
@@ -9387,8 +9461,8 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-12 Other4_reviews">
+                                </div> --}}
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department4"> Other's 4 Department <span id="asteriskod4"
                                                 style="display: {{ $data1->Other4_review == 'yes' ? 'inline' : 'none' }}"
@@ -9458,14 +9532,14 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3 Other4_reviews">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By Other's 4) <span
                                                 id=""
                                                 style="display: {{ $data1->Other4_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
-                                        <textarea @if ($data->stage == 3 || Auth::user()->id != $data1->Other4_person) readonly @endif class={{$data->stage == 4 && Auth::user()->id == $data1->Other4_person ? 'tiny ' : 'tiny-disable' }} name="Other4_Assessment"
-                                            @if ($data1->Other4_review == 'yes' && $data->stage == 4) required @endif id="summernote-47">{{ $data1->Other4_Assessment }}</textarea>
+                                        <textarea @if ($data->stage == 3 || Auth::user()->id != $data1->Other4_person) readonly @endif class={{$data->stage == 3 && Auth::user()->id == $data1->Other4_person ? 'tiny ' : 'tiny-disable' }} name="Other4_Assessment"
+                                            @if ($data1->Other4_review == 'yes' && $data->stage == 3) required @endif id="summernote-47">{{ $data1->Other4_Assessment }}</textarea>
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-12 mb-3 Other4_reviews">
@@ -9509,7 +9583,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-6 mb-3 Other4_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                         <input type="text" name="Other4_by" id="Other4_by"
@@ -9517,7 +9591,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 Other4_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <input type="text" id="Other4_on" readonly
@@ -9531,7 +9605,7 @@
                                 <div class="sub-head">
                                     Other's 5 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         @if($data1->Other5_review !== 'yes')
 
@@ -9548,8 +9622,8 @@
                                         });
                                         @endif
                                     });
-                                </script>
-                                <div class="col-lg-6">
+                                </script> --}}
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review5">Other's 5 Review Required ?</label>
                                         <select name="Other5_review" @if ($data->stage == 4) disabled @endif
@@ -9565,7 +9639,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_divisions_id' => $data->division_id])
@@ -9573,7 +9647,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6 Other5_reviews">
+                                {{-- <div class="col-lg-6 Other5_reviews">
                                     <div class="group-input">
                                         <label for="Person5">Other's 5 Person <span id="asterisko5"
                                                 style="display: {{ $data1->Other5_review == 'yes' ? 'inline' : 'none' }}"
@@ -9588,8 +9662,8 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-12 Other5_reviews">
+                                </div> --}}
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department5"> Other's 5 Department <span id="asteriskod5"
                                                 style="display: {{ $data1->Other5_review == 'yes' ? 'inline' : 'none' }}"
@@ -9659,7 +9733,7 @@
                                         });
                                     });
                                 </script>
-                                <div class="col-md-12 mb-3 Other5_reviews">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By Other's 5) <span
                                                 id=""
@@ -9675,12 +9749,12 @@
                                                 style="display: {{ $data1->Other5_review == 'yes' && $data->stage == 4 ? 'inline' : 'none' }}"
                                                 class="text-danger">*</span></label>
                                         <textarea @if ($data->stage == 3 || Auth::user()->id != $data1->Other5_person) readonly @endif class="tiny"
-                                            name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 4) required @endif id="summernote-50">{{ $data1->Other5_feedback }}</textarea>
+                                            name="Other5_feedback"@if ($data1->Other5_review == 'yes' && $data->stage == 3) required @endif id="summernote-50">{{ $data1->Other5_feedback }}</textarea>
                                     </div>
                                 </div> --}}
 
                                 
-                                <div class="col-md-6 mb-3 Other5_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                         <input type="text" name="Other5_by" id="Other5_by"
@@ -9688,7 +9762,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3 Other5_reviews">
+                                <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On5">Other's 5 Review Completed On</label>
                                         <input type="text" id="Other5_on" readonly
@@ -9732,7 +9806,7 @@
                                 <div class="sub-head">
                                     Other's 1 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Review Required1"> Other's 1 Review Required? </label>
                                         <select disabled
@@ -9749,7 +9823,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_divisions_id' => $data->division_id])
@@ -9757,7 +9831,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Person1"> Other's 1 Person </label>
                                         <select disabled
@@ -9772,7 +9846,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department1"> Other's 1 Department</label>
@@ -9816,7 +9890,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment12">Impact Assessment (By Other's 1)</label>
-                                        <textarea disabled class={{$data->stage == 4 && Auth::user()->id == $data1->Other1_person ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea disabled class={{$data->stage == 3 && Auth::user()->id == $data1->Other1_person ? 'tiny ' : 'tiny-disable' }}
                                             name="Other1_assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-41">{{ $data1->Other1_assessment }}</textarea>
                                     </div>
                                 </div>
@@ -9880,7 +9954,7 @@
                                 <div class="sub-head">
                                     Other's 2 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review2"> Other's 2 Review Required ?</label>
                                         <select disabled
@@ -9896,7 +9970,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @php
                                     $userRoles = DB::table('user_roles')
@@ -9905,7 +9979,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Person2"> Other's 2 Person</label>
                                         <select disabled
@@ -9919,7 +9993,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department2"> Other's 2 Department</label>
@@ -9963,7 +10037,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment13">Impact Assessment (By Other's 2)</label>
-                                        <textarea class={{$data->stage == 4 && Auth::user()->id == $data1->Other2_person  ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea class={{$data->stage == 3 && Auth::user()->id == $data1->Other2_person  ? 'tiny ' : 'tiny-disable' }}
                                             name="Other2_Assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-43">{{ $data1->Other2_Assessment }}</textarea>
                                     </div>
                                 </div>
@@ -10026,7 +10100,7 @@
                                 <div class="sub-head">
                                     Other's 3 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review3"> Other's 3 Review Required ?</label>
                                         <select disabled
@@ -10044,7 +10118,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @php
                                     $userRoles = DB::table('user_roles')
@@ -10053,7 +10127,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Person3">Other's 3 Person</label>
                                         <select disabled
@@ -10068,7 +10142,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department3">Other's 3 Department</label>
@@ -10110,7 +10184,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment14">Impact Assessment (By Other's 3)</label>
-                                        <textarea disabled class={{$data->stage == 4 && Auth::user()->id == $data1->Other3_person ? 'tiny' : 'tiny-disable' }}
+                                        <textarea disabled class={{$data->stage == 3 && Auth::user()->id == $data1->Other3_person ? 'tiny' : 'tiny-disable' }}
                                             name="Other3_Assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-45">{{ $data1->Other3_Assessment }}</textarea>
                                     </div>
                                 </div>
@@ -10172,7 +10246,7 @@
                                 <div class="sub-head">
                                     Other's 4 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review4">Other's 4 Review Required ?</label>
                                         <select disabled
@@ -10189,7 +10263,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @php
                                     $userRoles = DB::table('user_roles')
@@ -10198,7 +10272,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Person4"> Other's 4 Person</label>
                                         <select
@@ -10212,7 +10286,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department4"> Other's 4 Department</label>
@@ -10254,7 +10328,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment15">Impact Assessment (By Other's 4)</label>
-                                        <textarea disabled class={{$data->stage == 4 && Auth::user()->id == $data1->Other4_person ? 'tiny' : 'tiny-disable' }}
+                                        <textarea disabled class={{$data->stage == 3 && Auth::user()->id == $data1->Other4_person ? 'tiny' : 'tiny-disable' }}
                                             name="Other4_Assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-47">{{ $data1->Other4_Assessment }}</textarea>
                                     </div>
                                 </div>
@@ -10320,7 +10394,7 @@
                                 <div class="sub-head">
                                     Other's 5 ( Additional Person Review From Departments If Required)
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="review5">Other's 5 Review Required ?</label>
                                         <select disabled
@@ -10337,7 +10411,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 @php
                                     $userRoles = DB::table('user_roles')
                                         ->where(['q_m_s_divisions_id' => $data->division_id])
@@ -10345,7 +10419,7 @@
                                     $userRoleIds = $userRoles->pluck('user_id')->toArray();
                                     $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
                                 @endphp
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Person5">Other's 5 Person</label>
                                         <select disabled
@@ -10359,7 +10433,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Department5"> Other's 5 Department</label>
@@ -10401,7 +10475,7 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Impact Assessment16">Impact Assessment (By Other's 5)</label>
-                                        <textarea disabled class={{$data->stage == 4 && Auth::user()->id == $data1->Other5_person ? 'tiny ' : 'tiny-disable' }}
+                                        <textarea disabled class={{$data->stage == 3 && Auth::user()->id == $data1->Other5_person ? 'tiny ' : 'tiny-disable' }}
                                             name="Other5_Assessment"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-49">{{ $data1->Other5_Assessment }}</textarea>
                                     </div>
                                 </div>
@@ -10464,13 +10538,6 @@
                                 </div>
                             @endif
 
-
-
-
-
-
-
-
                         </div>
                         <div class="button-block">
                             <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
@@ -10521,7 +10588,6 @@
                                 <label for="Proposed Due Date">Proposed Due Date</label>
                                 <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
                             </div>  
-
 
                             Investigation summary, root cause, impact assessment, corrective & preventive actions, Investigation HOD remarks, Investigation QA remarks.
 
@@ -11089,7 +11155,7 @@
                             <textarea class="tiny" name="imidiate_action1" id="summernote-10">{{ $data->imidiate_action1 }}</textarea>
                         </div>
                     </div> --}}
-                    @if($data->Investigation_required == 'yes'){
+                    {{-- @if($data->Investigation_required == 'yes'){
                         @if ($data->investigation_attachment_need)
                             @foreach (json_decode($data->investigation_attachment_need) as $file)
                                 <input id="InvestigationFile-{{ $loop->index  }}" type="hidden" name="existing_investigation_attachment_need[{{ $loop->index  }}]" value="{{ $file }}">
@@ -11130,8 +11196,47 @@
                             </div>
                         </div>
                     }
-                    @endif
+                    @endif --}}
                     
+
+<div class="col-lg-12">
+    <div class="group-input">
+        <label for="Inv Attachments">
+            Investigation Attachments
+            @if($data->Investigation_required == 'yes')
+                <span style="color: red;">*</span>
+            @endif
+        </label>
+        <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+        <div class="file-attachment-field">
+            <div class="file-attachment-list" id="investigation_attachment_need">
+                @if ($data->investigation_attachment_need)
+                    @foreach (json_decode($data->investigation_attachment_need) as $file)
+                        <h6 class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                            <b>{{ $file }}</b>
+                            <a href="{{ asset('upload/' . $file) }}" target="_blank">
+                                <i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i>
+                            </a>
+                            <a class="remove-file" data-remove-id="InvestigationFile-{{ $loop->index }}" data-file-name="{{ $file }}">
+                                <i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i>
+                            </a>
+                        </h6>
+                    @endforeach
+                @endif
+            </div>
+            <div class="add-btn">
+                <div>Add</div>
+                <input type="file" id="HOD_Attachments"
+                       name="investigation_attachment_need[]"
+                       @if($data->Investigation_required == 'yes') required @endif
+                       oninput="addMultipleFiles(this, 'investigation_attachment_need')"
+                       multiple>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 </div>
 
                 <div class="button-block">
@@ -12138,6 +12243,8 @@
         </div>
     </div>
     </div>
+
+    
         <div id="CCForm4" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
@@ -12362,7 +12469,99 @@
                                         </button>
                                 </div>
                             </div>
+        </div>
+
+
+  
+
+      
+        {{--New Addendum Tab  Start--}}
+
+<div id="CCForm12" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                        Addendum
+            </div>
+                            <div class="col-12">
+                                <div class="group-input">
+                                    <label for="Short Description">Objective<span class="text-danger">
+                                            *</span></label>
+                                    <input name="addendum_objective" type="text" maxlength="255" value="{{$data->addendum_objective}}" required >
+                                </div>
+                                @error('addendum_objective')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                                    <div class="col-md-12">
+                                        <div class="group-input">
+                                            <label for="Description Deviation">Description of Deviation <span
+                                                    class="text-danger">*</span></label>
+                                            <div><small class="text-primary">Please insert "NA" in the data field if it
+                                                    does not require completion</small></div>
+                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
+                                                name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
+                                        </div>
+                                        @error('Description_Deviation')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="group-input">
+                                            <label for="Preliminary Impact">Preliminary Impact of Deviation <span
+                                                    class="text-danger">*</span></label>
+                                            <div><small class="text-primary">Please insert "NA" in the data field if it
+                                                    does not require completion</small></div>
+                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
+                                        </div>
+                                        @error('Preliminary_Impact')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+            
+                                    <div class="col-md-12">
+                                        <div class="group-input">
+                                            <label for="Immediate Action">Immediate Action (if any) <span
+                                                    class="text-danger">*</span></label>
+                                            <div><small class="text-primary">Please insert "NA" in the data field if it
+                                                    does not require completion</small></div>
+                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="summernote-2">{{ $data->Immediate_Action }}</textarea>
+                                        </div>
+                                        @error('Immediate_Action')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                        <div class="button-block">
+
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                                class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
+                                id="ChangesaveButton123">
+                                <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                    style="display: none" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                Save
+                            </button>
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                class="nextButton" onclick="nextStep()">Next</button>
+                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    class="text-white"> Exit </a>
+                                </button>
                         </div>
+                    </div>
+</div>
+
+{{--New Addendum Tab  end--}}
+
+
+
+
         {{-- QAH--}}
         <div id="CCForm5" class="inner-block cctabcontent">
             <div class="inner-block-content">
@@ -12508,8 +12707,8 @@
             </div>
         </div>
         <!-- Effectiveness Check-->
-{{-- 
-        <div id="CCForm12" class="inner-block cctabcontent">
+
+        {{--     <div id="CCForm12" class="inner-block cctabcontent">
             <div class="inner-block-content">
                 <div class="row">
                     <div class="sub-head">

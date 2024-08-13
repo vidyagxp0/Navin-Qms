@@ -144,6 +144,7 @@ class DeviationController extends Controller
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
 
         // $deviation->Related_Records1 =  implode(',', $request->related_records);
+        $deviation->addendum_objective = $request->addendum_objective;
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
         $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
@@ -151,6 +152,7 @@ class DeviationController extends Controller
         if($deviation->stage == 2){
             $deviation->HOD_Remarks = $request->HOD_Remarks;
         }
+
         $deviation->Deviation_category = $request->Deviation_category;
         $deviation->Justification_for_categorization = $request->Justification_for_categorization;
         $deviation->Investigation_required = $request->Investigation_required;
@@ -167,6 +169,7 @@ class DeviationController extends Controller
 
         $deviation->Facility_Equipment = $request->Facility_Equipment;
         $deviation->Document_Details_Required = $request->Document_Details_Required;
+
             // // Get the current date
             // $due_date = new Deviation();
 
@@ -198,7 +201,6 @@ class DeviationController extends Controller
             //         }
             //     }
             // }
-
 
 
         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
@@ -251,6 +253,7 @@ class DeviationController extends Controller
                                 }
                             }
                         }
+                        
                         if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
                             $list = Helpers::getCorporateEHSHeadUserList();
                                     foreach ($list as $u) {
@@ -1497,6 +1500,10 @@ class DeviationController extends Controller
         $deviation->audit_type = implode(',', $request->audit_type);
 
         $deviation->others = $request->others;
+
+        //new field
+        $deviation->addendum_objective = $request->addendum_objective;
+
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
         if ($request->related_records) {
