@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'departmentid',
-        'role'
+        'role',
+        'Emp_id'
     ];
 
     /**
@@ -48,4 +49,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRole::class);
     }
+
+
 }

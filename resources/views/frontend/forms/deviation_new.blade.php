@@ -884,9 +884,9 @@
                                         $('input[name=Deviation_date], input[name=Deviation_reported_date]').on('change', function() {
                                             checkDateDifference();
                                         });
-                                        </script>
+                                </script>
 
-                                <!-- <script>
+                                {{-- <script>
                                     $('.delayJustificationBlock').hide();
 
                                     function calculateDateDifference() {
@@ -927,7 +927,7 @@
                                     $('input[name=Deviation_date]').on('change', function() {
                                         calculateDateDifference();
                                     })
-                                </script> -->
+                                </script> --}}
 
 
 
@@ -1398,7 +1398,7 @@
                                     </div>
                                 </div> --}}
 
-                                {{--  update <div class="col-md-12 mb-3">
+                              <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1409,7 +1409,7 @@
                                     @error('Description_Deviation[]')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div> --}}
+                                </div>
 
                                 {{-- <div class="col-6">
                                 <div class="group-input">
@@ -1417,7 +1417,7 @@
                                         <textarea class="" id="Immediate_Action" name="Immediate_Action[]"></textarea>
                                     </div>
                                 </div> --}}
-                                {{-- update <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1428,14 +1428,14 @@
                                     @error('record')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div> --}}
+                                </div>
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation</label>
                                         <textarea class="" id="Preliminary_Impact" name="Preliminary_Impact[]"></textarea>
                                     </div>
                                 </div> --}}
-                                {{--  update<div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
@@ -1446,7 +1446,8 @@
                                     @error('Preliminary_Impact')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div> --}}
+                                </div>
+                                
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Initial Attachments</label>
@@ -1541,7 +1542,6 @@
                         <div class="inner-block-content">
                             <div class="row">
 
-
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
@@ -1566,8 +1566,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class="button-block">
                                 <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save </button>
@@ -1589,13 +1587,11 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- QA Initial reVIEW -->
                     <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-
-
-
 
                                 <script>
                                     handleInvestigationRequiredChange();
@@ -1619,7 +1615,6 @@
                                     }
 
                                     // Call the function initially to set the initial visibility of the button
-
 
 
 
@@ -1670,7 +1665,6 @@
                                             // document.getElementById("Investigation_button").style.display = "none";
                                             document.getElementById("CAPA_button").style.display = "none";
                                             // document.getElementById("QRM_button").style.display = "none";
-
 
 
                                         }
@@ -5438,9 +5432,11 @@
                         </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Objective<span class="text-danger">
-                                            *</span></label>
-                                    <input name="addendum_objective" type="text" maxlength="255" value="" required >
+                                    <label for="Short Description">Objective
+                                        {{-- <span class="text-danger">
+                                            *</span> --}}
+                                    </label>
+                                    <input name="addendum_objective" type="text" maxlength="255" value="" >
                                 </div>
                                 @error('addendum_objective')
                                     <div class="text-danger">{{ $message }}</div>
@@ -5452,7 +5448,7 @@
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Description_Deviation[]" id="summernote-1" required>
+                                        <textarea class="tiny" name="Description_Deviation[]" id="summernote-1">
                                     </textarea>
                                     </div>
                                     @error('Description_Deviation[]')
@@ -5466,7 +5462,7 @@
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Immediate_Action[]" id="summernote-2"required>
+                                        <textarea class="tiny" name="Immediate_Action[]" id="summernote-2">
                                     </textarea>
                                     </div>
                                     @error('record')
@@ -5479,7 +5475,7 @@
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Preliminary_Impact[]" id="summernote-3" required>
+                                        <textarea class="tiny" name="Preliminary_Impact[]" id="summernote-3">
                                     </textarea>
                                     </div>
                                     @error('Preliminary_Impact')

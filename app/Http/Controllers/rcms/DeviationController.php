@@ -3076,6 +3076,7 @@ class DeviationController extends Controller
                 $history->change_from = $lastDocument->status;
                 $history->stage = 'Plan Approved';
                 $history->save();
+
                 // dd($history->action);
                 $list = Helpers::getQAUserList();
                 foreach ($list as $u) {
@@ -3097,7 +3098,6 @@ class DeviationController extends Controller
                         }
                     }
                 }
-
 
                 $deviation->update();
                 toastr()->success('Document Sent');
@@ -3473,7 +3473,7 @@ class DeviationController extends Controller
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "QA Head/Manager Designee Primary Approval";
                 $history->change_from = $lastDocument->status;
-                $history->stage = 'QAH Primary Approved Completed';
+                $history->stage = 'QAH Primary Approved Completed'; 
                 $history->save();
                 $list = Helpers::getQAUserList();
                 foreach ($list as $u) {
@@ -3633,6 +3633,7 @@ class DeviationController extends Controller
                 $history->stage = 'Completed';
                 $history->save();
                 $list = Helpers::getQAUserList();
+
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
@@ -3652,6 +3653,7 @@ class DeviationController extends Controller
                         }
                     }
                 }
+
                 $deviation->update();
                 toastr()->success('Document Sent');
                 return back();

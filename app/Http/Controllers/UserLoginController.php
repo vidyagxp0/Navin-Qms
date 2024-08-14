@@ -67,6 +67,7 @@ class UserLoginController extends Controller
         }		
     }
 
+ 
     public function logincheck(Request $request)
     {
         TotalLogin::userCheck();
@@ -103,6 +104,10 @@ class UserLoginController extends Controller
         }
     }
 
+
+    
+
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -119,103 +124,223 @@ class UserLoginController extends Controller
         return redirect('/login');
     }
 
-    public function rcmscheck(Request $request)
-    {
-        if($request->confirmPassword){
-            $user = User::find(Auth::user()->id);
-            if ($request->confirmPassword == $user->name || $request->confirmPassword == $user->email) {
-                return redirect()->back()->with('error', 'Please choose a different password. You cannot Your name or email.');
-            }
+
+    
+    //runing old code login with email
+    // public function rcmscheck(Request $request)
+    // {
+
+     
+    //     if($request->confirmPassword){
+    //         $user = User::find(Auth::user()->id);
+    //         if ($request->confirmPassword == $user->name || $request->confirmPassword == $user->email) {
+    //             return redirect()->back()->with('error', 'Please choose a different password. You cannot Your name or email.');
+    //         }
             
-            $newPassword = $request->confirmPassword;
-            $oneYearAgo = Carbon::now()->subYear();
-            $passwordLogs = PasswordLog::where('user_id', $user->id)
-                ->where('created_at', '>=', $oneYearAgo)
-                ->get();
+    //         $newPassword = $request->confirmPassword;
+    //         $oneYearAgo = Carbon::now()->subYear();
+    //         $passwordLogs = PasswordLog::where('user_id', $user->id)
+    //             ->where('created_at', '>=', $oneYearAgo)
+    //             ->get();
 
-            foreach ($passwordLogs as $passwordLog) {
-                if (Hash::check($newPassword, $passwordLog->password)) {
-                    return redirect()->back()->with('error', 'Please choose a different password. You cannot reuse a password within one year.');
-                }
-            }
+    //         foreach ($passwordLogs as $passwordLog) {
+    //             if (Hash::check($newPassword, $passwordLog->password)) {
+    //                 return redirect()->back()->with('error', 'Please choose a different password. You cannot reuse a password within one year.');
+    //             }
+    //         }
 
-            $user->password = Hash::make($newPassword);
-            $user->f_login = 1;
-            $user->session_id = FacadesSession::getId();
-            $user->save();
+    //         $user->password = Hash::make($newPassword);
+    //         $user->f_login = 1;
+    //         $user->session_id = FacadesSession::getId();
+    //         $user->save();
 
-            $passwordLog = new PasswordLog();
-            $passwordLog->user_id = $user->id;
-            $passwordLog->password = Hash::make($newPassword);
-            $passwordLog->save();
-            toastr()->success('Login With New Password.');
-            return redirect('/login');
-        }
-        TotalLogin::userCheck();
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-            'timezone' => ['required']
-        ]);
-        // Set the timezone
-        $checkEmail = User::where('email', $request->email)->count();
-        if ($checkEmail > 0) {
-            $userData=User::where('email', $request->email)->first();
-            $currentTime = Carbon::now();
-            if ($userData->updated_at <= $currentTime->subMinutes(5)) {
-                $userData->attempt=1;
-                $userData->save();
-            } else {
-                if ($userData->updated_at >= $currentTime->subMinutes(5)) {
-                    // if ($userData->attempt >= 3) {
-                    //     toastr()->error('Too many login attempts. Please try again in 5 minutes .');
-                    //     return redirect()->back();
-                    // }
-                }
-                if ($userData->attempt==3) {
-                    $userData->attempt=1;
-                    $userData->save();
-                } else {
-                    $userData->increment('attempt');
-                }
-            }
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                // check user login limit
-                if (TotalLogin::ifUserExist(Auth::id())) {
-                    TotalLogin::removeUser(Auth::id());
-                }
-                if (TotalLogin::isUserLimitReached()) {
-                    toastr()->warning('User login limit is over please wait.');
-                    return redirect()->back()->withInput();
-                } else {
-                    // Save the user ID to the total_logins table for check login user limit
-                    if(Auth::User()->f_login==0){
-                        // dd(Auth::User()->f_login);
-                        toastr()->success('Create New Password.');
-                        return view('frontend.rcms.makePassword');
+    //         $passwordLog = new PasswordLog();
+    //         $passwordLog->user_id = $user->id;
+    //         $passwordLog->password = Hash::make($newPassword);
+    //         $passwordLog->save();
+    //         toastr()->success('Login With New Password.');
+    //         return redirect('/login');
+    //     }
+    //     TotalLogin::userCheck();
+    //     $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required'],
+    //         'timezone' => ['required']
+    //     ]);
+    //     // Set the timezone
+    //     $checkEmail = User::where('email', $request->email)->count();
+    //     if ($checkEmail > 0) {
+    //         $userData=User::where('email', $request->email)->first();
+    //         $currentTime = Carbon::now();
+    //         if ($userData->updated_at <= $currentTime->subMinutes(5)) {
+    //             $userData->attempt=1;
+    //             $userData->save();
+    //         } else {
+    //             if ($userData->updated_at >= $currentTime->subMinutes(5)) {
+    //                 // if ($userData->attempt >= 3) {
+    //                 //     toastr()->error('Too many login attempts. Please try again in 5 minutes .');
+    //                 //     return redirect()->back();
+    //                 // }
+    //             }
+    //             if ($userData->attempt==3) {
+    //                 $userData->attempt=1;
+    //                 $userData->save();
+    //             } else {
+    //                 $userData->increment('attempt');
+    //             }
+    //         }
+    //         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+    //             // check user login limit
+    //             if (TotalLogin::ifUserExist(Auth::id())) {
+    //                 TotalLogin::removeUser(Auth::id());
+    //             }
+    //             if (TotalLogin::isUserLimitReached()) {
+    //                 toastr()->warning('User login limit is over please wait.');
+    //                 return redirect()->back()->withInput();
+    //             } else {
+    //                 // Save the user ID to the total_logins table for check login user limit
+    //                 if(Auth::User()->f_login==0){
+    //                     // dd(Auth::User()->f_login);
+    //                     toastr()->success('Create New Password.');
+    //                     return view('frontend.rcms.makePassword');
 
-                    }else{
-                        TotalLogin::addUser();
+    //                 }else{
+    //                     TotalLogin::addUser();
                         
-                        $user = User::find(Auth::id());
-                        $user->session_id = FacadesSession::getId();
-                        $user->save();
+    //                     $user = User::find(Auth::id());
+    //                     $user->session_id = FacadesSession::getId();
+    //                     $user->save();
                         
-                        toastr()->success('Login Successfully.');
-                        session()->put('last_activity', time());
-                        return redirect('rcms/qms-dashboard');
-                    }
+    //                     toastr()->success('Login Successfully.');
+    //                     session()->put('last_activity', time());
+    //                     return redirect('rcms/qms-dashboard');
+    //                 }
                    
-                }
-            } else {
-                toastr()->error('Login failed.');
+    //             }
+    //         } else {
+    //             toastr()->error('Login failed.');
+    //             return redirect()->back();
+    //         }
+    //     } else {
+    //         toastr()->error('Email not registered.');
+    //         return redirect()->back();
+    //     }
+    // }
+
+
+
+ //----------------updated login with emp_id or email both------------------//
+public function rcmscheck(Request $request)
+{
+    // Check if the confirmPassword is being used to set a new password
+    if ($request->confirmPassword) {
+        $user = User::find(Auth::user()->id);
+
+        // Check if the new password is not the same as user's name or email
+        if ($request->confirmPassword == $user->name || $request->confirmPassword == $user->email) {
+            return redirect()->back()->with('error', 'Please choose a different password. You cannot use your name or email.');
+        }
+
+        $newPassword = $request->confirmPassword;
+        $oneYearAgo = Carbon::now()->subYear();
+        $passwordLogs = PasswordLog::where('user_id', $user->id)
+            ->where('created_at', '>=', $oneYearAgo)
+            ->get();
+
+        foreach ($passwordLogs as $passwordLog) {
+            if (Hash::check($newPassword, $passwordLog->password)) {
+                return redirect()->back()->with('error', 'Please choose a different password. You cannot reuse a password within one year.');
+            }
+        }
+
+        $user->password = Hash::make($newPassword);
+        $user->f_login = 1;
+        $user->session_id = FacadesSession::getId();
+        $user->save();
+
+        $passwordLog = new PasswordLog();
+        $passwordLog->user_id = $user->id;
+        $passwordLog->password = Hash::make($newPassword);
+        $passwordLog->save();
+
+        toastr()->success('Login With New Password.');
+        return redirect('/login');
+    }
+
+    TotalLogin::userCheck();
+
+    // Validate the input
+    $request->validate([
+        'login' => ['required'], 
+        'password' => ['required'],
+        'timezone' => ['required']
+    ]);
+
+    // Determine the credentials
+    $credentials = [];
+    $userData = null;
+
+    if (filter_var($request->login, FILTER_VALIDATE_EMAIL)) {
+        // Handle email login
+        $userData = User::where('email', $request->login)->first();
+        $credentials = ['email' => $request->login, 'password' => $request->password];
+    } else {
+        // Handle Emp_id login
+        $userData = User::where('Emp_id', $request->login)->first();
+        $credentials = ['Emp_id' => $request->login, 'password' => $request->password];
+    }
+
+    if ($userData) {
+        $currentTime = Carbon::now();
+
+        // Manage login attempts
+        if ($userData->updated_at <= $currentTime->subMinutes(5)) {
+            $userData->attempt = 1;
+        } else {
+            if ($userData->attempt >= 3) {
+                toastr()->error('Too many login attempts. Please try again later.');
                 return redirect()->back();
             }
+            $userData->increment('attempt');
+        }
+        $userData->save();
+
+        // Attempt to authenticate
+        if (Auth::attempt($credentials)) {
+            // Check user login limit
+            if (TotalLogin::ifUserExist(Auth::id())) {
+                TotalLogin::removeUser(Auth::id());
+            }
+            if (TotalLogin::isUserLimitReached()) {
+                toastr()->warning('User login limit is over please wait.');
+                return redirect()->back()->withInput();
+            } else {
+                if (Auth::user()->f_login == 0) {
+                    toastr()->success('Create New Password.');
+                    return view('frontend.rcms.makePassword');
+                } else {
+                    TotalLogin::addUser();
+
+                    $user = User::find(Auth::id());
+                    $user->session_id = FacadesSession::getId();
+                    $user->save();
+
+                    toastr()->success('Login Successfully.');
+                    session()->put('last_activity', time());
+                    return redirect('rcms/qms-dashboard');
+                }
+            }
         } else {
-            toastr()->error('Email not registered.');
+            toastr()->error('Login failed. Please check your credentials.');
             return redirect()->back();
         }
+    } else {
+        toastr()->error('Emp_id or Email not registered.');
+        return redirect()->back();
     }
+}
+
+
 
     public function changePassword()
     {

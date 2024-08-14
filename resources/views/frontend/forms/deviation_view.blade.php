@@ -1858,7 +1858,7 @@
                                         <textarea class="tiny"  name="Description_Deviation[]" value="{{$data->Description_Deviation}}"></textarea>
                                     </div>
                                 </div> --}}
-                                    {{-- <div class="col-md-12">
+                               <div class="col-md-12">
                                         <div class="group-input">
                                             <label for="Description Deviation">Description of Deviation <span
                                                     class="text-danger">*</span></label>
@@ -1870,7 +1870,7 @@
                                         @error('Description_Deviation')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div> --}}
+                                    </div>
                                     <!-- <div class="col-md-12 mb-3">
                                         <div class="group-input">
                                             <label for="Production feedback">Production Feedback <span class="text-danger">*</span></label>
@@ -1885,7 +1885,7 @@
                                         <textarea class="tiny" name="Immediate_Action[]" value="{{$data->Immediate_Action}}"></textarea>
                                     </div>
                                 </div> --}}
-                                    {{-- <div class="col-md-12">
+                                   <div class="col-md-12">
                                         <div class="group-input">
                                             <label for="Immediate Action">Immediate Action (if any) <span
                                                     class="text-danger">*</span></label>
@@ -1897,7 +1897,7 @@
                                         @error('Immediate_Action')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div> --}}
+                                    </div>
 
                                     {{-- <div class="col-6">
                                 <div class="group-input">
@@ -1906,7 +1906,7 @@
                                     </div>
                                 </div> --}}
 
-                                    {{-- <div class="col-md-12">
+                                    <div class="col-md-12">
                                         <div class="group-input">
                                             <label for="Preliminary Impact">Preliminary Impact of Deviation <span
                                                     class="text-danger">*</span></label>
@@ -1918,7 +1918,7 @@
                                         @error('Preliminary_Impact')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div> --}}
+                                    </div>
 
                                     {{-- EXISTING ATTACHMENTS START --}}
                                     @if ($data->initial_file)
@@ -2065,6 +2065,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <!-- ----------hod Review-------- -->
                         <div id="CCForm8" class="inner-block cctabcontent">
                             <div class="inner-block-content">
@@ -2075,7 +2077,12 @@
                                                         class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it
                                                         does not require completion</small></div>
-                                                <textarea {{$data->stage == 2 ? '' : 'disabled' }} class={{$data->stage == 2 || $data->stage == 11 ? 'tiny' : 'tiny-disable' }} name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
+                                                        <textarea {{$data->stage == 2 ? '' : 'disabled' }} 
+                                                            class="{{$data->stage == 2 || $data->stage == 11 ? 'tiny' : 'tiny-disable' }}" 
+                                                            name="HOD_Remarks" id="summernote-4" 
+                                                            required 
+                                                           ">{{ $data->HOD_Remarks }}
+                                                        </textarea>
                                             </div>
                                         @error('HOD_Remarks')
                                             <div class="text-danger">{{ $message }}</div>
@@ -2160,7 +2167,8 @@
                                             </div>
                                         @endif
                                     </div>
-
+                           
+                                    
                                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                     <script>
                                         $(document).ready(function() {
@@ -12484,9 +12492,11 @@
             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Objective<span class="text-danger">
-                                            *</span></label>
-                                    <input name="addendum_objective" type="text" maxlength="255" value="{{$data->addendum_objective}}" required >
+                                    <label for="Short Description">Objective
+                                        {{-- <span class="text-danger">
+                                            *</span> --}}
+                                        </label>
+                                    <input name="addendum_objective" type="text" maxlength="255" value="{{$data->addendum_objective}}">
                                 </div>
                                 @error('addendum_objective')
                                     <div class="text-danger">{{ $message }}</div>
@@ -12495,8 +12505,10 @@
 
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="Description Deviation">Description of Deviation <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Description Deviation">Description of Deviation 
+                                                {{-- <span
+                                                    class="text-danger">*</span> --}}
+                                                </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
@@ -12510,8 +12522,10 @@
 
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="Preliminary Impact">Preliminary Impact of Deviation <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Preliminary Impact">Preliminary Impact of Deviation
+                                                 {{-- <span
+                                                    class="text-danger">*</span> --}}
+                                                </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -12524,8 +12538,10 @@
             
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="Immediate Action">Immediate Action (if any) <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Immediate Action">Immediate Action (if any)
+                                                 {{-- <span
+                                                    class="text-danger">*</span> --}}
+                                                </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
