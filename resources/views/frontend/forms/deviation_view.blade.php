@@ -1991,24 +1991,38 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 30%;">Stage</th>
+                                                            <th>More Info Id</th>
                                                             <th>More Info Required By</th>
+                                                            <th>Email</th>
                                                             <th>More Info Required On</th>
                                                             <th>Comment</th>
+                                                            <th>Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                    
+                                                        <!-- <tr>
                                                             <td>HOD Review</td>
+                                                            <td>{{$data->deviation_id}}</td>                                                        
                                                             <td>{{ $data->rejected_by }}</td>
+                                                            <td>{{$data->rejected_email}}</td>
                                                             <td>{{ $data->rejected_on }}</td>
-                                                            <td>{{ $data->rejected_comment }}</td>
-                                                        </tr>
+                                                            <td>{{ $data->comment }}</td>
+                                                        </tr> -->
                                                         <tr>
-                                                            <td>QA Initial Review</td>
-                                                            <td>{{ $data->qa_more_info_required_by }}</td>
-                                                            <td>{{ $data->qa_more_info_required_on }}</td>
-                                                            <td>{{ $data->qa_more_info_required_comment }}</td>
-                                                        </tr>
+                                                        
+     
+        <tr>
+            <td>HOD Review</td>
+            <td>{{ $data->id }}</td>
+            <td>{{ $data->qa_more_info_required_by }}</td>
+            <td>{{ $data->qa_more_info_required_email ?? '' }}</td>
+            <td>{{ $data->qa_more_info_required_on ?? '' }}</td>
+            <td>{{ $data->comment }}</td>
+            <td>{{ $data->status }}</td>
+        </tr>
+     
+                                                    
                                                         <tr>
                                                             <td>CFT Review</td>
                                                             <td>{{ $data->cft_more_info_required_by }}</td>
@@ -2361,6 +2375,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                
                                 <div class="col-lg-6" id="nature_of_repeat_block"
                                     @if ($data->short_description_required != 'Recurring') style="display: none" @endif>
                                     <div class="group-input" id="nature_of_repeat">
