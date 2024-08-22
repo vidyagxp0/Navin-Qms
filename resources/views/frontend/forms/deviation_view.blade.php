@@ -1975,8 +1975,52 @@
                                         </div>
                                     </div>
 
-                                    
+
                                     <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="why-why-chart">
+                                                More Info Required
+                                                <!-- <span class="text-primary" data-bs-toggle="modal"
+                                                                                    data-bs-target="#is_is_not-instruction-modal"
+                                                                                    style="font-size: 0.8rem; font-weight: 400;">
+                                                                                    (Launch Instruction)
+                                                                                </span> -->
+                                            </label>
+                                            <div class="why-why-chart">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 30%;">Stage</th>
+                                                            <!-- <th>More Info Id</th> -->
+                                                            <th>More Info Required By</th>
+                                                            <th>Email</th>
+                                                            <th>More Info Required On</th>
+                                                            <th>Comment</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                    
+    <tbody>
+        @foreach ($logs as $log)
+            @if (!empty($log->data))
+                @foreach ($log->data as $entry)
+                    <tr>
+                        <td>{{ $log->identifier }}</td>
+                        <td>{{ $entry->name ?? '' }}</td>
+                        <td>{{ $entry->email ?? '' }}</td>
+                        <td>{{ $entry->date ?? '' }}</td>
+                        <td>{{ $entry->comment ?? '' }}</td>
+                        <td>{{ $entry->status ?? '' }}</td>
+                    </tr>
+                @endforeach
+            @endif
+        @endforeach
+    </tbody>
+</table>
+
+
+                                    
+                                    {{-- <div class="col-12">
                                         <div class="group-input">
                                             <label for="why-why-chart">
                                                 More Info Required
@@ -2009,33 +2053,39 @@
                                                             <td>{{ $data->rejected_on }}</td>
                                                             <td>{{ $data->comment }}</td>
                                                         </tr> -->
-                                                        <tr>
+                                                      
                                                         
      
-        <tr>
-            <td>HOD Review</td>
-            <td>{{ $data->id }}</td>
-            <td>{{ $data->qa_more_info_required_by }}</td>
-            <td>{{ $data->qa_more_info_required_email ?? '' }}</td>
-            <td>{{ $data->qa_more_info_required_on ?? '' }}</td>
-            <td>{{ $data->comment }}</td>
-            <td>{{ $data->status }}</td>
-        </tr>
+                                                        <tr>
+                                                            <td>HOD Review</td>
+                                                            <td>{{ $data->id }}</td>
+                                                            <td>{{ $data->qa_more_info_required_by }}</td>
+                                                            <td>{{ $data->qa_more_info_required_email ?? '' }}</td>
+                                                            <td>{{ $data->qa_more_info_required_on ?? '' }}</td>
+                                                            <td>{{ $data->comment }}</td>
+                                                            <td>{{ $data->status }}</td>
+                                                        </tr>
      
                                                     
                                                         <tr>
                                                             <td>CFT Review</td>
+                                                            <td>{{ $data->id }}</td>
                                                             <td>{{ $data->cft_more_info_required_by }}</td>
+                                                            <td>{{ $data->cft_more_info_required_email }}</td>
                                                             <td>{{ $data->cft_more_info_required_on }}</td>
                                                             <td>{{ $data->cft_more_info_required_comment }}</td>
+                                                            <td>{{ $data->status }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>QA Head/Manager Designee Approval</td>
+                                                            <td>{{ $data->id }}</td>
                                                             <td>{{ $data->qa_head_more_info_required_by }}</td>
+                                                            <td>{{ $data->qa_head_more_info_required_email }}</td>
                                                             <td>{{ $data->qa_head_more_info_required_on }}</td>
                                                             <td>{{ $data->qa_head_more_info_required_comment }}</td>
+                                                            <td></td>
                                                         </tr>
-                                                    </tbody>
+                                                    </tbody> --}}
                                                 </table>
                                             </div>
                                         </div>
