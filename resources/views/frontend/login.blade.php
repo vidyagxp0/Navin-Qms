@@ -264,10 +264,15 @@
                 <div class="head">
                     Welcome to VidyaGxP
                 </div>
-                <div class="group-input">
+                {{-- <div class="group-input">
                     <label for="username"><i class="fa-solid fa-envelope"></i></label>
                     <input type="text" name="email" placeholder="Enter Your E-Mail">
+                </div> --}}
+                <div class="group-input">
+                    <label for="login"><i class="fa-solid fa-user"></i></label>
+                    <input type="text" name="login" placeholder="Enter Your Email or Emp_id">
                 </div>
+ 
                 <div class="group-input">
                     <label for="password"><i class="fa-solid fa-lock"></i></label>
                     <input type="password" name="password" placeholder="Enter Your Password">
