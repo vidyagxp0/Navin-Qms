@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('record')->nullable();
             $table->tinyText('division_id')->nullable();
             $table->tinyText('initiator_group_code')->nullable();
-            $table->date('intiation_date')->nullable();
+            $table->text('intiation_date')->nullable();
             $table->string('form_type')->nullable();
             $table->integer('record_number')->nullable();
             $table->integer('assign_to')->nullable();
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('short_description')->nullable();
             $table->string('short_description_required')->nullable();
             $table->longText('nature_of_repeat')->nullable();
-            $table->date('Deviation_date')->nullable();
-            $table->date('Deviation_reported_date')->nullable();
+            $table->text('Deviation_date')->nullable();
+            $table->text('Deviation_reported_date')->nullable();
             $table->string('Facility')->nullable();
             $table->string('Capachild')->nullable();
             $table->string('Rootchild')->nullable();
