@@ -1491,7 +1491,7 @@ class DeviationController extends Controller
         }
         $deviation->initiator_group_code = $request->initiator_group_code;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
-        // $deviation->Deviation_date = $request->Deviation_date;
+        $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
         $deviation->Delay_Justification = $request->Delay_Justification;
         $deviation->audit_type = implode(',', $request->audit_type);
