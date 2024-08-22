@@ -396,7 +396,7 @@ $users = DB::table('users')
                     @else
                         <div class="progress-bars">
                             @if ($data->stage >= 1)
-                                <div class="active">Opened</div>
+                                <div class="active">Opened fvfdgd</div>
                             @else
                                 <div class="">Opened</div>
                             @endif
