@@ -396,7 +396,7 @@ $users = DB::table('users')
                     @else
                         <div class="progress-bars">
                             @if ($data->stage >= 1)
-                                <div class="active">Opened</div>
+                                <div class="active">Opened vvvvv</div>
                             @else
                                 <div class="">Opened</div>
                             @endif
@@ -2083,7 +2083,7 @@ $users = DB::table('users')
                         @else
                         <div class="col-md-12 mb-3">
                             <div class="group-input">
-                                <label for="Impact Assessment1">Impact Assessment (By Warehouse)</label>
+                                <label for="Impact Assessment1">Impact  Assessment (By Warehouse)</label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                 <textarea readonly class="summernote" name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                             </div>
