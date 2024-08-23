@@ -141,12 +141,12 @@ class DeviationController extends Controller
 
 
 
-        $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
+        $deviation->Description_Deviation = implode($request->Description_Deviation);
 
         // $deviation->Related_Records1 =  implode(',', $request->related_records);
         $deviation->addendum_objective = $request->addendum_objective;
-        $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
-        $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
+        $deviation->Immediate_Action = implode($request->Immediate_Action);
+        $deviation->Preliminary_Impact = implode( $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
         if($deviation->stage == 2){
@@ -1513,15 +1513,15 @@ class DeviationController extends Controller
         $deviation->addendum_objective = $request->addendum_objective;
 
 
-        $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
+        $deviation->Description_Deviation = implode($request->Description_Deviation);
         if ($request->related_records) {
             $deviation->Related_Records1 =  implode(',', $request->related_records);
         }
         $deviation->Facility = $request->Facility;
 
 
-        $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
-        $deviation->Preliminary_Impact = implode(',', $request->Preliminary_Impact);
+        $deviation->Immediate_Action = implode($request->Immediate_Action);
+        $deviation->Preliminary_Impact = implode($request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
 
@@ -4793,6 +4793,7 @@ if($deviation->stage == 2){
     //             }
     //         }
     //     }
+    
     //     $deviation->update();
     //     toastr()->success('Document Sent');
     //     return back();
@@ -5248,11 +5249,61 @@ if($deviation->stage == 2){
             // return $request;
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
+            $cftResponse = DeviationCftsResponse::withoutTrashed()->where(['deviation_id' => $id])->get();
             $list = Helpers::getInitiatorUserList();
+
+            // Soft delete all records
+            $cftResponse->each(function ($response) {
+                $response->delete();
+            });
+    
+            // Prepare the new data entry
+            $newData = [
+                "name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+                "date" => Carbon::now()->format('d-M-Y h:i A'),
+                "id" => $id,
+                "status" => $deviation->status,
+                'comment' => $request->comment
+            ];
+    
+            // Check if a log entry with the same identifier exists
+            $existingLog = DB::table('deviation_logs')
+                ->where('deviation_id', $id)
+                ->where('identifier', 'QA Head/Manager Designee Approval')
+                ->first();
+    
+            if ($existingLog) {
+                // Update existing log entry
+                $existingData = json_decode($existingLog->data, true);
+                
+                if (!$existingData) {
+                    $existingData = [];
+                }
+    
+                // Append new data to existing data
+                $existingData[] = $newData;
+    
+                DB::table('deviation_logs')
+                    ->where('id', $existingLog->id)
+                    ->update([
+                        'data' => json_encode($existingData),
+                        'updated_at' => now(),
+                    ]);
+            } else {
+                // Insert new log entry
+                DB::table('deviation_logs')->insert([
+                    'identifier' => 'QA Head/Manager Designee Approval',
+                    'data' => json_encode([$newData]),
+                    'deviation_id' => $id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+    
 
 
             if ($deviation->stage == 2) {
-                // dd($deviation->stage);
                 $deviation->stage = "1";
                 $deviation->status = "Opened";
                 $deviation->rejected_by = Auth::user()->name;
@@ -5297,7 +5348,7 @@ if($deviation->stage == 2){
                                     }
                                 );
                             } catch (\Exception $e) {
-                                //log error
+                            
                             }
                         }
                     }
@@ -5354,7 +5405,7 @@ if($deviation->stage == 2){
                                     }
                                 );
                             } catch (\Exception $e) {
-                                //log error
+                                
                             }
                         }
                     }
@@ -5462,7 +5513,7 @@ if($deviation->stage == 2){
                 $history->change_to =   "QA Secondary Review";
                 $history->change_from = $lastDocument->status;
                 $history->action = 'More Info Required';
-                // dd();
+            
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
@@ -5565,7 +5616,7 @@ if($deviation->stage == 2){
             return view('frontend.forms.extension', compact('parent_id','parent_record', 'parent_name', 'record_number', 'parent_due_date', 'due_date', 'parent_created_at'));
         }
         $old_record = Deviation::select('id', 'division_id', 'record')->get();
-        // dd($request->child_type)
+    
         if ($request->child_type == "capa") {
             $parent_name = "CAPA";
             $Capachild = Deviation::find($id);
@@ -5617,15 +5668,11 @@ if($deviation->stage == 2){
         ->orderByDesc('id')
         ->paginate(5);
 
-        // dd($audit);
         $today = Carbon::now()->format('d-m-y');
         $document = Deviation::where('id', $id)->first();
-        // dd( $document);
 
         $document->initiator = User::where('id', $document->initiator_id)->value('name');
 
-
-        // return $audit;
 
         return view('frontend.forms.deviation_audit', compact('audit', 'document', 'today'));
     }
@@ -5650,7 +5697,7 @@ if($deviation->stage == 2){
     public static function singleReport($id)
     {
         $data = Deviation::find($id);
-        // return $data;
+
         $data1 =  DeviationCft::where('deviation_id', $id)->first();
         if (!empty ($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
@@ -5691,6 +5738,7 @@ if($deviation->stage == 2){
             return $pdf->stream('Deviation' . $id . '.pdf');
         }
     }
+
     public static function parentchildReport($id)
     {
         $data = Deviation::find($id);
@@ -5727,6 +5775,7 @@ if($deviation->stage == 2){
             return $pdf->stream('Deviation' . $id . '.pdf');
         }
     }
+
     public static function deviationfamilyReport($id)
     {
         $data = Deviation::find($id);
@@ -5738,7 +5787,7 @@ if($deviation->stage == 2){
          $actionchild=$data->actionchild;
          $effectivenesschild=$data->effectivenesschild;
          $Changecontrolchild=$data->Changecontrolchild;
-        //  dd($Changecontrolchild);
+
         $data1 = Capa::where('record', $Capachild)->first();
         $data2 = RootCauseAnalysis::where('record', $Rootchild)->first();
         $data3 = Extension::where('record', $Extensionchild)->first();

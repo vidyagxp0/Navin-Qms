@@ -1980,11 +1980,11 @@
                                         <div class="group-input">
                                             <label for="why-why-chart">
                                                 More Info Required
-                                                <!-- <span class="text-primary" data-bs-toggle="modal"
+                                                {{-- <span class="text-primary" data-bs-toggle="modal"
                                                                                     data-bs-target="#is_is_not-instruction-modal"
                                                                                     style="font-size: 0.8rem; font-weight: 400;">
                                                                                     (Launch Instruction)
-                                                                                </span> -->
+                                                                                </span> --}}
                                             </label>
                                             <div class="why-why-chart">
                                                 <table class="table table-bordered">
@@ -2000,23 +2000,23 @@
                                                         </tr>
                                                     </thead>
                                     
-    <tbody>
-        @foreach ($logs as $log)
-            @if (!empty($log->data))
-                @foreach ($log->data as $entry)
-                    <tr>
-                        <td>{{ $log->identifier }}</td>
-                        <td>{{ $entry->name ?? '' }}</td>
-                        <td>{{ $entry->email ?? '' }}</td>
-                        <td>{{ $entry->date ?? '' }}</td>
-                        <td>{{ $entry->comment ?? '' }}</td>
-                        <td>{{ $entry->status ?? '' }}</td>
-                    </tr>
-                @endforeach
-            @endif
-        @endforeach
-    </tbody>
-</table>
+                                                    <tbody>
+                                                        @foreach ($logs as $log)
+                                                            @if (!empty($log->data))
+                                                                @foreach ($log->data as $entry)
+                                                                    <tr>
+                                                                        <td>{{ $log->identifier }}</td>
+                                                                        <td>{{ $entry->name ?? '' }}</td>
+                                                                        <td>{{ $entry->email ?? '' }}</td>
+                                                                        <td>{{ $entry->date ?? '' }}</td>
+                                                                        <td>{{ $entry->comment ?? '' }}</td>
+                                                                        <td>{{ $entry->status ?? '' }}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
 
 
                                     
@@ -3246,14 +3246,7 @@
                                                 <textarea class={{ $data->stage == 4 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny' : 'tiny-disable' }} name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-12 mb-3 warehouse">
-                                            <div class="group-input">
-                                                <label for="Warehouse Feedback">Warehouse Feedback</label>
-                                                <div><small class="text-primary">Please insert "NA" in the data field if
-                                                        it does not require completion</small></div>
-                                                <textarea class="tiny" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
-                                            </div>
-                                        </div> --}}
+                       
                             </div>
                         @else
                             <div class="col-md-12 mb-3 warehouse">
