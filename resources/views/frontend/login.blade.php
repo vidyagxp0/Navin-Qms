@@ -33,8 +33,13 @@
             text-decoration: none;
         }
 
+        /* ::placeholder {
+            color: black;
+        } */
+
         ::placeholder {
-            color: white;
+            color: #999; 
+            opacity: 1; 
         }
 
         .w-100 {
@@ -270,7 +275,7 @@
                 </div> --}}
                 <div class="group-input">
                     <label for="login"><i class="fa-solid fa-user"></i></label>
-                    <input type="text" name="login" placeholder="Enter Your Email or Emp_id">
+                    <input placeholder="Enter Your Email or Employee Id" type="text" name="login">
                 </div>
  
                 <div class="group-input">

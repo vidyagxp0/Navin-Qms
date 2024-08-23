@@ -442,7 +442,7 @@
                         </div>
                         </td>
                         <td>
-                       <div ><strong> Peformed By :</strong>{{$dataDemo->user_name ? $dataDemo->user_name  : "Not Applicable"}}</div>
+                       <div ><strong> Performed By :</strong>{{$dataDemo->user_name ? $dataDemo->user_name  : "Not Applicable"}}</div>
                       <div style="margin-top: 5px;">  <strong>Performed On :</strong>{{\Carbon\Carbon::parse($dataDemo->created_at)->format('d-M-Y h:i A') ? \Carbon\Carbon::parse($dataDemo->created_at)->format('d-M-Y h:i A')  : "Not Applicable"}}</div>
                        <div style="margin-top: 5px;"><strong> Comments :</strong>{{$dataDemo->comment ? $dataDemo->comment  : "Not Applicable"}}</div>
 
