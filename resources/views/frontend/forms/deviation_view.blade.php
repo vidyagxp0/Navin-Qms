@@ -12542,7 +12542,7 @@
       
         {{--New Addendum Tab  Start--}}
 
-<!-- <div id="CCForm12" class="inner-block cctabcontent">
+<div id="CCForm12" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="sub-head">
                         Addendum
@@ -12628,7 +12628,7 @@
                                 </button>
                         </div>
                     </div>
-</div> -->
+</div>
 
 {{--New Addendum Tab  end--}}
 

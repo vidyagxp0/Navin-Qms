@@ -144,10 +144,15 @@ class DeviationController extends Controller
         $deviation->Description_Deviation = implode($request->Description_Deviation);
 
         // $deviation->Related_Records1 =  implode(',', $request->related_records);
-        $deviation->addendum_objective = $request->addendum_objective;
         $deviation->Immediate_Action = implode($request->Immediate_Action);
         $deviation->Preliminary_Impact = implode( $request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
+
+        $deviation->addendum_objective = $request->addendum_objective;
+        $deviation->Addendum_Description_Deviation = implode($request->Addendum_Description_Deviation);
+        $deviation->Addendum_Immediate_Action = implode($request->Addendum_Immediate_Action);
+        $deviation->Addendum_Preliminary_Impact = implode( $request->Addendum_Preliminary_Impact);
+
 
         if($deviation->stage == 2){
             $deviation->HOD_Remarks = $request->HOD_Remarks;
@@ -1507,10 +1512,7 @@ class DeviationController extends Controller
         $deviation->Delay_Justification = $request->Delay_Justification;
         $deviation->audit_type = implode(',', $request->audit_type);
 
-        $deviation->others = $request->others;
-
-        //new field
-        $deviation->addendum_objective = $request->addendum_objective;
+       $deviation->others = $request->others; 
 
 
         $deviation->Description_Deviation = implode($request->Description_Deviation);
@@ -1524,6 +1526,11 @@ class DeviationController extends Controller
         $deviation->Preliminary_Impact = implode($request->Preliminary_Impact);
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
+//new fields
+$deviation->addendum_objective = $request->addendum_objective;
+$deviation->Addendum_Description_Deviation = $request->Addendum_Description_Deviation;
+$deviation->Addendum_Immediate_Action = $request->Addendum_Immediate_Action;
+$deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
 
         if($deviation->stage == 2){
             $deviation->HOD_Remarks = $request->HOD_Remarks;
