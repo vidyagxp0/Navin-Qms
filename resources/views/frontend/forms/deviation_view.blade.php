@@ -2086,6 +2086,7 @@
                                                             <td></td>
                                                         </tr>
                                                     </tbody> --}}
+                                                    
                                                 </table>
                                             </div>
                                         </div>
@@ -2125,11 +2126,9 @@
                                     <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
-
                                 </div>
                             </div>
                         </div>
-
 
                         <!-- ----------hod Review-------- -->
                         <div id="CCForm8" class="inner-block cctabcontent">
@@ -5594,7 +5593,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="group-input ">
-                                            <label for="Production Review Completed On">Production Review Completedss
+                                            <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
                                                 <input type="text" id="production_on" readonly
                                                 name="production_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -12543,7 +12542,7 @@
       
         {{--New Addendum Tab  Start--}}
 
-<div id="CCForm12" class="inner-block cctabcontent">
+<!-- <div id="CCForm12" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="sub-head">
                         Addendum
@@ -12570,9 +12569,9 @@
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
-                                                name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
+                                                name="Addendum_Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-1">{{ $data->Addendum_Description_Deviation }}</textarea>
                                         </div>
-                                        @error('Description_Deviation')
+                                        @error('Addendum_Description_Deviation')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -12586,10 +12585,10 @@
                                                 </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
+                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="summernote-3">{{ $data->Addendum_Preliminary_Impact }}</textarea>
                                         </div>
-                                        @error('Preliminary_Impact')
+                                        @error('Addendum_Preliminary_Impact')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -12602,10 +12601,10 @@
                                                 </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="summernote-2">{{ $data->Immediate_Action }}</textarea>
+                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="summernote-2">{{ $data->Addendum_Immediate_Action }}</textarea>
                                         </div>
-                                        @error('Immediate_Action')
+                                        @error('Addendum_Immediate_Action')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -12629,7 +12628,7 @@
                                 </button>
                         </div>
                     </div>
-</div>
+</div> -->
 
 {{--New Addendum Tab  end--}}
 

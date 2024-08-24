@@ -3112,7 +3112,7 @@ class DeviationController extends Controller
                 return back();
             }
             if ($deviation->stage == 3) {
-                if ($deviation->form_progress !== 'cft')
+                if ($deviation->form_progress !== 'qa')
                 {
                     Session::flash('swal', [
                         'type' => 'warning',
@@ -4793,7 +4793,7 @@ if($deviation->stage == 2){
     //             }
     //         }
     //     }
-    
+
     //     $deviation->update();
     //     toastr()->success('Document Sent');
     //     return back();
@@ -5353,6 +5353,7 @@ if($deviation->stage == 2){
                         }
                     }
                 }
+
                 $history->save();
 
                 toastr()->success('Document Sent');
@@ -5390,6 +5391,7 @@ if($deviation->stage == 2){
                 $history->user_name = Auth::user()->name;
                 $history->stage_id = $deviation->stage;
                 $history->status = "More Info Required";
+
                 foreach ($list as $u) {
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
@@ -5410,6 +5412,7 @@ if($deviation->stage == 2){
                         }
                     }
                 }
+
                 $history->save();
 
                 toastr()->success('Document Sent');
@@ -5676,6 +5679,7 @@ if($deviation->stage == 2){
 
         return view('frontend.forms.deviation_audit', compact('audit', 'document', 'today'));
     }
+
     public function rootAuditTrial($id)
     {
         $audit = RootAuditTrial::where('root_id', $id)->orderByDESC('id')->get()->unique('activity_type');
@@ -5694,6 +5698,7 @@ if($deviation->stage == 2){
         $doc->origiator_name = User::find($doc->initiator_id);
         return view('frontend.forms.audit-trial-deviation-inner', compact('detail', 'doc', 'detail_data'));
     }
+
     public static function singleReport($id)
     {
         $data = Deviation::find($id);
