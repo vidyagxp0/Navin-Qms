@@ -149,9 +149,9 @@ class DeviationController extends Controller
         $deviation->Product_Details_Required = $request->Product_Details_Required;
 
         $deviation->addendum_objective = $request->addendum_objective;
-        $deviation->Addendum_Description_Deviation = implode($request->Addendum_Description_Deviation);
-        $deviation->Addendum_Immediate_Action = implode($request->Addendum_Immediate_Action);
-        $deviation->Addendum_Preliminary_Impact = implode( $request->Addendum_Preliminary_Impact);
+        $deviation->Addendum_Description_Deviation = $request->Addendum_Description_Deviation;
+        $deviation->Addendum_Immediate_Action = $request->Addendum_Immediate_Action;
+        $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
 
 
         if($deviation->stage == 2){
@@ -3001,27 +3001,27 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 $history->save();
 
 
-                $list = Helpers::getHodUserList();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+                // $list = Helpers::getHodUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
 
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
-                            }
-                        }
-                    }
-                }
+                //             try {
+                //                 Mail::send(
+                //                     'mail.view-mail',
+                //                     ['data' => $deviation],
+                //                     function ($message) use ($email) {
+                //                         $message->to($email)
+                //                             ->subject("Activity Performed By " . Auth::user()->name);
+                //                     }
+                //                 );
+                //             } catch (\Exception $e) {
+                //                 //log error
+                //             }
+                //         }
+                //     }
+                // }
 
                 // $list = Helpers::getHeadoperationsUserList();
                 // foreach ($list as $u) {
@@ -3093,33 +3093,33 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 $history->save();
 
                 // dd($history->action);
-                $list = Helpers::getQAUserList();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
-                            }
-                        }
-                    }
-                }
+                // $list = Helpers::getQAUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
+                //             try {
+                //                 Mail::send(
+                //                     'mail.view-mail',
+                //                     ['data' => $deviation],
+                //                     function ($message) use ($email) {
+                //                         $message->to($email)
+                //                             ->subject("Activity Performed By " . Auth::user()->name);
+                //                     }
+                //                 );
+                //             } catch (\Exception $e) {
+                //                 //log error
+                //             }
+                //         }
+                //     }
+                // }
 
                 $deviation->update();
                 toastr()->success('Document Sent');
                 return back();
             }
             if ($deviation->stage == 3) {
-                if ($deviation->form_progress !== 'qa')
+                if ($deviation->form_progress !== 'cft')
                 {
                     Session::flash('swal', [
                         'type' => 'warning',
@@ -3167,26 +3167,26 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 $history->origin_state = $lastDocument->status;
                 $history->stage = 'Completed';
                 $history->save();
-                $list = Helpers::getQAUserList();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
-                            try {
-                                Mail::send(
-                                    'mail.view-mail',
-                                    ['data' => $deviation],
-                                    function ($message) use ($email) {
-                                        $message->to($email)
-                                            ->subject("Activity Performed By " . Auth::user()->name);
-                                    }
-                                );
-                            } catch (\Exception $e) {
-                                //log error
-                            }
-                        }
-                    }
-                }
+                // $list = Helpers::getQAUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
+                //             try {
+                //                 Mail::send(
+                //                     'mail.view-mail',
+                //                     ['data' => $deviation],
+                //                     function ($message) use ($email) {
+                //                         $message->to($email)
+                //                             ->subject("Activity Performed By " . Auth::user()->name);
+                //                     }
+                //                 );
+                //             } catch (\Exception $e) {
+                //                 //log error
+                //             }
+                //         }
+                //     }
+                // }
 
                 if ($request->Deviation_category == 'major' || $request->Deviation_category == 'minor' || $request->Deviation_category == 'critical') {
                     $list = Helpers::getHeadoperationsUserList();
@@ -3422,26 +3422,26 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                     $history->change_from = $lastDocument->status;
                     $history->stage = 'Complete';
                     $history->save();
-                    $list = Helpers::getQAUserList();
-                    foreach ($list as $u) {
-                        if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                            $email = Helpers::getInitiatorEmail($u->user_id);
-                            if ($email !== null) {
-                                try {
-                                    Mail::send(
-                                        'mail.view-mail',
-                                        ['data' => $deviation],
-                                        function ($message) use ($email) {
-                                            $message->to($email)
-                                                ->subject("Activity Performed By " . Auth::user()->name);
-                                        }
-                                    );
-                                } catch (\Exception $e) {
-                                    //log error
-                                }
-                            }
-                        }
-                    }
+                    // $list = Helpers::getQAUserList();
+                    // foreach ($list as $u) {
+                    //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                    //         $email = Helpers::getInitiatorEmail($u->user_id);
+                    //         if ($email !== null) {
+                    //             try {
+                    //                 Mail::send(
+                    //                     'mail.view-mail',
+                    //                     ['data' => $deviation],
+                    //                     function ($message) use ($email) {
+                    //                         $message->to($email)
+                    //                             ->subject("Activity Performed By " . Auth::user()->name);
+                    //                     }
+                    //                 );
+                    //             } catch (\Exception $e) {
+                    //                 //log error
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     $deviation->update();
                 }
                 toastr()->success('Document Sent');
