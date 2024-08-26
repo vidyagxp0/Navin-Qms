@@ -3435,7 +3435,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Sent for QA Head/Manager Designee Primary Approval'
+                        'message' => 'Pending Initiator Update'
                     ]);
 
                 } else {
@@ -3450,7 +3450,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
 
 
                 $deviation->stage = "6";
-                $deviation->status = "QA Head/Manager Designee Primary Approval";
+                $deviation->status = "Pending Initiator Update";
                 $deviation->QA_Final_Review_Complete_By = Auth::user()->name;
                 $deviation->QA_Final_Review_Complete_On = Carbon::now()->format('d-M-Y');
                 $deviation->QA_Final_Review_Comments = $request->comment;
@@ -3466,7 +3466,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
-                $history->change_to =   "QA Head/Manager Designee Primary Approval";
+                $history->change_to =   "Pending Initiator Update";
                 $history->change_from = $lastDocument->status;
                 $history->stage = 'QAH Primary Approved Completed'; 
                 $history->save();

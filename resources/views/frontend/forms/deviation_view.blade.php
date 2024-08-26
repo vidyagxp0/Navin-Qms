@@ -12535,7 +12535,7 @@
                                         </div>
                                         Save
                                     </button>
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
                                     <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white"> Exit </a>
@@ -12577,7 +12577,7 @@
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
-                                                name="Addendum_Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-1">{{ $data->Addendum_Description_Deviation }}</textarea>
+                                                name="Addendum_Description_Deviation"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>{{ $data->Addendum_Description_Deviation }}</textarea>
                                         </div>
                                         @error('Addendum_Description_Deviation')
                                             <div class="text-danger">{{ $message }}</div>
@@ -12593,8 +12593,8 @@
                                                 </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="summernote-3">{{ $data->Addendum_Preliminary_Impact }}</textarea>
+                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Preliminary_Impact" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="">{{ $data->Addendum_Preliminary_Impact }}</textarea>
                                         </div>
                                         @error('Addendum_Preliminary_Impact')
                                             <div class="text-danger">{{ $message }}</div>
@@ -12609,8 +12609,8 @@
                                                 </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="summernote-2">{{ $data->Addendum_Immediate_Action }}</textarea>
+                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Immediate_Action" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="">{{ $data->Addendum_Immediate_Action }}</textarea>
                                         </div>
                                         @error('Addendum_Immediate_Action')
                                             <div class="text-danger">{{ $message }}</div>
@@ -12622,7 +12622,7 @@
 
                             <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                 class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
-                                id="ChangesaveButton123">
+                                id="">
                                 <div class="spinner-border spinner-border-sm auditFormSpinner"
                                     style="display: none" role="status">
                                     <span class="sr-only">Loading...</span>
