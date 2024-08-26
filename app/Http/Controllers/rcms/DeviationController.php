@@ -1188,7 +1188,8 @@ class DeviationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 
+     *  the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -2179,30 +2180,6 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
 
 
         if($deviation->stage == 7){
-            $deviation->initiator_final_remarks = $request->initiator_final_remarks;
-            // dd($deviation->initiator_final_remarks);
-
-            $files = is_array($request->existing_initiator_final_attachments) ? $request->existing_initiator_final_attachments : [];
-            if (!empty ($request->initiator_final_attachments)) {
-                if ($deviation->initiator_final_attachments) {
-                    $existingFiles = json_decode($deviation->initiator_final_attachments, true); // Convert to associative array
-                    if (is_array($existingFiles)) {
-                        $files = $existingFiles;
-                    }
-                    // $files = is_array(json_decode($deviation->initiator_final_attachments)) ? $deviation->initiator_final_attachments : [];
-                }
-
-                if ($request->hasfile('initiator_final_attachments')) {
-                    foreach ($request->file('initiator_final_attachments') as $file) {
-                        $name = $request->name . 'initiator_final_attachments' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-            }
-            $deviation->initiator_final_attachments = json_encode($files);
-        }
-        if($deviation->stage == 8){
             $deviation->hod_final_remarks = $request->hod_final_remarks;
 
             $files = is_array($request->existing_hod_final_attachments) ? $request->existing_hod_final_attachments : [];
@@ -2225,7 +2202,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
             }
             $deviation->hod_final_attachments = json_encode($files);
         }
-        if($deviation->stage == 9){
+        if($deviation->stage == 8){
             $deviation->qa_final_remarks = $request->qa_final_remarks;
 
             $files = is_array($request->existing_qa_final_attachments) ? $request->existing_qa_final_attachments : [];
@@ -3518,117 +3495,25 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 return back();
             }
             if ($deviation->stage == 6) {
-
-                // if ($deviation->form_progress !== 'qah')
-                // {
-
-                //     Session::flash('swal', [
-                //         'title' => 'Mandatory Fields!',
-                //         'message' => 'QAH/Designee Approval Tab is yet to be filled!',
-                //         'type' => 'warning',
-                //     ]);
-
-                //     return redirect()->back();
-                // } else {
-                //     Session::flash('swal', [
-                //         'type' => 'success',
-                //         'title' => 'Success',
-                //         'message' => 'Deviation sent to Intiator Update'
-                //     ]);
-                // }
-
-                $extension = Extension::where('parent_id', $deviation->id)->first();
-
-                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
-
-                if ($extension && $extension->status !== 'Closed-Done') {
-                    Session::flash('swal', [
-                        'title' => 'Extension record pending!',
-                        'message' => 'There is an Extension record which is yet to be closed/done!',
-                        'type' => 'warning',
-                    ]);
-
-                    return redirect()->back();
+                if($deviation->Investigation_required == 'yes'){
+                    if ($deviation->investigation_attachment_need == null) {
+                        Session::flash('swal', [
+                            'title' => 'Mandatory Fields Required!',
+                            'message' => 'Investigation Attachment is yet to be filled!',
+                            'type' => 'warning',
+                        ]);
+    
+                        return redirect()->back();
+                    } else {
+                        Session::flash('swal', [
+                            'type' => 'success',
+                            'title' => 'Success',
+                            'message' => 'Sent for HOD Final Review state'
+                        ]);
+                    }
                 }
-
-                if ($rca && $rca->status !== 'Closed-Done') {
-                    Session::flash('swal', [
-                        'title' => 'RCA record pending!',
-                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
-                        'type' => 'warning',
-                    ]);
-
-                    return redirect()->back();
-                }
-
-                // return "PAUSE";
-
+                
                 $deviation->stage = "7";
-                $deviation->status = "Pending Initiator Update";
-                $deviation->Approved_By = Auth::user()->name;
-                $deviation->Approved_On = Carbon::now()->format('d-M-Y');
-                $deviation->Approved_Comments = $request->comment;
-
-                $history = new DeviationAuditTrail();
-                $history->deviation_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->action ='QAH Primary Approved Completed';
-                $history->current = $deviation->Approved_By;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->change_to =   "Pending Initiator Update";
-                $history->change_from = $lastDocument->status;
-                $history->stage = 'Completed';
-                $history->save();
-                // $list = Helpers::getQAUserList();
-                // foreach ($list as $u) {
-                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
-                //         $email = Helpers::getInitiatorEmail($u->user_id);
-                //         if ($email !== null) {
-                //             try {
-                //                 Mail::send(
-                //                     'mail.view-mail',
-                //                     ['data' => $deviation],
-                //                     function ($message) use ($email) {
-                //                         $message->to($email)
-                //                             ->subject("Activity Performed By " . Auth::user()->name);
-                //                     }
-                //                 );
-                //             } catch (\Exception $e) {
-                //                 //log error
-                //             }
-                //         }
-                //     }
-                // }
-                $deviation->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
-            if ($deviation->stage == 7) {
-
-                // Check HOD remark value
-                // if (!$deviation->initiator_final_remarks) {
-
-                //     Session::flash('swal', [
-                //         'title' => 'Mandatory Fields Required!',
-                //         'message' => 'Initiator Final Remarks is yet to be filled!',
-                //         'type' => 'warning',
-                //     ]);
-
-                //     return redirect()->back();
-                // } else {
-                //     Session::flash('swal', [
-                //         'type' => 'success',
-                //         'title' => 'Success',
-                //         'message' => 'Sent for HOD Final Review state'
-                //     ]);
-                // }
-
-                $deviation->stage = "8";
                 $deviation->status = "HOD Final Review";
                 $deviation->Approved_By = Auth::user()->name;
                 $deviation->Approved_On = Carbon::now()->format('d-M-Y');
@@ -3676,7 +3561,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 toastr()->success('Document Sent');
                 return back();
             }
-            if ($deviation->stage == 8) {
+            if ($deviation->stage == 7) {
                 // Check HOD remark value
                 if (!$deviation->hod_final_remarks) {
 
@@ -3695,7 +3580,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                     ]);
                 }
 
-                $deviation->stage = "9";
+                $deviation->stage = "8";
                 $deviation->status = "QA Final Review";
                 $deviation->Approved_By = Auth::user()->name;
                 $deviation->Approved_On = Carbon::now()->format('d-M-Y');
@@ -3741,7 +3626,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 toastr()->success('Document Sent');
                 return back();
             }
-            if ($deviation->stage == 9) {
+            if ($deviation->stage == 8) {
                 // Check HOD remark value
                 if (!$deviation->qa_final_remarks) {
 
@@ -3759,7 +3644,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                         'message' => 'Sent for QA Final Approval state'
                     ]);
                 }
-                $deviation->stage = "10";
+                $deviation->stage = "9";
                 $deviation->status = "QA Final Approval";
                 $deviation->Approved_By = Auth::user()->name;
                 $deviation->Approved_On = Carbon::now()->format('d-M-Y');
@@ -3808,7 +3693,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
             }
 
 
-            if ($deviation->stage == 10) {
+            if ($deviation->stage == 9) {
 
                 // Check HOD remark value
                 if (!$deviation->Closure_Comments) {
@@ -3833,9 +3718,84 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                     Session::flash('swal', [
                         'type' => 'success',
                         'title' => 'Success',
-                        'message' => 'Sent for Closed - Done state'
+                        'message' => 'Sent for QA Head/Manager Designee Primary Approval'
                     ]);
                 }
+
+                $extension = Extension::where('parent_id', $deviation->id)->first();
+
+                $rca = RootCauseAnalysis::where('parent_record', str_pad($deviation->id, 4, 0, STR_PAD_LEFT))->first();
+
+                if ($extension && $extension->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'Extension record pending!',
+                        'message' => 'There is an Extension record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                if ($rca && $rca->status !== 'Closed-Done') {
+                    Session::flash('swal', [
+                        'title' => 'RCA record pending!',
+                        'message' => 'There is an Root Cause Analysis record which is yet to be closed/done!',
+                        'type' => 'warning',
+                    ]);
+
+                    return redirect()->back();
+                }
+
+                // return "PAUSE";
+
+                $deviation->stage = "10";
+                $deviation->status = "QA Head/Manager Designee Primary Approval";
+                $deviation->Approved_By = Auth::user()->name;
+                $deviation->Approved_On = Carbon::now()->format('d-M-Y');
+                $deviation->Approved_Comments = $request->comment;
+
+                $history = new DeviationAuditTrail();
+                $history->deviation_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->action ='QA Final Approval Complete';
+                $history->current = $deviation->Approved_By;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "QA Head/Manager Designee Primary Approval";
+                $history->change_from = $lastDocument->status;
+                $history->stage = 'Completed';
+                $history->save();
+                // $list = Helpers::getQAUserList();
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $deviation->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
+                //             try {
+                //                 Mail::send(
+                //                     'mail.view-mail',
+                //                     ['data' => $deviation],
+                //                     function ($message) use ($email) {
+                //                         $message->to($email)
+                //                             ->subject("Activity Performed By " . Auth::user()->name);
+                //                     }
+                //                 );
+                //             } catch (\Exception $e) {
+                //                 //log error
+                //             }
+                //         }
+                //     }
+                // }
+                $deviation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+            if ($deviation->stage == 10) {
+
 
                 $extension = Extension::where('parent_id', $deviation->id)->first();
 
@@ -3873,7 +3833,7 @@ $deviation->Addendum_Preliminary_Impact = $request->Addendum_Preliminary_Impact;
                 $history->deviation_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous = "";
-                $history->action ='QA Final Approval Complete';
+                $history->action ='QAH Primary Approved Completed';
                 $history->current = $deviation->Approved_By;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -4410,8 +4370,8 @@ if($deviation->stage == 2){
         // });
 
 
-       if($deviation->stage == 8){
-        $deviation->stage = "7";
+       if($deviation->stage == 7){
+        $deviation->stage = "6";
         $deviation->status = "Pending Initiator Update";
         $deviation->qa_more_info_required_by = Auth::user()->name;
         $deviation->qa_more_info_required_on = Carbon::now()->format('d-M-Y');
@@ -4594,7 +4554,7 @@ if($deviation->stage == 2){
 
     }
 
-    if($deviation->stage == 7){
+    if($deviation->stage == 6){
 
         $deviation->stage = "1";
         $deviation->status = "Opened";
@@ -4622,7 +4582,7 @@ if($deviation->stage == 2){
     }
 
 
-    if($deviation->stage == 8){
+    if($deviation->stage == 7){
 
         $deviation->stage = "1";
         $deviation->status = "Opened";
@@ -4956,7 +4916,7 @@ if($deviation->stage == 2){
             }
     
             // Update deviation status and stage
-            if ($deviation->stage == 5 || $deviation->stage == 7 || $deviation->stage == 9 || $deviation->stage == 10) {
+            if ($deviation->stage == 5 || $deviation->stage == 6 || $deviation->stage == 8 || $deviation->stage == 9) {
                 $deviation->stage = "2";
                 $deviation->status = "HOD Review";
                 $deviation->qa_more_info_required_by = Auth::user()->name;
@@ -5185,7 +5145,7 @@ if($deviation->stage == 2){
             }
 
             // Handle stage changes and notifications
-            if ($deviation->stage == 5 || $deviation->stage == 7 || $deviation->stage == 10) {
+            if ($deviation->stage == 5 || $deviation->stage == 6 || $deviation->stage == 9) {
                 $deviation->stage = "3";
                 $deviation->status = "QA Initial Review";
                 $deviation->qa_more_info_required_by = Auth::user()->name;
@@ -5503,9 +5463,9 @@ if($deviation->stage == 2){
                 return back();
             }
 
-            if ($deviation->stage == 6) {
-                $deviation->stage = "5";
-                $deviation->status = "QA Secondary Review";
+            if ($deviation->stage == 10) {
+                $deviation->stage = "9";
+                $deviation->status = "QA Final Review";
                 $deviation->form_progress = 'capa';
 
                 $deviation->qa_head_more_info_required_by = Auth::user()->name;
@@ -5523,8 +5483,8 @@ if($deviation->stage == 2){
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
-                $history->stage = 'QA Secondary Review';
-                $history->change_to =   "QA Secondary Review";
+                $history->stage = 'QA Final Review';
+                $history->change_to =   "QA Final Review";
                 $history->change_from = $lastDocument->status;
                 $history->action = 'More Info Required';
             

@@ -824,7 +824,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="facility">Deviation Observed By</label>
-                                        <input type="text" name="Facility" id="deviation_observed_by" placeholder="Enter Facility Name">
+                                        <input type="text" name="Facility" id="deviation_observed_by" placeholder="Enter the name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
