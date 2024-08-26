@@ -184,7 +184,7 @@
     outline: none;
     background: #eceff5;
     color: #1b1a1a;
-    padding: 5px;;
+    padding: 5px;
         }
 
         #rcms_login_block input[type="submit"] {
@@ -223,6 +223,10 @@
         }
         .red-text {
             color: rgb(228, 11, 11);
+        }
+        ::placeholder {
+            color: #999; 
+            opacity: 1; 
         }
        
     </style>

@@ -563,7 +563,7 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">QA Initial Review</button>
                 <button class="cctablinks " onclick="openCity(event, 'CCForm7')">CFT</button>
-                <button class="cctablinks " id="Investigation_button" style="display: none"
+                <button class="cctablinks " id="" style=""
                     onclick="openCity(event, 'CCForm9')">Investigation</button>
                <button id="QRM_button" class="cctablinks" 
                     onclick="openCity(event, 'CCForm115')">QA Secondary Review</button>
@@ -4030,686 +4030,237 @@
                     </div>
 
 
+
+
                     <!-- investigation -->
-                    <div id="CCForm9" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Investigation Summary">Description of Event</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                                not require completion</small></div>
-                                        <textarea class="tiny-disable" name="Discription_Event" id="summernote-8">
-                                </textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Impact Assessment">Objective</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                                not require completion</small></div>
-                                        <textarea class="tiny-disable" name="objective" id="summernote-9">
-                                </textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Root Cause">Scope</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                                not require completion</small></div>
-                                        <textarea class="tiny-disable" name="scope" id="summernote-10">
-                                </textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Root Cause">Immediate Action</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                                not require completion</small></div>
-                                        <textarea class="tiny-disable" name="imidiate_action" id="summernote-10">
-                                </textarea>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-12">
-                                    <div class="group-input" id="documentsRowna">
-                                        <label for="audit-agenda-grid">
-                                            Investigation team and Responsibilities
-                                            <button type="button" name="audit-agenda-grid"
-                                                id="investigation_Details">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#investigationn-team-responsibilities"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="investigation_Details_Details"
-                                                style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 12%">Investigation Team</th>
-                                                        <th style="width: 16%">Responsibility</th>
-                                                        <th style="width: 16%">Remarks</th>
-                                                        <th style="width: 8%">Action</th>
-
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <td><input disabled type="text" name="serial[]" value="1">
-                                                    </td>
-                                                    <td> <select name="Investigation_team[]" id="">
-                                                            <option value="">-- Select --</option>
-                                                            <option value="">name</option>
-                                                        </select> </td>
-                                                    <td><input type="text" class="numberDetail"
-                                                            name="Responsibility[]"></td>
-                                                    <td><input type="text" class="Document_Remarks"
-                                                            name="Remarks[]"></td>
-                                                    <td><input type="text" class="Action" name="Action[]"></td>
-
-
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                    {{-- @error('Product_Batch')
-                                    <div class="text-danger">{{ $message  }}</div>
-                                @enderror --}}
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="audit type">Investigation Approach </label>
-                                        <select multiple name="investigation_approach[]" id="investigation_approach">
-                                            {{-- <option value="">Enter Your Selection Here</option> --}}
-                                            <option value="Why-Why Chart">Why-Why Chart</option>
-                                            <option value="Failure Mode and Efect Analysis">Failure Mode and Efect
-                                                Analysis</option>
-                                            <option value="Fishbone or Ishikawa Diagram">Fishbone or Ishikawa Diagram
-                                            </option>
-                                            <option value="Is/Is Not Analysis">Is/Is Not Analysis</option>
-                                            <option value="Brainstorming">Brainstorming</option>
-
-
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-lg-12">
-                                    <div class="group-input" id="documentsRowname">
-                                        <label for="audit-agenda-grid">
-                                            Root Cause
-                                            <button type="button" name="audit-agenda-grid"
-                                                id="root_cause_Details">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#root-cause"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="Root_cause_Details_Details"
-                                                style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th id="Root_Cause_Category" style="width: 12%">Root Cause
-                                                            Category</th>
-                                                        <th style="width: 16%" id="Root_Cause_Sub_Category">Root Cause
-                                                            Sub-Category</th>
-                                                        <th style="width: 16%">If Others</th>
-
-                                                        <th style="width: 16%"> Probability</th>
-                                                        <th style="width: 16%"> Remarks</th>
-
-                                                        <th style="width: 8%">Action</th>
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <td><input disabled type="text" name="serial[]" value="1">
-                                                    </td>
-                                                    {{-- <td> <select name="Root_Cause_Category[]" id=""> <option value="">-- Select --</option><option value="">name   </option> </select></td> --}}
-                                                    {{-- <td><select name="Root_Cause_Sub-Category[]" id=""><option value="">-- Select --</option><option value="">name</option>  </select></td> --}}
-                                                    <td>
-
-                                                        <select name="Root_Cause_Category[]"
-                                                            id="Root_Cause_Category_Select">
-                                                            <option value="">-- Select --</option>
-
-                                                            <option value="M-Machine(Equipment)">M-Machine(Equipment)
-                                                            </option>
-                                                            <option value="">M-Maintenance</option>
-                                                            <option value="">M-Man Power (physical work)</option>
-                                                            <option value="">M-Management</option>
-                                                            <option value="">M-Material (Raw,Consumables etc.)
-                                                            </option>
-                                                            <option value="">M-Method (Process/Inspection)</option>
-                                                            <option value="">M-Mother Nature (Environment)</option>
-                                                            <option value="">P-Place/Plant</option>
-                                                            <option value="">P-Policies</option>
-                                                            <option value="">P-Price </option>
-                                                            <option value="">P-Procedures</option>
-                                                            <option value="">P-Process </option>
-                                                            <option value="">P-Product</option>
-                                                            <option value="">S-Suppliers</option>
-                                                            <option value="">S-Surroundings</option>
-                                                            <option value="">S-Systems</option>
-
-                                                        </select>
-                                                    </td>
-                                                    <td> <select name="Root_Cause_Sub_Category[]"
-                                                            id="Root_Cause_Sub_Category_Select">
-                                                            <option value="">-- Select --</option>
-
-                                                            <option value="Poor_Maintenance_or_Design">Infrequent Audits
-                                                            </option>
-                                                            <option value="No_Preventive_Maintenance">No Preventive
-                                                                Maintenance </option>
-                                                            <option value="Other">Other</option>
-                                                            <option value="Poor_Maintenance_or_Design">Poor Maintenance or
-                                                                Design </option>
-                                                            <option value="Maintenance_Needs_Improvement">Maintenance
-                                                                Needs Improvement </option>
-                                                            <option value="Scheduling_Problem">Scheduling Problem
-                                                            </option>
-                                                            <option value="system_deficiency">System Deficiency </option>
-                                                            <option value="">Technical Error </option>
-                                                            <option value="">Tolerable Failure </option>
-                                                            <option value="">Calibration Issues </option>
-
-                                                            <option value="Infrequent_Audits">Infrequent Audits</option>
-                                                            <option value="No_Preventive_Maintenance">No Preventive
-                                                                Maintenance </option>
-                                                            <option value="Other">Other</option>
-                                                            <option value="Maintenance_Needs_Improvement">Maintenance
-                                                                Needs Improvement</option>
-                                                            <option value="">Scheduling Problem </option>
-                                                            <option value="">System Deficiency </option>
-                                                            <option value="">Technical Error </option>
-                                                            <option value="">Tolerable Failure </option>
-
-
-                                                            <option value="Failure_to_Follow_SOP">Failure to Follow SOP
-                                                            </option>
-                                                            <option value="Human_Machine_Interface">Human-Machine
-                                                                Interface</option>
-                                                            <option value="Misunderstood_Verbal_Communication">
-                                                                Misunderstood Verbal Communication </option>
-                                                            <option value="Other">Other</option>
-                                                            <option value="">Personnel Error</option>
-                                                            <option value="">Personnel not Qualified</option>
-                                                            <option value="">Practice Needed</option>
-                                                            <option value="">Teamwork Needs Improvement</option>
-                                                            <option value="">Attention</option>
-                                                            <option value="">Understanding</option>
-                                                            <option value="">Procedural</option>
-                                                            <option value="">Behavioral</option>
-                                                            <option value="">Skill</option>
-
-                                                            <option value="">Inattention to task</option>
-                                                            <option value="">Lack of Process</option>
-                                                            <option value="">Methods</option>
-                                                            <option value="">No or poor management involvement
-                                                            </option>
-                                                            <option value="">Other</option>
-                                                            <option value="">Personnel not Qualified</option>
-
-
-
-                                                        </select></td>
-                                                    <td><input type="text" class="Document_Remarks"
-                                                            name="ifother[]"></td>
-                                                    <td><input type="text" class="Document_Remarks"
-                                                            name="Probability[]"></td>
-                                                    <td><input type="text" class="Document_Remarks"
-                                                            name="remarks[]"></td>
-                                                    <td><input type="text" class="Removebtn" name="Action[]"></td>
-
-
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                    {{-- @error('Product_Batch')
-                                <div class="text-danger">{{ $message  }}</div>
-                            @enderror --}}
-                                </div>
-
-
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="fishbone">
-                                            Fishbone or Ishikawa Diagram
-                                            <button type="button" name="agenda"
-                                                onclick="addFishBone('.top-field-group', '.bottom-field-group')">+</button>
-                                            <button type="button" name="agenda" class="fishbone-del-btn"
-                                                onclick="deleteFishBone('.top-field-group', '.bottom-field-group')">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#fishbone-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="fishbone-ishikawa-diagram">
-                                            <div class="left-group">
-                                                <div class="grid-field field-name">
-                                                    <div>Measurement</div>
-                                                    <div>Materials</div>
-                                                    <div>Methods</div>
-                                                </div>
-                                                <div class="top-field-group">
-                                                    <div class="grid-field fields top-field">
-                                                        <div><input type="text" name="measurement[]"></div>
-                                                        <div><input type="text" name="materials[]"></div>
-                                                        <div><input type="text" name="methods[]"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="mid"></div>
-                                                <div class="bottom-field-group">
-                                                    <div class="grid-field fields bottom-field">
-                                                        <div><input type="text" name="environment[]"></div>
-                                                        <div><input type="text" name="manpower[]"></div>
-                                                        <div><input type="text" name="machine[]"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="grid-field field-name">
-                                                    <div>Environment</div>
-                                                    <div>Manpower</div>
-                                                    <div>Machine</div>
-                                                </div>
-                                            </div>
-                                            <div class="right-group">
-                                                <div class="field-name">
-                                                    Problem Statement
-                                                </div>
-                                                <div class="field">
-                                                    <textarea name="problem_statement"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
-                                            Why-Why Chart
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#why_chart-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <tbody>
-                                                    <tr style="background: #f4bb22">
-                                                        <th style="width:150px;">Problem Statement :</th>
-                                                        <td>
-                                                            <textarea name="why_problem_statement"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 1 <span
-                                                                onclick="addWhyField('why_1_block', 'why_1[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="col-md-10 why_1_block">
-                                                                <textarea name="why_1[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 2 <span
-                                                                onclick="addWhyField('why_2_block', 'why_2[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_2_block">
-                                                                <textarea name="why_2[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 3 <span
-                                                                onclick="addWhyField('why_3_block', 'why_3[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_3_block">
-                                                                <textarea name="why_3[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 4 <span
-                                                                onclick="addWhyField('why_4_block', 'why_4[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_4_block">
-                                                                <textarea name="why_4[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="why-row">
-                                                        <th style="width:150px; color: #393cd4;">
-                                                            Why 5 <span
-                                                                onclick="addWhyField('why_5_block', 'why_5[]')">+</span>
-                                                        </th>
-                                                        <td>
-                                                            <div class="why_5_block">
-                                                                <textarea name="why_5[]"></textarea>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="background: #0080006b;">
-                                                        <th style="width:150px;">Root Cause :</th>
-                                                        <td>
-                                                            <textarea name="root-cause"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sub-head"></div>
-                                <script>
-                                    $(document).ready(function() {
-                                        $('#Root_Cause_Category_Select').change(function() {
-                                            console.log('change')
-                                            var selectedCategory = $(this).val();
-                                            var subCategorySelect = $('#Root_Cause_Sub_Category_Select');
-
-                                            // Clear existing options
-                                            subCategorySelect.empty();
-
-                                            // Populate options based on selected category
-                                            if (selectedCategory === 'M-Machine(Equipment)') {
-                                                subCategorySelect.append(
-                                                '<option value="Infrequent_Audits">Infrequent Audits</option>');
-                                                subCategorySelect.append(
-                                                    '<option value="No_Preventive_Maintenance">No Preventive Maintenance</option>');
-                                                subCategorySelect.append('<option value="Other">Other</option>');
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-                                                subCategorySelect.append(
-                                                    '<option value="Poor_Maintenance_or_Design">Poor Maintenance or Design</option>'
-                                                    );
-
-                                            } else if (selectedCategory === 'M-Maintenance') {
-                                                subCategorySelect.append(
-                                                '<option value="Infrequent_Audits">Infrequent Audits</option>');
-                                                subCategorySelect.append(
-                                                    '<option value="No_Preventive_Maintenance">No Preventive Maintenance</option>');
-                                                subCategorySelect.append('<option value="Other">Other</option>');
-                                                subCategorySelect.append(
-                                                    '<option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option>'
-                                                    );
-                                            } else if (selectedCategory === 'M-Man Power (physical work)') {
-                                                subCategorySelect.append(
-                                                    '<option value="Failure_to_Follow_SOP">Failure to Follow SOP</option>');
-                                                subCategorySelect.append(
-                                                    '<option value="Human_Machine_Interface">Human-Machine Interface</option>');
-                                                subCategorySelect.append(
-                                                    '<option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication</option>'
-                                                    );
-                                                subCategorySelect.append('<option value="Other">Other</option>');
-                                            }
-                                        });
-                                    });
-                                </script>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
-                                            Category Of Human Error
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#is_is_not-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:7%;">Row #</th>
-                                                        <th style="width:15%;">Gap Category</th>
-
-                                                        <th>Issues</th>
-                                                        <th>Actions</th>
-                                                        <th>Remarks</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            {{-- <input disabled type="text"  value=""> --}}
-                                                            1
-                                                        </td>
-                                                        <th style="background: ">Attention</th>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="attention_issues"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="attention_actions"></textarea>
-                                                        </td>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="attention_remarks"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            2
-                                                        </td>
-                                                        <th>Understanding</th>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="understanding_issues"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="understanding_actions"></textarea>
-                                                        </td>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="understanding_remarks"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            3
-                                                        </td>
-                                                        <th>Procedural</th>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="procedural_issues"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="procedural_actions"></textarea>
-                                                        </td>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="procedural_remarks"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            4
-                                                        </td>
-                                                        <th>Behavioral</th>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="behavioiral_issues"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="behavioiral_actions"></textarea>
-                                                        </td>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="behavioiral_remarks"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            5
-                                                        </td>
-                                                        <th>Skill</th>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="skill_issues"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="skill_actions"></textarea>
-                                                        </td>
-                                                        <td style="background: rgb(222 220 220 / 58%)">
-                                                            <textarea name="skill_remarks"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sub-head"></div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="why-why-chart">
-                                            Is/Is Not Analysis
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#is_is_not-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400;">
-                                                (Launch Instruction)
-                                            </span>
-                                        </label>
-                                        <div class="why-why-chart">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>&nbsp;</th>
-                                                        <th>Will Be</th>
-                                                        <th>Will Not Be</th>
-                                                        <th>Rationale</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th style="background: rgb(222 220 220 / 58%)">What</th>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: rgb(222 220 220 / 58%)">Where</th>
-                                                        <td>
-                                                            <textarea name="where_will_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="where_will_not_be"></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea name="where_rationable"></textarea>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background: rgb(222 220 220 / 58%)">When</th>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background:rgb(222 220 220 / 58%)">Coverage</th>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="background:rgb(222 220 220 / 58%)">Who</th>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+        <div id="CCForm9" class="inner-block cctabcontent">
+            <div class="inner-block-content">
+                <div class="row">
+                    {{--@if($investigationExtension && $investigationExtension->investigation_proposed_due_date)
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Proposed Due Date">Proposed Due Date</label>
+                                <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" value="{{ Helpers::getdateFormat($investigationExtension->investigation_proposed_due_date) }}" disabled>
                             </div>
+                        </div>
+                    @else
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Proposed Due Date">Proposed Due Date</label>
+                                <input name="investigation_proposed_due_date" id="investigation_proposed_due_date" placeholder="Deviation Proposed Due Date"  disabled>
+                            </div>  
 
-                            <div class="button-block">
-                                <button type="submit" class="saveButton" style=" justify-content: center; width: 4rem; margin-left: auto;">Save</button>
-                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
-                                    <button type="button" class="backButton" >Back</button>
-                                </a>
-                                <button type="button" class="nextButton" style=" justify-content: center; width: 4rem; margin-left: auto;" onclick="nextStep()">Next</button>
-                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                        Exit </a> </button>
-                                        {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
-                                        class="button  launch_extension" data-bs-toggle="modal"
-                                        data-bs-target="#launch_extension">
-                                        Launch Extension
-                                    </a> --}}
-                                    {{-- <a type="button" class="button  launch_extension" data-bs-toggle="modal"
-                                        data-bs-target="#effectivenss_extension">
-                                        Launch Effectiveness Check
-                                    </a> --}}
+                            Investigation summary, root cause, impact assessment, corrective & preventive actions, Investigation HOD remarks, Investigation QA remarks.
+
+                        </div>
+                    @endif --}}
+
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Investigation Summary">Investigation summary</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea class="tiny" name="Discription_Event" id="summernote-8"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Impact Assessment">Impact Assessment</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea class="tiny" name="objective" id="summernote-9"></textarea>
+                        </div>
+                    </div>
+                    
+{{-- grid--}}
+<div class="col-lg-12">
+                        <div class="group-input" id="documentsRowname" >
+                            <label for="audit-agenda-grid">
+                              Root Cause
+                                <button type="button" name="audit-agenda-grid"
+                                    id="root_cause_Details">+</button>
+                                <span class="text-primary" data-bs-toggle="modal"
+                                    data-bs-target="#root-cause"
+                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    (Launch Instruction)
+                                </span>
+                            </label>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="Root_cause_Details_Details"
+                                    style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 4%">Row#</th>
+                                            <th style="width: 12%">	Root Cause Category</th>
+                                            <th style="width: 16%">Root Cause Sub-Category</th>
+                                            <th style="width: 16%">If Others</th>
+
+                                            <th style="width: 16%">	Probability</th>
+                                            <th style="width: 16%">	Remarks</th>
+
+                                            <th style="width: 8%">Action</th>
+
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    
+                                        
+                                        
+                                            <td><input disabled type="text" name="rootCause[0][serial]" value="1"></td>
+                                            <td><select name="rootCause[0][Root_Cause_Category]" id="Root_Cause_Category_Select" class="Root_Cause_Category_Select">
+                                                <option value="">-- Select --</option>
+
+                                                <option value="M-Machine(Equipment)">M-Machine(Equipment)</option>
+                                                <option value="M-Maintenance">M-Maintenance</option>
+                                                <option value="M-Man Power (physical work)">M-Man Power (physical work)</option>
+                                                <option value="M-Management">M-Management</option>
+                                                <option value="M-Material (Raw,Consumables etc.)">M-Material (Raw,Consumables etc.)</option>
+                                                <option value="M-Method (Process/Inspection)">M-Method (Process/Inspection)</option>
+                                                <option value="M-Mother Nature (Environment)">M-Mother Nature (Environment)</option>
+                                                <option value="P-Place/Plant">P-Place/Plant</option>
+                                                <option value="P-Policies">P-Policies</option>
+                                                <option value="P-Price">P-Price </option>
+                                                <option value="P-Procedures">P-Procedures</option>
+                                                <option value="P-Process">P-Process </option>
+                                                <option value="P-Product">P-Product</option>
+                                                <option value="S-Suppliers">S-Suppliers</option>
+                                                <option value="S-Surroundings">S-Surroundings</option>
+                                                <option value="S-Systems">S-Systems</option>
+
+                                            </select></td>
+                                            <td><select name="rootCause[0][Root_Cause_Sub_Category]" id="Root_Cause_Sub_Category_Select" class="Root_Cause_Sub_Category_Select">
+                                                <option value="">-- Select --</option>
+
+                                                <option value="infrequent_audits">Infrequent Audits </option>
+                                                <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
+                                                <option value="Other">Other</option>
+                                                <option value="Poor_Maintenance_or_Design">Poor Maintenance or Design </option>
+                                                <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement </option>
+                                                <option value="Scheduling_Problem">Scheduling Problem </option>
+                                                <option value="system_deficiency">System Deficiency </option>
+                                                <option value="technical_error">Technical Error </option>
+                                                <option value="tolerable_failure">Tolerable Failure </option>
+                                                <option value="calibration_issues">Calibration Issues </option>
+
+                                                <option value="Infrequent_Audits">Infrequent Audits</option>
+                                                <option value="No_Preventive_Maintenance">No Preventive Maintenance </option>
+                                                <option value="Other">Other</option>
+                                                <option value="Maintenance_Needs_Improvement">Maintenance Needs Improvement</option>
+                                                <option value="Scheduling_Problem ">Scheduling Problem </option>
+                                                <option value="System_Deficiency">System Deficiency </option>
+                                                <option value="Technical_Error ">Technical Error </option>
+                                                <option value="Tolerable_Failure">Tolerable Failure </option>
+
+
+                                                <option value="Failure_to_Follow_SOP">Failure to Follow SOP</option>
+                                                <option value="Human_Machine_Interface">Human-Machine Interface</option>
+                                                <option value="Misunderstood_Verbal_Communication">Misunderstood Verbal Communication </option>
+                                                <option value="Other">Other</option>
+                                                <option value="Personnel Error">Personnel Error</option>
+                                                <option value="Personnel not Qualified">Personnel not Qualified</option>
+                                                <option value="Practice Needed">Practice Needed</option>
+                                                <option value="Teamwork Needs Improvement">Teamwork Needs Improvement</option>
+                                                <option value="Attention">Attention</option>
+                                                <option value="Understanding">Understanding</option>
+                                                <option value="Procedural">Procedural</option>
+                                                <option value="Behavioral">Behavioral</option>
+                                                <option value="Skill">Skill</option>
+
+                                                <option value="Inattention to task">Inattention to task</option>
+                                                <option value="Lack of Process">Lack of Process</option>
+                                                <option value="Methods">Methods</option>
+                                                <option value="No or Poor Management Involvement">No or Poor Management Involvement</option>
+                                                <option value="Other">Other</option>
+                                                <option value="Personnel not Qualified">Personnel not Qualified</option>
+                                                <option value="Poor employee involvement">Poor employee involvement</option>
+                                                <option value="Poor recognition of hazard">Poor recognition of hazard</option>
+                                                <option value="Previously identified hazards were not eliminated">Previously identified hazards were not eliminated</option>
+                                                <option value="Stress demands">Stress demands</option>
+                                                <option value="Task hazards not guarded properly">Task hazards not guarded properly</option>
+                                                <option value="Personnel not Qualified">Personnel not Qualified</option>
+
+                                            </select></td>
+                                            <td><input type="text" class="Document_Remarks" name="rootCause[0][ifother]"></td>
+                                            <td><input type="text" class="Document_Remarks" name="rootCause[0][probability]"></td>
+                                            <td><input type="text" class="Document_Remarks" name="rootCause[0][remarks]"></td>
+                                        
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Root Cause">Corrective & Preventive Actions</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea class="tiny" name="scope" id="summernote-10"></textarea>
+                        </div>
+                    </div>
+                    {{-- <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Root Cause">Investigation HOD remarks</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea class="tiny" name="imidiate_action" id="summernote-10"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Root Cause">Investigation QA remarks</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea class="tiny" name="imidiate_action1" id="summernote-10"></textarea>
+                        </div>
+                    </div> --}}
+              
+                                <input id="InvestigationFile" type="hidden" name="existing_investigation_attachment_need" value="">
+                        <div class="col-lg-12">
+                            <div class="group-input">
+                                <label for="Inv Attachments">Investigation Attachments</label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small></div>
+                                <div class="file-attachment-field">
+                                    <div disabled class="file-attachment-list" id="investigation_attachment_need">
+                                        
+                                    </div>
+                                    <div class="add-btn">
+                                        <div>Add</div>
+                                        <input
+                                            type="file" id="HOD_Attachments"
+                                            name="investigation_attachment_need[]" 
+                                            oninput="addMultipleFiles(this, 'investigation_attachment_need')" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+
+                </div>
+
+                <div class="button-block">
+                    <button  type="submit"
+                                        id="" class="saveButton saveAuditFormBtn d-flex"
+                                        style="align-items: center;">
+                                        <div class="spinner-border spinner-border-sm auditFormSpinner"
+                                            style="display: none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save
+                                    </button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
+                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
+            </div>
+        </div>
 
 
                     {{-- -------------QRM----------------- --}}
@@ -5448,7 +4999,7 @@
                                         <label for="Description Deviation">Description of Deviation</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Description_Deviation[]" id="summernote-1">
+                                        <textarea class="tiny" name="Description_Deviation[]" id="">
                                     </textarea>
                                     </div>
                                     @error('Description_Deviation[]')
@@ -5462,7 +5013,7 @@
                                         <label for="Immediate Action">Immediate Action (if any)</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Immediate_Action[]" id="summernote-2">
+                                        <textarea class="tiny" name="Immediate_Action[]" id="">
                                     </textarea>
                                     </div>
                                     @error('record')
@@ -5475,7 +5026,7 @@
                                         <label for="Preliminary Impact">Preliminary Impact of Deviation </label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does
                                                 not require completion</small></div>
-                                        <textarea class="tiny" name="Preliminary_Impact[]" id="summernote-3">
+                                        <textarea class="tiny" name="Preliminary_Impact[]" id="">
                                     </textarea>
                                     </div>
                                     @error('Preliminary_Impact')
