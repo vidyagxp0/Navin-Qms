@@ -1996,7 +1996,7 @@
                                                             <th>Email</th>
                                                             <th>More Info Required On</th>
                                                             <th>Comment</th>
-                                                            <th>Status</th>
+                                                            <!-- <th>Status</th> -->
                                                         </tr>
                                                     </thead>
                                     
@@ -2005,12 +2005,12 @@
                                                             @if (!empty($log->data))
                                                                 @foreach ($log->data as $entry)
                                                                     <tr>
-                                                                        <td>{{ $log->identifier }}</td>
+                                                                        <!-- <td>{{ $log->identifier }}</td> -->
+                                                                        <td>{{ $entry->status ?? '' }}</td>
                                                                         <td>{{ $entry->name ?? '' }}</td>
                                                                         <td>{{ $entry->email ?? '' }}</td>
                                                                         <td>{{ $entry->date ?? '' }}</td>
                                                                         <td>{{ $entry->comment ?? '' }}</td>
-                                                                        <td>{{ $entry->status ?? '' }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @endif
