@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('deviations', function (Blueprint $table) {
-            $table->longText('addendum_objective')->nullable();
             $table->longText('Addendum_Description_Deviation')->nullable();
             $table->longText('Addendum_Preliminary_Impact')->nullable();
             $table->longText('Addendum_Immediate_Action')->nullable();
