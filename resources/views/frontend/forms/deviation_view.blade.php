@@ -669,14 +669,8 @@
                             {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                 Child
                             </button> --}}
-                        @elseif($data->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
-                                More Info Required
-                            </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                                QAH Primary Approved Completed
-                            </button>
-                        @elseif($data->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                
+                        @elseif($data->stage == 6 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
@@ -689,7 +683,7 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Initiator Updated Complete
                             </button>
-                            @elseif($data->stage == 8 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            @elseif($data->stage == 7 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
@@ -699,7 +693,7 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             HOD Final Review Complete
                             </button>
-                        @elseif($data->stage == 9 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                        @elseif($data->stage == 8 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
@@ -712,7 +706,7 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 QA Final Review Complete
                             </button>
-                        @elseif($data->stage == 10 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                        @elseif($data->stage == 9 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Opened
                             </button>
@@ -727,6 +721,13 @@
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             QA Final Approval Complete
+                            </button>
+                        @elseif($data->stage == 10 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                                More Info Required
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                QAH Primary Approved Completed
                             </button>
                         
                         @endif
@@ -776,29 +777,29 @@
                                 <div class="">QA Secondary Review</div>
                             @endif
                             @if ($data->stage >= 6)
-                                <div class="active">QA Head/Manager Designee Primary Approval</div>
-                            @else
-                                <div class="">QA Head/Manager Designee Primary Approval</div>
-                            @endif
-                            @if ($data->stage >= 7)
                                 <div class="active">Pending Initiator Update</div>
                             @else
                                 <div class="">Pending Initiator Update</div>
                             @endif
-                            @if ($data->stage >= 8)
+                            @if ($data->stage >= 7)
                                 <div class="active">HOD Final Review</div>
                             @else
                                 <div class="">HOD Final Review</div>
                             @endif
-                            @if ($data->stage >= 9)
+                            @if ($data->stage >= 8)
                                 <div class="active">QA Final Review</div>
                             @else
                                 <div class="">QA Final Review</div>
                             @endif
-                            @if ($data->stage >= 10)
+                            @if ($data->stage >= 9)
                                 <div class="active">QA Final Approval</div>
                             @else
                                 <div class="">QA Final Approval</div>
+                            @endif
+                            @if ($data->stage >= 10)
+                                <div class="active">QA Head/Manager Designee Primary Approval</div>
+                            @else
+                            <div class="">QA Head/Manager Designee Primary Approval</div>
                             @endif
                             @if ($data->stage >= 11)
                                 <div class="bg-danger">Closed - Done</div>
@@ -1236,7 +1237,7 @@
 
                                             <label for="If Other">Deviation Observed By<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" name="Facility" placeholder="Select Facility Name"
+                                            <input type="text" name="Facility" placeholder="Enter the name"
                                                 value="{{ $data->Facility }}">
                                             @error('Facility')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -1975,8 +1976,52 @@
                                         </div>
                                     </div>
 
-                                    
+
                                     <div class="col-12">
+                                        <div class="group-input">
+                                            <label for="why-why-chart">
+                                                More Info Required
+                                                {{-- <span class="text-primary" data-bs-toggle="modal"
+                                                                                    data-bs-target="#is_is_not-instruction-modal"
+                                                                                    style="font-size: 0.8rem; font-weight: 400;">
+                                                                                    (Launch Instruction)
+                                                                                </span> --}}
+                                            </label>
+                                            <div class="why-why-chart">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 30%;">Stage</th>
+                                                            <!-- <th>More Info Id</th> -->
+                                                            <th>More Info Required By</th>
+                                                            <th>Email</th>
+                                                            <th>More Info Required On</th>
+                                                            <th>Comment</th>
+                                                            <!-- <th>Status</th> -->
+                                                        </tr>
+                                                    </thead>
+                                    
+                                                    <tbody>
+                                                        @foreach ($logs as $log)
+                                                            @if (!empty($log->data))
+                                                                @foreach ($log->data as $entry)
+                                                                    <tr>
+                                                                        <!-- <td>{{ $log->identifier }}</td> -->
+                                                                        <td>{{ $entry->status ?? '' }}</td>
+                                                                        <td>{{ $entry->name ?? '' }}</td>
+                                                                        <td>{{ $entry->email ?? '' }}</td>
+                                                                        <td>{{ $entry->date ?? '' }}</td>
+                                                                        <td>{{ $entry->comment ?? '' }}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+
+
+                                    
+                                    {{-- <div class="col-12">
                                         <div class="group-input">
                                             <label for="why-why-chart">
                                                 More Info Required
@@ -2009,33 +2054,40 @@
                                                             <td>{{ $data->rejected_on }}</td>
                                                             <td>{{ $data->comment }}</td>
                                                         </tr> -->
-                                                        <tr>
+                                                      
                                                         
      
-        <tr>
-            <td>HOD Review</td>
-            <td>{{ $data->id }}</td>
-            <td>{{ $data->qa_more_info_required_by }}</td>
-            <td>{{ $data->qa_more_info_required_email ?? '' }}</td>
-            <td>{{ $data->qa_more_info_required_on ?? '' }}</td>
-            <td>{{ $data->comment }}</td>
-            <td>{{ $data->status }}</td>
-        </tr>
+                                                        <tr>
+                                                            <td>HOD Review</td>
+                                                            <td>{{ $data->id }}</td>
+                                                            <td>{{ $data->qa_more_info_required_by }}</td>
+                                                            <td>{{ $data->qa_more_info_required_email ?? '' }}</td>
+                                                            <td>{{ $data->qa_more_info_required_on ?? '' }}</td>
+                                                            <td>{{ $data->comment }}</td>
+                                                            <td>{{ $data->status }}</td>
+                                                        </tr>
      
                                                     
                                                         <tr>
                                                             <td>CFT Review</td>
+                                                            <td>{{ $data->id }}</td>
                                                             <td>{{ $data->cft_more_info_required_by }}</td>
+                                                            <td>{{ $data->cft_more_info_required_email }}</td>
                                                             <td>{{ $data->cft_more_info_required_on }}</td>
                                                             <td>{{ $data->cft_more_info_required_comment }}</td>
+                                                            <td>{{ $data->status }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>QA Head/Manager Designee Approval</td>
+                                                            <td>{{ $data->id }}</td>
                                                             <td>{{ $data->qa_head_more_info_required_by }}</td>
+                                                            <td>{{ $data->qa_head_more_info_required_email }}</td>
                                                             <td>{{ $data->qa_head_more_info_required_on }}</td>
                                                             <td>{{ $data->qa_head_more_info_required_comment }}</td>
+                                                            <td></td>
                                                         </tr>
-                                                    </tbody>
+                                                    </tbody> --}}
+                                                    
                                                 </table>
                                             </div>
                                         </div>
@@ -2075,11 +2127,9 @@
                                     <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white">
                                             Exit </a> </button>
-
                                 </div>
                             </div>
                         </div>
-
 
                         <!-- ----------hod Review-------- -->
                         <div id="CCForm8" class="inner-block cctabcontent">
@@ -2930,6 +2980,9 @@
                                         ->first();
                                 @endphp
                                 @if ($data->stage == 3 || $data->stage == 4)
+                                <div class="sub-head">
+                                    Production
+                                </div>
    <div class="row">
    <div class="col-lg-6">
                                         <div class="group-input">
@@ -3008,6 +3061,9 @@
                                     </script>
                                     {{-- Else conditon for other roles fields all fields disabled --}}
                                 @else
+                                <div class="sub-head">
+                                    Production
+                                </div>
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Production Review">Production Review Required ?</label>
@@ -3196,14 +3252,7 @@
                                                 <textarea class={{ $data->stage == 4 && Auth::user()->id == $data1->Warehouse_notification ? 'tiny' : 'tiny-disable' }} name="Warehouse_assessment" id="summernote-19">{{ $data1->Warehouse_assessment }}</textarea>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-12 mb-3 warehouse">
-                                            <div class="group-input">
-                                                <label for="Warehouse Feedback">Warehouse Feedback</label>
-                                                <div><small class="text-primary">Please insert "NA" in the data field if
-                                                        it does not require completion</small></div>
-                                                <textarea class="tiny" name="Warehouse_feedback" id="summernote-20">{{ $data1->Warehouse_feedback }}</textarea>
-                                            </div>
-                                        </div> --}}
+                       
                             </div>
                         @else
                             <div class="col-md-12 mb-3 warehouse">
@@ -3343,71 +3392,72 @@
                                     Quality Assurance
                                 </div>
                                 <script>
-                                    $(document).ready(function() {
-                                        @if($data1->Quality_Assurance_Review !== 'yes')
+    $(document).ready(function() {
+        // Initially hide the Quality Assurance Person field if Quality_Assurance_Review is not 'yes'
+        if ($('[name="Quality_Assurance_Review"]').val() !== 'yes') {
+            $('.quality_assurance').hide();
+            $('#asteriskQQA').hide(); // Hide the asterisk as well
+        }
 
-                                        $('.quality_assurance').hide();
+        // Show or hide the Quality Assurance Person field based on the selected value
+        $('[name="Quality_Assurance_Review"]').change(function() {
+            if ($(this).val() === 'yes') {
+                $('.quality_assurance').show();
+                $('#asteriskQQA').show(); // Show the asterisk
+            } else {
+                $('.quality_assurance').hide();
+                $('#asteriskQQA').hide(); // Hide the asterisk
+            }
+        });
+    });
+</script>
 
-                                        $('[name="Quality_Assurance_Review"]').change(function() {
-                                            if ($(this).val() === 'yes') {
-                                                $('.quality_assurance').show();
-                                                $('.quality_assurance span').show();
-                                            } else {
-                                                $('.quality_assurance').hide();
-                                                $('.quality_assurance span').hide();
-                                            }
-                                        });
-                                        @endif
+<div class="row">
+    <div class="col-lg-6">
+        <div class="group-input">
+            <label for="Quality Assurance Review Required">Quality Assurance Review Required ?
+                <span class="text-danger">*</span></label>
+            <select @if ($data->stage == 3) required @endif
+                name="Quality_Assurance_Review" id="Quality_Assurance_Review"
+                @if ($data->stage == 4) disabled @endif>
+                <option value="">-- Select --</option>
+                <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif value="yes">
+                    Yes</option>
+                <option @if ($data1->Quality_Assurance_Review == 'no') selected @endif value="no">No
+                </option>
+                <option @if ($data1->Quality_Assurance_Review == 'na') selected @endif value="na">NA
+                </option>
+            </select>
+        </div>
+    </div>
 
-                                    });
-                                </script>
-                                <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Quality Control Review Required">Quality Control Review Required?
-                                            <span class="text-danger">*</span></label>
-                                        <select @if ($data->stage == 3) required @endif name="Quality_review"
-                                            id="Quality_review" @if ($data->stage == 4) disabled @endif>
-                                            <option value="">-- Select --</option>
-                                            <option @if ($data1->Quality_review == 'yes') selected @endif value="yes">
-                                                Yes</option>
-                                            <option @if ($data1->Quality_review == 'no') selected @endif value="no">No
-                                            </option>
-                                            <option @if ($data1->Quality_review == 'na') selected @endif value="na">NA
-                                            </option>
+    @php
+        $userRoles = DB::table('user_roles')
+            ->where(['q_m_s_roles_id' => 26, 'q_m_s_divisions_id' => $data->division_id])
+            ->get();
+        $userRoleIds = $userRoles->pluck('user_id')->toArray();
+        $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
+    @endphp
 
-                                        </select>
-
-                                    </div>
-                                </div>
-                                @php
-                                    $userRoles = DB::table('user_roles')
-                                        ->where(['q_m_s_roles_id' => 24, 'q_m_s_divisions_id' => $data->division_id])
-                                        ->get();
-                                    $userRoleIds = $userRoles->pluck('user_id')->toArray();
-                                    $users = DB::table('users')->whereIn('id', $userRoleIds)->get(); // Fetch user data based on user IDs
-                                @endphp
-                                <div class="col-lg-6 quality_control">
-                                    <div class="group-input">
-                                        <label for="Quality Control Person">Quality Control Person <span id="asteriskQC"
-                                                style="display: {{ $data1->Quality_review == 'yes' ? 'inline' : 'none' }}"
-                                                class="text-danger">*</span></label>
-                                        <select name="Quality_Control_Person" class="Quality_Control_Person"
-                                            id="Quality_Control_Person"
-                                            @if ($data->stage == 4) disabled @endif>
-                                            <option value="">-- Select --</option>
-                                            @foreach ($users as $user)
-                                                <option
-                                                    {{ $data1->Quality_Control_Person == $user->id ? 'selected' : '' }}
-                                                    value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach
-
-                                        </select>
-
-                                    </div>
-                                </div>
-                                </div>
-              
+    <div class="col-lg-6 quality_assurance">
+        <div class="group-input">
+            <label for="Quality Assurance Person">Quality Assurance Person <span
+                    id="asteriskQQA"
+                    style="display: none;"
+                    class="text-danger">*</span></label>
+            <select name="QualityAssurance_person" class="QualityAssurance_person"
+                id="QualityAssurance_person"
+                @if ($data->stage == 4) disabled @endif>
+                <option value="">-- Select --</option>
+                @foreach ($users as $user)
+                    <option
+                        {{ $data1->QualityAssurance_person == $user->id ? 'selected' : '' }}
+                        value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
 
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -5551,7 +5601,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="group-input ">
-                                            <label for="Production Review Completed On">Production Review Completedss
+                                            <label for="Production Review Completed On">Production Review Completed
                                                 On</label>
                                                 <input type="text" id="production_on" readonly
                                                 name="production_on" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -11284,10 +11334,10 @@
         <div class="row">
             <div class="col-md-12 mb-3">
                 <div class="group-input">
-                    <label for="QA Feedbacks">HOD Final Remarks <span style="display: {{ $data->stage == 8 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                    <label for="QA Feedbacks">HOD Final Remarks <span style="display: {{ $data->stage == 7 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does
                             not require completion</small></div>
-                    <textarea class={{$data->stage == 8 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 8 ? 'required' : 'disabled' }} name="hod_final_remarks" id="summernote-14">{{ $data->hod_final_remarks }}</textarea>
+                    <textarea class={{$data->stage == 7 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 7 ? 'required' : 'disabled' }} name="hod_final_remarks" id="summernote-14">{{ $data->hod_final_remarks }}</textarea>
                 </div>
             </div>
             @if ($data->hod_final_attachments)
@@ -11322,7 +11372,7 @@
                         <div class="add-btn">
                             <div>Add</div>
                             <input
-                            {{ $data->stage == 8 ? '' : 'disabled' }}
+                            {{ $data->stage == 7 ? '' : 'disabled' }}
                                 type="file" id="HOD_Attachments"
                                 name="hod_final_attachments[]" 
                                 oninput="addMultipleFiles(this, 'hod_final_attachments')" multiple>
@@ -11361,10 +11411,10 @@
         <div class="row">
             <div class="col-md-12 mb-3">
                 <div class="group-input">
-                    <label for="QA Feedbacks">QA Final Remarks <span style="display: {{ $data->stage == 9 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                    <label for="QA Feedbacks">QA Final Remarks <span style="display: {{ $data->stage == 8 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does
                             not require completion</small></div>
-                    <textarea class={{$data->stage == 9 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 9 ? 'required' : 'disabled' }} name="qa_final_remarks" id="summernote-14">{{ $data->qa_final_remarks }}</textarea>
+                    <textarea class={{$data->stage == 8 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 8 ? 'required' : 'disabled' }} name="qa_final_remarks" id="summernote-14">{{ $data->qa_final_remarks }}</textarea>
                 </div>
             </div>
             @if ($data->qa_final_attachments)
@@ -11399,7 +11449,7 @@
                         <div class="add-btn">
                             <div>Add</div>
                             <input
-                            {{ $data->stage == 9 ? '' : 'disabled' }}
+                            {{ $data->stage == 8 ? '' : 'disabled' }}
                                 type="file" id="HOD_Attachments"
                                 name="qa_final_attachments[]" 
                                 oninput="addMultipleFiles(this, 'qa_final_attachments')" multiple>
@@ -12527,9 +12577,9 @@
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
-                                                name="Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-1">{{ $data->Description_Deviation }}</textarea>
+                                                name="Addendum_Description_Deviation[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-1">{{ $data->Addendum_Description_Deviation }}</textarea>
                                         </div>
-                                        @error('Description_Deviation')
+                                        @error('Addendum_Description_Deviation')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -12543,10 +12593,10 @@
                                                 </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
+                                            <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="summernote-3">{{ $data->Addendum_Preliminary_Impact }}</textarea>
                                         </div>
-                                        @error('Preliminary_Impact')
+                                        @error('Addendum_Preliminary_Impact')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -12559,10 +12609,10 @@
                                                 </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="summernote-2">{{ $data->Immediate_Action }}</textarea>
+                                            <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Addendum_Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                                id="summernote-2">{{ $data->Addendum_Immediate_Action }}</textarea>
                                         </div>
-                                        @error('Immediate_Action')
+                                        @error('Addendum_Immediate_Action')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -12643,7 +12693,7 @@
                                 </span></label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea @if ($data->stage != 10) readonly @endif required class={{$data->stage == 10 || $data->stage == 11? 'tiny' : 'tiny-disable' }}
+                            <textarea @if ($data->stage != 10 || $data->stage != 9) readonly @endif required class={{$data->stage == 9 || $data->stage == 10? 'tiny' : 'tiny-disable' }}
                                 name="Closure_Comments"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-15">{{ $data->Closure_Comments }}</textarea>
                         </div>
                         @error('Closure_Comments')
@@ -12653,14 +12703,14 @@
                     <div class="col-md-12">
                         <div class="group-input">
                             <label for="Disposition of Batch">Disposition of Batch <span class="text-danger">
-                                    @if ($data->stage == 10)
+                                    @if ($data->stage == 10 || $data->stage == 9)
                                         *
                                     @else
                                     @endif
                                 </span></label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea @if ($data->stage != 10) readonly @endif required class={{$data->stage == 10 || $data->stage == 11? 'tiny' : 'tiny-disable' }}
+                            <textarea @if ($data->stage != 10 || $data->stage != 9) readonly @endif required class={{$data->stage == 10 || $data->stage == 9? 'tiny' : 'tiny-disable' }}
                                 name="Disposition_Batch"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
                         </div>
                         @error('Disposition_Batch')
