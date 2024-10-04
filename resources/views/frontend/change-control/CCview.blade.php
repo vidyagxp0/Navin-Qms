@@ -131,12 +131,12 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
                                 Request More Info
                             </button>
-                        @elseif($data->stage == 6  && (in_array(6, $userRoleIds) || in_array(18, $userRoleIds)))
+                        {{-- @elseif($data->stage == 6  && (in_array(6, $userRoleIds) || in_array(18, $userRoleIds)))
                             @if ($evaluation->training_required == 'yes')
                                 <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                     Training Completed
                                 </button>
-                            @endif
+                            @endif --}}
                         @elseif($data->stage == 7  && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Implemented
@@ -158,80 +158,6 @@
                 </div>
                 <div class="status">
                     <div class="head">Current Status</div>
-                    {{-- @if ($data->stage == 0)
-                        <div class="progress-bars">
-                            <div class="bg-danger">Closed-Cancelled</div>
-                        </div>
-                    @else
-                        <div class="progress-bars">
-                            @if ($data->stage >= 1)
-                                <div class="active">Opened</div>
-                            @else
-                                <div class="">Opened</div>
-                            @endif
-                            {{--  @if ($data->stage >= 2)
-                            <div class="active">Superviser Review</div>
-                        @else
-                            <div class="">Superviser Review</div>
-                        @endif  --}}
-                    {{-- @if ($data->stage >= 2)
-                                <div class="active">Under Superviser Review </div>
-                            @else
-                                <div class="">Under Superviser Review </div>
-                            @endif
-                            @if ($info->Quality_Approver == 'yes')
-                            @if ($data->stage >= 3)
-                                <div class="active">QA Review</div>
-                            @else
-                                <div class="">QA Review</div>
-                            @endif
-                            @endif
-                            @if ($info->Microbiology == 'yes')
-                            @if ($data->stage >= 4)
-                                <div class="active">Pending CFT Review</div>
-                            @else
-                                <div class="">Pending CFT Review</div>
-                            @endif
-
-
-                            @if ($data->stage >= 5)
-                                <div class="active">CFT Review Completed</div>
-                            @else
-                                <div class="">CFT Review Completed</div>
-                            @endif
-                            @endif
-                            @if ($evaluation->training_required == 'yes')
-                                @if ($data->stage >= 6)
-                                    <div class="active">Pending Training Completion</div>
-                                @else
-                                    <div class="">Pending Training Completion</div>
-                                @endif
-                            @endif
-
-                            @if ($data->stage >= 7)
-                                <div class="active">Pending Change Implementation</div>
-                            @else
-                                <div class="">Pending Change Implementation</div>
-                            @endif
-                            @if ($info->Quality_Approver == 'yes')
-                            @if ($data->stage >= 8)
-                                <div class="active">QA Final Review</div>
-                            @else
-                                <div class="">QA Final Review</div>
-                            @endif
-                            @endif
-
-                            @if ($data->stage >= 9)
-                                <div class="active">Closed - Done</div>
-                            @else
-                                <div class="">Closed - Done</div>
-                            @endif
-
-
-                        </div>
-                    @endif --}}
-
-                    {{-- ------------------------------By Pankaj-------------------------------- --}}
                     @if ($data->stage == 0)
                         <div class="progress-bars">
                             <div class="bg-danger">Closed-Cancelled</div>
@@ -267,27 +193,12 @@
                                 <div class=""> CFT/SME/QA Review</div>
                             @endif
 
-
-                            {{-- @if ($data->stage >= 5)
-                            <div class="active">CFT Review Completed</div>
-                        @else
-                            <div class="">CFT Review Completed</div>
-                        {{-- @endif --}}
-                            {{-- @endif --}}
-                            {{-- @if ($evaluation->training_required == 'yes')
-                            @if ($data->stage >= 6)
-                                <div class="active">Pending Training Completion</div>
-                            @else
-                                <div class="">Pending Training Completion</div>
-                            @endif
-                        @endif --}}
-
-                            @if ($data->stage >= 7)
+                            @if ($data->stage >= 5)
                                 <div class="active">Pending Change Implementation</div>
                             @else
                                 <div class="">Pending Change Implementation</div>
                             @endif
-                            @if ($data->stage >= 8)
+                            @if ($data->stage >= 6)
                                 <div class="bg-danger">Closed - Done</div>
                             @else
                                 <div class="">Closed - Done</div>
@@ -693,16 +604,16 @@
                                                                                 value="{{ $key ? $key + 1 : '1' }}"></td>
                                                                         <td><input type="text"
                                                                                 name="current_doc_number[]"
-                                                                                value="{{ unserialize($docdetail->current_doc_no)[$key] ? unserialize($docdetail->current_doc_no)[$key] : 'Not Applicable' }}">
+                                                                                value="{{ unserialize($docdetail->current_doc_no)[$key] ? unserialize($docdetail->current_doc_no)[$key] : '' }}">
                                                                         </td>
                                                                         <td><input type="text" name="current_version[]"
-                                                                                value="{{ unserialize($docdetail->current_version_no)[$key] ? unserialize($docdetail->current_version_no)[$key] : 'Not Applicale' }}">
+                                                                                value="{{ unserialize($docdetail->current_version_no)[$key] ? unserialize($docdetail->current_version_no)[$key] : '' }}">
                                                                         </td>
                                                                         <td><input type="text" name="new_doc_number[]"
-                                                                                value="{{ unserialize($docdetail->new_doc_no)[$key] ? unserialize($docdetail->new_doc_no)[$key] : 'Not Applicable' }}">
+                                                                                value="{{ unserialize($docdetail->new_doc_no)[$key] ? unserialize($docdetail->new_doc_no)[$key] : '' }}">
                                                                         </td>
                                                                         <td><input type="text" name="new_version[]"
-                                                                                value="{{ unserialize($docdetail->new_version_no)[$key] ? unserialize($docdetail->new_version_no)[$key] : 'Not Applicable' }}">
+                                                                                value="{{ unserialize($docdetail->new_version_no)[$key] ? unserialize($docdetail->new_version_no)[$key] : '' }}">
                                                                         </td>
 
                                                                     </tr>
@@ -1411,28 +1322,28 @@
                                                                     value="{{ $key ? $key + 1 : '1' }}"></td>
                                                             <td><input type="text"
                                                                     name="affected_documents[]"
-                                                                    value="{{ unserialize($closure->affected_document)[$key] ? unserialize($closure->affected_document)[$key] : 'Not Applicable' }}">
+                                                                    value="{{ unserialize($closure->affected_document)[$key] ? unserialize($closure->affected_document)[$key] : '' }}">
                                                             </td>
                                                             <td><input type="text" name="document_name[]"
                                                                     value="{{ unserialize($closure->doc_name)[$key] ? unserialize($closure->doc_name)[$key] : 'Not Applicale' }}">
                                                             </td>
                                                             <td>                                                                
                                                                 <input type="number" name="document_no[]"
-                                                                    value="{{ unserialize($closure->doc_no)[$key] ? unserialize($closure->doc_no)[$key] : 'Not Applicable' }}">
+                                                                    value="{{ unserialize($closure->doc_no)[$key] ? unserialize($closure->doc_no)[$key] : '' }}">
                                                             </td>
                                                              <td>
                                                                 @if (!empty($closure->version_no))
-                                                                <input type="text" name="version_no[]" value="{{ unserialize($closure->version_no)[$key] ? unserialize($closure->version_no)[$key] : 'Not Applicable' }}">
+                                                                <input type="text" name="version_no[]" value="{{ unserialize($closure->version_no)[$key] ? unserialize($closure->version_no)[$key] : '' }}">
                                                                 @else
-                                                                <input type="text" name="version_no[]" value="Not Applicable">
+                                                                <input type="text" name="version_no[]" value="">
                                                                 @endif
                                                             </td> 
                                                             
                                                             <td><div class="group-input new-date-data-field ">
                                                                     <div class="  input-date  ">
                                                                         <div class="calenderauditee">
-                                                                            {{-- <input type="text"  id="implementation_date{{$key}}" readonly placeholder="DD-MMM-YYYY"  value="{{  Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) ? Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) : 'Not Applicable' }}"/> --}}
-                                                                            {{-- <input type="date" class="hide-input" name="implementation_date[]"  value="{{ Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) ? Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) : 'Not Applicable' }}"  oninput="handleDateInput(this, `implementation_date{{$key}}`)" /> --}}
+                                                                            {{-- <input type="text"  id="implementation_date{{$key}}" readonly placeholder="DD-MMM-YYYY"  value="{{  Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) ? Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) : '' }}"/> --}}
+                                                                            {{-- <input type="date" class="hide-input" name="implementation_date[]"  value="{{ Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) ? Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) : '' }}"  oninput="handleDateInput(this, `implementation_date{{$key}}`)" /> --}}
                                                                             <input type="text"   id="implementation_date{{$key}}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}  readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) }}" />
                                                                             <input type="date" id="implementation_date{{$key}}" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} value="{{unserialize($closure->implementation_date)[$key]}}"  name="implementation_date[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ Helpers::getdateFormat(unserialize($closure->implementation_date)[$key]) }}"class="hide-input" 
                                                                               oninput="handleDateInput(this, `implementation_date{{$key}}`)"  /></div></div></div></td>
@@ -1442,10 +1353,10 @@
                                                             </td>
                                                             
                                                             <td><input type="text" name="new_document_no[]"
-                                                                value="{{ unserialize($closure->new_doc_no)[$key] ? unserialize($closure->new_doc_no)[$key] : 'Not Applicable' }}">
+                                                                value="{{ unserialize($closure->new_doc_no)[$key] ? unserialize($closure->new_doc_no)[$key] : '' }}">
                                                              </td>
                                                              <td><input type="text" name="new_version_no[]"
-                                                                value="{{ unserialize($closure->new_version_no)[$key] ? unserialize($closure->new_version_no)[$key] : 'Not Applicable' }}">
+                                                                value="{{ unserialize($closure->new_version_no)[$key] ? unserialize($closure->new_version_no)[$key] : '' }}">
                                                              </td>
                                                         </tr>
                                                     @endforeach

@@ -2308,7 +2308,7 @@ class CCController extends Controller
             if ($changeControl->stage == 3) {
 
                     $changeControl->stage = "4";
-                    $changeControl->status = "Pending CFT Review";
+                    $changeControl->status = "CFT/SME/QA Review";
                         $history = new RcmDocHistory;
                         $history->cc_id = $id;
                         $history->activity_type = 'Activity Log';
@@ -2354,90 +2354,30 @@ class CCController extends Controller
                     return back();
 
             }
-            if ($changeControl->stage == 4) {
-                if ($evaluation->training_required == "yes") {
-                    $changeControl->stage = "6";
-                    $changeControl->status = "Pending Training Completion";
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $changeControl->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //              if ($email !== null) {
-                //                 try {
-                //                     Mail::send(
-                //                         'mail.view-mail',
-                //                          ['data' => $changeControl],
-                //                       function ($message) use ($email) {
-                //                           $message->to($email)
-                //                               ->subject("Document is Send By".Auth::user()->name);
-                //                       }
-                //                     );
-                //                 } catch (\Exception $e) {
-                //                     // 
-                //                 }
-                //             }
-                //      } 
-                //   }
-                    $changeControl->update();
-                    $history = new CCStageHistory();
-                    $history->type = "Change-Control";
-                    $history->doc_id = $id;
-                    $history->user_id = Auth::user()->id;
-                    $history->user_name = Auth::user()->name;
-                    $history->stage_id = $changeControl->stage;
-                    $history->status = $changeControl->status;
-                    $history->save();
-                    toastr()->success('Document Sent');
-                    return back();
-                } else {
-
-                    $changeControl->stage = "7";
-                    $changeControl->status = "Pending Change Implementation";
-                    $changeControl->update();
-                            $history = new RcmDocHistory;
-                            $history->cc_id = $id;
-                            $history->activity_type = 'Activity Log';
-                            $history->previous = "";
-                            $history->current = Auth::user()->name;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastDocument->status;
-                            $history->stage = 'Review Complete';
-                            $history->save();
-                    $history = new CCStageHistory();
-                    $history->type = "Change-Control";
-                    $history->doc_id = $id;
-                    $history->user_id = Auth::user()->id;
-                    $history->user_name = Auth::user()->name;
-                    $history->stage_id = $changeControl->stage;
-                    $history->status = $changeControl->status;
-                    $history->save();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
-            }
-            // if ($changeControl->stage == 5) {
-            //     $rules = [
-            //         'qa_eval_comments' => 'required|max:255',
-            //         'training_required' => 'required',
-            //         'train_comments' =>'required',
-            //         ];
-            //         $customMessages = [
-            //             'qa_eval_comments.required' => 'The QA Evaluation comments field is required.',
-            //             'training_required.required' => 'The training required field is required.',
-            //             'train_comments.required' =>'The training comments field is required.',
-            //         ];
-            //         $validator = Validator::make($evaluation->toArray(), $rules, $customMessages);
-            //         if ($validator->fails()) {
-            //             $errorMessages = implode('<br>', $validator->errors()->all());
-            //             session()->put('errorMessages', $errorMessages);
-            // return back();
-            //         }
-            //     else{
-            //         $changeControl->stage = "6";
-            //         $changeControl->status = "CFT Review Completed";
+            // if ($changeControl->stage == 4) {
+            //     if ($evaluation->training_required == "yes") {
+            //         $changeControl->stage = "";
+            //         $changeControl->status = "Pending Training Completion";
+            //     //     $list = Helpers::getHodUserList();
+            //     //     foreach ($list as $u) {
+            //     //         if($u->q_m_s_divisions_id == $changeControl->division_id){
+            //     //             $email = Helpers::getInitiatorEmail($u->user_id);
+            //     //              if ($email !== null) {
+            //     //                 try {
+            //     //                     Mail::send(
+            //     //                         'mail.view-mail',
+            //     //                          ['data' => $changeControl],
+            //     //                       function ($message) use ($email) {
+            //     //                           $message->to($email)
+            //     //                               ->subject("Document is Send By".Auth::user()->name);
+            //     //                       }
+            //     //                     );
+            //     //                 } catch (\Exception $e) {
+            //     //                     // 
+            //     //                 }
+            //     //             }
+            //     //      } 
+            //     //   }
             //         $changeControl->update();
             //         $history = new CCStageHistory();
             //         $history->type = "Change-Control";
@@ -2449,14 +2389,74 @@ class CCController extends Controller
             //         $history->save();
             //         toastr()->success('Document Sent');
             //         return back();
+            //     } else {
+
+            //         $changeControl->stage = "7";
+            //         $changeControl->status = "Pending Change Implementation";
+            //         $changeControl->update();
+            //                 $history = new RcmDocHistory;
+            //                 $history->cc_id = $id;
+            //                 $history->activity_type = 'Activity Log';
+            //                 $history->previous = "";
+            //                 $history->current = Auth::user()->name;
+            //                 $history->comment = $request->comment;
+            //                 $history->user_id = Auth::user()->id;
+            //                 $history->user_name = Auth::user()->name;
+            //                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //                 $history->origin_state = $lastDocument->status;
+            //                 $history->stage = 'Review Complete';
+            //                 $history->save();
+            //         $history = new CCStageHistory();
+            //         $history->type = "Change-Control";
+            //         $history->doc_id = $id;
+            //         $history->user_id = Auth::user()->id;
+            //         $history->user_name = Auth::user()->name;
+            //         $history->stage_id = $changeControl->stage;
+            //         $history->status = $changeControl->status;
+            //         $history->save();
+            //         toastr()->success('Document Sent');
+            //         return back();
             //     }
-
             // }
+            // // if ($changeControl->stage == 5) {
+            // //     $rules = [
+            // //         'qa_eval_comments' => 'required|max:255',
+            // //         'training_required' => 'required',
+            // //         'train_comments' =>'required',
+            // //         ];
+            // //         $customMessages = [
+            // //             'qa_eval_comments.required' => 'The QA Evaluation comments field is required.',
+            // //             'training_required.required' => 'The training required field is required.',
+            // //             'train_comments.required' =>'The training comments field is required.',
+            // //         ];
+            // //         $validator = Validator::make($evaluation->toArray(), $rules, $customMessages);
+            // //         if ($validator->fails()) {
+            // //             $errorMessages = implode('<br>', $validator->errors()->all());
+            // //             session()->put('errorMessages', $errorMessages);
+            // // return back();
+            // //         }
+            // //     else{
+            // //         $changeControl->stage = "6";
+            // //         $changeControl->status = "CFT Review Completed";
+            // //         $changeControl->update();
+            // //         $history = new CCStageHistory();
+            // //         $history->type = "Change-Control";
+            // //         $history->doc_id = $id;
+            // //         $history->user_id = Auth::user()->id;
+            // //         $history->user_name = Auth::user()->name;
+            // //         $history->stage_id = $changeControl->stage;
+            // //         $history->status = $changeControl->status;
+            // //         $history->save();
+            // //         toastr()->success('Document Sent');
+            // //         return back();
+            // //     }
+
+            // // }
 
 
-            if ($changeControl->stage == 5) {
+            if ($changeControl->stage == 4) {
 
-                    $changeControl->stage = '7';
+                    $changeControl->stage = '5';
                     $changeControl->status = 'Pending Change Implemented';
                     $changeControl->update();
                     $history = new CCStageHistory();
@@ -2473,60 +2473,10 @@ class CCController extends Controller
             }
 
 
-            if ($changeControl->stage == 6) {
+            if ($changeControl->stage == 5) {
 
-                    $changeControl->stage = "8";
-                    $changeControl->status = "QA-Final Review";
-                    $changeControl->update();
-                    $history = new CCStageHistory();
-                    $history->type = "Change-Control";
-                    $history->doc_id = $id;
-                    $history->user_id = Auth::user()->id;
-                    $history->user_name = Auth::user()->name;
-                    $history->stage_id = $changeControl->stage;
-                    $history->status = $changeControl->status;
-                    $history->save();
-                    toastr()->success('Document Sent');
-                    return back();
-            }
-
-
-            if ($changeControl->stage == 7) {
-
-                    $changeControl->stage = "9";
+                    $changeControl->stage = "6";
                     $changeControl->status = "Closed-Done";
-                            $history = new RcmDocHistory;
-                            $history->cc_id = $id;
-                            $history->activity_type = 'Activity Log';
-                            $history->previous = "";
-                            $history->current = Auth::user()->name;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastDocument->status;
-                            $history->stage = 'Implemented';
-                            $history->save();
-            // $list = Helpers::getHodUserList();
-            //     foreach ($list as $u) {
-            //         if($u->q_m_s_divisions_id == $changeControl->division_id){
-            //             $email = Helpers::getInitiatorEmail($u->user_id);
-            //              if ($email !== null) {
-            //                 try {
-            //                     Mail::send(
-            //                         'mail.view-mail',
-            //                          ['data' => $changeControl],
-            //                       function ($message) use ($email) {
-            //                           $message->to($email)
-            //                               ->subject("Document is Send By".Auth::user()->name);
-            //                       }
-            //                     );
-            //                 } catch (\Exception $e) {
-            //                     // 
-            //                 }
-            //             }
-            //      } 
-            //   }
                     $changeControl->update();
                     $history = new CCStageHistory();
                     $history->type = "Change-Control";
@@ -2539,6 +2489,7 @@ class CCController extends Controller
                     toastr()->success('Document Sent');
                     return back();
             }
+
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -2623,7 +2574,7 @@ class CCController extends Controller
             }
             if ($changeControl->stage == 3) {
                 $changeControl->stage = "2";
-                $changeControl->status = "HOD Review";
+                $changeControl->status = "Under HOD Review";
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $changeControl->division_id){
@@ -2659,7 +2610,7 @@ class CCController extends Controller
             }
             if ($changeControl->stage == 4) {
                 $changeControl->stage = "3";
-                $changeControl->status = "Under Supervisor review";
+                $changeControl->status = "Pending CFT/SME/QA Review";
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $changeControl->division_id){
@@ -2694,7 +2645,7 @@ class CCController extends Controller
             }
             if ($changeControl->stage == 5) {
                 $changeControl->stage = "4";
-                $changeControl->status = "QA Review";
+                $changeControl->status = "CFT/SME/QA Review";
                 $changeControl->update();
                 $history = new CCStageHistory();
                 $history->type = "Change-Control";
@@ -2721,7 +2672,7 @@ class CCController extends Controller
             $lastDocument = CC::find($id);
             $openState = CC::find($id);
 
-            $changeControl->stage = "7";
+            $changeControl->stage = "5";
             $changeControl->status = "Pending Change Implementation";
                     $history = new RcmDocHistory;
                     $history->cc_id = $id;
