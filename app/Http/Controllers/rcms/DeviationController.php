@@ -126,6 +126,7 @@ class DeviationController extends Controller
         $deviation->Deviation_date = $request->Deviation_date;
         $deviation->deviation_time = $request->deviation_time;
         $deviation->Deviation_reported_date = $request->Deviation_reported_date;
+        // dd($deviation->Deviation_reported_date);
         // $deviation->Observed_by = $request->Observed_by;
         if (is_array($request->audit_type)) {
             $deviation->audit_type = implode(',', $request->audit_type);
@@ -1200,9 +1201,9 @@ class DeviationController extends Controller
                 'Initiator_Group' => 'required',
                 'short_description' => 'required',
 
-                'Deviation_date' => 'required',
-                'deviation_time' => 'required',
-                'Deviation_reported_date' => 'required',
+                // 'Deviation_date' => 'required',
+                // 'deviation_time' => 'required',
+                // 'Deviation_reported_date' => 'required',
                 'Delay_Justification' => [
                     function ($attribute, $value, $fail) use ($request) {
                         $deviation_date = Carbon::parse($request->Deviation_date);
@@ -1215,16 +1216,18 @@ class DeviationController extends Controller
                         }
                     },
                 ],
-                'audit_type' => [
-                    'required',
-                    'array',
-                    function($attribute, $value, $fail) {
-                        if (count($value) === 1 && reset($value) === null) {
-                            return $fail($attribute.' must not contain only null values.');
-                        }
-                    },
-                ],
-                'Facility_Equipment' => 'required|in:yes,no',
+                // 'audit_type' => [
+                //     'required',
+                //     'array',
+                //     function($attribute, $value, $fail) {
+                //         if (count($value) === 1 && reset($value) === null) {
+                //             return $fail($attribute.' must not contain only null values.');
+                //         }
+                //     },
+                // ],
+
+               
+                // 'Facility_Equipment' => 'required|in:yes,no',
                 'facility_name' => [
                     function ($attribute, $value, $fail) use ($request) {
                         if ($request->input('Facility_Equipment') === 'yes' && (count($value) === 1 && reset($value) === null)) {
@@ -1239,8 +1242,8 @@ class DeviationController extends Controller
                         }
                     },
                 ],
-                'Document_Details_Required' => 'required|in:yes,no',
-                'Product_Details_Required' => 'required|in:yes,no',
+                // 'Document_Details_Required' => 'required|in:yes,no',
+                // 'Product_Details_Required' => 'required|in:yes,no',
                 'Number' => [
                     function ($attribute, $value, $fail) use ($request) {
                         if ($request->input('Document_Details_Required') === 'yes' && (count($value) === 1 && reset($value) === null)) {
@@ -1255,36 +1258,38 @@ class DeviationController extends Controller
                         }
                     },
                 ],
-                'Description_Deviation' => [
-                    'required',
-                    'array',
-                    function($attribute, $value, $fail) {
-                        if (count($value) === 1 && reset($value) === null) {
-                            return $fail('Description of deviation must not be empty!.');
-                        }
-                    },
-                ],
-                'Immediate_Action' => [
-                    'required',
-                    'array',
-                    function($attribute, $value, $fail) {
-                        if (count($value) === 1 && reset($value) === null) {
-                            return $fail('Immediate Action field must not be empty!.');
-                        }
-                    },
-                ],
-                'Preliminary_Impact' => [
-                    'required',
-                    'array',
-                    function($attribute, $value, $fail) {
-                        if (count($value) === 1 && reset($value) === null) {
-                            return $fail('Preliminary Impact field must not be empty!.');
-                        }
-                    },
-                ],
-            ], [
-                'audit_type' => 'Deviation related to field required!'
-            ]);
+                // 'Description_Deviation' => [
+                //     'required',
+                //     'array',
+                //     function($attribute, $value, $fail) {
+                //         if (count($value) === 1 && reset($value) === null) {
+                //             return $fail('Description of deviation must not be empty!.');
+                //         }
+                //     },
+                // ],
+                // 'Immediate_Action' => [
+                //     'required',
+                //     'array',
+                //     function($attribute, $value, $fail) {
+                //         if (count($value) === 1 && reset($value) === null) {
+                //             return $fail('Immediate Action field must not be empty!.');
+                //         }
+                //     },
+                // ],
+                // 'Preliminary_Impact' => [
+                //     'required',
+                //     'array',
+                //     function($attribute, $value, $fail) {
+                //         if (count($value) === 1 && reset($value) === null) {
+                //             return $fail('Preliminary Impact field must not be empty!.');
+                //         }
+                //     },
+                // ],
+            ],
+            //  [
+            //     'audit_type' => 'Deviation related to field required!'
+            // ]
+        );
 
             $validator->sometimes('others', 'required|string|min:1', function ($input) {
                 return in_array('Anyother(specify)', explode(',', $input->audit_type[0]));
@@ -1302,10 +1307,10 @@ class DeviationController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 // 'Justification_for_categorization' => 'required',
-                'short_description_required' => 'required|in:Recurring,Non_Recurring',
+                // 'short_description_required' => 'required|in:Recurring,Non_Recurring',
                 'nature_of_repeat' => 'required_if:short_description_required,Recurring',
                 'Investigation_Details' => 'required_if:Investigation_required,yes',
-                'QAInitialRemark' => 'required'
+                // 'QAInitialRemark' => 'required'
             ], [
                 'short_description_required.required' => 'Nature of Repeat required!',
                 'nature_of_repeat.required' =>  'The nature of repeat field is required when nature of repeat is Recurring.',
@@ -3002,22 +3007,28 @@ class DeviationController extends Controller
             if ($deviation->stage == 2) {
 
                 // Check HOD remark value
-                if (!$deviation->HOD_Remarks) {
+                // if (!$deviation->HOD_Remarks) {
 
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields Required!',
-                        'message' => 'HOD Remarks is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields Required!',
+                //         'message' => 'HOD Remarks is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Sent for QA initial review state'
-                    ]);
-                }
+                //     return redirect()->back();
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for QA initial review state'
+                //     ]);
+                // }
+
+                Session::flash('swal', [
+                    'type' => 'success',
+                    'title' => 'Success',
+                    'message' => 'Sent for QA initial review state'
+                ]);
 
                 $deviation->stage = "3";
                 $deviation->status = "QA Initial Review";
@@ -3398,7 +3409,7 @@ class DeviationController extends Controller
 
             if ($deviation->stage == 5) {
 
-                if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks))
+                if ($deviation->form_progress === 'capa')
                 {
                     Session::flash('swal', [
                         'type' => 'success',
@@ -3415,6 +3426,23 @@ class DeviationController extends Controller
 
                     return redirect()->back();
                 }
+                // if ($deviation->form_progress === 'capa' && !empty($deviation->QA_Feedbacks))
+                // {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for QA Head/Manager Designee Primary Approval'
+                //     ]);
+
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'warning',
+                //         'title' => 'Mandatory Fields!',
+                //         'message' => 'QA Secondary Review Tab is yet to be filled!'
+                //     ]);
+
+                //     return redirect()->back();
+                // }
 
 
                 $deviation->stage = "6";
@@ -3475,12 +3503,18 @@ class DeviationController extends Controller
 
                 //     return redirect()->back();
                 // } else {
-                //     Session::flash('swal', [
-                //         'type' => 'success',
-                //         'title' => 'Success',
-                //         'message' => 'Deviation sent to Intiator Update'
-                //     ]);
-                // }
+                    //     Session::flash('swal', [
+                        //         'type' => 'success',
+                        //         'title' => 'Success',
+                        //         'message' => 'Deviation sent to Intiator Update'
+                        //     ]);
+                        // }
+                        Session::flash('swal', [
+                            'title' => 'Mandatory Fields!',
+                            'message' => 'QAH/Designee Approval Tab is yet to be filled!',
+                            'type' => 'warning',
+                        ]);
+                            return redirect()->back();
 
                 $extension = Extension::where('parent_id', $deviation->id)->first();
 
@@ -3637,6 +3671,7 @@ class DeviationController extends Controller
                         'message' => 'Sent for QA Final Review state'
                     ]);
                 }
+                
 
                 $deviation->stage = "9";
                 $deviation->status = "QA Final Review";

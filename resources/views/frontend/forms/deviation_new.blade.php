@@ -824,7 +824,8 @@
                                     flatpickr("#deviation_time", {
                                         enableTime: true,
                                         noCalendar: true,
-                                        dateFormat: "H:i", // 24-hour format without AM/PM
+                                        dateFormat: "H:i",
+                                        time_24hr: true, // Enable 24-hour format
                                         minuteIncrement: 1 // Set minute increment to 1
 
                                     });
@@ -835,19 +836,24 @@
                                         <input type="text" name="Facility" id="deviation_observed_by" placeholder="Enter Facility Name">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Audit Schedule End Date">Deviation Reported on</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="Deviation_reported_date" readonly
-                                                placeholder="DD/MM/YYYY" />
-                                            <input type="date" name="Deviation_reported_date"
-                                                max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'Deviation_reported_date')" />
-                                        </div>
-                                    </div>
+                                                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Deviation Reported on">Deviation Reported on<span class="text-danger">*</span></label>
+                                <div class="calenderauditee">
+                                    <!-- Display the current date in DD/MM/YYYY format -->
+                                    <input type="text" id="Deviation_reported_date" readonly
+                                        value="{{ now()->format('d/m/Y') }}"
+                                        placeholder="DD/MM/YYYY" />
+
+                                    <!-- Hidden input to store the date in Y-m-d format for form submission -->
+                                    <input type="hidden" name="Deviation_reported_date"
+                                        value="{{ now()->format('Y-m-d') }}" />
                                 </div>
-                                <script>
+                            </div>
+                        </div>
+
+
+                                <!-- <script>
                                     $('.delayJustificationBlock').hide();
 
                                     function calculateDateDifference() {
@@ -879,7 +885,7 @@
                                     $('input[name=Deviation_reported_date]').on('change', function() {
                                         calculateDateDifference();
                                     })
-                                </script>
+                                </script> -->
 
                                 <div class="col-lg-6">
                                     <div class="group-input">

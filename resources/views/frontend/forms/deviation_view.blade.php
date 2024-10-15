@@ -1072,8 +1072,9 @@
 
                                     <div class="col-lg-12">
                                         <div class="group-input">
-                                            <label for="Initiator Group"><b>Department</b> <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Initiator Group"><b>Department</b>
+                                             <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                             <select name="Initiator_Group"
                                                 {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 id="initiator_group">
@@ -1148,8 +1149,9 @@
 
                                     <div class="col-12">
                                         <div class="group-input">
-                                            <label for="Short Description">Short Description<span class="text-danger">
-                                                    *</span></label><span id="rchars">255</span>characters remaining
+                                            <label for="Short Description">Short Description
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label><span id="rchars">255</span>characters remaining
                                             <textarea name="short_description"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="docname"
                                                 type="text" maxlength="255" required {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>{{ $data->short_description }}</textarea>
                                         </div>
@@ -1177,8 +1179,8 @@
                                     
                                     <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
-                                            <label for="Deviation date">Deviation Observed On<span
-                                                class="text-danger">*</span></label>
+                                            <label for="Deviation date">Deviation Observed On
+                                                <!-- <span class="text-danger">*</span></label> -->
                                             <div class="calenderauditee">
                                                 <input type="text" id="Deviation_date" readonly
                                                 value="{{ $data->Deviation_date ? \Carbon\Carbon::parse($data->Deviation_date)->format('d/m/Y') : '' }}"
@@ -1196,12 +1198,10 @@
                                     </div>
                                     <div class="col-lg-6 new-time-data-field">
                                         <div class="group-input input-time">
-                                            <label for="deviation_time">Deviation Observed On (Time) <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text"
-                                                name="deviation_time"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                                id="deviation_time"
-                                                value="{{ old('deviation_time') ? old('deviation_time') : $data->deviation_time }}">
+                                            <label for="deviation_time">Deviation Observed On (Time) 
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
+                                            <input type="text" name="deviation_time" id="deviation_time"  value="{{ old('deviation_time') ? old('deviation_time') : $data->deviation_time }}" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>
                                             @error('deviation_time')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -1226,7 +1226,8 @@
                                         flatpickr("#deviation_time", {
                                             enableTime: true,
                                             noCalendar: true,
-                                            dateFormat: "H:i", // 24-hour format without AM/PM
+                                            dateFormat: "H:i",
+                                            time_24hr: true, // Enable 24-hour format
                                             minuteIncrement: 1 // Set minute increment to 1
 
                                         });
@@ -1237,8 +1238,9 @@
                                                 $users = DB::table('users')->get();
                                             @endphp
 
-                                            <label for="If Other">Deviation Observed By<span
-                                                    class="text-danger">*</span></label>
+                                            <label for="If Other">Deviation Observed By
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                             <input type="text" name="Facility" placeholder="Select Facility Name"
                                                 value="{{ $data->Facility }}">
                                             @error('Facility')
@@ -1249,8 +1251,9 @@
                                     
                                     <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
-                                            <label for="Audit Schedule End Date">Deviation Reported on<span
-                                                class="text-danger">*</span></label>
+                                            <label for="Audit Schedule End Date">Deviation Reported on
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                             <div class="calenderauditee">
                                                 <input type="text" id="Deviation_reported_date" readonly
                                                 value="{{ $data->Deviation_reported_date ? \Carbon\Carbon::parse($data->Deviation_reported_date)->format('d/m/Y') : '' }}"
@@ -1258,7 +1261,7 @@
                                                 <input type="date" name="Deviation_reported_date"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 value="{{ $data->Deviation_reported_date }}"
                                                     max="{{ $data->Deviation_reported_date ? \Carbon\Carbon::parse($data->Deviation_reported_date)->format('Y-m-d') : '' }}" class="hide-input"
-                                                    oninput="handleDateInput(this, 'Deviation_reported_date')" />
+                                                    oninput="handleDateInput(this, 'Deviation_reported_date')" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -1300,8 +1303,9 @@
 
                                     <div class="col-lg-6">
                                         <div class="group-input">
-                                            <label for="audit type">Deviation Related To <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="audit type">Deviation Related To 
+                                                <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                             <select multiple
                                                 name="audit_type[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 id="audit_type">
@@ -1409,7 +1413,9 @@
                                     <div class="col-lg-12">
                                         <div class="group-input">
                                             <label for="Facility/Equipment"> Facility/ Equipment/ Instrument/ System
-                                                Details Required? <span class="text-danger">*</span></label>
+                                                Details Required? 
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                             <select name="Facility_Equipment"
                                                 {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 id="Facility_Equipment" value="{{ $data->Facility_Equipment }}">
@@ -1555,8 +1561,9 @@
                                     </script>
                                     <div class="col-lg-12">
                                         <div class="group-input">
-                                            <label for="Document Details Required">Document Details Required? <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Document Details Required">Document Details Required?
+                                                 <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                             <select
                                                 name="Document_Details_Required"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                 id="Document_Details_Required"
@@ -1682,8 +1689,9 @@
 
                                         <div class="col-lg-12">
                                             <div class="group-input">
-                                                <label for="Document Details Required">Product/Batch Required? <span
-                                                        class="text-danger">*</span></label>
+                                                <label for="Document Details Required">Product/Batch Required? 
+                                                    <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                                 <select
                                                     name="Product_Details_Required"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                                     id="Product_Details_Required"
@@ -1854,8 +1862,9 @@
                                 </div> --}}
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="Description Deviation">Description of Deviation <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Description Deviation">Description of Deviation
+                                                 <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
@@ -1881,8 +1890,9 @@
                                 </div> --}}
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="Immediate Action">Immediate Action (if any) <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Immediate Action">Immediate Action (if any)
+                                                 <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Immediate_Action[]" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -1902,8 +1912,9 @@
 
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="Preliminary Impact">Preliminary Impact of Deviation <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="Preliminary Impact">Preliminary Impact of Deviation 
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea  class={{$data->stage == 1 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }} name="Preliminary_Impact[]"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -2009,8 +2020,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                             <div class="group-input">
-                                                <label for="HOD Remarks">HOD Remarks <span
-                                                        class="text-danger">*</span></label>
+                                                <label for="HOD Remarks">HOD Remarks 
+                                                    <!-- <span class="text-danger">*</span> -->
+                                                </label>
                                                 <div><small class="text-primary">Please insert "NA" in the data field if it
                                                         does not require completion</small></div>
                                                 <textarea {{$data->stage == 2 ? '' : 'disabled' }} class={{$data->stage == 2 || $data->stage == 11 ? 'tiny' : 'tiny-disable' }} name="HOD_Remarks" id="summernote-4" required>{{ $data->HOD_Remarks }}</textarea>
@@ -2492,8 +2504,9 @@
                                 @if ($data->stage == 3)
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Repeat Deviation? <span
-                                                class="text-danger">*</span></label>
+                                        <label for="Short Description required">Repeat Deviation?
+                                             <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                         <select name="short_description_required"
                                             {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                             id="short_description_required" onchange="checkRecurring(this)"
@@ -2614,8 +2627,9 @@
                                     </div> --}}
                                      <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Customer notification">Customer Notification Required ? <span
-                                            class="text-danger">*</span></label>
+                                        <label for="Customer notification">Customer Notification Required ?
+                                             <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                         <select name="Customer_notification"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="Customer_notification" value="{{ $data->Customer_notification }}" >
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
@@ -2703,8 +2717,9 @@
 
                                     <div class="col-md-12">
                                         <div class="group-input">
-                                            <label for="QAInitialRemark">QA Initial Remarks <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="QAInitialRemark">QA Initial Remarks 
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
                                             <textarea @if ($data->stage == 3) required @endif class={{$data->stage == 3 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
@@ -2760,8 +2775,9 @@
                             <div class="row">
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Short Description required">Repeat Deviation? <span
-                                                class="text-danger">*</span></label>
+                                        <label for="Short Description required">Repeat Deviation? 
+                                            <!-- <span class="text-danger">*</span> -->
+                                        </label>
                                         <select name="short_description_required"
                                             disabled
                                             id="short_description_required" onchange="checkRecurring(this)"
@@ -9855,8 +9871,8 @@
                 <div class="row">
                     <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                         <div class="group-input input-date">
-                            <label for="Deviation category">Initial Deviation category <span
-                            class="text-danger">*</span></label>
+                            <label for="Deviation category">Initial Deviation category 
+                                <span class="text-danger">*</span></label>
                             <select id="Deviation_category11"
                                 name="Deviation_category"{{ $data->stage == 0 || $data->stage == 11 || $data->stage != 5 ? 'disabled' : '' }}
                                 value="{{ $data->Deviation_category }}"
@@ -9936,11 +9952,13 @@
                     <div class="col-md-12">
                         @if ($data->stage == 5)
                             <div class="group-input">
-                                <label for="QA Feedbacks">QA Feedbacks <span class="text-danger">*</span></label>
+                                <label for="QA Feedbacks">QA Feedbacks 
+                                    <!-- <span class="text-danger">*</span> -->
+                                </label>
                                 <div><small class="text-primary">Please insert "NA" in the data field if it does not
                                         require completion</small></div>
                                 <textarea class={{$data->stage == 5 || $data->stage == 11? 'tiny' : 'tiny-disable' }} name="QA_Feedbacks"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
-                                    id="summernote-14" required>{{ $data->QA_Feedbacks }}</textarea>
+                                    id="summernote-14" >{{ $data->QA_Feedbacks }}</textarea>
                             </div>
                         @else
                             <div class="group-input">
@@ -10037,10 +10055,11 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <div class="group-input">
-                            <label for="QA Feedbacks">Initiator Final Remarks <span style="display: {{ $data->stage == 7 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
-                            <div><small class="text-primary">Please insert "NA" in the data field if it does
-                                    not require completion</small></div>
-                            <textarea class={{$data->stage == 7 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 7 ? 'required' : 'disabled' }} name="initiator_final_remarks" id="summernote-14">{{ $data->initiator_final_remarks }}</textarea>
+                            <label for="QA Feedbacks">Initiator Final Remarks
+                                 <!-- <span style="display: {{ $data->stage == 7 ? 'inline' : 'none' }}" class="text-danger">*</span> -->
+                                </label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                            <textarea class={{$data->stage == 7 || $data->stage == 11? 'tiny' : 'tiny-disable' }}  name="initiator_final_remarks" id="summernote-14">{{ $data->initiator_final_remarks }}</textarea>
                         </div>
                         @error('initiator_final_remarks')
                                             <div class="text-danger">{{ $message }}</div>
