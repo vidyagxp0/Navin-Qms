@@ -725,37 +725,43 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Date of Initiation</th>
                                         <th>Record</th>
+                                        <th>Date of Initiation</th>
                                         <th>Department</th>
-                                        <th>Division</th>
-                                        {{-- <th>Process</th> --}}
                                         <th>Deviation Description</th>
-                                        <th>Entered By sign & Date(QA)</th>
+                                        <th>Nature of Repeat</th>
                                         <th>Deviation Category</th>
-                                        <th>Entered By sign & Date(QA)</th>
                                         <th>CAPA No.(If any)</th>
-                                        <th>Revised Deviation Category</th>
+                                        <th>Post Categorization Of Deviation</th>
+                                        <!-- <th>Division</th> -->
+                                        <th>Status</th>
                                         <th>Deviation Closed On</th>
-                                        <th>Entered By sign(QA)</th>
+                                        <!-- <th>Revised Deviation Category</th> -->
+                                        {{-- <th>Process</th> --}}
+                                        <!-- <th>Entered By sign & Date(QA)</th> -->
+                                        <!-- <th>Entered By sign & Date(QA)</th> -->
+                                        <!-- <th>Entered By sign(QA)</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($Deviation as $Deviation1)
                                         <tr>
-                                            <td>{{ $Deviation1->created_at->format('d-M-Y') }}</td>
                                             <td>{{ $Deviation1->record_number }}</td>
+                                            <td>{{ $Deviation1->created_at->format('d-M-Y') }}</td>
                                             <td>{{ $Deviation1->Initiator_Group }}</td>
-                                            <td>{{ $Deviation1->division_name }}</td>
-                                            {{-- <td>{{ $Deviation1->process }}</td> --}}
                                             <td>{{ $Deviation1->short_description }}</td>
-                                            <td>{{ $Deviation1->submit_by }}</td>
+                                            <td>{{ $Deviation1->nature_of_repeat }}</td>
                                             <td>{{ $Deviation1->Deviation_category }}</td>
-                                            <td>{{ $Deviation1->QA_Initial_Review_Complete_By}}</td>
                                             <td>{{ $Deviation1->record_number }}</td>
                                             <td>{{ $Deviation1->Post_Categorization }}</td>
+                                            <td>{{ $Deviation1->status}}</td>
                                             <td>{{ $Deviation1->Approved_On}}</td>
-                                            <td>{{ $Deviation1->Approved_By}}</td>
+                                            <!-- <td>{{ $Deviation1->division_name }}</td> -->
+                                            {{-- <td>{{ $Deviation1->process }}</td> --}}
+                                            <!-- <td>{{ $Deviation1->submit_by }}</td> -->
+                                            <!-- <td>{{ $Deviation1->QA_Initial_Review_Complete_By}}</td> -->
+                                            <!-- <td>{{ $Deviation1->Post_Categorization }}</td> -->
+                                            <!-- <td>{{ $Deviation1->Approved_By}}</td> -->
                                         </tr>
                                     @endforeach
                                 </tbody>

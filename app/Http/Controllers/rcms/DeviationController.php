@@ -2121,6 +2121,8 @@ class DeviationController extends Controller
                 $deviation->scope = $request->scope;
                 $deviation->imidiate_action = $request->imidiate_action;
                 $deviation->imidiate_action1 = $request->imidiate_action1;
+                $deviation->root_cause_new_addedd = $request->root_cause_new_addedd;
+                $deviation->capa_reference_new_addedd = $request->capa_reference_new_addedd;
                 $newDataGridInvestication = DeviationNewGridData::where(['deviation_id' => $id, 'identifier' => 'investication'])->firstOrCreate();
                 $newDataGridInvestication->deviation_id = $id;
                 $newDataGridInvestication->identifier = 'investication';
@@ -3503,18 +3505,13 @@ class DeviationController extends Controller
 
                 //     return redirect()->back();
                 // } else {
-                    //     Session::flash('swal', [
-                        //         'type' => 'success',
-                        //         'title' => 'Success',
-                        //         'message' => 'Deviation sent to Intiator Update'
-                        //     ]);
-                        // }
-                        Session::flash('swal', [
-                            'title' => 'Mandatory Fields!',
-                            'message' => 'QAH/Designee Approval Tab is yet to be filled!',
-                            'type' => 'warning',
-                        ]);
-                            return redirect()->back();
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Deviation sent to Intiator Update'
+                //     ]);
+                // }
+                
 
                 $extension = Extension::where('parent_id', $deviation->id)->first();
 
@@ -3590,22 +3587,22 @@ class DeviationController extends Controller
             if ($deviation->stage == 7) {
 
                 // Check HOD remark value
-                if (!$deviation->initiator_final_remarks) {
+                // if (!$deviation->initiator_final_remarks) {
 
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields Required!',
-                        'message' => 'Initiator Final Remarks is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields Required!',
+                //         'message' => 'Initiator Final Remarks is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Sent for HOD Final Review state'
-                    ]);
-                }
+                //     return redirect()->back();
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for HOD Final Review state'
+                //     ]);
+                // }
 
                 $deviation->stage = "8";
                 $deviation->status = "HOD Final Review";
@@ -3655,23 +3652,22 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 8) {
                 // Check HOD remark value
-                if (!$deviation->hod_final_remarks) {
+                // if (!$deviation->hod_final_remarks) {
 
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields Required!',
-                        'message' => 'HOD Final Remarks is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields Required!',
+                //         'message' => 'HOD Final Remarks is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Sent for QA Final Review state'
-                    ]);
-                }
-                
+                //     return redirect()->back();
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for QA Final Review state'
+                //     ]);
+                // }
 
                 $deviation->stage = "9";
                 $deviation->status = "QA Final Review";
@@ -3721,22 +3717,22 @@ class DeviationController extends Controller
             }
             if ($deviation->stage == 9) {
                 // Check HOD remark value
-                if (!$deviation->qa_final_remarks) {
+                // if (!$deviation->qa_final_remarks) {
 
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields Required!',
-                        'message' => 'QA Final Remarks is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields Required!',
+                //         'message' => 'QA Final Remarks is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                } else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Sent for QA Final Approval state'
-                    ]);
-                }
+                //     return redirect()->back();
+                // } else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for QA Final Approval state'
+                //     ]);
+                // }
                 $deviation->stage = "10";
                 $deviation->status = "QA Final Approval";
                 $deviation->Approved_By = Auth::user()->name;
@@ -3789,31 +3785,31 @@ class DeviationController extends Controller
             if ($deviation->stage == 10) {
 
                 // Check HOD remark value
-                if (!$deviation->Closure_Comments) {
+                // if (!$deviation->Closure_Comments) {
 
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields Required!',
-                        'message' => 'Closure Comments is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields Required!',
+                //         'message' => 'Closure Comments is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                }
-                if(!$deviation->Disposition_Batch){
-                    Session::flash('swal', [
-                        'title' => 'Mandatory Fields Required!',
-                        'message' => 'Disposition of Batch  is yet to be filled!',
-                        'type' => 'warning',
-                    ]);
+                //     return redirect()->back();
+                // }
+                // if(!$deviation->Disposition_Batch){
+                //     Session::flash('swal', [
+                //         'title' => 'Mandatory Fields Required!',
+                //         'message' => 'Disposition of Batch  is yet to be filled!',
+                //         'type' => 'warning',
+                //     ]);
 
-                    return redirect()->back();
-                }else {
-                    Session::flash('swal', [
-                        'type' => 'success',
-                        'title' => 'Success',
-                        'message' => 'Sent for Closed - Done state'
-                    ]);
-                }
+                //     return redirect()->back();
+                // }else {
+                //     Session::flash('swal', [
+                //         'type' => 'success',
+                //         'title' => 'Success',
+                //         'message' => 'Sent for Closed - Done state'
+                //     ]);
+                // }
 
                 $extension = Extension::where('parent_id', $deviation->id)->first();
 

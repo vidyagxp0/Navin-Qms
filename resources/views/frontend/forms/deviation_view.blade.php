@@ -2722,7 +2722,7 @@
                                             </label>
                                             <div><small class="text-primary">Please insert "NA" in the data field if it
                                                     does not require completion</small></div>
-                                            <textarea @if ($data->stage == 3) required @endif class={{$data->stage == 3 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
+                                            <textarea @if ($data->stage == 3)  @endif class={{$data->stage == 3 || $data->stage == 11? 'tiny QAInitialRemark' : 'tiny-disable' }}
                                                 name="QAInitialRemark"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-6">{{ $data->QAInitialRemark }}</textarea>
                                         </div>
                                         @error('QAInitialRemark')
@@ -8310,7 +8310,7 @@
                             <label for="Impact Assessment">Impact Assessment</label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea class="tiny" name="objective" id="summernote-9">{{ $data->objective }}</textarea>
+                            <textarea  name="objective" id="summernote-9">{{ $data->objective }}</textarea>
                         </div>
                     </div>
 
@@ -8339,7 +8339,27 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Root Cause">Root Cause</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea  name="root_cause_new_addedd">{{ $data->root_cause_new_addedd }}</textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Root Cause">CAPA Reference</label>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does not require
+                                    completion</small></div>
+                            <textarea  name="capa_reference_new_addedd">{{ $data->capa_reference_new_addedd }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-lg-12">
                                 <div class="group-input" id="documentsRowname" >
                                     <label for="audit-agenda-grid">
                                       Root Cause
@@ -8374,8 +8394,8 @@
                                                 @if ($root_cause_data && is_array($root_cause_data->data))
 
                                                     <!-- {{ count($root_cause_data->data) }} -->
-                                                    @foreach ($root_cause_data->data as $index => $root_cause_dat)
-                                                    <tr>
+                                                    <!-- @foreach ($root_cause_data->data as $index => $root_cause_dat) -->
+                                                    <!-- <tr>
                                                         <td>
                                                             <input disabled type="text" name="rootCause[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}">
                                                         </td>
@@ -8567,8 +8587,8 @@
                                                         </td>
 
                                                         <td><button type="text" class="removeRowBtn" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}>Remove</button></td>
-                                                    </tr>
-                                                    @endforeach
+                                                    </tr> -->
+                                                    <!-- @endforeach
                                                 @else
                                                     <td><input disabled type="text" name="rootCause[0][serial]" value="1"></td>
                                                     <td><select name="rootCause[0][Root_Cause_Category]" id="Root_Cause_Category_Select" class="Root_Cause_Category_Select">
@@ -8651,9 +8671,9 @@
                                                 @endif
                                             </tbody>
 
-                                        </table>
-                                    </div>
-                                </div>
+                                        </table> -->
+                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div>
 
                             <script>
@@ -8860,7 +8880,7 @@
                                     });
                             </script>
                     
-                </div>
+                <!-- </div> --> 
 
                 <div class="button-block">
                     <button  type="submit" {{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
@@ -8884,7 +8904,9 @@
         <div class="row">
             <div class="col-md-12 mb-3">
                 <div class="group-input">
-                    <label for="QA Feedbacks">HOD Final Remarks <span style="display: {{ $data->stage == 8 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                    <label for="QA Feedbacks">HOD Final Remarks 
+                        <!-- <span style="display: {{ $data->stage == 8 ? 'inline' : 'none' }}" class="text-danger">*</span> -->
+                    </label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does
                             not require completion</small></div>
                     <textarea class={{$data->stage == 8 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 8 ? 'required' : 'disabled' }} name="hod_final_remarks" id="summernote-14">{{ $data->hod_final_remarks }}</textarea>
@@ -8961,7 +8983,9 @@
         <div class="row">
             <div class="col-md-12 mb-3">
                 <div class="group-input">
-                    <label for="QA Feedbacks">QA Final Remarks <span style="display: {{ $data->stage == 9 ? 'inline' : 'none' }}" class="text-danger">*</span></label>
+                    <label for="QA Feedbacks">QA Final Remarks 
+                        <!-- <span style="display: {{ $data->stage == 9 ? 'inline' : 'none' }}" class="text-danger">*</span> -->
+                    </label>
                     <div><small class="text-primary">Please insert "NA" in the data field if it does
                             not require completion</small></div>
                     <textarea class={{$data->stage == 9 || $data->stage == 11? 'tiny' : 'tiny-disable' }} {{ $data->stage == 9 ? 'required' : 'disabled' }} name="qa_final_remarks" id="summernote-14">{{ $data->qa_final_remarks }}</textarea>
@@ -9872,11 +9896,11 @@
                     <div style="margin-bottom: 0px;" class="col-lg-12 new-date-data-field ">
                         <div class="group-input input-date">
                             <label for="Deviation category">Initial Deviation category 
-                                <span class="text-danger">*</span></label>
+                                <!-- <span class="text-danger">*</span> -->
+                            </label>
                             <select id="Deviation_category11"
                                 name="Deviation_category"{{ $data->stage == 0 || $data->stage == 11 || $data->stage != 5 ? 'disabled' : '' }}
-                                value="{{ $data->Deviation_category }}"
-                                onchange="handleDeviationCategoryChange11()" required>
+                                value="{{ $data->Deviation_category }}" onchange="handleDeviationCategoryChange11()">
                                 <option value="0">-- Select --</option>
                                 <option @if ($data->Deviation_category == 'minor') selected @endif
                                     value="minor">Minor</option>
@@ -10135,8 +10159,7 @@
                             <label for="Post Categorization Of Deviation">Post Categorization Of Deviation</label>
                             <div><small class="text-primary">Please Refer Intial deviation category before
                                     updating.</small></div>
-                            <select
-                                name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                            <select name="Post_Categorization"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                 id="Post_Categorization" value="Post_Categorization">
                                 <option value=""> -- Select --</option>
                                 <option @if ($data->Post_Categorization == 'major') selected @endif value="major">Major
@@ -10168,15 +10191,17 @@
                     </div>
                     <div class="col-md-12">
                         <div class="group-input">
-                            <label for="Closure Comments">Closure Comments <span class="text-danger">
+                            <label for="Closure Comments">Closure Comments 
+                                <!-- <span class="text-danger">
                                     @if ($data->stage == 10)
                                         *
                                     @else
                                     @endif
-                                </span></label>
+                                </span> -->
+                            </label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea @if ($data->stage != 10) readonly @endif required class={{$data->stage == 10 || $data->stage == 11? 'tiny' : 'tiny-disable' }}
+                            <textarea @if ($data->stage != 10) readonly @endif  class={{$data->stage == 10 || $data->stage == 11? 'tiny' : 'tiny-disable' }}
                                 name="Closure_Comments"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-15">{{ $data->Closure_Comments }}</textarea>
                         </div>
                         @error('Closure_Comments')
@@ -10185,15 +10210,17 @@
                     </div>
                     <div class="col-md-12">
                         <div class="group-input">
-                            <label for="Disposition of Batch">Disposition of Batch <span class="text-danger">
+                            <label for="Disposition of Batch">Disposition of Batch 
+                                <!-- <span class="text-danger">
                                     @if ($data->stage == 10)
                                         *
                                     @else
                                     @endif
-                                </span></label>
+                                </span> -->
+                            </label>
                             <div><small class="text-primary">Please insert "NA" in the data field if it does not require
                                     completion</small></div>
-                            <textarea @if ($data->stage != 10) readonly @endif required class={{$data->stage == 10 || $data->stage == 11? 'tiny' : 'tiny-disable' }}
+                            <textarea @if ($data->stage != 10) readonly @endif class={{$data->stage == 10 || $data->stage == 11? 'tiny' : 'tiny-disable' }}
                                 name="Disposition_Batch"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} id="summernote-16">{{ $data->Disposition_Batch }}</textarea>
                         </div>
                         @error('Disposition_Batch')
